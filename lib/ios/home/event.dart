@@ -1,27 +1,34 @@
 import '../../utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/gestures.dart';
+import '../issue.dart';
+import '../user.dart';
 
-class _Avatar extends StatelessWidget {
-  final String avatar;
-  _Avatar(this.avatar);
-
-  @override
-  build(context) {
-    return new CircleAvatar(
-      backgroundImage: NetworkImage(avatar),
-      radius: 24.0,
-    );
-  }
-}
-
-TextSpan _strong(String text) {
+TextSpan _strong(String text, [GestureRecognizer recognizer]) {
   return new TextSpan(
     text: text,
     style: new TextStyle(
       fontWeight: FontWeight.bold,
       color: new Color(0xff24292e),
     ),
+    recognizer: recognizer,
+  );
+}
+
+TextSpan _user(Event event, context) {
+  return _strong(
+    event.actor,
+    new TapGestureRecognizer()
+      ..onTap = () {
+        Navigator.of(context).push(
+          new CupertinoPageRoute(
+            builder: (context) {
+              return new IosUserPage(event.actor, event.avatar);
+            },
+          ),
+        );
+      },
   );
 }
 
@@ -30,29 +37,22 @@ class PushEvent extends StatelessWidget {
   PushEvent(this.event);
 
   @override
-  build(ctx) {
-    return new Row(
-      children: [
-        new _Avatar(event.avatar),
-        new Expanded(
-          child: new RichText(
-            text: new TextSpan(
-              style: new TextStyle(color: CupertinoColors.black),
-              children: [
-                _strong(event.actor),
-                new TextSpan(text: ' pushed to '),
-                new TextSpan(
-                  text: event.payload['ref'],
-                  style: new TextStyle(color: CupertinoColors.activeBlue),
-                ),
-                new TextSpan(text: ' in '),
-                _strong(event.repo),
-                new TextSpan(text: '')
-              ],
-            ),
+  build(context) {
+    return new RichText(
+      text: new TextSpan(
+        style: new TextStyle(color: CupertinoColors.black),
+        children: [
+          _user(event, context),
+          new TextSpan(text: ' pushed to '),
+          new TextSpan(
+            text: event.payload['ref'],
+            style: new TextStyle(color: CupertinoColors.activeBlue),
           ),
-        ),
-      ],
+          new TextSpan(text: ' in '),
+          _strong(event.repo),
+          new TextSpan(text: '')
+        ],
+      ),
     );
   }
 }
@@ -62,26 +62,22 @@ class IssuesEvent extends StatelessWidget {
   IssuesEvent(this.event);
 
   @override
-  build(ctx) {
-    return new Row(
-      children: <Widget>[
-        new _Avatar(event.avatar),
-        new Expanded(
-          child: new RichText(
-            text: new TextSpan(
-              style: new TextStyle(color: CupertinoColors.black),
-              children: [
-                _strong(event.actor),
-                new TextSpan(text: ' ${event.payload['action']} issue '),
-                _strong(event.repo),
-                new TextSpan(
-                    text: '#' + event.payload['issue']['number'].toString()),
-                new TextSpan(text: event.payload['issue']['title'])
-              ],
-            ),
+  build(context) {
+    return new RichText(
+      text: new TextSpan(
+        style: new TextStyle(color: CupertinoColors.black),
+        children: [
+          _user(event, context),
+          new TextSpan(text: ' ${event.payload['action']} issue '),
+          _strong(event.repo),
+          new TextSpan(
+            text: '#' + event.payload['issue']['number'].toString(),
           ),
-        ),
-      ],
+          new TextSpan(
+            text: event.payload['issue']['title'],
+          )
+        ],
+      ),
     );
   }
 }
@@ -91,25 +87,18 @@ class PullRequestEvent extends StatelessWidget {
   PullRequestEvent(this.event);
 
   @override
-  build(ctx) {
-    return new Row(
-      children: <Widget>[
-        new _Avatar(event.avatar),
-        new Expanded(
-          child: new RichText(
-            text: new TextSpan(
-              style: new TextStyle(color: CupertinoColors.black),
-              children: [
-                _strong(event.actor),
-                new TextSpan(text: ' ${event.payload['action']} pull request '),
-                _strong(event.repo),
-                new TextSpan(text: '#' + event.payload['number'].toString()),
-                new TextSpan(text: event.payload['pull_request']['title'])
-              ],
-            ),
-          ),
-        ),
-      ],
+  build(context) {
+    return new RichText(
+      text: new TextSpan(
+        style: new TextStyle(color: CupertinoColors.black),
+        children: [
+          _user(event, context),
+          new TextSpan(text: ' ${event.payload['action']} pull request '),
+          _strong(event.repo),
+          new TextSpan(text: '#' + event.payload['number'].toString()),
+          new TextSpan(text: event.payload['pull_request']['title'])
+        ],
+      ),
     );
   }
 }
@@ -119,26 +108,18 @@ class IssueCommentEvent extends StatelessWidget {
   IssueCommentEvent(this.event);
 
   @override
-  build(ctx) {
-    return new Row(
-      children: <Widget>[
-        new _Avatar(event.avatar),
-        new Expanded(
-          child: new RichText(
-            text: new TextSpan(
-              style: new TextStyle(color: CupertinoColors.black),
-              children: [
-                _strong(event.actor),
-                new TextSpan(text: ' commented on issue '),
-                _strong(event.repo),
-                new TextSpan(
-                    text: '#' + event.payload['issue']['number'].toString()),
-                new TextSpan(text: event.payload['comment']['body'])
-              ],
-            ),
-          ),
-        ),
-      ],
+  build(context) {
+    return new RichText(
+      text: new TextSpan(
+        style: new TextStyle(color: CupertinoColors.black),
+        children: [
+          _user(event, context),
+          new TextSpan(text: ' commented on issue '),
+          _strong(event.repo),
+          new TextSpan(text: '#' + event.payload['issue']['number'].toString()),
+          new TextSpan(text: event.payload['comment']['body'])
+        ],
+      ),
     );
   }
 }
@@ -148,23 +129,16 @@ class WatchEvent extends StatelessWidget {
   WatchEvent(this.event);
 
   @override
-  build(ctx) {
-    return new Row(
-      children: <Widget>[
-        new _Avatar(event.avatar),
-        new Expanded(
-          child: new RichText(
-            text: new TextSpan(
-              style: new TextStyle(color: CupertinoColors.black),
-              children: [
-                _strong(event.actor),
-                new TextSpan(text: ' ${event.payload['action']} '),
-                _strong(event.repo),
-              ],
-            ),
-          ),
-        ),
-      ],
+  build(context) {
+    return new RichText(
+      text: new TextSpan(
+        style: new TextStyle(color: CupertinoColors.black),
+        children: [
+          _user(event, context),
+          new TextSpan(text: ' ${event.payload['action']} '),
+          _strong(event.repo),
+        ],
+      ),
     );
   }
 }

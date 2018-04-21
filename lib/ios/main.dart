@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'home.dart';
+import 'home/index.dart';
 import 'notification.dart';
 import 'profile.dart';
+import 'issue.dart';
 
 class IosApp extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
+  build(context) {
     return new MaterialApp(
       title: 'Flutter Demo',
       theme: new ThemeData(
@@ -14,6 +15,7 @@ class IosApp extends StatelessWidget {
       ),
       home: new IosHomePage(title: 'GitFlux'),
       routes: {
+        '/issue': (context) => new IosIssue()
         // '/notification': (context) => new IosNotificationTab(),
         // '/profile': (context) => new IosProfileTab(),
       },
@@ -42,9 +44,6 @@ class _IosHomePageState extends State<IosHomePage> {
   @override
   Widget build(context) {
     return new CupertinoPageScaffold(
-      navigationBar: new CupertinoNavigationBar(
-        middle: new Text(widget.title),
-      ),
       child: new CupertinoTabScaffold(
         tabBar: new CupertinoTabBar(
           items: const <BottomNavigationBarItem>[

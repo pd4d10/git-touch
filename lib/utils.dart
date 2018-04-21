@@ -6,20 +6,6 @@ import 'token.dart';
 
 final prefix = 'https://api.github.com';
 
-// class PushEvent extends Event {
-//   PushEvent(Map<String, dynamic> json) : super(json) {}
-// }
-
-// class IssuesEvent extends Event {
-//   String issueTitle;
-//   String issueUrl;
-
-//   IssuesEvent(Map<String, dynamic> json) : super(json) {
-//     issueTitle = json['issue']['title'];
-//     issueUrl = json['issue']['url'];
-//   }
-// }
-
 class Event {
   String type;
   String actor;
@@ -28,23 +14,32 @@ class Event {
   String repo;
   Map<String, dynamic> payload;
 
-  Event(Map<String, dynamic> json) {
-    id = json['id'];
-    type = json['type'];
-    actor = json['actor']['login'];
-    avatar = json['actor']['avatar_url'];
-    repo = json['repo']['name'];
-    payload = json['payload'];
+  Event(data) {
+    id = data['id'];
+    type = data['type'];
+    actor = data['actor']['login'];
+    avatar = data['actor']['avatar_url'];
+    repo = data['repo']['name'];
+    payload = data['payload'];
   }
+}
 
-  // factory Event.fromJson(Map<String, dynamic> json) {
-  //   switch (json['type']) {
-  //     case 'PushEvent':
-  //       return new PushEvent(json);
-  //     default:
-  //       return null;
-  //   }
-  // }
+class User {
+  String login;
+  String avatar;
+  String name;
+  int repos;
+  int followers;
+  int following;
+
+  User(data) {
+    login = data['login'];
+    avatar = data['avatar_url'];
+    name = data['name'];
+    repos = data['public_repos'];
+    followers = data['followers'];
+    following = data['following'];
+  }
 }
 
 Future<List<Event>> fetchEvents([int page = 1]) async {
@@ -52,9 +47,19 @@ Future<List<Event>> fetchEvents([int page = 1]) async {
     prefix + '/users/pd4d10/received_events/public?page=$page',
     headers: {HttpHeaders.AUTHORIZATION: 'token $token'},
   );
-  List<dynamic> resJson = json.decode(res.body);
+  List<dynamic> data = json.decode(res.body);
 
-  return resJson.map((item) {
+  return data.map((item) {
     return new Event(item);
   }).toList();
+}
+
+Future<User> fetchUser(String login) async {
+  final res = await http.get(
+    prefix + '/users/$login',
+    headers: {HttpHeaders.AUTHORIZATION: 'token $token'},
+  );
+  Map<String, dynamic> data = json.decode(res.body);
+
+  return new User(data);
 }
