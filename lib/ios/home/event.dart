@@ -142,3 +142,29 @@ class IssueCommentEvent extends StatelessWidget {
     );
   }
 }
+
+class WatchEvent extends StatelessWidget {
+  final Event event;
+  WatchEvent(this.event);
+
+  @override
+  build(ctx) {
+    return new Row(
+      children: <Widget>[
+        new _Avatar(event.avatar),
+        new Expanded(
+          child: new RichText(
+            text: new TextSpan(
+              style: new TextStyle(color: CupertinoColors.black),
+              children: [
+                _strong(event.actor),
+                new TextSpan(text: ' ${event.payload['action']} '),
+                _strong(event.repo),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}

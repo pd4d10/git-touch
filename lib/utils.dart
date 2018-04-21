@@ -47,9 +47,9 @@ class Event {
   // }
 }
 
-Future<List<Event>> fetchEvents() async {
+Future<List<Event>> fetchEvents([int page = 1]) async {
   final res = await http.get(
-    prefix + '/users/pd4d10/received_events/public',
+    prefix + '/users/pd4d10/received_events/public?page=$page',
     headers: {HttpHeaders.AUTHORIZATION: 'token $token'},
   );
   List<dynamic> resJson = json.decode(res.body);
