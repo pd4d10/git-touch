@@ -5,24 +5,6 @@ import 'notification.dart';
 import 'profile.dart';
 import 'issue.dart';
 
-class IosApp extends StatelessWidget {
-  @override
-  build(context) {
-    return new MaterialApp(
-      title: 'Flutter Demo',
-      theme: new ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: new IosHomePage(title: 'GitFlux'),
-      routes: {
-        '/issue': (context) => new IosIssue()
-        // '/notification': (context) => new IosNotificationTab(),
-        // '/profile': (context) => new IosProfileTab(),
-      },
-    );
-  }
-}
-
 class IosHomePage extends StatefulWidget {
   IosHomePage({Key key, this.title}) : super(key: key);
 
