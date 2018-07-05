@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'user.dart';
+import 'home.dart';
 
 class AndroidHomePage extends StatefulWidget {
   AndroidHomePage({Key key, this.title}) : super(key: key);
@@ -6,7 +8,7 @@ class AndroidHomePage extends StatefulWidget {
   final String title;
 
   @override
-  _AndroidHomePageState createState() => new _AndroidHomePageState();
+  _AndroidHomePageState createState() => _AndroidHomePageState();
 }
 
 class _AndroidHomePageState extends State<AndroidHomePage> {
@@ -18,17 +20,34 @@ class _AndroidHomePageState extends State<AndroidHomePage> {
     });
   }
 
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  message() {
+    _scaffoldKey.currentState?.showSnackBar(
+      SnackBar(
+        content: Text('Refresh complete'),
+        action: SnackBarAction(
+          label: 'RETRY',
+          onPressed: () {
+            // _refreshIndicatorKey.currentState.show();
+          },
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      drawer: new Drawer(
-        child: new Column(
+    return Scaffold(
+      key: _scaffoldKey,
+      drawer: Drawer(
+        child: Column(
           children: [
-            new UserAccountsDrawerHeader(
-              accountName: const Text('xxx'),
-              accountEmail: const Text('xxx@gmail.com'),
-              currentAccountPicture: const CircleAvatar(
-                backgroundImage: const NetworkImage(
+            UserAccountsDrawerHeader(
+              accountName: Text('123'),
+              accountEmail: Text('xxx@gmail.com'),
+              currentAccountPicture: CircleAvatar(
+                backgroundImage: NetworkImage(
                   'https://avatars0.githubusercontent.com/u/9524411',
                 ),
               ),
@@ -36,24 +55,37 @@ class _AndroidHomePageState extends State<AndroidHomePage> {
               // onDetailsPressed: () {
               // },
             ),
-            new MediaQuery.removePadding(
+            MediaQuery.removePadding(
               context: context,
               // DrawerHeader consumes top MediaQuery padding.
               removeTop: true,
-              child: new Expanded(
-                child: new ListView(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  children: <Widget>[
-                    new Stack(
+              child: Expanded(
+                child: ListView(
+                  padding: EdgeInsets.only(top: 8.0),
+                  children: [
+                    Stack(
                       children: [
-                        new Column(
+                        Column(
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: ['A', 'B'].map((String id) {
-                            return new ListTile(
-                              leading: new CircleAvatar(child: new Text(id)),
-                              title: new Text('Drawer item $id'),
-                              onTap: () {},
+                          children: ['Home', 'Settings'].map((id) {
+                            return ListTile(
+                              // leading:  CircleAvatar(child:  Text(id)),
+                              title: Text(id),
+                              onTap: () {
+                                var route = PageRouteBuilder(
+                                  settings: RouteSettings(
+                                    name: 'test',
+                                    isInitialRoute: false,
+                                  ),
+                                  pageBuilder:
+                                      (context, animation, secondaryAnimation) {
+                                    return UserPage('a', 'avatar');
+                                  },
+                                );
+
+                                Navigator.of(context).push(route);
+                              },
                             );
                           }).toList(),
                         )
@@ -66,27 +98,14 @@ class _AndroidHomePageState extends State<AndroidHomePage> {
           ],
         ),
       ),
-      appBar: new AppBar(
-        title: new Text(widget.title),
+      appBar: AppBar(
+        title: Text(widget.title),
       ),
-      body: new Center(
-        child: new Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            new Text(
-              'You have pushed the button this many times:',
-            ),
-            new Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: new FloatingActionButton(
+      body: HomePage(message),
+      floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
-        child: new Icon(Icons.add),
+        child: Icon(Icons.add),
       ),
     );
   }

@@ -3,22 +3,24 @@ import 'android/main.dart';
 import 'ios/main.dart';
 
 class App extends StatelessWidget {
-  final isIos = true;
+  final isIos = false;
 
   @override
   build(context) {
-    return new MaterialApp(
+    return MaterialApp(
       title: 'GitFlux',
-      theme: new ThemeData(
+      theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: isIos ? new IosHomePage(title: 'GitFlux') : new AndroidHomePage(title: 'GitFlux'),
+      home: isIos
+          ? IosHomePage(title: 'GitFlux')
+          : AndroidHomePage(title: 'GitFlux'),
       routes: {
-        // '/notification': (context) => new IosNotificationTab(),
-        // '/profile': (context) => new IosProfileTab(),
+        // '/notification': (context) =>  IosNotificationTab(),
+        // '/profile': (context) =>  IosProfileTab(),
       },
     );
   }
 }
 
-void main() => runApp(new App());
+void main() => runApp(App());

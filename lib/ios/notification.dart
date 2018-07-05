@@ -6,6 +6,6 @@ import 'package:flutter/cupertino.dart';
 class IosNotificationTab extends StatelessWidget {
   @override
   Widget build(context) {
-    return new Text('Notification');
+    return Text('Notification');
   }
 }

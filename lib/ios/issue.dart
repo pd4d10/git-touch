@@ -6,6 +6,6 @@ import 'package:flutter/cupertino.dart';
 class IosIssue extends StatelessWidget {
   @override
   Widget build(context) {
-    return new Text('Issue');
+    return Text('Issue');
   }
 }

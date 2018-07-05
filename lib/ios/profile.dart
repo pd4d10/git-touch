@@ -6,6 +6,6 @@ import 'package:flutter/cupertino.dart';
 class IosProfileTab extends StatelessWidget {
   @override
   Widget build(context) {
-    return new Text('Profile');
+    return  Text('Profile');
   }
 }

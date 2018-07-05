@@ -14,7 +14,7 @@ class Event {
   String repo;
   Map<String, dynamic> payload;
 
-  Event(data) {
+  Event.fromJson(data) {
     id = data['id'];
     type = data['type'];
     actor = data['actor']['login'];
@@ -32,7 +32,7 @@ class User {
   int followers;
   int following;
 
-  User(data) {
+  User.fromJson(data) {
     login = data['login'];
     avatar = data['avatar_url'];
     name = data['name'];
@@ -50,7 +50,7 @@ Future<List<Event>> fetchEvents([int page = 1]) async {
   List<dynamic> data = json.decode(res.body);
 
   return data.map((item) {
-    return new Event(item);
+    return Event.fromJson(item);
   }).toList();
 }
 
@@ -61,5 +61,5 @@ Future<User> fetchUser(String login) async {
   );
   Map<String, dynamic> data = json.decode(res.body);
 
-  return new User(data);
+  return User.fromJson(data);
 }

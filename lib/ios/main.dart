@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'home/index.dart';
+import 'home.dart';
 import 'notification.dart';
 import 'profile.dart';
 import 'issue.dart';
@@ -11,7 +11,7 @@ class IosHomePage extends StatefulWidget {
   final String title;
 
   @override
-  _IosHomePageState createState() => new _IosHomePageState();
+  _IosHomePageState createState() => _IosHomePageState();
 }
 
 class _IosHomePageState extends State<IosHomePage> {
@@ -25,42 +25,42 @@ class _IosHomePageState extends State<IosHomePage> {
 
   @override
   Widget build(context) {
-    return new CupertinoPageScaffold(
-      child: new CupertinoTabScaffold(
-        tabBar: new CupertinoTabBar(
-          items: const <BottomNavigationBarItem>[
-            const BottomNavigationBarItem(
-              icon: const Icon(CupertinoIcons.home),
-              title: const Text('Home'),
+    return CupertinoPageScaffold(
+      child: CupertinoTabScaffold(
+        tabBar: CupertinoTabBar(
+          items: <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(CupertinoIcons.home),
+              title: Text('Home'),
             ),
-            const BottomNavigationBarItem(
-              icon: const Icon(CupertinoIcons.conversation_bubble),
-              title: const Text('Notification'),
+            BottomNavigationBarItem(
+              icon: Icon(CupertinoIcons.conversation_bubble),
+              title: Text('Notification'),
             ),
-            const BottomNavigationBarItem(
-              icon: const Icon(CupertinoIcons.profile_circled),
-              title: const Text('Profile'),
+            BottomNavigationBarItem(
+              icon: Icon(CupertinoIcons.profile_circled),
+              title: Text('Profile'),
             ),
           ],
         ),
-        tabBuilder: (context, int index) {
-          return new DefaultTextStyle(
-            style: const TextStyle(
-              fontFamily: '.SF UI Text',
-              fontSize: 17.0,
+        tabBuilder: (context, index) {
+          return DefaultTextStyle(
+            style: TextStyle(
+              // fontFamily: '.SF UI Text',
+              // fontSize: 17.0,
               color: CupertinoColors.black,
             ),
-            child: new CupertinoTabView(
+            child: CupertinoTabView(
               builder: (BuildContext context) {
                 switch (index) {
                   case 0:
-                    return new IosHomeTab();
+                    return IosHomeTab();
                     break;
                   case 1:
-                    return new IosNotificationTab();
+                    return IosNotificationTab();
                     break;
                   case 2:
-                    return new IosProfileTab();
+                    return IosProfileTab();
                     break;
                   default:
                 }
