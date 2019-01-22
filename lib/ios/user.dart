@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import '../models/user.dart';
 import '../utils.dart';
 
 class IosUserPage extends StatelessWidget {
@@ -12,7 +13,7 @@ class IosUserPage extends StatelessWidget {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         leading: CupertinoButton(
-          child:  Text('Cancel'),
+          child: Text('Cancel'),
           padding: EdgeInsets.zero,
           onPressed: () {
             Navigator.of(context).pop(false);

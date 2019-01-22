@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import '../common/event.dart';
+import '../components/event.dart';
 import '../utils.dart';
 import 'dart:async';
 

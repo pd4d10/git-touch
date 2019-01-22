@@ -1,9 +1,22 @@
 import 'package:flutter/material.dart';
+// import 'dart:io';
+// import 'package:graphql_flutter/graphql_flutter.dart';
 import 'android/main.dart';
 import 'ios/main.dart';
+// import 'token.dart';
 
 class App extends StatelessWidget {
-  final isIos = false;
+  final isIos = true;
+
+  // final ValueNotifier<GraphQLClient> client = ValueNotifier(
+  //   GraphQLClient(
+  //     cache: InMemoryCache(),
+  //     link: HttpLink(
+  //       uri: 'https://api.github.com/graphql',
+  //       headers: {HttpHeaders.authorizationHeader: 'token $token'},
+  //     ),
+  //   ),
+  // );
 
   @override
   build(context) {

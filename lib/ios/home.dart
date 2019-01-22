@@ -2,10 +2,12 @@
 // import 'dart:convert';
 import '../utils.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
+// import 'package:graphql_flutter/graphql_flutter.dart';
+// import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import '../common/event.dart';
-import 'user.dart';
+import '../components/event.dart';
+// import 'user.dart';
+import '../models/event.dart';
 
 class IosHomeTab extends StatefulWidget {
   @override
@@ -32,7 +34,7 @@ class IosHomeTabState extends State<IosHomeTab> {
   }
 
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
-       GlobalKey<RefreshIndicatorState>();
+      GlobalKey<RefreshIndicatorState>();
 
   @override
   Widget build(context) {
@@ -60,7 +62,7 @@ class IosHomeTabState extends State<IosHomeTab> {
               try {
                 return EventItem(events[index]);
               } catch (err) {
-                 return Text(err.toString());
+                return Text(err.toString());
 //                return null;
               }
             });
