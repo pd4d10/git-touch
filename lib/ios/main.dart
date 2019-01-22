@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'home.dart';
 import 'notification.dart';
 import 'profile.dart';
-import 'issue.dart';
 
 class IosHomePage extends StatefulWidget {
   IosHomePage({Key key, this.title}) : super(key: key);
@@ -15,58 +14,44 @@ class IosHomePage extends StatefulWidget {
 }
 
 class _IosHomePageState extends State<IosHomePage> {
-  // int _counter = 0;
-
-  // void _incrementCounter() {
-  //   setState(() {
-  //     _counter++;
-  //   });
-  // }
-
   @override
   Widget build(context) {
     return CupertinoPageScaffold(
       child: CupertinoTabScaffold(
         tabBar: CupertinoTabBar(
-          items: <BottomNavigationBarItem>[
+          items: [
             BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.home),
+              icon: Icon(Icons.home),
               title: Text('Home'),
             ),
             BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.conversation_bubble),
+              icon: Icon(Icons.notifications),
               title: Text('Notification'),
             ),
             BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.profile_circled),
-              title: Text('Profile'),
+              icon: Icon(Icons.search),
+              title: Text('Search'),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              title: Text('Me'),
             ),
           ],
         ),
         tabBuilder: (context, index) {
-          return DefaultTextStyle(
-            style: TextStyle(
-              // fontFamily: '.SF UI Text',
-              // fontSize: 17.0,
-              color: CupertinoColors.black,
-            ),
-            child: CupertinoTabView(
-              builder: (BuildContext context) {
-                switch (index) {
-                  case 0:
-                    return IosHomeTab();
-                    break;
-                  case 1:
-                    return IosNotificationTab();
-                    break;
-                  case 2:
-                    return IosProfileTab();
-                    break;
-                  default:
-                }
-              },
-            ),
-          );
+          return CupertinoTabView(builder: (context) {
+            switch (index) {
+              case 0:
+                return HomeScreen();
+              case 1:
+                return NotificationScreen();
+              case 2:
+                return ProfileScreen();
+              case 3:
+                return ProfileScreen();
+              default:
+            }
+          });
         },
       ),
     );

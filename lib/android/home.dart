@@ -69,8 +69,8 @@ class _HomePageState extends State<HomePage> {
                   if (index >= events.length) {
                     // print(events.length);
                     if (!isLoading) {
-                      print('index: $index');
-                      print('length: ${events.length}');
+                      // print('index: $index');
+                      // print('length: ${events.length}');
                       loadMore();
                     }
                     return Text('Loading...');

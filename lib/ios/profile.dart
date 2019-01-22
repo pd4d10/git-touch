@@ -3,9 +3,9 @@
 // import '../utils.dart';
 import 'package:flutter/cupertino.dart';
 
-class IosProfileTab extends StatelessWidget {
+class ProfileScreen extends StatelessWidget {
   @override
   Widget build(context) {
-    return  Text('Profile');
+    return Text('Profile');
   }
 }

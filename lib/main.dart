@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 // import 'dart:io';
 // import 'package:graphql_flutter/graphql_flutter.dart';
-import 'android/main.dart';
+// import 'android/main.dart';
 import 'ios/main.dart';
 // import 'token.dart';
 
@@ -25,9 +26,10 @@ class App extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: isIos
-          ? IosHomePage(title: 'GitFlux')
-          : AndroidHomePage(title: 'GitFlux'),
+      home: DefaultTextStyle(
+        style: TextStyle(color: CupertinoColors.black),
+        child: IosHomePage(title: 'GitFlux'),
+      ),
       routes: {
         // '/notification': (context) =>  IosNotificationTab(),
         // '/profile': (context) =>  IosProfileTab(),

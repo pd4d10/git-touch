@@ -9,21 +9,20 @@ import '../components/event.dart';
 // import 'user.dart';
 import '../models/event.dart';
 
-class IosHomeTab extends StatefulWidget {
+class HomeScreen extends StatefulWidget {
   @override
   createState() {
-    return IosHomeTabState();
+    return HomeScreenState();
   }
 }
 
-class IosHomeTabState extends State<IosHomeTab> {
+class HomeScreenState extends State<HomeScreen> {
   int page = 1;
   List<Event> events = [];
 
   loadFirst() async {
     events = await fetchEvents();
-    print(events);
-    page = 1;
+    // print(events);
     return events;
   }
 
@@ -58,7 +57,7 @@ class IosHomeTabState extends State<IosHomeTab> {
             //   },
             // );
             widget = ListView.builder(itemBuilder: (context, index) {
-              print(index);
+              // print(index);
               try {
                 return EventItem(events[index]);
               } catch (err) {
