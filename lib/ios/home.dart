@@ -1,6 +1,4 @@
 import 'package:flutter/cupertino.dart';
-// import 'package:graphql_flutter/graphql_flutter.dart';
-// import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import '../components/event.dart';
 import '../providers/event.dart';

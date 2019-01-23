@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'home.dart';
 import 'notification.dart';
+import 'search.dart';
 import 'profile.dart';
 
 class IosHomePage extends StatefulWidget {
@@ -46,7 +47,7 @@ class _IosHomePageState extends State<IosHomePage> {
               case 1:
                 return NotificationScreen();
               case 2:
-                return ProfileScreen();
+                return SearchScreen();
               case 3:
                 return ProfileScreen();
               default:

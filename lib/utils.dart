@@ -6,6 +6,7 @@ import 'token.dart';
 import 'models/user.dart';
 
 final prefix = 'https://api.github.com';
+final endpoint = '/graphql';
 
 Future<dynamic> getWithCredentials(String url) async {
   final res = await http.get(
@@ -13,10 +14,27 @@ Future<dynamic> getWithCredentials(String url) async {
     headers: {HttpHeaders.authorizationHeader: 'token $token'},
   );
   final data = json.decode(res.body);
-  // if (res.body.startsWith('{')) {
-  //   throw data['message'];
-  // }
   return data;
+}
+
+Future<dynamic> postWithCredentials(String url, String body) async {
+  final res = await http.post(
+    prefix + url,
+    headers: {HttpHeaders.authorizationHeader: 'token $token'},
+    body: body,
+  );
+  final data = json.decode(res.body);
+  return data;
+}
+
+Future<dynamic> query(String query) async {
+  final data =
+      await postWithCredentials('/graphql', json.encode({'query': query}));
+  if (data['error'] != null) {
+    throw new Exception(data['error'].toString());
+  }
+  print(data);
+  return data['data'];
 }
 
 Future<User> fetchUser(String login) async {
