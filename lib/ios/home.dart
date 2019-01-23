@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../components/event.dart';
+import '../widgets/event.dart';
 import '../providers/event.dart';
 import '../models/event.dart';
 

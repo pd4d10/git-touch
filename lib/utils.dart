@@ -30,8 +30,8 @@ Future<dynamic> postWithCredentials(String url, String body) async {
 Future<dynamic> query(String query) async {
   final data =
       await postWithCredentials('/graphql', json.encode({'query': query}));
-  if (data['error'] != null) {
-    throw new Exception(data['error'].toString());
+  if (data['errors'] != null) {
+    throw new Exception(data['errors'].toString());
   }
   print(data);
   return data['data'];
