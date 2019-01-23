@@ -1,7 +1,6 @@
-import 'dart:async';
-import '../utils.dart';
 import 'package:flutter/cupertino.dart';
 import '../models/notification.dart';
+import '../providers/notification.dart';
 
 class NotificationScreen extends StatefulWidget {
   @override
@@ -9,63 +8,74 @@ class NotificationScreen extends StatefulWidget {
 }
 
 class NotificationScreenState extends State<NotificationScreen> {
-  int tabIndex = 0;
-  bool loading = false;
-  List<NotificationItem> items = [];
-
   initState() {
     super.initState();
-    initFetch();
-  }
-
-  initFetch() async {
-    items = await fetchNotifications('all');
-    setState(() {});
+    // initFetch();
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     print('dispose');
   }
 
-  _onChange(int value) async {
-    setState(() {
-      loading = true;
-      tabIndex = value;
-    });
-    items = await fetchNotifications('all');
-    setState(() {
-      loading = false;
-    });
-  }
-
   @override
   Widget build(context) {
+    NotificationBloc bloc = NotificationProvider.of(context);
+
     return SafeArea(
       child: Column(
         children: <Widget>[
-          CupertinoSegmentedControl(
-            groupValue: tabIndex,
-            onValueChanged: _onChange,
-            children: {
-              0: Text('Unread'),
-              1: Text('Paticipating'),
-              2: Text('All')
+          StreamBuilder<int>(
+            stream: bloc.active,
+            builder: (context, snapshot) {
+              if (snapshot.data == null) {
+                return Text("loading...");
+              }
+
+              return CupertinoSegmentedControl(
+                groupValue: snapshot.data,
+                onValueChanged: (int index) {
+                  bloc.activeUpdate.add(index);
+                },
+                children: {
+                  0: Text('Unread'),
+                  1: Text('Paticipating'),
+                  2: Text('All')
+                },
+              );
             },
           ),
-          Flexible(
-            child: loading
-                ? CupertinoActivityIndicator()
-                : ListView.builder(
-                    itemCount: items.length,
-                    itemBuilder: (context, index) => RichText(
-                          text: TextSpan(
-                              text: items[index].id,
-                              style: TextStyle(color: CupertinoColors.black)),
-                        )),
-          )
+          StreamBuilder<bool>(
+              stream: bloc.loading,
+              builder: (context, snapshot) {
+                return Flexible(
+                  child: snapshot.data == null || snapshot.data
+                      ? CupertinoActivityIndicator()
+                      : StreamBuilder<List<NotificationItem>>(
+                          stream: bloc.items,
+                          builder: (context, snapshot) {
+                            if (snapshot.data == null) {
+                              return Text('loading...');
+                            }
+
+                            return ListView.builder(
+                              itemCount: snapshot.data.length,
+                              itemBuilder: (context, index) {
+                                return RichText(
+                                  text: TextSpan(
+                                    text: snapshot
+                                        .data[index].repository.fullName,
+                                    style:
+                                        TextStyle(color: CupertinoColors.black),
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                        ),
+                );
+              }),
         ],
       ),
     );

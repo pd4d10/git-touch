@@ -1,12 +1,9 @@
-// import 'dart:async';
-// import 'dart:convert';
-import '../utils.dart';
 import 'package:flutter/cupertino.dart';
 // import 'package:graphql_flutter/graphql_flutter.dart';
 // import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import '../components/event.dart';
-// import 'user.dart';
+import '../providers/event.dart';
 import '../models/event.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -17,33 +14,30 @@ class HomeScreen extends StatefulWidget {
 }
 
 class HomeScreenState extends State<HomeScreen> {
-  int page = 1;
-  List<Event> events = [];
+  // final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+  //     GlobalKey<RefreshIndicatorState>();
 
-  loadFirst() async {
-    events = await fetchEvents();
-    // print(events);
-    return events;
+  @override
+  void initState() {
+    super.initState();
+    // FIXME: context hack
+    // Future.delayed(Duration(seconds: 0)).then((_) {
+    //   EventProvider.of(context).update.add(true);
+    // });
   }
-
-  loadMore() async {
-    events.addAll(await fetchEvents(page + 1));
-    page++;
-    return events;
-  }
-
-  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
-      GlobalKey<RefreshIndicatorState>();
 
   @override
   Widget build(context) {
+    final eventBloc = EventProvider.of(context);
+
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         middle: Text('Home'),
       ),
-      child: FutureBuilder(
-        future: loadFirst(),
+      child: StreamBuilder<List<Event>>(
+        stream: eventBloc.events,
         builder: (context, snapshot) {
+          // print(snapshot.data);
           Widget widget;
           if (snapshot.hasData) {
             // List<Event> events = snapshot.data;
@@ -59,7 +53,7 @@ class HomeScreenState extends State<HomeScreen> {
             widget = ListView.builder(itemBuilder: (context, index) {
               // print(index);
               try {
-                return EventItem(events[index]);
+                return EventItem(snapshot.data[index]);
               } catch (err) {
                 return Text(err.toString());
 //                return null;
