@@ -66,3 +66,7 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.io/custom-fonts/#from-packages
+  fonts:
+    - family: Octicons
+      fonts:
+        - asset: fonts/Octicons.ttf
