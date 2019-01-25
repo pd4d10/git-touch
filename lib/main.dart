@@ -1,9 +1,12 @@
+// import 'package:uri/uri.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'ios/main.dart';
-import 'providers/event.dart';
-import 'providers/notification.dart';
-import 'providers/search.dart';
+import 'package:git_flux/providers/event.dart';
+import 'package:git_flux/providers/notification.dart';
+import 'package:git_flux/providers/search.dart';
+import 'package:git_flux/ios/main.dart';
+// import 'package:git_flux/screens/user.dart';
+// import 'package:git_flux/screens/repo.dart';
 
 class App extends StatelessWidget {
   final isIos = true;
@@ -22,18 +25,15 @@ class App extends StatelessWidget {
         child: EventProvider(
           bloc: eventBloc,
           child: MaterialApp(
-            title: 'GitFlux',
-            theme: ThemeData(
-              primarySwatch: Colors.blue,
-            ),
             home: DefaultTextStyle(
               style: TextStyle(color: CupertinoColors.black),
               child: IosHomePage(title: 'GitFlux'),
             ),
-            routes: {
-              // '/notification': (context) =>  IosNotificationTab(),
-              // '/profile': (context) =>  IosProfileTab(),
-            },
+            // theme: ThemeData(
+            //   textTheme: TextTheme(
+            //     title: TextStyle(color: Colors.red),
+            //   ),
+            // ),
           ),
         ),
       ),

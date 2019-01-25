@@ -26,11 +26,12 @@ class HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(context) {
+    // Navigator.of(context).pushNamed('/user');
     final eventBloc = EventProvider.of(context);
 
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-        middle: Text('Home'),
+        middle: Text("GitFlux"),
       ),
       child: StreamBuilder<List<Event>>(
         stream: eventBloc.events,

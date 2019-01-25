@@ -40,12 +40,15 @@ class Repository {
 
 @JsonSerializable()
 class NotificationItem {
-  NotificationItem(this.id, this.type, this.actor, this.repository);
+  NotificationItem(this.id, this.type, this.updatedAt, this.actor,
+      this.repository, this.subject);
 
   String id;
   String type;
+  String updatedAt;
   Subject actor;
   Repository repository;
+  Subject subject;
   Map<String, dynamic> payload;
 
   factory NotificationItem.fromJson(Map<String, dynamic> json) =>

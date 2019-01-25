@@ -17,7 +17,11 @@ class IosHomePage extends StatefulWidget {
 class _IosHomePageState extends State<IosHomePage> {
   @override
   Widget build(context) {
-    return CupertinoPageScaffold(
+    return CupertinoTheme(
+      data: CupertinoThemeData(
+          // brightness: Brightness.dark,
+          // barBackgroundColor: Color.fromRGBO(0x24, 0x29, 0x2e, 1),
+          ),
       child: CupertinoTabScaffold(
         tabBar: CupertinoTabBar(
           items: [

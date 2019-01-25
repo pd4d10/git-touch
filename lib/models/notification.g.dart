@@ -42,12 +42,16 @@ NotificationItem _$NotificationItemFromJson(Map<String, dynamic> json) {
   return NotificationItem(
       json['id'] as String,
       json['type'] as String,
+      json['updated_at'] as String,
       json['actor'] == null
           ? null
           : Subject.fromJson(json['actor'] as Map<String, dynamic>),
       json['repository'] == null
           ? null
-          : Repository.fromJson(json['repository'] as Map<String, dynamic>))
+          : Repository.fromJson(json['repository'] as Map<String, dynamic>),
+      json['subject'] == null
+          ? null
+          : Subject.fromJson(json['subject'] as Map<String, dynamic>))
     ..payload = json['payload'] as Map<String, dynamic>;
 }
 
@@ -55,7 +59,9 @@ Map<String, dynamic> _$NotificationItemToJson(NotificationItem instance) =>
     <String, dynamic>{
       'id': instance.id,
       'type': instance.type,
+      'updated_at': instance.updatedAt,
       'actor': instance.actor,
       'repository': instance.repository,
+      'subject': instance.subject,
       'payload': instance.payload
     };

@@ -32,15 +32,15 @@ Future queryUser(String login) async {
 final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
     new GlobalKey<RefreshIndicatorState>();
 
-class UserScreen extends StatefulWidget {
+class UserWidget extends StatefulWidget {
   final String login;
 
-  UserScreen(this.login);
+  UserWidget(this.login);
 
-  _UserScreenState createState() => _UserScreenState();
+  _UserWidgetState createState() => _UserWidgetState();
 }
 
-class _UserScreenState extends State<UserScreen> {
+class _UserWidgetState extends State<UserWidget> {
   var user = null;
 
   @override
@@ -57,50 +57,51 @@ class _UserScreenState extends State<UserScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: RefreshIndicator(
-          key: _refreshIndicatorKey,
-          onRefresh: () async {
-            var _user = await queryUser(widget.login);
-            setState(() {
-              user = _user;
-            });
-          },
-          child: Column(
-            children: <Widget>[
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 20.0),
-                child: ClipOval(
-                  child: Image.network(
-                    user['avatarUrl'],
-                    fit: BoxFit.fill,
-                    width: 64,
-                    height: 64,
-                  ),
+        key: _refreshIndicatorKey,
+        onRefresh: () async {
+          var _user = await queryUser(widget.login);
+          setState(() {
+            user = _user;
+          });
+        },
+        child: Column(
+          children: <Widget>[
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 20.0),
+              child: ClipOval(
+                child: Image.network(
+                  user['avatarUrl'],
+                  fit: BoxFit.fill,
+                  width: 64,
+                  height: 64,
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  GestureDetector(
-                    child: Column(
-                      children: <Widget>[
-                        Text(user['followers']['totalCount'].toString()),
-                        Text('Followers'),
-                      ],
-                    ),
-                    onTap: () {
-                      // print(1);
-                    },
-                  ),
-                  Column(
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                GestureDetector(
+                  child: Column(
                     children: <Widget>[
-                      Text(user['following']['totalCount'].toString()),
-                      Text('Following')
+                      Text(user['followers']['totalCount'].toString()),
+                      Text('Followers'),
                     ],
-                  )
-                ],
-              ),
-            ],
-          )),
+                  ),
+                  onTap: () {
+                    // print(1);
+                  },
+                ),
+                Column(
+                  children: <Widget>[
+                    Text(user['following']['totalCount'].toString()),
+                    Text('Following')
+                  ],
+                )
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
