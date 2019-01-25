@@ -43,9 +43,6 @@ NotificationItem _$NotificationItemFromJson(Map<String, dynamic> json) {
       json['id'] as String,
       json['type'] as String,
       json['updated_at'] as String,
-      json['actor'] == null
-          ? null
-          : Subject.fromJson(json['actor'] as Map<String, dynamic>),
       json['repository'] == null
           ? null
           : Repository.fromJson(json['repository'] as Map<String, dynamic>),
@@ -60,7 +57,6 @@ Map<String, dynamic> _$NotificationItemToJson(NotificationItem instance) =>
       'id': instance.id,
       'type': instance.type,
       'updated_at': instance.updatedAt,
-      'actor': instance.actor,
       'repository': instance.repository,
       'subject': instance.subject,
       'payload': instance.payload

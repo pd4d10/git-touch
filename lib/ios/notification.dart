@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import '../models/notification.dart';
-import '../providers/notification.dart';
-import 'package:git_flux/screens/repo.dart';
+import 'package:git_flux/models/notification.dart';
+import 'package:git_flux/providers/notification.dart';
+import 'package:git_flux/screens/issue.dart';
+import 'package:git_flux/octicons.dart';
 
 class NotificationScreen extends StatefulWidget {
   @override
@@ -15,51 +16,98 @@ class NotificationScreenState extends State<NotificationScreen> {
     // initFetch();
   }
 
+  Widget _getRouteWidget(String type) {
+    switch (type) {
+      case 'Issue':
+      case 'PullRequest':
+        return IssueScreen();
+      default:
+        throw new Exception('Unhandled notification type: $type');
+    }
+  }
+
+  IconData _buildIconData(String type) {
+    switch (type) {
+      case 'Issue':
+        return Octicons.issue_opened;
+      // color: Color.fromRGBO(0x28, 0xa7, 0x45, 1),
+      case 'PullRequest':
+        return Octicons.git_pull_request;
+      // color: Color.fromRGBO(0x6f, 0x42, 0xc1, 1),
+      default:
+        throw new Exception('Unhandled icon type: $type');
+    }
+  }
+
   Widget _buildItem(BuildContext context, NotificationItem item) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.of(context).push(CupertinoPageRoute(
-            title: 'test', builder: (context) => RepoScreen()));
-      },
-      child: Container(
-        child: Row(
-          children: <Widget>[
-            Icon(Icons.info_outline),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(item.subject.title),
-                  Text(item.updatedAt)
-                ],
+    return Material(
+      child: InkWell(
+        splashColor: Colors.transparent,
+        onTap: () {
+          Navigator.of(context).push(
+            CupertinoPageRoute(
+                builder: (context) => _getRouteWidget(item.subject.type)),
+          );
+        },
+        child: Container(
+          child: Row(
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 8),
+                child: Icon(_buildIconData(item.subject.type),
+                    color: CupertinoColors.inactiveGray),
               ),
-            ),
-            Icon(Icons.arrow_forward_ios)
-          ],
+              Expanded(
+                child: Container(
+                  padding: EdgeInsets.symmetric(vertical: 8),
+                  decoration: BoxDecoration(
+                      border: Border(bottom: BorderSide(color: Colors.grey))),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(item.subject.title, style: TextStyle(height: 1)),
+                      Container(
+                        padding: EdgeInsets.only(top: 4),
+                        child: Text(
+                          item.updatedAt,
+                          style: TextStyle(fontSize: 12),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 8),
+                child: Icon(
+                  CupertinoIcons.right_chevron,
+                  color: CupertinoColors.inactiveGray,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildGroupItem(NotificationGroup group) {
+  Widget _buildGroupItem(BuildContext context, NotificationGroup group) {
     return Container(
-      padding: EdgeInsets.all(10),
+      // padding: EdgeInsets.all(10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Container(
+            padding: EdgeInsets.only(top: 10, left: 4, bottom: 4),
             color: CupertinoColors.extraLightBackgroundGray,
             child: Text(
               group.fullName,
               style: TextStyle(color: CupertinoColors.black),
             ),
           ),
-          ListView.builder(
-            shrinkWrap: true,
-            itemCount: group.items.length,
-            itemBuilder: (context, index) =>
-                _buildItem(context, group.items[index]),
-          ),
+          Column(
+              children:
+                  group.items.map((item) => _buildItem(context, item)).toList())
         ],
       ),
     );
@@ -114,11 +162,11 @@ class NotificationScreenState extends State<NotificationScreen> {
 
                           List<NotificationGroup> groups = snapshot.data;
 
-                          return ListView.builder(
-                            itemCount: groups.length,
-                            itemBuilder: (context, i) =>
-                                _buildGroupItem(groups[i]),
-                          );
+                          return ListView(
+                              children: groups
+                                  .map((group) =>
+                                      _buildGroupItem(context, group))
+                                  .toList());
                         },
                       ),
               );
