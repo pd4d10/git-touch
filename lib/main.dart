@@ -1,12 +1,9 @@
-// import 'package:uri/uri.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:git_flux/providers/event.dart';
 import 'package:git_flux/providers/notification.dart';
 import 'package:git_flux/providers/search.dart';
 import 'package:git_flux/ios/main.dart';
-// import 'package:git_flux/screens/user.dart';
-// import 'package:git_flux/screens/repo.dart';
 
 class App extends StatelessWidget {
   final isIos = true;
@@ -26,7 +23,7 @@ class App extends StatelessWidget {
           bloc: eventBloc,
           child: MaterialApp(
             home: DefaultTextStyle(
-              style: TextStyle(color: CupertinoColors.black),
+              style: TextStyle(color: Color(0xff24292e)),
               child: IosHomePage(title: 'GitFlux'),
             ),
             // theme: ThemeData(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import '../models/user.dart';
-import '../utils.dart';
+import 'package:git_flux/utils/utils.dart';
 
 class IosUserPage extends StatelessWidget {
   String login;
@@ -22,11 +22,11 @@ class IosUserPage extends StatelessWidget {
         middle: Text(login),
       ),
       child: FutureBuilder(
-        future: fetchUser(login),
+        // future: fetchUser(login),
         builder: (context, snapshot) {
           Widget widget;
           if (snapshot.hasData) {
-            User user = snapshot.data;
+            // User user = snapshot.data;
             return Text('');
           } else if (snapshot.hasError) {
             widget = Text("${snapshot.error}");

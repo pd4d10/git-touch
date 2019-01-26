@@ -1,35 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:rxdart/rxdart.dart';
-import '../utils.dart';
-import '../models/notification.dart';
-
-class NotificationGroup {
-  String fullName;
-  List<NotificationItem> items = [];
-
-  NotificationGroup(this.fullName);
-}
-
-Future<List<NotificationGroup>> fetchNotifications([int index = 0]) async {
-  String search = '';
-  if (index == 1) {
-    search = '?paticipating=true';
-  } else if (index == 2) {
-    search = '?all=true';
-  }
-  List data = await getWithCredentials('/notifications$search');
-  Map<String, NotificationGroup> groupMap = {};
-  data.forEach((item) {
-    String repo = item['repository']['full_name'];
-    if (groupMap[repo] == null) {
-      groupMap[repo] = NotificationGroup(repo);
-    }
-
-    groupMap[repo].items.add(NotificationItem.fromJson(item));
-  });
-  return groupMap.values.toList();
-}
+import 'package:git_flux/utils/utils.dart';
 
 class NotificationBloc {
   final _groups = BehaviorSubject<List<NotificationGroup>>(seedValue: []);

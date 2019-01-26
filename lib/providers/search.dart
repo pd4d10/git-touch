@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'dart:async';
 import 'package:rxdart/subjects.dart';
 import 'package:rxdart/rxdart.dart';
-import '../utils.dart';
+import 'package:git_flux/utils/utils.dart';
 
 Future search(String keyword, String type) async {
   var data = await query('''

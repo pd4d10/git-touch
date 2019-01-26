@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:git_flux/models/notification.dart';
+import 'dart:core';
+import 'package:flutter/material.dart' hide Notification;
+import 'package:flutter/cupertino.dart' hide Notification;
 import 'package:git_flux/providers/notification.dart';
-import 'package:git_flux/screens/issue.dart';
-import 'package:git_flux/octicons.dart';
+import 'package:git_flux/screens/screens.dart';
+import 'package:git_flux/utils/utils.dart';
 
 class NotificationScreen extends StatefulWidget {
   @override
@@ -11,11 +11,6 @@ class NotificationScreen extends StatefulWidget {
 }
 
 class NotificationScreenState extends State<NotificationScreen> {
-  initState() {
-    super.initState();
-    // initFetch();
-  }
-
   Widget _getRouteWidget(String type) {
     switch (type) {
       case 'Issue':
@@ -39,7 +34,7 @@ class NotificationScreenState extends State<NotificationScreen> {
     }
   }
 
-  Widget _buildItem(BuildContext context, NotificationItem item) {
+  Widget _buildItem(BuildContext context, Notification item) {
     return Material(
       child: InkWell(
         splashColor: Colors.transparent,
@@ -59,29 +54,34 @@ class NotificationScreenState extends State<NotificationScreen> {
               ),
               Expanded(
                 child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 8),
                   decoration: BoxDecoration(
                       border: Border(bottom: BorderSide(color: Colors.grey))),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Row(
                     children: <Widget>[
-                      Text(item.subject.title, style: TextStyle(height: 1)),
-                      Container(
-                        padding: EdgeInsets.only(top: 4),
-                        child: Text(
-                          item.updatedAt,
-                          style: TextStyle(fontSize: 12),
+                      Expanded(
+                        child: Container(
+                          padding: EdgeInsets.symmetric(vertical: 8),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(item.subject.title,
+                                  style: TextStyle(height: 1)),
+                              Padding(padding: EdgeInsets.only(top: 4)),
+                              Text(TimeAgo.format(item.updatedAt),
+                                  style: TextStyle(fontSize: 12))
+                            ],
+                          ),
                         ),
-                      )
+                      ),
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 8),
+                        child: Icon(
+                          CupertinoIcons.right_chevron,
+                          color: CupertinoColors.inactiveGray,
+                        ),
+                      ),
                     ],
                   ),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 8),
-                child: Icon(
-                  CupertinoIcons.right_chevron,
-                  color: CupertinoColors.inactiveGray,
                 ),
               ),
             ],
@@ -147,31 +147,22 @@ class NotificationScreenState extends State<NotificationScreen> {
       ),
       child: Column(
         children: <Widget>[
-          StreamBuilder<bool>(
-            stream: bloc.loading,
-            builder: (context, snapshot) {
-              return Flexible(
-                child: snapshot.data == null || snapshot.data
-                    ? CupertinoActivityIndicator()
-                    : StreamBuilder<List<NotificationGroup>>(
-                        stream: bloc.items,
-                        builder: (context, snapshot) {
-                          if (snapshot.data == null) {
-                            return Text('loading...');
-                          }
+          Container(
+            child: StreamBuilder<List<NotificationGroup>>(
+              stream: bloc.items,
+              builder: (context, snapshot) {
+                if (snapshot.data == null) {
+                  return Text('loading...');
+                }
 
-                          List<NotificationGroup> groups = snapshot.data;
-
-                          return ListView(
-                              children: groups
-                                  .map((group) =>
-                                      _buildGroupItem(context, group))
-                                  .toList());
-                        },
-                      ),
-              );
-            },
-          ),
+                return ListView(
+                    shrinkWrap: true,
+                    children: snapshot.data
+                        .map((group) => _buildGroupItem(context, group))
+                        .toList());
+              },
+            ),
+          )
         ],
       ),
     );

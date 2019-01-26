@@ -3,16 +3,6 @@ import 'dart:async';
 import 'package:rxdart/subjects.dart';
 import '../models/event.dart';
 import 'package:rxdart/rxdart.dart';
-import '../utils.dart';
-
-Future<List<Event>> fetchEvents([int page = 1]) async {
-  List data = await getWithCredentials(
-    '/users/pd4d10/received_events/public?page=$page',
-  );
-  return data.map<Event>((item) {
-    return Event.fromJson(item);
-  }).toList();
-}
 
 class EventBloc {
   final _items = BehaviorSubject<List<Event>>(seedValue: []);
@@ -24,15 +14,15 @@ class EventBloc {
   Sink<bool> get update => _update.sink;
 
   EventBloc() {
-    _update.stream.listen((bool isRefresh) async {
-      if (isRefresh) {
-        _items.add(await fetchEvents());
-        _page.add(1);
-      } else {
-        _items.add(await fetchEvents());
-        _page.add(_page.value + 1);
-      }
-    });
+    // _update.stream.listen((bool isRefresh) async {
+    //   if (isRefresh) {
+    //     _items.add(await fetchEvents(1));
+    //     _page.add(1);
+    //   } else {
+    //     _items.add(await fetchEvents(1));
+    //     _page.add(_page.value + 1);
+    //   }
+    // });
   }
 
   void dispose() {
