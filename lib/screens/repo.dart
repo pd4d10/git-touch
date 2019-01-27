@@ -1,13 +1,19 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
-class RepoScreen extends StatelessWidget {
+class RepoScreen extends StatefulWidget {
+  final String owner;
+  final String name;
+  RepoScreen(this.owner, this.name);
+
   @override
-  Widget build(context) {
-    return CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(
-        middle: Text("repo"),
-      ),
-      child: Text("repo"),
+  _RepoScreenState createState() => _RepoScreenState();
+}
+
+class _RepoScreenState extends State<RepoScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Text(widget.owner),
     );
   }
 }

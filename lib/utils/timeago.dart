@@ -10,6 +10,10 @@ class TimeAgo {
     return '${_ceil(time)} ${unit}s ago';
   }
 
+  static String formatFromString(String str) {
+    return format(DateTime.parse(str));
+  }
+
   static String format(DateTime time) {
     double diff =
         (DateTime.now().millisecondsSinceEpoch - time.millisecondsSinceEpoch) /

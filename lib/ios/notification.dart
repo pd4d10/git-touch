@@ -5,17 +5,37 @@ import 'package:git_flux/providers/notification.dart';
 import 'package:git_flux/screens/screens.dart';
 import 'package:git_flux/utils/utils.dart';
 
+class NotificationGroup {
+  String fullName;
+  List<Notification> items = [];
+
+  NotificationGroup(this.fullName);
+}
+
 class NotificationScreen extends StatefulWidget {
   @override
   NotificationScreenState createState() => NotificationScreenState();
 }
 
 class NotificationScreenState extends State<NotificationScreen> {
-  Widget _getRouteWidget(String type) {
+  int active = 0;
+  bool loading = false;
+  List<NotificationGroup> groups = [];
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration(seconds: 0)).then((_) {
+      _onSwitchTab(context, 0);
+    });
+  }
+
+  Widget _buildRoute(Notification item) {
+    String type = item.subject.type;
     switch (type) {
       case 'Issue':
       case 'PullRequest':
-        return IssueScreen();
+      // return IssueScreen(item.repository.);
       default:
         throw new Exception('Unhandled notification type: $type');
     }
@@ -40,8 +60,7 @@ class NotificationScreenState extends State<NotificationScreen> {
         splashColor: Colors.transparent,
         onTap: () {
           Navigator.of(context).push(
-            CupertinoPageRoute(
-                builder: (context) => _getRouteWidget(item.subject.type)),
+            CupertinoPageRoute(builder: (context) => _buildRoute(item)),
           );
         },
         child: Container(
@@ -91,7 +110,9 @@ class NotificationScreenState extends State<NotificationScreen> {
     );
   }
 
-  Widget _buildGroupItem(BuildContext context, NotificationGroup group) {
+  Widget _buildGroupItem(BuildContext context, int index) {
+    var group = groups[index];
+
     return Container(
       // padding: EdgeInsets.all(10),
       child: Column(
@@ -113,6 +134,34 @@ class NotificationScreenState extends State<NotificationScreen> {
     );
   }
 
+  void _onSwitchTab(BuildContext context, int index) async {
+    setState(() {
+      active = index;
+      loading = true;
+    });
+
+    var ns = await ghClient.activity
+        .listNotifications(all: index == 2, participating: index == 1)
+        .toList();
+
+    NotificationProvider.of(context).countUpdate.add(ns.length);
+
+    Map<String, NotificationGroup> groupMap = {};
+    ns.forEach((item) {
+      String repo = item.repository.fullName;
+      if (groupMap[repo] == null) {
+        groupMap[repo] = NotificationGroup(repo);
+      }
+
+      groupMap[repo].items.add(item);
+    });
+
+    setState(() {
+      groups = groupMap.values.toList();
+      loading = false;
+    });
+  }
+
   @override
   Widget build(context) {
     NotificationBloc bloc = NotificationProvider.of(context);
@@ -120,49 +169,35 @@ class NotificationScreenState extends State<NotificationScreen> {
 
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-        middle: StreamBuilder<int>(
-          stream: bloc.active,
-          builder: (context, snapshot) {
-            if (snapshot.data == null) {
-              return Text("loading...");
-            }
-            return SizedBox.expand(
-              child: DefaultTextStyle(
-                style: _textStyle,
-                child: CupertinoSegmentedControl(
-                  groupValue: snapshot.data,
-                  onValueChanged: (int index) {
-                    bloc.activeUpdate.add(index);
-                  },
-                  children: {
-                    0: Text('Unread'),
-                    1: Text('Paticipating'),
-                    2: Text('All')
-                  },
-                ),
-              ),
-            );
-          },
+        middle: SizedBox.expand(
+          child: DefaultTextStyle(
+            style: _textStyle,
+            child: CupertinoSegmentedControl(
+              groupValue: active,
+              onValueChanged: (index) => _onSwitchTab(context, index),
+              children: {
+                0: Text('Unread'),
+                1: Text('Paticipating'),
+                2: Text('All')
+              },
+            ),
+          ),
         ),
       ),
       child: Column(
         children: <Widget>[
+          // CupertinoSliverRefreshControl(
+          //   onRefresh: () async {
+          //     return Future.delayed(Duration(seconds: 3));
+          //   },
+          // ),
           Container(
-            child: StreamBuilder<List<NotificationGroup>>(
-              stream: bloc.items,
-              builder: (context, snapshot) {
-                if (snapshot.data == null) {
-                  return Text('loading...');
-                }
-
-                return ListView(
-                    shrinkWrap: true,
-                    children: snapshot.data
-                        .map((group) => _buildGroupItem(context, group))
-                        .toList());
-              },
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: groups.length,
+              itemBuilder: _buildGroupItem,
             ),
-          )
+          ),
         ],
       ),
     );

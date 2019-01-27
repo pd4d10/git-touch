@@ -26,11 +26,30 @@ class _IosHomePageState extends State<IosHomePage> {
         tabBar: CupertinoTabBar(
           items: [
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              title: Text('Home'),
+              icon: Icon(Icons.rss_feed),
+              title: Text('News'),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.notifications),
+              icon: StreamBuilder<int>(builder: (context, snapshot) {
+                int count = snapshot.data;
+                print(count);
+
+                // https://stackoverflow.com/a/45434404
+                if (count != null && count > 0) {
+                  return Stack(children: <Widget>[
+                    Icon(Icons.notifications),
+                    Positioned(
+                      // draw a red marble
+                      top: 0,
+                      right: 0,
+                      child: Icon(Icons.brightness_1,
+                          size: 8.0, color: Colors.redAccent),
+                    )
+                  ]);
+                } else {
+                  return Icon(Icons.notifications);
+                }
+              }),
               title: Text('Notification'),
             ),
             BottomNavigationBarItem(

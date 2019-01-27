@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:git_flux/screens/screens.dart';
 import 'package:git_flux/utils/utils.dart';
+import 'package:git_flux/widgets/widgets.dart';
 
 /// Events types:
 ///
@@ -34,14 +35,14 @@ class EventItem extends StatelessWidget {
       case 'PullRequestEvent':
         return TextSpan(children: [
           TextSpan(text: ' ${event.payload['action']} pull request '),
-          _buildPullRequest(context),
+          _buildPullRequest(context, event.payload['pull_request']['number']),
           TextSpan(text: ' at '),
           _buildRepo(context),
         ]);
       case 'PullRequestReviewCommentEvent':
         return TextSpan(children: [
           TextSpan(text: ' reviewed pull request '),
-          _buildPullRequest(context),
+          _buildPullRequest(context, event.payload['pull_request']['number']),
           TextSpan(text: ' at '),
           _buildRepo(context),
         ]);
@@ -51,9 +52,15 @@ class EventItem extends StatelessWidget {
           _buildRepo(context)
         ]);
       case 'IssueCommentEvent':
+        bool isIssue = event.payload['issue']['pull_request'] == null;
+        String resource = isIssue ? 'issue' : 'pull request';
+        TextSpan link = isIssue
+            ? _buildIssue(context)
+            : _buildPullRequest(context, event.payload['issue']['number']);
+
         return TextSpan(children: [
-          TextSpan(text: ' commented on issue '),
-          _buildIssue(context),
+          TextSpan(text: ' commented on $resource '),
+          link,
           TextSpan(text: ' at '),
           _buildRepo(context),
           // TextSpan(text: event.payload['comment']['body'])
@@ -103,19 +110,23 @@ class EventItem extends StatelessWidget {
   }
 
   TextSpan _buildRepo(BuildContext context) {
-    return _buildLink(context, event.repo.name, () => RepoScreen());
+    String name = event.repo.name;
+    var arr = name.split('/');
+    return _buildLink(context, name, () => RepoScreen(arr[0], arr[1]));
   }
 
   TextSpan _buildIssue(BuildContext context) {
-    return _buildLink(context,
-        '#' + event.payload['issue']['number'].toString(), () => UserScreen());
+    int id = event.payload['issue']['number'];
+    String repo = event.repo.name;
+    return _buildLink(
+        context, '#' + id.toString(), () => IssueScreen(id, repo));
   }
 
-  TextSpan _buildPullRequest(BuildContext context) {
-    return _buildLink(
-        context,
-        '#' + event.payload['pull_request']['number'].toString(),
-        () => UserScreen());
+  TextSpan _buildPullRequest(BuildContext context, int id) {
+    String name = event.repo.name;
+    var arr = name.split('/');
+    return _buildLink(context, '#' + id.toString(),
+        () => PullRequestScreen(id, arr[0], arr[1]));
   }
 
   IconData _buildIconData(BuildContext context) {
@@ -147,19 +158,15 @@ class EventItem extends StatelessWidget {
         children: <Widget>[
           Row(
             children: <Widget>[
-              CircleAvatar(
-                backgroundColor: Colors.transparent,
-                backgroundImage: NetworkImage(event.actor.avatarUrl),
-                radius: 16,
-              ),
+              Avatar(event.actor.login, event.actor.avatarUrl),
               Padding(padding: EdgeInsets.only(left: 10)),
               Expanded(
                 child: RichText(
                   text: TextSpan(
                     style: TextStyle(color: Color(0xff24292e), height: 1.2),
                     children: <TextSpan>[
-                      _buildLink(
-                          context, event.actor.login, () => UserScreen()),
+                      _buildLink(context, event.actor.login,
+                          () => UserScreen(event.actor.login)),
                       _buildEvent(context),
                     ],
                   ),

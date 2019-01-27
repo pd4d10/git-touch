@@ -1,8 +1,7 @@
-import 'package:flutter/widgets.dart';
 import 'dart:async';
-import 'package:rxdart/subjects.dart';
-import '../models/event.dart';
+import 'package:flutter/widgets.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:git_flux/utils/utils.dart';
 
 class EventBloc {
   final _items = BehaviorSubject<List<Event>>(seedValue: []);

@@ -24,6 +24,8 @@ dependencies:
   uri: ^0.11.3
   github: ^4.1.0
   intl: ^0.15.7
+  url_launcher: ^4.2.0
+  flutter_markdown: ^0.2.0
 
 dev_dependencies:
   flutter_test:

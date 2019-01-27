@@ -31,13 +31,13 @@ Future<dynamic> postWithCredentials(String url, String body) async {
 }
 
 Future<dynamic> query(String query) async {
-  final data =
+  final res =
       await postWithCredentials('/graphql', json.encode({'query': query}));
-  if (data['errors'] != null) {
-    throw new Exception(data['errors'].toString());
+  if (res['errors'] != null) {
+    throw new Exception(res['errors'].toString());
   }
-  print(data);
-  return data['data'];
+  print(res);
+  return res['data'];
 }
 
 Future<List<Event>> fetchEvents(int page) async {
@@ -45,28 +45,4 @@ Future<List<Event>> fetchEvents(int page) async {
     '/users/pd4d10/received_events/public?page=$page',
   );
   return data.map<Event>((item) => Event.fromJSON(item)).toList();
-}
-
-class NotificationGroup {
-  String fullName;
-  List<Notification> items = [];
-
-  NotificationGroup(this.fullName);
-}
-
-Future<List<NotificationGroup>> fetchNotifications([int index = 0]) async {
-  var data = await ghClient.activity
-      .listNotifications(all: index == 2, participating: index == 1)
-      .toList();
-
-  Map<String, NotificationGroup> groupMap = {};
-  data.forEach((item) {
-    String repo = item.repository.fullName;
-    if (groupMap[repo] == null) {
-      groupMap[repo] = NotificationGroup(repo);
-    }
-
-    groupMap[repo].items.add(item);
-  });
-  return groupMap.values.toList();
 }
