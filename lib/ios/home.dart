@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../widgets/event.dart';
 import 'package:git_flux/utils/utils.dart';
+import 'package:git_flux/widgets/widgets.dart';
 
 class HomeScreen extends StatefulWidget {
   @override

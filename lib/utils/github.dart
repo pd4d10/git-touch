@@ -36,7 +36,7 @@ Future<dynamic> query(String query) async {
   if (res['errors'] != null) {
     throw new Exception(res['errors'].toString());
   }
-  print(res);
+  // print(res);
   return res['data'];
 }
 

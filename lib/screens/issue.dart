@@ -1,33 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:git_flux/utils/utils.dart';
+import 'package:git_flux/widgets/widgets.dart';
 
-class IssueScreen extends StatefulWidget {
-  final int id;
-  final String repo;
-  IssueScreen(this.id, this.repo);
-
-  @override
-  _IssueScreenState createState() => _IssueScreenState();
+Future queryIssue(int id, String owner, String name) async {
+  var data = await query('''
+{
+  repository(owner: "$owner", name: "$name") {
+    issue(number: $id) {
+      $graphqlChunk1
+      timeline(first: $pageSize) {
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+        nodes {
+          $graghqlChunk
+        }
+      }
+    }
+  }
+}
+''');
+  return data['repository']['issue'];
 }
 
-class _IssueScreenState extends State<IssueScreen> {
-  int active = 0;
+class IssueScreen extends StatelessWidget {
+  final int id;
+  final String owner;
+  final String name;
+
+  IssueScreen(this.id, this.owner, this.name);
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(
-        middle: Text(widget.repo + ' #' + widget.id.toString()),
-        trailing: Icon(Icons.more_vert, size: 24),
-      ),
-      child: SafeArea(
-        child: Column(
-          children: <Widget>[
-            Container(
-              child: Text(widget.id.toString() + widget.repo),
-            ),
-          ],
-        ),
+    return IssuePullRequestScreen(
+      id: id,
+      owner: owner,
+      name: name,
+      init: () => queryIssue(id, owner, name),
+      extra: Row(
+        children: <Widget>[Text('test')],
       ),
     );
   }

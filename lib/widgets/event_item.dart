@@ -65,6 +65,10 @@ class EventItem extends StatelessWidget {
           _buildRepo(context),
           // TextSpan(text: event.payload['comment']['body'])
         ]);
+      case 'ForkEvent':
+        return TextSpan(children: [
+          TextSpan(text: ' forked '),
+        ]);
       default:
         return TextSpan(
           text: 'Type ${event.type} Not implement yet',
@@ -117,9 +121,10 @@ class EventItem extends StatelessWidget {
 
   TextSpan _buildIssue(BuildContext context) {
     int id = event.payload['issue']['number'];
-    String repo = event.repo.name;
+    String name = event.repo.name;
+    var arr = name.split('/');
     return _buildLink(
-        context, '#' + id.toString(), () => IssueScreen(id, repo));
+        context, '#' + id.toString(), () => IssueScreen(id, arr[0], arr[1]));
   }
 
   TextSpan _buildPullRequest(BuildContext context, int id) {
@@ -141,6 +146,8 @@ class EventItem extends StatelessWidget {
         return Octicons.repo_push;
       case 'WatchEvent':
         return Octicons.star;
+      case 'ForkEvent':
+        return Octicons.repo_forked;
       default:
         return Octicons.octoface;
     }
