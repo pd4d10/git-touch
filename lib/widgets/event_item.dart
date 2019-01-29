@@ -68,6 +68,10 @@ class EventItem extends StatelessWidget {
       case 'ForkEvent':
         return TextSpan(children: [
           TextSpan(text: ' forked '),
+          createRepoLinkSpan(context, event.payload['forkee']['owner']['login'],
+              event.payload['forkee']['name']),
+          TextSpan(text: ' from '),
+          _buildRepo(context),
         ]);
       default:
         return TextSpan(
@@ -116,7 +120,7 @@ class EventItem extends StatelessWidget {
   TextSpan _buildRepo(BuildContext context) {
     String name = event.repo.name;
     var arr = name.split('/');
-    return _buildLink(context, name, () => RepoScreen(arr[0], arr[1]));
+    return createRepoLinkSpan(context, arr[0], arr[1]);
   }
 
   TextSpan _buildIssue(BuildContext context) {
