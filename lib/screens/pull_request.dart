@@ -41,16 +41,6 @@ Future queryPullRequest(int id, String owner, String name) async {
               login
             }
           }
-          ... on LabeledEvent {
-            createdAt
-            label {
-              name
-              url
-            }
-            actor {
-              login
-            }
-          }
           ... on MergedEvent {
             createdAt
             mergeRefName

@@ -57,7 +57,7 @@ class _IssuePullRequestScreenState extends State<IssuePullRequestScreen> {
                   fontWeight: FontWeight.bold,
                   height: 1.2,
                 )),
-            CommentItem(payload),
+            // CommentItem(payload),
             // ListView.builder(
             //   shrinkWrap: true,
             //   itemCount: comments.length,

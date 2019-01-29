@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:git_flux/providers/event.dart';
-import 'package:git_flux/providers/notification.dart';
-import 'package:git_flux/providers/search.dart';
+import 'package:git_flux/providers/providers.dart';
 import 'package:git_flux/ios/main.dart';
+import 'package:git_flux/screens/screens.dart';
 
 class App extends StatelessWidget {
   final isIos = true;
@@ -25,6 +24,7 @@ class App extends StatelessWidget {
             home: DefaultTextStyle(
               style: TextStyle(color: Color(0xff24292e)),
               child: IosHomePage(title: 'GitFlux'),
+              // child: IssueScreen(11609, 'flutter', 'flutter'),
             ),
             // theme: ThemeData(
             //   textTheme: TextTheme(

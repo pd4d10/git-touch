@@ -111,8 +111,63 @@ __typename
               }
             }
           }
+
+
+          ... on LabeledEvent {
+            createdAt
+            actor {
+              login
+            }
+            label {
+              name
+              color
+            }
+          }
+
+          ... on UnlabeledEvent {
+            createdAt
+            actor {
+              login
+            }
+            label {
+              name
+              color
+            }
+          }
+
+          ... on MilestonedEvent {
+            createdAt
+            actor {
+              login
+            }
+            milestoneTitle
+          }
+          
+          ... on LockedEvent {
+            createdAt
+            actor {
+              login
+            }
+            lockReason
+          }        
+          ... on UnlockedEvent {
+            createdAt
+            actor {
+              login
+            }
+          }          
+          ... on AssignedEvent {
+            createdAt
+            actor {
+              login
+            }
+            user {
+              login
+            }
+          }  
 ''';
 
-var warning = Text('xxx', style: TextStyle(color: Colors.redAccent));
+var createWarning =
+    (String text) => Text(text, style: TextStyle(color: Colors.redAccent));
 var warningSpan =
     TextSpan(text: 'xxx', style: TextStyle(color: Colors.redAccent));

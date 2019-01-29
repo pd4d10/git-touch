@@ -1,3 +1,4 @@
+import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:git_flux/utils/utils.dart';
@@ -44,10 +45,28 @@ class TimelineItem extends StatelessWidget {
     );
   }
 
+  TextSpan _buildLabel(item) {
+    var textColor = item['label']['color'] == 'fbca04' ? null : Colors.white;
+
+    return TextSpan(
+      text: item['label']['name'],
+      style: TextStyle(
+          color: textColor,
+          // https://github.com/flutter/flutter/issues/20430
+          background: Paint()
+            ..color = Color(int.parse('ff' + item['label']['color'], radix: 16))
+          // https://stackoverflow.com/a/52592679
+          // ..strokeWidth = 16.5
+          // ..style = PaintingStyle.stroke
+          ),
+    );
+  }
+
   Widget _buildByType(BuildContext context) {
     switch (item['__typename']) {
       case 'IssueComment':
-        return CommentItem(item);
+        return Text('comment');
+      // return CommentItem(item);
       case 'ReferencedEvent':
         // TODO: isCrossRepository
         if (item['commit'] == null) {
@@ -104,6 +123,67 @@ class TimelineItem extends StatelessWidget {
                   item['source']['number'].toString()),
           item: item,
         );
+      case 'LabeledEvent':
+        return _buildItem(
+          actor: item['actor']['login'],
+          iconData: Octicons.tag,
+          textSpan: TextSpan(children: [
+            TextSpan(text: ' added '),
+            _buildLabel(item),
+            TextSpan(text: ' label'),
+          ]),
+          item: item,
+        );
+      case 'UnlabeledEvent':
+        return _buildItem(
+          actor: item['actor']['login'],
+          iconData: Octicons.tag,
+          textSpan: TextSpan(children: [
+            TextSpan(text: ' removed '),
+            _buildLabel(item),
+            TextSpan(text: ' label'),
+          ]),
+          item: item,
+        );
+      case 'MilestonedEvent':
+        return _buildItem(
+          actor: item['actor']['login'],
+          iconData: Octicons.milestone,
+          textSpan: TextSpan(children: [
+            TextSpan(text: ' added this to '),
+            TextSpan(text: item['milestoneTitle']),
+            TextSpan(text: ' milestone'),
+          ]),
+          item: item,
+        );
+      case 'LockedEvent':
+        return _buildItem(
+          actor: item['actor']['login'],
+          iconData: Octicons.lock,
+          textSpan: TextSpan(children: [
+            TextSpan(text: ' locked this conversation '),
+          ]),
+          item: item,
+        );
+      case 'UnlockedEvent':
+        return _buildItem(
+          actor: item['actor']['login'],
+          iconData: Octicons.key,
+          textSpan: TextSpan(children: [
+            TextSpan(text: ' unlocked this conversation '),
+          ]),
+          item: item,
+        );
+      case 'AssignedEvent':
+        return _buildItem(
+          actor: item['actor']['login'],
+          iconData: Octicons.key,
+          textSpan: TextSpan(children: [
+            TextSpan(text: ' assigned this to '),
+            TextSpan(text: item['user']['login'])
+          ]),
+          item: item,
+        );
 
       //
       case 'ReviewRequestedEvent':
@@ -122,17 +202,6 @@ class TimelineItem extends StatelessWidget {
           iconColor: 0xff28a745,
           iconData: Octicons.check,
           textSpan: _buildReviewText(context, item),
-          item: item,
-        );
-      case 'LabeledEvent':
-        return _buildItem(
-          actor: item['actor']['login'],
-          iconData: Octicons.tag,
-          textSpan: TextSpan(children: [
-            TextSpan(text: ' added the '),
-            TextSpan(text: item['label']['name']),
-            TextSpan(text: 'label'),
-          ]),
           item: item,
         );
       case 'MergedEvent':
@@ -170,7 +239,7 @@ class TimelineItem extends StatelessWidget {
           item: item,
         );
       default:
-        return warning;
+        return createWarning(item['__typename']);
     }
   }
 
