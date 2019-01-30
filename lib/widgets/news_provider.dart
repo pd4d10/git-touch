@@ -61,6 +61,9 @@ class NewsProviderState extends State<NewsProvider> {
   @override
   Widget build(context) {
     return widget.build(
-        events: _events, controller: _controller, refresh: _refresh);
+      events: _events,
+      controller: _controller,
+      refresh: _refresh,
+    );
   }
 }

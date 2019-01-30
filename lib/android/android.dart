@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:git_flux/utils/utils.dart';
 import 'news.dart';
+import 'notifications.dart';
 
 class AndroidHome extends StatefulWidget {
   @override
@@ -15,6 +16,8 @@ class _AndroidHomeState extends State<AndroidHome> {
     switch (active) {
       case 0:
         return NewsScreen();
+      case 1:
+        return NotificationScreen();
       default:
         return Text('d');
     }

@@ -1,18 +1,18 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-// import 'package:device_info/device_info.dart';
 import 'package:git_flux/providers/providers.dart';
+import 'package:git_flux/providers/settings.dart';
 import 'package:git_flux/ios/ios.dart';
 import 'package:git_flux/android/android.dart';
 
 class App extends StatelessWidget {
   final isIos = Platform.isIOS;
-  final EventBloc eventBloc;
+  final SettingsBloc settingsBloc;
   final NotificationBloc notificationBloc;
   final SearchBloc searchBloc;
 
-  App(this.eventBloc, this.notificationBloc, this.searchBloc);
+  App(this.settingsBloc, this.notificationBloc, this.searchBloc);
 
   _buildScreen() {
     // return IssueScreen(11609, 'flutter', 'flutter');
@@ -33,7 +33,7 @@ class App extends StatelessWidget {
       child: NotificationProvider(
         bloc: notificationBloc,
         child: EventProvider(
-          bloc: eventBloc,
+          bloc: settingsBloc,
           child: MaterialApp(
             home: DefaultTextStyle(
               style: TextStyle(color: Color(0xff24292e)),
@@ -52,7 +52,7 @@ class App extends StatelessWidget {
 }
 
 void main() async {
-  EventBloc eventBloc = EventBloc();
+  SettingsBloc eventBloc = SettingsBloc();
   NotificationBloc notificationBloc = NotificationBloc();
   SearchBloc searchBloc = SearchBloc();
 

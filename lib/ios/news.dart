@@ -25,7 +25,7 @@ class NewsScreenState extends State<NewsScreen> {
         slivers: <Widget>[
           CupertinoSliverNavigationBar(
             largeTitle: const Text('News'),
-            trailing: Icon(Octicons.settings),
+            // trailing: Icon(Octicons.settings),
           ),
           CupertinoSliverRefreshControl(
             onRefresh: refresh,

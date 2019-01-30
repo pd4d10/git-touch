@@ -19,7 +19,15 @@ class NewsScreenState extends State<NewsScreen> {
     return Scaffold(
       appBar: AppBar(title: Text('News')),
       body: RefreshIndicator(
-        onRefresh: refresh,
+        onRefresh: () async {
+          await refresh();
+          // Scaffold.of(context).showSnackBar(SnackBar(
+          //   content: Container(
+          //     child: Text('data'),
+          //     padding: EdgeInsets.only(bottom: 10),
+          //   )
+          // ));
+        },
         child: ListView.builder(
           controller: controller,
           itemCount: events.length + 1,
