@@ -1,10 +1,10 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:git_flux/providers/providers.dart';
-import 'package:git_flux/providers/settings.dart';
-import 'package:git_flux/ios/ios.dart';
-import 'package:git_flux/android/android.dart';
+import 'package:git_touch/providers/providers.dart';
+import 'package:git_touch/providers/settings.dart';
+import 'package:git_touch/ios/ios.dart';
+import 'package:git_touch/android/android.dart';
 
 class App extends StatelessWidget {
   final isIos = Platform.isIOS;

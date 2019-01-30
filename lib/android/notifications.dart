@@ -1,9 +1,9 @@
 import 'dart:core';
 import 'package:flutter/material.dart' hide Notification;
 import 'package:flutter/cupertino.dart' hide Notification;
-import 'package:git_flux/providers/notification.dart';
-import 'package:git_flux/widgets/notification_item.dart';
-import 'package:git_flux/utils/utils.dart';
+import 'package:git_touch/providers/notification.dart';
+import 'package:git_touch/widgets/notification_item.dart';
+import 'package:git_touch/utils/utils.dart';
 
 class NotificationGroup {
   String fullName;

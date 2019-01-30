@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:git_flux/utils/utils.dart';
+import 'package:git_touch/utils/utils.dart';
 import 'news.dart';
 import 'notifications.dart';
 

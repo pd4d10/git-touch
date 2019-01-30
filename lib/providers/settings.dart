@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/widgets.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:git_flux/utils/utils.dart';
+import 'package:git_touch/utils/utils.dart';
 
 class LayoutMap {
   static const material = 0;

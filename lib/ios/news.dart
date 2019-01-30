@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:git_flux/utils/utils.dart';
-import 'package:git_flux/widgets/news_provider.dart';
-import 'package:git_flux/widgets/event_item.dart';
+import 'package:git_touch/utils/utils.dart';
+import 'package:git_touch/widgets/news_provider.dart';
+import 'package:git_touch/widgets/event_item.dart';
 
 class NewsScreen extends StatefulWidget {
   @override

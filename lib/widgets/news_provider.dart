@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:git_flux/utils/utils.dart';
+import 'package:git_touch/utils/utils.dart';
 
 typedef Future<void> Refresh();
 typedef Widget BuildWithContent(

@@ -1,7 +1,7 @@
 import 'dart:core';
 import 'package:flutter/material.dart' hide Notification;
 import 'package:flutter/cupertino.dart' hide Notification;
-import 'package:git_flux/utils/utils.dart';
+import 'package:git_touch/utils/utils.dart';
 
 class NotificationItem extends StatelessWidget {
   const NotificationItem({

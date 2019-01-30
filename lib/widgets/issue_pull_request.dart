@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:git_flux/widgets/widgets.dart';
+import 'package:git_touch/widgets/widgets.dart';
 
 // Widget of issue screen and pull request screen
 class IssuePullRequestScreen extends StatefulWidget {

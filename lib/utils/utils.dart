@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
-import 'package:git_flux/screens/screens.dart';
+import 'package:git_touch/screens/screens.dart';
 export 'github.dart';
 export 'octicons.dart';
 export 'timeago.dart';

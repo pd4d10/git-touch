@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:git_flux/screens/screens.dart';
+import 'package:git_touch/screens/screens.dart';
 
 class Avatar extends StatelessWidget {
   final String login;

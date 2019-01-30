@@ -1,4 +1,4 @@
-package com.example.gitflux;
+package com.example.gittouch;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;

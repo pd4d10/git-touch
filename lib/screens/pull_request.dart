@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:git_flux/utils/utils.dart';
-import 'package:git_flux/widgets/widgets.dart';
+import 'package:git_touch/utils/utils.dart';
+import 'package:git_touch/widgets/widgets.dart';
 
 Future queryPullRequest(int id, String owner, String name) async {
   var data = await query('''

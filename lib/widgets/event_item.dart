@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
-import 'package:git_flux/screens/screens.dart';
-import 'package:git_flux/utils/utils.dart';
-import 'package:git_flux/widgets/widgets.dart';
+import 'package:git_touch/screens/screens.dart';
+import 'package:git_touch/utils/utils.dart';
+import 'package:git_touch/widgets/widgets.dart';
 
 /// Events types:
 ///
