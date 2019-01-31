@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart' hide Notification;
 import 'package:flutter/cupertino.dart' hide Notification;
 import '../providers/settings.dart';
+import '../providers/notification.dart';
 import '../screens/screens.dart';
 import '../widgets/notification_item.dart';
 import '../widgets/loading.dart';
@@ -66,7 +67,7 @@ class NotificationScreenState extends State<NotificationScreen> {
         .listNotifications(all: index == 2, participating: index == 1)
         .toList();
 
-    // NotificationProvider.of(context).countUpdate.add(ns.length);
+    NotificationProvider.of(context).setCount(ns.length);
 
     Map<String, NotificationGroup> groupMap = {};
     ns.forEach((item) {

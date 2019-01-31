@@ -13,6 +13,42 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int active = 0;
 
+  Widget _buildNotificationIcon(BuildContext context) {
+    int count = NotificationProvider.of(context).count;
+    if (count == 0) {
+      return Icon(Icons.notifications);
+    }
+
+    String text = count > 99 ? '99+' : count.toString();
+
+    // https://stackoverflow.com/a/54094844
+    return Stack(children: <Widget>[
+      Icon(Icons.notifications),
+      Positioned(
+        right: 0,
+        child: new Container(
+          padding: EdgeInsets.all(1),
+          decoration: new BoxDecoration(
+            color: Colors.red,
+            borderRadius: BorderRadius.circular(6),
+          ),
+          constraints: BoxConstraints(
+            minWidth: 12,
+            minHeight: 12,
+          ),
+          child: new Text(
+            '$text',
+            style: new TextStyle(
+              color: Colors.white,
+              fontSize: 8,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
+      )
+    ]);
+  }
+
   List<BottomNavigationBarItem> _buildNavigationItems() {
     return [
       BottomNavigationBarItem(
@@ -24,26 +60,7 @@ class _HomeState extends State<Home> {
         title: Text('Search'),
       ),
       BottomNavigationBarItem(
-        icon: StreamBuilder<int>(builder: (context, snapshot) {
-          int count = snapshot.data;
-          // print(count);
-
-          // https://stackoverflow.com/a/45434404
-          if (count != null && count > 0) {
-            return Stack(children: <Widget>[
-              Icon(Icons.notifications),
-              Positioned(
-                // draw a red marble
-                top: 0,
-                right: 0,
-                child: Icon(Icons.brightness_1,
-                    size: 8.0, color: Colors.redAccent),
-              )
-            ]);
-          } else {
-            return Icon(Icons.notifications);
-          }
-        }),
+        icon: _buildNotificationIcon(context),
         title: Text('Notification'),
       ),
       BottomNavigationBarItem(
@@ -75,6 +92,7 @@ class _HomeState extends State<Home> {
             data: CupertinoThemeData(
                 // brightness: Brightness.dark,
                 // barBackgroundColor: Color.fromRGBO(0x24, 0x29, 0x2e, 1),
+                // primaryColor: Color(0xff24292e),
                 ),
             child: CupertinoTabScaffold(
               tabBar: CupertinoTabBar(items: _buildNavigationItems()),
@@ -109,20 +127,19 @@ class _HomeState extends State<Home> {
 
 class App extends StatelessWidget {
   final isIos = Platform.isIOS;
-  final NotificationBloc notificationBloc;
   final SearchBloc searchBloc;
 
-  App(this.notificationBloc, this.searchBloc);
+  App(this.searchBloc);
 
   @override
   build(context) {
     return SearchProvider(
       bloc: searchBloc,
       child: NotificationProvider(
-        bloc: notificationBloc,
         child: SettingsProvider(
           child: DefaultTextStyle(
-            style: TextStyle(color: Color(0xff24292e)),
+            // style: TextStyle(color: Color(0xff24292e)),
+            style: TextStyle(color: Colors.black),
             child: Home(),
             // theme: ThemeData(
             //   textTheme: TextTheme(
@@ -137,7 +154,6 @@ class App extends StatelessWidget {
 }
 
 void main() async {
-  NotificationBloc notificationBloc = NotificationBloc();
   SearchBloc searchBloc = SearchBloc();
 
   // DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
@@ -147,5 +163,5 @@ void main() async {
   // IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
   // print('Running on ${iosInfo.utsname.machine}'); // e.g. "iPod7,1"
 
-  runApp(App(notificationBloc, searchBloc));
+  runApp(App(searchBloc));
 }

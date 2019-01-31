@@ -1,37 +1,53 @@
-import 'dart:async';
-import 'package:flutter/widgets.dart';
-import 'package:rxdart/subjects.dart';
-import 'package:rxdart/rxdart.dart';
+import 'dart:io';
+import 'package:flutter/material.dart';
 
-class NotificationBloc {
-  final _count = BehaviorSubject(seedValue: 0);
-  final _updater = StreamController();
+class NotificationProvider extends StatefulWidget {
+  final Widget child;
 
-  Stream<int> get count => _count.stream;
-  Sink get countUpdate => _updater.sink;
+  NotificationProvider({@required this.child});
 
-  NotificationBloc() {
-    _updater.stream.listen((_) {
-      _count.add(99);
+  static _NotificationProviderState of(BuildContext context) {
+    return (context.inheritFromWidgetOfExactType(_InheritedNotificationProvider)
+            as _InheritedNotificationProvider)
+        .data;
+  }
+
+  @override
+  _NotificationProviderState createState() => new _NotificationProviderState();
+}
+
+class _NotificationProviderState extends State<NotificationProvider> {
+  int count = 0;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  void setCount(int value) {
+    setState(() {
+      count = value;
     });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return new _InheritedNotificationProvider(
+      data: this,
+      child: widget.child,
+    );
   }
 }
 
-class NotificationProvider extends InheritedWidget {
-  final NotificationBloc bloc;
+class _InheritedNotificationProvider extends InheritedWidget {
+  final _NotificationProviderState data;
 
-  NotificationProvider({
+  _InheritedNotificationProvider({
     Key key,
-    Widget child,
-    @required NotificationBloc bloc,
-  })  : bloc = bloc,
-        super(key: key, child: child);
+    @required this.data,
+    @required Widget child,
+  }) : super(key: key, child: child);
 
   @override
-  bool updateShouldNotify(InheritedWidget oldWidget) => true;
-
-  static NotificationBloc of(BuildContext context) =>
-      (context.inheritFromWidgetOfExactType(NotificationProvider)
-              as NotificationProvider)
-          .bloc;
+  bool updateShouldNotify(_InheritedNotificationProvider old) => true;
 }

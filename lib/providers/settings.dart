@@ -6,8 +6,6 @@ class LayoutMap {
   static const cupertino = 1;
 }
 
-class SettingsState {}
-
 class SettingsProvider extends StatefulWidget {
   final Widget child;
 
