@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/widgets.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:git_touch/utils/utils.dart';
+import '../utils/utils.dart';
 
 Future queryUser(String login) async {
   var data = await query('''

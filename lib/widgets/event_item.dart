@@ -4,6 +4,7 @@ import 'package:flutter/gestures.dart';
 import '../screens/screens.dart';
 import '../utils/utils.dart';
 import '../widgets/widgets.dart';
+import '../widgets/link.dart';
 
 /// Events types:
 ///
@@ -159,46 +160,44 @@ class EventItem extends StatelessWidget {
 
   @override
   build(context) {
-    return Material(
-      child: InkWell(
-        onTap: () {},
-        child: Container(
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-              border: Border(
-                  bottom:
-                      BorderSide(color: CupertinoColors.lightBackgroundGray))),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Avatar(event.actor.login, event.actor.avatarUrl),
-                  Padding(padding: EdgeInsets.only(left: 10)),
-                  Expanded(
-                    child: RichText(
-                      text: TextSpan(
-                        style: TextStyle(color: Color(0xff24292e), height: 1.2),
-                        children: <TextSpan>[
-                          _buildLink(context, event.actor.login,
-                              () => UserScreen(event.actor.login)),
-                          _buildEvent(context),
-                        ],
-                      ),
+    return Link(
+      onTap: () {},
+      child: Container(
+        padding: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+            border: Border(
+                bottom:
+                    BorderSide(color: CupertinoColors.lightBackgroundGray))),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                Avatar(event.actor.login, event.actor.avatarUrl),
+                Padding(padding: EdgeInsets.only(left: 10)),
+                Expanded(
+                  child: RichText(
+                    text: TextSpan(
+                      style: TextStyle(color: Color(0xff24292e), height: 1.2),
+                      children: <TextSpan>[
+                        _buildLink(context, event.actor.login,
+                            () => UserScreen(event.actor.login)),
+                        _buildEvent(context),
+                      ],
                     ),
                   ),
-                  Padding(padding: EdgeInsets.only(left: 10)),
-                  Icon(_buildIconData(context),
-                      color: CupertinoColors.inactiveGray),
-                ],
-              ),
-              Container(
-                  padding: EdgeInsets.only(left: 42, top: 8),
-                  child: Text(_buildComment(),
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(color: Color(0xffaaaaaa))))
-            ],
-          ),
+                ),
+                Padding(padding: EdgeInsets.only(left: 10)),
+                Icon(_buildIconData(context),
+                    color: CupertinoColors.inactiveGray),
+              ],
+            ),
+            Container(
+                padding: EdgeInsets.only(left: 42, top: 8),
+                child: Text(_buildComment(),
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(color: Color(0xffaaaaaa))))
+          ],
         ),
       ),
     );

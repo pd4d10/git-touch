@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:git_touch/widgets/widgets.dart';
-import 'package:git_touch/utils/utils.dart';
+import '../widgets/widgets.dart';
+import '../utils/utils.dart';
 
 class CommentItem extends StatelessWidget {
   final Map<String, dynamic> item;

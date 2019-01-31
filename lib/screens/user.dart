@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:git_touch/utils/utils.dart';
+import '../utils/utils.dart';
 
 Future queryUser(String login) async {
   var data = await query('''
