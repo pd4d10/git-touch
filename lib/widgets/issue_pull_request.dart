@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import '../widgets/widgets.dart';
+import '../widgets/loading.dart';
 
 // Widget of issue screen and pull request screen
 class IssuePullRequestScreen extends StatefulWidget {
@@ -39,7 +40,7 @@ class _IssuePullRequestScreenState extends State<IssuePullRequestScreen> {
 
   Widget _buildBody(BuildContext context) {
     if (payload == null) {
-      return CupertinoActivityIndicator();
+      return Loading();
     }
 
     List items = payload['timeline']['nodes'];

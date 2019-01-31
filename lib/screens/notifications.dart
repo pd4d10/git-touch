@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart' hide Notification;
 import '../providers/settings.dart';
 import '../screens/screens.dart';
 import '../widgets/notification_item.dart';
+import '../widgets/loading.dart';
 import '../utils/utils.dart';
 
 class NotificationGroup {
@@ -116,10 +117,7 @@ class NotificationScreenState extends State<NotificationScreen> {
                   delegate: SliverChildBuilderDelegate(
                     (BuildContext context, int index) {
                       if (index == groups.length) {
-                        return Padding(
-                          padding: EdgeInsets.symmetric(vertical: 15),
-                          child: CupertinoActivityIndicator(radius: 12),
-                        );
+                        return Loading(more: true);
                       } else {
                         return _buildGroupItem(context, index);
                       }

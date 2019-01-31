@@ -20,6 +20,10 @@ class _HomeState extends State<Home> {
         title: Text('News'),
       ),
       BottomNavigationBarItem(
+        icon: Icon(Icons.search),
+        title: Text('Search'),
+      ),
+      BottomNavigationBarItem(
         icon: StreamBuilder<int>(builder: (context, snapshot) {
           int count = snapshot.data;
           // print(count);
@@ -43,10 +47,6 @@ class _HomeState extends State<Home> {
         title: Text('Notification'),
       ),
       BottomNavigationBarItem(
-        icon: Icon(Icons.search),
-        title: Text('Search'),
-      ),
-      BottomNavigationBarItem(
         icon: Icon(Icons.person),
         title: Text('Me'),
       ),
@@ -58,9 +58,9 @@ class _HomeState extends State<Home> {
       case 0:
         return NewsScreen();
       case 1:
-        return NotificationScreen();
-      case 2:
         return SearchScreen();
+      case 2:
+        return NotificationScreen();
       case 3:
         return ProfileScreen();
     }

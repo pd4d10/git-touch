@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import '../providers/settings.dart';
 import '../widgets/event_item.dart';
+import '../widgets/loading.dart';
 import '../utils/utils.dart';
 
 class NewsScreen extends StatefulWidget {
@@ -53,6 +54,17 @@ class NewsScreenState extends State<NewsScreen> {
     });
   }
 
+  Widget _buildItems(BuildContext context, int index) {
+    // return Loading(more: false);
+    if (_events.length == 0) {
+      return Loading(more: false);
+    } else if (index == _events.length) {
+      return Loading(more: true);
+    } else {
+      return EventItem(_events[index]);
+    }
+  }
+
   @override
   Widget build(context) {
     switch (SettingsProvider.of(context).layout) {
@@ -66,20 +78,13 @@ class NewsScreenState extends State<NewsScreen> {
               SliverSafeArea(
                 top: false,
                 sliver: SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (BuildContext context, int index) {
-                      if (index == _events.length) {
-                        return Padding(
-                          padding: EdgeInsets.symmetric(vertical: 15),
-                          child: CupertinoActivityIndicator(radius: 12),
-                        );
-                      } else {
-                        return EventItem(_events[index]);
-                      }
-                    },
-                    childCount: _events.length + 1,
-                  ),
+                  delegate: SliverChildBuilderDelegate(_buildItems,
+                      childCount: _events.length + 1),
                 ),
+                // sliver: SliverList(
+                //   delegate:
+                //       SliverChildBuilderDelegate(_buildItems, childCount: 1),
+                // ),
               ),
             ],
           ),
@@ -100,16 +105,8 @@ class NewsScreenState extends State<NewsScreen> {
             child: ListView.builder(
               controller: _controller,
               itemCount: _events.length + 1,
-              itemBuilder: (context, index) {
-                if (index == _events.length) {
-                  return Padding(
-                    padding: EdgeInsets.symmetric(vertical: 15),
-                    child: CircularProgressIndicator(),
-                  );
-                } else {
-                  return EventItem(_events[index]);
-                }
-              },
+              // itemCount: 1,
+              itemBuilder: _buildItems,
             ),
           ),
         );
