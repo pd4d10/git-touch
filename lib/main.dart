@@ -1,30 +1,118 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:git_touch/providers/providers.dart';
-import 'package:git_touch/providers/settings.dart';
-import 'package:git_touch/ios/ios.dart';
-import 'package:git_touch/android/android.dart';
+import 'providers/providers.dart';
+import 'providers/settings.dart';
+import 'screens/screens.dart';
+
+class Home extends StatefulWidget {
+  @override
+  createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  int active = 0;
+
+  List<BottomNavigationBarItem> _buildNavigationItems() {
+    return [
+      BottomNavigationBarItem(
+        icon: Icon(Icons.rss_feed),
+        title: Text('News'),
+      ),
+      BottomNavigationBarItem(
+        icon: StreamBuilder<int>(builder: (context, snapshot) {
+          int count = snapshot.data;
+          // print(count);
+
+          // https://stackoverflow.com/a/45434404
+          if (count != null && count > 0) {
+            return Stack(children: <Widget>[
+              Icon(Icons.notifications),
+              Positioned(
+                // draw a red marble
+                top: 0,
+                right: 0,
+                child: Icon(Icons.brightness_1,
+                    size: 8.0, color: Colors.redAccent),
+              )
+            ]);
+          } else {
+            return Icon(Icons.notifications);
+          }
+        }),
+        title: Text('Notification'),
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(Icons.search),
+        title: Text('Search'),
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(Icons.person),
+        title: Text('Me'),
+      ),
+    ];
+  }
+
+  _buildScreen(int index) {
+    switch (index) {
+      case 0:
+        return NewsScreen();
+      case 1:
+        return NotificationScreen();
+      case 2:
+        return SearchScreen();
+      case 3:
+        return ProfileScreen();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    switch (SettingsProvider.of(context).layout) {
+      case LayoutMap.cupertino:
+        return CupertinoApp(
+          home: CupertinoTheme(
+            data: CupertinoThemeData(
+                // brightness: Brightness.dark,
+                // barBackgroundColor: Color.fromRGBO(0x24, 0x29, 0x2e, 1),
+                ),
+            child: CupertinoTabScaffold(
+              tabBar: CupertinoTabBar(items: _buildNavigationItems()),
+              tabBuilder: (context, index) {
+                return CupertinoTabView(builder: (context) {
+                  return _buildScreen(index);
+                });
+              },
+            ),
+          ),
+        );
+      default:
+        return MaterialApp(
+          home: Scaffold(
+            // appBar: AppBar(title: Text('Home')),
+            body: _buildScreen(active),
+            bottomNavigationBar: BottomNavigationBar(
+              items: _buildNavigationItems(),
+              currentIndex: active,
+              type: BottomNavigationBarType.fixed,
+              onTap: (int index) {
+                setState(() {
+                  active = index;
+                });
+              },
+            ),
+          ),
+        );
+    }
+  }
+}
 
 class App extends StatelessWidget {
   final isIos = Platform.isIOS;
-  final SettingsBloc settingsBloc;
   final NotificationBloc notificationBloc;
   final SearchBloc searchBloc;
 
-  App(this.settingsBloc, this.notificationBloc, this.searchBloc);
-
-  _buildScreen() {
-    // return IssueScreen(11609, 'flutter', 'flutter');
-
-    // return IosHome();
-
-    if (Platform.isIOS) {
-      return IosHome();
-    } else if (Platform.isAndroid) {
-      return AndroidHome();
-    }
-  }
+  App(this.notificationBloc, this.searchBloc);
 
   @override
   build(context) {
@@ -32,13 +120,10 @@ class App extends StatelessWidget {
       bloc: searchBloc,
       child: NotificationProvider(
         bloc: notificationBloc,
-        child: EventProvider(
-          bloc: settingsBloc,
-          child: MaterialApp(
-            home: DefaultTextStyle(
-              style: TextStyle(color: Color(0xff24292e)),
-              child: _buildScreen(),
-            ),
+        child: SettingsProvider(
+          child: DefaultTextStyle(
+            style: TextStyle(color: Color(0xff24292e)),
+            child: Home(),
             // theme: ThemeData(
             //   textTheme: TextTheme(
             //     title: TextStyle(color: Colors.red),
@@ -52,7 +137,6 @@ class App extends StatelessWidget {
 }
 
 void main() async {
-  SettingsBloc eventBloc = SettingsBloc();
   NotificationBloc notificationBloc = NotificationBloc();
   SearchBloc searchBloc = SearchBloc();
 
@@ -63,5 +147,5 @@ void main() async {
   // IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
   // print('Running on ${iosInfo.utsname.machine}'); // e.g. "iPod7,1"
 
-  runApp(App(eventBloc, notificationBloc, searchBloc));
+  runApp(App(notificationBloc, searchBloc));
 }

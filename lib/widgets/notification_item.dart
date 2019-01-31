@@ -18,7 +18,8 @@ class NotificationItem extends StatelessWidget {
       case 'PullRequest':
       // return IssueScreen(item.repository.);
       default:
-        throw new Exception('Unhandled notification type: $type');
+        // throw new Exception('Unhandled notification type: $type');
+        return Text('test');
     }
   }
 
@@ -31,7 +32,7 @@ class NotificationItem extends StatelessWidget {
         return Octicons.git_pull_request;
       // color: Color.fromRGBO(0x6f, 0x42, 0xc1, 1),
       default:
-        throw new Exception('Unhandled icon type: $type');
+        return Octicons.person;
     }
   }
 
@@ -50,13 +51,18 @@ class NotificationItem extends StatelessWidget {
             children: <Widget>[
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 8),
-                child: Icon(_buildIconData(item.subject.type),
-                    color: CupertinoColors.inactiveGray),
+                child: Icon(
+                  _buildIconData(item.subject.type),
+                  // color: CupertinoColors.inactiveGray,
+                ),
               ),
               Expanded(
                 child: Container(
                   decoration: BoxDecoration(
-                      border: Border(bottom: BorderSide(color: Colors.grey))),
+                      border: Border(
+                          bottom: BorderSide(
+                              // color: Colors.grey,
+                              ))),
                   child: Row(
                     children: <Widget>[
                       Expanded(
@@ -78,7 +84,7 @@ class NotificationItem extends StatelessWidget {
                         padding: EdgeInsets.symmetric(horizontal: 8),
                         child: Icon(
                           Octicons.check,
-                          color: CupertinoColors.inactiveGray,
+                          // color: CupertinoColors.inactiveGray,
                         ),
                       ),
                     ],

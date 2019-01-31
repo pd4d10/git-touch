@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
-import 'package:git_touch/screens/screens.dart';
+import '../screens/screens.dart';
 export 'github.dart';
 export 'octicons.dart';
 export 'timeago.dart';
@@ -26,44 +26,6 @@ TextSpan createLinkSpan(BuildContext context, String text, Function handle) {
 TextSpan createRepoLinkSpan(BuildContext context, String owner, String name) {
   return createLinkSpan(context, '$owner/$name', () => RepoScreen(owner, name));
 }
-
-List<BottomNavigationBarItem> buildNavigationItems() => [
-      BottomNavigationBarItem(
-        icon: Icon(Icons.rss_feed),
-        title: Text('News'),
-      ),
-      BottomNavigationBarItem(
-        icon: StreamBuilder<int>(builder: (context, snapshot) {
-          int count = snapshot.data;
-          print(count);
-
-          // https://stackoverflow.com/a/45434404
-          if (count != null && count > 0) {
-            return Stack(children: <Widget>[
-              Icon(Icons.notifications),
-              Positioned(
-                // draw a red marble
-                top: 0,
-                right: 0,
-                child: Icon(Icons.brightness_1,
-                    size: 8.0, color: Colors.redAccent),
-              )
-            ]);
-          } else {
-            return Icon(Icons.notifications);
-          }
-        }),
-        title: Text('Notification'),
-      ),
-      BottomNavigationBarItem(
-        icon: Icon(Icons.search),
-        title: Text('Search'),
-      ),
-      BottomNavigationBarItem(
-        icon: Icon(Icons.person),
-        title: Text('Me'),
-      ),
-    ];
 
 class Palette {
   static const green = 0xff2cbe4e;
