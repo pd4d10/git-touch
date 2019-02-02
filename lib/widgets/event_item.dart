@@ -1,6 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
+import 'package:flutter/services.dart';
 import '../screens/screens.dart';
 import '../utils/utils.dart';
 import '../widgets/widgets.dart';
@@ -82,7 +83,7 @@ class EventItem extends StatelessWidget {
     }
   }
 
-  String _buildOriginalComment() {
+  String _buildDetail() {
     switch (event.type) {
       case 'IssueCommentEvent':
         return event.payload['comment']['body'];
@@ -97,27 +98,6 @@ class EventItem extends StatelessWidget {
     }
   }
 
-  String _buildComment() {
-    return _buildOriginalComment();
-  }
-
-  TextSpan _buildLink(BuildContext context, String text, Function handle) {
-    return TextSpan(
-      text: text,
-      style: TextStyle(color: Color(0xff0366d6)),
-      recognizer: TapGestureRecognizer()
-        ..onTap = () {
-          Navigator.of(context).push(
-            CupertinoPageRoute(
-              builder: (context) {
-                return handle();
-              },
-            ),
-          );
-        },
-    );
-  }
-
   TextSpan _buildRepo(BuildContext context) {
     String name = event.repo.name;
     var arr = name.split('/');
@@ -128,14 +108,14 @@ class EventItem extends StatelessWidget {
     int id = event.payload['issue']['number'];
     String name = event.repo.name;
     var arr = name.split('/');
-    return _buildLink(
+    return createLinkSpan(
         context, '#' + id.toString(), () => IssueScreen(id, arr[0], arr[1]));
   }
 
   TextSpan _buildPullRequest(BuildContext context, int id) {
     String name = event.repo.name;
     var arr = name.split('/');
-    return _buildLink(context, '#' + id.toString(),
+    return createLinkSpan(context, '#' + id.toString(),
         () => PullRequestScreen(id, arr[0], arr[1]));
   }
 
@@ -159,46 +139,57 @@ class EventItem extends StatelessWidget {
   }
 
   @override
-  build(context) {
-    return Link(
-      onTap: () {},
-      child: Container(
-        padding: EdgeInsets.all(10),
-        decoration: BoxDecoration(
-            border: Border(
-                bottom:
-                    BorderSide(color: CupertinoColors.lightBackgroundGray))),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                Avatar(event.actor.login, event.actor.avatarUrl),
-                Padding(padding: EdgeInsets.only(left: 10)),
-                Expanded(
-                  child: RichText(
-                    text: TextSpan(
-                      style: TextStyle(color: Color(0xff24292e), height: 1.2),
-                      children: <TextSpan>[
-                        _buildLink(context, event.actor.login,
-                            () => UserScreen(event.actor.login)),
-                        _buildEvent(context),
-                      ],
+  build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(8),
+      decoration: BoxDecoration(
+          border: Border(bottom: BorderSide(color: Colors.black12))),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Avatar(event.actor.login, event.actor.avatarUrl),
+              Padding(padding: EdgeInsets.only(left: 10)),
+              Expanded(
+                child: RichText(
+                  text: TextSpan(
+                    style: TextStyle(
+                      color: Colors.black,
+                      height: 1.3,
+                      fontSize: 15,
                     ),
+                    children: <TextSpan>[
+                      createLinkSpan(context, event.actor.login,
+                          () => UserScreen(event.actor.login)),
+                      _buildEvent(context),
+                    ],
                   ),
                 ),
-                Padding(padding: EdgeInsets.only(left: 10)),
-                Icon(_buildIconData(context),
-                    color: CupertinoColors.inactiveGray),
-              ],
+              ),
+              Padding(padding: EdgeInsets.only(left: 8)),
+              Icon(
+                _buildIconData(context),
+                color: CupertinoColors.inactiveGray,
+                size: 22,
+              ),
+            ],
+          ),
+          Container(
+            padding: EdgeInsets.only(left: 46, top: 6),
+            child: Text(
+              _buildDetail(),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 3,
+              style: TextStyle(
+                color: Colors.black87,
+                fontSize: 15,
+                height: 1.2,
+                fontWeight: FontWeight.w300,
+              ),
             ),
-            Container(
-                padding: EdgeInsets.only(left: 42, top: 8),
-                child: Text(_buildComment(),
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(color: Color(0xffaaaaaa))))
-          ],
-        ),
+          )
+        ],
       ),
     );
   }

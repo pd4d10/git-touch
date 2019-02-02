@@ -65,8 +65,8 @@ class TimelineItem extends StatelessWidget {
   Widget _buildByType(BuildContext context) {
     switch (item['__typename']) {
       case 'IssueComment':
-        return Text('comment');
-      // return CommentItem(item);
+        // return Text('comment');
+        return CommentItem(item);
       case 'ReferencedEvent':
         // TODO: isCrossRepository
         if (item['commit'] == null) {

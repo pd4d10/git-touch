@@ -46,48 +46,50 @@ class NotificationItem extends StatelessWidget {
         );
       },
       child: Container(
+        decoration: BoxDecoration(
+          border: Border(bottom: BorderSide(color: Colors.black12)),
+        ),
         child: Row(
           children: <Widget>[
             Container(
               padding: EdgeInsets.symmetric(horizontal: 8),
               child: Icon(
                 _buildIconData(item.subject.type),
-                // color: CupertinoColors.inactiveGray,
+                color: Colors.black45,
               ),
             ),
             Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                    border: Border(
-                        bottom: BorderSide(
-                            // color: Colors.grey,
-                            ))),
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Container(
-                        padding: EdgeInsets.symmetric(vertical: 8),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(item.subject.title,
-                                style: TextStyle(height: 1)),
-                            Padding(padding: EdgeInsets.only(top: 4)),
-                            Text(TimeAgo.format(item.updatedAt),
-                                style: TextStyle(fontSize: 12))
-                          ],
-                        ),
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Container(
+                      padding: EdgeInsets.symmetric(vertical: 8),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            item.subject.title,
+                            style: TextStyle(fontSize: 15),
+                            maxLines: 3,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          Padding(padding: EdgeInsets.only(top: 8)),
+                          Text(
+                            TimeAgo.format(item.updatedAt),
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.black87,
+                            ),
+                          )
+                        ],
                       ),
                     ),
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 8),
-                      child: Icon(
-                        Octicons.check,
-                        // color: CupertinoColors.inactiveGray,
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 8),
+                    child: Icon(Octicons.check, color: Colors.black45),
+                  ),
+                ],
               ),
             ),
           ],

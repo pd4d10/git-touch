@@ -2,7 +2,7 @@ import 'package:flutter/material.dart' hide Notification;
 import 'package:flutter/cupertino.dart' hide Notification;
 import '../providers/settings.dart';
 import '../providers/notification.dart';
-import '../screens/screens.dart';
+// import '../screens/screens.dart';
 import '../widgets/notification_item.dart';
 import '../widgets/loading.dart';
 import '../utils/utils.dart';
@@ -33,26 +33,33 @@ class NotificationScreenState extends State<NotificationScreen> {
   }
 
   Widget _buildGroupItem(BuildContext context, int index) {
+    if (loading) {
+      return Loading(more: false);
+    }
+
     var group = groups[index];
 
-    return Container(
-      // padding: EdgeInsets.all(10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Container(
-            padding: EdgeInsets.only(top: 10, left: 4, bottom: 4),
-            color: CupertinoColors.extraLightBackgroundGray,
-            child: Text(
-              group.fullName,
-              style: TextStyle(color: CupertinoColors.black),
+    return Padding(
+      padding: EdgeInsets.all(8),
+      child: Container(
+        decoration: BoxDecoration(border: Border.all(color: Colors.black12)),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.all(4),
+              color: Colors.black12,
+              child: Text(
+                group.fullName,
+                style: TextStyle(color: Colors.black, fontSize: 15),
+              ),
             ),
-          ),
-          Column(
-              children: group.items
-                  .map((item) => NotificationItem(item: item))
-                  .toList())
-        ],
+            Column(
+                children: group.items
+                    .map((item) => NotificationItem(item: item))
+                    .toList())
+          ],
+        ),
       ),
     );
   }
@@ -116,24 +123,13 @@ class NotificationScreenState extends State<NotificationScreen> {
                 top: false,
                 sliver: SliverList(
                   delegate: SliverChildBuilderDelegate(
-                    (BuildContext context, int index) {
-                      if (index == groups.length) {
-                        return Loading(more: true);
-                      } else {
-                        return _buildGroupItem(context, index);
-                      }
-                    },
-                    childCount: groups.length + 1,
+                    _buildGroupItem,
+                    childCount: groups.length,
                   ),
                 ),
               ),
             ]),
           ),
-          //  ListView.builder(
-          //   shrinkWrap: true,
-          //   itemCount: groups.length,
-          //   itemBuilder: _buildGroupItem,
-          // ),
         );
       default:
         return Scaffold(

@@ -9,7 +9,11 @@ export 'timeago.dart';
 TextSpan createLinkSpan(BuildContext context, String text, Function handle) {
   return TextSpan(
     text: text,
-    style: TextStyle(color: Color(0xff0366d6)),
+    style: TextStyle(
+      color: Color(0xff0366d6),
+      fontWeight: FontWeight.w600,
+      decoration: TextDecoration.underline,
+    ),
     recognizer: TapGestureRecognizer()
       ..onTap = () {
         Navigator.of(context).push(

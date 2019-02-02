@@ -58,11 +58,11 @@ class NewsScreenState extends State<NewsScreen> {
     // return Loading(more: false);
     if (_events.length == 0) {
       return Loading(more: false);
-    } else if (index == _events.length) {
-      return Loading(more: true);
-    } else {
-      return EventItem(_events[index]);
     }
+    if (index == _events.length) {
+      return Loading(more: true);
+    }
+    return EventItem(_events[index]);
   }
 
   @override
@@ -70,23 +70,25 @@ class NewsScreenState extends State<NewsScreen> {
     switch (SettingsProvider.of(context).layout) {
       case LayoutMap.cupertino:
         return CupertinoPageScaffold(
-          child: CustomScrollView(
-            controller: _controller,
-            slivers: <Widget>[
-              CupertinoSliverNavigationBar(largeTitle: const Text('News')),
-              CupertinoSliverRefreshControl(onRefresh: _refresh),
-              SliverSafeArea(
-                top: false,
-                sliver: SliverList(
-                  delegate: SliverChildBuilderDelegate(_buildItems,
-                      childCount: _events.length + 1),
+          navigationBar: CupertinoNavigationBar(middle: Text('News')),
+          child: SafeArea(
+            child: CustomScrollView(
+              controller: _controller,
+              slivers: <Widget>[
+                CupertinoSliverRefreshControl(onRefresh: _refresh),
+                SliverSafeArea(
+                  top: false,
+                  sliver: SliverList(
+                    delegate: SliverChildBuilderDelegate(_buildItems,
+                        childCount: _events.length + 1),
+                  ),
+                  // sliver: SliverList(
+                  //   delegate:
+                  //       SliverChildBuilderDelegate(_buildItems, childCount: 1),
+                  // ),
                 ),
-                // sliver: SliverList(
-                //   delegate:
-                //       SliverChildBuilderDelegate(_buildItems, childCount: 1),
-                // ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       default:

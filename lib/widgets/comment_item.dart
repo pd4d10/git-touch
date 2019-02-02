@@ -26,7 +26,10 @@ class CommentItem extends StatelessWidget {
       ]),
       Padding(
         padding: const EdgeInsets.only(left: 20, top: 10),
-        child: MarkdownBody(data: item['body']),
+        child: MarkdownBody(
+          data: item['body'],
+          // styleSheet: MarkdownStyleSheet(code: TextStyle(fontSize: 14)),
+        ),
       ),
     ]);
   }

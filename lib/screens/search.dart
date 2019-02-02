@@ -1,66 +1,69 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import '../providers/search.dart';
+import '../providers/settings.dart';
 
-class SearchScreen extends StatelessWidget {
+class SearchScreen extends StatefulWidget {
+  @override
+  _SearchScreenState createState() => _SearchScreenState();
+}
+
+class _SearchScreenState extends State<SearchScreen> {
+  int active = 0;
+  List users = [];
+
   @override
   Widget build(BuildContext context) {
-    SearchBloc bloc = SearchProvider.of(context);
-
-    return SafeArea(
-      child: Column(
-        children: <Widget>[
-          CupertinoTextField(
-            placeholder: 'Type to search',
-            onChanged: (String value) {
-              bloc.keywordUpdate.add(value);
-            },
-            onSubmitted: (String value) {
-              bloc.submit.add(value);
-            },
+    switch (SettingsProvider.of(context).layout) {
+      case LayoutMap.cupertino:
+        return CupertinoPageScaffold(
+          navigationBar: CupertinoNavigationBar(
+            middle: CupertinoTextField(
+              placeholder: 'Type to search',
+              onChanged: (String value) {
+                //
+              },
+              onSubmitted: (String value) {
+                //
+              },
+            ),
           ),
-          CupertinoSegmentedControl(
-            children: {0: Text('Repos'), 1: Text('Users')},
-            onValueChanged: (int value) {
-              bloc.activeUpdate.add(value);
-            },
+          child: SafeArea(
+            child: Column(
+              children: <Widget>[
+                CupertinoSegmentedControl(
+                  children: {0: Text('Repos'), 1: Text('Users')},
+                  onValueChanged: (int value) {
+                    //
+                  },
+                ),
+                ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: users.length,
+                  itemBuilder: (context, index) {
+                    var user = users[index];
+                    return Row(
+                      children: <Widget>[
+                        Image.network(
+                          user['avatarUrl'],
+                        ),
+                        Text(user['login'])
+                      ],
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
-          StreamBuilder<bool>(
-            stream: bloc.loading,
-            builder: (context, snapshot) {
-              if (snapshot.data == null || snapshot.data) {
-                return CupertinoActivityIndicator();
-              }
+        );
 
-              return StreamBuilder(
-                stream: bloc.users,
-                builder: (context, snapshot) {
-                  var users = snapshot.data;
-                  if (users == null) return Text('');
-                  if (users.length == 0) {
-                    return Text("No result");
-                  }
-
-                  return ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: users.length,
-                    itemBuilder: (context, index) {
-                      var user = users[index];
-                      return Row(
-                        children: <Widget>[
-                          Image.network(
-                            user['avatarUrl'],
-                          ),
-                          Text(user['login'])
-                        ],
-                      );
-                    },
-                  );
-                },
-              );
-            },
+      default:
+        return Scaffold(
+          appBar: AppBar(title: Text('Search')),
+          body: ListView.builder(
+            itemCount: users.length,
+            itemBuilder: (context, index) => Text(''),
           ),
-        ],
-      ),
-    );
+        );
+    }
   }
 }

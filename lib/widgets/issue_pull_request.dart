@@ -40,7 +40,7 @@ class _IssuePullRequestScreenState extends State<IssuePullRequestScreen> {
 
   Widget _buildBody(BuildContext context) {
     if (payload == null) {
-      return Loading();
+      return Loading(more: false);
     }
 
     List items = payload['timeline']['nodes'];
