@@ -5,15 +5,16 @@ import '../providers/settings.dart';
 import 'loading.dart';
 
 typedef RefreshCallback = Future<void> Function();
+typedef BodyBuilder = Widget Function();
 
 class RefreshScaffold extends StatefulWidget {
-  final String title;
-  final Widget body;
+  final Widget title;
+  final BodyBuilder bodyBuilder;
   final RefreshCallback onRefresh;
 
   RefreshScaffold({
     @required this.title,
-    @required this.body,
+    @required this.bodyBuilder,
     @required this.onRefresh,
   });
 
@@ -50,7 +51,7 @@ class _RefreshScaffoldState extends State<RefreshScaffold> {
     if (loading) {
       return Loading(more: false);
     } else {
-      return widget.body;
+      return widget.bodyBuilder();
     }
   }
 
@@ -59,7 +60,7 @@ class _RefreshScaffoldState extends State<RefreshScaffold> {
     switch (SettingsProvider.of(context).layout) {
       case LayoutMap.cupertino:
         return CupertinoPageScaffold(
-          navigationBar: CupertinoNavigationBar(middle: Text(widget.title)),
+          navigationBar: CupertinoNavigationBar(middle: widget.title),
           child: SafeArea(
             child: CustomScrollView(
               slivers: <Widget>[
@@ -71,7 +72,7 @@ class _RefreshScaffoldState extends State<RefreshScaffold> {
         );
       default:
         return Scaffold(
-          appBar: AppBar(title: Text(widget.title)),
+          appBar: AppBar(title: widget.title),
           body: RefreshIndicator(
             onRefresh: widget.onRefresh,
             child: _buildBody(context),

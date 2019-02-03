@@ -2,9 +2,9 @@ import 'package:flutter/material.dart' hide Notification;
 import 'package:flutter/cupertino.dart' hide Notification;
 import '../providers/settings.dart';
 import '../providers/notification.dart';
-// import '../screens/screens.dart';
 import '../widgets/notification_item.dart';
 import '../widgets/loading.dart';
+import '../widgets/list_group.dart';
 import '../utils/utils.dart';
 
 class NotificationGroup {
@@ -39,28 +39,13 @@ class NotificationScreenState extends State<NotificationScreen> {
 
     var group = groups[index];
 
-    return Padding(
-      padding: EdgeInsets.all(8),
-      child: Container(
-        decoration: BoxDecoration(border: Border.all(color: Colors.black12)),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Container(
-              padding: EdgeInsets.all(4),
-              color: Colors.black12,
-              child: Text(
-                group.fullName,
-                style: TextStyle(color: Colors.black, fontSize: 15),
-              ),
-            ),
-            Column(
-                children: group.items
-                    .map((item) => NotificationItem(item: item))
-                    .toList())
-          ],
-        ),
+    return ListGroup(
+      title: Text(
+        group.fullName,
+        style: TextStyle(color: Colors.black, fontSize: 15),
       ),
+      items: group.items,
+      itemBuilder: (item) => NotificationItem(item: item),
     );
   }
 

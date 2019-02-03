@@ -45,55 +45,50 @@ class NotificationItem extends StatelessWidget {
           CupertinoPageRoute(builder: (context) => _buildRoute(item)),
         );
       },
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border(bottom: BorderSide(color: Colors.black12)),
-        ),
-        child: Row(
-          children: <Widget>[
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 8),
-              child: Icon(
-                _buildIconData(item.subject.type),
-                color: Colors.black45,
-              ),
+      child: Row(
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 8),
+            child: Icon(
+              _buildIconData(item.subject.type),
+              color: Colors.black45,
             ),
-            Expanded(
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 8),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            item.subject.title,
-                            style: TextStyle(fontSize: 15),
-                            maxLines: 3,
-                            overflow: TextOverflow.ellipsis,
+          ),
+          Expanded(
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  child: Container(
+                    padding: EdgeInsets.symmetric(vertical: 8),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          item.subject.title,
+                          style: TextStyle(fontSize: 15),
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        Padding(padding: EdgeInsets.only(top: 8)),
+                        Text(
+                          TimeAgo.format(item.updatedAt),
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.black87,
                           ),
-                          Padding(padding: EdgeInsets.only(top: 8)),
-                          Text(
-                            TimeAgo.format(item.updatedAt),
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.black87,
-                            ),
-                          )
-                        ],
-                      ),
+                        )
+                      ],
                     ),
                   ),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 8),
-                    child: Icon(Octicons.check, color: Colors.black45),
-                  ),
-                ],
-              ),
+                ),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 8),
+                  child: Icon(Octicons.check, color: Colors.black45),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
