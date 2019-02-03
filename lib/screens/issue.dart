@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import '../utils/utils.dart';
-import '../widgets/widgets.dart';
+import '../widgets/list_scaffold.dart';
+import '../widgets/timeline_item.dart';
 
 Future queryIssue(int id, String owner, String name) async {
   var data = await query('''
@@ -25,7 +26,7 @@ Future queryIssue(int id, String owner, String name) async {
   return data['repository']['issue'];
 }
 
-class IssueScreen extends StatelessWidget {
+class IssueScreen extends StatefulWidget {
   final int id;
   final String owner;
   final String name;
@@ -33,15 +34,34 @@ class IssueScreen extends StatelessWidget {
   IssueScreen(this.id, this.owner, this.name);
 
   @override
+  _IssueScreenState createState() => _IssueScreenState();
+}
+
+class _IssueScreenState extends State<IssueScreen> {
+  Map<String, dynamic> payload;
+
+  Widget _buildHeader() {
+    return Text('issue');
+  }
+
+  get _fullName => widget.owner + '/' + widget.name;
+
+  List get _items => payload == null ? [] : payload['timeline']['nodes'];
+
+  @override
   Widget build(BuildContext context) {
-    return IssuePullRequestScreen(
-      id: id,
-      owner: owner,
-      name: name,
-      init: () => queryIssue(id, owner, name),
-      extra: Row(
-        children: <Widget>[Text('test')],
-      ),
+    return ListScaffold(
+      title: _fullName + ' #' + widget.id.toString(),
+      header: payload == null ? null : _buildHeader(),
+      itemCount: _items.length,
+      itemBuilder: (context, index) => TimelineItem(_items[index], payload),
+      onRefresh: () async {
+        var _payload = await queryIssue(widget.id, widget.owner, widget.name);
+        setState(() {
+          payload = _payload;
+        });
+      },
+      // onLoadMore: () => ,
     );
   }
 }

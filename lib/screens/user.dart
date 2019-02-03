@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import '../widgets/loading.dart';
+import '../providers/settings.dart';
 import '../utils/utils.dart';
 
 Future queryUser(String login) async {
@@ -40,67 +42,84 @@ class UserScreen extends StatefulWidget {
 }
 
 class _UserScreenState extends State<UserScreen> {
-  var user = null;
+  var payload;
 
   @override
   void initState() {
     super.initState();
-    queryUser(widget.login).then((_user) {
+    _refresh();
+  }
+
+  Future _refresh() async {
+    queryUser(widget.login).then((_payload) {
       setState(() {
-        user = _user;
+        payload = _payload;
       });
     });
   }
 
+  Widget _buildBody(BuildContext context) {
+    if (payload == null) {
+      return Loading(more: false);
+    }
+    return Text('loaded');
+
+    // return SafeArea(
+    //   child: CupertinoSliverRefreshControl(
+    //     // key: _refreshIndicatorKey,
+    //     onRefresh: _refresh,
+    //     child: Column(
+    //       children: <Widget>[
+    //         Container(
+    //           margin: EdgeInsets.symmetric(vertical: 20.0),
+    //           child: ClipOval(
+    //             child: Image.network(
+    //               payload['avatarUrl'],
+    //               fit: BoxFit.fill,
+    //               width: 64,
+    //               height: 64,
+    //             ),
+    //           ),
+    //         ),
+    //         Row(
+    //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    //           children: <Widget>[
+    //             GestureDetector(
+    //               child: Column(
+    //                 children: <Widget>[
+    //                   Text(payload['followers']['totalCount'].toString()),
+    //                   Text('Followers'),
+    //                 ],
+    //               ),
+    //               onTap: () {
+    //                 // print(1);
+    //               },
+    //             ),
+    //             Column(
+    //               children: <Widget>[
+    //                 Text(payload['following']['totalCount'].toString()),
+    //                 Text('Following')
+    //               ],
+    //             )
+    //           ],
+    //         ),
+    //       ],
+    //     ),
+    //   ),
+    // );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: RefreshIndicator(
-        key: _refreshIndicatorKey,
-        onRefresh: () async {
-          var _user = await queryUser(widget.login);
-          setState(() {
-            user = _user;
-          });
-        },
-        child: Column(
-          children: <Widget>[
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 20.0),
-              child: ClipOval(
-                child: Image.network(
-                  user['avatarUrl'],
-                  fit: BoxFit.fill,
-                  width: 64,
-                  height: 64,
-                ),
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                GestureDetector(
-                  child: Column(
-                    children: <Widget>[
-                      Text(user['followers']['totalCount'].toString()),
-                      Text('Followers'),
-                    ],
-                  ),
-                  onTap: () {
-                    // print(1);
-                  },
-                ),
-                Column(
-                  children: <Widget>[
-                    Text(user['following']['totalCount'].toString()),
-                    Text('Following')
-                  ],
-                )
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
+    switch (SettingsProvider.of(context).layout) {
+      case LayoutMap.cupertino:
+        return CupertinoPageScaffold(
+          navigationBar: CupertinoNavigationBar(middle: Text(widget.login)),
+          child: _buildBody(context),
+        );
+
+      default:
+        return Scaffold(appBar: AppBar(title: Text(widget.login)));
+    }
   }
 }

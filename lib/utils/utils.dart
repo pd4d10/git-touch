@@ -38,7 +38,7 @@ class Palette {
   static const gray = 0xff959da5;
 }
 
-final pageSize = 100;
+final pageSize = 20;
 
 final graphqlChunk1 = '''
 title

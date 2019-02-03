@@ -1,64 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import '../screens/user.dart';
 
 class ProfileScreen extends StatelessWidget {
   @override
-  Widget build(context) {
-    return CustomScrollView(
-      slivers: <Widget>[
-        Text("profile"),
-        Text("profile"),
-        Text("profile"),
-        Text("profile"),
-        Text("profile"),
-        Text("profile"),
-        Text("profile"),
-        Text("profile"),
-        Text("profile"),
-        Text("profile"),
-        Text("profile"),
-        Text("profile"),
-        Text("profile"),
-        Text("profile"),
-        Text("profile"),
-        Text("profile"),
-        Text("profile"),
-        Text("profile"),
-        Text("profile"),
-        Text("profile"),
-        Text("profile"),
-        Text("profile"),
-        Text("profile"),
-        Text("profile"),
-        Text("profile"),
-        Text("profile"),
-        Text("profile"),
-        Text("profile"),
-        Text("profile"),
-        Text("profile"),
-        Text("profile"),
-        Text("profile"),
-        Text("profile"),
-        Text("profile"),
-        Text("profile"),
-        Text("profile"),
-        Text("profile"),
-        Text("profile"),
-        Text("profile"),
-        Text("profile"),
-        Text("profile"),
-        Text("profile"),
-        Text("profile"),
-        Text("profile"),
-        Text("profile"),
-        Text("profile"),
-        Text("profile"),
-        Text("profile"),
-        Text("profile"),
-        Text("profile"),
-        Text("profile"),
-        Text("profile"),
-        Text("profile"),
-      ],
-    );
+  Widget build(BuildContext context) {
+    return UserScreen('pd4d10');
   }
 }
