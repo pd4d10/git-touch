@@ -12,7 +12,10 @@ class CommentItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(children: <Widget>[
       Row(children: <Widget>[
-        Avatar(item['author']['login'], item['author']['avatarUrl']),
+        Avatar(
+          login: item['author']['login'],
+          url: item['author']['avatarUrl'],
+        ),
         Padding(padding: EdgeInsets.only(left: 10)),
         Expanded(
           child: Column(

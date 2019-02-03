@@ -6,8 +6,13 @@ import 'link.dart';
 class Avatar extends StatelessWidget {
   final String login;
   final String url;
+  final double size;
 
-  Avatar(this.login, this.url);
+  Avatar({
+    @required this.login,
+    @required this.url,
+    this.size = 18,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +24,7 @@ class Avatar extends StatelessWidget {
       child: CircleAvatar(
         backgroundColor: Colors.transparent,
         backgroundImage: NetworkImage(url),
-        radius: 18,
+        radius: size,
       ),
     );
   }

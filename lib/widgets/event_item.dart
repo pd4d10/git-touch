@@ -149,7 +149,7 @@ class EventItem extends StatelessWidget {
         children: <Widget>[
           Row(
             children: <Widget>[
-              Avatar(event.actor.login, event.actor.avatarUrl),
+              Avatar(login: event.actor.login, url: event.actor.avatarUrl),
               Padding(padding: EdgeInsets.only(left: 10)),
               Expanded(
                 child: RichText(
@@ -183,7 +183,7 @@ class EventItem extends StatelessWidget {
               maxLines: 3,
               style: TextStyle(
                 color: Colors.black87,
-                fontSize: 15,
+                fontSize: 14,
                 height: 1.2,
                 fontWeight: FontWeight.w300,
               ),

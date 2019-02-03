@@ -12,7 +12,7 @@ TextSpan createLinkSpan(BuildContext context, String text, Function handle) {
     style: TextStyle(
       color: Color(0xff0366d6),
       fontWeight: FontWeight.w600,
-      decoration: TextDecoration.underline,
+      // decoration: TextDecoration.underline,
     ),
     recognizer: TapGestureRecognizer()
       ..onTap = () {
