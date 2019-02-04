@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import '../widgets/refresh_scaffold.dart';
 import '../widgets/avatar.dart';
-import '../widgets/link.dart';
+import '../widgets/entry_item.dart';
 import '../widgets/list_group.dart';
 import '../widgets/repo_item.dart';
 import '../screens/repos.dart';
+import '../screens/users.dart';
 import '../utils/utils.dart';
 
 var repoChunk = '''
@@ -74,25 +75,7 @@ class UserScreen extends StatefulWidget {
 }
 
 class _UserScreenState extends State<UserScreen> {
-  Map<String, dynamic> payload = {};
-
-  Widget _buildEntry(int count, String text) {
-    return Expanded(
-      flex: 1,
-      child: Link(
-        child: Container(
-          padding: EdgeInsets.symmetric(vertical: 10),
-          child: Column(
-            children: <Widget>[
-              Text(count.toString()),
-              Text(text, style: TextStyle(fontSize: 13))
-            ],
-          ),
-        ),
-        onTap: () {},
-      ),
-    );
-  }
+  Map<String, dynamic> payload;
 
   Widget _buildRepos() {
     String title;
@@ -127,8 +110,6 @@ class _UserScreenState extends State<UserScreen> {
           children: <Widget>[
             Container(
               padding: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                  border: Border(bottom: BorderSide(color: Colors.black12))),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -165,18 +146,38 @@ class _UserScreenState extends State<UserScreen> {
               ),
             ),
             Container(
-              // padding: EdgeInsets.all(10),
               decoration: BoxDecoration(
-                  border: Border(bottom: BorderSide(color: Colors.black12))),
+                border: Border(
+                  bottom: BorderSide(color: Colors.black12),
+                  top: BorderSide(color: Colors.black12),
+                ),
+              ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  _buildEntry(
-                      payload['repositories']['totalCount'], 'Repositories'),
-                  _buildEntry(
-                      payload['starredRepositories']['totalCount'], 'Stars'),
-                  _buildEntry(payload['followers']['totalCount'], 'Followers'),
-                  _buildEntry(payload['following']['totalCount'], 'Following'),
+                  EntryItem(
+                    count: payload['repositories']['totalCount'],
+                    text: 'Repositories',
+                    route:
+                        CupertinoPageRoute(builder: (context) => ReposScreen()),
+                  ),
+                  EntryItem(
+                    count: payload['starredRepositories']['totalCount'],
+                    text: 'Stars',
+                    route:
+                        CupertinoPageRoute(builder: (context) => ReposScreen()),
+                  ),
+                  EntryItem(
+                    count: payload['followers']['totalCount'],
+                    text: 'Followers',
+                    route:
+                        CupertinoPageRoute(builder: (context) => UsersScreen()),
+                  ),
+                  EntryItem(
+                    count: payload['following']['totalCount'],
+                    text: 'Following',
+                    route:
+                        CupertinoPageRoute(builder: (context) => UsersScreen()),
+                  ),
                 ],
               ),
             ),

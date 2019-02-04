@@ -11,21 +11,27 @@ var ghClient = createGitHubClient(auth: Authentication.withToken(token));
 final prefix = 'https://api.github.com';
 final endpoint = '/graphql';
 
-Future<dynamic> getWithCredentials(String url) async {
+Future<dynamic> getWithCredentials(String url, {String contentType}) async {
+  var headers = {HttpHeaders.authorizationHeader: 'token $token'};
+  if (contentType != null) {
+    // https://developer.github.com/v3/repos/contents/#custom-media-types
+    headers[HttpHeaders.contentTypeHeader] = contentType;
+  }
   final res = await http.get(
     prefix + url,
-    headers: {HttpHeaders.authorizationHeader: 'token $token'},
+    headers: headers,
   );
   final data = json.decode(res.body);
   return data;
 }
 
-Future<dynamic> postWithCredentials(String url, String body) async {
-  final res = await http.post(
-    prefix + url,
-    headers: {HttpHeaders.authorizationHeader: 'token $token'},
-    body: body,
-  );
+Future<dynamic> postWithCredentials(String url, String body,
+    {String contentType}) async {
+  var headers = {HttpHeaders.authorizationHeader: 'token $token'};
+  if (contentType != null) {
+    headers[HttpHeaders.contentTypeHeader] = contentType;
+  }
+  final res = await http.post(prefix + url, headers: headers, body: body);
   final data = json.decode(res.body);
   return data;
 }

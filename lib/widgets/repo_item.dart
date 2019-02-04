@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import '../utils/utils.dart';
 import '../screens/repo.dart';
 import 'link.dart';
@@ -21,7 +22,14 @@ class RepoItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Link(
-      onTap: () {},
+      onTap: () {
+        Navigator.of(context).push(
+          CupertinoPageRoute(
+            builder: (context) =>
+                RepoScreen(item['owner']['login'], item['name']),
+          ),
+        );
+      },
       child: Padding(
         padding: EdgeInsets.all(10),
         child: Row(

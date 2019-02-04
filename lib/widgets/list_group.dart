@@ -26,7 +26,7 @@ class ListGroup<T> extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Container(
-              padding: EdgeInsets.all(4),
+              padding: EdgeInsets.all(8),
               color: Color(0x10000000),
               child: title,
             ),
