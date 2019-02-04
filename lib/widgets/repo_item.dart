@@ -8,33 +8,66 @@ class RepoItem extends StatelessWidget {
 
   RepoItem(this.item);
 
+  IconData _buildIconData() {
+    if (item['isPrivate']) {
+      return Octicons.lock;
+    }
+    if (item['isFork']) {
+      return Octicons.repo_forked;
+    }
+    return Octicons.repo;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Link(
       onTap: () {},
       child: Padding(
         padding: EdgeInsets.all(10),
-        child: Column(
+        child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(item['name'], style: TextStyle(fontWeight: FontWeight.w600)),
-            Padding(padding: EdgeInsets.only(top: 4)),
-            Text(item['description']),
-            Padding(padding: EdgeInsets.only(top: 4)),
-            DefaultTextStyle(
-              style: TextStyle(color: Colors.black54),
-              child: Row(
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Icon(Octicons.star, size: 16, color: Colors.black54),
-                  Text(item['stargazers']['totalCount'].toString()),
-                  Padding(padding: EdgeInsets.only(left: 8)),
-                  Icon(Octicons.repo_forked, size: 16, color: Colors.black54),
-                  Text(item['forks']['totalCount'].toString()),
-                  Padding(padding: EdgeInsets.only(left: 8)),
-                  Text(item['primaryLanguage']['name'])
+                  Text(
+                    item['name'],
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
+                  ),
+                  Padding(padding: EdgeInsets.only(top: 6)),
+                  Text(item['description']),
+                  Padding(padding: EdgeInsets.only(top: 6)),
+                  DefaultTextStyle(
+                    style: TextStyle(color: Colors.black54, fontSize: 13),
+                    child: Row(
+                      children: <Widget>[
+                        Icon(Octicons.star, size: 14, color: Colors.black54),
+                        Text(item['stargazers']['totalCount'].toString()),
+                        Padding(padding: EdgeInsets.only(left: 16)),
+                        Icon(Octicons.repo_forked,
+                            size: 14, color: Colors.black54),
+                        Text(item['forks']['totalCount'].toString()),
+                        Padding(padding: EdgeInsets.only(left: 16)),
+                        Container(
+                          width: 10,
+                          height: 10,
+                          decoration: new BoxDecoration(
+                            color:
+                                convertColor(item['primaryLanguage']['color']),
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                        Padding(padding: EdgeInsets.only(left: 4)),
+                        Text(item['primaryLanguage']['name']),
+                      ],
+                    ),
+                  )
                 ],
               ),
-            )
+            ),
+            Padding(padding: EdgeInsets.only(left: 4)),
+            Icon(_buildIconData(), size: 20, color: Colors.black54),
           ],
         ),
       ),

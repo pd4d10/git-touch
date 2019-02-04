@@ -6,6 +6,13 @@ export 'github.dart';
 export 'octicons.dart';
 export 'timeago.dart';
 
+Color convertColor(String cssHex) {
+  if (cssHex.startsWith('#')) {
+    cssHex = cssHex.substring(1);
+  }
+  return Color(int.parse('ff' + cssHex, radix: 16));
+}
+
 TextSpan createLinkSpan(BuildContext context, String text, Function handle) {
   return TextSpan(
     text: text,

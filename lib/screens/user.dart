@@ -5,7 +5,28 @@ import '../widgets/avatar.dart';
 import '../widgets/link.dart';
 import '../widgets/list_group.dart';
 import '../widgets/repo_item.dart';
+import '../screens/repos.dart';
 import '../utils/utils.dart';
+
+var repoChunk = '''
+owner {
+  login
+}
+name
+description
+isPrivate
+isFork
+stargazers {
+  totalCount
+}
+forks {
+  totalCount
+}
+primaryLanguage {
+  color
+  name
+}
+''';
 
 Future queryUser(String login) async {
   var data = await query('''
@@ -27,40 +48,12 @@ Future queryUser(String login) async {
     repositories(first: 6, ownerAffiliations: OWNER, orderBy: {field: STARGAZERS, direction: DESC}) {
       totalCount
       nodes {
-        owner {
-          login
-        }
-        name
-        description
-        stargazers {
-          totalCount
-        }
-        forks {
-          totalCount
-        }
-      	primaryLanguage {
-          color
-          name
-        }
+        $repoChunk
       }
     }
     pinnedRepositories(first: 6) {
       nodes {
-        owner {
-          login
-        }
-        name
-        description
-        stargazers {
-          totalCount
-        }
-        forks {
-          totalCount
-        }
-      	primaryLanguage {
-          color
-          name
-        }
+        $repoChunk
       }
     }
   }
@@ -82,6 +75,42 @@ class UserScreen extends StatefulWidget {
 
 class _UserScreenState extends State<UserScreen> {
   Map<String, dynamic> payload = {};
+
+  Widget _buildEntry(int count, String text) {
+    return Expanded(
+      flex: 1,
+      child: Link(
+        child: Container(
+          padding: EdgeInsets.symmetric(vertical: 10),
+          child: Column(
+            children: <Widget>[
+              Text(count.toString()),
+              Text(text, style: TextStyle(fontSize: 13))
+            ],
+          ),
+        ),
+        onTap: () {},
+      ),
+    );
+  }
+
+  Widget _buildRepos() {
+    String title;
+    List items;
+    if (payload['pinnedRepositories']['nodes'].length == 0) {
+      title = 'Popular repositories';
+      items = payload['repositories']['nodes'];
+    } else {
+      title = 'Pinned repositories';
+      items = payload['pinnedRepositories']['nodes'];
+    }
+
+    return ListGroup(
+      title: Text(title),
+      items: items,
+      itemBuilder: (item) => RepoItem(item),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +142,8 @@ class _UserScreenState extends State<UserScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(payload['name'], style: TextStyle(height: 1.2)),
+                        Text(payload['name'] ?? widget.login,
+                            style: TextStyle(height: 1.2)),
                         Padding(padding: EdgeInsets.only(top: 10)),
                         Row(children: <Widget>[
                           Icon(
@@ -135,59 +165,22 @@ class _UserScreenState extends State<UserScreen> {
               ),
             ),
             Container(
-              padding: EdgeInsets.all(10),
+              // padding: EdgeInsets.all(10),
               decoration: BoxDecoration(
                   border: Border(bottom: BorderSide(color: Colors.black12))),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  Link(
-                    child: Column(
-                      children: <Widget>[
-                        Text(payload['repositories']['totalCount'].toString()),
-                        Text('Repos')
-                      ],
-                    ),
-                    onTap: () {},
-                  ),
-                  Link(
-                    child: Column(
-                      children: <Widget>[
-                        Text(payload['starredRepositories']['totalCount']
-                            .toString()),
-                        Text('Stars')
-                      ],
-                    ),
-                    onTap: () {},
-                  ),
-                  Link(
-                    child: Column(
-                      children: <Widget>[
-                        Text(payload['followers']['totalCount'].toString()),
-                        Text('Followers'),
-                      ],
-                    ),
-                    onTap: () {
-                      // print(1);
-                    },
-                  ),
-                  Link(
-                    child: Column(
-                      children: <Widget>[
-                        Text(payload['following']['totalCount'].toString()),
-                        Text('Following')
-                      ],
-                    ),
-                    onTap: () {},
-                  ),
+                  _buildEntry(
+                      payload['repositories']['totalCount'], 'Repositories'),
+                  _buildEntry(
+                      payload['starredRepositories']['totalCount'], 'Stars'),
+                  _buildEntry(payload['followers']['totalCount'], 'Followers'),
+                  _buildEntry(payload['following']['totalCount'], 'Following'),
                 ],
               ),
             ),
-            ListGroup(
-              title: Text('Repos'),
-              items: payload['repositories']['nodes'],
-              itemBuilder: (item) => RepoItem(item),
-            )
+            _buildRepos(),
           ],
         );
       },

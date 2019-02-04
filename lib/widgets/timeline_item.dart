@@ -51,14 +51,13 @@ class TimelineItem extends StatelessWidget {
     return TextSpan(
       text: item['label']['name'],
       style: TextStyle(
-          color: textColor,
-          // https://github.com/flutter/flutter/issues/20430
-          background: Paint()
-            ..color = Color(int.parse('ff' + item['label']['color'], radix: 16))
-          // https://stackoverflow.com/a/52592679
-          // ..strokeWidth = 16.5
-          // ..style = PaintingStyle.stroke
-          ),
+        color: textColor,
+        // https://github.com/flutter/flutter/issues/20430
+        background: Paint()..color = convertColor(item['label']['color']),
+        // https://stackoverflow.com/a/52592679
+        // ..strokeWidth = 16.5
+        // ..style = PaintingStyle.stroke
+      ),
     );
   }
 

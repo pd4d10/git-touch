@@ -27,7 +27,7 @@ class ListGroup<T> extends StatelessWidget {
           children: <Widget>[
             Container(
               padding: EdgeInsets.all(4),
-              color: Colors.black12,
+              color: Color(0x10000000),
               child: title,
             ),
             Column(children: items.map(_buildItem).toList())
