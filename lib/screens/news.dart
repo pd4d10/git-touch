@@ -16,7 +16,7 @@ class NewsScreenState extends State<NewsScreen> {
   @override
   Widget build(context) {
     return ListScaffold(
-      title: 'News',
+      title: Text('News'),
       itemCount: _events.length,
       itemBuilder: (context, index) => EventItem(_events[index]),
       onRefresh: () async {

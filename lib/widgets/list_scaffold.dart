@@ -7,7 +7,7 @@ import 'loading.dart';
 typedef RefreshCallback = Future<void> Function();
 
 class ListScaffold extends StatefulWidget {
-  final String title;
+  final Widget title;
   final Widget header;
   final int itemCount;
   final IndexedWidgetBuilder itemBuilder;
@@ -77,11 +77,19 @@ class _ListScaffoldState extends State<ListScaffold> {
   }
 
   Widget _buildItem(BuildContext context, int index) {
-    if (index == widget.itemCount) {
+    if (index == 2 * widget.itemCount) {
       return Loading(more: true);
     }
 
-    return widget.itemBuilder(context, index);
+    if (index % 2 == 1) {
+      return Container(
+        decoration: BoxDecoration(
+          border: Border(bottom: BorderSide(color: Colors.black12)),
+        ),
+      );
+    }
+
+    return widget.itemBuilder(context, index ~/ 2);
   }
 
   Widget _buildSliver(BuildContext context) {
@@ -91,7 +99,7 @@ class _ListScaffoldState extends State<ListScaffold> {
       return SliverList(
         delegate: SliverChildBuilderDelegate(
           _buildItem,
-          childCount: widget.itemCount + 1,
+          childCount: 2 * widget.itemCount + 1,
         ),
       );
     }
@@ -103,7 +111,7 @@ class _ListScaffoldState extends State<ListScaffold> {
     } else {
       return ListView.builder(
         controller: _controller,
-        itemCount: widget.itemCount + 1,
+        itemCount: 2 * widget.itemCount + 1,
         itemBuilder: _buildItem,
       );
     }
@@ -122,7 +130,7 @@ class _ListScaffoldState extends State<ListScaffold> {
         slivers.add(_buildSliver(context));
 
         return CupertinoPageScaffold(
-          navigationBar: CupertinoNavigationBar(middle: Text(widget.title)),
+          navigationBar: CupertinoNavigationBar(middle: widget.title),
           child: SafeArea(
             child: CustomScrollView(
               controller: _controller,
@@ -132,7 +140,7 @@ class _ListScaffoldState extends State<ListScaffold> {
         );
       default:
         return Scaffold(
-          appBar: AppBar(title: Text(widget.title)),
+          appBar: AppBar(title: widget.title),
           body: RefreshIndicator(
             onRefresh: widget.onRefresh,
             child: _buildBody(context),

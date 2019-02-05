@@ -142,8 +142,6 @@ class EventItem extends StatelessWidget {
   build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(8),
-      decoration: BoxDecoration(
-          border: Border(bottom: BorderSide(color: Colors.black12))),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[

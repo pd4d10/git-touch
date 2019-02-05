@@ -18,7 +18,9 @@ class TimeAgo {
     double diff =
         (DateTime.now().millisecondsSinceEpoch - time.millisecondsSinceEpoch) /
             1000;
-    if (diff < 3600) {
+    if (diff < 0) {
+      return 'in the future';
+    } else if (diff < 3600) {
       return _pluralize(diff / 60, 'minute');
     } else if (diff < 86400) {
       return _pluralize(diff / 3600, 'hour');

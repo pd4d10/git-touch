@@ -138,7 +138,7 @@ class _PullRequestScreenState extends State<PullRequestScreen> {
   @override
   Widget build(BuildContext context) {
     return ListScaffold(
-      title: _fullName + ' #' + widget.id.toString(),
+      title: Text(_fullName + ' #' + widget.id.toString()),
       header: payload == null ? null : _buildHeader(),
       itemCount: _items.length,
       itemBuilder: (context, index) => TimelineItem(_items[index], payload),

@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'providers/providers.dart';
 import 'providers/settings.dart';
 import 'screens/screens.dart';
+import 'screens/inbox.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -52,6 +53,10 @@ class _HomeState extends State<Home> {
   List<BottomNavigationBarItem> _buildNavigationItems() {
     return [
       BottomNavigationBarItem(
+        icon: Icon(Icons.inbox),
+        title: Text('Inbox'),
+      ),
+      BottomNavigationBarItem(
         icon: Icon(Icons.rss_feed),
         title: Text('News'),
       ),
@@ -73,12 +78,14 @@ class _HomeState extends State<Home> {
   _buildScreen(int index) {
     switch (index) {
       case 0:
-        return NewsScreen();
+        return InboxScreen();
       case 1:
-        return SearchScreen();
+        return NewsScreen();
       case 2:
-        return NotificationScreen();
+        return SearchScreen();
       case 3:
+        return NotificationScreen();
+      case 4:
         return ProfileScreen();
     }
   }

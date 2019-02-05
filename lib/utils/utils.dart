@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
-
+import '../providers/settings.dart';
 import '../screens/screens.dart';
 export 'github.dart';
 export 'octicons.dart';
@@ -12,6 +12,49 @@ Color convertColor(String cssHex) {
     cssHex = cssHex.substring(1);
   }
   return Color(int.parse('ff' + cssHex, radix: 16));
+}
+
+class Option<T> {
+  final T value;
+  final Widget widget;
+  Option({this.value, this.widget});
+}
+
+Future<T> showOptions<T>(BuildContext context, List<Option<T>> options) {
+  var builder = (BuildContext context) {
+    return CupertinoAlertDialog(
+      actions: options.map((option) {
+        return CupertinoDialogAction(
+          child: option.widget,
+          onPressed: () {
+            Navigator.pop(context, option.value);
+          },
+        );
+      }).toList(),
+    );
+  };
+
+  switch (SettingsProvider.of(context).layout) {
+    case LayoutMap.cupertino:
+      return showCupertinoDialog<T>(
+        context: context,
+        builder: builder,
+      );
+    default:
+      return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            child: Column(
+              children: <Widget>[
+                PopupMenuItem(child: Text('a')),
+                PopupMenuItem(child: Text('b')),
+              ],
+            ),
+          );
+        },
+      );
+  }
 }
 
 TextSpan createLinkSpan(BuildContext context, String text, Function handle) {

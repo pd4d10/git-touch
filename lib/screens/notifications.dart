@@ -45,7 +45,7 @@ class NotificationScreenState extends State<NotificationScreen> {
         style: TextStyle(color: Colors.black, fontSize: 15),
       ),
       items: group.items,
-      itemBuilder: (item) => NotificationItem(item: item),
+      itemBuilder: (item) => NotificationItem(payload: item),
     );
   }
 

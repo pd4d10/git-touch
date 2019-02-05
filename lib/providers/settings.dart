@@ -30,7 +30,7 @@ class _SettingsProviderState extends State<SettingsProvider> {
     if (Platform.isIOS) {
       layout = LayoutMap.cupertino;
     }
-    // layout = LayoutMap.material;
+    layout = LayoutMap.material;
   }
 
   @override
