@@ -20,32 +20,16 @@ class _HomeState extends State<Home> {
       return Icon(Icons.notifications);
     }
 
-    String text = count > 99 ? '99+' : count.toString();
+    // String text = count > 99 ? '99+' : count.toString();
 
-    // https://stackoverflow.com/a/54094844
-    return Stack(children: <Widget>[
-      Icon(Icons.notifications),
-      Positioned(
-        right: 0,
-        child: new Container(
-          padding: EdgeInsets.all(1),
-          decoration: new BoxDecoration(
-            color: Colors.red,
-            borderRadius: BorderRadius.circular(6),
-          ),
-          constraints: BoxConstraints(
-            minWidth: 12,
-            minHeight: 12,
-          ),
-          child: new Text(
-            '$text',
-            style: new TextStyle(
-              color: Colors.white,
-              fontSize: 8,
-            ),
-            textAlign: TextAlign.center,
-          ),
-        ),
+    // https://stackoverflow.com/a/45434404
+    return new Stack(children: <Widget>[
+      new Icon(Icons.notifications),
+      new Positioned(
+        // draw a red marble
+        top: 0.0,
+        right: 0.0,
+        child: new Icon(Icons.brightness_1, size: 8.0, color: Colors.redAccent),
       )
     ]);
   }

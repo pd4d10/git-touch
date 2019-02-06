@@ -109,10 +109,29 @@ class _NotificationItemState extends State<NotificationItem> {
     );
   }
 
+  void _markAsRead() async {
+    if (payload.unread && !loading) {
+      setState(() {
+        loading = true;
+      });
+      try {
+        await patchWithCredentials('/notifications/threads/' + payload.id);
+        widget.markAsRead();
+      } finally {
+        if (mounted) {
+          setState(() {
+            loading = false;
+          });
+        }
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Link(
       onTap: () {
+        _markAsRead();
         Navigator.of(context).push(
           CupertinoPageRoute(builder: (context) => _buildRoute()),
         );
@@ -135,22 +154,7 @@ class _NotificationItemState extends State<NotificationItem> {
               ),
               Link(
                 child: _buildCheckIcon(),
-                onTap: () async {
-                  if (payload.unread && !loading) {
-                    setState(() {
-                      loading = true;
-                    });
-                    try {
-                      await patchWithCredentials(
-                          '/notifications/threads/' + payload.id);
-                      widget.markAsRead();
-                    } finally {
-                      setState(() {
-                        loading = false;
-                      });
-                    }
-                  }
-                },
+                onTap: _markAsRead,
               ),
             ],
           ),

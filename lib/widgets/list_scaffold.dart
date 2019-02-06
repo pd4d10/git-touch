@@ -61,9 +61,11 @@ class _ListScaffoldState extends State<ListScaffold> {
     } catch (err) {
       print(err);
     } finally {
-      setState(() {
-        loading = false;
-      });
+      if (mounted) {
+        setState(() {
+          loading = false;
+        });
+      }
     }
   }
 

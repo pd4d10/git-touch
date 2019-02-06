@@ -16,10 +16,14 @@ String getItemKey(NotificationPayload item) {
 }
 
 Future<Map<String, NotificationGroup>> fetchNotifications(
-    [int page = 1]) async {
+    int index, BuildContext context) async {
   List items = await getWithCredentials(
-      '/notifications?page=$page&all=true&per_page=100');
+      '/notifications?all=${index == 2}&participating=${index == 1}');
   var ns = items.map((item) => NotificationPayload.fromJson(item)).toList();
+
+  if (index == 0) {
+    NotificationProvider.of(context).setCount(ns.length);
+  }
 
   Map<String, NotificationGroup> _groupMap = {};
 
@@ -97,7 +101,14 @@ class NotificationScreenState extends State<NotificationScreen> {
   bool loading = false;
   Map<String, NotificationGroup> groupMap = {};
 
-  Widget _buildGroupItem(String key, NotificationGroup group) {
+  @override
+  void initState() {
+    super.initState();
+    _refresh();
+  }
+
+  Widget _buildGroupItem(MapEntry<String, NotificationGroup> entry) {
+    var group = entry.value;
     var repo = group.repo;
     return ListGroup(
         title: Row(
@@ -126,7 +137,7 @@ class NotificationScreenState extends State<NotificationScreen> {
             payload: item,
             markAsRead: () {
               setState(() {
-                groupMap[key].items[index].unread = false;
+                groupMap[entry.key].items[index].unread = false;
               });
             },
           );
@@ -134,46 +145,79 @@ class NotificationScreenState extends State<NotificationScreen> {
   }
 
   Future<void> _onSwitchTab(BuildContext context, int index) async {
-    // setState(() {
-    //   active = index;
-    //   loading = true;
-    // });
-
-    var _groupMap = await fetchNotifications();
-
-    // NotificationProvider.of(context).setCount(ns.length);
-
     setState(() {
-      groupMap = _groupMap;
-      // loading = false;
+      active = index;
+      loading = true;
     });
+
+    var _groupMap = await fetchNotifications(active, context);
+
+    if (mounted) {
+      setState(() {
+        groupMap = _groupMap;
+        loading = false;
+      });
+    }
   }
 
   Future<void> _refresh() async {
-    print('onrefresh');
     await _onSwitchTab(context, active);
   }
+
+  var textMap = {
+    0: 'Unread',
+    1: 'Paticipating',
+    2: 'All',
+  };
+
+  // var iconMap = {
+  //   0: Icon(Icons.inbox),
+  //   1: Icon(Icons.group),
+  //   2: Icon(Icons.mail),
+  // };
 
   @override
   Widget build(context) {
     return RefreshScaffold(
-      title: Text('Notifications'),
-      onRefresh: _refresh,
-      bodyBuilder: () {
-        List<Widget> children = [];
-        children.add(CupertinoSegmentedControl(
-          groupValue: active,
-          onValueChanged: (index) => _onSwitchTab(context, index),
-          children: {
-            0: Text('Unread'),
-            1: Text('Paticipating'),
-            2: Text('All')
+      title: Text(textMap[active]),
+      trailing: GestureDetector(
+        child: Icon(Icons.more_vert, size: 20),
+        onTap: () async {
+          int value = await showCupertinoDialog(
+            context: context,
+            builder: (context) {
+              return CupertinoAlertDialog(
+                title: Text('Select filter'),
+                actions: textMap.entries.map((entry) {
+                  return CupertinoDialogAction(
+                    child: Text(entry.value),
+                    onPressed: () {
+                      Navigator.pop(context, entry.key);
+                    },
+                  );
+                }).toList(),
+              );
+            },
+          );
+          _onSwitchTab(context, value);
+        },
+      ),
+      actions: <Widget>[
+        PopupMenuButton(
+          onSelected: (value) {
+            _onSwitchTab(context, value);
           },
-        ));
-        children.addAll(groupMap.entries
-            .map((entry) => _buildGroupItem(entry.key, entry.value)));
-
-        return Column(children: children);
+          itemBuilder: (context) {
+            return textMap.entries.map((entry) {
+              return PopupMenuItem(value: entry.key, child: Text(entry.value));
+            }).toList();
+          },
+        )
+      ],
+      onRefresh: _refresh,
+      loading: loading,
+      bodyBuilder: () {
+        return Column(children: groupMap.entries.map(_buildGroupItem).toList());
       },
     );
   }

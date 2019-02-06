@@ -147,9 +147,11 @@ class _PullRequestScreenState extends State<PullRequestScreen> {
       onRefresh: () async {
         var _payload =
             await queryPullRequest(widget.id, widget.owner, widget.name);
-        setState(() {
-          payload = _payload;
-        });
+        if (mounted) {
+          setState(() {
+            payload = _payload;
+          });
+        }
       },
       // onLoadMore: () => ,
     );

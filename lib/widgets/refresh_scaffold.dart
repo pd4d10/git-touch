@@ -7,51 +7,28 @@ import 'loading.dart';
 typedef RefreshCallback = Future<void> Function();
 typedef WidgetBuilder = Widget Function();
 
-class RefreshScaffold extends StatefulWidget {
+class RefreshScaffold extends StatelessWidget {
   final Widget title;
   final WidgetBuilder bodyBuilder;
   final RefreshCallback onRefresh;
+  final bool loading;
+  final Widget trailing;
+  final List<Widget> actions;
 
   RefreshScaffold({
     @required this.title,
     @required this.bodyBuilder,
     @required this.onRefresh,
+    @required this.loading,
+    this.trailing,
+    this.actions,
   });
 
-  @override
-  _RefreshScaffoldState createState() => _RefreshScaffoldState();
-}
-
-class _RefreshScaffoldState extends State<RefreshScaffold> {
-  bool loading = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _refresh();
-  }
-
-  Future<void> _refresh() async {
-    print('refresh');
-    setState(() {
-      loading = true;
-    });
-    // try {
-    await widget.onRefresh();
-    // } catch (err) {
-    //   print(err);
-    // } finally {
-    setState(() {
-      loading = false;
-    });
-    // }
-  }
-
-  Widget _buildBody(BuildContext context) {
+  Widget _buildBody() {
     if (loading) {
-      return Loading(more: false);
+      return Loading(more: true);
     } else {
-      return widget.bodyBuilder();
+      return bodyBuilder();
     }
   }
 
@@ -60,22 +37,26 @@ class _RefreshScaffoldState extends State<RefreshScaffold> {
     switch (SettingsProvider.of(context).layout) {
       case LayoutMap.cupertino:
         return CupertinoPageScaffold(
-          navigationBar: CupertinoNavigationBar(middle: widget.title),
+          navigationBar:
+              CupertinoNavigationBar(middle: title, trailing: trailing),
           child: SafeArea(
             child: CustomScrollView(
               slivers: <Widget>[
-                CupertinoSliverRefreshControl(onRefresh: _refresh),
-                SliverToBoxAdapter(child: _buildBody(context))
+                CupertinoSliverRefreshControl(onRefresh: onRefresh),
+                SliverToBoxAdapter(child: _buildBody())
               ],
             ),
           ),
         );
       default:
         return Scaffold(
-          appBar: AppBar(title: widget.title),
+          appBar: AppBar(
+            title: title,
+            actions: actions,
+          ),
           body: RefreshIndicator(
-            onRefresh: _refresh,
-            child: SingleChildScrollView(child: _buildBody(context)),
+            onRefresh: onRefresh,
+            child: SingleChildScrollView(child: _buildBody()),
           ),
         );
     }

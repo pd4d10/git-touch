@@ -76,9 +76,11 @@ class _IssueScreenState extends State<IssueScreen> {
       itemBuilder: (context, index) => TimelineItem(_items[index], payload),
       onRefresh: () async {
         var _payload = await queryIssue(widget.id, widget.owner, widget.name);
-        setState(() {
-          payload = _payload;
-        });
+        if (mounted) {
+          setState(() {
+            payload = _payload;
+          });
+        }
       },
       // onLoadMore: () => ,
     );
