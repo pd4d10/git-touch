@@ -75,7 +75,14 @@ class UserScreen extends StatefulWidget {
 }
 
 class _UserScreenState extends State<UserScreen> {
-  Map<String, dynamic> payload;
+  bool loading;
+  Map<String, dynamic> payload = {};
+
+  @override
+  void initState() {
+    super.initState();
+    _refresh();
+  }
 
   Widget _buildRepos() {
     String title;
@@ -95,16 +102,25 @@ class _UserScreenState extends State<UserScreen> {
     );
   }
 
+  Future<void> _refresh() async {
+    setState(() {
+      loading = true;
+    });
+    var _payload = await queryUser(widget.login);
+    if (mounted) {
+      setState(() {
+        loading = false;
+        payload = _payload;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return RefreshScaffold(
-      onRefresh: () async {
-        var _payload = await queryUser(widget.login);
-        setState(() {
-          payload = _payload;
-        });
-      },
+      onRefresh: _refresh,
       title: Text(widget.login),
+      loading: loading,
       bodyBuilder: () {
         return Column(
           children: <Widget>[

@@ -63,21 +63,35 @@ class RepoScreen extends StatefulWidget {
 class _RepoScreenState extends State<RepoScreen> {
   Map<String, dynamic> payload;
   String readme;
+  bool loading;
+
+  @override
+  void initState() {
+    super.initState();
+    _refresh();
+  }
+
+  Future<void> _refresh() async {
+    setState(() {
+      loading = true;
+    });
+    List items = await Future.wait([
+      queryRepo(widget.owner, widget.name),
+      fetchReadme(widget.owner, widget.name),
+    ]);
+    setState(() {
+      loading = false;
+      payload = items[0];
+      readme = items[1];
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return RefreshScaffold(
+      loading: loading,
       title: Text(widget.owner + '/' + widget.name),
-      onRefresh: () async {
-        List items = await Future.wait([
-          queryRepo(widget.owner, widget.name),
-          fetchReadme(widget.owner, widget.name),
-        ]);
-        setState(() {
-          payload = items[0];
-          readme = items[1];
-        });
-      },
+      onRefresh: _refresh,
       bodyBuilder: () {
         return Column(
           children: <Widget>[

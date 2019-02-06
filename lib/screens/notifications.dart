@@ -8,7 +8,7 @@ import '../widgets/link.dart';
 import '../utils/utils.dart';
 
 String getRepoKey(NotificationGroup group) {
-  return '_' + group.owner + '_' + group.name;
+  return ('_' + group.owner + '_' + group.name).replaceAll('-', '__');
 }
 
 String getItemKey(NotificationPayload item) {
@@ -98,7 +98,7 @@ class NotificationScreen extends StatefulWidget {
 
 class NotificationScreenState extends State<NotificationScreen> {
   int active = 0;
-  bool loading = false;
+  bool loading;
   Map<String, NotificationGroup> groupMap = {};
 
   @override
