@@ -86,12 +86,12 @@ class _PullRequestScreenState extends State<PullRequestScreen> {
 
   Widget _buildBadge() {
     bool merged = payload['merged'];
-    int bgColor = merged ? Palette.purple : Palette.green;
+    Color bgColor = merged ? Palette.purple : Palette.green;
     IconData iconData = merged ? Octicons.git_merge : Octicons.git_pull_request;
     String text = merged ? 'Merged' : 'Open';
     return Container(
       decoration: BoxDecoration(
-        color: Color(bgColor),
+        color: bgColor,
         borderRadius: BorderRadius.all(Radius.circular(4)),
       ),
       padding: EdgeInsets.all(6),

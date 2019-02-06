@@ -15,6 +15,8 @@ class NotificationPayload {
   String updateAt;
   bool unread;
 
+  String state;
+
   NotificationPayload.fromJson(input) {
     id = input['id'];
     type = input['subject']['type'];
@@ -55,22 +57,47 @@ class _NotificationItemState extends State<NotificationItem> {
         return IssueScreen(payload.number, payload.owner, payload.name);
       case 'PullRequest':
         return PullRequestScreen(payload.number, payload.owner, payload.name);
+      case 'Release':
+      // return
       default:
         // throw new Exception('Unhandled notification type: $type');
         return Text('test');
     }
   }
 
-  IconData _buildIconData() {
+  Widget _buildIcon(IconData data, [Color color = Colors.black54]) {
+    return Icon(data, color: color, size: 20);
+  }
+
+  Widget _buildIconData() {
     switch (payload.type) {
       case 'Issue':
-        return Octicons.issue_opened;
-      // color: Color.fromRGBO(0x28, 0xa7, 0x45, 1),
+        switch (payload.state) {
+          case 'OPEN':
+            return _buildIcon(Octicons.issue_opened, Palette.green);
+          case 'CLOSED':
+            return _buildIcon(Octicons.issue_closed, Palette.red);
+          default:
+            return _buildIcon(Octicons.person);
+        }
+        break;
       case 'PullRequest':
-        return Octicons.git_pull_request;
+        switch (payload.state) {
+          case 'OPEN':
+            return _buildIcon(Octicons.git_pull_request, Palette.green);
+          case 'CLOSED':
+            return _buildIcon(Octicons.git_pull_request, Palette.red);
+          case 'MERGED':
+            return _buildIcon(Octicons.git_merge, Palette.purple);
+          default:
+            return _buildIcon(Octicons.person);
+        }
+        break;
       // color: Color.fromRGBO(0x6f, 0x42, 0xc1, 1),
+      case 'Release':
+        return _buildIcon(Octicons.tag);
       default:
-        return Octicons.person;
+        return _buildIcon(Octicons.person);
     }
   }
 
@@ -98,7 +125,7 @@ class _NotificationItemState extends State<NotificationItem> {
             children: <Widget>[
               Container(
                 padding: EdgeInsets.only(right: 8),
-                child: Icon(_buildIconData(), color: Colors.black45, size: 20),
+                child: _buildIconData(),
               ),
               Expanded(
                 child: Text(

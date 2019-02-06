@@ -24,13 +24,13 @@ class TimelineItem extends StatelessWidget {
   Widget _buildItem({
     String actor,
     IconData iconData = Octicons.octoface,
-    int iconColor = Palette.gray,
+    Color iconColor = Palette.gray,
     TextSpan textSpan,
     item,
   }) {
     return Row(
       children: <Widget>[
-        Icon(iconData, color: Color(iconColor), size: 16),
+        Icon(iconData, color: iconColor, size: 16),
         Padding(padding: EdgeInsets.only(left: 4)),
         Expanded(
           child: RichText(
@@ -198,7 +198,7 @@ class TimelineItem extends StatelessWidget {
       case 'PullRequestReview':
         return _buildItem(
           actor: item['author']['login'],
-          iconColor: 0xff28a745,
+          iconColor: Color(0xff28a745),
           iconData: Octicons.check,
           textSpan: _buildReviewText(context, item),
           item: item,
@@ -207,7 +207,7 @@ class TimelineItem extends StatelessWidget {
         return _buildItem(
           actor: item['actor']['login'],
           iconData: Octicons.git_merge,
-          iconColor: 0xff6f42c1,
+          iconColor: Color(0xff6f42c1),
           textSpan: TextSpan(children: [
             TextSpan(text: ' merged commit '),
             TextSpan(text: item['commit']['oid'].substring(0, 8)),

@@ -5,11 +5,11 @@ import '../providers/settings.dart';
 import 'loading.dart';
 
 typedef RefreshCallback = Future<void> Function();
-typedef BodyBuilder = Widget Function();
+typedef WidgetBuilder = Widget Function();
 
 class RefreshScaffold extends StatefulWidget {
   final Widget title;
-  final BodyBuilder bodyBuilder;
+  final WidgetBuilder bodyBuilder;
   final RefreshCallback onRefresh;
 
   RefreshScaffold({
