@@ -4,14 +4,15 @@ import '../providers/settings.dart';
 class Link extends StatelessWidget {
   final Widget child;
   final GestureTapCallback onTap;
+  final Color bgColor;
 
-  Link({@required this.child, @required this.onTap});
+  Link({@required this.child, @required this.onTap, this.bgColor});
 
   @override
   Widget build(BuildContext context) {
     return Material(
       child: Ink(
-        color: Colors.white,
+        color: bgColor ?? Colors.white,
         child: InkWell(
           splashColor:
               SettingsProvider.of(context).layout == LayoutMap.cupertino

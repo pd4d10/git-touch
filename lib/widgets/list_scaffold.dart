@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import '../providers/settings.dart';
+import '../widgets/link.dart';
 import 'loading.dart';
 
 typedef RefreshCallback = Future<void> Function();
 
 class ListScaffold extends StatefulWidget {
   final Widget title;
+  final IconData trailingIconData;
+  final Function trailingOnTap;
   final Widget header;
   final int itemCount;
   final IndexedWidgetBuilder itemBuilder;
@@ -16,6 +19,8 @@ class ListScaffold extends StatefulWidget {
 
   ListScaffold({
     @required this.title,
+    this.trailingIconData,
+    this.trailingOnTap,
     this.header,
     @required this.itemCount,
     @required this.itemBuilder,
@@ -47,7 +52,7 @@ class _ListScaffoldState extends State<ListScaffold> {
   }
 
   Future<void> _refresh() async {
-    print('refresh');
+    print('list scaffold refresh');
     setState(() {
       loading = true;
     });
@@ -63,7 +68,7 @@ class _ListScaffoldState extends State<ListScaffold> {
   }
 
   Future<void> _loadMore() async {
-    print('more');
+    print('list scaffold load more');
     setState(() {
       loadingMore = true;
     });
@@ -130,7 +135,18 @@ class _ListScaffoldState extends State<ListScaffold> {
         slivers.add(_buildSliver(context));
 
         return CupertinoPageScaffold(
-          navigationBar: CupertinoNavigationBar(middle: widget.title),
+          navigationBar: CupertinoNavigationBar(
+            middle: widget.title,
+            trailing: Link(
+              child: Icon(
+                widget.trailingIconData,
+                size: 24,
+                color: Colors.blueAccent,
+              ),
+              onTap: widget.trailingOnTap,
+              bgColor: Colors.transparent,
+            ),
+          ),
           child: SafeArea(
             child: CustomScrollView(
               controller: _controller,
@@ -140,7 +156,17 @@ class _ListScaffoldState extends State<ListScaffold> {
         );
       default:
         return Scaffold(
-          appBar: AppBar(title: widget.title),
+          appBar: AppBar(
+            title: widget.title,
+            actions: widget.trailingIconData == null
+                ? []
+                : <Widget>[
+                    IconButton(
+                      icon: Icon(widget.trailingIconData),
+                      onPressed: widget.trailingOnTap,
+                    )
+                  ],
+          ),
           body: RefreshIndicator(
             onRefresh: widget.onRefresh,
             child: _buildBody(context),

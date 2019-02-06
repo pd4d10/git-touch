@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
-import 'package:flutter/services.dart';
 import '../screens/screens.dart';
 import '../utils/utils.dart';
 import '../widgets/widgets.dart';
-import '../widgets/link.dart';
 
 /// Events types:
 ///

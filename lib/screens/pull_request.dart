@@ -98,11 +98,13 @@ class _PullRequestScreenState extends State<PullRequestScreen> {
       child: Row(
         children: <Widget>[
           Icon(iconData, color: Colors.white, size: 15),
-          Text(text,
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w600,
-              )),
+          Text(
+            text,
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
         ],
       ),
     );

@@ -20,6 +20,61 @@ class Option<T> {
   Option({this.value, this.widget});
 }
 
+Future<bool> showConfim(BuildContext context, String text) {
+  switch (SettingsProvider.of(context).layout) {
+    case LayoutMap.cupertino:
+      return showCupertinoDialog(
+        context: context,
+        builder: (context) {
+          return CupertinoAlertDialog(
+            title: Text(text),
+            actions: <Widget>[
+              CupertinoDialogAction(
+                child: const Text('cancel'),
+                isDefaultAction: true,
+                onPressed: () {
+                  Navigator.pop(context, false);
+                },
+              ),
+              CupertinoDialogAction(
+                child: const Text('OK'),
+                onPressed: () {
+                  Navigator.pop(context, true);
+                },
+              ),
+            ],
+          );
+        },
+      );
+    default:
+      return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: Text(
+              text,
+              // style: dialogTextStyle
+            ),
+            actions: <Widget>[
+              FlatButton(
+                child: const Text('CANCEL'),
+                onPressed: () {
+                  Navigator.pop(context, false);
+                },
+              ),
+              FlatButton(
+                child: const Text('OK'),
+                onPressed: () {
+                  Navigator.pop(context, true);
+                },
+              )
+            ],
+          );
+        },
+      );
+  }
+}
+
 Future<T> showOptions<T>(BuildContext context, List<Option<T>> options) {
   var builder = (BuildContext context) {
     return CupertinoAlertDialog(

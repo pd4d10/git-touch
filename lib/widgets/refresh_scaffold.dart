@@ -36,15 +36,15 @@ class _RefreshScaffoldState extends State<RefreshScaffold> {
     setState(() {
       loading = true;
     });
-    try {
-      await widget.onRefresh();
-    } catch (err) {
-      print(err);
-    } finally {
-      setState(() {
-        loading = false;
-      });
-    }
+    // try {
+    await widget.onRefresh();
+    // } catch (err) {
+    //   print(err);
+    // } finally {
+    setState(() {
+      loading = false;
+    });
+    // }
   }
 
   Widget _buildBody(BuildContext context) {
@@ -64,7 +64,7 @@ class _RefreshScaffoldState extends State<RefreshScaffold> {
           child: SafeArea(
             child: CustomScrollView(
               slivers: <Widget>[
-                CupertinoSliverRefreshControl(onRefresh: widget.onRefresh),
+                CupertinoSliverRefreshControl(onRefresh: _refresh),
                 SliverToBoxAdapter(child: _buildBody(context))
               ],
             ),
@@ -74,8 +74,8 @@ class _RefreshScaffoldState extends State<RefreshScaffold> {
         return Scaffold(
           appBar: AppBar(title: widget.title),
           body: RefreshIndicator(
-            onRefresh: widget.onRefresh,
-            child: _buildBody(context),
+            onRefresh: _refresh,
+            child: SingleChildScrollView(child: _buildBody(context)),
           ),
         );
     }

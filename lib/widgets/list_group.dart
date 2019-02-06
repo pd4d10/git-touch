@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 class ListGroup<T> extends StatelessWidget {
   final Widget title;
   final List<T> items;
-  final Widget Function(T item) itemBuilder;
+  final Widget Function(T item, int index) itemBuilder;
 
   ListGroup({this.title, this.items, this.itemBuilder});
 
-  Widget _buildItem(T item) {
+  Widget _buildItem(MapEntry<int, T> entry) {
     return Container(
       decoration: BoxDecoration(
         border: Border(bottom: BorderSide(color: Colors.black12)),
       ),
-      child: itemBuilder(item),
+      child: itemBuilder(entry.value, entry.key),
     );
   }
 
@@ -30,7 +30,7 @@ class ListGroup<T> extends StatelessWidget {
               color: Color(0x10000000),
               child: title,
             ),
-            Column(children: items.map(_buildItem).toList())
+            Column(children: items.asMap().entries.map(_buildItem).toList())
           ],
         ),
       ),

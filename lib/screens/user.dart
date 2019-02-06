@@ -91,7 +91,7 @@ class _UserScreenState extends State<UserScreen> {
     return ListGroup(
       title: Text(title),
       items: items,
-      itemBuilder: (item) => RepoItem(item),
+      itemBuilder: (item, _) => RepoItem(item),
     );
   }
 

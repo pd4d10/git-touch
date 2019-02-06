@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import '../utils/utils.dart';
 import '../widgets/list_scaffold.dart';
 import '../widgets/timeline_item.dart';
+import '../widgets/comment_item.dart';
 
 Future queryIssue(int id, String owner, String name) async {
   var data = await query('''
@@ -41,7 +42,25 @@ class _IssueScreenState extends State<IssueScreen> {
   Map<String, dynamic> payload;
 
   Widget _buildHeader() {
-    return Text('issue');
+    return Column(children: <Widget>[
+      Container(
+        // padding: EdgeInsets.all(10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              payload['title'],
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                height: 1.2,
+              ),
+            ),
+            CommentItem(payload),
+          ],
+        ),
+      )
+    ]);
   }
 
   get _fullName => widget.owner + '/' + widget.name;

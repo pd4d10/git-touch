@@ -36,6 +36,23 @@ Future<dynamic> postWithCredentials(String url, String body,
   return data;
 }
 
+Future<dynamic> putWithCredentials(String url,
+    {String contentType, String body}) async {
+  var headers = {HttpHeaders.authorizationHeader: 'token $token'};
+  if (contentType != null) {
+    headers[HttpHeaders.contentTypeHeader] = contentType;
+  }
+  final res = await http.put(prefix + url, headers: headers, body: body ?? {});
+  final data = json.decode(res.body);
+  return data;
+}
+
+Future<dynamic> patchWithCredentials(String url) async {
+  var headers = {HttpHeaders.authorizationHeader: 'token $token'};
+  await http.patch(prefix + url, headers: headers);
+  return true;
+}
+
 Future<dynamic> query(String query) async {
   final res =
       await postWithCredentials('/graphql', json.encode({'query': query}));

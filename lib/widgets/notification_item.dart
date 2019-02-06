@@ -1,12 +1,12 @@
-import 'dart:core';
-import 'package:flutter/material.dart' hide Notification;
-import 'package:flutter/cupertino.dart' hide Notification;
+import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import '../utils/utils.dart';
 import '../screens/issue.dart';
 import '../screens/pull_request.dart';
 import 'link.dart';
 
 class NotificationPayload {
+  String id;
   String type;
   String owner;
   String name;
@@ -16,6 +16,7 @@ class NotificationPayload {
   bool unread;
 
   NotificationPayload.fromJson(input) {
+    id = input['id'];
     type = input['subject']['type'];
     name = input['repository']['name'];
     owner = input['repository']['owner']['login'];
@@ -30,13 +31,23 @@ class NotificationPayload {
   }
 }
 
-class NotificationItem extends StatelessWidget {
-  const NotificationItem({
+class NotificationItem extends StatefulWidget {
+  final NotificationPayload payload;
+  final Function markAsRead;
+
+  NotificationItem({
     Key key,
     @required this.payload,
+    @required this.markAsRead,
   }) : super(key: key);
 
-  final NotificationPayload payload;
+  @override
+  _NotificationItemState createState() => _NotificationItemState();
+}
+
+class _NotificationItemState extends State<NotificationItem> {
+  NotificationPayload get payload => widget.payload;
+  bool loading = false;
 
   Widget _buildRoute() {
     switch (payload.type) {
@@ -63,6 +74,14 @@ class NotificationItem extends StatelessWidget {
     }
   }
 
+  Widget _buildCheckIcon() {
+    return Icon(
+      payload.unread ? Octicons.check : Octicons.primitive_dot,
+      color: loading ? Colors.black12 : Colors.black45,
+      size: 20,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Link(
@@ -71,59 +90,43 @@ class NotificationItem extends StatelessWidget {
           CupertinoPageRoute(builder: (context) => _buildRoute()),
         );
       },
-      child: Container(
-        padding: EdgeInsets.all(8),
-        color: payload.unread ? Colors.white : Colors.black12,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Container(
-                  padding: EdgeInsets.only(right: 8, top: 20),
-                  child: Icon(_buildIconData(), color: Colors.black45),
+      child: Opacity(
+        opacity: payload.unread ? 1 : 0.5,
+        child: Container(
+          padding: EdgeInsets.all(8),
+          child: Row(
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.only(right: 8),
+                child: Icon(_buildIconData(), color: Colors.black45, size: 20),
+              ),
+              Expanded(
+                child: Text(
+                  payload.title,
+                  overflow: TextOverflow.ellipsis,
                 ),
-                Expanded(
-                  child: Container(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          payload.owner +
-                              '/' +
-                              payload.name +
-                              ' #' +
-                              payload.number.toString(),
-                          style: TextStyle(fontSize: 13, color: Colors.black54),
-                        ),
-                        Padding(padding: EdgeInsets.only(top: 4)),
-                        Text(
-                          payload.title,
-                          style: TextStyle(fontSize: 15),
-                          maxLines: 3,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        Padding(padding: EdgeInsets.only(top: 6)),
-                        Text(
-                          payload.updateAt,
-                          style: TextStyle(
-                            fontSize: 12,
-                            // fontWeight: FontWeight.w300,
-                            color: Colors.black54,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 8),
-                  child: Icon(Octicons.check, color: Colors.black45),
-                ),
-              ],
-            ),
-          ],
+              ),
+              Link(
+                child: _buildCheckIcon(),
+                onTap: () async {
+                  if (payload.unread && !loading) {
+                    setState(() {
+                      loading = true;
+                    });
+                    try {
+                      await patchWithCredentials(
+                          '/notifications/threads/' + payload.id);
+                      widget.markAsRead();
+                    } finally {
+                      setState(() {
+                        loading = false;
+                      });
+                    }
+                  }
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
