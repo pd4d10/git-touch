@@ -13,90 +13,6 @@ class EventItem extends StatelessWidget {
   final Event event;
   EventItem(this.event);
 
-  TextSpan _buildEvent(BuildContext context) {
-    switch (event.type) {
-      case 'IssuesEvent':
-        return TextSpan(children: [
-          TextSpan(text: ' ${event.payload['action']} issue '),
-          _buildIssue(context),
-          TextSpan(text: ' at '),
-          _buildRepo(context),
-        ]);
-      case 'PushEvent':
-        return TextSpan(children: [
-          TextSpan(text: ' pushed to '),
-          TextSpan(
-            text: event.payload['ref'],
-            style: TextStyle(color: CupertinoColors.activeBlue),
-          ),
-          TextSpan(text: ' at '),
-          _buildRepo(context),
-          TextSpan(text: '')
-        ]);
-      case 'PullRequestEvent':
-        return TextSpan(children: [
-          TextSpan(text: ' ${event.payload['action']} pull request '),
-          _buildPullRequest(context, event.payload['pull_request']['number']),
-          TextSpan(text: ' at '),
-          _buildRepo(context),
-        ]);
-      case 'PullRequestReviewCommentEvent':
-        return TextSpan(children: [
-          TextSpan(text: ' reviewed pull request '),
-          _buildPullRequest(context, event.payload['pull_request']['number']),
-          TextSpan(text: ' at '),
-          _buildRepo(context),
-        ]);
-      case 'WatchEvent':
-        return TextSpan(children: [
-          TextSpan(text: ' ${event.payload['action']} '),
-          _buildRepo(context)
-        ]);
-      case 'IssueCommentEvent':
-        bool isIssue = event.payload['issue']['pull_request'] == null;
-        String resource = isIssue ? 'issue' : 'pull request';
-        TextSpan link = isIssue
-            ? _buildIssue(context)
-            : _buildPullRequest(context, event.payload['issue']['number']);
-
-        return TextSpan(children: [
-          TextSpan(text: ' commented on $resource '),
-          link,
-          TextSpan(text: ' at '),
-          _buildRepo(context),
-          // TextSpan(text: event.payload['comment']['body'])
-        ]);
-      case 'ForkEvent':
-        return TextSpan(children: [
-          TextSpan(text: ' forked '),
-          createRepoLinkSpan(context, event.payload['forkee']['owner']['login'],
-              event.payload['forkee']['name']),
-          TextSpan(text: ' from '),
-          _buildRepo(context),
-        ]);
-      default:
-        return TextSpan(
-          text: 'Type ${event.type} Not implement yet',
-          style: TextStyle(color: CupertinoColors.destructiveRed),
-        );
-    }
-  }
-
-  String _buildDetail() {
-    switch (event.type) {
-      case 'IssueCommentEvent':
-        return event.payload['comment']['body'];
-      case 'IssuesEvent':
-        return event.payload['issue']['title'];
-      case 'PullRequestEvent':
-        return event.payload['pull_request']['title'];
-      case 'PullRequestReviewCommentEvent':
-        return event.payload['comment']['body'];
-      default:
-        return '';
-    }
-  }
-
   TextSpan _buildRepo(BuildContext context) {
     String name = event.repo.name;
     var arr = name.split('/');
@@ -118,27 +34,21 @@ class EventItem extends StatelessWidget {
         () => PullRequestScreen(id, arr[0], arr[1]));
   }
 
-  IconData _buildIconData(BuildContext context) {
-    switch (event.type) {
-      case 'IssueCommentEvent':
-        return Octicons.comment_discussion;
-      case 'IssuesEvent':
-        return Octicons.issue_opened;
-      case 'PullRequestEvent':
-        return Octicons.git_pull_request;
-      case 'PushEvent':
-        return Octicons.repo_push;
-      case 'WatchEvent':
-        return Octicons.star;
-      case 'ForkEvent':
-        return Octicons.repo_forked;
-      default:
-        return Octicons.octoface;
-    }
-  }
+  Widget _buildItem({
+    @required BuildContext context,
+    @required List<TextSpan> spans,
+    String detail,
+    IconData iconData = Octicons.octoface,
+  }) {
+    var _spans = [
+      createLinkSpan(
+        context,
+        event.actor.login,
+        () => UserScreen(event.actor.login),
+      )
+    ];
+    _spans.addAll(spans);
 
-  @override
-  build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(8),
       child: Column(
@@ -156,38 +66,145 @@ class EventItem extends StatelessWidget {
                       height: 1.3,
                       fontSize: 15,
                     ),
-                    children: <TextSpan>[
-                      createLinkSpan(context, event.actor.login,
-                          () => UserScreen(event.actor.login)),
-                      _buildEvent(context),
-                    ],
+                    children: _spans,
                   ),
                 ),
               ),
               Padding(padding: EdgeInsets.only(left: 8)),
               Icon(
-                _buildIconData(context),
+                iconData,
                 color: CupertinoColors.inactiveGray,
                 size: 22,
               ),
             ],
           ),
-          Container(
-            padding: EdgeInsets.only(left: 46, top: 6),
-            child: Text(
-              _buildDetail(),
-              overflow: TextOverflow.ellipsis,
-              maxLines: 3,
-              style: TextStyle(
-                color: Colors.black87,
-                fontSize: 14,
-                height: 1.2,
-                fontWeight: FontWeight.w300,
-              ),
-            ),
-          )
+          detail == null
+              ? Container()
+              : Container(
+                  padding: EdgeInsets.only(left: 46, top: 6),
+                  child: Text(
+                    detail,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 3,
+                    style: TextStyle(
+                      color: Colors.black87,
+                      fontSize: 14,
+                      height: 1.2,
+                      fontWeight: FontWeight.w300,
+                    ),
+                  ),
+                )
         ],
       ),
     );
+  }
+
+  @override
+  build(BuildContext context) {
+    switch (event.type) {
+      case 'IssuesEvent':
+        return _buildItem(
+          context: context,
+          spans: [
+            TextSpan(text: ' ${event.payload['action']} issue '),
+            _buildIssue(context),
+            TextSpan(text: ' at '),
+            _buildRepo(context),
+          ],
+          iconData: Octicons.issue_opened,
+          detail: event.payload['issue']['title'],
+        );
+      case 'PushEvent':
+        return _buildItem(
+          context: context,
+          spans: [
+            TextSpan(text: ' pushed to '),
+            TextSpan(
+              text: event.payload['ref'],
+              style: TextStyle(color: CupertinoColors.activeBlue),
+            ),
+            TextSpan(text: ' at '),
+            _buildRepo(context),
+            TextSpan(text: '')
+          ],
+          iconData: Octicons.repo_push,
+        );
+      case 'PullRequestEvent':
+        return _buildItem(
+          context: context,
+          spans: [
+            TextSpan(text: ' ${event.payload['action']} pull request '),
+            _buildPullRequest(context, event.payload['pull_request']['number']),
+            TextSpan(text: ' at '),
+            _buildRepo(context),
+          ],
+          iconData: Octicons.git_pull_request,
+          detail: event.payload['pull_request']['title'],
+        );
+      case 'PullRequestReviewCommentEvent':
+        return _buildItem(
+          context: context,
+          spans: [
+            TextSpan(text: ' reviewed pull request '),
+            _buildPullRequest(context, event.payload['pull_request']['number']),
+            TextSpan(text: ' at '),
+            _buildRepo(context),
+          ],
+          detail: event.payload['comment']['body'],
+        );
+      case 'WatchEvent':
+        return _buildItem(
+          context: context,
+          spans: [
+            TextSpan(text: ' ${event.payload['action']} '),
+            _buildRepo(context)
+          ],
+          iconData: Octicons.star,
+        );
+      case 'IssueCommentEvent':
+        bool isIssue = event.payload['issue']['pull_request'] == null;
+        String resource = isIssue ? 'issue' : 'pull request';
+        TextSpan link = isIssue
+            ? _buildIssue(context)
+            : _buildPullRequest(context, event.payload['issue']['number']);
+
+        return _buildItem(
+          context: context,
+          spans: [
+            TextSpan(text: ' commented on $resource '),
+            link,
+            TextSpan(text: ' at '),
+            _buildRepo(context),
+            // TextSpan(text: event.payload['comment']['body'])
+          ],
+          detail: event.payload['comment']['body'],
+          iconData: Octicons.comment_discussion,
+        );
+      case 'ForkEvent':
+        return _buildItem(
+          context: context,
+          spans: [
+            TextSpan(text: ' forked '),
+            createRepoLinkSpan(
+                context,
+                event.payload['forkee']['owner']['login'],
+                event.payload['forkee']['name']),
+            TextSpan(text: ' from '),
+            _buildRepo(context),
+          ],
+          iconData: Octicons.repo_forked,
+        );
+      default:
+        return _buildItem(
+          context: context,
+          spans: [
+            TextSpan(
+              text: ' Type ${event.type} Not implement yet',
+              style: TextStyle(color: CupertinoColors.destructiveRed),
+            ),
+          ],
+          iconData: Octicons.octoface,
+        );
+    }
   }
 }
