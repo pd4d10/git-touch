@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import '../screens/screens.dart';
+import '../screens/user.dart';
 import 'link.dart';
 
 final style = TextStyle(fontWeight: FontWeight.w600);

@@ -4,28 +4,7 @@ import '../utils/utils.dart';
 import '../widgets/list_scaffold.dart';
 import '../widgets/timeline_item.dart';
 import '../widgets/comment_item.dart';
-
-Future queryIssue(int id, String owner, String name) async {
-  var data = await query('''
-{
-  repository(owner: "$owner", name: "$name") {
-    issue(number: $id) {
-      $graphqlChunk1
-      timeline(first: $pageSize) {
-        pageInfo {
-          hasNextPage
-          endCursor
-        }
-        nodes {
-          $graghqlChunk
-        }
-      }
-    }
-  }
-}
-''');
-  return data['repository']['issue'];
-}
+import '../providers/settings.dart';
 
 class IssueScreen extends StatefulWidget {
   final int id;
@@ -67,6 +46,29 @@ class _IssueScreenState extends State<IssueScreen> {
 
   List get _items => payload == null ? [] : payload['timeline']['nodes'];
 
+  Future queryIssue(
+      BuildContext context, int id, String owner, String name) async {
+    var data = await SettingsProvider.of(context).query('''
+{
+  repository(owner: "$owner", name: "$name") {
+    issue(number: $id) {
+      $graphqlChunk1
+      timeline(first: $pageSize) {
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+        nodes {
+          $graghqlChunk
+        }
+      }
+    }
+  }
+}
+''');
+    return data['repository']['issue'];
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListScaffold(
@@ -75,7 +77,8 @@ class _IssueScreenState extends State<IssueScreen> {
       itemCount: _items.length,
       itemBuilder: (context, index) => TimelineItem(_items[index], payload),
       onRefresh: () async {
-        var _payload = await queryIssue(widget.id, widget.owner, widget.name);
+        var _payload =
+            await queryIssue(context, widget.id, widget.owner, widget.name);
         if (mounted) {
           setState(() {
             payload = _payload;

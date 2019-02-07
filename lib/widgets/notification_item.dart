@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import '../utils/utils.dart';
 import '../screens/issue.dart';
 import '../screens/pull_request.dart';
+import '../providers/settings.dart';
 import 'link.dart';
 
 class NotificationPayload {
@@ -115,7 +116,8 @@ class _NotificationItemState extends State<NotificationItem> {
         loading = true;
       });
       try {
-        await patchWithCredentials('/notifications/threads/' + payload.id);
+        await SettingsProvider.of(context)
+            .patchWithCredentials('/notifications/threads/' + payload.id);
         widget.markAsRead();
       } finally {
         if (mounted) {

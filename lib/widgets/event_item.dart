@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import '../screens/screens.dart';
+import '../screens/issue.dart';
+import '../screens/pull_request.dart';
+import '../screens/user.dart';
 import '../utils/utils.dart';
-import '../widgets/widgets.dart';
+import 'avatar.dart';
 
 /// Events types:
 ///

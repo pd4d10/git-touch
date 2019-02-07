@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
-import '../widgets/widgets.dart';
 import '../utils/utils.dart';
+import 'avatar.dart';
+import 'user_name.dart';
 
 class CommentItem extends StatelessWidget {
   final Map<String, dynamic> item;

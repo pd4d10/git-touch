@@ -1,12 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import '../providers/settings.dart';
 import '../utils/utils.dart';
 import '../widgets/list_scaffold.dart';
 import '../widgets/timeline_item.dart';
 import '../widgets/comment_item.dart';
 
-Future queryPullRequest(int id, String owner, String name) async {
-  var data = await query('''
+class PullRequestScreen extends StatefulWidget {
+  final int id;
+  final String owner;
+  final String name;
+
+  PullRequestScreen(this.id, this.owner, this.name);
+
+  @override
+  _PullRequestScreenState createState() => _PullRequestScreenState();
+}
+
+class _PullRequestScreenState extends State<PullRequestScreen> {
+  Map<String, dynamic> payload;
+
+  Future queryPullRequest(BuildContext context) async {
+    var owner = widget.owner;
+    var id = widget.id;
+    var name = widget.name;
+
+    var data = await SettingsProvider.of(context).query('''
 {
   repository(owner: "$owner", name: "$name") {
     pullRequest(number: $id) {
@@ -67,22 +86,8 @@ Future queryPullRequest(int id, String owner, String name) async {
   }
 }
 ''');
-  return data['repository']['pullRequest'];
-}
-
-class PullRequestScreen extends StatefulWidget {
-  final int id;
-  final String owner;
-  final String name;
-
-  PullRequestScreen(this.id, this.owner, this.name);
-
-  @override
-  _PullRequestScreenState createState() => _PullRequestScreenState();
-}
-
-class _PullRequestScreenState extends State<PullRequestScreen> {
-  Map<String, dynamic> payload;
+    return data['repository']['pullRequest'];
+  }
 
   Widget _buildBadge() {
     bool merged = payload['merged'];
@@ -145,8 +150,7 @@ class _PullRequestScreenState extends State<PullRequestScreen> {
       itemCount: _items.length,
       itemBuilder: (context, index) => TimelineItem(_items[index], payload),
       onRefresh: () async {
-        var _payload =
-            await queryPullRequest(widget.id, widget.owner, widget.name);
+        var _payload = await queryPullRequest(context);
         if (mounted) {
           setState(() {
             payload = _payload;

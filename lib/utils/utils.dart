@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import '../providers/settings.dart';
-import '../screens/screens.dart';
+import '../screens/repo.dart';
 export 'github.dart';
 export 'octicons.dart';
 export 'timeago.dart';
+
+// These keys are for development
+var clientId = '9b7d1cc04a1db5710767';
+var clientSecret = '710e085908dde6a8b55f7a9dc447ad5c0c5617d1';
 
 Color convertColor(String cssHex) {
   if (cssHex.startsWith('#')) {
@@ -21,8 +25,8 @@ class Option<T> {
 }
 
 Future<bool> showConfim(BuildContext context, String text) {
-  switch (SettingsProvider.of(context).layout) {
-    case LayoutMap.cupertino:
+  switch (SettingsProvider.of(context).theme) {
+    case ThemeMap.cupertino:
       return showCupertinoDialog(
         context: context,
         builder: (context) {
@@ -89,8 +93,8 @@ Future<T> showOptions<T>(BuildContext context, List<Option<T>> options) {
     );
   };
 
-  switch (SettingsProvider.of(context).layout) {
-    case LayoutMap.cupertino:
+  switch (SettingsProvider.of(context).theme) {
+    case ThemeMap.cupertino:
       return showCupertinoDialog<T>(
         context: context,
         builder: builder,

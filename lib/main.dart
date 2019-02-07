@@ -1,14 +1,16 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'providers/providers.dart';
+import 'providers/notification.dart';
 import 'providers/settings.dart';
-import 'screens/screens.dart';
-import 'screens/inbox.dart';
+import 'screens/news.dart';
+import 'screens/notifications.dart';
+import 'screens/search.dart';
+import 'screens/profile.dart';
+import 'screens/login.dart';
 
 class Home extends StatefulWidget {
   @override
-  createState() => _HomeState();
+  _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
@@ -70,8 +72,18 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    switch (SettingsProvider.of(context).layout) {
-      case LayoutMap.cupertino:
+    var settings = SettingsProvider.of(context);
+
+    if (!settings.ready) {
+      return MaterialApp(home: Scaffold(body: Text('a')));
+    }
+
+    if (settings.activeLogin == null) {
+      return LoginScreen();
+    }
+
+    switch (settings.theme) {
+      case ThemeMap.cupertino:
         return CupertinoApp(
           home: CupertinoTheme(
             data: CupertinoThemeData(
@@ -111,27 +123,18 @@ class _HomeState extends State<Home> {
 }
 
 class App extends StatelessWidget {
-  final isIos = Platform.isIOS;
-  final SearchBloc searchBloc;
-
-  App(this.searchBloc);
-
   @override
   build(context) {
-    return SearchProvider(
-      bloc: searchBloc,
-      child: NotificationProvider(
-        child: SettingsProvider(
-          child: DefaultTextStyle(
-            // style: TextStyle(color: Color(0xff24292e)),
-            style: TextStyle(color: Colors.black),
-            child: Home(),
-            // theme: ThemeData(
-            //   textTheme: TextTheme(
-            //     title: TextStyle(color: Colors.red),
-            //   ),
-            // ),
-          ),
+    return NotificationProvider(
+      child: SettingsProvider(
+        child: DefaultTextStyle(
+          style: TextStyle(color: Colors.black),
+          child: Home(),
+          // theme: ThemeData(
+          //   textTheme: TextTheme(
+          //     title: TextStyle(color: Colors.red),
+          //   ),
+          // ),
         ),
       ),
     );
@@ -139,7 +142,14 @@ class App extends StatelessWidget {
 }
 
 void main() async {
-  SearchBloc searchBloc = SearchBloc();
+  // Platform messages may fail, so we use a try/catch PlatformException.
+
+  // try {
+  //   String initialLink = await getInitialLink();
+  //   print(initialLink);
+  // } on PlatformException {
+  //   print('test');
+  // }
 
   // DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
   // AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
@@ -148,5 +158,5 @@ void main() async {
   // IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
   // print('Running on ${iosInfo.utsname.machine}'); // e.g. "iPod7,1"
 
-  runApp(App(searchBloc));
+  runApp(App());
 }

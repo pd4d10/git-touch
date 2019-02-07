@@ -34,8 +34,8 @@ class RefreshScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    switch (SettingsProvider.of(context).layout) {
-      case LayoutMap.cupertino:
+    switch (SettingsProvider.of(context).theme) {
+      case ThemeMap.cupertino:
         return CupertinoPageScaffold(
           navigationBar:
               CupertinoNavigationBar(middle: title, trailing: trailing),

@@ -14,10 +14,9 @@ class Link extends StatelessWidget {
       child: Ink(
         color: bgColor ?? Colors.white,
         child: InkWell(
-          splashColor:
-              SettingsProvider.of(context).layout == LayoutMap.cupertino
-                  ? Colors.transparent
-                  : null,
+          splashColor: SettingsProvider.of(context).theme == ThemeMap.cupertino
+              ? Colors.transparent
+              : null,
           onTap: onTap,
           child: child,
         ),

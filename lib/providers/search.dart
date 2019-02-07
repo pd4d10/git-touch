@@ -4,34 +4,34 @@ import 'package:rxdart/subjects.dart';
 import 'package:rxdart/rxdart.dart';
 import '../utils/utils.dart';
 
-Future search(String keyword, String type) async {
-  var data = await query('''
-{
-  search(query: "$keyword", type: $type, first: 10) {
-    nodes {
-      ... on User {
-        avatarUrl
-        login
-      }
-      ... on Repository {
-        nameWithOwner
-        url
-        description
-        forkCount
-        stargazers {
-          totalCount
-        }
-        primaryLanguage {
-          name
-          color
-        }
-      }
-    }
-  }
-}
-''');
-  return data['search']['nodes'];
-}
+// Future search(String keyword, String type) async {
+//   var data = await query('''
+// {
+//   search(query: "$keyword", type: $type, first: 10) {
+//     nodes {
+//       ... on User {
+//         avatarUrl
+//         login
+//       }
+//       ... on Repository {
+//         nameWithOwner
+//         url
+//         description
+//         forkCount
+//         stargazers {
+//           totalCount
+//         }
+//         primaryLanguage {
+//           name
+//           color
+//         }
+//       }
+//     }
+//   }
+// }
+// ''');
+//   return data['search']['nodes'];
+// }
 
 class SearchBloc {
   final _keyword = BehaviorSubject(seedValue: '');
@@ -62,7 +62,7 @@ class SearchBloc {
 
   _querySearch(_) async {
     _loading.add(true);
-    await search(_keyword.value, _getTypeByIndex(_active.value));
+    // await search(_keyword.value, _getTypeByIndex(_active.value));
     _loading.add(false);
   }
 

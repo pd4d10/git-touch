@@ -2,7 +2,8 @@ import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import '../utils/utils.dart';
-import '../widgets/widgets.dart';
+import 'comment_item.dart';
+import 'user_name.dart';
 
 class TimelineItem extends StatelessWidget {
   final Map<String, dynamic> item;

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import '../widgets/refresh_scaffold.dart';
 import '../providers/notification.dart';
+import '../providers/settings.dart';
 import '../widgets/notification_item.dart';
 import '../widgets/list_group.dart';
 import '../widgets/link.dart';
@@ -13,73 +14,6 @@ String getRepoKey(NotificationGroup group) {
 
 String getItemKey(NotificationPayload item) {
   return '_' + item.number.toString();
-}
-
-Future<Map<String, NotificationGroup>> fetchNotifications(
-    int index, BuildContext context) async {
-  List items = await getWithCredentials(
-      '/notifications?all=${index == 2}&participating=${index == 1}');
-  var ns = items.map((item) => NotificationPayload.fromJson(item)).toList();
-
-  if (index == 0) {
-    NotificationProvider.of(context).setCount(ns.length);
-  }
-
-  Map<String, NotificationGroup> _groupMap = {};
-
-  ns.forEach((item) {
-    String repo = item.owner + '/' + item.name;
-    if (_groupMap[repo] == null) {
-      _groupMap[repo] = NotificationGroup(item.owner, item.name);
-    }
-
-    _groupMap[repo].items.add(item);
-  });
-
-  var schema = '{';
-  _groupMap.forEach((repo, group) {
-    var repoKey = getRepoKey(group);
-    schema +=
-        '$repoKey: repository(owner: "${group.owner}", name: "${group.name}") {';
-
-    group.items.forEach((item) {
-      var key = getItemKey(item);
-
-      switch (item.type) {
-        case 'Issue':
-          schema += '''
-$key: issue(number: ${item.number}) {
-  state
-}
-''';
-          break;
-        case 'PullRequest':
-          schema += '''
-$key: pullRequest(number: ${item.number}) {
-  state
-}
-''';
-          break;
-      }
-    });
-
-    schema += '}';
-  });
-  schema += '}';
-
-  // print(schema);
-  var data = await query(schema);
-  _groupMap.forEach((repo, group) {
-    group.items.forEach((item) {
-      var itemData = data[getRepoKey(group)][getItemKey(item)];
-      if (itemData != null) {
-        item.state = itemData['state'];
-      }
-    });
-  });
-  // print(data);
-
-  return _groupMap;
 }
 
 class NotificationGroup {
@@ -107,7 +41,74 @@ class NotificationScreenState extends State<NotificationScreen> {
     _refresh();
   }
 
-  Widget _buildGroupItem(MapEntry<String, NotificationGroup> entry) {
+  Future<Map<String, NotificationGroup>> fetchNotifications(int index) async {
+    List items = await SettingsProvider.of(context).getWithCredentials(
+        '/notifications?all=${index == 2}&participating=${index == 1}');
+    var ns = items.map((item) => NotificationPayload.fromJson(item)).toList();
+
+    if (index == 0) {
+      NotificationProvider.of(context).setCount(ns.length);
+    }
+
+    Map<String, NotificationGroup> _groupMap = {};
+
+    ns.forEach((item) {
+      String repo = item.owner + '/' + item.name;
+      if (_groupMap[repo] == null) {
+        _groupMap[repo] = NotificationGroup(item.owner, item.name);
+      }
+
+      _groupMap[repo].items.add(item);
+    });
+
+    var schema = '{';
+    _groupMap.forEach((repo, group) {
+      var repoKey = getRepoKey(group);
+      schema +=
+          '$repoKey: repository(owner: "${group.owner}", name: "${group.name}") {';
+
+      group.items.forEach((item) {
+        var key = getItemKey(item);
+
+        switch (item.type) {
+          case 'Issue':
+            schema += '''
+$key: issue(number: ${item.number}) {
+  state
+}
+''';
+            break;
+          case 'PullRequest':
+            schema += '''
+$key: pullRequest(number: ${item.number}) {
+  state
+}
+''';
+            break;
+        }
+      });
+
+      schema += '}';
+    });
+    schema += '}';
+
+    // print(schema);
+    var data = await SettingsProvider.of(context).query(schema);
+    _groupMap.forEach((repo, group) {
+      group.items.forEach((item) {
+        var itemData = data[getRepoKey(group)][getItemKey(item)];
+        if (itemData != null) {
+          item.state = itemData['state'];
+        }
+      });
+    });
+    // print(data);
+
+    return _groupMap;
+  }
+
+  Widget _buildGroupItem(
+      BuildContext context, MapEntry<String, NotificationGroup> entry) {
     var group = entry.value;
     var repo = group.repo;
     return ListGroup(
@@ -120,8 +121,9 @@ class NotificationScreenState extends State<NotificationScreen> {
             ),
             Link(
               onTap: () async {
-                await putWithCredentials('/repos/$repo/notifications');
-                await _refresh();
+                // await SettingsProvider.of(context)
+                //     .putWithCredentials('/repos/$repo/notifications');
+                // await _refresh();
               },
               child: Icon(
                 Octicons.check,
@@ -144,13 +146,13 @@ class NotificationScreenState extends State<NotificationScreen> {
         });
   }
 
-  Future<void> _onSwitchTab(BuildContext context, int index) async {
+  Future<void> _onSwitchTab(int index) async {
     setState(() {
       active = index;
       loading = true;
     });
 
-    var _groupMap = await fetchNotifications(active, context);
+    var _groupMap = await fetchNotifications(active);
 
     if (mounted) {
       setState(() {
@@ -161,7 +163,8 @@ class NotificationScreenState extends State<NotificationScreen> {
   }
 
   Future<void> _refresh() async {
-    await _onSwitchTab(context, active);
+    // setState(() {});
+    await _onSwitchTab(active);
   }
 
   var textMap = {
@@ -199,13 +202,13 @@ class NotificationScreenState extends State<NotificationScreen> {
               );
             },
           );
-          _onSwitchTab(context, value);
+          _onSwitchTab(value);
         },
       ),
       actions: <Widget>[
         PopupMenuButton(
           onSelected: (value) {
-            _onSwitchTab(context, value);
+            _onSwitchTab(value);
           },
           itemBuilder: (context) {
             return textMap.entries.map((entry) {
@@ -217,7 +220,10 @@ class NotificationScreenState extends State<NotificationScreen> {
       onRefresh: _refresh,
       loading: loading,
       bodyBuilder: () {
-        return Column(children: groupMap.entries.map(_buildGroupItem).toList());
+        return Column(
+            children: groupMap.entries
+                .map((entry) => _buildGroupItem(context, entry))
+                .toList());
       },
     );
   }

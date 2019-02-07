@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import '../providers/settings.dart';
 import '../widgets/refresh_scaffold.dart';
 import '../widgets/avatar.dart';
 import '../widgets/entry_item.dart';
@@ -29,8 +30,30 @@ primaryLanguage {
 }
 ''';
 
-Future queryUser(String login) async {
-  var data = await query('''
+final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+    GlobalKey<RefreshIndicatorState>();
+
+class UserScreen extends StatefulWidget {
+  final String login;
+
+  UserScreen(this.login);
+
+  _UserScreenState createState() => _UserScreenState();
+}
+
+class _UserScreenState extends State<UserScreen> {
+  bool loading;
+  Map<String, dynamic> payload = {};
+
+  @override
+  void initState() {
+    super.initState();
+    _refresh();
+  }
+
+  Future queryUser(BuildContext context) async {
+    var login = widget.login;
+    var data = await SettingsProvider.of(context).query('''
 {
   user(login: "$login") {
     name
@@ -60,28 +83,7 @@ Future queryUser(String login) async {
   }
 }
 ''');
-  return data['user'];
-}
-
-final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
-    GlobalKey<RefreshIndicatorState>();
-
-class UserScreen extends StatefulWidget {
-  final String login;
-
-  UserScreen(this.login);
-
-  _UserScreenState createState() => _UserScreenState();
-}
-
-class _UserScreenState extends State<UserScreen> {
-  bool loading;
-  Map<String, dynamic> payload = {};
-
-  @override
-  void initState() {
-    super.initState();
-    _refresh();
+    return data['user'];
   }
 
   Widget _buildRepos() {
@@ -106,7 +108,7 @@ class _UserScreenState extends State<UserScreen> {
     setState(() {
       loading = true;
     });
-    var _payload = await queryUser(widget.login);
+    var _payload = await queryUser(context);
     if (mounted) {
       setState(() {
         loading = false;

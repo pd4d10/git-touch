@@ -8,8 +8,8 @@ class Loading extends StatelessWidget {
   Loading({this.more});
 
   Widget _buildIndicator(BuildContext context) {
-    switch (SettingsProvider.of(context).layout) {
-      case LayoutMap.cupertino:
+    switch (SettingsProvider.of(context).theme) {
+      case ThemeMap.cupertino:
         return CupertinoActivityIndicator(radius: 12);
       default:
         return Center(
