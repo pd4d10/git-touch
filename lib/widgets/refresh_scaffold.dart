@@ -14,6 +14,7 @@ class RefreshScaffold extends StatelessWidget {
   final bool loading;
   final Widget trailing;
   final List<Widget> actions;
+  final PreferredSizeWidget bottom;
 
   RefreshScaffold({
     @required this.title,
@@ -22,6 +23,7 @@ class RefreshScaffold extends StatelessWidget {
     @required this.loading,
     this.trailing,
     this.actions,
+    this.bottom,
   });
 
   Widget _buildBody() {
@@ -49,14 +51,18 @@ class RefreshScaffold extends StatelessWidget {
           ),
         );
       default:
-        return Scaffold(
-          appBar: AppBar(
-            title: title,
-            actions: actions,
-          ),
-          body: RefreshIndicator(
-            onRefresh: onRefresh,
-            child: SingleChildScrollView(child: _buildBody()),
+        return DefaultTabController(
+          length: 3,
+          child: Scaffold(
+            appBar: AppBar(
+              title: title,
+              actions: actions,
+              bottom: bottom,
+            ),
+            body: RefreshIndicator(
+              onRefresh: onRefresh,
+              child: SingleChildScrollView(child: _buildBody()),
+            ),
           ),
         );
     }

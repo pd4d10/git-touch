@@ -148,7 +148,7 @@ class _SettingsProviderState extends State<SettingsProvider> {
     } else if (Platform.isIOS) {
       theme = ThemeMap.cupertino;
     }
-    // layout = LayoutMap.material;
+    theme = ThemeMap.material;
 
     setState(() {
       ready = true;
@@ -213,8 +213,10 @@ class _SettingsProviderState extends State<SettingsProvider> {
     var headers = {HttpHeaders.authorizationHeader: 'token $token'};
     final res =
         await http.put(prefix + url, headers: headers, body: body ?? {});
-    final data = json.decode(res.body);
-    return data;
+    print(res.body);
+    // final data = json.decode(res.body);
+    // return data;
+    return true;
   }
 
   String randomString;

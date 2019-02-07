@@ -111,7 +111,9 @@ $key: pullRequest(number: ${item.number}) {
   }
 
   Widget _buildGroupItem(
-      BuildContext context, MapEntry<String, NotificationGroup> entry) {
+    BuildContext context,
+    MapEntry<String, NotificationGroup> entry,
+  ) {
     var group = entry.value;
     var repo = group.repo;
     return ListGroup(
@@ -149,7 +151,11 @@ $key: pullRequest(number: ${item.number}) {
         });
   }
 
-  Future<void> _onSwitchTab(int index) async {
+  Future<void> _onSwitchTab([int index]) async {
+    if (index == null) {
+      index = active;
+    }
+
     setState(() {
       active = index;
       loading = true;
@@ -166,7 +172,6 @@ $key: pullRequest(number: ${item.number}) {
   }
 
   Future<void> _refresh() async {
-    // setState(() {});
     await _onSwitchTab(active);
   }
 
@@ -176,48 +181,67 @@ $key: pullRequest(number: ${item.number}) {
     2: 'All',
   };
 
-  // var iconMap = {
-  //   0: Icon(Icons.inbox),
-  //   1: Icon(Icons.group),
-  //   2: Icon(Icons.mail),
-  // };
+  Widget _buildTitle() {
+    switch (SettingsProvider.of(context).theme) {
+      case ThemeMap.cupertino:
+        // var textStyle = DefaultTextStyle.of(context).style;
+        return DefaultTextStyle(
+          style: TextStyle(fontSize: 16),
+          child: SizedBox.expand(
+            child: CupertinoSegmentedControl(
+              groupValue: active,
+              onValueChanged: _onSwitchTab,
+              children: textMap.map((key, text) => MapEntry(key, Text(text))),
+            ),
+          ),
+        );
+      default:
+        return Text('Notifications');
+    }
+  }
+
+  void _confirm() async {
+    var value = await showConfirm(context, 'Mark all as read?');
+    if (value) {
+      await SettingsProvider.of(context).putWithCredentials('/notifications');
+      await _refresh();
+    }
+  }
 
   @override
   Widget build(context) {
     return RefreshScaffold(
-      title: Text(textMap[active]),
-      trailing: GestureDetector(
-        child: Icon(Icons.more_vert, size: 20),
-        onTap: () async {
-          int value = await showCupertinoDialog(
-            context: context,
-            builder: (context) {
-              return CupertinoAlertDialog(
-                title: Text('Select filter'),
-                actions: textMap.entries.map((entry) {
-                  return CupertinoDialogAction(
-                    child: Text(entry.value),
-                    onPressed: () {
-                      Navigator.pop(context, entry.key);
-                    },
-                  );
-                }).toList(),
-              );
-            },
-          );
-          _onSwitchTab(value);
-        },
+      title: _buildTitle(),
+      bottom: TabBar(
+        onTap: _onSwitchTab,
+        tabs: textMap.entries.map((entry) => Tab(text: entry.value)).toList(),
       ),
+      // trailing: GestureDetector(
+      //   child: Icon(Icons.more_vert, size: 20),
+      //   onTap: () async {
+      //     int value = await showCupertinoDialog(
+      //       context: context,
+      //       builder: (context) {
+      //         return CupertinoAlertDialog(
+      //           title: Text('Select filter'),
+      //           actions: textMap.entries.map((entry) {
+      //             return CupertinoDialogAction(
+      //               child: Text(entry.value),
+      //               onPressed: () {
+      //                 Navigator.pop(context, entry.key);
+      //               },
+      //             );
+      //           }).toList(),
+      //         );
+      //       },
+      //     );
+      //     _onSwitchTab(value);
+      //   },
+      // ),
       actions: <Widget>[
-        PopupMenuButton(
-          onSelected: (value) {
-            _onSwitchTab(value);
-          },
-          itemBuilder: (context) {
-            return textMap.entries.map((entry) {
-              return PopupMenuItem(value: entry.key, child: Text(entry.value));
-            }).toList();
-          },
+        IconButton(
+          icon: Icon(Octicons.check),
+          onPressed: _confirm,
         )
       ],
       onRefresh: _refresh,

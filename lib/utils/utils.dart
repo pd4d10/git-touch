@@ -24,7 +24,7 @@ class Option<T> {
   Option({this.value, this.widget});
 }
 
-Future<bool> showConfim(BuildContext context, String text) {
+Future<bool> showConfirm(BuildContext context, String text) {
   switch (SettingsProvider.of(context).theme) {
     case ThemeMap.cupertino:
       return showCupertinoDialog(

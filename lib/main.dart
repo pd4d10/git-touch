@@ -103,6 +103,9 @@ class _HomeState extends State<Home> {
         );
       default:
         return MaterialApp(
+          theme: ThemeData(
+              // primaryColor: Colors.black87,
+              ),
           home: Scaffold(
             // appBar: AppBar(title: Text('Home')),
             body: _buildScreen(active),
