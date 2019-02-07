@@ -139,15 +139,15 @@ class _ListScaffoldState extends State<ListScaffold> {
         return CupertinoPageScaffold(
           navigationBar: CupertinoNavigationBar(
             middle: widget.title,
-            trailing: Link(
-              child: Icon(
-                widget.trailingIconData,
-                size: 24,
-                color: Colors.blueAccent,
-              ),
-              onTap: widget.trailingOnTap,
-              bgColor: Colors.transparent,
-            ),
+            // trailing: Link(
+            //   child: Icon(
+            //     widget.trailingIconData,
+            //     size: 24,
+            //     color: Colors.blueAccent,
+            //   ),
+            //   beforeRedirect: widget.trailingOnTap,
+            //   bgColor: Colors.transparent,
+            // ),
           ),
           child: SafeArea(
             child: CustomScrollView(

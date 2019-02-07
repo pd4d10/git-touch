@@ -17,10 +17,7 @@ class Avatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Link(
-      onTap: () {
-        Navigator.of(context)
-            .push(CupertinoPageRoute(builder: (_) => UserScreen(login)));
-      },
+      screenBuilder: (_) => UserScreen(login),
       child: CircleAvatar(
         backgroundColor: Colors.transparent,
         backgroundImage: NetworkImage(url),

@@ -113,16 +113,12 @@ class _RepoScreenState extends State<RepoScreen> {
                   EntryItem(
                     count: payload['issues']['totalCount'],
                     text: 'Issues',
-                    route: CupertinoPageRoute(
-                      builder: (context) => IssuesScreen(),
-                    ),
+                    screenBuilder: (context) => IssuesScreen(),
                   ),
                   EntryItem(
                     count: payload['pullRequests']['totalCount'],
                     text: 'Pull Requests',
-                    route: CupertinoPageRoute(
-                      builder: (context) => PullRequestsScreen(),
-                    ),
+                    screenBuilder: (context) => PullRequestsScreen(),
                   ),
                 ],
               ),

@@ -17,11 +17,7 @@ class UserName extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Link(
-      onTap: () {
-        Navigator.of(context).push(
-          CupertinoPageRoute(builder: (_) => UserScreen(login)),
-        );
-      },
+      screenBuilder: (_) => UserScreen(login),
       child: Container(
         padding: EdgeInsets.all(2),
         decoration: BoxDecoration(

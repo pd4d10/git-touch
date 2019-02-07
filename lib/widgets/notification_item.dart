@@ -52,7 +52,7 @@ class _NotificationItemState extends State<NotificationItem> {
   NotificationPayload get payload => widget.payload;
   bool loading = false;
 
-  Widget _buildRoute() {
+  Widget _buildRoute(BuildContext context) {
     switch (payload.type) {
       case 'Issue':
         return IssueScreen(payload.number, payload.owner, payload.name);
@@ -132,12 +132,8 @@ class _NotificationItemState extends State<NotificationItem> {
   @override
   Widget build(BuildContext context) {
     return Link(
-      onTap: () {
-        _markAsRead();
-        Navigator.of(context).push(
-          CupertinoPageRoute(builder: (context) => _buildRoute()),
-        );
-      },
+      screenBuilder: _buildRoute,
+      beforeRedirect: _markAsRead,
       child: Opacity(
         opacity: payload.unread ? 1 : 0.5,
         child: Container(
@@ -154,10 +150,7 @@ class _NotificationItemState extends State<NotificationItem> {
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
-              Link(
-                child: _buildCheckIcon(),
-                onTap: _markAsRead,
-              ),
+              Link(child: _buildCheckIcon(), beforeRedirect: _markAsRead),
             ],
           ),
         ),

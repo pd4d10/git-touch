@@ -3,8 +3,9 @@ import 'package:flutter/cupertino.dart';
 import '../screens/issue.dart';
 import '../screens/pull_request.dart';
 import '../screens/user.dart';
-import '../utils/utils.dart';
+import 'link.dart';
 import 'avatar.dart';
+import '../utils/utils.dart';
 
 class EventItem extends StatelessWidget {
   final Event event;
@@ -39,10 +40,7 @@ class EventItem extends StatelessWidget {
   }) {
     var _spans = [
       createLinkSpan(
-        context,
-        event.actor.login,
-        () => UserScreen(event.actor.login),
-      )
+          context, event.actor.login, () => UserScreen(event.actor.login))
     ];
     _spans.addAll(spans);
 

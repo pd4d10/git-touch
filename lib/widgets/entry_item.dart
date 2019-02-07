@@ -4,9 +4,9 @@ import 'link.dart';
 class EntryItem extends StatelessWidget {
   final int count;
   final String text;
-  final CupertinoPageRoute route;
+  final WidgetBuilder screenBuilder;
 
-  EntryItem({this.count, this.text, this.route});
+  EntryItem({this.count, this.text, this.screenBuilder});
 
   @override
   Widget build(BuildContext context) {
@@ -17,14 +17,12 @@ class EntryItem extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 10),
           child: Column(
             children: <Widget>[
-              Text(count.toString()),
+              Text(count.toString(), style: TextStyle(fontSize: 18)),
               Text(text, style: TextStyle(fontSize: 13))
             ],
           ),
         ),
-        onTap: () {
-          Navigator.of(context).push(route);
-        },
+        screenBuilder: screenBuilder,
       ),
     );
   }

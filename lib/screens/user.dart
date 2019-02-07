@@ -175,26 +175,22 @@ class _UserScreenState extends State<UserScreen> {
                   EntryItem(
                     count: payload['repositories']['totalCount'],
                     text: 'Repositories',
-                    route:
-                        CupertinoPageRoute(builder: (context) => ReposScreen()),
+                    screenBuilder: (context) => ReposScreen(),
                   ),
                   EntryItem(
                     count: payload['starredRepositories']['totalCount'],
                     text: 'Stars',
-                    route:
-                        CupertinoPageRoute(builder: (context) => ReposScreen()),
+                    screenBuilder: (context) => ReposScreen(),
                   ),
                   EntryItem(
                     count: payload['followers']['totalCount'],
                     text: 'Followers',
-                    route:
-                        CupertinoPageRoute(builder: (context) => UsersScreen()),
+                    screenBuilder: (context) => UsersScreen(),
                   ),
                   EntryItem(
                     count: payload['following']['totalCount'],
                     text: 'Following',
-                    route:
-                        CupertinoPageRoute(builder: (context) => UsersScreen()),
+                    screenBuilder: (context) => UsersScreen(),
                   ),
                 ],
               ),

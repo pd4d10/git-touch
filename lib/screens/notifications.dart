@@ -61,48 +61,51 @@ class NotificationScreenState extends State<NotificationScreen> {
       _groupMap[repo].items.add(item);
     });
 
-    var schema = '{';
-    _groupMap.forEach((repo, group) {
-      var repoKey = getRepoKey(group);
-      schema +=
-          '$repoKey: repository(owner: "${group.owner}", name: "${group.name}") {';
+    if (_groupMap.isNotEmpty) {
+      // query state of issues and pull requests
+      var schema = '{';
+      _groupMap.forEach((repo, group) {
+        var repoKey = getRepoKey(group);
+        schema +=
+            '$repoKey: repository(owner: "${group.owner}", name: "${group.name}") {';
 
-      group.items.forEach((item) {
-        var key = getItemKey(item);
+        group.items.forEach((item) {
+          var key = getItemKey(item);
 
-        switch (item.type) {
-          case 'Issue':
-            schema += '''
+          switch (item.type) {
+            case 'Issue':
+              schema += '''
 $key: issue(number: ${item.number}) {
   state
 }
 ''';
-            break;
-          case 'PullRequest':
-            schema += '''
+              break;
+            case 'PullRequest':
+              schema += '''
 $key: pullRequest(number: ${item.number}) {
   state
 }
 ''';
-            break;
-        }
-      });
+              break;
+          }
+        });
 
+        schema += '}';
+      });
       schema += '}';
-    });
-    schema += '}';
 
-    // print(schema);
-    var data = await SettingsProvider.of(context).query(schema);
-    _groupMap.forEach((repo, group) {
-      group.items.forEach((item) {
-        var itemData = data[getRepoKey(group)][getItemKey(item)];
-        if (itemData != null) {
-          item.state = itemData['state'];
-        }
+      // print(schema);
+      var data = await SettingsProvider.of(context).query(schema);
+      _groupMap.forEach((repo, group) {
+        group.items.forEach((item) {
+          var itemData = data[getRepoKey(group)][getItemKey(item)];
+          if (itemData != null) {
+            item.state = itemData['state'];
+          }
+        });
       });
-    });
-    // print(data);
+      // print(data);
+    }
 
     return _groupMap;
   }
@@ -120,10 +123,10 @@ $key: pullRequest(number: ${item.number}) {
               style: TextStyle(color: Colors.black, fontSize: 15),
             ),
             Link(
-              onTap: () async {
-                // await SettingsProvider.of(context)
-                //     .putWithCredentials('/repos/$repo/notifications');
-                // await _refresh();
+              beforeRedirect: () async {
+                await SettingsProvider.of(context)
+                    .putWithCredentials('/repos/$repo/notifications');
+                await _refresh();
               },
               child: Icon(
                 Octicons.check,
