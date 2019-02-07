@@ -6,9 +6,6 @@ import '../screens/user.dart';
 import '../utils/utils.dart';
 import 'avatar.dart';
 
-/// Events types:
-///
-/// https://developer.github.com/v3/activity/events/types/#event-types--payloads
 class EventItem extends StatelessWidget {
   final Event event;
   EventItem(this.event);
@@ -62,20 +59,13 @@ class EventItem extends StatelessWidget {
                 child: RichText(
                   text: TextSpan(
                     style: TextStyle(
-                      color: Colors.black,
-                      height: 1.3,
-                      fontSize: 15,
-                    ),
+                        color: Colors.black, height: 1.3, fontSize: 15),
                     children: _spans,
                   ),
                 ),
               ),
               Padding(padding: EdgeInsets.only(left: 8)),
-              Icon(
-                iconData,
-                color: CupertinoColors.inactiveGray,
-                size: 22,
-              ),
+              Icon(iconData, color: Colors.black45, size: 22),
             ],
           ),
           detail == null
@@ -101,66 +91,50 @@ class EventItem extends StatelessWidget {
 
   @override
   build(BuildContext context) {
+    var defaultItem = _buildItem(
+      context: context,
+      spans: [TextSpan(text: ' This is a ' + event.type)],
+      iconData: Octicons.octoface,
+      detail: 'Woops, ${event.type} not implemented yet',
+    );
+
+    // all events types here:
+    // https://developer.github.com/v3/activity/events/types/#event-types--payloads
     switch (event.type) {
-      case 'IssuesEvent':
+      case 'CheckRunEvent':
+      case 'CheckSuiteEvent':
+      case 'CommitCommentEvent':
+      case 'ContentReferenceEvent':
+      case 'CreateEvent':
+      case 'DeleteEvent':
+      case 'DeploymentEvent':
+      case 'DeploymentStatusEvent':
+      case 'DownloadEvent':
+      case 'FollowEvent':
+        // TODO:
+        return defaultItem;
+      case 'ForkEvent':
         return _buildItem(
           context: context,
           spans: [
-            TextSpan(text: ' ${event.payload['action']} issue '),
-            _buildIssue(context),
-            TextSpan(text: ' at '),
+            TextSpan(text: ' forked '),
+            createRepoLinkSpan(
+                context,
+                event.payload['forkee']['owner']['login'],
+                event.payload['forkee']['name']),
+            TextSpan(text: ' from '),
             _buildRepo(context),
           ],
-          iconData: Octicons.issue_opened,
-          detail: event.payload['issue']['title'],
+          iconData: Octicons.repo_forked,
         );
-      case 'PushEvent':
-        return _buildItem(
-          context: context,
-          spans: [
-            TextSpan(text: ' pushed to '),
-            TextSpan(
-              text: event.payload['ref'],
-              style: TextStyle(color: CupertinoColors.activeBlue),
-            ),
-            TextSpan(text: ' at '),
-            _buildRepo(context),
-            TextSpan(text: '')
-          ],
-          iconData: Octicons.repo_push,
-        );
-      case 'PullRequestEvent':
-        return _buildItem(
-          context: context,
-          spans: [
-            TextSpan(text: ' ${event.payload['action']} pull request '),
-            _buildPullRequest(context, event.payload['pull_request']['number']),
-            TextSpan(text: ' at '),
-            _buildRepo(context),
-          ],
-          iconData: Octicons.git_pull_request,
-          detail: event.payload['pull_request']['title'],
-        );
-      case 'PullRequestReviewCommentEvent':
-        return _buildItem(
-          context: context,
-          spans: [
-            TextSpan(text: ' reviewed pull request '),
-            _buildPullRequest(context, event.payload['pull_request']['number']),
-            TextSpan(text: ' at '),
-            _buildRepo(context),
-          ],
-          detail: event.payload['comment']['body'],
-        );
-      case 'WatchEvent':
-        return _buildItem(
-          context: context,
-          spans: [
-            TextSpan(text: ' ${event.payload['action']} '),
-            _buildRepo(context)
-          ],
-          iconData: Octicons.star,
-        );
+      case 'ForkApplyEvent':
+      case 'GitHubAppAuthorizationEvent':
+      case 'GistEvent':
+      case 'GollumEvent':
+      case 'InstallationEvent':
+      case 'InstallationRepositoriesEvent':
+        // TODO:
+        return defaultItem;
       case 'IssueCommentEvent':
         bool isIssue = event.payload['issue']['pull_request'] == null;
         String resource = isIssue ? 'issue' : 'pull request';
@@ -180,31 +154,94 @@ class EventItem extends StatelessWidget {
           detail: event.payload['comment']['body'],
           iconData: Octicons.comment_discussion,
         );
-      case 'ForkEvent':
+      case 'IssuesEvent':
         return _buildItem(
           context: context,
           spans: [
-            TextSpan(text: ' forked '),
-            createRepoLinkSpan(
-                context,
-                event.payload['forkee']['owner']['login'],
-                event.payload['forkee']['name']),
-            TextSpan(text: ' from '),
+            TextSpan(text: ' ${event.payload['action']} issue '),
+            _buildIssue(context),
+            TextSpan(text: ' at '),
             _buildRepo(context),
           ],
-          iconData: Octicons.repo_forked,
+          iconData: Octicons.issue_opened,
+          detail: event.payload['issue']['title'],
         );
-      default:
+      case 'LabelEvent':
+      case 'MarketplacePurchaseEvent':
+      case 'MemberEvent':
+      case 'MembershipEvent':
+      case 'MilestoneEvent':
+      case 'OrganizationEvent':
+      case 'OrgBlockEvent':
+      case 'PageBuildEvent':
+      case 'ProjectCardEvent':
+      case 'ProjectColumnEvent':
+      case 'ProjectEvent':
+      case 'PublicEvent':
+        // TODO:
+        return defaultItem;
+      case 'PullRequestEvent':
         return _buildItem(
           context: context,
           spans: [
-            TextSpan(
-              text: ' Type ${event.type} Not implement yet',
-              style: TextStyle(color: CupertinoColors.destructiveRed),
-            ),
+            TextSpan(text: ' ${event.payload['action']} pull request '),
+            _buildPullRequest(context, event.payload['pull_request']['number']),
+            TextSpan(text: ' at '),
+            _buildRepo(context),
           ],
-          iconData: Octicons.octoface,
+          iconData: Octicons.git_pull_request,
+          detail: event.payload['pull_request']['title'],
         );
+      case 'PullRequestReviewEvent':
+        // TODO:
+        return defaultItem;
+      case 'PullRequestReviewCommentEvent':
+        return _buildItem(
+          context: context,
+          spans: [
+            TextSpan(text: ' reviewed pull request '),
+            _buildPullRequest(context, event.payload['pull_request']['number']),
+            TextSpan(text: ' at '),
+            _buildRepo(context),
+          ],
+          detail: event.payload['comment']['body'],
+        );
+      case 'PushEvent':
+        return _buildItem(
+          context: context,
+          spans: [
+            TextSpan(text: ' pushed to '),
+            TextSpan(
+              text: event.payload['ref'],
+              style: TextStyle(color: CupertinoColors.activeBlue),
+            ),
+            TextSpan(text: ' at '),
+            _buildRepo(context),
+            TextSpan(text: '')
+          ],
+          iconData: Octicons.repo_push,
+        );
+      case 'ReleaseEvent':
+      case 'RepositoryEvent':
+      case 'RepositoryImportEvent':
+      case 'RepositoryVulnerabilityAlertEvent':
+      case 'SecurityAdvisoryEvent':
+      case 'StatusEvent':
+      case 'TeamEvent':
+      case 'TeamAddEvent':
+        // TODO:
+        return defaultItem;
+      case 'WatchEvent':
+        return _buildItem(
+          context: context,
+          spans: [
+            TextSpan(text: ' ${event.payload['action']} '),
+            _buildRepo(context)
+          ],
+          iconData: Octicons.star,
+        );
+      default:
+        return defaultItem;
     }
   }
 }
