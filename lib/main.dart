@@ -5,7 +5,7 @@ import 'providers/settings.dart';
 import 'screens/news.dart';
 import 'screens/notifications.dart';
 import 'screens/search.dart';
-import 'screens/profile.dart';
+import 'screens/me.dart';
 import 'screens/login.dart';
 import 'screens/pull_request.dart';
 import 'screens/issue.dart';
@@ -21,14 +21,14 @@ class _HomeState extends State<Home> {
   Widget _buildNotificationIcon(BuildContext context) {
     int count = NotificationProvider.of(context).count;
     if (count == 0) {
-      return Icon(Icons.notifications);
+      return Icon(Icons.notifications_none);
     }
 
     // String text = count > 99 ? '99+' : count.toString();
 
     // https://stackoverflow.com/a/45434404
     return new Stack(children: <Widget>[
-      new Icon(Icons.notifications),
+      new Icon(Icons.notifications_none),
       new Positioned(
         // draw a red marble
         top: 0.0,
@@ -53,7 +53,7 @@ class _HomeState extends State<Home> {
         title: Text('Search'),
       ),
       BottomNavigationBarItem(
-        icon: Icon(Icons.person),
+        icon: Icon(Icons.person_outline),
         title: Text('Me'),
       ),
     ];
@@ -69,7 +69,7 @@ class _HomeState extends State<Home> {
       case 2:
         return SearchScreen();
       case 3:
-        return ProfileScreen();
+        return MeScreen();
     }
   }
 
@@ -82,7 +82,7 @@ class _HomeState extends State<Home> {
     }
 
     if (settings.activeLogin == null) {
-      return LoginScreen();
+      return MaterialApp(home: LoginScreen());
     }
 
     switch (settings.theme) {

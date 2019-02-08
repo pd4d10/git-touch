@@ -7,8 +7,7 @@ import '../widgets/loading.dart';
 typedef RefreshCallback = Future<void> Function();
 typedef WidgetBuilder = Widget Function();
 
-// This is a scaffold for normal screens
-// Users can pull to refresh
+// This is a scaffold for pull to refresh
 class RefreshScaffold extends StatelessWidget {
   final Widget title;
   final WidgetBuilder bodyBuilder;

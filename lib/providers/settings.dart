@@ -21,18 +21,27 @@ class Account {
   String avatarUrl;
   String token;
 
-  Account({this.avatarUrl, this.token});
+  /// for github enterprise
+  String domain;
+
+  Account({
+    @required this.avatarUrl,
+    @required this.token,
+    this.domain,
+  });
 
   Account.fromJson(input) {
     avatarUrl = input['avatarUrl'];
     token = input['token'];
+    domain = input['domain'];
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'avatarUrl': avatarUrl,
-      'token': token,
-    };
+    var data = {'avatarUrl': avatarUrl, 'token': token};
+    if (domain != null) {
+      data['domain'] = domain;
+    }
+    return data;
   }
 }
 

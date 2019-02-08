@@ -31,7 +31,7 @@ class Loading extends StatelessWidget {
       );
     } else {
       return Padding(
-        padding: EdgeInsets.symmetric(vertical: 40),
+        padding: EdgeInsets.symmetric(vertical: 100),
         child: _buildIndicator(context),
       );
     }

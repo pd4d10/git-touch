@@ -43,10 +43,8 @@ class _SearchScreenState extends State<SearchScreen> {
                     var user = users[index];
                     return Row(
                       children: <Widget>[
-                        Image.network(
-                          user['avatarUrl'],
-                        ),
-                        Text(user['login'])
+                        Image.network(user['avatarUrl']),
+                        Text(user['login']),
                       ],
                     );
                   },

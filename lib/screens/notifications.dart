@@ -125,6 +125,7 @@ $key: pullRequest(number: ${item.number}) {
               style: TextStyle(color: Colors.black, fontSize: 15),
             ),
             Link(
+              material: false,
               beforeRedirect: () async {
                 await SettingsProvider.of(context)
                     .putWithCredentials('/repos/$repo/notifications');
