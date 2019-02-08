@@ -31,16 +31,20 @@ class NewsScreenState extends State<NewsScreen> {
       onRefresh: () async {
         page = 1;
         var items = await fetchEvents(page);
-        setState(() {
-          _events = items;
-        });
+        if (mounted) {
+          setState(() {
+            _events = items;
+          });
+        }
       },
       onLoadMore: () async {
         page = page + 1;
         var items = await fetchEvents(page);
-        setState(() {
-          _events.addAll(items);
-        });
+        if (mounted) {
+          setState(() {
+            _events.addAll(items);
+          });
+        }
       },
     );
   }

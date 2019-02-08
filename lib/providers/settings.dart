@@ -79,7 +79,7 @@ class _SettingsProviderState extends State<SettingsProvider> {
     super.initState();
     _initDataFromPref();
 
-    _sub = getUriLinksStream().listen(_loginWithGithub, onError: (err) {
+    _sub = getUriLinksStream().listen(_onSchemeDetected, onError: (err) {
       print(err);
     });
   }
@@ -91,7 +91,7 @@ class _SettingsProviderState extends State<SettingsProvider> {
   }
 
   // https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/#web-application-flow
-  void _loginWithGithub(Uri uri) async {
+  void _onSchemeDetected(Uri uri) async {
     // get token by code
     var code = uri.queryParameters['code'];
     // print(code);
@@ -157,7 +157,7 @@ class _SettingsProviderState extends State<SettingsProvider> {
     } else if (Platform.isIOS) {
       theme = ThemeMap.cupertino;
     }
-    // theme = ThemeMap.material;
+    theme = ThemeMap.material;
 
     setState(() {
       ready = true;

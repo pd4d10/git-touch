@@ -85,11 +85,13 @@ class _RepoScreenState extends State<RepoScreen> {
       queryRepo(context),
       fetchReadme(context),
     ]);
-    setState(() {
-      loading = false;
-      payload = items[0];
-      readme = items[1];
-    });
+    if (mounted) {
+      setState(() {
+        loading = false;
+        payload = items[0];
+        readme = items[1];
+      });
+    }
   }
 
   @override

@@ -104,7 +104,6 @@ class _HomeState extends State<Home> {
         return MaterialApp(
           theme: ThemeData(),
           home: Scaffold(
-            // appBar: AppBar(title: Text('Home')),
             body: _buildScreen(active),
             bottomNavigationBar: BottomNavigationBar(
               items: _buildNavigationItems(),

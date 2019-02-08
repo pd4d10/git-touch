@@ -144,9 +144,11 @@ $key: pullRequest(number: ${item.number}) {
           return NotificationItem(
             payload: item,
             markAsRead: () {
-              setState(() {
-                groupMap[entry.key].items[index].unread = false;
-              });
+              if (mounted) {
+                setState(() {
+                  groupMap[entry.key].items[index].unread = false;
+                });
+              }
             },
           );
         });
