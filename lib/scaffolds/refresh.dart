@@ -3,16 +3,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import '../providers/settings.dart';
 import '../widgets/loading.dart';
-
-typedef RefreshCallback = Future<void> Function();
-typedef WidgetBuilder = Widget Function();
+import '../widgets/error_reload.dart';
+import '../utils/utils.dart';
 
 // This is a scaffold for pull to refresh
-class RefreshScaffold extends StatelessWidget {
+class RefreshScaffold<T> extends StatefulWidget {
   final Widget title;
-  final WidgetBuilder bodyBuilder;
-  final RefreshCallback onRefresh;
-  final bool loading;
+  final Widget Function(T payload) bodyBuilder;
+  final Future<T> Function() onRefresh;
   final Widget trailing;
   final List<Widget> actions;
   final PreferredSizeWidget bottom;
@@ -21,17 +19,51 @@ class RefreshScaffold extends StatelessWidget {
     @required this.title,
     @required this.bodyBuilder,
     @required this.onRefresh,
-    @required this.loading,
     this.trailing,
     this.actions,
     this.bottom,
   });
 
+  @override
+  _RefreshScaffoldState createState() => _RefreshScaffoldState();
+}
+
+class _RefreshScaffoldState<T> extends State<RefreshScaffold<T>> {
+  bool loading;
+  T payload;
+  String error = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _refresh();
+  }
+
   Widget _buildBody() {
-    if (loading) {
+    if (error.isNotEmpty) {
+      return ErrorReload(text: error, reload: _refresh);
+    } else if (loading) {
       return Loading(more: true);
     } else {
-      return bodyBuilder();
+      return widget.bodyBuilder(payload);
+    }
+  }
+
+  Future<void> _refresh() async {
+    try {
+      setState(() {
+        error = '';
+        loading = true;
+      });
+      payload = await widget.onRefresh();
+    } catch (err) {
+      error = err.toString();
+    } finally {
+      if (mounted) {
+        setState(() {
+          loading = false;
+        });
+      }
     }
   }
 
@@ -40,30 +72,27 @@ class RefreshScaffold extends StatelessWidget {
     switch (SettingsProvider.of(context).theme) {
       case ThemeMap.cupertino:
         return CupertinoPageScaffold(
-          navigationBar:
-              CupertinoNavigationBar(middle: title, trailing: trailing),
+          navigationBar: CupertinoNavigationBar(
+              middle: widget.title, trailing: widget.trailing),
           child: SafeArea(
             child: CustomScrollView(
               slivers: <Widget>[
-                CupertinoSliverRefreshControl(onRefresh: onRefresh),
+                CupertinoSliverRefreshControl(onRefresh: _refresh),
                 SliverToBoxAdapter(child: _buildBody())
               ],
             ),
           ),
         );
       default:
-        return DefaultTabController(
-          length: 3,
-          child: Scaffold(
-            appBar: AppBar(
-              title: title,
-              actions: actions,
-              bottom: bottom,
-            ),
-            body: RefreshIndicator(
-              onRefresh: onRefresh,
-              child: SingleChildScrollView(child: _buildBody()),
-            ),
+        return Scaffold(
+          appBar: AppBar(
+            title: widget.title,
+            actions: widget.actions,
+            bottom: widget.bottom,
+          ),
+          body: RefreshIndicator(
+            onRefresh: _refresh,
+            child: SingleChildScrollView(child: _buildBody()),
           ),
         );
     }

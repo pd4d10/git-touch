@@ -16,7 +16,7 @@ class _LoginScreenState extends State<LoginScreen> {
     var settings = SettingsProvider.of(context);
 
     return SimpleScaffold(
-      title: Text('Accounts'),
+      title: Text('Select account'),
       bodyBuilder: () {
         return Container(
           child: Column(

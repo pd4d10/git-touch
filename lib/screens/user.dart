@@ -43,15 +43,6 @@ class UserScreen extends StatefulWidget {
 }
 
 class _UserScreenState extends State<UserScreen> {
-  bool loading = true;
-  Map<String, dynamic> payload = {};
-
-  @override
-  void initState() {
-    super.initState();
-    nextTick(_refresh);
-  }
-
   Future queryUser(BuildContext context) async {
     var login = widget.login;
     var data = await SettingsProvider.of(context).query('''
@@ -89,7 +80,7 @@ class _UserScreenState extends State<UserScreen> {
     return data['user'];
   }
 
-  Widget _buildRepos() {
+  Widget _buildRepos(payload) {
     String title;
     List items;
     if (payload['pinnedRepositories']['nodes'].length == 0) {
@@ -107,20 +98,7 @@ class _UserScreenState extends State<UserScreen> {
     );
   }
 
-  Future<void> _refresh() async {
-    setState(() {
-      loading = true;
-    });
-    var _payload = await queryUser(context);
-    if (mounted) {
-      setState(() {
-        loading = false;
-        payload = _payload;
-      });
-    }
-  }
-
-  Widget _buildEmail() {
+  Widget _buildEmail(payload) {
     // TODO: redesign the UI to show all information
     String email = payload['email'] ?? '';
     if (email.isNotEmpty) {
@@ -172,7 +150,7 @@ class _UserScreenState extends State<UserScreen> {
   @override
   Widget build(BuildContext context) {
     return RefreshScaffold(
-      onRefresh: _refresh,
+      onRefresh: () => queryUser(context),
       title: Text(widget.login),
       trailing: Link(
         child: Icon(Icons.settings, size: 24),
@@ -180,8 +158,7 @@ class _UserScreenState extends State<UserScreen> {
         material: false,
         fullscreenDialog: true,
       ),
-      loading: loading,
-      bodyBuilder: () {
+      bodyBuilder: (payload) {
         return Column(
           children: <Widget>[
             Container(
@@ -202,7 +179,7 @@ class _UserScreenState extends State<UserScreen> {
                         Text(payload['name'] ?? widget.login,
                             style: TextStyle(height: 1.2)),
                         Padding(padding: EdgeInsets.only(top: 10)),
-                        _buildEmail(),
+                        _buildEmail(payload),
                       ],
                     ),
                   )
@@ -241,7 +218,7 @@ class _UserScreenState extends State<UserScreen> {
                 ],
               ),
             ),
-            _buildRepos(),
+            _buildRepos(payload),
           ],
         );
       },

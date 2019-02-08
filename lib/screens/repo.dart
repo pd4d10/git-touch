@@ -8,7 +8,6 @@ import '../widgets/repo_item.dart';
 import '../widgets/entry_item.dart';
 import '../screens/issues.dart';
 import '../screens/pull_requests.dart';
-import '../utils/utils.dart';
 
 class RepoScreen extends StatefulWidget {
   final String owner;
@@ -21,16 +20,6 @@ class RepoScreen extends StatefulWidget {
 }
 
 class _RepoScreenState extends State<RepoScreen> {
-  Map<String, dynamic> payload;
-  String readme;
-  bool loading = true;
-
-  @override
-  void initState() {
-    super.initState();
-    nextTick(_refresh);
-  }
-
   Future queryRepo(BuildContext context) async {
     var owner = widget.owner;
     var name = widget.name;
@@ -77,30 +66,18 @@ class _RepoScreenState extends State<RepoScreen> {
     return str;
   }
 
-  Future<void> _refresh() async {
-    setState(() {
-      loading = true;
-    });
-    List items = await Future.wait([
-      queryRepo(context),
-      fetchReadme(context),
-    ]);
-    if (mounted) {
-      setState(() {
-        loading = false;
-        payload = items[0];
-        readme = items[1];
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return RefreshScaffold(
-      loading: loading,
       title: Text(widget.owner + '/' + widget.name),
-      onRefresh: _refresh,
-      bodyBuilder: () {
+      onRefresh: () => Future.wait([
+            queryRepo(context),
+            fetchReadme(context),
+          ]),
+      bodyBuilder: (data) {
+        var payload = data[0];
+        var readme = data[1];
+
         return Column(
           children: <Widget>[
             RepoItem(payload),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import '../scaffolds/refresh.dart';
+import '../scaffolds/refresh_stateless.dart';
 import '../providers/notification.dart';
 import '../providers/settings.dart';
 import '../widgets/notification_item.dart';
@@ -31,6 +31,7 @@ class NotificationScreen extends StatefulWidget {
 }
 
 class NotificationScreenState extends State<NotificationScreen> {
+  String error = '';
   int active = 0;
   bool loading = true;
   Map<String, NotificationGroup> groupMap = {};
@@ -155,22 +156,23 @@ $key: pullRequest(number: ${item.number}) {
   }
 
   Future<void> _onSwitchTab([int index]) async {
-    if (index == null) {
-      index = active;
-    }
-
     setState(() {
-      active = index;
+      error = '';
+      if (index != null) {
+        active = index;
+      }
       loading = true;
     });
-
-    var _groupMap = await fetchNotifications(active);
-
-    if (mounted) {
-      setState(() {
-        groupMap = _groupMap;
-        loading = false;
-      });
+    try {
+      groupMap = await fetchNotifications(active);
+    } catch (err) {
+      error = err.toString();
+    } finally {
+      if (mounted) {
+        setState(() {
+          loading = false;
+        });
+      }
     }
   }
 
@@ -209,7 +211,7 @@ $key: pullRequest(number: ${item.number}) {
 
   @override
   Widget build(context) {
-    return RefreshScaffold(
+    return RefreshStatelessScaffold(
       title: _buildTitle(),
       bottom: TabBar(
         onTap: _onSwitchTab,
@@ -245,6 +247,7 @@ $key: pullRequest(number: ${item.number}) {
       ],
       onRefresh: _onSwitchTab,
       loading: loading,
+      error: error,
       bodyBuilder: () {
         return Column(
             children: groupMap.entries

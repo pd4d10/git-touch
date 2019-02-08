@@ -157,7 +157,7 @@ class _SettingsProviderState extends State<SettingsProvider> {
     } else if (Platform.isIOS) {
       theme = ThemeMap.cupertino;
     }
-    theme = ThemeMap.material;
+    // theme = ThemeMap.material;
 
     setState(() {
       ready = true;
@@ -173,6 +173,10 @@ class _SettingsProviderState extends State<SettingsProvider> {
     });
   }
 
+  // http timeout
+  var _timeoutDuration = Duration(seconds: 10);
+  // var _timeoutDuration = Duration(seconds: 1);
+
   Future<dynamic> query(String query, [String _token]) async {
     if (_token == null) {
       _token = token;
@@ -181,12 +185,15 @@ class _SettingsProviderState extends State<SettingsProvider> {
       throw Exception('token is null');
     }
 
-    final res = await http.post(prefix + '/graphql',
-        headers: {
-          HttpHeaders.authorizationHeader: 'token $_token',
-          HttpHeaders.contentTypeHeader: 'application/json'
-        },
-        body: json.encode({'query': query}));
+    final res = await http
+        .post(prefix + '/graphql',
+            headers: {
+              HttpHeaders.authorizationHeader: 'token $_token',
+              HttpHeaders.contentTypeHeader: 'application/json'
+            },
+            body: json.encode({'query': query}))
+        .timeout(_timeoutDuration);
+
     final data = json.decode(res.body);
 
     if (data['errors'] != null) {
@@ -202,10 +209,9 @@ class _SettingsProviderState extends State<SettingsProvider> {
       // https://developer.github.com/v3/repos/contents/#custom-media-types
       headers[HttpHeaders.contentTypeHeader] = contentType;
     }
-    final res = await http.get(
-      prefix + url,
-      headers: headers,
-    );
+    final res = await http
+        .get(prefix + url, headers: headers)
+        .timeout(_timeoutDuration);
     print(res.body);
     final data = json.decode(res.body);
     return data;
@@ -213,15 +219,18 @@ class _SettingsProviderState extends State<SettingsProvider> {
 
   Future<dynamic> patchWithCredentials(String url) async {
     var headers = {HttpHeaders.authorizationHeader: 'token $token'};
-    await http.patch(prefix + url, headers: headers);
+    await http.patch(prefix + url, headers: headers).timeout(_timeoutDuration);
+
     return true;
   }
 
   Future<dynamic> putWithCredentials(String url,
       {String contentType, String body}) async {
     var headers = {HttpHeaders.authorizationHeader: 'token $token'};
-    final res =
-        await http.put(prefix + url, headers: headers, body: body ?? {});
+    final res = await http
+        .put(prefix + url, headers: headers, body: body ?? {})
+        .timeout(_timeoutDuration);
+
     print(res.body);
     // final data = json.decode(res.body);
     // return data;

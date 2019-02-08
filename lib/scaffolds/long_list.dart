@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import '../providers/settings.dart';
 import '../widgets/loading.dart';
 import '../widgets/link.dart';
+import '../widgets/error_reload.dart';
 
 class LongListPayload<T, K> {
   T header;
@@ -51,6 +52,8 @@ class LongListScaffold<T, K> extends StatefulWidget {
 class _LongListScaffoldState<T, K> extends State<LongListScaffold<T, K>> {
   bool loading;
   bool loadingMore = false;
+  String error = '';
+
   LongListPayload<T, K> payload;
 
   @override
@@ -62,10 +65,17 @@ class _LongListScaffoldState<T, K> extends State<LongListScaffold<T, K>> {
   Future<void> _refresh() async {
     print('long list scaffold refresh');
     setState(() {
+      error = '';
       loading = true;
     });
     try {
       payload = await widget.onRefresh();
+    } catch (err) {
+      if (mounted) {
+        setState(() {
+          error = err.toString();
+        });
+      }
     } finally {
       if (mounted) {
         setState(() {
@@ -161,7 +171,9 @@ class _LongListScaffoldState<T, K> extends State<LongListScaffold<T, K>> {
   }
 
   Widget _buildSliver() {
-    if (loading) {
+    if (error.isNotEmpty) {
+      return ErrorReload(text: error, reload: _refresh);
+    } else if (loading) {
       return SliverToBoxAdapter(child: Loading(more: false));
     } else {
       return SliverList(
@@ -172,7 +184,9 @@ class _LongListScaffoldState<T, K> extends State<LongListScaffold<T, K>> {
   }
 
   Widget _buildBody() {
-    if (loading) {
+    if (error.isNotEmpty) {
+      return ErrorReload(text: error, reload: _refresh);
+    } else if (loading) {
       return Loading(more: false);
     } else {
       return ListView.builder(itemCount: _itemCount, itemBuilder: _buildItem);

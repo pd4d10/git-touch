@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import '../providers/settings.dart';
-import '../widgets/link.dart';
+import '../widgets/error_reload.dart';
 import '../widgets/loading.dart';
 
 typedef RefreshCallback = Future<void> Function();
@@ -36,6 +36,8 @@ class ListScaffold extends StatefulWidget {
 class _ListScaffoldState extends State<ListScaffold> {
   bool loading = false;
   bool loadingMore = false;
+  String error = '';
+
   ScrollController _controller = ScrollController();
 
   @override
@@ -55,12 +57,13 @@ class _ListScaffoldState extends State<ListScaffold> {
   Future<void> _refresh() async {
     print('list scaffold refresh');
     setState(() {
+      error = '';
       loading = true;
     });
     try {
       await widget.onRefresh();
     } catch (err) {
-      print(err);
+      error = err.toString();
     } finally {
       if (mounted) {
         setState(() {
@@ -105,7 +108,9 @@ class _ListScaffoldState extends State<ListScaffold> {
   }
 
   Widget _buildSliver(BuildContext context) {
-    if (loading) {
+    if (error.isNotEmpty) {
+      return ErrorReload(text: error, reload: _refresh);
+    } else if (loading) {
       return SliverToBoxAdapter(child: Loading(more: false));
     } else {
       return SliverList(
@@ -118,7 +123,9 @@ class _ListScaffoldState extends State<ListScaffold> {
   }
 
   Widget _buildBody(BuildContext context) {
-    if (loading) {
+    if (error.isNotEmpty) {
+      return ErrorReload(text: error, reload: _refresh);
+    } else if (loading) {
       return Loading(more: false);
     } else {
       return ListView.builder(
