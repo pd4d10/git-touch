@@ -86,11 +86,7 @@ class _HomeState extends State<Home> {
       case ThemeMap.cupertino:
         return CupertinoApp(
           home: CupertinoTheme(
-            data: CupertinoThemeData(
-                // brightness: Brightness.dark,
-                // barBackgroundColor: Color.fromRGBO(0x24, 0x29, 0x2e, 1),
-                // primaryColor: Color(0xff24292e),
-                ),
+            data: CupertinoThemeData(),
             child: CupertinoTabScaffold(
               tabBar: CupertinoTabBar(items: _buildNavigationItems()),
               tabBuilder: (context, index) {
@@ -103,9 +99,7 @@ class _HomeState extends State<Home> {
         );
       default:
         return MaterialApp(
-          theme: ThemeData(
-              // primaryColor: Colors.black87,
-              ),
+          theme: ThemeData(),
           home: Scaffold(
             // appBar: AppBar(title: Text('Home')),
             body: _buildScreen(active),

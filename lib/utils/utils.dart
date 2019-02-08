@@ -18,6 +18,12 @@ Color convertColor(String cssHex) {
   return Color(int.parse('ff' + cssHex, radix: 16));
 }
 
+void nextTick(Function callback) {
+  Future.delayed(Duration(seconds: 0)).then((_) {
+    callback();
+  });
+}
+
 class Option<T> {
   final T value;
   final Widget widget;
@@ -120,7 +126,7 @@ TextSpan createLinkSpan(BuildContext context, String text, Function handle) {
   return TextSpan(
     text: text,
     style: TextStyle(
-      color: Color(0xff0366d6),
+      color: Colors.black87,
       fontWeight: FontWeight.w600,
       // decoration: TextDecoration.underline,
     ),

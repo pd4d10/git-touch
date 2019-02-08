@@ -42,13 +42,13 @@ class UserScreen extends StatefulWidget {
 }
 
 class _UserScreenState extends State<UserScreen> {
-  bool loading;
+  bool loading = true;
   Map<String, dynamic> payload = {};
 
   @override
   void initState() {
     super.initState();
-    _refresh();
+    nextTick(_refresh);
   }
 
   Future queryUser(BuildContext context) async {

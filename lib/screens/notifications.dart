@@ -32,13 +32,13 @@ class NotificationScreen extends StatefulWidget {
 
 class NotificationScreenState extends State<NotificationScreen> {
   int active = 0;
-  bool loading;
+  bool loading = true;
   Map<String, NotificationGroup> groupMap = {};
 
   @override
   void initState() {
     super.initState();
-    _refresh();
+    nextTick(_onSwitchTab);
   }
 
   Future<Map<String, NotificationGroup>> fetchNotifications(int index) async {
@@ -128,7 +128,7 @@ $key: pullRequest(number: ${item.number}) {
               beforeRedirect: () async {
                 await SettingsProvider.of(context)
                     .putWithCredentials('/repos/$repo/notifications');
-                await _refresh();
+                await _onSwitchTab();
               },
               child: Icon(
                 Octicons.check,
@@ -171,10 +171,6 @@ $key: pullRequest(number: ${item.number}) {
     }
   }
 
-  Future<void> _refresh() async {
-    await _onSwitchTab(active);
-  }
-
   var textMap = {
     0: 'Unread',
     1: 'Paticipating',
@@ -204,7 +200,7 @@ $key: pullRequest(number: ${item.number}) {
     var value = await showConfirm(context, 'Mark all as read?');
     if (value) {
       await SettingsProvider.of(context).putWithCredentials('/notifications');
-      await _refresh();
+      await _onSwitchTab();
     }
   }
 
@@ -244,7 +240,7 @@ $key: pullRequest(number: ${item.number}) {
           onPressed: _confirm,
         )
       ],
-      onRefresh: _refresh,
+      onRefresh: _onSwitchTab,
       loading: loading,
       bodyBuilder: () {
         return Column(

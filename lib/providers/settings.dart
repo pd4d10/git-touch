@@ -148,7 +148,7 @@ class _SettingsProviderState extends State<SettingsProvider> {
     } else if (Platform.isIOS) {
       theme = ThemeMap.cupertino;
     }
-    theme = ThemeMap.material;
+    // theme = ThemeMap.material;
 
     setState(() {
       ready = true;

@@ -8,6 +8,7 @@ import '../widgets/repo_item.dart';
 import '../widgets/entry_item.dart';
 import '../screens/issues.dart';
 import '../screens/pull_requests.dart';
+import '../utils/utils.dart';
 
 class RepoScreen extends StatefulWidget {
   final String owner;
@@ -22,12 +23,12 @@ class RepoScreen extends StatefulWidget {
 class _RepoScreenState extends State<RepoScreen> {
   Map<String, dynamic> payload;
   String readme;
-  bool loading;
+  bool loading = true;
 
   @override
   void initState() {
     super.initState();
-    _refresh();
+    nextTick(_refresh);
   }
 
   Future queryRepo(BuildContext context) async {

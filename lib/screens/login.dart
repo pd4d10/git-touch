@@ -13,30 +13,33 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     var settings = SettingsProvider.of(context);
 
-    List<Widget> children =
-        settings.githubAccountMap.entries.map<Widget>((entry) {
-      return RaisedButton(
-        child: Text(entry.key),
-        onPressed: () {
-          settings.setActiveAccount(entry.key);
-        },
-      );
-    }).toList();
-
-    children.add(RaisedButton(
-      child: Text('Login'),
-      onPressed: () {
-        var state = settings.generateRandomString();
-        launch(
-          'https://github.com/login/oauth/authorize?client_id=$clientId&redirect_uri=gittouch://login&scope=user%20repo&state=$state',
-          forceSafariVC: false, // this makes URL Scheme work
-        );
-      },
-    ));
-
     return MaterialApp(
       home: Scaffold(
-        body: Center(child: Column(children: children)),
+        body: Container(
+          padding: EdgeInsets.only(top: 200),
+          child: Column(
+            children: settings.githubAccountMap.entries.map<Widget>((entry) {
+              return RaisedButton(
+                child: Text(entry.key),
+                onPressed: () {
+                  settings.setActiveAccount(entry.key);
+                },
+              );
+            }).toList()
+              ..add(
+                RaisedButton(
+                  child: Text('Login'),
+                  onPressed: () {
+                    var state = settings.generateRandomString();
+                    launch(
+                      'https://github.com/login/oauth/authorize?client_id=$clientId&redirect_uri=gittouch://login&scope=user%20repo&state=$state',
+                      forceSafariVC: false, // this makes URL Scheme work
+                    );
+                  },
+                ),
+              ),
+          ),
+        ),
       ),
     );
   }
