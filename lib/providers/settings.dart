@@ -67,6 +67,15 @@ class _SettingsProviderState extends State<SettingsProvider> {
   String activeLogin;
   StreamSubscription<Uri> _sub;
 
+  Future<void> setTheme(int _theme) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    theme = _theme;
+    await prefs.setInt('theme', theme);
+
+    setState(() {});
+  }
+
   get token {
     if (activeLogin == null) {
       return null;
@@ -108,7 +117,7 @@ class _SettingsProviderState extends State<SettingsProvider> {
         'state': randomString,
       }),
     );
-    print(res.body);
+    // print(res.body);
     var data = json.decode(res.body);
     String _token = data['access_token'];
 
@@ -157,7 +166,7 @@ class _SettingsProviderState extends State<SettingsProvider> {
     } else if (Platform.isIOS) {
       theme = ThemeMap.cupertino;
     }
-    // theme = ThemeMap.material;
+    theme = ThemeMap.material;
 
     setState(() {
       ready = true;
@@ -168,8 +177,16 @@ class _SettingsProviderState extends State<SettingsProvider> {
   }
 
   void setActiveAccount(String login) {
+    // FIXME: This is pretty tricky to trigger home screen rebuild
     setState(() {
-      activeLogin = login;
+      activeLogin = null;
+    });
+    nextTick(() {
+      setState(() {
+        activeLogin = login;
+        // activeLogin = null;
+        // ready = true;
+      });
     });
   }
 
@@ -212,7 +229,7 @@ class _SettingsProviderState extends State<SettingsProvider> {
     final res = await http
         .get(prefix + url, headers: headers)
         .timeout(_timeoutDuration);
-    print(res.body);
+    // print(res.body);
     final data = json.decode(res.body);
     return data;
   }
@@ -231,7 +248,7 @@ class _SettingsProviderState extends State<SettingsProvider> {
         .put(prefix + url, headers: headers, body: body ?? {})
         .timeout(_timeoutDuration);
 
-    print(res.body);
+    // print(res.body);
     // final data = json.decode(res.body);
     // return data;
     return true;

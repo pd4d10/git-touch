@@ -9,15 +9,17 @@ class Link extends StatelessWidget {
   final Color bgColor;
   final bool material;
   final bool fullscreenDialog;
+  final Icon iconButton;
 
   Link({
-    @required this.child,
+    this.child,
     this.screenBuilder,
     this.beforeRedirect,
     this.bgColor,
     this.material = true,
     this.fullscreenDialog = false,
-  });
+    this.iconButton,
+  }) : assert(child != null || iconButton != null);
 
   void _onTap(BuildContext context, int theme) {
     if (beforeRedirect != null) {
@@ -44,6 +46,13 @@ class Link extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var theme = SettingsProvider.of(context).theme;
+
+    if (iconButton != null) {
+      return IconButton(
+        icon: iconButton,
+        onPressed: () => _onTap(context, theme),
+      );
+    }
 
     if (!material) {
       return GestureDetector(

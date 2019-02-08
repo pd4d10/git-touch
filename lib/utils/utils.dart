@@ -19,7 +19,8 @@ Color convertColor(String cssHex) {
 }
 
 void nextTick(Function callback) {
-  Future.delayed(Duration(seconds: 0)).then((_) {
+  // FIXME:
+  Future.delayed(Duration(milliseconds: 100)).then((_) {
     callback();
   });
 }

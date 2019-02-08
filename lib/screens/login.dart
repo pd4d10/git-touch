@@ -23,6 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
             children: settings.githubAccountMap.entries.map<Widget>((entry) {
               return Link(
                 beforeRedirect: () {
+                  // Navigator.of(context).pop();
                   settings.setActiveAccount(entry.key);
                 },
                 child: Container(

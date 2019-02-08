@@ -55,7 +55,7 @@ class _ListScaffoldState extends State<ListScaffold> {
   }
 
   Future<void> _refresh() async {
-    print('list scaffold refresh');
+    // print('list scaffold refresh');
     setState(() {
       error = '';
       loading = true;
@@ -74,7 +74,7 @@ class _ListScaffoldState extends State<ListScaffold> {
   }
 
   Future<void> _loadMore() async {
-    print('list scaffold load more');
+    // print('list scaffold load more');
     setState(() {
       loadingMore = true;
     });

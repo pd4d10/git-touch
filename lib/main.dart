@@ -17,6 +17,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int active = 0;
+  // String login;
 
   Widget _buildNotificationIcon(BuildContext context) {
     int count = NotificationProvider.of(context).count;
@@ -81,6 +82,7 @@ class _HomeState extends State<Home> {
       return MaterialApp(home: Scaffold(body: Text('a')));
     }
 
+    // print(settings.activeLogin);
     if (settings.activeLogin == null) {
       return MaterialApp(home: LoginScreen());
     }

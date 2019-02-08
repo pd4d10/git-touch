@@ -158,6 +158,13 @@ class _UserScreenState extends State<UserScreen> {
         material: false,
         fullscreenDialog: true,
       ),
+      actions: <Widget>[
+        Link(
+          iconButton: Icon(Icons.settings),
+          screenBuilder: (_) => SettingsScreen(),
+          fullscreenDialog: true,
+        ),
+      ],
       bodyBuilder: (payload) {
         return Column(
           children: <Widget>[
