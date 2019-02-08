@@ -55,9 +55,17 @@ class _NotificationItemState extends State<NotificationItem> {
   Widget _buildRoute(BuildContext context) {
     switch (payload.type) {
       case 'Issue':
-        return IssueScreen(payload.number, payload.owner, payload.name);
+        return IssueScreen(
+          number: payload.number,
+          owner: payload.owner,
+          name: payload.name,
+        );
       case 'PullRequest':
-        return PullRequestScreen(payload.number, payload.owner, payload.name);
+        return PullRequestScreen(
+          number: payload.number,
+          owner: payload.owner,
+          name: payload.name,
+        );
       case 'Release':
       // return
       default:

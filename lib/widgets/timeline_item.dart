@@ -7,9 +7,8 @@ import 'user_name.dart';
 
 class TimelineItem extends StatelessWidget {
   final Map<String, dynamic> item;
-  final Map<String, dynamic> payload;
 
-  TimelineItem(this.item, this.payload);
+  TimelineItem(this.item);
 
   TextSpan _buildReviewText(BuildContext context, item) {
     switch (item['state']) {
@@ -189,7 +188,9 @@ class TimelineItem extends StatelessWidget {
       case 'ReviewRequestedEvent':
         return _buildItem(
           iconData: Octicons.eye,
-          actor: payload['author']['login'],
+          // actor: payload['author']['login'],
+          // TODO:
+          actor: 'test',
           textSpan: TextSpan(children: [
             TextSpan(text: ' requested a review from '),
             createUserSpan(item['requestedReviewer']['login']),
@@ -247,10 +248,6 @@ class TimelineItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-          border: Border(
-              bottom:
-                  BorderSide(color: CupertinoColors.extraLightBackgroundGray))),
       child: _buildByType(context),
     );
   }

@@ -7,6 +7,8 @@ import 'screens/notifications.dart';
 import 'screens/search.dart';
 import 'screens/profile.dart';
 import 'screens/login.dart';
+import 'screens/pull_request.dart';
+import 'screens/issue.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -58,6 +60,7 @@ class _HomeState extends State<Home> {
   }
 
   _buildScreen(int index) {
+    // return IssueScreen(number: 29, owner: 'reactjs', name: 'rfcs');
     switch (index) {
       case 0:
         return NewsScreen();

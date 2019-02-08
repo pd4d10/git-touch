@@ -154,7 +154,7 @@ class Palette {
   static const gray = Color(0xff959da5);
 }
 
-final pageSize = 20;
+final pageSize = 5;
 
 final graphqlChunk1 = '''
 title

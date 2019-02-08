@@ -19,17 +19,17 @@ class EventItem extends StatelessWidget {
 
   TextSpan _buildIssue(BuildContext context) {
     int id = event.payload['issue']['number'];
-    String name = event.repo.name;
-    var arr = name.split('/');
-    return createLinkSpan(
-        context, '#' + id.toString(), () => IssueScreen(id, arr[0], arr[1]));
+    return createLinkSpan(context, '#' + id.toString(),
+        () => IssueScreen.fromFullName(number: id, fullName: event.repo.name));
   }
 
-  TextSpan _buildPullRequest(BuildContext context, int id) {
-    String name = event.repo.name;
-    var arr = name.split('/');
-    return createLinkSpan(context, '#' + id.toString(),
-        () => PullRequestScreen(id, arr[0], arr[1]));
+  TextSpan _buildPullRequest(BuildContext context, int number) {
+    return createLinkSpan(
+      context,
+      '#' + number.toString(),
+      () => PullRequestScreen.fromFullName(
+          number: number, fullName: event.repo.name),
+    );
   }
 
   Widget _buildItem({
