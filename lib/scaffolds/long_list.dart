@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import '../providers/settings.dart';
-import 'loading.dart';
-import 'link.dart';
+import '../widgets/loading.dart';
+import '../widgets/link.dart';
 
 class LongListPayload<T, K> {
   T header;

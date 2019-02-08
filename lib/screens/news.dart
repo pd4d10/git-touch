@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import '../widgets/list_scaffold.dart';
+import '../scaffolds/list.dart';
 import '../widgets/event_item.dart';
 import '../providers/settings.dart';
 import '../utils/utils.dart';

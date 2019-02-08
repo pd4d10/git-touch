@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import '../providers/settings.dart';
-import 'loading.dart';
+import '../widgets/loading.dart';
 
 typedef RefreshCallback = Future<void> Function();
 typedef WidgetBuilder = Widget Function();
 
+// This is a scaffold for normal screens
+// Users can pull to refresh
 class RefreshScaffold extends StatelessWidget {
   final Widget title;
   final WidgetBuilder bodyBuilder;

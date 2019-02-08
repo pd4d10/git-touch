@@ -3,10 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import '../providers/settings.dart';
 import '../widgets/link.dart';
-import 'loading.dart';
+import '../widgets/loading.dart';
 
 typedef RefreshCallback = Future<void> Function();
 
+// This is a scaffold for infinite scroll screens
 class ListScaffold extends StatefulWidget {
   final Widget title;
   final IconData trailingIconData;

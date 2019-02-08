@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import '../providers/settings.dart';
-import '../widgets/refresh_scaffold.dart';
+import '../scaffolds/refresh.dart';
 import '../widgets/avatar.dart';
 import '../widgets/entry_item.dart';
 import '../widgets/list_group.dart';

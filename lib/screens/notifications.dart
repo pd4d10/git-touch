@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import '../widgets/refresh_scaffold.dart';
+import '../scaffolds/refresh.dart';
 import '../providers/notification.dart';
 import '../providers/settings.dart';
 import '../widgets/notification_item.dart';
