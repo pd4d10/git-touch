@@ -62,10 +62,61 @@ class TimelineItem extends StatelessWidget {
   }
 
   Widget _buildByType(BuildContext context) {
-    switch (item['__typename']) {
+    String type = item['__typename'];
+
+    var defaultItem = _buildItem(
+      actor: '',
+      iconData: Octicons.octoface,
+      textSpan: TextSpan(children: [
+        TextSpan(text: 'Woops, $type type not implemented yet'),
+      ]),
+      item: item,
+    );
+
+    switch (type) {
+      // common types
+      case 'Commit':
+        return _buildItem(
+          actor: item['author']['user']['login'],
+          iconData: Octicons.git_commit,
+          textSpan: TextSpan(children: [
+            TextSpan(text: ' added commit '),
+            TextSpan(text: item['oid'].substring(0, 8))
+          ]),
+          item: item,
+        );
       case 'IssueComment':
-        // return Text('comment');
         return CommentItem(item);
+      case 'CrossReferencedEvent':
+        return _buildItem(
+          actor: item['actor']['login'],
+          iconData: Octicons.primitive_dot,
+          iconColor: Palette.green,
+          textSpan: TextSpan(
+              text: ' referenced this on #' +
+                  item['source']['number'].toString()),
+          item: item,
+        );
+      case 'ClosedEvent':
+        return _buildItem(
+          actor: item['actor']['login'],
+          iconData: Octicons.circle_slash,
+          iconColor: Palette.red,
+          textSpan: TextSpan(text: ' closed this '),
+          item: item,
+        );
+
+      case 'ReopenedEvent':
+        return _buildItem(
+          actor: item['actor']['login'],
+          iconData: Octicons.primitive_dot,
+          iconColor: Palette.green,
+          textSpan: TextSpan(text: ' reopened this '),
+          item: item,
+        );
+      case 'SubscribedEvent':
+      case 'UnsubscribedEvent':
+        return defaultItem; // TODO:
       case 'ReferencedEvent':
         // TODO: isCrossRepository
         if (item['commit'] == null) {
@@ -81,47 +132,18 @@ class TimelineItem extends StatelessWidget {
           ]),
           item: item,
         );
-      case 'RenamedTitleEvent':
+      case 'AssignedEvent':
         return _buildItem(
           actor: item['actor']['login'],
-          iconData: Octicons.pencil,
+          iconData: Octicons.key,
           textSpan: TextSpan(children: [
-            TextSpan(text: ' changed the title '),
-            TextSpan(
-              text: item['previousTitle'],
-              style: TextStyle(decoration: TextDecoration.lineThrough),
-            ),
-            TextSpan(text: ' to '),
-            TextSpan(text: item['currentTitle'])
+            TextSpan(text: ' assigned this to '),
+            TextSpan(text: item['user']['login'])
           ]),
           item: item,
         );
-      case 'ClosedEvent':
-        return _buildItem(
-          actor: item['actor']['login'],
-          iconData: Octicons.circle_slash,
-          iconColor: Palette.red,
-          textSpan: TextSpan(text: ' closed this '),
-          item: item,
-        );
-      case 'ReopenedEvent':
-        return _buildItem(
-          actor: item['actor']['login'],
-          iconData: Octicons.primitive_dot,
-          iconColor: Palette.green,
-          textSpan: TextSpan(text: ' reopened this '),
-          item: item,
-        );
-      case 'CrossReferencedEvent':
-        return _buildItem(
-          actor: item['actor']['login'],
-          iconData: Octicons.primitive_dot,
-          iconColor: Palette.green,
-          textSpan: TextSpan(
-              text: ' referenced this on #' +
-                  item['source']['number'].toString()),
-          item: item,
-        );
+      case 'UnassignedEvent':
+        return defaultItem; // TODO:
       case 'LabeledEvent':
         return _buildItem(
           actor: item['actor']['login'],
@@ -144,6 +166,7 @@ class TimelineItem extends StatelessWidget {
           ]),
           item: item,
         );
+
       case 'MilestonedEvent':
         return _buildItem(
           actor: item['actor']['login'],
@@ -152,6 +175,23 @@ class TimelineItem extends StatelessWidget {
             TextSpan(text: ' added this to '),
             TextSpan(text: item['milestoneTitle']),
             TextSpan(text: ' milestone'),
+          ]),
+          item: item,
+        );
+      case 'DemilestonedEvent':
+        return defaultItem; // TODO:
+      case 'RenamedTitleEvent':
+        return _buildItem(
+          actor: item['actor']['login'],
+          iconData: Octicons.pencil,
+          textSpan: TextSpan(children: [
+            TextSpan(text: ' changed the title '),
+            TextSpan(
+              text: item['previousTitle'],
+              style: TextStyle(decoration: TextDecoration.lineThrough),
+            ),
+            TextSpan(text: ' to '),
+            TextSpan(text: item['currentTitle'])
           ]),
           item: item,
         );
@@ -173,30 +213,14 @@ class TimelineItem extends StatelessWidget {
           ]),
           item: item,
         );
-      case 'AssignedEvent':
-        return _buildItem(
-          actor: item['actor']['login'],
-          iconData: Octicons.key,
-          textSpan: TextSpan(children: [
-            TextSpan(text: ' assigned this to '),
-            TextSpan(text: item['user']['login'])
-          ]),
-          item: item,
-        );
 
-      //
-      case 'ReviewRequestedEvent':
-        return _buildItem(
-          iconData: Octicons.eye,
-          // actor: payload['author']['login'],
-          // TODO:
-          actor: 'test',
-          textSpan: TextSpan(children: [
-            TextSpan(text: ' requested a review from '),
-            createUserSpan(item['requestedReviewer']['login']),
-          ]),
-          item: item,
-        );
+      // issue only types
+      case 'TransferredEvent':
+        return defaultItem; // TODO:
+
+      // pull request only types
+      case 'CommitCommentThread':
+        return defaultItem; // TODO:
       case 'PullRequestReview':
         return _buildItem(
           actor: item['author']['login'],
@@ -205,6 +229,9 @@ class TimelineItem extends StatelessWidget {
           textSpan: _buildReviewText(context, item),
           item: item,
         );
+      case 'PullRequestReviewThread':
+      case 'PullRequestReviewComment':
+        return defaultItem; // TODO:
       case 'MergedEvent':
         return _buildItem(
           actor: item['actor']['login'],
@@ -218,6 +245,9 @@ class TimelineItem extends StatelessWidget {
           ]),
           item: item,
         );
+      case 'DeployedEvent':
+      case 'DeploymentEnvironmentChangedEvent':
+        return defaultItem; // TODO:
       case 'HeadRefDeletedEvent':
         return _buildItem(
           actor: item['actor']['login'],
@@ -229,18 +259,27 @@ class TimelineItem extends StatelessWidget {
           ]),
           item: item,
         );
-      case 'Commit':
+      case 'HeadRefRestoredEvent':
+      case 'HeadRefForcePushedEvent':
+      case 'BaseRefForcePushedEvent':
+        return defaultItem; // TODO:
+      case 'ReviewRequestedEvent':
         return _buildItem(
-          actor: item['author']['user']['login'],
-          iconData: Octicons.git_commit,
+          iconData: Octicons.eye,
+          // actor: payload['author']['login'],
+          // TODO:
+          actor: 'test',
           textSpan: TextSpan(children: [
-            TextSpan(text: ' added commit '),
-            TextSpan(text: item['oid'].substring(0, 8))
+            TextSpan(text: ' requested a review from '),
+            createUserSpan(item['requestedReviewer']['login']),
           ]),
           item: item,
         );
+      case 'ReviewRequestRemovedEvent':
+      case 'ReviewDismissedEvent':
+        return defaultItem; // TODO:
       default:
-        return createWarning(item['__typename']);
+        return defaultItem;
     }
   }
 
