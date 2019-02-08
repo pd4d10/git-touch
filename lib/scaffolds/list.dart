@@ -63,6 +63,7 @@ class _ListScaffoldState extends State<ListScaffold> {
     try {
       await widget.onRefresh();
     } catch (err) {
+      // print(err);
       error = err.toString();
     } finally {
       if (mounted) {

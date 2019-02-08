@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import '../utils/utils.dart';
 import '../screens/issue.dart';
 import '../screens/pull_request.dart';
+import '../screens/not_found.dart';
 import '../providers/settings.dart';
 import 'link.dart';
 
@@ -25,8 +26,11 @@ class NotificationPayload {
     owner = input['repository']['owner']['login'];
 
     String url = input['subject']['url'];
-    String numberStr = url.split('/').lastWhere((_) => true);
-    number = int.parse(numberStr);
+
+    if (type == 'Issue' || type == 'PullRequest') {
+      String numberStr = url.split('/').lastWhere((_) => true);
+      number = int.parse(numberStr);
+    }
 
     title = input['subject']['title'];
     updateAt = TimeAgo.formatFromString(input['updated_at']);
@@ -68,9 +72,11 @@ class _NotificationItemState extends State<NotificationItem> {
         );
       case 'Release':
       // return
+      case 'Commit':
+      // return
       default:
-        // throw new Exception('Unhandled notification type: $type');
-        return Text('test');
+        print('Unhandled notification type: ${payload.type}');
+        return NotFoundScreen();
     }
   }
 
@@ -105,8 +111,11 @@ class _NotificationItemState extends State<NotificationItem> {
       // color: Color.fromRGBO(0x6f, 0x42, 0xc1, 1),
       case 'Release':
         return _buildIcon(Octicons.tag);
+      case 'Commit':
+        return _buildIcon(Octicons.git_commit);
       default:
-        return _buildIcon(Octicons.person);
+        print('Unhandled notification type: ${payload.type}');
+        return _buildIcon(Octicons.octoface);
     }
   }
 
