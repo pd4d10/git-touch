@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../providers/settings.dart';
 import '../scaffolds/simple.dart';
-import '../utils/utils.dart';
+import '../utils/constants.dart';
 import '../widgets/link.dart';
 
 class LoginScreen extends StatefulWidget {
