@@ -14,8 +14,8 @@ class NewsScreenState extends State<NewsScreen> {
   Future<List<Event>> fetchEvents(int page) async {
     var settings = SettingsProvider.of(context);
     var login = settings.activeLogin;
-    List data = await settings
-        .getWithCredentials('/users/$login/received_events?page=$page');
+    List data = await settings.getWithCredentials(
+        '/users/$login/received_events?page=$page&per_page=$pageSize');
     // print(data);
     return data.map<Event>((item) => Event.fromJSON(item)).toList();
   }
@@ -31,12 +31,12 @@ class NewsScreenState extends State<NewsScreen> {
         var page = 1;
         var items = await fetchEvents(page);
         return ListPayload(
-            cursor: page + 1, end: items.length < 30, items: items);
+            cursor: page + 1, hasMore: items.length == pageSize, items: items);
       },
       onLoadMore: (page) async {
         var items = await fetchEvents(page);
         return ListPayload(
-            cursor: page + 1, end: items.length < 30, items: items);
+            cursor: page + 1, hasMore: items.length == pageSize, items: items);
       },
     );
   }

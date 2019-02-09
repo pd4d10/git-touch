@@ -8,9 +8,9 @@ import '../widgets/loading.dart';
 class ListPayload<T, K> {
   K cursor;
   List<T> items;
-  bool end;
+  bool hasMore;
 
-  ListPayload({this.items, this.cursor, this.end});
+  ListPayload({this.items, this.cursor, this.hasMore});
 }
 
 // This is a scaffold for infinite scroll screens
@@ -42,7 +42,7 @@ class _ListScaffoldState<T, K> extends State<ListScaffold<T, K>> {
 
   List<T> items = [];
   K cursor;
-  bool end;
+  bool hasMore;
 
   ScrollController _controller = ScrollController();
 
@@ -54,7 +54,8 @@ class _ListScaffoldState<T, K> extends State<ListScaffold<T, K>> {
       if (_controller.offset + 100 > _controller.position.maxScrollExtent &&
           !_controller.position.outOfRange &&
           !loading &&
-          !loadingMore) {
+          !loadingMore &&
+          hasMore) {
         _loadMore();
       }
     });
@@ -70,7 +71,7 @@ class _ListScaffoldState<T, K> extends State<ListScaffold<T, K>> {
       var _payload = await widget.onRefresh();
       items = _payload.items;
       cursor = _payload.cursor;
-      end = _payload.end;
+      hasMore = _payload.hasMore;
     } catch (err) {
       // print(err);
       error = err.toString();
@@ -92,7 +93,7 @@ class _ListScaffoldState<T, K> extends State<ListScaffold<T, K>> {
       var _payload = await widget.onLoadMore(cursor);
       items.addAll(_payload.items);
       cursor = _payload.cursor;
-      end = _payload.end;
+      hasMore = _payload.hasMore;
     } catch (err) {
       print(err);
     } finally {
@@ -106,7 +107,11 @@ class _ListScaffoldState<T, K> extends State<ListScaffold<T, K>> {
 
   Widget _buildItem(BuildContext context, int index) {
     if (index == 2 * items.length) {
-      return Loading(more: true);
+      if (hasMore) {
+        return Loading(more: true);
+      } else {
+        return Container();
+      }
     }
 
     if (index % 2 == 1) {

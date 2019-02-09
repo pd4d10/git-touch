@@ -43,7 +43,7 @@ class _ReposScreenState extends State<ReposScreen> {
     return ListPayload(
       cursor: repo["pageInfo"]["endCursor"],
       items: repo["nodes"],
-      end: repo['pageInfo']['hasNextPage'],
+      hasMore: repo['pageInfo']['hasNextPage'],
     );
   }
 

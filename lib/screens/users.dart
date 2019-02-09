@@ -42,7 +42,7 @@ class _UsersScreenState extends State<UsersScreen> {
 
     return ListPayload(
       cursor: repo["pageInfo"]["endCursor"],
-      end: repo['pageInfo']['hasNextPage'],
+      hasMore: repo['pageInfo']['hasNextPage'],
       items: repo["nodes"],
     );
   }
