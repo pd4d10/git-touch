@@ -155,7 +155,7 @@ class Palette {
   static const gray = Color(0xff959da5);
 }
 
-final pageSize = 5;
+final pageSize = 20;
 
 final graphqlChunk1 = '''
 title
@@ -316,3 +316,23 @@ var createWarning =
     (String text) => Text(text, style: TextStyle(color: Colors.redAccent));
 var warningSpan =
     TextSpan(text: 'xxx', style: TextStyle(color: Colors.redAccent));
+
+var repoChunk = '''
+owner {
+  login
+}
+name
+description
+isPrivate
+isFork
+stargazers {
+  totalCount
+}
+forks {
+  totalCount
+}
+primaryLanguage {
+  color
+  name
+}
+''';

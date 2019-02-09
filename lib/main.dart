@@ -9,6 +9,7 @@ import 'screens/me.dart';
 import 'screens/login.dart';
 import 'screens/pull_request.dart';
 import 'screens/issue.dart';
+import 'screens/repos.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -62,6 +63,7 @@ class _HomeState extends State<Home> {
 
   _buildScreen(int index) {
     // return IssueScreen(number: 29, owner: 'reactjs', name: 'rfcs');
+    // return ReposScreen('pd4d10');
     switch (index) {
       case 0:
         return NewsScreen();

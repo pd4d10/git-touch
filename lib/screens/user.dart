@@ -13,26 +13,6 @@ import '../screens/users.dart';
 import '../screens/settings.dart';
 import '../utils/utils.dart';
 
-var repoChunk = '''
-owner {
-  login
-}
-name
-description
-isPrivate
-isFork
-stargazers {
-  totalCount
-}
-forks {
-  totalCount
-}
-primaryLanguage {
-  color
-  name
-}
-''';
-
 class UserScreen extends StatefulWidget {
   final String login;
   final bool showSettings;
@@ -205,12 +185,12 @@ class _UserScreenState extends State<UserScreen> {
                   EntryItem(
                     count: payload['repositories']['totalCount'],
                     text: 'Repositories',
-                    screenBuilder: (context) => ReposScreen(),
+                    screenBuilder: (context) => ReposScreen(widget.login),
                   ),
                   EntryItem(
                     count: payload['starredRepositories']['totalCount'],
                     text: 'Stars',
-                    screenBuilder: (context) => ReposScreen(),
+                    screenBuilder: (context) => ReposScreen(widget.login),
                   ),
                   EntryItem(
                     count: payload['followers']['totalCount'],
