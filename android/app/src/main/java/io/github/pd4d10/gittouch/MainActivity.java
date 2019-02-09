@@ -1,4 +1,4 @@
-package com.example.gittouch;
+package io.github.pd4d10.gittouch;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;
