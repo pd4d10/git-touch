@@ -16,20 +16,25 @@ class CommentItem extends StatelessWidget {
         Avatar(
           login: item['author']['login'],
           url: item['author']['avatarUrl'],
+          size: 16,
         ),
-        Padding(padding: EdgeInsets.only(left: 10)),
+        Padding(padding: EdgeInsets.only(left: 6)),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               UserName(item['author']['login']),
-              Text('opened ' + TimeAgo.formatFromString(item['createdAt'])),
+              Padding(padding: EdgeInsets.only(bottom: 2)),
+              Text(
+                TimeAgo.formatFromString(item['createdAt']),
+                style: TextStyle(color: Colors.black54, fontSize: 13),
+              ),
             ],
           ),
         ),
       ]),
       Padding(
-        padding: const EdgeInsets.only(left: 20, top: 10),
+        padding: const EdgeInsets.only(left: 36, top: 8),
         child: MarkdownBody(
           data: item['body'],
           // styleSheet: MarkdownStyleSheet(code: TextStyle(fontSize: 14)),

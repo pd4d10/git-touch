@@ -92,6 +92,44 @@ class _IssueScreenState extends State<IssueScreen> {
     return data['repository']['issue']['timeline']['nodes'];
   }
 
+  // TODO: extract as widget, this is copied from pull request
+  Widget _buildBadge(payload) {
+    Color bgColor;
+    IconData iconData;
+    String text;
+
+    if (payload['closed']) {
+      bgColor = Palette.red;
+      iconData = Octicons.issue_closed;
+      text = 'Closed';
+    } else {
+      bgColor = Palette.green;
+      iconData = Octicons.issue_opened;
+      text = 'Open';
+    }
+    return Container(
+      decoration: BoxDecoration(
+        color: bgColor,
+        borderRadius: BorderRadius.all(Radius.circular(4)),
+      ),
+      padding: EdgeInsets.all(6),
+      child: Row(
+        children: <Widget>[
+          Icon(iconData, color: Colors.white, size: 15),
+          Padding(padding: EdgeInsets.only(left: 2)),
+          Text(
+            text,
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w600,
+              fontSize: 14,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return LongListScaffold(
@@ -99,18 +137,30 @@ class _IssueScreenState extends State<IssueScreen> {
       headerBuilder: (payload) {
         return Column(children: <Widget>[
           Container(
-            // padding: EdgeInsets.all(10),
+            padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              border: Border(bottom: BorderSide(color: Colors.black12)),
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  payload['title'],
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    height: 1.2,
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    Expanded(
+                      child: Text(
+                        payload['title'],
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    Padding(padding: EdgeInsets.only(right: 8)),
+                    _buildBadge(payload),
+                  ],
                 ),
+                Padding(padding: EdgeInsets.only(bottom: 16)),
                 CommentItem(payload),
               ],
             ),

@@ -165,6 +165,7 @@ author {
   login
   avatarUrl
 }
+closed
 ''';
 
 var graghqlChunk = '''

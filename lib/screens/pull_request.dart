@@ -78,7 +78,6 @@ class _PullRequestScreenState extends State<PullRequestScreen> {
     pullRequest(number: $id) {
       $graphqlChunk1
       merged
-      permalink
       additions
       deletions
       commits {
@@ -139,10 +138,24 @@ class _PullRequestScreenState extends State<PullRequestScreen> {
   }
 
   Widget _buildBadge(payload) {
-    bool merged = payload['merged'];
-    Color bgColor = merged ? Palette.purple : Palette.green;
-    IconData iconData = merged ? Octicons.git_merge : Octicons.git_pull_request;
-    String text = merged ? 'Merged' : 'Open';
+    Color bgColor;
+    IconData iconData;
+    String text;
+
+    if (payload['merged']) {
+      bgColor = Palette.purple;
+      iconData = Octicons.git_merge;
+      text = 'Merged';
+    } else if (payload['closed']) {
+      bgColor = Palette.red;
+      iconData = Octicons.git_pull_request;
+      text = 'Closed';
+    } else {
+      bgColor = Palette.green;
+      iconData = Octicons.git_pull_request;
+      text = 'Open';
+    }
+
     return Container(
       decoration: BoxDecoration(
         color: bgColor,
@@ -152,11 +165,13 @@ class _PullRequestScreenState extends State<PullRequestScreen> {
       child: Row(
         children: <Widget>[
           Icon(iconData, color: Colors.white, size: 15),
+          Padding(padding: EdgeInsets.only(left: 2)),
           Text(
             text,
             style: TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.w600,
+              fontSize: 14,
             ),
           ),
         ],
@@ -173,19 +188,30 @@ class _PullRequestScreenState extends State<PullRequestScreen> {
       headerBuilder: (payload) {
         return Column(children: <Widget>[
           Container(
-            // padding: EdgeInsets.all(10),
+            padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              border: Border(bottom: BorderSide(color: Colors.black12)),
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                _buildBadge(payload),
-                Text(
-                  payload['title'],
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    height: 1.2,
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    Expanded(
+                      child: Text(
+                        payload['title'],
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    Padding(padding: EdgeInsets.only(right: 8)),
+                    _buildBadge(payload),
+                  ],
                 ),
+                Padding(padding: EdgeInsets.only(bottom: 16)),
                 CommentItem(payload),
               ],
             ),

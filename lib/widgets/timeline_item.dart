@@ -30,8 +30,9 @@ class TimelineItem extends StatelessWidget {
   }) {
     return Row(
       children: <Widget>[
-        Icon(iconData, color: iconColor, size: 16),
-        Padding(padding: EdgeInsets.only(left: 4)),
+        Padding(padding: EdgeInsets.only(left: 6)),
+        Icon(iconData, color: iconColor, size: 20),
+        Padding(padding: EdgeInsets.only(left: 12)),
         Expanded(
           child: RichText(
             text: TextSpan(style: TextStyle(color: Colors.black), children: [
@@ -46,14 +47,19 @@ class TimelineItem extends StatelessWidget {
   }
 
   TextSpan _buildLabel(item) {
-    var textColor = item['label']['color'] == 'fbca04' ? null : Colors.white;
+    var color = convertColor(item['label']['color']);
+    var grayscale = color.red * 0.3 + color.green * 0.59 + color.blue * 0.11;
+    // print('color: $color, $grayscale');
+
+    var showWhite = grayscale < 128;
+    var textColor = showWhite ? Colors.white : Colors.black;
 
     return TextSpan(
       text: item['label']['name'],
       style: TextStyle(
         color: textColor,
         // https://github.com/flutter/flutter/issues/20430
-        background: Paint()..color = convertColor(item['label']['color']),
+        background: Paint()..color = color,
         // https://stackoverflow.com/a/52592679
         // ..strokeWidth = 16.5
         // ..style = PaintingStyle.stroke

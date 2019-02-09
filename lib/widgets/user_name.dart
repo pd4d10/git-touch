@@ -19,7 +19,7 @@ class UserName extends StatelessWidget {
     return Link(
       screenBuilder: (_) => UserScreen(login),
       child: Container(
-        padding: EdgeInsets.all(2),
+        // padding: EdgeInsets.all(2),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(4)),
         ),
