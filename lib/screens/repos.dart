@@ -49,8 +49,9 @@ class _ReposScreenState extends State<ReposScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var title = widget.star ? 'stars' : 'repositories';
     return ListScaffold(
-      title: Text('$login\'s repositories'),
+      title: Text('$login\'s $title'),
       onRefresh: () => _queryRepos(),
       onLoadMore: (cursor) => _queryRepos(cursor),
       itemBuilder: (payload) => RepoItem(payload),

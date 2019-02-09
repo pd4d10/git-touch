@@ -197,12 +197,14 @@ class _UserScreenState extends State<UserScreen> {
                   EntryItem(
                     count: payload['followers']['totalCount'],
                     text: 'Followers',
-                    screenBuilder: (context) => UsersScreen(),
+                    screenBuilder: (context) =>
+                        UsersScreen(login: widget.login),
                   ),
                   EntryItem(
                     count: payload['following']['totalCount'],
                     text: 'Following',
-                    screenBuilder: (context) => UsersScreen(),
+                    screenBuilder: (context) =>
+                        UsersScreen(login: widget.login, following: true),
                   ),
                 ],
               ),
