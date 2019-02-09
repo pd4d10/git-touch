@@ -33,7 +33,7 @@ class RepoItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    item['name'],
+                    item['owner']['login'] + '/' + item['name'],
                     style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
                   ),
                   Padding(padding: EdgeInsets.only(top: 6)),

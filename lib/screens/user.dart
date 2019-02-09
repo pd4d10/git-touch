@@ -185,12 +185,14 @@ class _UserScreenState extends State<UserScreen> {
                   EntryItem(
                     count: payload['repositories']['totalCount'],
                     text: 'Repositories',
-                    screenBuilder: (context) => ReposScreen(widget.login),
+                    screenBuilder: (context) =>
+                        ReposScreen(login: widget.login),
                   ),
                   EntryItem(
                     count: payload['starredRepositories']['totalCount'],
                     text: 'Stars',
-                    screenBuilder: (context) => ReposScreen(widget.login),
+                    screenBuilder: (context) =>
+                        ReposScreen(login: widget.login, star: true),
                   ),
                   EntryItem(
                     count: payload['followers']['totalCount'],
