@@ -169,7 +169,8 @@ class _LongListScaffoldState<T, K> extends State<LongListScaffold<T, K>> {
 
   Widget _buildSliver() {
     if (error.isNotEmpty) {
-      return ErrorReload(text: error, reload: _refresh);
+      return SliverToBoxAdapter(
+          child: ErrorReload(text: error, reload: _refresh));
     } else if (loading) {
       return SliverToBoxAdapter(child: Loading(more: false));
     } else {

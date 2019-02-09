@@ -37,7 +37,7 @@ class RepoItem extends StatelessWidget {
                     style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
                   ),
                   Padding(padding: EdgeInsets.only(top: 6)),
-                  Text(item['description']),
+                  Text(item['description'] ?? 'No description provided yet'),
                   Padding(padding: EdgeInsets.only(top: 6)),
                   DefaultTextStyle(
                     style: TextStyle(color: Colors.black54, fontSize: 13),
@@ -50,17 +50,21 @@ class RepoItem extends StatelessWidget {
                             size: 14, color: Colors.black54),
                         Text(item['forks']['totalCount'].toString()),
                         Padding(padding: EdgeInsets.only(left: 16)),
-                        Container(
-                          width: 10,
-                          height: 10,
-                          decoration: new BoxDecoration(
-                            color:
-                                convertColor(item['primaryLanguage']['color']),
-                            shape: BoxShape.circle,
-                          ),
-                        ),
-                        Padding(padding: EdgeInsets.only(left: 4)),
-                        Text(item['primaryLanguage']['name']),
+                        item['primaryLanguage'] == null
+                            ? Container()
+                            : Row(children: <Widget>[
+                                Container(
+                                  width: 10,
+                                  height: 10,
+                                  decoration: new BoxDecoration(
+                                    color: convertColor(
+                                        item['primaryLanguage']['color']),
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                                Padding(padding: EdgeInsets.only(left: 4)),
+                                Text(item['primaryLanguage']['name']),
+                              ]),
                       ],
                     ),
                   )

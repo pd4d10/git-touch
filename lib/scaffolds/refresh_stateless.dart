@@ -31,7 +31,7 @@ class RefreshStatelessScaffold extends StatelessWidget {
     if (error.isNotEmpty) {
       return ErrorReload(text: error, reload: onRefresh);
     } else if (loading) {
-      return Loading(more: true);
+      return Loading(more: false);
     } else {
       return bodyBuilder();
     }

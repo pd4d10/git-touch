@@ -5,38 +5,44 @@ import '../providers/settings.dart';
 import '../widgets/error_reload.dart';
 import '../widgets/loading.dart';
 
-typedef RefreshCallback = Future<void> Function();
+class ListPayload<T, K> {
+  K cursor;
+  List<T> items;
+  bool end;
+
+  ListPayload({this.items, this.cursor, this.end});
+}
 
 // This is a scaffold for infinite scroll screens
-class ListScaffold extends StatefulWidget {
+class ListScaffold<T, K> extends StatefulWidget {
   final Widget title;
-  final IconData trailingIconData;
-  final Function trailingOnTap;
-  final Widget header;
-  final int itemCount;
-  final IndexedWidgetBuilder itemBuilder;
-  final RefreshCallback onRefresh;
-  final RefreshCallback onLoadMore;
+  // final IconData trailingIconData;
+  // final Function trailingOnTap;
+  final Widget Function(T payload) itemBuilder;
+  final Future<ListPayload<T, K>> Function() onRefresh;
+  final Future<ListPayload<T, K>> Function(K cursor) onLoadMore;
 
   ListScaffold({
     @required this.title,
-    this.trailingIconData,
-    this.trailingOnTap,
-    this.header,
-    @required this.itemCount,
+    // this.trailingIconData,
+    // this.trailingOnTap,
     @required this.itemBuilder,
     @required this.onRefresh,
-    this.onLoadMore,
+    @required this.onLoadMore,
   });
 
   @override
   _ListScaffoldState createState() => _ListScaffoldState();
 }
 
-class _ListScaffoldState extends State<ListScaffold> {
+class _ListScaffoldState<T, K> extends State<ListScaffold<T, K>> {
   bool loading = false;
   bool loadingMore = false;
   String error = '';
+
+  List<T> items = [];
+  K cursor;
+  bool end;
 
   ScrollController _controller = ScrollController();
 
@@ -61,7 +67,10 @@ class _ListScaffoldState extends State<ListScaffold> {
       loading = true;
     });
     try {
-      await widget.onRefresh();
+      var _payload = await widget.onRefresh();
+      items = _payload.items;
+      cursor = _payload.cursor;
+      end = _payload.end;
     } catch (err) {
       // print(err);
       error = err.toString();
@@ -75,12 +84,15 @@ class _ListScaffoldState extends State<ListScaffold> {
   }
 
   Future<void> _loadMore() async {
-    // print('list scaffold load more');
+    print('list scaffold load more');
     setState(() {
       loadingMore = true;
     });
     try {
-      await widget.onLoadMore();
+      var _payload = await widget.onLoadMore(cursor);
+      items.addAll(_payload.items);
+      cursor = _payload.cursor;
+      end = _payload.end;
     } catch (err) {
       print(err);
     } finally {
@@ -93,7 +105,7 @@ class _ListScaffoldState extends State<ListScaffold> {
   }
 
   Widget _buildItem(BuildContext context, int index) {
-    if (index == 2 * widget.itemCount) {
+    if (index == 2 * items.length) {
       return Loading(more: true);
     }
 
@@ -105,19 +117,21 @@ class _ListScaffoldState extends State<ListScaffold> {
       );
     }
 
-    return widget.itemBuilder(context, index ~/ 2);
+    return widget.itemBuilder(items[index ~/ 2]);
   }
 
   Widget _buildSliver(BuildContext context) {
     if (error.isNotEmpty) {
-      return ErrorReload(text: error, reload: _refresh);
+      return SliverToBoxAdapter(
+        child: ErrorReload(text: error, reload: _refresh),
+      );
     } else if (loading) {
       return SliverToBoxAdapter(child: Loading(more: false));
     } else {
       return SliverList(
         delegate: SliverChildBuilderDelegate(
           _buildItem,
-          childCount: 2 * widget.itemCount + 1,
+          childCount: 2 * items.length + 1,
         ),
       );
     }
@@ -131,7 +145,7 @@ class _ListScaffoldState extends State<ListScaffold> {
     } else {
       return ListView.builder(
         controller: _controller,
-        itemCount: 2 * widget.itemCount + 1,
+        itemCount: 2 * items.length + 1,
         itemBuilder: _buildItem,
       );
     }
@@ -144,9 +158,9 @@ class _ListScaffoldState extends State<ListScaffold> {
         List<Widget> slivers = [
           CupertinoSliverRefreshControl(onRefresh: widget.onRefresh)
         ];
-        if (widget.header != null) {
-          slivers.add(SliverToBoxAdapter(child: widget.header));
-        }
+        // if (widget.header != null) {
+        //   slivers.add(SliverToBoxAdapter(child: widget.header));
+        // }
         slivers.add(_buildSliver(context));
 
         return CupertinoPageScaffold(
@@ -173,14 +187,14 @@ class _ListScaffoldState extends State<ListScaffold> {
         return Scaffold(
           appBar: AppBar(
             title: widget.title,
-            actions: widget.trailingIconData == null
-                ? []
-                : <Widget>[
-                    IconButton(
-                      icon: Icon(widget.trailingIconData),
-                      onPressed: widget.trailingOnTap,
-                    )
-                  ],
+            // actions: widget.trailingIconData == null
+            //     ? []
+            //     : <Widget>[
+            //         IconButton(
+            //           icon: Icon(widget.trailingIconData),
+            //           onPressed: widget.trailingOnTap,
+            //         )
+            //       ],
           ),
           body: RefreshIndicator(
             onRefresh: widget.onRefresh,

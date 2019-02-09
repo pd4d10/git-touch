@@ -72,6 +72,7 @@ class _SettingsProviderState extends State<SettingsProvider> {
 
     theme = _theme;
     await prefs.setInt('theme', theme);
+    print('write theme: $theme');
 
     setState(() {});
   }
@@ -161,12 +162,12 @@ class _SettingsProviderState extends State<SettingsProvider> {
     }
 
     int _theme = prefs.getInt('theme');
+    print('read theme: $_theme');
     if (ThemeMap.all.contains(_theme)) {
       theme = _theme;
     } else if (Platform.isIOS) {
       theme = ThemeMap.cupertino;
     }
-    theme = ThemeMap.material;
 
     setState(() {
       ready = true;

@@ -3,12 +3,13 @@ import 'package:flutter/cupertino.dart';
 import '../screens/issue.dart';
 import '../screens/pull_request.dart';
 import '../screens/user.dart';
-import 'link.dart';
+// import 'link.dart';
 import 'avatar.dart';
 import '../utils/utils.dart';
 
 class EventItem extends StatelessWidget {
   final Event event;
+
   EventItem(this.event);
 
   TextSpan _buildRepo(BuildContext context) {

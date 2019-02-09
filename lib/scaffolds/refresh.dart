@@ -42,8 +42,8 @@ class _RefreshScaffoldState<T> extends State<RefreshScaffold<T>> {
   Widget _buildBody() {
     if (error.isNotEmpty) {
       return ErrorReload(text: error, reload: _refresh);
-    } else if (loading) {
-      return Loading(more: true);
+    } else if (payload == null) {
+      return Loading(more: false);
     } else {
       return widget.bodyBuilder(payload);
     }

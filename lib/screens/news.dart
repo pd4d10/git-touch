@@ -11,40 +11,32 @@ class NewsScreen extends StatefulWidget {
 }
 
 class NewsScreenState extends State<NewsScreen> {
-  int page = 1;
-  List<Event> _events = [];
-
   Future<List<Event>> fetchEvents(int page) async {
     var settings = SettingsProvider.of(context);
     var login = settings.activeLogin;
     List data = await settings
         .getWithCredentials('/users/$login/received_events?page=$page');
+    // print(data);
     return data.map<Event>((item) => Event.fromJSON(item)).toList();
   }
 
   @override
   Widget build(context) {
+    // FIXME: can't add generic type here. Don't know why
+    // type '(Event) => EventItem' is not a subtype of type '(dynamic) => Widget'
     return ListScaffold(
       title: Text('News'),
-      itemCount: _events.length,
-      itemBuilder: (context, index) => EventItem(_events[index]),
+      itemBuilder: (payload) => EventItem(payload),
       onRefresh: () async {
-        page = 1;
+        var page = 1;
         var items = await fetchEvents(page);
-        if (mounted) {
-          setState(() {
-            _events = items;
-          });
-        }
+        return ListPayload(
+            cursor: page + 1, end: items.length < 30, items: items);
       },
-      onLoadMore: () async {
-        page = page + 1;
+      onLoadMore: (page) async {
         var items = await fetchEvents(page);
-        if (mounted) {
-          setState(() {
-            _events.addAll(items);
-          });
-        }
+        return ListPayload(
+            cursor: page + 1, end: items.length < 30, items: items);
       },
     );
   }
