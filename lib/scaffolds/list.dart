@@ -86,7 +86,7 @@ class _ListScaffoldState<T, K> extends State<ListScaffold<T, K>> {
   }
 
   Future<void> _loadMore() async {
-    print('list scaffold load more');
+    // print('list scaffold load more');
     setState(() {
       loadingMore = true;
     });

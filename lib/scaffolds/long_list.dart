@@ -181,16 +181,6 @@ class _LongListScaffoldState<T, K> extends State<LongListScaffold<T, K>> {
     }
   }
 
-  Widget _buildBody() {
-    if (error.isNotEmpty) {
-      return ErrorReload(text: error, reload: _refresh);
-    } else if (loading) {
-      return Loading(more: false);
-    } else {
-      return ListView.builder(itemCount: _itemCount, itemBuilder: _buildItem);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     switch (SettingsProvider.of(context).theme) {
@@ -216,11 +206,14 @@ class _LongListScaffoldState<T, K> extends State<LongListScaffold<T, K>> {
           ),
         );
       default:
-        List<Widget> children = [];
+        List<Widget> slivers = [];
         if (payload != null) {
-          children.add(widget.headerBuilder(payload.header));
+          slivers.add(
+            SliverToBoxAdapter(child: widget.headerBuilder(payload.header)),
+          );
         }
-        children.add(_buildBody());
+        slivers.add(_buildSliver());
+
         return Scaffold(
           appBar: AppBar(
             title: widget.title,
@@ -229,7 +222,7 @@ class _LongListScaffoldState<T, K> extends State<LongListScaffold<T, K>> {
           ),
           body: RefreshIndicator(
             onRefresh: widget.onRefresh,
-            child: Column(children: children),
+            child: CustomScrollView(slivers: slivers),
           ),
         );
     }

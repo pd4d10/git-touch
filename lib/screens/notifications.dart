@@ -34,7 +34,7 @@ class NotificationScreen extends StatefulWidget {
 class NotificationScreenState extends State<NotificationScreen> {
   String error = '';
   int active = 0;
-  bool loading = true;
+  bool loading = false;
   Map<String, NotificationGroup> groupMap = {};
 
   @override
@@ -244,7 +244,7 @@ $key: pullRequest(number: ${item.number}) {
       // ),
       actions: <Widget>[
         IconButton(
-          icon: Icon(Octicons.check),
+          icon: Icon(Icons.done_all),
           onPressed: _confirm,
         )
       ],

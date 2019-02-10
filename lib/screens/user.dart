@@ -44,13 +44,13 @@ class _UserScreenState extends State<UserScreen> {
     following {
       totalCount
     }
-    repositories(first: 6, ownerAffiliations: OWNER, orderBy: {field: STARGAZERS, direction: DESC}) {
+    repositories(first: $pageSize, ownerAffiliations: OWNER, orderBy: {field: STARGAZERS, direction: DESC}) {
       totalCount
       nodes {
         $repoChunk
       }
     }
-    pinnedRepositories(first: 6) {
+    pinnedRepositories(first: $pageSize) {
       nodes {
         $repoChunk
       }

@@ -146,7 +146,7 @@ class _SettingsProviderState extends State<SettingsProvider> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var githubData = json.encode(githubAccountMap
         .map((login, account) => MapEntry(login, account.toJson())));
-    print('write github: $githubData');
+    // print('write github: $githubData');
     await prefs.setString('github', githubData);
 
     setState(() {
@@ -160,7 +160,7 @@ class _SettingsProviderState extends State<SettingsProvider> {
     // read GitHub accounts
     try {
       var str = prefs.getString('github');
-      print('read github: $str');
+      // print('read github: $str');
       Map<String, dynamic> github = json.decode(str);
       githubAccountMap = github.map<String, Account>((login, _accountMap) =>
           MapEntry(login, Account.fromJson(_accountMap)));
@@ -221,12 +221,12 @@ class _SettingsProviderState extends State<SettingsProvider> {
         .timeout(_timeoutDuration);
 
     final data = json.decode(res.body);
-    print(data);
+    // print(data);
 
     if (data['errors'] != null) {
       throw new Exception(data['errors'].toString());
     }
-    // print(data);
+
     return data['data'];
   }
 
@@ -258,9 +258,7 @@ class _SettingsProviderState extends State<SettingsProvider> {
         .put(prefix + url, headers: headers, body: body ?? {})
         .timeout(_timeoutDuration);
 
-    print(res.body);
-    // final data = json.decode(res.body);
-    // return data;
+    // print(res.body);
     return true;
   }
 
@@ -269,7 +267,7 @@ class _SettingsProviderState extends State<SettingsProvider> {
     final res = await http
         .delete(prefix + url, headers: headers)
         .timeout(_timeoutDuration);
-    print(res.body);
+    // print(res.body);
     return true;
   }
 
