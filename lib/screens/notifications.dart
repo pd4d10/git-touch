@@ -157,6 +157,8 @@ $key: pullRequest(number: ${item.number}) {
   }
 
   Future<void> _onSwitchTab([int index]) async {
+    if (loading) return;
+
     setState(() {
       error = '';
       if (index != null) {

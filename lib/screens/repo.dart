@@ -7,7 +7,6 @@ import '../scaffolds/refresh.dart';
 import '../widgets/repo_item.dart';
 import '../widgets/entry_item.dart';
 import '../screens/issues.dart';
-import '../screens/pull_requests.dart';
 
 class RepoScreen extends StatefulWidget {
   final String owner;
@@ -93,12 +92,19 @@ class _RepoScreenState extends State<RepoScreen> {
                   EntryItem(
                     count: payload['issues']['totalCount'],
                     text: 'Issues',
-                    screenBuilder: (context) => IssuesScreen(),
+                    screenBuilder: (context) => IssuesScreen(
+                          owner: widget.owner,
+                          name: widget.name,
+                        ),
                   ),
                   EntryItem(
                     count: payload['pullRequests']['totalCount'],
                     text: 'Pull Requests',
-                    screenBuilder: (context) => PullRequestsScreen(),
+                    screenBuilder: (context) => IssuesScreen(
+                          owner: widget.owner,
+                          name: widget.name,
+                          isPullRequest: true,
+                        ),
                   ),
                 ],
               ),
