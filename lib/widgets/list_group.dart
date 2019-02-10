@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/empty.dart';
 
 class ListGroup<T> extends StatelessWidget {
   final Widget title;
@@ -30,7 +31,10 @@ class ListGroup<T> extends StatelessWidget {
               color: Color(0x10000000),
               child: title,
             ),
-            Column(children: items.asMap().entries.map(_buildItem).toList())
+            items.isEmpty
+                ? EmptyWidget()
+                : Column(
+                    children: items.asMap().entries.map(_buildItem).toList())
           ],
         ),
       ),

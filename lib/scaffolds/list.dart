@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import '../providers/settings.dart';
 import '../widgets/error_reload.dart';
 import '../widgets/loading.dart';
+import '../widgets/empty.dart';
 
 class ListPayload<T, K> {
   K cursor;
@@ -132,6 +133,8 @@ class _ListScaffoldState<T, K> extends State<ListScaffold<T, K>> {
       );
     } else if (loading) {
       return SliverToBoxAdapter(child: Loading(more: false));
+    } else if (items.isEmpty) {
+      return SliverToBoxAdapter(child: EmptyWidget());
     } else {
       return SliverList(
         delegate: SliverChildBuilderDelegate(
@@ -147,6 +150,8 @@ class _ListScaffoldState<T, K> extends State<ListScaffold<T, K>> {
       return ErrorReload(text: error, reload: _refresh);
     } else if (loading) {
       return Loading(more: false);
+    } else if (items.isEmpty) {
+      return EmptyWidget();
     } else {
       return ListView.builder(
         controller: _controller,

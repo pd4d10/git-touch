@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import '../providers/settings.dart';
 import '../screens/repo.dart';
-export 'github.dart';
+export 'package:github/server.dart';
 export 'octicons.dart';
 export 'timeago.dart';
 
@@ -14,9 +14,9 @@ Color convertColor(String cssHex) {
   return Color(int.parse('ff' + cssHex, radix: 16));
 }
 
-void nextTick(Function callback) {
+void nextTick(Function callback, [int milliseconds = 0]) {
   // FIXME:
-  Future.delayed(Duration(milliseconds: 100)).then((_) {
+  Future.delayed(Duration(milliseconds: 0)).then((_) {
     callback();
   });
 }

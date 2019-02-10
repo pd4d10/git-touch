@@ -6,6 +6,7 @@ import '../providers/settings.dart';
 import '../widgets/notification_item.dart';
 import '../widgets/list_group.dart';
 import '../widgets/link.dart';
+import '../widgets/empty.dart';
 import '../utils/utils.dart';
 
 String getRepoKey(NotificationGroup group) {
@@ -249,10 +250,12 @@ $key: pullRequest(number: ${item.number}) {
       loading: loading,
       error: error,
       bodyBuilder: () {
-        return Column(
-            children: groupMap.entries
-                .map((entry) => _buildGroupItem(context, entry))
-                .toList());
+        return groupMap.isEmpty
+            ? EmptyWidget()
+            : Column(
+                children: groupMap.entries
+                    .map((entry) => _buildGroupItem(context, entry))
+                    .toList());
       },
     );
   }

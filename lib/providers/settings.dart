@@ -189,7 +189,7 @@ class _SettingsProviderState extends State<SettingsProvider> {
         // activeLogin = null;
         // ready = true;
       });
-    });
+    }, 100);
   }
 
   // http timeout
