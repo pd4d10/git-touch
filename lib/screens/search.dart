@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import '../providers/settings.dart';
+import '../scaffolds/simple.dart';
+import '../utils/utils.dart';
+import '../widgets/repo_item.dart';
+import '../widgets/loading.dart';
 
 class SearchScreen extends StatefulWidget {
   @override
@@ -9,59 +13,62 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   int active = 0;
-  List users = [];
+  bool loading = false;
+  List repos = [];
+
+  _onSubmitted(String value) async {
+    setState(() {
+      loading = true;
+    });
+    try {
+      // TODO: search other types
+      var data = await SettingsProvider.of(context).query('''
+{
+  search(first: $pageSize, type: REPOSITORY, query: "$value") {
+    nodes {
+      ... on Repository {
+        $repoChunk
+      }
+    }
+  }
+}
+        ''');
+      repos = data['search']['nodes'];
+    } finally {
+      setState(() {
+        loading = false;
+      });
+    }
+  }
+
+  Widget _buildInput() {
+    switch (SettingsProvider.of(context).theme) {
+      case ThemeMap.cupertino:
+        return CupertinoTextField(
+          // padding: EdgeInsets.all(10),
+          placeholder: 'Type to search',
+          clearButtonMode: OverlayVisibilityMode.editing,
+          onSubmitted: _onSubmitted,
+        );
+      default:
+        return TextField(onSubmitted: _onSubmitted);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    switch (SettingsProvider.of(context).theme) {
-      case ThemeMap.cupertino:
-        return CupertinoPageScaffold(
-          navigationBar: CupertinoNavigationBar(
-            middle: CupertinoTextField(
-              placeholder: 'Type to search',
-              onChanged: (String value) {
-                //
-              },
-              onSubmitted: (String value) {
-                //
-              },
-            ),
-          ),
-          child: SafeArea(
-            child: Column(
-              children: <Widget>[
-                CupertinoSegmentedControl(
-                  children: {0: Text('Repos'), 1: Text('Users')},
-                  onValueChanged: (int value) {
-                    //
-                  },
-                ),
-                ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: users.length,
-                  itemBuilder: (context, index) {
-                    var user = users[index];
-                    return Row(
-                      children: <Widget>[
-                        Image.network(user['avatarUrl']),
-                        Text(user['login']),
-                      ],
-                    );
-                  },
-                ),
-              ],
-            ),
-          ),
-        );
-
-      default:
-        return Scaffold(
-          appBar: AppBar(title: Text('Search')),
-          body: ListView.builder(
-            itemCount: users.length,
-            itemBuilder: (context, index) => Text(''),
-          ),
-        );
-    }
+    return SimpleScaffold(
+      title: Text('Search GitHub Repositories'),
+      bodyBuilder: () {
+        return Column(children: <Widget>[
+          Container(padding: EdgeInsets.all(8), child: _buildInput()),
+          loading
+              ? Loading()
+              : Column(
+                  children: repos.map((repo) => RepoItem(repo)).toList(),
+                )
+        ]);
+      },
+    );
   }
 }
