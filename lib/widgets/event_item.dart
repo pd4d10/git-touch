@@ -3,25 +3,43 @@ import 'package:flutter/cupertino.dart';
 import '../screens/issue.dart';
 import '../screens/pull_request.dart';
 import '../screens/user.dart';
-// import 'link.dart';
 import 'avatar.dart';
 import '../utils/utils.dart';
 
+class EventPayload {
+  String actorLogin;
+  String actorAvatarUrl;
+  String type;
+  String repoFullName;
+  Map<String, dynamic> payload;
+
+  EventPayload.fromJson(input) {
+    actorLogin = input['actor']['login'];
+    actorAvatarUrl = input['actor']['avatar_url'];
+    type = input['type'];
+    payload = input['payload'];
+    repoFullName = input['repo']['name'];
+  }
+}
+
 class EventItem extends StatelessWidget {
-  final Event event;
+  final EventPayload event;
 
   EventItem(this.event);
 
   TextSpan _buildRepo(BuildContext context) {
-    String name = event.repo.name;
+    String name = event.repoFullName;
     var arr = name.split('/');
     return createRepoLinkSpan(context, arr[0], arr[1]);
   }
 
   TextSpan _buildIssue(BuildContext context) {
     int id = event.payload['issue']['number'];
-    return createLinkSpan(context, '#' + id.toString(),
-        () => IssueScreen.fromFullName(number: id, fullName: event.repo.name));
+    return createLinkSpan(
+        context,
+        '#' + id.toString(),
+        () =>
+            IssueScreen.fromFullName(number: id, fullName: event.repoFullName));
   }
 
   TextSpan _buildPullRequest(BuildContext context, int number) {
@@ -29,7 +47,7 @@ class EventItem extends StatelessWidget {
       context,
       '#' + number.toString(),
       () => PullRequestScreen.fromFullName(
-          number: number, fullName: event.repo.name),
+          number: number, fullName: event.repoFullName),
     );
   }
 
@@ -41,7 +59,7 @@ class EventItem extends StatelessWidget {
   }) {
     var _spans = [
       createLinkSpan(
-          context, event.actor.login, () => UserScreen(event.actor.login))
+          context, event.actorLogin, () => UserScreen(event.actorLogin))
     ];
     _spans.addAll(spans);
 
@@ -52,7 +70,7 @@ class EventItem extends StatelessWidget {
         children: <Widget>[
           Row(
             children: <Widget>[
-              Avatar(login: event.actor.login, url: event.actor.avatarUrl),
+              Avatar(login: event.actorLogin, url: event.actorAvatarUrl),
               Padding(padding: EdgeInsets.only(left: 10)),
               Expanded(
                 child: RichText(
@@ -92,7 +110,12 @@ class EventItem extends StatelessWidget {
   build(BuildContext context) {
     var defaultItem = _buildItem(
       context: context,
-      spans: [TextSpan(text: ' This is a ' + event.type)],
+      spans: [
+        TextSpan(
+          text: ' ' + event.type,
+          style: TextStyle(color: Colors.blueAccent),
+        )
+      ],
       iconData: Octicons.octoface,
       detail: 'Woops, ${event.type} not implemented yet',
     );

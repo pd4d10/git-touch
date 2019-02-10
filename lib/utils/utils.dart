@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import '../providers/settings.dart';
 import '../screens/repo.dart';
-export 'package:github/server.dart';
 export 'octicons.dart';
 export 'timeago.dart';
 

@@ -11,13 +11,15 @@ class NewsScreen extends StatefulWidget {
 }
 
 class NewsScreenState extends State<NewsScreen> {
-  Future<List<Event>> fetchEvents(int page) async {
+  Future<List<EventPayload>> fetchEvents(int page) async {
     var settings = SettingsProvider.of(context);
     var login = settings.activeLogin;
     List data = await settings.getWithCredentials(
         '/users/$login/received_events?page=$page&per_page=$pageSize');
     // print(data);
-    return data.map<Event>((item) => Event.fromJSON(item)).toList();
+    return data
+        .map<EventPayload>((item) => EventPayload.fromJson(item))
+        .toList();
   }
 
   @override
