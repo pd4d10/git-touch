@@ -3,7 +3,9 @@ import 'package:flutter/cupertino.dart';
 import '../screens/issue.dart';
 import '../screens/pull_request.dart';
 import '../screens/user.dart';
+import '../screens/repo.dart';
 import 'avatar.dart';
+import 'link.dart';
 import '../utils/utils.dart';
 
 class EventPayload {
@@ -56,6 +58,7 @@ class EventItem extends StatelessWidget {
     @required List<TextSpan> spans,
     String detail,
     IconData iconData = Octicons.octoface,
+    WidgetBuilder screenBuilder,
   }) {
     var _spans = [
       createLinkSpan(
@@ -63,45 +66,48 @@ class EventItem extends StatelessWidget {
     ];
     _spans.addAll(spans);
 
-    return Container(
-      padding: EdgeInsets.all(8),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              Avatar(login: event.actorLogin, url: event.actorAvatarUrl),
-              Padding(padding: EdgeInsets.only(left: 10)),
-              Expanded(
-                child: RichText(
-                  text: TextSpan(
-                    style: TextStyle(
-                        color: Colors.black, height: 1.3, fontSize: 15),
-                    children: _spans,
-                  ),
-                ),
-              ),
-              Padding(padding: EdgeInsets.only(left: 8)),
-              Icon(iconData, color: Colors.black45, size: 22),
-            ],
-          ),
-          detail == null
-              ? Container()
-              : Container(
-                  padding: EdgeInsets.only(left: 46, top: 6),
-                  child: Text(
-                    detail,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 3,
-                    style: TextStyle(
-                      color: Colors.black87,
-                      fontSize: 14,
-                      height: 1.2,
-                      fontWeight: FontWeight.w300,
+    return Link(
+      screenBuilder: screenBuilder,
+      child: Container(
+        padding: EdgeInsets.all(8),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                Avatar(login: event.actorLogin, url: event.actorAvatarUrl),
+                Padding(padding: EdgeInsets.only(left: 10)),
+                Expanded(
+                  child: RichText(
+                    text: TextSpan(
+                      style: TextStyle(
+                          color: Colors.black, height: 1.3, fontSize: 15),
+                      children: _spans,
                     ),
                   ),
-                )
-        ],
+                ),
+                Padding(padding: EdgeInsets.only(left: 8)),
+                Icon(iconData, color: Colors.black45, size: 22),
+              ],
+            ),
+            detail == null
+                ? Container()
+                : Container(
+                    padding: EdgeInsets.only(left: 46, top: 6),
+                    child: Text(
+                      detail,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 3,
+                      style: TextStyle(
+                        color: Colors.black87,
+                        fontSize: 14,
+                        height: 1.2,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                  )
+          ],
+        ),
       ),
     );
   }
@@ -175,6 +181,10 @@ class EventItem extends StatelessWidget {
           ],
           detail: event.payload['comment']['body'],
           iconData: Octicons.comment_discussion,
+          screenBuilder: (_) => IssueScreen.fromFullName(
+                number: event.payload['issue']['number'],
+                fullName: event.repoFullName,
+              ),
         );
       case 'IssuesEvent':
         return _buildItem(
@@ -187,6 +197,10 @@ class EventItem extends StatelessWidget {
           ],
           iconData: Octicons.issue_opened,
           detail: event.payload['issue']['title'],
+          screenBuilder: (_) => IssueScreen.fromFullName(
+                number: event.payload['issue']['number'],
+                fullName: event.repoFullName,
+              ),
         );
       case 'LabelEvent':
       case 'MarketplacePurchaseEvent':
@@ -213,6 +227,10 @@ class EventItem extends StatelessWidget {
           ],
           iconData: Octicons.git_pull_request,
           detail: event.payload['pull_request']['title'],
+          screenBuilder: (_) => PullRequestScreen.fromFullName(
+                number: event.payload['pull_request']['number'],
+                fullName: event.repoFullName,
+              ),
         );
       case 'PullRequestReviewEvent':
         // TODO:
@@ -227,6 +245,10 @@ class EventItem extends StatelessWidget {
             _buildRepo(context),
           ],
           detail: event.payload['comment']['body'],
+          screenBuilder: (_) => PullRequestScreen.fromFullName(
+                number: event.payload['pull_request']['number'],
+                fullName: event.repoFullName,
+              ),
         );
       case 'PushEvent':
         return _buildItem(

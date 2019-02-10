@@ -23,6 +23,7 @@ class Avatar extends StatelessWidget {
         backgroundImage: NetworkImage(url),
         radius: size,
       ),
+      material: false,
     );
   }
 }
