@@ -161,6 +161,7 @@ author {
   avatarUrl
 }
 closed
+url
 ''';
 
 var graghqlChunk = '''

@@ -11,16 +11,16 @@ class RefreshScaffold<T> extends StatefulWidget {
   final Widget title;
   final Widget Function(T payload) bodyBuilder;
   final Future<T> Function() onRefresh;
-  final Widget trailing;
-  final List<Widget> actions;
+  final Widget Function(T payload) trailingBuilder;
+  final List<Widget> Function(T payload) actionsBuilder;
   final PreferredSizeWidget bottom;
 
   RefreshScaffold({
     @required this.title,
     @required this.bodyBuilder,
     @required this.onRefresh,
-    this.trailing,
-    this.actions,
+    this.trailingBuilder,
+    this.actionsBuilder,
     this.bottom,
   });
 
@@ -73,7 +73,9 @@ class _RefreshScaffoldState<T> extends State<RefreshScaffold<T>> {
       case ThemeMap.cupertino:
         return CupertinoPageScaffold(
           navigationBar: CupertinoNavigationBar(
-              middle: widget.title, trailing: widget.trailing),
+            middle: widget.title,
+            trailing: widget.trailingBuilder(payload),
+          ),
           child: SafeArea(
             child: CustomScrollView(
               slivers: <Widget>[
@@ -87,7 +89,7 @@ class _RefreshScaffoldState<T> extends State<RefreshScaffold<T>> {
         return Scaffold(
           appBar: AppBar(
             title: widget.title,
-            actions: widget.actions,
+            actions: widget.actionsBuilder(payload),
             bottom: widget.bottom,
           ),
           body: RefreshIndicator(

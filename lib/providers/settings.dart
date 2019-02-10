@@ -221,6 +221,7 @@ class _SettingsProviderState extends State<SettingsProvider> {
         .timeout(_timeoutDuration);
 
     final data = json.decode(res.body);
+    print(data);
 
     if (data['errors'] != null) {
       throw new Exception(data['errors'].toString());
@@ -257,9 +258,18 @@ class _SettingsProviderState extends State<SettingsProvider> {
         .put(prefix + url, headers: headers, body: body ?? {})
         .timeout(_timeoutDuration);
 
-    // print(res.body);
+    print(res.body);
     // final data = json.decode(res.body);
     // return data;
+    return true;
+  }
+
+  Future<dynamic> deleteWithCredentials(String url) async {
+    var headers = {HttpHeaders.authorizationHeader: 'token $token'};
+    final res = await http
+        .delete(prefix + url, headers: headers)
+        .timeout(_timeoutDuration);
+    print(res.body);
     return true;
   }
 

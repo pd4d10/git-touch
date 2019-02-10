@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:share/share.dart';
 import '../providers/settings.dart';
 import '../scaffolds/refresh.dart';
 import '../widgets/avatar.dart';
@@ -54,6 +55,9 @@ class _UserScreenState extends State<UserScreen> {
         $repoChunk
       }
     }
+    viewerCanFollow
+    viewerIsFollowing
+    url
   }
 }
 ''');
@@ -83,6 +87,7 @@ class _UserScreenState extends State<UserScreen> {
     String email = payload['email'] ?? '';
     if (email.isNotEmpty) {
       return Link(
+        material: false,
         child: Row(children: <Widget>[
           Icon(
             Octicons.mail,
@@ -127,24 +132,104 @@ class _UserScreenState extends State<UserScreen> {
     return Container();
   }
 
+  Future<void> _openActions(payload) async {
+    if (payload == null) return;
+
+    var _actionMap = {};
+    if (payload['viewerCanFollow']) {
+      _actionMap[0] = payload['viewerIsFollowing'] ? 'Unfollow' : 'Follow';
+    }
+    _actionMap[2] = 'Share';
+    _actionMap[3] = 'Open in Browser';
+
+    var value = await showCupertinoModalPopup<int>(
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoActionSheet(
+          title: Text('User Actions'),
+          actions: _actionMap.entries.map((entry) {
+            return CupertinoActionSheetAction(
+              child: Text(entry.value),
+              onPressed: () {
+                Navigator.pop(context, entry.key);
+              },
+            );
+          }).toList(),
+          cancelButton: CupertinoActionSheetAction(
+            child: const Text('Cancel'),
+            isDefaultAction: true,
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        );
+      },
+    );
+
+    switch (value) {
+      case 0:
+        if (payload['viewerIsFollowing']) {
+          await SettingsProvider.of(context)
+              .deleteWithCredentials('/user/following/${widget.login}');
+          payload['viewerIsFollowing'] = false;
+        } else {
+          SettingsProvider.of(context)
+              .putWithCredentials('/user/following/${widget.login}');
+          payload['viewerIsFollowing'] = true;
+        }
+        break;
+      // case 1:
+      //   break;
+      case 2:
+        Share.share(payload['url']);
+        break;
+      case 3:
+        launch(payload['url']);
+        break;
+      default:
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return RefreshScaffold(
       onRefresh: () => queryUser(context),
       title: Text(widget.login),
-      trailing: Link(
-        child: Icon(Icons.settings, size: 24),
-        screenBuilder: (_) => SettingsScreen(),
-        material: false,
-        fullscreenDialog: true,
-      ),
-      actions: <Widget>[
-        Link(
-          iconButton: Icon(Icons.settings),
-          screenBuilder: (_) => SettingsScreen(),
-          fullscreenDialog: true,
-        ),
-      ],
+      trailingBuilder: (payload) {
+        if (widget.showSettings) {
+          return Link(
+            child: Icon(Icons.settings, size: 24),
+            screenBuilder: (_) => SettingsScreen(),
+            material: false,
+            fullscreenDialog: true,
+          );
+        } else {
+          return Link(
+            child: Icon(Icons.more_vert, size: 24),
+            material: false,
+            beforeRedirect: () => _openActions(payload),
+          );
+        }
+      },
+      actionsBuilder: (payload) {
+        if (widget.showSettings) {
+          return [
+            Link(
+              iconButton: Icon(Icons.settings),
+              screenBuilder: (_) => SettingsScreen(),
+              fullscreenDialog: true,
+            )
+          ];
+        } else {
+          return [
+            Link(
+              iconButton: Icon(Icons.more_vert),
+              material: false,
+              beforeRedirect: () => _openActions(payload),
+            )
+          ];
+        }
+      },
       bodyBuilder: (payload) {
         return Column(
           children: <Widget>[

@@ -28,8 +28,8 @@ class LongListPayload<T, K> {
 // e.g. https://github.com/reactjs/rfcs/pull/68
 class LongListScaffold<T, K> extends StatefulWidget {
   final Widget title;
-  final List<Widget> actions;
-  final Widget trailing;
+  final List<Widget> Function(T headerPayload) actionsBuilder;
+  final Widget Function(T headerPayload) trailingBuilder;
   final Widget Function(T headerPayload) headerBuilder;
   final Widget Function(K itemPayload) itemBuilder;
   final Future<LongListPayload<T, K>> Function() onRefresh;
@@ -37,8 +37,8 @@ class LongListScaffold<T, K> extends StatefulWidget {
 
   LongListScaffold({
     @required this.title,
-    this.actions,
-    this.trailing,
+    this.actionsBuilder,
+    this.trailingBuilder,
     @required this.headerBuilder,
     @required this.itemBuilder,
     @required this.onRefresh,
@@ -208,21 +208,28 @@ class _LongListScaffoldState<T, K> extends State<LongListScaffold<T, K>> {
         return CupertinoPageScaffold(
           navigationBar: CupertinoNavigationBar(
             middle: widget.title,
-            trailing: widget.trailing,
+            trailing:
+                payload == null ? null : widget.trailingBuilder(payload.header),
           ),
           child: SafeArea(
             child: CustomScrollView(slivers: slivers),
           ),
         );
       default:
+        List<Widget> children = [];
+        if (payload != null) {
+          children.add(widget.headerBuilder(payload.header));
+        }
+        children.add(_buildBody());
         return Scaffold(
           appBar: AppBar(
             title: widget.title,
-            actions: widget.actions,
+            actions:
+                payload == null ? null : widget.actionsBuilder(payload.header),
           ),
           body: RefreshIndicator(
             onRefresh: widget.onRefresh,
-            child: _buildBody(),
+            child: Column(children: children),
           ),
         );
     }

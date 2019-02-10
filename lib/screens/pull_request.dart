@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:share/share.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../providers/settings.dart';
 import '../utils/utils.dart';
 import '../scaffolds/long_list.dart';
 import '../widgets/timeline_item.dart';
 import '../widgets/comment_item.dart';
+import '../widgets/link.dart';
 
 class PullRequestScreen extends StatefulWidget {
   final int number;
@@ -181,10 +184,68 @@ class _PullRequestScreenState extends State<PullRequestScreen> {
 
   get _fullName => widget.owner + '/' + widget.name;
 
+  Future<void> _openActions(payload) async {
+    if (payload == null) return;
+
+    var _actionMap = {
+      2: 'Share',
+      3: 'Open in Browser',
+    };
+
+    var value = await showCupertinoModalPopup<int>(
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoActionSheet(
+          title: Text('Issue Actions'),
+          actions: _actionMap.entries.map((entry) {
+            return CupertinoActionSheetAction(
+              child: Text(entry.value),
+              onPressed: () {
+                Navigator.pop(context, entry.key);
+              },
+            );
+          }).toList(),
+          cancelButton: CupertinoActionSheetAction(
+            child: const Text('Cancel'),
+            isDefaultAction: true,
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        );
+      },
+    );
+
+    switch (value) {
+      case 2:
+        Share.share(payload['url']);
+        break;
+      case 3:
+        launch(payload['url']);
+        break;
+      default:
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return LongListScaffold(
       title: Text(_fullName + ' #' + widget.number.toString()),
+      trailingBuilder: (payload) {
+        return Link(
+          child: Icon(Icons.more_vert, size: 24),
+          material: false,
+          beforeRedirect: () => _openActions(payload),
+        );
+      },
+      actionsBuilder: (payload) {
+        return [
+          Link(
+            iconButton: Icon(Icons.more_vert),
+            beforeRedirect: () => _openActions(payload),
+          ),
+        ];
+      },
       headerBuilder: (payload) {
         return Column(children: <Widget>[
           Container(
