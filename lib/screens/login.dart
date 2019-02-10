@@ -4,6 +4,7 @@ import '../providers/settings.dart';
 import '../scaffolds/simple.dart';
 import '../utils/constants.dart';
 import '../widgets/link.dart';
+import '../widgets/loading.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -18,6 +19,10 @@ class _LoginScreenState extends State<LoginScreen> {
     return SimpleScaffold(
       title: Text('Select account'),
       bodyBuilder: () {
+        if (settings.loading) {
+          return Center(child: Loading());
+        }
+
         return Container(
           child: Column(
             children: settings.githubAccountMap.entries.map<Widget>((entry) {

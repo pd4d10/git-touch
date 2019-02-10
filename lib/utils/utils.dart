@@ -20,12 +20,6 @@ void nextTick(Function callback, [int milliseconds = 0]) {
   });
 }
 
-class Option<T> {
-  final T value;
-  final Widget widget;
-  Option({this.value, this.widget});
-}
-
 Future<bool> showConfirm(BuildContext context, String text) {
   switch (SettingsProvider.of(context).theme) {
     case ThemeMap.cupertino:
@@ -81,7 +75,13 @@ Future<bool> showConfirm(BuildContext context, String text) {
   }
 }
 
-Future<T> showOptions<T>(BuildContext context, List<Option<T>> options) {
+class DialogOption<T> {
+  final T value;
+  final Widget widget;
+  DialogOption({this.value, this.widget});
+}
+
+Future<T> showOptions<T>(BuildContext context, List<DialogOption<T>> options) {
   var builder = (BuildContext context) {
     return CupertinoAlertDialog(
       actions: options.map((option) {
@@ -184,128 +184,128 @@ __typename
     }
   }
 }
-          ... on ReferencedEvent {
-            createdAt
-            isCrossRepository
-            actor {
-              login
-            }
-            commit {
-              oid
-              url
-            }
-            commitRepository {
-              owner {
-                login
-              }
-              name
-            }
-          }
+... on ReferencedEvent {
+  createdAt
+  isCrossRepository
+  actor {
+    login
+  }
+  commit {
+    oid
+    url
+  }
+  commitRepository {
+    owner {
+      login
+    }
+    name
+  }
+}
 
-          ... on RenamedTitleEvent {
-            createdAt
-            previousTitle
-            currentTitle
-            actor {
-              login
-            }
-          }
+... on RenamedTitleEvent {
+  createdAt
+  previousTitle
+  currentTitle
+  actor {
+    login
+  }
+}
 
-          ... on ClosedEvent {
-            createdAt
-            actor {
-              login
-            }
-          }
+... on ClosedEvent {
+  createdAt
+  actor {
+    login
+  }
+}
 
-          ... on ReopenedEvent {
-            createdAt
-            actor {
-              login
-            }
-          }
+... on ReopenedEvent {
+  createdAt
+  actor {
+    login
+  }
+}
 
-          ... on CrossReferencedEvent {
-            createdAt
-            actor {
-              login
-            }
-    				source {
-              __typename
-              ... on Issue {
-                number
-                repository {
-                  owner {
-                    login
-                  }
-                  name
-                }
-              }
-              ... on PullRequest {
-                number
-                repository {
-                  owner {
-                    login
-                  }
-                  name
-                }
-              }
-            }
-          }
+... on CrossReferencedEvent {
+  createdAt
+  actor {
+    login
+  }
+  source {
+    __typename
+    ... on Issue {
+      number
+      repository {
+        owner {
+          login
+        }
+        name
+      }
+    }
+    ... on PullRequest {
+      number
+      repository {
+        owner {
+          login
+        }
+        name
+      }
+    }
+  }
+}
 
 
-          ... on LabeledEvent {
-            createdAt
-            actor {
-              login
-            }
-            label {
-              name
-              color
-            }
-          }
+... on LabeledEvent {
+  createdAt
+  actor {
+    login
+  }
+  label {
+    name
+    color
+  }
+}
 
-          ... on UnlabeledEvent {
-            createdAt
-            actor {
-              login
-            }
-            label {
-              name
-              color
-            }
-          }
+... on UnlabeledEvent {
+  createdAt
+  actor {
+    login
+  }
+  label {
+    name
+    color
+  }
+}
 
-          ... on MilestonedEvent {
-            createdAt
-            actor {
-              login
-            }
-            milestoneTitle
-          }
-          
-          ... on LockedEvent {
-            createdAt
-            actor {
-              login
-            }
-            lockReason
-          }        
-          ... on UnlockedEvent {
-            createdAt
-            actor {
-              login
-            }
-          }          
-          ... on AssignedEvent {
-            createdAt
-            actor {
-              login
-            }
-            user {
-              login
-            }
-          }  
+... on MilestonedEvent {
+  createdAt
+  actor {
+    login
+  }
+  milestoneTitle
+}
+
+... on LockedEvent {
+  createdAt
+  actor {
+    login
+  }
+  lockReason
+}
+... on UnlockedEvent {
+  createdAt
+  actor {
+    login
+  }
+}
+... on AssignedEvent {
+  createdAt
+  actor {
+    login
+  }
+  user {
+    login
+  }
+}
 ''';
 
 var createWarning =

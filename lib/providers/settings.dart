@@ -67,6 +67,7 @@ class _SettingsProviderState extends State<SettingsProvider> {
   Map<String, Account> githubAccountMap;
   String activeLogin;
   StreamSubscription<Uri> _sub;
+  bool loading = false;
 
   Future<void> setTheme(int _theme) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -103,6 +104,10 @@ class _SettingsProviderState extends State<SettingsProvider> {
 
   // https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/#web-application-flow
   void _onSchemeDetected(Uri uri) async {
+    setState(() {
+      loading = true;
+    });
+
     // get token by code
     var code = uri.queryParameters['code'];
     // print(code);
@@ -144,7 +149,9 @@ class _SettingsProviderState extends State<SettingsProvider> {
     print('write github: $githubData');
     await prefs.setString('github', githubData);
 
-    setState(() {});
+    setState(() {
+      loading = false;
+    });
   }
 
   void _initDataFromPref() async {

@@ -5,7 +5,7 @@ import '../providers/settings.dart';
 class Loading extends StatelessWidget {
   final bool more;
 
-  Loading({this.more});
+  Loading({this.more = false});
 
   Widget _buildIndicator(BuildContext context) {
     switch (SettingsProvider.of(context).theme) {
