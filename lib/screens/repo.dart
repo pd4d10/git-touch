@@ -48,6 +48,10 @@ class _RepoScreenState extends State<RepoScreen> {
     pullRequests(states: OPEN) {
       totalCount
     }
+    url
+    defaultBranchRef {
+      name
+    }
   }
 }
 
@@ -105,6 +109,16 @@ class _RepoScreenState extends State<RepoScreen> {
                           name: widget.name,
                           isPullRequest: true,
                         ),
+                  ),
+                  EntryItem(
+                    text: 'Files',
+                    url: payload['url'] + '?files=1',
+                  ),
+                  EntryItem(
+                    text: 'Commits',
+                    url: payload['url'] +
+                        '/commits/' +
+                        payload['defaultBranchRef']['name'],
                   ),
                 ],
               ),

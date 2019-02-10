@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../providers/settings.dart';
 
 class Link extends StatelessWidget {
   final Widget child;
+  final String url;
   final WidgetBuilder screenBuilder;
   final Function beforeRedirect;
   final Color bgColor;
@@ -13,13 +15,15 @@ class Link extends StatelessWidget {
 
   Link({
     this.child,
+    this.url,
     this.screenBuilder,
     this.beforeRedirect,
     this.bgColor,
     this.material = true,
     this.fullscreenDialog = false,
     this.iconButton,
-  }) : assert(child != null || iconButton != null);
+  })  : assert(child != null || iconButton != null),
+        assert(screenBuilder == null || url == null);
 
   void _onTap(BuildContext context, int theme) {
     if (beforeRedirect != null) {
@@ -40,6 +44,10 @@ class Link extends StatelessWidget {
             fullscreenDialog: fullscreenDialog,
           ));
       }
+    }
+
+    if (url != null) {
+      launch(url);
     }
   }
 
