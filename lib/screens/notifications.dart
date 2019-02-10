@@ -124,7 +124,7 @@ $key: pullRequest(number: ${item.number}) {
           children: <Widget>[
             Text(
               repo,
-              style: TextStyle(color: Colors.black, fontSize: 15),
+              style: TextStyle(color: Colors.black, fontSize: 16),
             ),
             Link(
               material: false,
@@ -136,7 +136,7 @@ $key: pullRequest(number: ${item.number}) {
               child: Icon(
                 Octicons.check,
                 color: Colors.black45,
-                size: 20,
+                size: 24,
               ),
             ),
           ],

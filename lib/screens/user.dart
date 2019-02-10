@@ -76,7 +76,10 @@ class _UserScreenState extends State<UserScreen> {
     }
 
     return ListGroup(
-      title: Text(title),
+      title: Text(
+        title,
+        style: TextStyle(fontSize: 16),
+      ),
       items: items,
       itemBuilder: (item, _) => RepoItem(item),
     );
@@ -95,7 +98,7 @@ class _UserScreenState extends State<UserScreen> {
             size: 16,
           ),
           Padding(padding: EdgeInsets.only(left: 4)),
-          Text(email, style: TextStyle(color: Colors.black54, fontSize: 16))
+          Text(email, style: TextStyle(color: Colors.black54, fontSize: 15))
         ]),
         beforeRedirect: () {
           launch('mailto:' + email);
@@ -248,8 +251,10 @@ class _UserScreenState extends State<UserScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(payload['name'] ?? widget.login,
-                            style: TextStyle(height: 1.2)),
+                        Text(
+                          payload['name'] ?? widget.login,
+                          style: TextStyle(height: 1.2, fontSize: 16),
+                        ),
                         Padding(padding: EdgeInsets.only(top: 10)),
                         _buildEmail(payload),
                       ],

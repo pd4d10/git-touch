@@ -123,7 +123,7 @@ class _NotificationItemState extends State<NotificationItem> {
     return Icon(
       payload.unread ? Octicons.check : Octicons.primitive_dot,
       color: loading ? Colors.black12 : Colors.black45,
-      size: 20,
+      size: 24,
     );
   }
 
@@ -165,6 +165,7 @@ class _NotificationItemState extends State<NotificationItem> {
                 child: Text(
                   payload.title,
                   overflow: TextOverflow.ellipsis,
+                  style: TextStyle(fontSize: 15),
                 ),
               ),
               Link(child: _buildCheckIcon(), beforeRedirect: _markAsRead),
