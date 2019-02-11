@@ -126,16 +126,16 @@ TextSpan createLinkSpan(BuildContext context, String text, Function handle) {
       fontWeight: FontWeight.w600,
       // decoration: TextDecoration.underline,
     ),
-    // recognizer: TapGestureRecognizer()
-    //   ..onTap = () {
-    //     Navigator.of(context).push(
-    //       CupertinoPageRoute(
-    //         builder: (context) {
-    //           return handle();
-    //         },
-    //       ),
-    //     );
-    //   },
+    recognizer: TapGestureRecognizer()
+      ..onTap = () {
+        Navigator.of(context).push(
+          CupertinoPageRoute(
+            builder: (context) {
+              return handle();
+            },
+          ),
+        );
+      },
   );
 }
 

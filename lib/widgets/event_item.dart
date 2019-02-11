@@ -66,48 +66,45 @@ class EventItem extends StatelessWidget {
     ];
     _spans.addAll(spans);
 
-    return Link(
-      screenBuilder: screenBuilder,
-      child: Container(
-        padding: EdgeInsets.all(8),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                Avatar(login: event.actorLogin, url: event.actorAvatarUrl),
-                Padding(padding: EdgeInsets.only(left: 10)),
-                Expanded(
-                  child: RichText(
-                    text: TextSpan(
-                      style: TextStyle(
-                          color: Colors.black, height: 1.3, fontSize: 15),
-                      children: _spans,
-                    ),
+    return Container(
+      padding: EdgeInsets.all(8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Avatar(login: event.actorLogin, url: event.actorAvatarUrl),
+              Padding(padding: EdgeInsets.only(left: 10)),
+              Expanded(
+                child: RichText(
+                  text: TextSpan(
+                    style: TextStyle(
+                        color: Colors.black, height: 1.3, fontSize: 15),
+                    children: _spans,
                   ),
                 ),
-                Padding(padding: EdgeInsets.only(left: 8)),
-                Icon(iconData, color: Colors.black45, size: 22),
-              ],
-            ),
-            detail == null
-                ? Container()
-                : Container(
-                    padding: EdgeInsets.only(left: 46, top: 6),
-                    child: Text(
-                      detail,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 3,
-                      style: TextStyle(
-                        color: Colors.black87,
-                        fontSize: 14,
-                        height: 1.2,
-                        fontWeight: FontWeight.w300,
-                      ),
+              ),
+              Padding(padding: EdgeInsets.only(left: 8)),
+              Icon(iconData, color: Colors.black45, size: 22),
+            ],
+          ),
+          detail == null
+              ? Container()
+              : Container(
+                  padding: EdgeInsets.only(left: 46, top: 6),
+                  child: Text(
+                    detail,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 3,
+                    style: TextStyle(
+                      color: Colors.black87,
+                      fontSize: 14,
+                      height: 1.2,
+                      fontWeight: FontWeight.w300,
                     ),
-                  )
-          ],
-        ),
+                  ),
+                )
+        ],
       ),
     );
   }
