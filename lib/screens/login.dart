@@ -76,7 +76,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     var state = settings.generateRandomString();
                     launch(
                       'https://github.com/login/oauth/authorize?client_id=$clientId&redirect_uri=gittouch://login&scope=user%20repo&state=$state',
-                      forceSafariVC: false, // this makes URL Scheme work
                     );
                   },
                 ),

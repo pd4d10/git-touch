@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:uni_links/uni_links.dart';
 import 'package:nanoid/nanoid.dart';
+import 'package:url_launcher/url_launcher.dart';
 // import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -104,6 +105,11 @@ class _SettingsProviderState extends State<SettingsProvider> {
 
   // https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/#web-application-flow
   void _onSchemeDetected(Uri uri) async {
+    try {
+      // FIXME:
+      await closeWebView();
+    } catch (err) {}
+
     setState(() {
       loading = true;
     });
