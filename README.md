@@ -2,10 +2,23 @@
 
 Open source GitHub client built with Flutter
 
+<a href="https://itunes.apple.com/us/app/gittouch/id1452042346">
+  <img alt="Download on the App Store" title="App Store" src="assets/app-store.svg" />
+</a>
+<a href="https://play.google.com/store/apps/details?id=io.github.pd4d10.gittouch">
+  <img alt="Get it on Google Play" title="Google Play" src="assets/google-play.png" height="40" />
+</a>
+
+## Installation
+
+Click badges above to install it from Apple App Store or Google Play.
+
+Android users can also download APK file from [release page](https://github.com/pd4d10/git-touch/releases) and install it manually.
+
 ## Screenshots
 
-<img src="assets/screenshot-ios.png" alt="iOS screenshot" width="400" />
-<img src="assets/screenshot-android.png" alt="Android screenshot" width="410" />
+<img src="assets/screenshot-ios.png" alt="iOS screenshot" width="320" />
+<img src="assets/screenshot-android.png" alt="Android screenshot" width="325" />
 
 ## Contributing
 
@@ -13,9 +26,9 @@ Open source GitHub client built with Flutter
 
 GitTouch use Flutter's builtin material and cupertino widgets. If you have any thoughts about UI design, feel free to open an issue to discuss about it.
 
-### Bug report
+### Bug report or feature request
 
-Please follow the issue template to submit a bug report. Report with a screenshot would be great.
+Please follow the issue templates. A screenshot would be great if it is a bug report.
 
 ### Bug fixes or new feature
 
