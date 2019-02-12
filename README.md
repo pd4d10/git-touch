@@ -2,6 +2,11 @@
 
 Open source GitHub client built with Flutter
 
+## Screenshots
+
+<img src="assets/screenshot-ios.png" alt="iOS screenshot" width="400" />
+<img src="assets/screenshot-android.png" alt="Android screenshot" width="410" />
+
 ## Contributing
 
 ### UI Design
