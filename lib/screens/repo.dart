@@ -71,6 +71,11 @@ class _RepoScreenState extends State<RepoScreen> {
     var name = widget.name;
     var data = await SettingsProvider.of(context)
         .getWithCredentials('/repos/$owner/$name/readme');
+
+    if (data['content'] == null) {
+      return '';
+    }
+
     var bits = base64.decode(data['content'].replaceAll('\n', ''));
     var str = utf8.decode(bits);
     return str;
