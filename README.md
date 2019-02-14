@@ -32,7 +32,7 @@ GitTouch use Flutter's builtin material and cupertino widgets. If you have any t
 
 ### Bug report or feature request
 
-Please follow the issue templates. A screenshot would be great if it is a bug report.
+A screenshot would be great if it is a bug report.
 
 ### Bug fixes or new feature
 
