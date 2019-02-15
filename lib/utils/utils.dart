@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import '../providers/settings.dart';
 import '../screens/repo.dart';
-export 'octicons.dart';
+export 'package:flutter_vector_icons/flutter_vector_icons.dart';
 export 'timeago.dart';
 
 Color convertColor(String cssHex) {
