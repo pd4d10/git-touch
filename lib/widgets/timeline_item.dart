@@ -36,6 +36,7 @@ class TimelineItem extends StatelessWidget {
         Expanded(
           child: RichText(
             text: TextSpan(style: TextStyle(color: Colors.black), children: [
+              // TODO: actor is null
               createUserSpan(actor),
               textSpan,
               // TextSpan(text: ' ' + TimeAgo.formatFromString(item['createdAt']))
@@ -83,7 +84,9 @@ class TimelineItem extends StatelessWidget {
       // common types
       case 'Commit':
         return _buildItem(
-          actor: item['author']['user']['login'],
+          actor: item['author']['user'] == null
+              ? null
+              : item['author']['user']['login'],
           iconData: Octicons.git_commit,
           textSpan: TextSpan(children: [
             TextSpan(text: ' added commit '),
