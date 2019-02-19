@@ -3,7 +3,6 @@ import '../scaffolds/list.dart';
 import '../providers/settings.dart';
 import '../utils/utils.dart';
 import '../widgets/link.dart';
-import '../screens/pull_request.dart';
 import '../screens/issue.dart';
 
 class IssuesScreen extends StatefulWidget {
@@ -22,9 +21,9 @@ class IssuesScreen extends StatefulWidget {
 }
 
 class _IssuesScreenState extends State<IssuesScreen> {
-  get owner => widget.owner;
-  get name => widget.name;
-  get isPullRequest => widget.isPullRequest;
+  String get owner => widget.owner;
+  String get name => widget.name;
+  bool get isPullRequest => widget.isPullRequest;
 
   Future<ListPayload> _query([String cursor]) async {
     var cursorChunk = cursor == null ? '' : ', after: "$cursor"';
@@ -66,19 +65,12 @@ class _IssuesScreenState extends State<IssuesScreen> {
   Widget _buildItem(payload) {
     return Link(
       screenBuilder: (context) {
-        if (widget.isPullRequest) {
-          return PullRequestScreen(
-            number: payload['number'],
-            owner: owner,
-            name: name,
-          );
-        } else {
-          return IssueScreen(
-            number: payload['number'],
-            owner: owner,
-            name: name,
-          );
-        }
+        return IssueScreen(
+          number: payload['number'],
+          owner: owner,
+          name: name,
+          isPullRequest: isPullRequest,
+        );
       },
       child: Container(
         padding: EdgeInsets.all(8),

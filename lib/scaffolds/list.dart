@@ -74,8 +74,8 @@ class _ListScaffoldState<T, K> extends State<ListScaffold<T, K>> {
       cursor = _payload.cursor;
       hasMore = _payload.hasMore;
     } catch (err) {
-      // print(err);
       error = err.toString();
+      throw err;
     } finally {
       if (mounted) {
         setState(() {

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import '../utils/utils.dart';
 import '../screens/issue.dart';
-import '../screens/pull_request.dart';
 import '../screens/not_found.dart';
 import '../providers/settings.dart';
 import 'link.dart';
@@ -65,10 +64,11 @@ class _NotificationItemState extends State<NotificationItem> {
           name: payload.name,
         );
       case 'PullRequest':
-        return PullRequestScreen(
+        return IssueScreen(
           number: payload.number,
           owner: payload.owner,
           name: payload.name,
+          isPullRequest: true,
         );
       case 'Release':
       // return

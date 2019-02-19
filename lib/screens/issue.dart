@@ -9,106 +9,306 @@ import '../widgets/comment_item.dart';
 import '../providers/settings.dart';
 import '../widgets/link.dart';
 
+/// Screen for issue and pull request
 class IssueScreen extends StatefulWidget {
   final int number;
   final String owner;
   final String name;
+  final bool isPullRequest;
 
   IssueScreen({
     @required this.number,
     @required this.owner,
     @required this.name,
+    this.isPullRequest = false,
   });
 
-  IssueScreen.fromFullName({@required this.number, @required String fullName})
-      : this.owner = fullName.split('/')[0],
-        this.name = fullName.split('/')[1];
+  IssueScreen.fromFullName({
+    @required this.number,
+    @required String fullName,
+    this.isPullRequest = false,
+  })  : owner = fullName.split('/')[0],
+        name = fullName.split('/')[1];
 
   @override
   _IssueScreenState createState() => _IssueScreenState();
 }
 
 class _IssueScreenState extends State<IssueScreen> {
-  get _fullName => widget.owner + '/' + widget.name;
-  get owner => widget.owner;
-  get id => widget.number;
-  get name => widget.name;
+  String get owner => widget.owner;
+  String get name => widget.name;
+  int get number => widget.number;
+  bool get isPullRequest => widget.isPullRequest;
 
-  Future queryIssue() async {
+  String get resource => isPullRequest ? 'pullRequest' : 'issue';
+
+  String get issueChunk {
+    var base = '''
+title
+createdAt
+body
+author {
+  login
+  avatarUrl
+}
+closed
+url
+''';
+
+    if (isPullRequest) {
+      base += '''
+merged
+additions
+deletions
+commits {
+  totalCount
+}
+''';
+    }
+    return base;
+  }
+
+  String get timelineChunk {
+    var base = '''
+__typename
+... on IssueComment {
+  createdAt
+  body
+  author {
+    login
+    avatarUrl
+  }
+}
+... on Commit {
+  committedDate
+  oid
+  author {
+    user {
+      login
+    }
+  }
+}
+... on ReferencedEvent {
+  createdAt
+  isCrossRepository
+  actor {
+    login
+  }
+  commit {
+    oid
+    url
+  }
+  commitRepository {
+    owner {
+      login
+    }
+    name
+  }
+}
+... on RenamedTitleEvent {
+  createdAt
+  previousTitle
+  currentTitle
+  actor {
+    login
+  }
+}
+... on ClosedEvent {
+  createdAt
+  actor {
+    login
+  }
+}
+... on ReopenedEvent {
+  createdAt
+  actor {
+    login
+  }
+}
+... on CrossReferencedEvent {
+  createdAt
+  actor {
+    login
+  }
+  source {
+    __typename
+    ... on Issue {
+      number
+      repository {
+        owner {
+          login
+        }
+        name
+      }
+    }
+    ... on PullRequest {
+      number
+      repository {
+        owner {
+          login
+        }
+        name
+      }
+    }
+  }
+}
+... on LabeledEvent {
+  createdAt
+  actor {
+    login
+  }
+  label {
+    name
+    color
+  }
+}
+... on UnlabeledEvent {
+  createdAt
+  actor {
+    login
+  }
+  label {
+    name
+    color
+  }
+}
+... on MilestonedEvent {
+  createdAt
+  actor {
+    login
+  }
+  milestoneTitle
+}
+... on LockedEvent {
+  createdAt
+  actor {
+    login
+  }
+  lockReason
+}
+... on UnlockedEvent {
+  createdAt
+  actor {
+    login
+  }
+}
+... on AssignedEvent {
+  createdAt
+  actor {
+    login
+  }
+  user {
+    login
+  }
+}
+''';
+
+    if (isPullRequest) {
+      base += '''
+... on ReviewRequestedEvent {
+  createdAt
+  actor {
+    login
+  }
+  requestedReviewer {
+    ... on User {
+      login
+    }
+  }
+}
+... on PullRequestReview {
+  createdAt
+  state
+  author {
+    login
+  }
+}
+... on MergedEvent {
+  createdAt
+  mergeRefName
+  actor {
+    login
+  }
+  commit {
+    oid
+    url
+  }
+}
+... on HeadRefDeletedEvent {
+  createdAt
+  actor {
+    login
+  }
+  headRefName
+}
+''';
+    }
+
+    return base;
+  }
+
+  Future _queryIssue({String cursor, bool trailing = false}) async {
+    String timelineParams;
+    if (trailing) {
+      timelineParams = 'last: $pageSize';
+    } else {
+      timelineParams = 'first: $pageSize';
+      if (cursor != null) {
+        timelineParams += ', after: $cursor';
+      }
+    }
+
     var data = await SettingsProvider.of(context).query('''
 {
   repository(owner: "$owner", name: "$name") {
-    issue(number: $id) {
-      $graphqlChunk1
-      timeline(first: $pageSize) {
+    $resource(number: $number) {
+      $issueChunk
+      timeline($timelineParams) {
         totalCount
         pageInfo {
           hasNextPage
           endCursor
         }
         nodes {
-          $graghqlChunk
+          $timelineChunk
         }
       }
     }
   }
 }
 ''');
-    return data['repository']['issue'];
+    return data['repository'][resource];
   }
 
-  Future queryMore(String cursor) async {
-    var data = await SettingsProvider.of(context).query('''
-{
-  repository(owner: "$owner", name: "$name") {
-    issue(number: $id) {
-      timeline(first: $pageSize, after: $cursor) {
-        totalCount
-        pageInfo {
-          endCursor
-        }
-        nodes {
-          $graghqlChunk
-        }
-      }
-    }
-  }
-}
-''');
-    return data['repository']['issue'];
-  }
-
-  Future<List> queryTrailing() async {
-    var data = await SettingsProvider.of(context).query('''
-{
-  repository(owner: "$owner", name: "$name") {
-    issue(number: $id) {
-      timeline(last: $pageSize) {
-        nodes {
-          $graghqlChunk
-        }
-      }
-    }
-  }
-}
-''');
-    return data['repository']['issue']['timeline']['nodes'];
-  }
-
-  // TODO: extract as widget, this is copied from pull request
   Widget _buildBadge(payload) {
     Color bgColor;
     IconData iconData;
     String text;
 
-    if (payload['closed']) {
-      bgColor = Palette.red;
-      iconData = Octicons.issue_closed;
-      text = 'Closed';
+    if (isPullRequest) {
+      if (payload['merged']) {
+        bgColor = Palette.purple;
+        iconData = Octicons.git_merge;
+        text = 'Merged';
+      } else if (payload['closed']) {
+        bgColor = Palette.red;
+        iconData = Octicons.git_pull_request;
+        text = 'Closed';
+      } else {
+        bgColor = Palette.green;
+        iconData = Octicons.git_pull_request;
+        text = 'Open';
+      }
     } else {
-      bgColor = Palette.green;
-      iconData = Octicons.issue_opened;
-      text = 'Open';
+      if (payload['closed']) {
+        bgColor = Palette.red;
+        iconData = Octicons.issue_closed;
+        text = 'Closed';
+      } else {
+        bgColor = Palette.green;
+        iconData = Octicons.issue_opened;
+        text = 'Open';
+      }
     }
     return Container(
       decoration: BoxDecoration(
@@ -136,17 +336,15 @@ class _IssueScreenState extends State<IssueScreen> {
   Future<void> _openActions(payload) async {
     if (payload == null) return;
 
-    var _actionMap = {
-      2: 'Share',
-      3: 'Open in Browser',
-    };
-
     var value = await showCupertinoModalPopup<int>(
       context: context,
       builder: (BuildContext context) {
         return CupertinoActionSheet(
-          title: Text('Issue Actions'),
-          actions: _actionMap.entries.map((entry) {
+          title: Text((isPullRequest ? 'Pull Request' : 'Issue') + ' Actions'),
+          actions: {
+            2: 'Share',
+            3: 'Open in Browser',
+          }.entries.map((entry) {
             return CupertinoActionSheetAction(
               child: Text(entry.value),
               onPressed: () {
@@ -179,7 +377,7 @@ class _IssueScreenState extends State<IssueScreen> {
   @override
   Widget build(BuildContext context) {
     return LongListScaffold(
-      title: Text(_fullName + ' #' + widget.number.toString()),
+      title: Text('$owner/$name #$number'),
       trailingBuilder: (payload) {
         return Link(
           child: Icon(Icons.more_vert, size: 24),
@@ -230,7 +428,7 @@ class _IssueScreenState extends State<IssueScreen> {
       },
       itemBuilder: (itemPayload) => TimelineItem(itemPayload),
       onRefresh: () async {
-        var res = await queryIssue();
+        var res = await _queryIssue();
         int totalCount = res['timeline']['totalCount'];
         String cursor = res['timeline']['pageInfo']['endCursor'];
         List leadingItems = res['timeline']['nodes'];
@@ -244,13 +442,14 @@ class _IssueScreenState extends State<IssueScreen> {
         );
 
         if (totalCount > 2 * pageSize) {
-          payload.trailingItems = await queryTrailing();
+          var res = await _queryIssue(trailing: true);
+          payload.trailingItems = res['timeline']['nodes'];
         }
 
         return payload;
       },
       onLoadMore: (String _cursor) async {
-        var res = await queryMore(_cursor);
+        var res = await _queryIssue(cursor: _cursor);
         int totalCount = res['timeline']['totalCount'];
         String cursor = res['timeline']['pageInfo']['endCursor'];
         List leadingItems = res['timeline']['nodes'];

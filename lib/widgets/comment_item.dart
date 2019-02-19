@@ -5,17 +5,17 @@ import 'avatar.dart';
 import 'user_name.dart';
 
 class CommentItem extends StatelessWidget {
-  final Map<String, dynamic> item;
+  final Map<String, dynamic> payload;
 
-  CommentItem(this.item);
+  CommentItem(this.payload);
 
   @override
   Widget build(BuildContext context) {
     return Column(children: <Widget>[
       Row(children: <Widget>[
         Avatar(
-          login: item['author']['login'],
-          url: item['author']['avatarUrl'],
+          login: payload['author']['login'],
+          url: payload['author']['avatarUrl'],
           size: 16,
         ),
         Padding(padding: EdgeInsets.only(left: 6)),
@@ -23,10 +23,10 @@ class CommentItem extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              UserName(item['author']['login']),
+              UserName(payload['author']['login']),
               Padding(padding: EdgeInsets.only(bottom: 2)),
               Text(
-                TimeAgo.formatFromString(item['createdAt']),
+                TimeAgo.formatFromString(payload['createdAt']),
                 style: TextStyle(color: Colors.black54, fontSize: 13),
               ),
             ],
@@ -36,7 +36,7 @@ class CommentItem extends StatelessWidget {
       Padding(
         padding: const EdgeInsets.only(left: 36, top: 8),
         child: MarkdownBody(
-          data: item['body'],
+          data: payload['body'],
           // styleSheet: MarkdownStyleSheet(code: TextStyle(fontSize: 14)),
         ),
       ),

@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import '../providers/settings.dart';
 
-typedef RefreshCallback = Future<void> Function();
 typedef WidgetBuilder = Widget Function();
 
 class SimpleScaffold extends StatelessWidget {

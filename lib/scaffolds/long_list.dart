@@ -71,8 +71,8 @@ class _LongListScaffoldState<T, K> extends State<LongListScaffold<T, K>> {
     try {
       payload = await widget.onRefresh();
     } catch (err) {
-      // print(err);
       error = err.toString();
+      throw err;
     } finally {
       if (mounted) {
         setState(() {

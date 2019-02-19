@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import '../screens/issue.dart';
-import '../screens/pull_request.dart';
 import '../screens/user.dart';
-import '../screens/repo.dart';
 import 'avatar.dart';
-import 'link.dart';
 import '../utils/utils.dart';
 
 class EventPayload {
@@ -35,22 +32,18 @@ class EventItem extends StatelessWidget {
     return createRepoLinkSpan(context, arr[0], arr[1]);
   }
 
-  TextSpan _buildIssue(BuildContext context) {
-    int id = event.payload['issue']['number'];
-    return createLinkSpan(
-        context,
-        '#' + id.toString(),
-        () =>
-            IssueScreen.fromFullName(number: id, fullName: event.repoFullName));
-  }
+  TextSpan _buildIssue(BuildContext context,
+      {@required int number, bool isPullRequest = false}) {
+    // var resource = isPullRequest ? 'pull_request' : 'issue';
+    // int number = event.payload['issue']['number'];
 
-  TextSpan _buildPullRequest(BuildContext context, int number) {
-    return createLinkSpan(
-      context,
-      '#' + number.toString(),
-      () => PullRequestScreen.fromFullName(
-          number: number, fullName: event.repoFullName),
-    );
+    return createLinkSpan(context, '#' + number.toString(), () {
+      return IssueScreen.fromFullName(
+        number: number,
+        fullName: event.repoFullName,
+        isPullRequest: isPullRequest,
+      );
+    });
   }
 
   Widget _buildItem({
@@ -161,17 +154,19 @@ class EventItem extends StatelessWidget {
         // TODO:
         return defaultItem;
       case 'IssueCommentEvent':
-        bool isIssue = event.payload['issue']['pull_request'] == null;
-        String resource = isIssue ? 'issue' : 'pull request';
-        TextSpan link = isIssue
-            ? _buildIssue(context)
-            : _buildPullRequest(context, event.payload['issue']['number']);
+        bool isPullRequest = event.payload['issue']['pull_request'] != null;
+        String resource = isPullRequest ? 'pull request' : 'issue';
+        int number = event.payload['issue']['number'];
 
         return _buildItem(
           context: context,
           spans: [
             TextSpan(text: ' commented on $resource '),
-            link,
+            _buildIssue(
+              context,
+              number: number,
+              isPullRequest: isPullRequest,
+            ),
             TextSpan(text: ' at '),
             _buildRepo(context),
             // TextSpan(text: event.payload['comment']['body'])
@@ -179,23 +174,26 @@ class EventItem extends StatelessWidget {
           detail: event.payload['comment']['body'],
           iconData: Octicons.comment_discussion,
           screenBuilder: (_) => IssueScreen.fromFullName(
-                number: event.payload['issue']['number'],
+                number: number,
                 fullName: event.repoFullName,
+                isPullRequest: isPullRequest,
               ),
         );
       case 'IssuesEvent':
+        int number = event.payload['issue']['number'];
+
         return _buildItem(
           context: context,
           spans: [
             TextSpan(text: ' ${event.payload['action']} issue '),
-            _buildIssue(context),
+            _buildIssue(context, number: number),
             TextSpan(text: ' at '),
             _buildRepo(context),
           ],
           iconData: Octicons.issue_opened,
           detail: event.payload['issue']['title'],
           screenBuilder: (_) => IssueScreen.fromFullName(
-                number: event.payload['issue']['number'],
+                number: number,
                 fullName: event.repoFullName,
               ),
         );
@@ -218,15 +216,17 @@ class EventItem extends StatelessWidget {
           context: context,
           spans: [
             TextSpan(text: ' ${event.payload['action']} pull request '),
-            _buildPullRequest(context, event.payload['pull_request']['number']),
+            _buildIssue(context,
+                number: event.payload['number'], isPullRequest: true),
             TextSpan(text: ' at '),
             _buildRepo(context),
           ],
           iconData: Octicons.git_pull_request,
           detail: event.payload['pull_request']['title'],
-          screenBuilder: (_) => PullRequestScreen.fromFullName(
+          screenBuilder: (_) => IssueScreen.fromFullName(
                 number: event.payload['pull_request']['number'],
                 fullName: event.repoFullName,
+                isPullRequest: true,
               ),
         );
       case 'PullRequestReviewEvent':
@@ -237,14 +237,17 @@ class EventItem extends StatelessWidget {
           context: context,
           spans: [
             TextSpan(text: ' reviewed pull request '),
-            _buildPullRequest(context, event.payload['pull_request']['number']),
+            _buildIssue(context,
+                number: event.payload['pull_request']['number'],
+                isPullRequest: true),
             TextSpan(text: ' at '),
             _buildRepo(context),
           ],
           detail: event.payload['comment']['body'],
-          screenBuilder: (_) => PullRequestScreen.fromFullName(
+          screenBuilder: (_) => IssueScreen.fromFullName(
                 number: event.payload['pull_request']['number'],
                 fullName: event.repoFullName,
+                isPullRequest: true,
               ),
         );
       case 'PushEvent':
