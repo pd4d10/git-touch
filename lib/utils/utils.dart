@@ -118,6 +118,54 @@ Future<T> showOptions<T>(BuildContext context, List<DialogOption<T>> options) {
   }
 }
 
+class Action {
+  String text;
+  Function onPress;
+
+  Action({@required this.text, @required this.onPress});
+}
+
+Future showActions(
+  BuildContext context, {
+  @required String title,
+  @required List<Action> actions,
+}) async {
+  int result;
+
+  switch (SettingsProvider.of(context).theme) {
+    case ThemeMap.cupertino:
+      result = await showCupertinoModalPopup<int>(
+        context: context,
+        builder: (BuildContext context) {
+          return CupertinoActionSheet(
+            title: Text(title),
+            actions: actions.asMap().entries.map((entry) {
+              return CupertinoActionSheetAction(
+                child: Text(entry.value.text),
+                onPressed: () {
+                  Navigator.pop(context, entry.key);
+                },
+              );
+            }).toList(),
+            cancelButton: CupertinoActionSheetAction(
+              child: const Text('Cancel'),
+              isDefaultAction: true,
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          );
+        },
+      );
+      break;
+    default:
+  }
+
+  if (result != null) {
+    actions[result].onPress();
+  }
+}
+
 TextSpan createLinkSpan(BuildContext context, String text, Function handle) {
   return TextSpan(
     text: text,

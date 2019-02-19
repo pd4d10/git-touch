@@ -336,42 +336,24 @@ __typename
   Future<void> _openActions(payload) async {
     if (payload == null) return;
 
-    var value = await showCupertinoModalPopup<int>(
-      context: context,
-      builder: (BuildContext context) {
-        return CupertinoActionSheet(
-          title: Text((isPullRequest ? 'Pull Request' : 'Issue') + ' Actions'),
-          actions: {
-            2: 'Share',
-            3: 'Open in Browser',
-          }.entries.map((entry) {
-            return CupertinoActionSheetAction(
-              child: Text(entry.value),
-              onPressed: () {
-                Navigator.pop(context, entry.key);
-              },
-            );
-          }).toList(),
-          cancelButton: CupertinoActionSheetAction(
-            child: const Text('Cancel'),
-            isDefaultAction: true,
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-        );
-      },
+    showActions(
+      context,
+      title: (isPullRequest ? 'Pull Request' : 'Issue') + ' Actions',
+      actions: [
+        Action(
+          text: 'Share',
+          onPress: () {
+            Share.share(payload['url']);
+          },
+        ),
+        Action(
+          text: 'Open in Browser',
+          onPress: () {
+            launch(payload['url']);
+          },
+        ),
+      ],
     );
-
-    switch (value) {
-      case 2:
-        Share.share(payload['url']);
-        break;
-      case 3:
-        launch(payload['url']);
-        break;
-      default:
-    }
   }
 
   @override

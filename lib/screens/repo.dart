@@ -10,6 +10,7 @@ import '../widgets/repo_item.dart';
 import '../widgets/entry_item.dart';
 import '../screens/issues.dart';
 import '../widgets/link.dart';
+import '../utils/utils.dart';
 
 class RepoScreen extends StatefulWidget {
   final String owner;
@@ -85,59 +86,35 @@ class _RepoScreenState extends State<RepoScreen> {
     if (data == null) return;
     var payload = data[0];
 
-    var _actionMap = {
-      0: payload['viewerHasStarred'] ? 'Unstar' : 'Star',
-      // 1: 'Watch', TODO:
-      2: 'Share',
-      3: 'Open in Browser',
-    };
-
-    var value = await showCupertinoModalPopup<int>(
-      context: context,
-      builder: (BuildContext context) {
-        return CupertinoActionSheet(
-          title: Text('Repository Actions'),
-          actions: _actionMap.entries.map((entry) {
-            return CupertinoActionSheetAction(
-              child: Text(entry.value),
-              onPressed: () {
-                Navigator.pop(context, entry.key);
-              },
-            );
-          }).toList(),
-          cancelButton: CupertinoActionSheetAction(
-            child: const Text('Cancel'),
-            isDefaultAction: true,
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-        );
-      },
-    );
-
-    switch (value) {
-      case 0:
-        if (payload['viewerHasStarred']) {
-          await SettingsProvider.of(context)
-              .deleteWithCredentials('/user/starred/$owner/$name');
-          payload['viewerHasStarred'] = false;
-        } else {
-          SettingsProvider.of(context)
-              .putWithCredentials('/user/starred/$owner/$name');
-          payload['viewerHasStarred'] = true;
-        }
-        break;
-      // case 1:
-      //   break;
-      case 2:
-        Share.share(payload['url']);
-        break;
-      case 3:
-        launch(payload['url']);
-        break;
-      default:
-    }
+    showActions(context, title: 'Repository Actions', actions: [
+      Action(
+        text: payload['viewerHasStarred'] ? 'Unstar' : 'Star',
+        onPress: () async {
+          if (payload['viewerHasStarred']) {
+            await SettingsProvider.of(context)
+                .deleteWithCredentials('/user/starred/$owner/$name');
+            payload['viewerHasStarred'] = false;
+          } else {
+            SettingsProvider.of(context)
+                .putWithCredentials('/user/starred/$owner/$name');
+            payload['viewerHasStarred'] = true;
+          }
+        },
+      ),
+      // TODO: watch
+      Action(
+        text: 'Share',
+        onPress: () {
+          Share.share(payload['url']);
+        },
+      ),
+      Action(
+        text: 'Open in Browser',
+        onPress: () {
+          launch(payload['url']);
+        },
+      ),
+    ]);
   }
 
   @override

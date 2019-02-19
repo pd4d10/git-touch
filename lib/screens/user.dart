@@ -138,59 +138,41 @@ class _UserScreenState extends State<UserScreen> {
   Future<void> _openActions(payload) async {
     if (payload == null) return;
 
-    var _actionMap = {};
+    List<Action> actions = [];
+
     if (payload['viewerCanFollow']) {
-      _actionMap[0] = payload['viewerIsFollowing'] ? 'Unfollow' : 'Follow';
+      actions.add(Action(
+        text: payload['viewerIsFollowing'] ? 'Unfollow' : 'Follow',
+        onPress: () async {
+          if (payload['viewerIsFollowing']) {
+            await SettingsProvider.of(context)
+                .deleteWithCredentials('/user/following/${widget.login}');
+            payload['viewerIsFollowing'] = false;
+          } else {
+            SettingsProvider.of(context)
+                .putWithCredentials('/user/following/${widget.login}');
+            payload['viewerIsFollowing'] = true;
+          }
+        },
+      ));
     }
-    _actionMap[2] = 'Share';
-    _actionMap[3] = 'Open in Browser';
 
-    var value = await showCupertinoModalPopup<int>(
-      context: context,
-      builder: (BuildContext context) {
-        return CupertinoActionSheet(
-          title: Text('User Actions'),
-          actions: _actionMap.entries.map((entry) {
-            return CupertinoActionSheetAction(
-              child: Text(entry.value),
-              onPressed: () {
-                Navigator.pop(context, entry.key);
-              },
-            );
-          }).toList(),
-          cancelButton: CupertinoActionSheetAction(
-            child: const Text('Cancel'),
-            isDefaultAction: true,
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-        );
-      },
-    );
+    actions.addAll([
+      Action(
+        text: 'Share',
+        onPress: () {
+          Share.share(payload['url']);
+        },
+      ),
+      Action(
+        text: 'Open in Browser',
+        onPress: () {
+          launch(payload['url']);
+        },
+      ),
+    ]);
 
-    switch (value) {
-      case 0:
-        if (payload['viewerIsFollowing']) {
-          await SettingsProvider.of(context)
-              .deleteWithCredentials('/user/following/${widget.login}');
-          payload['viewerIsFollowing'] = false;
-        } else {
-          SettingsProvider.of(context)
-              .putWithCredentials('/user/following/${widget.login}');
-          payload['viewerIsFollowing'] = true;
-        }
-        break;
-      // case 1:
-      //   break;
-      case 2:
-        Share.share(payload['url']);
-        break;
-      case 3:
-        launch(payload['url']);
-        break;
-      default:
-    }
+    showActions(context, title: 'User Actions', actions: actions);
   }
 
   @override
