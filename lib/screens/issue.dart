@@ -7,7 +7,7 @@ import '../scaffolds/long_list.dart';
 import '../widgets/timeline_item.dart';
 import '../widgets/comment_item.dart';
 import '../providers/settings.dart';
-import '../widgets/link.dart';
+import '../widgets/action.dart';
 
 /// Screen for issue and pull request
 class IssueScreen extends StatefulWidget {
@@ -333,47 +333,28 @@ __typename
     );
   }
 
-  Future<void> _openActions(payload) async {
-    if (payload == null) return;
-
-    showActions(
-      context,
-      title: (isPullRequest ? 'Pull Request' : 'Issue') + ' Actions',
-      actions: [
-        Action(
-          text: 'Share',
-          onPress: () {
-            Share.share(payload['url']);
-          },
-        ),
-        Action(
-          text: 'Open in Browser',
-          onPress: () {
-            launch(payload['url']);
-          },
-        ),
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return LongListScaffold(
       title: Text('$owner/$name #$number'),
       trailingBuilder: (payload) {
-        return Link(
-          child: Icon(Icons.more_vert, size: 24),
-          material: false,
-          beforeRedirect: () => _openActions(payload),
+        return ActionButton(
+          title: (isPullRequest ? 'Pull Request' : 'Issue') + ' Actions',
+          actions: [
+            Action(
+              text: 'Share',
+              onPress: () {
+                Share.share(payload['url']);
+              },
+            ),
+            Action(
+              text: 'Open in Browser',
+              onPress: () {
+                launch(payload['url']);
+              },
+            ),
+          ],
         );
-      },
-      actionsBuilder: (payload) {
-        return [
-          Link(
-            iconButton: Icon(Icons.more_vert),
-            beforeRedirect: () => _openActions(payload),
-          ),
-        ];
       },
       headerBuilder: (payload) {
         return Column(children: <Widget>[

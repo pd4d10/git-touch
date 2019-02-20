@@ -28,7 +28,6 @@ class LongListPayload<T, K> {
 // e.g. https://github.com/reactjs/rfcs/pull/68
 class LongListScaffold<T, K> extends StatefulWidget {
   final Widget title;
-  final List<Widget> Function(T headerPayload) actionsBuilder;
   final Widget Function(T headerPayload) trailingBuilder;
   final Widget Function(T headerPayload) headerBuilder;
   final Widget Function(K itemPayload) itemBuilder;
@@ -37,7 +36,6 @@ class LongListScaffold<T, K> extends StatefulWidget {
 
   LongListScaffold({
     @required this.title,
-    this.actionsBuilder,
     this.trailingBuilder,
     @required this.headerBuilder,
     @required this.itemBuilder,
@@ -217,8 +215,9 @@ class _LongListScaffoldState<T, K> extends State<LongListScaffold<T, K>> {
         return Scaffold(
           appBar: AppBar(
             title: widget.title,
-            actions:
-                payload == null ? null : widget.actionsBuilder(payload.header),
+            actions: payload == null
+                ? null
+                : [widget.trailingBuilder(payload.header)],
           ),
           body: RefreshIndicator(
             onRefresh: widget.onRefresh,

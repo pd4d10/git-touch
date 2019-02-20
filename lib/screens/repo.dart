@@ -9,8 +9,7 @@ import '../scaffolds/refresh.dart';
 import '../widgets/repo_item.dart';
 import '../widgets/entry_item.dart';
 import '../screens/issues.dart';
-import '../widgets/link.dart';
-import '../utils/utils.dart';
+import '../widgets/action.dart';
 
 class RepoScreen extends StatefulWidget {
   final String owner;
@@ -82,59 +81,42 @@ class _RepoScreenState extends State<RepoScreen> {
     return str;
   }
 
-  Future<void> _openActions(data) async {
-    if (data == null) return;
-    var payload = data[0];
-
-    showActions(context, title: 'Repository Actions', actions: [
-      Action(
-        text: payload['viewerHasStarred'] ? 'Unstar' : 'Star',
-        onPress: () async {
-          if (payload['viewerHasStarred']) {
-            await SettingsProvider.of(context)
-                .deleteWithCredentials('/user/starred/$owner/$name');
-            payload['viewerHasStarred'] = false;
-          } else {
-            SettingsProvider.of(context)
-                .putWithCredentials('/user/starred/$owner/$name');
-            payload['viewerHasStarred'] = true;
-          }
-        },
-      ),
-      // TODO: watch
-      Action(
-        text: 'Share',
-        onPress: () {
-          Share.share(payload['url']);
-        },
-      ),
-      Action(
-        text: 'Open in Browser',
-        onPress: () {
-          launch(payload['url']);
-        },
-      ),
-    ]);
-  }
-
   @override
   Widget build(BuildContext context) {
     return RefreshScaffold(
       title: Text(widget.owner + '/' + widget.name),
-      trailingBuilder: (payload) {
-        return Link(
-          child: Icon(Icons.more_vert, size: 24),
-          material: false,
-          beforeRedirect: () => _openActions(payload),
-        );
-      },
-      actionsBuilder: (payload) {
-        return [
-          Link(
-            iconButton: Icon(Icons.more_vert),
-            beforeRedirect: () => _openActions(payload),
+      trailingBuilder: (data) {
+        var payload = data[0];
+
+        return ActionButton(title: 'Repository Actions', actions: [
+          Action(
+            text: payload['viewerHasStarred'] ? 'Unstar' : 'Star',
+            onPress: () async {
+              if (payload['viewerHasStarred']) {
+                await SettingsProvider.of(context)
+                    .deleteWithCredentials('/user/starred/$owner/$name');
+                payload['viewerHasStarred'] = false;
+              } else {
+                SettingsProvider.of(context)
+                    .putWithCredentials('/user/starred/$owner/$name');
+                payload['viewerHasStarred'] = true;
+              }
+            },
           ),
-        ];
+          // TODO: watch
+          Action(
+            text: 'Share',
+            onPress: () {
+              Share.share(payload['url']);
+            },
+          ),
+          Action(
+            text: 'Open in Browser',
+            onPress: () {
+              launch(payload['url']);
+            },
+          ),
+        ]);
       },
       onRefresh: () => Future.wait([
             queryRepo(context),

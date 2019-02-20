@@ -9,6 +9,7 @@ import '../widgets/entry_item.dart';
 import '../widgets/list_group.dart';
 import '../widgets/repo_item.dart';
 import '../widgets/link.dart';
+import '../widgets/action.dart';
 import '../screens/repos.dart';
 import '../screens/users.dart';
 import '../screens/settings.dart';
@@ -135,46 +136,6 @@ class _UserScreenState extends State<UserScreen> {
     return Container();
   }
 
-  Future<void> _openActions(payload) async {
-    if (payload == null) return;
-
-    List<Action> actions = [];
-
-    if (payload['viewerCanFollow']) {
-      actions.add(Action(
-        text: payload['viewerIsFollowing'] ? 'Unfollow' : 'Follow',
-        onPress: () async {
-          if (payload['viewerIsFollowing']) {
-            await SettingsProvider.of(context)
-                .deleteWithCredentials('/user/following/${widget.login}');
-            payload['viewerIsFollowing'] = false;
-          } else {
-            SettingsProvider.of(context)
-                .putWithCredentials('/user/following/${widget.login}');
-            payload['viewerIsFollowing'] = true;
-          }
-        },
-      ));
-    }
-
-    actions.addAll([
-      Action(
-        text: 'Share',
-        onPress: () {
-          Share.share(payload['url']);
-        },
-      ),
-      Action(
-        text: 'Open in Browser',
-        onPress: () {
-          launch(payload['url']);
-        },
-      ),
-    ]);
-
-    showActions(context, title: 'User Actions', actions: actions);
-  }
-
   @override
   Widget build(BuildContext context) {
     return RefreshScaffold(
@@ -189,30 +150,41 @@ class _UserScreenState extends State<UserScreen> {
             fullscreenDialog: true,
           );
         } else {
-          return Link(
-            child: Icon(Icons.more_vert, size: 24),
-            material: false,
-            beforeRedirect: () => _openActions(payload),
-          );
-        }
-      },
-      actionsBuilder: (payload) {
-        if (widget.showSettings) {
-          return [
-            Link(
-              iconButton: Icon(Icons.settings),
-              screenBuilder: (_) => SettingsScreen(),
-              fullscreenDialog: true,
-            )
-          ];
-        } else {
-          return [
-            Link(
-              iconButton: Icon(Icons.more_vert),
-              material: false,
-              beforeRedirect: () => _openActions(payload),
-            )
-          ];
+          List<Action> actions = [];
+
+          if (payload['viewerCanFollow']) {
+            actions.add(Action(
+              text: payload['viewerIsFollowing'] ? 'Unfollow' : 'Follow',
+              onPress: () async {
+                if (payload['viewerIsFollowing']) {
+                  await SettingsProvider.of(context)
+                      .deleteWithCredentials('/user/following/${widget.login}');
+                  payload['viewerIsFollowing'] = false;
+                } else {
+                  SettingsProvider.of(context)
+                      .putWithCredentials('/user/following/${widget.login}');
+                  payload['viewerIsFollowing'] = true;
+                }
+              },
+            ));
+          }
+
+          actions.addAll([
+            Action(
+              text: 'Share',
+              onPress: () {
+                Share.share(payload['url']);
+              },
+            ),
+            Action(
+              text: 'Open in Browser',
+              onPress: () {
+                launch(payload['url']);
+              },
+            ),
+          ]);
+
+          return ActionButton(title: 'User Actions', actions: actions);
         }
       },
       bodyBuilder: (payload) {

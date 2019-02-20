@@ -4,7 +4,6 @@ import 'package:flutter/widgets.dart';
 import '../providers/settings.dart';
 import '../widgets/loading.dart';
 import '../widgets/error_reload.dart';
-import '../utils/utils.dart';
 
 // This is a scaffold for pull to refresh
 class RefreshScaffold<T> extends StatefulWidget {
@@ -12,7 +11,7 @@ class RefreshScaffold<T> extends StatefulWidget {
   final Widget Function(T payload) bodyBuilder;
   final Future<T> Function() onRefresh;
   final Widget Function(T payload) trailingBuilder;
-  final List<Widget> Function(T payload) actionsBuilder;
+  // final List<Widget> Function(T payload) actionsBuilder;
   final PreferredSizeWidget bottom;
 
   RefreshScaffold({
@@ -20,7 +19,7 @@ class RefreshScaffold<T> extends StatefulWidget {
     @required this.bodyBuilder,
     @required this.onRefresh,
     this.trailingBuilder,
-    this.actionsBuilder,
+    // this.actionsBuilder,
     this.bottom,
   });
 
@@ -67,6 +66,18 @@ class _RefreshScaffoldState<T> extends State<RefreshScaffold<T>> {
     }
   }
 
+  Widget _buildTrailing() {
+    if (payload == null) return null;
+
+    return widget.trailingBuilder(payload);
+  }
+
+  List<Widget> _buildActions() {
+    if (payload == null) return null;
+
+    return [widget.trailingBuilder(payload)];
+  }
+
   @override
   Widget build(BuildContext context) {
     switch (SettingsProvider.of(context).theme) {
@@ -74,7 +85,7 @@ class _RefreshScaffoldState<T> extends State<RefreshScaffold<T>> {
         return CupertinoPageScaffold(
           navigationBar: CupertinoNavigationBar(
             middle: widget.title,
-            trailing: widget.trailingBuilder(payload),
+            trailing: _buildTrailing(),
           ),
           child: SafeArea(
             child: CustomScrollView(
@@ -89,7 +100,7 @@ class _RefreshScaffoldState<T> extends State<RefreshScaffold<T>> {
         return Scaffold(
           appBar: AppBar(
             title: widget.title,
-            actions: widget.actionsBuilder(payload),
+            actions: _buildActions(),
             bottom: widget.bottom,
           ),
           body: RefreshIndicator(
