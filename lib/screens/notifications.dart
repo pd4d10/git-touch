@@ -128,7 +128,7 @@ $key: pullRequest(number: ${item.number}) {
             ),
             Link(
               material: false,
-              beforeRedirect: () async {
+              onTap: () async {
                 await SettingsProvider.of(context)
                     .putWithCredentials('/repos/$repo/notifications');
                 await _onSwitchTab();

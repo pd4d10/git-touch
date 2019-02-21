@@ -3,9 +3,9 @@ import 'link.dart';
 
 class ErrorReload extends StatelessWidget {
   final String text;
-  final Function reload;
+  final Function onTap;
 
-  ErrorReload({@required this.text, @required this.reload});
+  ErrorReload({@required this.text, @required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class ErrorReload extends StatelessWidget {
               'Reload',
               style: TextStyle(fontSize: 20, color: Colors.blueAccent),
             ),
-            beforeRedirect: reload,
+            onTap: onTap,
             material: false,
           ),
         ],

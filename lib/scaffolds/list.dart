@@ -129,7 +129,7 @@ class _ListScaffoldState<T, K> extends State<ListScaffold<T, K>> {
   Widget _buildSliver(BuildContext context) {
     if (error.isNotEmpty) {
       return SliverToBoxAdapter(
-        child: ErrorReload(text: error, reload: _refresh),
+        child: ErrorReload(text: error, onTap: _refresh),
       );
     } else if (loading) {
       return SliverToBoxAdapter(child: Loading(more: false));
@@ -147,7 +147,7 @@ class _ListScaffoldState<T, K> extends State<ListScaffold<T, K>> {
 
   Widget _buildBody(BuildContext context) {
     if (error.isNotEmpty) {
-      return ErrorReload(text: error, reload: _refresh);
+      return ErrorReload(text: error, onTap: _refresh);
     } else if (loading) {
       return Loading(more: false);
     } else if (items.isEmpty) {

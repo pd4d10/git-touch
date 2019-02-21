@@ -150,7 +150,7 @@ class _NotificationItemState extends State<NotificationItem> {
   Widget build(BuildContext context) {
     return Link(
       screenBuilder: _buildRoute,
-      beforeRedirect: _markAsRead,
+      onTap: _markAsRead,
       child: Opacity(
         opacity: payload.unread ? 1 : 0.5,
         child: Container(
@@ -168,7 +168,7 @@ class _NotificationItemState extends State<NotificationItem> {
                   style: TextStyle(fontSize: 15),
                 ),
               ),
-              Link(child: _buildCheckIcon(), beforeRedirect: _markAsRead),
+              Link(child: _buildCheckIcon(), onTap: _markAsRead),
             ],
           ),
         ),

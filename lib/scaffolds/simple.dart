@@ -3,11 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import '../providers/settings.dart';
 
-typedef WidgetBuilder = Widget Function();
-
 class SimpleScaffold extends StatelessWidget {
   final Widget title;
-  final WidgetBuilder bodyBuilder;
+  final Widget Function() bodyBuilder;
   final Widget trailing;
   final List<Widget> actions;
   final PreferredSizeWidget bottom;

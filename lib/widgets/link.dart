@@ -7,7 +7,7 @@ class Link extends StatelessWidget {
   final Widget child;
   final String url;
   final WidgetBuilder screenBuilder;
-  final Function beforeRedirect;
+  final Function onTap;
   final Color bgColor;
   final bool material;
   final bool fullscreenDialog;
@@ -17,7 +17,7 @@ class Link extends StatelessWidget {
     this.child,
     this.url,
     this.screenBuilder,
-    this.beforeRedirect,
+    this.onTap,
     this.bgColor,
     this.material = true,
     this.fullscreenDialog = false,
@@ -26,8 +26,8 @@ class Link extends StatelessWidget {
         assert(screenBuilder == null || url == null);
 
   void _onTap(BuildContext context, int theme) {
-    if (beforeRedirect != null) {
-      beforeRedirect();
+    if (onTap != null) {
+      onTap();
     }
 
     if (screenBuilder != null) {

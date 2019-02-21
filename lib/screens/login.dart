@@ -5,6 +5,7 @@ import '../scaffolds/simple.dart';
 import '../utils/constants.dart';
 import '../widgets/link.dart';
 import '../widgets/loading.dart';
+import 'login_gitlab.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -12,6 +13,27 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  Widget _buildAddItem(
+      {String text, Function onTap, WidgetBuilder screenBuilder}) {
+    return Link(
+      child: Container(
+        padding: EdgeInsets.symmetric(vertical: 20),
+        decoration: BoxDecoration(
+          border: Border(bottom: BorderSide(color: Colors.black12)),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Icon(Icons.add),
+            Text(text, style: TextStyle(fontSize: 16)),
+          ],
+        ),
+      ),
+      onTap: onTap,
+      screenBuilder: screenBuilder,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     var settings = SettingsProvider.of(context);
@@ -27,7 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             children: settings.githubAccountMap.entries.map<Widget>((entry) {
               return Link(
-                beforeRedirect: () {
+                onTap: () {
                   // Navigator.of(context).pop();
                   settings.setActiveAccount(entry.key);
                 },
@@ -60,26 +82,21 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               );
             }).toList()
-              ..add(
-                Link(
-                  child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(Icons.add),
-                        Text('Add account', style: TextStyle(fontSize: 16)),
-                      ],
-                    ),
-                  ),
-                  beforeRedirect: () {
+              ..addAll([
+                _buildAddItem(
+                  text: 'GitHub Account',
+                  onTap: () {
                     var state = settings.generateRandomString();
                     launch(
                       'https://github.com/login/oauth/authorize?client_id=$clientId&redirect_uri=gittouch://login&scope=user%20repo&state=$state',
                     );
                   },
                 ),
-              ),
+                _buildAddItem(
+                  text: 'GitLab Account',
+                  screenBuilder: (_) => LoginGitlabScreen(),
+                )
+              ]),
           ),
         );
       },

@@ -61,7 +61,7 @@ class TableView extends StatelessWidget {
             }
 
             return Link(
-              beforeRedirect: item.onTap,
+              onTap: item.onTap,
               screenBuilder: item.screenBuilder,
               child: Container(
                 decoration: BoxDecoration(

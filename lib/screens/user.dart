@@ -101,7 +101,7 @@ class _UserScreenState extends State<UserScreen> {
           Padding(padding: EdgeInsets.only(left: 4)),
           Text(email, style: TextStyle(color: Colors.black54, fontSize: 15))
         ]),
-        beforeRedirect: () {
+        onTap: () {
           launch('mailto:' + email);
         },
       );
