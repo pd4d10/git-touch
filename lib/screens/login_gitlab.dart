@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../scaffolds/simple.dart';
+import '../providers/settings.dart';
 
 class LoginGitlabScreen extends StatefulWidget {
   @override
@@ -30,7 +31,10 @@ class _LoginGitlabScreenState extends State<LoginGitlabScreen> {
             ),
             MaterialButton(
               child: Text('Login'),
-              onPressed: () {},
+              onPressed: () {
+                SettingsProvider.of(context).loginToGitlab(_domain, _token);
+                Navigator.of(context).pop();
+              },
             )
           ],
         );
