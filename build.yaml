@@ -16,7 +16,7 @@ targets:
           # create_to_json: true
           # disallow_unrecognized_keys: false
           # explicit_to_json: false
-          field_rename: snake
+          # field_rename: snake
           # generate_to_json_function: true
           # include_if_null: true
           # nullable: true

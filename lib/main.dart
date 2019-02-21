@@ -7,7 +7,6 @@ import 'screens/notifications.dart';
 import 'screens/search.dart';
 import 'screens/me.dart';
 import 'screens/login.dart';
-import 'screens/pull_request.dart';
 import 'screens/issue.dart';
 import 'screens/repos.dart';
 
