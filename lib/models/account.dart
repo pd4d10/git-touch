@@ -7,12 +7,20 @@ part 'account.g.dart';
 class AccountModel {
   String avatarUrl;
   String token;
+
+  @JsonKey(ignore: true)
+  String platform;
+  @JsonKey(ignore: true)
   String domain;
+  @JsonKey(ignore: true)
+  String login;
 
   AccountModel({
     @required this.avatarUrl,
     @required this.token,
+    this.platform,
     this.domain,
+    this.login,
   });
 
   factory AccountModel.fromJson(Map<String, dynamic> json) =>

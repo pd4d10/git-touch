@@ -13,8 +13,14 @@ import '../utils/constants.dart';
 import '../models/account.dart';
 
 class PlatformType {
-  static const github = 0;
-  static const gitlab = 1;
+  static const github = 'github';
+  static const gitlab = 'gitlab';
+}
+
+class StorageKeys {
+  static const account = 'account';
+  static const github = 'github';
+  static const theme = 'theme';
 }
 
 // abstract class Model<T> {
@@ -61,9 +67,10 @@ class SettingsProviderState extends State<SettingsProvider> {
   int theme;
 
   Map<String, AccountModel> githubAccountMap;
-  Map<String, AccountModel> gitlabAccountMap;
+  Map<String, Map<String, Map<String, AccountModel>>> accountMap;
 
-  int activePlatform;
+  String activePlatform;
+  String activeDomain;
   String activeLogin;
 
   StreamSubscription<Uri> _sub;
@@ -77,7 +84,7 @@ class SettingsProviderState extends State<SettingsProvider> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     theme = _theme;
-    await prefs.setInt('theme', theme);
+    await prefs.setInt(StorageKeys.theme, theme);
     print('write theme: $theme');
 
     setState(() {});
@@ -89,10 +96,8 @@ class SettingsProviderState extends State<SettingsProvider> {
     switch (activePlatform) {
       case PlatformType.github:
         return githubAccountMap[activeLogin].token;
-      case PlatformType.gitlab:
-        return gitlabAccountMap[activeLogin].token;
       default:
-        return null;
+        return accountMap[activePlatform][activeDomain][activeLogin].token;
     }
   }
 
@@ -162,7 +167,7 @@ class SettingsProviderState extends State<SettingsProvider> {
     // write
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString(
-        'github',
+        StorageKeys.github,
         json.encode(githubAccountMap
             .map((login, account) => MapEntry(login, account.toJson()))));
 
@@ -187,14 +192,25 @@ class SettingsProviderState extends State<SettingsProvider> {
 
       String login = info['username'];
       String avatarUrl = info['avatar_url'];
-      gitlabAccountMap[login] =
-          AccountModel(token: token, avatarUrl: avatarUrl, domain: domain);
+
+      if (accountMap[PlatformType.gitlab] == null)
+        accountMap[PlatformType.gitlab] = {};
+      if (accountMap[PlatformType.gitlab][domain] == null)
+        accountMap[PlatformType.gitlab][domain] = {};
+
+      accountMap[PlatformType.gitlab][domain][login] =
+          AccountModel(token: token, avatarUrl: avatarUrl);
 
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setString(
-          'gitlab',
-          json.encode(gitlabAccountMap
-              .map((login, account) => MapEntry(login, account.toJson()))));
+
+      String str = json.encode(accountMap.map((type, v0) {
+        return MapEntry(type, v0.map((domain, v1) {
+          return MapEntry(domain, v1.map((login, v2) {
+            return MapEntry(login, v2.toJson());
+          }));
+        }));
+      }));
+      await prefs.setString(StorageKeys.account, str);
     } catch (err) {
       print(err);
       // TODO: show errors
@@ -210,7 +226,7 @@ class SettingsProviderState extends State<SettingsProvider> {
 
     // read GitHub accounts
     try {
-      String str = prefs.getString('github');
+      String str = prefs.getString(StorageKeys.github);
       print('read github: $str');
 
       Map<String, dynamic> data = json.decode(str ?? '{}');
@@ -221,19 +237,39 @@ class SettingsProviderState extends State<SettingsProvider> {
       githubAccountMap = {};
     }
 
+    // read accounts
     try {
-      String str = prefs.getString('gitlab');
-      print('read gitlab: $str');
+      String str = prefs.getString(StorageKeys.account);
+      print('read account: $str');
 
-      Map<String, dynamic> data = json.decode(str ?? '{}');
-      gitlabAccountMap = data.map<String, AccountModel>((login, _accountMap) =>
-          MapEntry(login, AccountModel.fromJson(_accountMap)));
+      var data = Map<String, Map<String, dynamic>>.from(
+          Map<String, dynamic>.from(json.decode(str ?? '{}')));
+
+      accountMap = {};
+      data.forEach((platform, v0) {
+        accountMap[platform] = {};
+        v0.forEach((domain, v1) {
+          accountMap[platform][domain] = {};
+          v1.forEach((login, v2) {
+            accountMap[platform][domain][login] = AccountModel.fromJson(v2);
+          });
+        });
+      });
+
+      // TODO: type cast
+      // accountMap = data.map((type, v0) {
+      //   return MapEntry(type, v0.map((domain, v1) {
+      //     return MapEntry(domain, v1.map((login, v2) {
+      //       return MapEntry(login, AccountModel.fromJson(v2));
+      //     }));
+      //   }));
+      // });
     } catch (err) {
       print(err);
-      gitlabAccountMap = {};
+      accountMap = {};
     }
 
-    int _theme = prefs.getInt('theme');
+    int _theme = prefs.getInt(StorageKeys.theme);
     print('read theme: $_theme');
     if (ThemeMap.values.contains(_theme)) {
       theme = _theme;
@@ -246,10 +282,11 @@ class SettingsProviderState extends State<SettingsProvider> {
     });
   }
 
-  void setActiveAccount(String login, int type) {
+  void setActiveAccount(String platform, String domain, String login) {
     setState(() {
+      activePlatform = platform;
+      activeDomain = domain;
       activeLogin = login;
-      activePlatform = type;
     });
   }
 

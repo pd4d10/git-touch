@@ -8,14 +8,8 @@ part of 'account.dart';
 
 AccountModel _$AccountModelFromJson(Map<String, dynamic> json) {
   return AccountModel(
-      avatarUrl: json['avatarUrl'] as String,
-      token: json['token'] as String,
-      domain: json['domain'] as String);
+      avatarUrl: json['avatarUrl'] as String, token: json['token'] as String);
 }
 
 Map<String, dynamic> _$AccountModelToJson(AccountModel instance) =>
-    <String, dynamic>{
-      'avatarUrl': instance.avatarUrl,
-      'token': instance.token,
-      'domain': instance.domain
-    };
+    <String, dynamic>{'avatarUrl': instance.avatarUrl, 'token': instance.token};

@@ -14,13 +14,14 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  Widget _buildAccountItem(MapEntry<String, AccountModel> entry, int type) {
+  Widget _buildAccountItem(AccountModel account) {
     var settings = SettingsProvider.of(context);
 
     return Link(
       onTap: () {
         // Navigator.of(context).pop();
-        settings.setActiveAccount(entry.key, type);
+        settings.setActiveAccount(
+            account.platform, account.domain, account.login);
       },
       child: Container(
         padding: EdgeInsets.all(10),
@@ -30,7 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Row(children: <Widget>[
           CircleAvatar(
             backgroundColor: Colors.transparent,
-            backgroundImage: NetworkImage(entry.value.avatarUrl),
+            backgroundImage: NetworkImage(account.avatarUrl),
             radius: 24,
           ),
           Padding(padding: EdgeInsets.only(left: 10)),
@@ -38,13 +39,17 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(entry.key, style: TextStyle(fontSize: 20)),
+                Text(account.login, style: TextStyle(fontSize: 20)),
                 Padding(padding: EdgeInsets.only(top: 6)),
-                Text(entry.value.domain ?? 'https://github.com')
+                Text(account.domain)
               ],
             ),
           ),
-          settings.activeLogin == entry.key ? Icon(Icons.check) : Container(),
+          (settings.activePlatform == account.platform &&
+                  settings.activeDomain == account.domain &&
+                  settings.activeLogin == account.login)
+              ? Icon(Icons.check)
+              : Container(),
         ]),
       ),
     );
@@ -75,6 +80,21 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     var settings = SettingsProvider.of(context);
 
+    List<AccountModel> accounts = [];
+    settings.accountMap.forEach((platform, v0) {
+      v0.forEach((domain, v1) {
+        v1.forEach((login, v2) {
+          accounts.add(AccountModel(
+            avatarUrl: v2.avatarUrl,
+            token: v2.token,
+            platform: platform,
+            domain: domain,
+            login: login,
+          ));
+        });
+      });
+    });
+
     return SimpleScaffold(
       title: Text('Select account'),
       bodyBuilder: () {
@@ -85,15 +105,14 @@ class _LoginScreenState extends State<LoginScreen> {
         return Container(
           child: Column(
             children: settings.githubAccountMap.entries
-                .map<Widget>(
-                    (entry) => _buildAccountItem(entry, PlatformType.github))
+                .map<Widget>((entry) => _buildAccountItem(AccountModel(
+                    avatarUrl: entry.value.avatarUrl,
+                    token: entry.value.token,
+                    platform: PlatformType.github,
+                    domain: 'https://github.com',
+                    login: entry.key)))
                 .toList()
-                  ..addAll(
-                    settings.gitlabAccountMap.entries
-                        .map<Widget>((entry) =>
-                            _buildAccountItem(entry, PlatformType.gitlab))
-                        .toList(),
-                  )
+                  ..addAll(accounts.map(_buildAccountItem))
                   ..addAll([
                     _buildAddItem(
                       text: 'GitHub Account',
