@@ -52,7 +52,12 @@ class _TrendingScreenState extends State<TrendingScreen> {
             ?.innerHtml
             ?.replaceFirst(RegExp(r'^[\s\S]*span>'), '')
             ?.trim(),
-        'description': item.children[2].querySelector('p')?.innerHtml?.trim(),
+        'description': item.children[2]
+            .querySelector('p')
+            ?.innerHtml
+            ?.trim()
+            ?.replaceAll(RegExp(r'<g-emoji.*?>'), '')
+            ?.replaceAll(RegExp(r'</g-emoji>'), ''),
         'stargazers': {
           'totalCount': item.children[3]
               .querySelectorAll('a')[0]
