@@ -170,6 +170,7 @@ class _LongListScaffoldState<T, K> extends State<LongListScaffold<T, K>> {
       return SliverToBoxAdapter(
           child: ErrorReload(text: error, onTap: _refresh));
     } else if (loading) {
+      // TODO:
       return SliverToBoxAdapter(child: Loading(more: false));
     } else {
       return SliverList(
@@ -184,7 +185,7 @@ class _LongListScaffoldState<T, K> extends State<LongListScaffold<T, K>> {
     switch (SettingsProvider.of(context).theme) {
       case ThemeMap.cupertino:
         List<Widget> slivers = [
-          CupertinoSliverRefreshControl(onRefresh: widget.onRefresh)
+          CupertinoSliverRefreshControl(onRefresh: _refresh)
         ];
         if (payload != null) {
           slivers.add(
@@ -220,7 +221,7 @@ class _LongListScaffoldState<T, K> extends State<LongListScaffold<T, K>> {
                 : [widget.trailingBuilder(payload.header)],
           ),
           body: RefreshIndicator(
-            onRefresh: widget.onRefresh,
+            onRefresh: _refresh,
             child: CustomScrollView(slivers: slivers),
           ),
         );

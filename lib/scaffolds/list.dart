@@ -131,7 +131,7 @@ class _ListScaffoldState<T, K> extends State<ListScaffold<T, K>> {
       return SliverToBoxAdapter(
         child: ErrorReload(text: error, onTap: _refresh),
       );
-    } else if (loading) {
+    } else if (loading && items.isEmpty) {
       return SliverToBoxAdapter(child: Loading(more: false));
     } else if (items.isEmpty) {
       return SliverToBoxAdapter(child: EmptyWidget());
@@ -148,7 +148,7 @@ class _ListScaffoldState<T, K> extends State<ListScaffold<T, K>> {
   Widget _buildBody(BuildContext context) {
     if (error.isNotEmpty) {
       return ErrorReload(text: error, onTap: _refresh);
-    } else if (loading) {
+    } else if (loading && items.isEmpty) {
       return Loading(more: false);
     } else if (items.isEmpty) {
       return EmptyWidget();
@@ -166,7 +166,7 @@ class _ListScaffoldState<T, K> extends State<ListScaffold<T, K>> {
     switch (SettingsProvider.of(context).theme) {
       case ThemeMap.cupertino:
         List<Widget> slivers = [
-          CupertinoSliverRefreshControl(onRefresh: widget.onRefresh)
+          CupertinoSliverRefreshControl(onRefresh: _refresh)
         ];
         // if (widget.header != null) {
         //   slivers.add(SliverToBoxAdapter(child: widget.header));
@@ -207,7 +207,7 @@ class _ListScaffoldState<T, K> extends State<ListScaffold<T, K>> {
             //       ],
           ),
           body: RefreshIndicator(
-            onRefresh: widget.onRefresh,
+            onRefresh: _refresh,
             child: _buildBody(context),
           ),
         );
