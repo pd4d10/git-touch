@@ -60,17 +60,20 @@ class _TrendingScreenState extends State<TrendingScreen> {
             ?.replaceAll(RegExp(r'</g-emoji>'), ''),
         'stargazers': {
           'totalCount': item.children[3]
-              .querySelectorAll('a')[0]
+              .querySelector('.octicon-star')
+              ?.parent
               ?.innerHtml
               ?.replaceFirst(RegExp(r'^[\s\S]*svg>'), '')
               ?.trim()
         },
         'forks': {
-          'totalCount': item.children[3]
-              .querySelectorAll('a')[1]
-              ?.innerHtml
-              ?.replaceFirst(RegExp(r'^[\s\S]*svg>'), '')
-              ?.trim(),
+          'totalCount': item
+                  .querySelector('.octicon-repo-forked')
+                  ?.parent
+                  ?.innerHtml
+                  ?.replaceFirst(RegExp(r'^[\s\S]*svg>'), '')
+                  ?.trim() ??
+              0,
         },
         'primaryLanguage': lang,
         'isPrivate': false,
