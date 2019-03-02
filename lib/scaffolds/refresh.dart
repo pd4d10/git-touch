@@ -67,13 +67,13 @@ class _RefreshScaffoldState<T> extends State<RefreshScaffold<T>> {
   }
 
   Widget _buildTrailing() {
-    if (payload == null) return null;
+    if (payload == null || widget.trailingBuilder == null) return null;
 
     return widget.trailingBuilder(payload);
   }
 
   List<Widget> _buildActions() {
-    if (payload == null) return null;
+    if (payload == null || widget.trailingBuilder == null) return null;
 
     return [widget.trailingBuilder(payload)];
   }
