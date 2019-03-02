@@ -27,6 +27,7 @@ dependencies:
   nanoid: ^0.0.6
   share: ^0.6.0
   flutter_vector_icons: ^0.0.2
+  html: ^0.13.3
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

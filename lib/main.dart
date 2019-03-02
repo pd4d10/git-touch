@@ -9,6 +9,7 @@ import 'screens/me.dart';
 import 'screens/login.dart';
 import 'screens/issue.dart';
 import 'screens/repos.dart';
+import 'screens/trending.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -50,6 +51,10 @@ class _HomeState extends State<Home> {
         title: Text('Notification'),
       ),
       BottomNavigationBarItem(
+        icon: Icon(Icons.trending_up),
+        title: Text('Trending'),
+      ),
+      BottomNavigationBarItem(
         icon: Icon(Icons.search),
         title: Text('Search'),
       ),
@@ -63,14 +68,17 @@ class _HomeState extends State<Home> {
   _buildScreen(int index) {
     // return IssueScreen(number: 29, owner: 'reactjs', name: 'rfcs');
     // return ReposScreen('pd4d10');
+    // return TrendingScreen();
     switch (index) {
       case 0:
         return NewsScreen();
       case 1:
         return NotificationScreen();
       case 2:
-        return SearchScreen();
+        return TrendingScreen();
       case 3:
+        return SearchScreen();
+      case 4:
         return MeScreen();
     }
   }
