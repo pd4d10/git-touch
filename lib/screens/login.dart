@@ -123,10 +123,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         );
                       },
                     ),
-                    _buildAddItem(
-                      text: 'GitLab Account',
-                      screenBuilder: (_) => LoginGitlabScreen(),
-                    )
+                    // _buildAddItem(
+                    //   text: 'GitLab Account',
+                    //   screenBuilder: (_) => LoginGitlabScreen(),
+                    // )
                   ]),
           ),
         );
