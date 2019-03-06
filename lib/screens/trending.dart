@@ -1,19 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:html/parser.dart' show parse;
+import 'package:github_trending/github_trending.dart';
 import '../scaffolds/refresh.dart';
 import '../widgets/repo_item.dart';
-
-// class TrendingRepo {
-//   String owner;
-//   String name;
-//   String description;
-//   String languageName;
-//   String languageColor;
-//   int starCount;
-//   int forkCount;
-//   int stars;
-// }
 
 class TrendingScreen extends StatefulWidget {
   @override
@@ -22,65 +10,30 @@ class TrendingScreen extends StatefulWidget {
 
 class _TrendingScreenState extends State<TrendingScreen> {
   Future<List<dynamic>> _fetchTrendingRepos() async {
-    var res = await http.get('https://github.com/trending');
-    // print(res.body);
-    var document = parse(res.body);
-    var items = document.querySelectorAll('.repo-list>li');
+    var items = await getTrendingRepositories();
 
     return items.map((item) {
-      Map<String, String> lang;
-      var colorNode = item.querySelector('.repo-language-color');
-      if (colorNode != null) {
-        lang = {
-          'name': colorNode.nextElementSibling.innerHtml.trim(),
-          'color': RegExp(r'(#\w{6})')
-              .firstMatch(colorNode.attributes['style'])
-              .group(0),
-        };
-      }
-
-      var payload = {
+      return {
         'owner': {
-          'login': item
-              .querySelector('h3>a>span')
-              ?.innerHtml
-              ?.replaceFirst('/', '')
-              ?.trim()
+          'login': item.owner,
         },
-        'name': item
-            .querySelector('h3>a')
-            ?.innerHtml
-            ?.replaceFirst(RegExp(r'^[\s\S]*span>'), '')
-            ?.trim(),
-        'description': item.children[2]
-            .querySelector('p')
-            ?.innerHtml
-            ?.trim()
-            ?.replaceAll(RegExp(r'<g-emoji.*?>'), '')
-            ?.replaceAll(RegExp(r'</g-emoji>'), ''),
+        'name': item.name,
+        'description': item.description,
         'stargazers': {
-          'totalCount': item.children[3]
-              .querySelector('.octicon-star')
-              ?.parent
-              ?.innerHtml
-              ?.replaceFirst(RegExp(r'^[\s\S]*svg>'), '')
-              ?.trim()
+          'totalCount': item.starCount,
         },
         'forks': {
-          'totalCount': item
-                  .querySelector('.octicon-repo-forked')
-                  ?.parent
-                  ?.innerHtml
-                  ?.replaceFirst(RegExp(r'^[\s\S]*svg>'), '')
-                  ?.trim() ??
-              0,
+          'totalCount': item.forkCount,
         },
-        'primaryLanguage': lang,
+        'primaryLanguage': item.primaryLanguage == null
+            ? null
+            : {
+                'name': item.primaryLanguage.name,
+                'color': item.primaryLanguage.color,
+              },
         'isPrivate': false,
         'isFork': false // TODO:
       };
-      // print(payload);
-      return payload;
     }).toList();
   }
 
