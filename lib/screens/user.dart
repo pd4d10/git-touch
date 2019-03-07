@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:share/share.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:github_contributions/github_contributions.dart';
 import '../providers/settings.dart';
 import '../scaffolds/refresh.dart';
 import '../widgets/avatar.dart';
@@ -139,9 +141,14 @@ class _UserScreenState extends State<UserScreen> {
   @override
   Widget build(BuildContext context) {
     return RefreshScaffold(
-      onRefresh: () => queryUser(context),
+      onRefresh: () {
+        return Future.wait(
+          [queryUser(context), getContributionsSvg(widget.login)],
+        );
+      },
       title: Text(widget.login),
-      trailingBuilder: (payload) {
+      trailingBuilder: (data) {
+        var payload = data[0];
         if (widget.showSettings) {
           return Link(
             child: Icon(Icons.settings, size: 24),
@@ -187,7 +194,10 @@ class _UserScreenState extends State<UserScreen> {
           return ActionButton(title: 'User Actions', actions: actions);
         }
       },
-      bodyBuilder: (payload) {
+      bodyBuilder: (data) {
+        var payload = data[0];
+        var contributions = data[1];
+
         return Column(
           children: <Widget>[
             Container(
@@ -252,6 +262,10 @@ class _UserScreenState extends State<UserScreen> {
                   ),
                 ],
               ),
+            ),
+            Container(
+              child: SvgPicture.string(contributions),
+              padding: EdgeInsets.symmetric(horizontal: 10),
             ),
             _buildRepos(payload),
           ],
