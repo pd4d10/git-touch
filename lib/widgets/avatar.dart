@@ -18,10 +18,16 @@ class Avatar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Link(
       screenBuilder: (_) => UserScreen(login),
-      child: CircleAvatar(
-        backgroundColor: Colors.transparent,
-        backgroundImage: NetworkImage(url),
-        radius: size,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(size),
+        child: FadeInImage.assetNetwork(
+          placeholder: 'images/octoface.png',
+          image: url,
+          width: 2 * size,
+          height: 2 * size,
+          fadeInDuration: Duration(milliseconds: 200),
+          fadeOutDuration: Duration(milliseconds: 100),
+        ),
       ),
       material: false,
     );
