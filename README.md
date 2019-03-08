@@ -4,10 +4,10 @@ Open source GitHub client built with Flutter
 
 <p>
   <a href="https://itunes.apple.com/us/app/gittouch/id1452042346">
-    <img alt="Download on the App Store" title="App Store" src="assets/app-store.svg" />
+    <img alt="Download on the App Store" title="App Store" src="https://raw.githubusercontent.com/pd4d10/git-touch/master/assets/app-store.svg" />
   </a>
   <a href="https://play.google.com/store/apps/details?id=io.github.pd4d10.gittouch">
-    <img alt="Get it on Google Play" title="Google Play" src="assets/google-play.png" height="40" />
+    <img alt="Get it on Google Play" title="Google Play" src="https://raw.githubusercontent.com/pd4d10/git-touch/master/assets/google-play.png" height="40" />
   </a>
 </p>
 
@@ -20,8 +20,8 @@ Android users can also download APK file from [release page](https://github.com/
 ## Screenshots
 
 <p>
-  <img src="assets/screenshot-ios.png" alt="iOS screenshot" width="320" />
-  <img src="assets/screenshot-android.png" alt="Android screenshot" width="325" />
+  <img src="https://raw.githubusercontent.com/pd4d10/git-touch/master/assets/screenshot-ios.png" alt="iOS screenshot" width="320" />
+  <img src="https://raw.githubusercontent.com/pd4d10/git-touch/master/assets/screenshot-android.png" alt="Android screenshot" width="325" />
 </p>
 
 ## Contributing
