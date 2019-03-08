@@ -6,8 +6,9 @@ import 'link.dart';
 
 class RepoItem extends StatelessWidget {
   final Map<String, dynamic> payload;
+  final bool showOwner;
 
-  RepoItem(this.payload);
+  RepoItem(this.payload, {this.showOwner = true});
 
   IconData _buildIconData() {
     if (payload['isPrivate']) {
@@ -34,7 +35,8 @@ class RepoItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    payload['owner']['login'] + '/' + payload['name'],
+                    (showOwner ? (payload['owner']['login'] + '/') : '') +
+                        payload['name'],
                     style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
                   ),
                   Padding(padding: EdgeInsets.only(top: 6)),
