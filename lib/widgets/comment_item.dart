@@ -14,9 +14,9 @@ class CommentItem extends StatelessWidget {
     return Column(children: <Widget>[
       Row(children: <Widget>[
         Avatar(
-          login: payload['author']['login'],
           url: payload['author']['avatarUrl'],
           size: 16,
+          login: payload['author']['login'],
         ),
         Padding(padding: EdgeInsets.only(left: 6)),
         Expanded(

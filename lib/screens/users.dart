@@ -4,6 +4,7 @@ import '../providers/settings.dart';
 import '../utils/utils.dart';
 import '../widgets/link.dart';
 import '../screens/user.dart';
+import '../widgets/avatar.dart';
 
 class UsersScreen extends StatefulWidget {
   final String login;
@@ -54,11 +55,7 @@ class _UsersScreenState extends State<UsersScreen> {
         padding: EdgeInsets.all(10),
         child: Row(
           children: <Widget>[
-            CircleAvatar(
-              backgroundColor: Colors.transparent,
-              backgroundImage: NetworkImage(payload['avatarUrl']),
-              radius: 18,
-            ),
+            Avatar(url: payload['avatarUrl']),
             Padding(padding: EdgeInsets.only(left: 10)),
             Text(payload['login'], style: TextStyle(fontSize: 18))
           ],

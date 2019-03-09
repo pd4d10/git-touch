@@ -4,32 +4,38 @@ import '../screens/user.dart';
 import 'link.dart';
 
 class Avatar extends StatelessWidget {
-  final String login;
   final String url;
+  final String login;
   final double size;
 
   Avatar({
-    @required this.login,
     @required this.url,
     this.size = 18,
+    this.login,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Link(
-      screenBuilder: (_) => UserScreen(login),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(size),
-        child: FadeInImage.assetNetwork(
-          placeholder: 'images/octoface.png',
-          image: url,
-          width: 2 * size,
-          height: 2 * size,
-          fadeInDuration: Duration(milliseconds: 200),
-          fadeOutDuration: Duration(milliseconds: 100),
-        ),
+    var avatar = ClipRRect(
+      borderRadius: BorderRadius.circular(size),
+      child: FadeInImage.assetNetwork(
+        placeholder: 'images/octoface.png',
+        image: url,
+        width: 2 * size,
+        height: 2 * size,
+        fadeInDuration: Duration(milliseconds: 200),
+        fadeOutDuration: Duration(milliseconds: 100),
       ),
-      material: false,
     );
+
+    if (login == null) {
+      return avatar;
+    } else {
+      return Link(
+        screenBuilder: (_) => UserScreen(login),
+        child: avatar,
+        material: false,
+      );
+    }
   }
 }

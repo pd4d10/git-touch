@@ -66,7 +66,7 @@ class EventItem extends StatelessWidget {
         children: <Widget>[
           Row(
             children: <Widget>[
-              Avatar(login: event.actorLogin, url: event.actorAvatarUrl),
+              Avatar(url: event.actorAvatarUrl, login: event.actorLogin),
               Padding(padding: EdgeInsets.only(left: 10)),
               Expanded(
                 child: RichText(

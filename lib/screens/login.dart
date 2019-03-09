@@ -6,7 +6,8 @@ import '../utils/constants.dart';
 import '../widgets/link.dart';
 import '../widgets/loading.dart';
 import '../models/account.dart';
-import 'login_gitlab.dart';
+import '../widgets/avatar.dart';
+// import 'login_gitlab.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -29,11 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
           border: Border(bottom: BorderSide(color: Colors.black12)),
         ),
         child: Row(children: <Widget>[
-          CircleAvatar(
-            backgroundColor: Colors.transparent,
-            backgroundImage: NetworkImage(account.avatarUrl),
-            radius: 24,
-          ),
+          Avatar(url: account.avatarUrl, size: 24),
           Padding(padding: EdgeInsets.only(left: 10)),
           Expanded(
             child: Column(
