@@ -4,6 +4,16 @@ import '../scaffolds/list.dart';
 import '../widgets/event_item.dart';
 import '../providers/settings.dart';
 import '../utils/utils.dart';
+import '../widgets/action.dart';
+
+class NewsFilter {
+  static const all = 'all';
+
+  /// The same as GitHub dashboard
+  ///
+  /// Exclude issue and pull request events
+  static const github = 'github';
+}
 
 class NewsScreen extends StatefulWidget {
   @override
@@ -11,34 +21,69 @@ class NewsScreen extends StatefulWidget {
 }
 
 class NewsScreenState extends State<NewsScreen> {
-  Future<List<EventPayload>> fetchEvents(int page) async {
+  String filter = NewsFilter.github;
+
+  Future<ListPayload<EventPayload, int>> fetchEvents([int page = 1]) async {
     var settings = SettingsProvider.of(context);
     var login = settings.activeLogin;
     List data = await settings.getWithCredentials(
         '/users/$login/received_events?page=$page&per_page=$pageSize');
-    // print(data);
-    return data
+    print(data.length);
+    var hasMore = data.length == pageSize;
+    var events = data
         .map<EventPayload>((item) => EventPayload.fromJson(item))
+        .where(testEvents)
         .toList();
+
+    return ListPayload(
+      cursor: page + 1,
+      hasMore: hasMore,
+      items: events,
+    );
+  }
+
+  bool testEvents(EventPayload event) {
+    switch (filter) {
+      case NewsFilter.github:
+        return ![
+          'IssueCommentEvent',
+          'IssuesEvent',
+          'PullRequestEvent',
+          'PullRequestReviewEvent',
+          'PullRequestReviewCommentEvent',
+        ].contains(event.type);
+      default:
+        return true;
+    }
   }
 
   @override
   Widget build(context) {
-    // FIXME: can't add generic type here. Don't know why
-    // type '(Event) => EventItem' is not a subtype of type '(dynamic) => Widget'
-    return ListScaffold(
+    return ListScaffold<EventPayload, int>(
       title: Text('News'),
       itemBuilder: (payload) => EventItem(payload),
-      onRefresh: () async {
-        var page = 1;
-        var items = await fetchEvents(page);
-        return ListPayload(
-            cursor: page + 1, hasMore: items.length == pageSize, items: items);
-      },
-      onLoadMore: (page) async {
-        var items = await fetchEvents(page);
-        return ListPayload(
-            cursor: page + 1, hasMore: items.length == pageSize, items: items);
+      onRefresh: fetchEvents,
+      onLoadMore: (page) => fetchEvents(page),
+      trailingBuiler: ({refresh}) {
+        return ActionButton(
+          title: 'Filter',
+          actions: [
+            Action(
+              text: 'Show all items',
+              onPress: () {
+                filter = NewsFilter.all;
+                refresh(force: true);
+              },
+            ),
+            Action(
+              text: 'Only GitHub items',
+              onPress: () {
+                filter = NewsFilter.github;
+                refresh(force: true);
+              },
+            ),
+          ],
+        );
       },
     );
   }

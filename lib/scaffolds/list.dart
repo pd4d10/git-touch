@@ -17,23 +17,21 @@ class ListPayload<T, K> {
 // This is a scaffold for infinite scroll screens
 class ListScaffold<T, K> extends StatefulWidget {
   final Widget title;
-  // final IconData trailingIconData;
-  // final Function trailingOnTap;
+  final Widget Function({Function({bool force}) refresh}) trailingBuiler;
   final Widget Function(T payload) itemBuilder;
   final Future<ListPayload<T, K>> Function() onRefresh;
   final Future<ListPayload<T, K>> Function(K cursor) onLoadMore;
 
   ListScaffold({
     @required this.title,
-    // this.trailingIconData,
-    // this.trailingOnTap,
     @required this.itemBuilder,
     @required this.onRefresh,
     @required this.onLoadMore,
+    this.trailingBuiler,
   });
 
   @override
-  _ListScaffoldState createState() => _ListScaffoldState();
+  _ListScaffoldState<T, K> createState() => _ListScaffoldState();
 }
 
 class _ListScaffoldState<T, K> extends State<ListScaffold<T, K>> {
@@ -62,11 +60,20 @@ class _ListScaffoldState<T, K> extends State<ListScaffold<T, K>> {
     });
   }
 
-  Future<void> _refresh() async {
-    // print('list scaffold refresh');
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  Future<void> _refresh({bool force = false}) async {
+    print('list scaffold refresh');
     setState(() {
       error = '';
       loading = true;
+      if (force) {
+        items = [];
+      }
     });
     try {
       var _payload = await widget.onRefresh();
@@ -96,7 +103,8 @@ class _ListScaffoldState<T, K> extends State<ListScaffold<T, K>> {
       cursor = _payload.cursor;
       hasMore = _payload.hasMore;
     } catch (err) {
-      print(err);
+      error = err.toString();
+      throw err;
     } finally {
       if (mounted) {
         setState(() {
@@ -154,6 +162,7 @@ class _ListScaffoldState<T, K> extends State<ListScaffold<T, K>> {
       return EmptyWidget();
     } else {
       return ListView.builder(
+        // shrinkWrap: true,
         controller: _controller,
         itemCount: 2 * items.length + 1,
         itemBuilder: _buildItem,
@@ -176,15 +185,9 @@ class _ListScaffoldState<T, K> extends State<ListScaffold<T, K>> {
         return CupertinoPageScaffold(
           navigationBar: CupertinoNavigationBar(
             middle: widget.title,
-            // trailing: Link(
-            //   child: Icon(
-            //     widget.trailingIconData,
-            //     size: 24,
-            //     color: Colors.blueAccent,
-            //   ),
-            //   beforeRedirect: widget.trailingOnTap,
-            //   bgColor: Colors.transparent,
-            // ),
+            trailing: widget.trailingBuiler == null
+                ? null
+                : widget.trailingBuiler(refresh: _refresh),
           ),
           child: SafeArea(
             child: CustomScrollView(
@@ -197,14 +200,9 @@ class _ListScaffoldState<T, K> extends State<ListScaffold<T, K>> {
         return Scaffold(
           appBar: AppBar(
             title: widget.title,
-            // actions: widget.trailingIconData == null
-            //     ? []
-            //     : <Widget>[
-            //         IconButton(
-            //           icon: Icon(widget.trailingIconData),
-            //           onPressed: widget.trailingOnTap,
-            //         )
-            //       ],
+            actions: widget.trailingBuiler == null
+                ? null
+                : [widget.trailingBuiler(refresh: _refresh)],
           ),
           body: RefreshIndicator(
             onRefresh: _refresh,

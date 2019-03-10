@@ -218,7 +218,9 @@ $key: pullRequest(number: ${item.number}) {
       title: _buildTitle(),
       bottom: TabBar(
         onTap: _onSwitchTab,
-        tabs: textMap.entries.map((entry) => Tab(text: entry.value)).toList(),
+        tabs: textMap.entries
+            .map((entry) => Tab(text: entry.value.toUpperCase()))
+            .toList(),
       ),
       // trailing: GestureDetector(
       //   child: Icon(Icons.more_vert, size: 20),

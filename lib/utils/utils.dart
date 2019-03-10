@@ -6,6 +6,13 @@ import '../screens/repo.dart';
 export 'package:flutter_vector_icons/flutter_vector_icons.dart';
 export 'timeago.dart';
 
+class StorageKeys {
+  static const account = 'account';
+  static const github = 'github';
+  static const theme = 'theme';
+  static const newsFilter = 'news.filter';
+}
+
 Color convertColor(String cssHex) {
   if (cssHex.startsWith('#')) {
     cssHex = cssHex.substring(1);

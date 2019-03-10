@@ -10,17 +10,12 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 // import '../utils/utils.dart';
 import '../utils/constants.dart';
+import '../utils/utils.dart';
 import '../models/account.dart';
 
 class PlatformType {
   static const github = 'github';
   static const gitlab = 'gitlab';
-}
-
-class StorageKeys {
-  static const account = 'account';
-  static const github = 'github';
-  static const theme = 'theme';
 }
 
 // abstract class Model<T> {
