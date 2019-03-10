@@ -144,6 +144,7 @@ TextSpan createRepoLinkSpan(BuildContext context, String owner, String name) {
 }
 
 class Palette {
+  static const primary = Color(0xff24292e);
   static const green = Color(0xff2cbe4e);
   static const purple = Color(0xff6f42c1);
   static const red = Color(0xffcb2431);

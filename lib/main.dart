@@ -10,6 +10,7 @@ import 'screens/login.dart';
 import 'screens/issue.dart';
 import 'screens/repos.dart';
 import 'screens/trending.dart';
+import 'utils/utils.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -86,14 +87,23 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     var settings = SettingsProvider.of(context);
+    var themData = ThemeData(
+      // primaryColor: HSLColor.fromColor(Palette.primary)
+      //     .withLightness(0.3)
+      //     .toColor(),
+      // primaryColor: Color(0xff333333),
+      primaryColor: Palette.primary,
+      accentColor: Palette.primary,
+    );
 
+    // TODO:
     if (!settings.ready) {
-      return MaterialApp(home: Scaffold(body: Text('a')));
+      return MaterialApp(theme: themData, home: Scaffold(body: Text('a')));
     }
 
     // print(settings.activeLogin);
     if (settings.activeLogin == null) {
-      return MaterialApp(home: LoginScreen());
+      return MaterialApp(theme: themData, home: LoginScreen());
     }
 
     switch (settings.theme) {
@@ -113,7 +123,7 @@ class _HomeState extends State<Home> {
         );
       default:
         return MaterialApp(
-          theme: ThemeData(),
+          theme: themData,
           home: Scaffold(
             body: _buildScreen(active),
             bottomNavigationBar: BottomNavigationBar(
