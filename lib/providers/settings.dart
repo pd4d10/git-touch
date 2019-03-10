@@ -7,6 +7,7 @@ import 'package:nanoid/nanoid.dart';
 import 'package:url_launcher/url_launcher.dart';
 // import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 // import '../utils/utils.dart';
 import '../utils/constants.dart';
@@ -355,6 +356,26 @@ class SettingsProviderState extends State<SettingsProvider> {
         .timeout(_timeoutDuration);
     // print(res.body);
     return true;
+  }
+
+  void pushRoute({
+    @required BuildContext context,
+    @required WidgetBuilder builder,
+    bool fullscreenDialog = false,
+  }) {
+    switch (theme) {
+      case ThemeMap.cupertino:
+        Navigator.of(context).push(CupertinoPageRoute(
+          builder: builder,
+          fullscreenDialog: fullscreenDialog,
+        ));
+        break;
+      default:
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: builder,
+          fullscreenDialog: fullscreenDialog,
+        ));
+    }
   }
 
   String randomString;

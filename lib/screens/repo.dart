@@ -9,6 +9,7 @@ import '../scaffolds/refresh.dart';
 import '../widgets/repo_item.dart';
 import '../widgets/entry_item.dart';
 import '../screens/issues.dart';
+import '../screens/user.dart';
 import '../widgets/action.dart';
 
 class RepoScreen extends StatefulWidget {
@@ -22,8 +23,8 @@ class RepoScreen extends StatefulWidget {
 }
 
 class _RepoScreenState extends State<RepoScreen> {
-  get owner => widget.owner;
-  get name => widget.name;
+  String get owner => widget.owner;
+  String get name => widget.name;
 
   Future queryRepo(BuildContext context) async {
     var data = await SettingsProvider.of(context).query('''
@@ -31,6 +32,7 @@ class _RepoScreenState extends State<RepoScreen> {
   repository(owner: "$owner", name: "$name") {
     id
     owner {
+      __typename
       login
     }
     name
@@ -89,6 +91,24 @@ class _RepoScreenState extends State<RepoScreen> {
         var payload = data[0];
 
         return ActionButton(title: 'Repository Actions', actions: [
+          Action(
+            text: 'View @$owner',
+            onPress: () {
+              WidgetBuilder builder;
+
+              switch (payload['owner']['__typename']) {
+                case 'Organization':
+                  // TODO:
+                  break;
+                case 'User':
+                  builder = (_) => UserScreen(owner);
+                  break;
+              }
+
+              SettingsProvider.of(context)
+                  .pushRoute(context: context, builder: builder);
+            },
+          ),
           Action(
             text: payload['viewerHasStarred'] ? 'Unstar' : 'Star',
             onPress: () async {

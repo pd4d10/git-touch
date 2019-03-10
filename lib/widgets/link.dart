@@ -31,19 +31,11 @@ class Link extends StatelessWidget {
     }
 
     if (screenBuilder != null) {
-      switch (theme) {
-        case ThemeMap.cupertino:
-          Navigator.of(context).push(CupertinoPageRoute(
-            builder: screenBuilder,
-            fullscreenDialog: fullscreenDialog,
-          ));
-          break;
-        default:
-          Navigator.of(context).push(MaterialPageRoute(
-            builder: screenBuilder,
-            fullscreenDialog: fullscreenDialog,
-          ));
-      }
+      SettingsProvider.of(context).pushRoute(
+        context: context,
+        builder: screenBuilder,
+        fullscreenDialog: fullscreenDialog,
+      );
     }
 
     if (url != null) {
