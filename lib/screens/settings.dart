@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:launch_review/launch_review.dart';
 import '../scaffolds/simple.dart';
 import '../providers/settings.dart';
 import '../widgets/table_view.dart';
@@ -51,6 +52,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     }
                   },
                 ),
+              ],
+            ),
+            TableView(
+              title: 'REVIEW',
+              items: [
+                TableViewItem(
+                  text: 'Review',
+                  onTap: () {
+                    LaunchReview.launch(
+                      androidAppId: 'io.github.pd4d10.gittouch',
+                      iOSAppId: '1452042346',
+                    );
+                  },
+                )
               ],
             ),
             TableView(
