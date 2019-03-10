@@ -79,17 +79,18 @@ class _UserScreenState extends State<UserScreen> {
     }
 
     return ListGroup(
-        title: Text(
-          title,
-          style: TextStyle(fontSize: 16),
-        ),
-        items: items,
-        itemBuilder: (item, _) {
-          return RepoItem(
-            item,
-            showOwner: item['owner']['login'] != widget.login,
-          );
-        });
+      title: Text(
+        title,
+        style: TextStyle(fontSize: 16),
+      ),
+      items: items,
+      itemBuilder: (item, _) {
+        return RepoItem(
+          item,
+          showOwner: item['owner']['login'] != widget.login,
+        );
+      },
+    );
   }
 
   Widget _buildEmail(payload) {

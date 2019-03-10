@@ -1,17 +1,25 @@
 import 'package:flutter/material.dart';
 import '../widgets/empty.dart';
 
+var borderColor = Color.fromRGBO(27, 31, 35, .15);
+
 class ListGroup<T> extends StatelessWidget {
   final Widget title;
   final List<T> items;
   final Widget Function(T item, int index) itemBuilder;
+  final EdgeInsetsGeometry padding;
 
-  ListGroup({this.title, this.items, this.itemBuilder});
+  ListGroup({
+    @required this.title,
+    @required this.items,
+    @required this.itemBuilder,
+    this.padding = const EdgeInsets.only(left: 10, right: 10, bottom: 10),
+  });
 
   Widget _buildItem(MapEntry<int, T> entry) {
     return Container(
       decoration: BoxDecoration(
-        border: Border(bottom: BorderSide(color: Colors.black12)),
+        border: Border(top: BorderSide(color: borderColor)),
       ),
       child: itemBuilder(entry.value, entry.key),
     );
@@ -19,16 +27,19 @@ class ListGroup<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(10),
+    return Container(
+      padding: padding,
       child: Container(
-        decoration: BoxDecoration(border: Border.all(color: Colors.black12)),
+        decoration: BoxDecoration(
+          border: Border.all(color: borderColor),
+          borderRadius: BorderRadius.all(Radius.circular(3)),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Container(
+              color: Color(0xfff6f8fa),
               padding: EdgeInsets.all(8),
-              color: Color(0x10000000),
               child: title,
             ),
             items.isEmpty

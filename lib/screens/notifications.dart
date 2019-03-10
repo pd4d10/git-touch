@@ -119,41 +119,42 @@ $key: pullRequest(number: ${item.number}) {
     var group = entry.value;
     var repo = group.repo;
     return ListGroup(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Text(
-              repo,
-              style: TextStyle(color: Colors.black, fontSize: 16),
-            ),
-            Link(
-              material: false,
-              onTap: () async {
-                await SettingsProvider.of(context)
-                    .putWithCredentials('/repos/$repo/notifications');
-                await _onSwitchTab();
-              },
-              child: Icon(
-                Octicons.check,
-                color: Colors.black45,
-                size: 24,
-              ),
-            ),
-          ],
-        ),
-        items: group.items,
-        itemBuilder: (item, index) {
-          return NotificationItem(
-            payload: item,
-            markAsRead: () {
-              if (mounted) {
-                setState(() {
-                  groupMap[entry.key].items[index].unread = false;
-                });
-              }
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Text(
+            repo,
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+          ),
+          Link(
+            material: false,
+            onTap: () async {
+              await SettingsProvider.of(context)
+                  .putWithCredentials('/repos/$repo/notifications');
+              await _onSwitchTab();
             },
-          );
-        });
+            child: Icon(
+              Octicons.check,
+              color: Colors.black45,
+              size: 24,
+            ),
+          ),
+        ],
+      ),
+      items: group.items,
+      itemBuilder: (item, index) {
+        return NotificationItem(
+          payload: item,
+          markAsRead: () {
+            if (mounted) {
+              setState(() {
+                groupMap[entry.key].items[index].unread = false;
+              });
+            }
+          },
+        );
+      },
+    );
   }
 
   Future<void> _onSwitchTab([int index]) async {
@@ -257,9 +258,10 @@ $key: pullRequest(number: ${item.number}) {
         return groupMap.isEmpty
             ? EmptyWidget()
             : Column(
-                children: groupMap.entries
-                    .map((entry) => _buildGroupItem(context, entry))
-                    .toList());
+                children: [Padding(padding: EdgeInsets.only(top: 10))]..addAll(
+                    groupMap.entries
+                        .map((entry) => _buildGroupItem(context, entry))
+                        .toList()));
       },
     );
   }
