@@ -49,15 +49,7 @@ class _ListScaffoldState<T, K> extends State<ListScaffold<T, K>> {
   void initState() {
     super.initState();
     _refresh();
-    _controller.addListener(() {
-      if (_controller.offset + 100 > _controller.position.maxScrollExtent &&
-          !_controller.position.outOfRange &&
-          !loading &&
-          !loadingMore &&
-          hasMore) {
-        _loadMore();
-      }
-    });
+    _controller.addListener(onScroll);
   }
 
   @override
@@ -66,8 +58,27 @@ class _ListScaffoldState<T, K> extends State<ListScaffold<T, K>> {
     super.dispose();
   }
 
+  void onScroll() {
+    // print(_controller.position.maxScrollExtent - _controller.offset);
+    if (_controller.position.maxScrollExtent - _controller.offset < 100 &&
+        !_controller.position.outOfRange &&
+        !loading &&
+        !loadingMore &&
+        hasMore) {
+      _loadMore();
+    }
+  }
+
+  // FIXME: if items not enough, fetch next page
+  // This should be triggered after build
+  void _makeSureItemsFill() {
+    Future.delayed(Duration(milliseconds: 300)).then((_) {
+      onScroll();
+    });
+  }
+
   Future<void> _refresh({bool force = false}) async {
-    print('list scaffold refresh');
+    // print('list scaffold refresh');
     setState(() {
       error = '';
       loading = true;
@@ -88,6 +99,7 @@ class _ListScaffoldState<T, K> extends State<ListScaffold<T, K>> {
         setState(() {
           loading = false;
         });
+        _makeSureItemsFill();
       }
     }
   }
@@ -110,6 +122,7 @@ class _ListScaffoldState<T, K> extends State<ListScaffold<T, K>> {
         setState(() {
           loadingMore = false;
         });
+        _makeSureItemsFill();
       }
     }
   }
