@@ -9,6 +9,7 @@ import 'screens/me.dart';
 import 'screens/login.dart';
 import 'screens/issue.dart';
 import 'screens/repos.dart';
+import 'screens/organization.dart';
 import 'screens/trending.dart';
 import 'utils/utils.dart';
 
@@ -69,6 +70,7 @@ class _HomeState extends State<Home> {
   _buildScreen(int index) {
     // return IssueScreen(number: 29, owner: 'reactjs', name: 'rfcs');
     // return ReposScreen('pd4d10');
+    // return OrganizationScreen('flutter');
     // return TrendingScreen();
     switch (index) {
       case 0:
@@ -110,7 +112,12 @@ class _HomeState extends State<Home> {
       case ThemeMap.cupertino:
         return CupertinoApp(
           home: CupertinoTheme(
-            data: CupertinoThemeData(),
+            data: CupertinoThemeData(
+              textTheme: CupertinoTextThemeData(
+                // primaryColor: Palette.primary,
+                textStyle: TextStyle(color: Palette.primary),
+              ),
+            ),
             child: CupertinoTabScaffold(
               tabBar: CupertinoTabBar(items: _buildNavigationItems()),
               tabBuilder: (context, index) {

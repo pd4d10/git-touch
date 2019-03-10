@@ -307,11 +307,11 @@ class SettingsProviderState extends State<SettingsProvider> {
             body: json.encode({'query': query}))
         .timeout(_timeoutDuration);
 
+    // print(res.body);
     final data = json.decode(res.body);
-    // print(data);
 
     if (data['errors'] != null) {
-      throw new Exception(data['errors'].toString());
+      throw new Exception(data['errors'][0]['message']);
     }
 
     return data['data'];

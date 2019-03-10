@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:share/share.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:github_contributions/github_contributions.dart';
 import '../providers/settings.dart';
 import '../scaffolds/refresh.dart';
 import '../widgets/avatar.dart';
@@ -14,41 +12,26 @@ import '../widgets/link.dart';
 import '../widgets/action.dart';
 import '../screens/repos.dart';
 import '../screens/users.dart';
-import '../screens/settings.dart';
 import '../utils/utils.dart';
 
-class UserScreen extends StatefulWidget {
+class OrganizationScreen extends StatefulWidget {
   final String login;
-  final bool showSettings;
-
-  UserScreen(this.login, {this.showSettings = false});
-
-  _UserScreenState createState() => _UserScreenState();
+  OrganizationScreen(this.login);
+  _OrganizationScreenState createState() => _OrganizationScreenState();
 }
 
-class _UserScreenState extends State<UserScreen> {
+class _OrganizationScreenState extends State<OrganizationScreen> {
   Future query() async {
     var login = widget.login;
     var data = await SettingsProvider.of(context).query('''
 {
-  user(login: "$login") {
+  organization(login: "$login") {
     name
     avatarUrl
-    bio
     websiteUrl
     email
-    company
     location
-    starredRepositories {
-      totalCount
-    }
-    followers {
-      totalCount
-    }
-    following {
-      totalCount
-    }
-    repositories(first: $pageSize, ownerAffiliations: OWNER, orderBy: {field: STARGAZERS, direction: DESC}) {
+    repositories(first: $pageSize, orderBy: {field: PUSHED_AT, direction: DESC}) {
       totalCount
       nodes {
         $repoChunk
@@ -59,13 +42,14 @@ class _UserScreenState extends State<UserScreen> {
         $repoChunk
       }
     }
-    viewerCanFollow
-    viewerIsFollowing
     url
+    membersWithRole {
+      totalCount
+    }
   }
 }
 ''');
-    return data['user'];
+    return data['organization'];
   }
 
   Widget _buildRepos(payload) {
@@ -115,16 +99,16 @@ class _UserScreenState extends State<UserScreen> {
       );
     }
 
-    String company = payload['company'] ?? '';
-    if (company.isNotEmpty) {
+    String website = payload['websiteUrl'] ?? '';
+    if (website.isNotEmpty) {
       return Row(children: <Widget>[
         Icon(
-          Octicons.organization,
+          Octicons.link,
           color: Colors.black54,
           size: 16,
         ),
         Padding(padding: EdgeInsets.only(left: 4)),
-        Text(company, style: TextStyle(color: Colors.black54, fontSize: 16))
+        Text(website, style: TextStyle(color: Colors.black54, fontSize: 16))
       ]);
     }
 
@@ -147,63 +131,29 @@ class _UserScreenState extends State<UserScreen> {
   @override
   Widget build(BuildContext context) {
     return RefreshScaffold(
-      onRefresh: () {
-        return Future.wait(
-          [query(), getContributionsSvg(widget.login)],
-        );
-      },
+      onRefresh: query,
       title: Text(widget.login),
-      trailingBuilder: (data) {
-        var payload = data[0];
-        if (widget.showSettings) {
-          return Link(
-            child: Icon(Icons.settings, size: 24),
-            screenBuilder: (_) => SettingsScreen(),
-            material: false,
-            fullscreenDialog: true,
-          );
-        } else {
-          List<Action> actions = [];
+      trailingBuilder: (payload) {
+        List<Action> actions = [];
 
-          if (payload['viewerCanFollow']) {
-            actions.add(Action(
-              text: payload['viewerIsFollowing'] ? 'Unfollow' : 'Follow',
-              onPress: () async {
-                if (payload['viewerIsFollowing']) {
-                  await SettingsProvider.of(context)
-                      .deleteWithCredentials('/user/following/${widget.login}');
-                  payload['viewerIsFollowing'] = false;
-                } else {
-                  SettingsProvider.of(context)
-                      .putWithCredentials('/user/following/${widget.login}');
-                  payload['viewerIsFollowing'] = true;
-                }
-              },
-            ));
-          }
+        actions.addAll([
+          Action(
+            text: 'Share',
+            onPress: () {
+              Share.share(payload['url']);
+            },
+          ),
+          Action(
+            text: 'Open in Browser',
+            onPress: () {
+              launch(payload['url']);
+            },
+          ),
+        ]);
 
-          actions.addAll([
-            Action(
-              text: 'Share',
-              onPress: () {
-                Share.share(payload['url']);
-              },
-            ),
-            Action(
-              text: 'Open in Browser',
-              onPress: () {
-                launch(payload['url']);
-              },
-            ),
-          ]);
-
-          return ActionButton(title: 'User Actions', actions: actions);
-        }
+        return ActionButton(title: 'User Actions', actions: actions);
       },
-      bodyBuilder: (data) {
-        var payload = data[0];
-        var contributions = data[1];
-
+      bodyBuilder: (payload) {
         return Column(
           children: <Widget>[
             Container(
@@ -241,33 +191,17 @@ class _UserScreenState extends State<UserScreen> {
                   EntryItem(
                     count: payload['repositories']['totalCount'],
                     text: 'Repositories',
-                    screenBuilder: (context) =>
-                        ReposScreen(login: widget.login),
+                    screenBuilder: (_) =>
+                        ReposScreen(login: widget.login, org: true),
                   ),
                   EntryItem(
-                    count: payload['starredRepositories']['totalCount'],
-                    text: 'Stars',
-                    screenBuilder: (context) =>
-                        ReposScreen(login: widget.login, star: true),
-                  ),
-                  EntryItem(
-                    count: payload['followers']['totalCount'],
-                    text: 'Followers',
-                    screenBuilder: (context) =>
-                        UsersScreen(login: widget.login),
-                  ),
-                  EntryItem(
-                    count: payload['following']['totalCount'],
-                    text: 'Following',
-                    screenBuilder: (context) =>
-                        UsersScreen(login: widget.login, following: true),
+                    count: payload['membersWithRole']['totalCount'],
+                    text: 'Members',
+                    screenBuilder: (_) =>
+                        UsersScreen(login: widget.login, org: true),
                   ),
                 ],
               ),
-            ),
-            Container(
-              child: SvgPicture.string(contributions),
-              padding: EdgeInsets.symmetric(horizontal: 10),
             ),
             _buildRepos(payload),
           ],

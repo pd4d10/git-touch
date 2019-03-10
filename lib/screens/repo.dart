@@ -10,7 +10,9 @@ import '../widgets/repo_item.dart';
 import '../widgets/entry_item.dart';
 import '../screens/issues.dart';
 import '../screens/user.dart';
+import '../screens/organization.dart';
 import '../widgets/action.dart';
+import '../utils/utils.dart';
 
 class RepoScreen extends StatefulWidget {
   final String owner;
@@ -34,6 +36,7 @@ class _RepoScreenState extends State<RepoScreen> {
     owner {
       __typename
       login
+      url
     }
     name
     isPrivate
@@ -92,14 +95,19 @@ class _RepoScreenState extends State<RepoScreen> {
 
         return ActionButton(title: 'Repository Actions', actions: [
           Action(
-            text: 'View @$owner',
+            text: '@$owner',
             onPress: () {
               WidgetBuilder builder;
 
               switch (payload['owner']['__typename']) {
                 case 'Organization':
-                  // TODO:
-                  break;
+                  // builder = (_) => OrganizationScreen(owner);
+                  // break;
+
+                  // Seems organization permission is a little complicated
+                  // So we just launch browser currently
+                  launch(payload['owner']['url']);
+                  return;
                 case 'User':
                   builder = (_) => UserScreen(owner);
                   break;

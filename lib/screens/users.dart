@@ -9,23 +9,37 @@ import '../widgets/avatar.dart';
 class UsersScreen extends StatefulWidget {
   final String login;
   final bool following;
+  final bool org;
 
-  UsersScreen({this.login, this.following = false});
+  UsersScreen({
+    @required this.login,
+    this.following = false,
+    this.org = false,
+  });
 
   @override
   _UsersScreenState createState() => _UsersScreenState();
 }
 
 class _UsersScreenState extends State<UsersScreen> {
-  get login => widget.login;
-  get resource => widget.following ? 'following' : 'followers';
+  String get login => widget.login;
+  String get scope => widget.org ? 'organization' : 'user';
+  String get resource {
+    if (widget.org) {
+      return 'members';
+    }
+    if (widget.following) {
+      return 'following';
+    }
+    return 'followers';
+  }
 
   Future<ListPayload> _queryUsers([String cursor]) async {
     var cursorChunk = cursor == null ? '' : ', after: "$cursor"';
 
     var data = await SettingsProvider.of(context).query('''
 {
-  user(login: "$login") {
+  $scope(login: "$login") {
     $resource(first: $pageSize$cursorChunk) {
       pageInfo {
         hasNextPage
@@ -39,7 +53,7 @@ class _UsersScreenState extends State<UsersScreen> {
   }
 }    
     ''');
-    var repo = data["user"][resource];
+    var repo = data[scope][resource];
 
     return ListPayload(
       cursor: repo["pageInfo"]["endCursor"],

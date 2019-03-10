@@ -8,25 +8,34 @@ import '../widgets/repo_item.dart';
 class ReposScreen extends StatefulWidget {
   final String login;
   final bool star;
+  final bool org;
 
-  ReposScreen({this.login, this.star = false});
+  ReposScreen({this.login, this.star = false, this.org = false});
 
   @override
   _ReposScreenState createState() => _ReposScreenState();
 }
 
 class _ReposScreenState extends State<ReposScreen> {
-  get login => widget.login;
+  String get login => widget.login;
+  String get scope => widget.org ? 'organization' : 'user';
+  String get resource => widget.star ? 'starredRepositories' : 'repositories';
+  String get fieldOrderBy {
+    if (widget.star) {
+      return 'STARRED_AT';
+    }
+    if (widget.org) {
+      return 'PUSHED_AT';
+    }
+    return 'UPDATED_AT';
+  }
 
   Future<ListPayload> _queryRepos([String cursor]) async {
     var cursorChunk = cursor == null ? '' : ', after: "$cursor"';
-    var resouce = widget.star ? 'starredRepositories' : 'repositories';
-    var fieldOrderBy = widget.star ? 'STARRED_AT' : 'UPDATED_AT';
-
     var data = await SettingsProvider.of(context).query('''
 {
-  user(login: "$login") {
-    $resouce(first: $pageSize$cursorChunk, orderBy: {field: $fieldOrderBy, direction: DESC}) {
+  $scope(login: "$login") {
+    $resource(first: $pageSize$cursorChunk, orderBy: {field: $fieldOrderBy, direction: DESC}) {
       pageInfo {
         hasNextPage
         endCursor
@@ -38,7 +47,7 @@ class _ReposScreenState extends State<ReposScreen> {
   }
 }    
     ''');
-    var repo = data["user"][resouce];
+    var repo = data[scope][resource];
 
     return ListPayload(
       cursor: repo["pageInfo"]["endCursor"],
