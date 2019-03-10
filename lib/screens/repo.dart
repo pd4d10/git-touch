@@ -128,7 +128,7 @@ class _RepoScreenState extends State<RepoScreen> {
 
         return Column(
           children: <Widget>[
-            RepoItem(payload),
+            RepoItem(payload, isLink: false),
             Container(
               decoration: BoxDecoration(
                 border: Border(
