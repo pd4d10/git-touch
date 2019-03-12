@@ -57,6 +57,7 @@ class _RefreshScaffoldState<T> extends State<RefreshScaffold<T>> {
       payload = await widget.onRefresh();
     } catch (err) {
       error = err.toString();
+      throw err;
     } finally {
       if (mounted) {
         setState(() {

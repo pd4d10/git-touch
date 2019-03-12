@@ -17,6 +17,9 @@ Color convertColor(String cssHex) {
   if (cssHex.startsWith('#')) {
     cssHex = cssHex.substring(1);
   }
+  if (cssHex.length == 3) {
+    cssHex = cssHex.split('').map((char) => char + char).join('');
+  }
   return Color(int.parse('ff' + cssHex, radix: 16));
 }
 
