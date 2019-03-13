@@ -159,6 +159,9 @@ class Palette {
   static const purple = Color(0xff6f42c1);
   static const red = Color(0xffcb2431);
   static const gray = Color(0xff959da5);
+  static const link = Color(0xff0366d6);
+  static const branchName = Palette.link;
+  static const branchBackground = Color(0xffeaf5ff);
 }
 
 // final pageSize = 5;

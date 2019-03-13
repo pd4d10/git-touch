@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../screens/issue.dart';
 import '../screens/user.dart';
 import 'avatar.dart';
+import '../widgets/link.dart';
 import '../utils/utils.dart';
 
 class EventPayload {
@@ -50,6 +52,7 @@ class EventItem extends StatelessWidget {
     @required BuildContext context,
     @required List<TextSpan> spans,
     String detail,
+    Widget detailWidget,
     IconData iconData = Octicons.octoface,
     WidgetBuilder screenBuilder,
   }) {
@@ -81,22 +84,24 @@ class EventItem extends StatelessWidget {
               Icon(iconData, color: Colors.black45, size: 22),
             ],
           ),
-          detail == null
-              ? Container()
-              : Container(
-                  padding: EdgeInsets.only(left: 46, top: 6),
-                  child: Text(
-                    detail,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 3,
-                    style: TextStyle(
-                      color: Colors.black87,
-                      fontSize: 14,
-                      height: 1.2,
-                      fontWeight: FontWeight.w300,
-                    ),
-                  ),
-                )
+          detailWidget == null
+              ? (detail == null
+                  ? Container()
+                  : Container(
+                      padding: EdgeInsets.only(left: 46, top: 6),
+                      child: Text(
+                        detail,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 3,
+                        style: TextStyle(
+                          color: Colors.black87,
+                          fontSize: 14,
+                          height: 1.2,
+                          fontWeight: FontWeight.w300,
+                        ),
+                      ),
+                    ))
+              : detailWidget
         ],
       ),
     );
@@ -251,19 +256,63 @@ class EventItem extends StatelessWidget {
               ),
         );
       case 'PushEvent':
+        int size = event.payload['size'];
+        String ref = event.payload['ref'];
+        var commitText = '$size commit' + (size == 1 ? '' : 's');
+        List commits = event.payload['commits'];
+
         return _buildItem(
           context: context,
           spans: [
-            TextSpan(text: ' pushed to '),
+            TextSpan(text: ' pushed $commitText to '),
             TextSpan(
-              text: event.payload['ref'],
-              style: TextStyle(color: CupertinoColors.activeBlue),
+              text: ref.replaceFirst('refs/heads/', ''),
+              style: TextStyle(
+                  color: Palette.branchName,
+                  backgroundColor: Palette.branchBackground),
             ),
             TextSpan(text: ' at '),
             _buildRepo(context),
             TextSpan(text: '')
           ],
           iconData: Octicons.repo_push,
+          detailWidget: Container(
+            padding: EdgeInsets.only(left: 46, top: 6),
+            child: Link(
+              onTap: () {
+                launch('https://github.com/' +
+                    event.repoFullName +
+                    '/compare/' +
+                    event.payload['before'] +
+                    '...' +
+                    event.payload['head']);
+              },
+              child: Column(
+                children: commits.map((commit) {
+                  return Row(children: <Widget>[
+                    Text(
+                      (commit['sha'] as String).substring(0, 7),
+                      style: TextStyle(
+                        color: Palette.link,
+                        fontSize: 13,
+                        fontFamily: 'Menlo',
+                        fontFamilyFallback: ['Menlo', 'Roboto Mono'],
+                      ),
+                    ),
+                    SizedBox(width: 6),
+                    Expanded(
+                      child: Text(
+                        commit['message'],
+                        style: TextStyle(color: Colors.black54, fontSize: 14),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      ),
+                    )
+                  ]);
+                }).toList(),
+              ),
+            ),
+          ),
         );
       case 'ReleaseEvent':
       case 'RepositoryEvent':
