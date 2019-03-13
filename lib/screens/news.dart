@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import '../scaffolds/list.dart';
 import '../widgets/event_item.dart';
 import '../providers/settings.dart';
-import '../utils/utils.dart';
 import '../widgets/action.dart';
 
 class NewsFilter {
@@ -22,6 +21,13 @@ class NewsScreen extends StatefulWidget {
 
 class NewsScreenState extends State<NewsScreen> {
   String filter = NewsFilter.github;
+
+  int get pageSize {
+    if (filter == NewsFilter.all) {
+      return 30;
+    }
+    return 60;
+  }
 
   Future<ListPayload<EventPayload, int>> fetchEvents([int page = 1]) async {
     var settings = SettingsProvider.of(context);
