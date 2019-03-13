@@ -115,10 +115,7 @@ class SettingsProviderState extends State<SettingsProvider> {
 
   // https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/#web-application-flow
   Future<void> _onSchemeDetected(Uri uri) async {
-    try {
-      // FIXME:
-      await closeWebView();
-    } catch (err) {}
+    await closeWebView();
 
     setState(() {
       loading = true;
