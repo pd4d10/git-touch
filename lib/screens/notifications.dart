@@ -10,7 +10,12 @@ import '../widgets/empty.dart';
 import '../utils/utils.dart';
 
 String getRepoKey(NotificationGroup group) {
-  return ('_' + group.owner + '_' + group.name).replaceAll('-', '__');
+  // Add heading _ to fix number case
+  // - => __
+  // . => ___
+  return ('_' + group.owner + '_' + group.name)
+      .replaceAll('-', '__')
+      .replaceAll('.', '___');
 }
 
 String getItemKey(NotificationPayload item) {
@@ -171,6 +176,7 @@ $key: pullRequest(number: ${item.number}) {
       groupMap = await fetchNotifications(active);
     } catch (err) {
       error = err.toString();
+      throw err;
     } finally {
       if (mounted) {
         setState(() {
