@@ -278,10 +278,7 @@ class EventItem extends StatelessWidget {
       case 'WatchEvent':
         return _buildItem(
           context: context,
-          spans: [
-            TextSpan(text: ' ${event.payload['action']} '),
-            _buildRepo(context)
-          ],
+          spans: [TextSpan(text: ' starred '), _buildRepo(context)],
           iconData: Octicons.star,
         );
       default:
