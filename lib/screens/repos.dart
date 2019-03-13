@@ -63,7 +63,7 @@ class _ReposScreenState extends State<ReposScreen> {
       title: Text('$login\'s $title'),
       onRefresh: () => _queryRepos(),
       onLoadMore: (cursor) => _queryRepos(cursor),
-      itemBuilder: (payload) => RepoItem(payload, showOwner: false),
+      itemBuilder: (payload) => RepoItem(payload, showOwner: widget.star),
     );
   }
 }
