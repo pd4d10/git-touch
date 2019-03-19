@@ -73,6 +73,14 @@ class NotificationScreenState extends State<NotificationScreen> {
       var schema = '{';
       _groupMap.forEach((repo, group) {
         var repoKey = getRepoKey(group);
+
+        // Check if issue and pull request exist
+        if (group.items.where((item) {
+          return item.type == 'Issue' || item.type == 'PullRequest';
+        }).isEmpty) {
+          return;
+        }
+
         schema +=
             '$repoKey: repository(owner: "${group.owner}", name: "${group.name}") {';
 
@@ -105,6 +113,9 @@ $key: pullRequest(number: ${item.number}) {
       var data = await SettingsProvider.of(context).query(schema);
       _groupMap.forEach((repo, group) {
         group.items.forEach((item) {
+          var groupData = data[getRepoKey(group)];
+          if (groupData == null) return;
+
           var itemData = data[getRepoKey(group)][getItemKey(item)];
           if (itemData != null) {
             item.state = itemData['state'];
