@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../utils/utils.dart';
 import '../screens/issue.dart';
-import '../screens/not_found.dart';
+// import '../screens/not_found.dart';
 import '../providers/settings.dart';
 import 'link.dart';
 
@@ -29,6 +30,8 @@ class NotificationPayload {
     if (type == 'Issue' || type == 'PullRequest') {
       String numberStr = url.split('/').lastWhere((_) => true);
       number = int.parse(numberStr);
+    } else {
+      // print(input);
     }
 
     title = input['subject']['title'];
@@ -54,31 +57,6 @@ class NotificationItem extends StatefulWidget {
 class _NotificationItemState extends State<NotificationItem> {
   NotificationPayload get payload => widget.payload;
   bool loading = false;
-
-  Widget _buildRoute(BuildContext context) {
-    switch (payload.type) {
-      case 'Issue':
-        return IssueScreen(
-          number: payload.number,
-          owner: payload.owner,
-          name: payload.name,
-        );
-      case 'PullRequest':
-        return IssueScreen(
-          number: payload.number,
-          owner: payload.owner,
-          name: payload.name,
-          isPullRequest: true,
-        );
-      case 'Release':
-      // return
-      case 'Commit':
-      // return
-      default:
-        print('Unhandled notification type: ${payload.type}');
-        return NotFoundScreen();
-    }
-  }
 
   Widget _buildIcon(IconData data, [Color color = Colors.black54]) {
     return Icon(data, color: color, size: 20);
@@ -148,9 +126,39 @@ class _NotificationItemState extends State<NotificationItem> {
 
   @override
   Widget build(BuildContext context) {
+    WidgetBuilder screenBuilder;
+    Function onTap;
+
+    switch (payload.type) {
+      case 'Issue':
+      case 'PullRequest':
+        screenBuilder = (_) => IssueScreen(
+              number: payload.number,
+              owner: payload.owner,
+              name: payload.name,
+              isPullRequest: payload.type == 'PullRequest',
+            );
+        break;
+      case 'Release':
+        onTap = () {
+          launch(
+              'https://github.com/${payload.owner}/${payload.name}/releases/tag/${payload.title}');
+        };
+        break;
+      case 'Commit':
+        // TODO:
+        // onTap = () {
+        // launch('urlString');
+        // };
+        break;
+    }
+
     return Link(
-      screenBuilder: _buildRoute,
-      onTap: _markAsRead,
+      screenBuilder: screenBuilder,
+      onTap: () {
+        _markAsRead();
+        if (onTap != null) onTap();
+      },
       child: Opacity(
         opacity: payload.unread ? 1 : 0.5,
         child: Container(
