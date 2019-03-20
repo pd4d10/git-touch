@@ -9,6 +9,15 @@ import '../widgets/comment_item.dart';
 import '../providers/settings.dart';
 import '../widgets/action.dart';
 
+var reactionChunk = emojiMap.entries.map((entry) {
+  var key = entry.key;
+  return '''
+$key: reactions(content: $key) {
+  totalCount
+  viewerHasReacted
+}''';
+}).join('\n');
+
 /// Screen for issue and pull request
 class IssueScreen extends StatefulWidget {
   final int number;
@@ -53,6 +62,7 @@ author {
 }
 closed
 url
+$reactionChunk
 ''';
 
     if (isPullRequest) {
@@ -78,6 +88,7 @@ __typename
     login
     avatarUrl
   }
+  $reactionChunk
 }
 ... on Commit {
   committedDate
