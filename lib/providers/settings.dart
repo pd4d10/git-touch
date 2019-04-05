@@ -346,6 +346,17 @@ class SettingsProviderState extends State<SettingsProvider> {
     return true;
   }
 
+  Future<dynamic> postWithCredentials(String url,
+      {String contentType, String body}) async {
+    var headers = {HttpHeaders.authorizationHeader: 'token $token'};
+    final res = await http
+        .post(prefix + url, headers: headers, body: body ?? {})
+        .timeout(_timeoutDuration);
+
+    // print(res.body);
+    return true;
+  }
+
   Future<dynamic> deleteWithCredentials(String url) async {
     var headers = {HttpHeaders.authorizationHeader: 'token $token'};
     final res = await http

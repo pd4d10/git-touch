@@ -7,8 +7,9 @@ import 'user_name.dart';
 
 class TimelineItem extends StatelessWidget {
   final Map<String, dynamic> payload;
+  final Function(String emojiKey, bool isRemove) onReaction;
 
-  TimelineItem(this.payload);
+  TimelineItem(this.payload, {@required this.onReaction});
 
   TextSpan _buildReviewText(BuildContext context, item) {
     switch (item['state']) {
@@ -95,7 +96,7 @@ class TimelineItem extends StatelessWidget {
           item: payload,
         );
       case 'IssueComment':
-        return CommentItem(payload);
+        return CommentItem(payload, onReaction: onReaction);
       case 'CrossReferencedEvent':
         return _buildItem(
           actor: payload['actor']['login'],
@@ -295,7 +296,7 @@ class TimelineItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: EdgeInsets.all(12),
       child: _buildByType(context),
     );
   }

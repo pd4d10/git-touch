@@ -91,37 +91,58 @@ class DialogOption<T> {
   DialogOption({this.value, this.widget});
 }
 
-Future<T> showOptions<T>(BuildContext context, List<DialogOption<T>> options) {
-  var builder = (BuildContext context) {
-    return CupertinoAlertDialog(
-      actions: options.map((option) {
-        return CupertinoDialogAction(
-          child: option.widget,
-          onPressed: () {
-            Navigator.pop(context, option.value);
-          },
-        );
-      }).toList(),
-    );
-  };
+Future<T> showDialogOptions<T>(
+    BuildContext context, List<DialogOption<T>> options) {
+  var title = Text('Pick your reaction');
+  var cancelWidget = Text('Cancel');
 
   switch (SettingsProvider.of(context).theme) {
     case ThemeMap.cupertino:
       return showCupertinoDialog<T>(
         context: context,
-        builder: builder,
+        builder: (BuildContext context) {
+          return CupertinoAlertDialog(
+            title: title,
+            actions: options.map((option) {
+              return CupertinoDialogAction(
+                child: option.widget,
+                onPressed: () {
+                  Navigator.pop(context, option.value);
+                },
+              );
+            }).toList()
+              ..add(
+                CupertinoDialogAction(
+                  child: cancelWidget,
+                  isDestructiveAction: true,
+                  onPressed: () {
+                    Navigator.pop(context, null);
+                  },
+                ),
+              ),
+          );
+        },
       );
     default:
       return showDialog(
         context: context,
         builder: (BuildContext context) {
-          return Dialog(
-            child: Column(
-              children: <Widget>[
-                PopupMenuItem(child: Text('a')),
-                PopupMenuItem(child: Text('b')),
-              ],
-            ),
+          return SimpleDialog(
+            title: title,
+            children: options.map<Widget>((option) {
+              return SimpleDialogOption(
+                child: option.widget,
+                onPressed: () {
+                  Navigator.pop(context, option.value);
+                },
+              );
+            }).toList()
+              ..add(SimpleDialogOption(
+                child: cancelWidget,
+                onPressed: () {
+                  Navigator.pop(context, null);
+                },
+              )),
           );
         },
       );
@@ -162,6 +183,7 @@ class Palette {
   static const link = Color(0xff0366d6);
   static const branchName = Palette.link;
   static const branchBackground = Color(0xffeaf5ff);
+  static const emojiBackground = Color(0xfff1f8ff);
 }
 
 // final pageSize = 5;

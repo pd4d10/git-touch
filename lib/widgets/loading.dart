@@ -8,6 +8,8 @@ class Loading extends StatelessWidget {
   Loading({this.more = false});
 
   Widget _buildIndicator(BuildContext context) {
+    // return Image.asset('images/loading.webp');
+
     switch (SettingsProvider.of(context).theme) {
       case ThemeMap.cupertino:
         return CupertinoActivityIndicator(radius: 12);

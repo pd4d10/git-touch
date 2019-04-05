@@ -53,6 +53,7 @@ class _IssueScreenState extends State<IssueScreen> {
 
   String get issueChunk {
     var base = '''
+id
 title
 createdAt
 body
@@ -82,6 +83,7 @@ commits {
     var base = '''
 __typename
 ... on IssueComment {
+  id
   createdAt
   body
   author {
@@ -344,6 +346,26 @@ __typename
     );
   }
 
+  _handleReaction(payload) {
+    return (String emojiKey, bool isRemove) async {
+      if (emojiKey == null) return;
+
+      var id = payload['id'] as String;
+      var operation = isRemove ? 'remove' : 'add';
+      await SettingsProvider.of(context).query('''
+mutation {
+  ${operation}Reaction(input: {subjectId: "$id", content: $emojiKey}) {
+    clientMutationId
+  }
+}
+    ''');
+      setState(() {
+        payload[emojiKey]['totalCount'] += isRemove ? -1 : 1;
+        payload[emojiKey]['viewerHasReacted'] = !isRemove;
+      });
+    };
+  }
+
   @override
   Widget build(BuildContext context) {
     return LongListScaffold(
@@ -394,13 +416,17 @@ __typename
                   ],
                 ),
                 Padding(padding: EdgeInsets.only(bottom: 16)),
-                CommentItem(payload),
+                CommentItem(
+                  payload,
+                  onReaction: _handleReaction(payload),
+                ),
               ],
             ),
           )
         ]);
       },
-      itemBuilder: (itemPayload) => TimelineItem(itemPayload),
+      itemBuilder: (itemPayload) =>
+          TimelineItem(itemPayload, onReaction: _handleReaction(itemPayload)),
       onRefresh: () async {
         var res = await _queryIssue();
         int totalCount = res['timeline']['totalCount'];

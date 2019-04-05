@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import '../utils/utils.dart';
 import 'avatar.dart';
+import 'link.dart';
 import 'user_name.dart';
 
 final emojiMap = {
@@ -17,8 +18,21 @@ final emojiMap = {
 
 class CommentItem extends StatelessWidget {
   final Map<String, dynamic> payload;
+  final Function(String emojiKey, bool isRemove) onReaction;
 
-  CommentItem(this.payload);
+  CommentItem(this.payload, {@required this.onReaction});
+
+  bool _hasReacted(String emojiKey) {
+    if (payload[emojiKey] == null) return false;
+    return payload[emojiKey]['viewerHasReacted'] as bool;
+  }
+
+  Decoration _getDecorationByKey(String emojiKey) {
+    return BoxDecoration(
+        color: _hasReacted(emojiKey)
+            ? Palette.emojiBackground
+            : Colors.transparent);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,28 +69,63 @@ class CommentItem extends StatelessWidget {
         ),
         Wrap(
           children: emojiMap.entries
-              .where((entry) => payload[entry.key]['totalCount'] != 0)
-              .map((entry) {
+              .where((entry) => payload[entry.key]['totalCount'] as int != 0)
+              .map<Widget>((entry) {
+            var emojiKey = entry.key;
             var emoji = entry.value;
-            int count = payload[entry.key]['totalCount'];
+            var count = payload[entry.key]['totalCount'] as int;
 
-            return Container(
-              padding: EdgeInsets.all(6),
-              child: RichText(
-                text: TextSpan(
-                  style: TextStyle(fontSize: 16),
-                  children: [
-                    TextSpan(text: emoji),
-                    TextSpan(text: ' '),
-                    TextSpan(
-                      text: count.toString(),
-                      style: TextStyle(color: Palette.link),
-                    ),
-                  ],
+            return Link(
+              onTap: () {
+                onReaction(emojiKey, _hasReacted(emojiKey));
+              },
+              child: Container(
+                padding: EdgeInsets.all(6),
+                decoration: _getDecorationByKey(emojiKey),
+                child: RichText(
+                  text: TextSpan(
+                    style: TextStyle(fontSize: 16),
+                    children: [
+                      TextSpan(text: emoji),
+                      TextSpan(text: ' '),
+                      TextSpan(
+                        text: count.toString(),
+                        style: TextStyle(color: Palette.link),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             );
-          }).toList(),
+          }).toList()
+                ..add(
+                  Link(
+                    onTap: () async {
+                      var result = await showDialogOptions(
+                        context,
+                        emojiMap.entries.map((entry) {
+                          var emojiKey = entry.key;
+                          return DialogOption(
+                            value: emojiKey,
+                            widget: Container(
+                              decoration: _getDecorationByKey(emojiKey),
+                              child: Text(emojiKey + ' ' + entry.value),
+                            ),
+                          );
+                        }).toList(),
+                      );
+                      onReaction(result, _hasReacted(result));
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(12),
+                      child: Icon(
+                        Octicons.smiley,
+                        color: Palette.link,
+                        size: 16,
+                      ),
+                    ),
+                  ),
+                ),
         ),
       ],
     );
