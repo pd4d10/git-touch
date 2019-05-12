@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:primer/primer.dart';
 import 'providers/notification.dart';
 import 'providers/settings.dart';
 import 'screens/news.dart';
@@ -69,9 +70,12 @@ class _HomeState extends State<Home> {
 
   _buildScreen(int index) {
     // return IssueScreen(number: 29, owner: 'reactjs', name: 'rfcs');
+    // return IssueScreen(
+    //     number: 68, owner: 'reactjs', name: 'rfcs', isPullRequest: true);
     // return ReposScreen('pd4d10');
     // return OrganizationScreen('flutter');
     // return TrendingScreen();
+    // return Image.asset('images/spinner.webp', width: 32, height: 32);
     switch (index) {
       case 0:
         return NewsScreen();
@@ -94,8 +98,8 @@ class _HomeState extends State<Home> {
       //     .withLightness(0.3)
       //     .toColor(),
       // primaryColor: Color(0xff333333),
-      primaryColor: Palette.primary,
-      accentColor: Palette.primary,
+      primaryColor: PrimerColors.gray900,
+      accentColor: PrimerColors.gray900,
     );
 
     // TODO:
@@ -115,7 +119,7 @@ class _HomeState extends State<Home> {
             data: CupertinoThemeData(
               textTheme: CupertinoTextThemeData(
                 // primaryColor: Palette.primary,
-                textStyle: TextStyle(color: Palette.primary),
+                textStyle: TextStyle(color: PrimerColors.gray900),
               ),
             ),
             child: CupertinoTabScaffold(

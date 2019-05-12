@@ -1,6 +1,7 @@
 import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:primer/primer.dart';
 import '../utils/utils.dart';
 import 'comment_item.dart';
 import 'user_name.dart';
@@ -25,7 +26,7 @@ class TimelineItem extends StatelessWidget {
   Widget _buildItem({
     String actor,
     IconData iconData = Octicons.octoface,
-    Color iconColor = Palette.gray,
+    Color iconColor = PrimerColors.gray400,
     TextSpan textSpan,
     item,
   }) {
@@ -111,7 +112,7 @@ class TimelineItem extends StatelessWidget {
         return _buildItem(
           actor: payload['actor']['login'],
           iconData: Octicons.circle_slash,
-          iconColor: Palette.red,
+          iconColor: PrimerColors.red600,
           textSpan: TextSpan(text: ' closed this '),
           item: payload,
         );

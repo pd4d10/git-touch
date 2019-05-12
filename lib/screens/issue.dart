@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:primer/primer.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../utils/utils.dart';
@@ -300,11 +301,11 @@ __typename
 
     if (isPullRequest) {
       if (payload['merged']) {
-        bgColor = Palette.purple;
+        bgColor = PrimerColors.purple500;
         iconData = Octicons.git_merge;
         text = 'Merged';
       } else if (payload['closed']) {
-        bgColor = Palette.red;
+        bgColor = PrimerColors.red600;
         iconData = Octicons.git_pull_request;
         text = 'Closed';
       } else {
@@ -314,7 +315,7 @@ __typename
       }
     } else {
       if (payload['closed']) {
-        bgColor = Palette.red;
+        bgColor = PrimerColors.red600;
         iconData = Octicons.issue_closed;
         text = 'Closed';
       } else {

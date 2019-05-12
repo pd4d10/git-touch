@@ -175,15 +175,7 @@ TextSpan createRepoLinkSpan(BuildContext context, String owner, String name) {
 }
 
 class Palette {
-  static const primary = Color(0xff24292e);
   static const green = Color(0xff2cbe4e);
-  static const purple = Color(0xff6f42c1);
-  static const red = Color(0xffcb2431);
-  static const gray = Color(0xff959da5);
-  static const link = Color(0xff0366d6);
-  static const branchName = Palette.link;
-  static const branchBackground = Color(0xffeaf5ff);
-  static const emojiBackground = Color(0xfff1f8ff);
 }
 
 // final pageSize = 5;

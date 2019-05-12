@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:primer/primer.dart';
 import '../utils/utils.dart';
 import 'avatar.dart';
 import 'link.dart';
@@ -29,9 +30,8 @@ class CommentItem extends StatelessWidget {
 
   Decoration _getDecorationByKey(String emojiKey) {
     return BoxDecoration(
-        color: _hasReacted(emojiKey)
-            ? Palette.emojiBackground
-            : Colors.transparent);
+        color:
+            _hasReacted(emojiKey) ? PrimerColors.blue000 : Colors.transparent);
   }
 
   @override
@@ -90,7 +90,7 @@ class CommentItem extends StatelessWidget {
                       TextSpan(text: ' '),
                       TextSpan(
                         text: count.toString(),
-                        style: TextStyle(color: Palette.link),
+                        style: TextStyle(color: PrimerColors.blue500),
                       ),
                     ],
                   ),
@@ -120,7 +120,7 @@ class CommentItem extends StatelessWidget {
                       padding: EdgeInsets.all(12),
                       child: Icon(
                         Octicons.smiley,
-                        color: Palette.link,
+                        color: PrimerColors.blue500,
                         size: 16,
                       ),
                     ),

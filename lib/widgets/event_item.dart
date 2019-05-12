@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:primer/primer.dart';
 import '../screens/issue.dart';
 import '../screens/user.dart';
 import 'avatar.dart';
@@ -57,7 +58,7 @@ class EventItem extends StatelessWidget {
     WidgetBuilder screenBuilder,
   }) {
     return Container(
-      padding: EdgeInsets.all(8),
+      padding: EdgeInsets.all(12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -68,8 +69,7 @@ class EventItem extends StatelessWidget {
               Expanded(
                 child: RichText(
                   text: TextSpan(
-                    style: TextStyle(
-                        color: Colors.black, height: 1.3, fontSize: 15),
+                    style: TextStyle(color: Colors.black, height: 1.3),
                     children: [
                       createLinkSpan(
                         context,
@@ -266,11 +266,13 @@ class EventItem extends StatelessWidget {
           context: context,
           spans: [
             TextSpan(text: ' pushed $commitText to '),
+            // TODO: Use primer widgets
             TextSpan(
               text: ref.replaceFirst('refs/heads/', ''),
               style: TextStyle(
-                  color: Palette.branchName,
-                  backgroundColor: Palette.branchBackground),
+                color: PrimerColors.blue500,
+                backgroundColor: Color(0xffeaf5ff),
+              ),
             ),
             TextSpan(text: ' at '),
             _buildRepo(context),
@@ -294,7 +296,7 @@ class EventItem extends StatelessWidget {
                     Text(
                       (commit['sha'] as String).substring(0, 7),
                       style: TextStyle(
-                        color: Palette.link,
+                        color: PrimerColors.blue500,
                         fontSize: 13,
                         fontFamily: 'Menlo',
                         fontFamilyFallback: ['Menlo', 'Roboto Mono'],

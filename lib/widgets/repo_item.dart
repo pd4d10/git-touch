@@ -37,12 +37,11 @@ class RepoItem extends StatelessWidget {
                       payload['name'],
                   style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
                 ),
-                Padding(padding: EdgeInsets.only(top: 6)),
-                Text(payload['description'] ?? 'No description provided yet',
-                    style: TextStyle(fontSize: 15)),
-                Padding(padding: EdgeInsets.only(top: 6)),
+                SizedBox(height: 6),
+                Text(payload['description'] ?? 'No description provided yet'),
+                SizedBox(height: 6),
                 DefaultTextStyle(
-                  style: TextStyle(color: Colors.black54, fontSize: 13),
+                  style: TextStyle(color: Color(0xff586069), fontSize: 12),
                   child: Row(
                     children: <Widget>[
                       Icon(Octicons.star, size: 14, color: Colors.black54),

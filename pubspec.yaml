@@ -30,6 +30,9 @@ dependencies:
   github_contributions: ^0.1.1
   flutter_svg: ^0.12.0
   launch_review: ^2.0.0
+  primer:
+    git:
+      url: git://github.com/pd4d10/primer-flutter
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

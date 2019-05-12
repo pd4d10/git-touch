@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:primer/primer.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../utils/utils.dart';
 import '../screens/issue.dart';
@@ -69,7 +70,7 @@ class _NotificationItemState extends State<NotificationItem> {
           case 'OPEN':
             return _buildIcon(Octicons.issue_opened, Palette.green);
           case 'CLOSED':
-            return _buildIcon(Octicons.issue_closed, Palette.red);
+            return _buildIcon(Octicons.issue_closed, PrimerColors.red600);
           default:
             return _buildIcon(Octicons.person);
         }
@@ -79,9 +80,9 @@ class _NotificationItemState extends State<NotificationItem> {
           case 'OPEN':
             return _buildIcon(Octicons.git_pull_request, Palette.green);
           case 'CLOSED':
-            return _buildIcon(Octicons.git_pull_request, Palette.red);
+            return _buildIcon(Octicons.git_pull_request, PrimerColors.red600);
           case 'MERGED':
-            return _buildIcon(Octicons.git_merge, Palette.purple);
+            return _buildIcon(Octicons.git_merge, PrimerColors.purple500);
           default:
             return _buildIcon(Octicons.person);
         }
