@@ -294,57 +294,26 @@ __typename
     return data['repository'][resource];
   }
 
-  Widget _buildBadge(payload) {
-    Color bgColor;
-    IconData iconData;
-    String text;
+  StateLabelStatus _getLabelStatus(payload) {
+    StateLabelStatus status;
 
     if (isPullRequest) {
       if (payload['merged']) {
-        bgColor = PrimerColors.purple500;
-        iconData = Octicons.git_merge;
-        text = 'Merged';
+        status = StateLabelStatus.pullMerged;
       } else if (payload['closed']) {
-        bgColor = PrimerColors.red600;
-        iconData = Octicons.git_pull_request;
-        text = 'Closed';
+        status = StateLabelStatus.pullClosed;
       } else {
-        bgColor = Palette.green;
-        iconData = Octicons.git_pull_request;
-        text = 'Open';
+        status = StateLabelStatus.pullOpened;
       }
     } else {
       if (payload['closed']) {
-        bgColor = PrimerColors.red600;
-        iconData = Octicons.issue_closed;
-        text = 'Closed';
+        status = StateLabelStatus.issueClosed;
       } else {
-        bgColor = Palette.green;
-        iconData = Octicons.issue_opened;
-        text = 'Open';
+        status = StateLabelStatus.issueOpened;
       }
     }
-    return Container(
-      decoration: BoxDecoration(
-        color: bgColor,
-        borderRadius: BorderRadius.all(Radius.circular(4)),
-      ),
-      padding: EdgeInsets.all(6),
-      child: Row(
-        children: <Widget>[
-          Icon(iconData, color: Colors.white, size: 15),
-          Padding(padding: EdgeInsets.only(left: 2)),
-          Text(
-            text,
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w600,
-              fontSize: 14,
-            ),
-          ),
-        ],
-      ),
-    );
+
+    return status;
   }
 
   _handleReaction(payload) {
@@ -413,7 +382,7 @@ mutation {
                       ),
                     ),
                     Padding(padding: EdgeInsets.only(right: 8)),
-                    _buildBadge(payload),
+                    StateLabel(_getLabelStatus(payload))
                   ],
                 ),
                 Padding(padding: EdgeInsets.only(bottom: 16)),
