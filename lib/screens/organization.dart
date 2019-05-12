@@ -134,9 +134,7 @@ class _OrganizationScreenState extends State<OrganizationScreen> {
       onRefresh: query,
       title: Text(widget.login),
       trailingBuilder: (payload) {
-        List<Action> actions = [];
-
-        actions.addAll([
+        return ActionButton(title: 'User Actions', actions: [
           Action(
             text: 'Share',
             onPress: () {
@@ -150,8 +148,6 @@ class _OrganizationScreenState extends State<OrganizationScreen> {
             },
           ),
         ]);
-
-        return ActionButton(title: 'User Actions', actions: actions);
       },
       bodyBuilder: (payload) {
         return Column(

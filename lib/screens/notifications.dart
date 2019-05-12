@@ -274,11 +274,12 @@ $key: pullRequest(number: ${item.number}) {
       bodyBuilder: () {
         return groupMap.isEmpty
             ? EmptyWidget()
-            : Column(
-                children: [Padding(padding: EdgeInsets.only(top: 10))]..addAll(
-                    groupMap.entries
-                        .map((entry) => _buildGroupItem(context, entry))
-                        .toList()));
+            : Column(children: [
+                Padding(padding: EdgeInsets.only(top: 10)),
+                ...groupMap.entries
+                    .map((entry) => _buildGroupItem(context, entry))
+                    .toList()
+              ]);
       },
     );
   }

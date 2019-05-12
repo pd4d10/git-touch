@@ -56,12 +56,6 @@ class EventItem extends StatelessWidget {
     IconData iconData = Octicons.octoface,
     WidgetBuilder screenBuilder,
   }) {
-    var _spans = [
-      createLinkSpan(
-          context, event.actorLogin, () => UserScreen(event.actorLogin))
-    ];
-    _spans.addAll(spans);
-
     return Container(
       padding: EdgeInsets.all(8),
       child: Column(
@@ -76,7 +70,14 @@ class EventItem extends StatelessWidget {
                   text: TextSpan(
                     style: TextStyle(
                         color: Colors.black, height: 1.3, fontSize: 15),
-                    children: _spans,
+                    children: [
+                      createLinkSpan(
+                        context,
+                        event.actorLogin,
+                        () => UserScreen(event.actorLogin),
+                      ),
+                      ...spans,
+                    ],
                   ),
                 ),
               ),

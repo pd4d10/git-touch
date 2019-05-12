@@ -46,7 +46,7 @@ class TableView extends StatelessWidget {
             ),
             padding: EdgeInsets.only(top: 4),
           ),
-        ]..addAll(items.map((item) {
+          ...items.map((item) {
             List<Widget> children = [
               Expanded(
                 child: Text(
@@ -71,7 +71,8 @@ class TableView extends StatelessWidget {
                 child: Row(children: children),
               ),
             );
-          }).toList()),
+          }).toList()
+        ],
       ),
     );
   }

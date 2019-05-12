@@ -101,30 +101,30 @@ class _LoginScreenState extends State<LoginScreen> {
 
         return Container(
           child: Column(
-            children: settings.githubAccountMap.entries
-                .map<Widget>((entry) => _buildAccountItem(AccountModel(
-                    avatarUrl: entry.value.avatarUrl,
-                    token: entry.value.token,
-                    platform: PlatformType.github,
-                    domain: 'https://github.com',
-                    login: entry.key)))
-                .toList()
-                  ..addAll(accounts.map(_buildAccountItem))
-                  ..addAll([
-                    _buildAddItem(
-                      text: 'GitHub Account',
-                      onTap: () {
-                        var state = settings.generateRandomString();
-                        launch(
-                          'https://github.com/login/oauth/authorize?client_id=$clientId&redirect_uri=gittouch://login&scope=user%20repo&state=$state',
-                        );
-                      },
-                    ),
-                    // _buildAddItem(
-                    //   text: 'GitLab Account',
-                    //   screenBuilder: (_) => LoginGitlabScreen(),
-                    // )
-                  ]),
+            children: [
+              ...settings.githubAccountMap.entries
+                  .map<Widget>((entry) => _buildAccountItem(AccountModel(
+                      avatarUrl: entry.value.avatarUrl,
+                      token: entry.value.token,
+                      platform: PlatformType.github,
+                      domain: 'https://github.com',
+                      login: entry.key)))
+                  .toList(),
+              ...accounts.map(_buildAccountItem),
+              _buildAddItem(
+                text: 'GitHub Account',
+                onTap: () {
+                  var state = settings.generateRandomString();
+                  launch(
+                    'https://github.com/login/oauth/authorize?client_id=$clientId&redirect_uri=gittouch://login&scope=user%20repo&state=$state',
+                  );
+                },
+              ),
+              // _buildAddItem(
+              //   text: 'GitLab Account',
+              //   screenBuilder: (_) => LoginGitlabScreen(),
+              // )
+            ],
           ),
         );
       },
