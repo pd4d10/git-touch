@@ -135,13 +135,13 @@ class _OrganizationScreenState extends State<OrganizationScreen> {
       title: Text(widget.login),
       trailingBuilder: (payload) {
         return ActionButton(title: 'User Actions', actions: [
-          Action(
+          MyAction(
             text: 'Share',
             onPress: () {
               Share.share(payload['url']);
             },
           ),
-          Action(
+          MyAction(
             text: 'Open in Browser',
             onPress: () {
               launch(payload['url']);

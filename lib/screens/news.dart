@@ -74,14 +74,14 @@ class NewsScreenState extends State<NewsScreen> {
         return ActionButton(
           title: 'Filter',
           actions: [
-            Action(
+            MyAction(
               text: 'Show all items',
               onPress: () {
                 filter = NewsFilter.all;
                 refresh(force: true);
               },
             ),
-            Action(
+            MyAction(
               text: 'Only GitHub items',
               onPress: () {
                 filter = NewsFilter.github;

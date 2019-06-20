@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import '../providers/settings.dart';
 
-class Action {
+class MyAction {
   String text;
   Function onPress;
 
-  Action({@required this.text, @required this.onPress});
+  MyAction({@required this.text, @required this.onPress});
 }
 
 class ActionButton extends StatelessWidget {
   final String title;
-  final List<Action> actions;
+  final List<MyAction> actions;
   final IconData iconData;
 
   ActionButton({

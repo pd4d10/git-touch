@@ -344,13 +344,13 @@ mutation {
         return ActionButton(
           title: (isPullRequest ? 'Pull Request' : 'Issue') + ' Actions',
           actions: [
-            Action(
+            MyAction(
               text: 'Share',
               onPress: () {
                 Share.share(payload['url']);
               },
             ),
-            Action(
+            MyAction(
               text: 'Open in Browser',
               onPress: () {
                 launch(payload['url']);

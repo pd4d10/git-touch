@@ -163,10 +163,10 @@ class _UserScreenState extends State<UserScreen> {
             fullscreenDialog: true,
           );
         } else {
-          List<Action> actions = [];
+          List<MyAction> actions = [];
 
           if (payload['viewerCanFollow']) {
-            actions.add(Action(
+            actions.add(MyAction(
               text: payload['viewerIsFollowing'] ? 'Unfollow' : 'Follow',
               onPress: () async {
                 if (payload['viewerIsFollowing']) {
@@ -183,13 +183,13 @@ class _UserScreenState extends State<UserScreen> {
           }
 
           actions.addAll([
-            Action(
+            MyAction(
               text: 'Share',
               onPress: () {
                 Share.share(payload['url']);
               },
             ),
-            Action(
+            MyAction(
               text: 'Open in Browser',
               onPress: () {
                 launch(payload['url']);

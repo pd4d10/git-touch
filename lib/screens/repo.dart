@@ -94,7 +94,7 @@ class _RepoScreenState extends State<RepoScreen> {
         var payload = data[0];
 
         return ActionButton(title: 'Repository Actions', actions: [
-          Action(
+          MyAction(
             text: '@$owner',
             onPress: () {
               WidgetBuilder builder;
@@ -117,7 +117,7 @@ class _RepoScreenState extends State<RepoScreen> {
                   .pushRoute(context: context, builder: builder);
             },
           ),
-          Action(
+          MyAction(
             text: payload['viewerHasStarred'] ? 'Unstar' : 'Star',
             onPress: () async {
               if (payload['viewerHasStarred']) {
@@ -132,13 +132,13 @@ class _RepoScreenState extends State<RepoScreen> {
             },
           ),
           // TODO: watch
-          Action(
+          MyAction(
             text: 'Share',
             onPress: () {
               Share.share(payload['url']);
             },
           ),
-          Action(
+          MyAction(
             text: 'Open in Browser',
             onPress: () {
               launch(payload['url']);
@@ -147,9 +147,9 @@ class _RepoScreenState extends State<RepoScreen> {
         ]);
       },
       onRefresh: () => Future.wait([
-            queryRepo(context),
-            fetchReadme(context),
-          ]),
+        queryRepo(context),
+        fetchReadme(context),
+      ]),
       bodyBuilder: (data) {
         var payload = data[0];
         var readme = data[1];
@@ -170,18 +170,18 @@ class _RepoScreenState extends State<RepoScreen> {
                     count: payload['issues']['totalCount'],
                     text: 'Issues',
                     screenBuilder: (context) => IssuesScreen(
-                          owner: widget.owner,
-                          name: widget.name,
-                        ),
+                      owner: widget.owner,
+                      name: widget.name,
+                    ),
                   ),
                   EntryItem(
                     count: payload['pullRequests']['totalCount'],
                     text: 'Pull Requests',
                     screenBuilder: (context) => IssuesScreen(
-                          owner: widget.owner,
-                          name: widget.name,
-                          isPullRequest: true,
-                        ),
+                      owner: widget.owner,
+                      name: widget.name,
+                      isPullRequest: true,
+                    ),
                   ),
                   EntryItem(
                     text: 'Files',
