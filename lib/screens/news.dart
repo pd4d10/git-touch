@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import '../scaffolds/list.dart';
 import '../widgets/event_item.dart';
 import '../providers/settings.dart';
-import '../widgets/action.dart';
 
 class NewsFilter {
   static const all = 'all';
@@ -36,31 +35,14 @@ class NewsScreenState extends State<NewsScreen> {
         '/users/$login/received_events?page=$page&per_page=$pageSize');
     // print(data.length);
     var hasMore = data.length == pageSize;
-    var events = data
-        .map<EventPayload>((item) => EventPayload.fromJson(item))
-        .where(testEvents)
-        .toList();
+    var events =
+        data.map<EventPayload>((item) => EventPayload.fromJson(item)).toList();
 
     return ListPayload(
       cursor: page + 1,
       hasMore: hasMore,
       items: events,
     );
-  }
-
-  bool testEvents(EventPayload event) {
-    switch (filter) {
-      case NewsFilter.github:
-        return ![
-          'IssueCommentEvent',
-          'IssuesEvent',
-          'PullRequestEvent',
-          'PullRequestReviewEvent',
-          'PullRequestReviewCommentEvent',
-        ].contains(event.type);
-      default:
-        return true;
-    }
   }
 
   @override
@@ -70,27 +52,6 @@ class NewsScreenState extends State<NewsScreen> {
       itemBuilder: (payload) => EventItem(payload),
       onRefresh: fetchEvents,
       onLoadMore: (page) => fetchEvents(page),
-      trailingBuiler: ({refresh}) {
-        return ActionButton(
-          title: 'Filter',
-          actions: [
-            MyAction(
-              text: 'Show all items',
-              onPress: () {
-                filter = NewsFilter.all;
-                refresh(force: true);
-              },
-            ),
-            MyAction(
-              text: 'Only GitHub items',
-              onPress: () {
-                filter = NewsFilter.github;
-                refresh(force: true);
-              },
-            ),
-          ],
-        );
-      },
     );
   }
 }
