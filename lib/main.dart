@@ -123,6 +123,7 @@ class _HomeState extends State<Home> {
                 // primaryColor: Palette.primary,
                 textStyle: TextStyle(color: PrimerColors.gray900),
               ),
+              primaryColor: PrimerColors.gray900,
             ),
             child: CupertinoTabScaffold(
               tabBar: CupertinoTabBar(items: _buildNavigationItems()),
