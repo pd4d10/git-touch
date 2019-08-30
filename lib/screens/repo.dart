@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:git_touch/screens/commits.dart';
 import 'package:git_touch/screens/object.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -62,6 +63,13 @@ class _RepoScreenState extends State<RepoScreen> {
     url
     defaultBranchRef {
       name
+      target {
+        ... on Commit {
+          history {
+            totalCount
+          }
+        }
+      }
     }
     viewerHasStarred
     viewerSubscription
@@ -192,10 +200,11 @@ class _RepoScreenState extends State<RepoScreen> {
                     ),
                   ),
                   EntryItem(
+                    count: payload['defaultBranchRef']['target']['history']
+                        ['totalCount'],
                     text: 'Commits',
-                    url: payload['url'] +
-                        '/commits/' +
-                        payload['defaultBranchRef']['name'],
+                    screenBuilder: (context) =>
+                        CommitsScreen(widget.owner, widget.name),
                   ),
                 ],
               ),

@@ -31,6 +31,7 @@ dependencies:
   flutter_svg: ^0.13.0
   launch_review: ^2.0.0
   flutter_highlight: ^0.2.1
+  timeago: ^2.0.18
   primer:
     git:
       url: git://github.com/pd4d10/primer-flutter
