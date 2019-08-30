@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:git_touch/screens/object.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../providers/settings.dart';
@@ -185,7 +186,10 @@ class _RepoScreenState extends State<RepoScreen> {
                   ),
                   EntryItem(
                     text: 'Files',
-                    url: payload['url'] + '?files=1',
+                    screenBuilder: (context) => ObjectScreen(
+                      owner: widget.owner,
+                      name: widget.name,
+                    ),
                   ),
                   EntryItem(
                     text: 'Commits',
