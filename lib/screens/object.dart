@@ -6,6 +6,7 @@ import 'package:git_touch/providers/settings.dart';
 import 'package:git_touch/scaffolds/refresh.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/link.dart';
+import 'package:primer/primer.dart';
 
 class ObjectScreen extends StatelessWidget {
   final String owner;
@@ -57,8 +58,9 @@ class ObjectScreen extends StatelessWidget {
   }
 
   Widget _buildTree(payload) {
+    var entries = payload['entries'] as List;
     return Column(
-      children: (payload['entries'] as List).map((item) {
+      children: entries.map((item) {
         return Link(
           screenBuilder: (context) {
             return ObjectScreen(
@@ -79,7 +81,9 @@ class ObjectScreen extends StatelessWidget {
                 Icon(_buildIconData(item), color: Color(0x80032f62), size: 20),
                 SizedBox(width: 8),
                 Expanded(
-                    child: Text(item['name'], style: TextStyle(fontSize: 16)))
+                    child: Text(item['name'],
+                        style: TextStyle(
+                            fontSize: 16, color: PrimerColors.blue500)))
               ],
             ),
           ),
@@ -116,6 +120,20 @@ class ObjectScreen extends StatelessWidget {
     }
   }
 }''');
+
+        if (type == 'tree') {
+          var entries = data['repository']['object']['entries'] as List;
+          entries.sort((a, b) {
+            if (a['type'] == 'tree' && b['type'] == 'blob') {
+              return -1;
+            }
+            if (a['type'] == 'blob' && b['type'] == 'tree') {
+              return 1;
+            }
+            return 0;
+          });
+        }
+
         return data['repository']['object'];
       },
       bodyBuilder: (payload) {
