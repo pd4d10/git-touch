@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:timeago/timeago.dart' as timeago;
 import 'package:primer/primer.dart';
 import '../utils/utils.dart';
 import 'avatar.dart';
@@ -53,7 +54,7 @@ class CommentItem extends StatelessWidget {
                 UserName(payload['author']['login']),
                 Padding(padding: EdgeInsets.only(bottom: 2)),
                 Text(
-                  TimeAgo.formatFromString(payload['createdAt']),
+                  timeago.format(DateTime.parse(payload['createdAt'])),
                   style: TextStyle(color: Colors.black54, fontSize: 13),
                 ),
               ],

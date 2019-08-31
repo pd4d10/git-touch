@@ -4,7 +4,6 @@ import 'package:flutter/gestures.dart';
 import '../providers/settings.dart';
 import '../screens/repo.dart';
 export 'package:flutter_vector_icons/flutter_vector_icons.dart';
-export 'timeago.dart';
 
 class StorageKeys {
   static const account = 'account';

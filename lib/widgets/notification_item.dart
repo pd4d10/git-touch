@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:timeago/timeago.dart' as timeago;
 import 'package:primer/primer.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../utils/utils.dart';
@@ -36,7 +37,7 @@ class NotificationPayload {
     }
 
     title = input['subject']['title'];
-    updateAt = TimeAgo.formatFromString(input['updated_at']);
+    updateAt = timeago.format(DateTime.parse(input['updated_at']));
     unread = input['unread'];
   }
 }
