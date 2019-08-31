@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:timeago/timeago.dart' as timeago;
 import 'package:primer/primer.dart';
 import '../screens/issue.dart';
 import '../screens/user.dart';
@@ -14,6 +15,7 @@ class EventPayload {
   String type;
   String repoFullName;
   Map<String, dynamic> payload;
+  DateTime createdAt;
 
   EventPayload.fromJson(input) {
     actorLogin = input['actor']['login'];
@@ -21,6 +23,7 @@ class EventPayload {
     type = input['type'];
     payload = input['payload'];
     repoFullName = input['repo']['name'];
+    createdAt = DateTime.parse(input['created_at']);
   }
 }
 
@@ -57,55 +60,74 @@ class EventItem extends StatelessWidget {
     IconData iconData = Octicons.octoface,
     WidgetBuilder screenBuilder,
   }) {
-    return Container(
-      padding: EdgeInsets.all(10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              Avatar(url: event.actorAvatarUrl, login: event.actorLogin),
-              Padding(padding: EdgeInsets.only(left: 10)),
-              Expanded(
-                child: RichText(
-                  text: TextSpan(
-                    style: TextStyle(
+    if (detailWidget == null) {
+      if (detail == null) {
+        detailWidget = Container(); // TODO: placeholder
+      } else {
+        detailWidget = Text(
+          detail,
+          overflow: TextOverflow.ellipsis,
+          maxLines: 5,
+          style: TextStyle(color: PrimerColors.gray600, fontSize: 14),
+        );
+      }
+    }
+
+    return Link(
+      screenBuilder: screenBuilder,
+      child: Container(
+        padding: EdgeInsets.all(10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                SizedBox(width: 18),
+                Icon(iconData, color: PrimerColors.gray400, size: 13),
+                SizedBox(width: 8),
+                Text(timeago.format(event.createdAt),
+                    style: TextStyle(fontSize: 13, color: PrimerColors.gray400))
+              ],
+            ),
+            SizedBox(height: 6),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Avatar(
+                    url: event.actorAvatarUrl,
+                    login: event.actorLogin,
+                    size: 16),
+                SizedBox(width: 8),
+                Expanded(
+                  child: RichText(
+                    text: TextSpan(
+                      style: TextStyle(
+                        fontSize: 15,
                         color: PrimerColors.gray900,
-                        height: 1.2,
-                        fontWeight: FontWeight.w300),
-                    children: [
-                      createLinkSpan(
-                        context,
-                        event.actorLogin,
-                        () => UserScreen(event.actorLogin),
                       ),
-                      ...spans,
-                    ],
+                      children: [
+                        createLinkSpan(
+                          context,
+                          event.actorLogin,
+                          () => UserScreen(event.actorLogin),
+                        ),
+                        ...spans,
+                        // TextSpan(
+                        //     text: timeago.format(event.createdAt),
+                        //     style: TextStyle(
+                        //         fontSize: 13, color: PrimerColors.gray400))
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              Padding(padding: EdgeInsets.only(left: 8)),
-              Icon(iconData, color: PrimerColors.gray400, size: 22),
-            ],
-          ),
-          detailWidget == null
-              ? (detail == null
-                  ? Container()
-                  : Container(
-                      padding: EdgeInsets.only(left: 46, top: 6),
-                      child: Text(
-                        detail,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 3,
-                        style: TextStyle(
-                          color: PrimerColors.gray600,
-                          fontSize: 14,
-                          height: 1.2,
-                        ),
-                      ),
-                    ))
-              : detailWidget
-        ],
+              ],
+            ),
+            Container(
+              padding: EdgeInsets.only(left: 40, top: 6),
+              child: detailWidget,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -259,63 +281,58 @@ class EventItem extends StatelessWidget {
           ),
         );
       case 'PushEvent':
-        int size = event.payload['size'];
         String ref = event.payload['ref'];
-        var commitText = '$size commit' + (size == 1 ? '' : 's');
         List commits = event.payload['commits'];
 
         return _buildItem(
           context: context,
           spans: [
-            TextSpan(text: ' pushed $commitText to '),
+            TextSpan(text: ' pushed to '),
             // TODO: Use primer widgets
             TextSpan(
               text: ref.replaceFirst('refs/heads/', ''),
               style: TextStyle(
                 color: PrimerColors.blue500,
                 backgroundColor: Color(0xffeaf5ff),
+                fontFamily: 'Menlo',
               ),
             ),
             TextSpan(text: ' at '),
-            _buildRepo(context),
-            TextSpan(text: '')
+            _buildRepo(context)
           ],
           iconData: Octicons.repo_push,
-          detailWidget: Container(
-            padding: EdgeInsets.only(left: 46, top: 6),
-            child: Link(
-              onTap: () {
-                launch('https://github.com/' +
-                    event.repoFullName +
-                    '/compare/' +
-                    event.payload['before'] +
-                    '...' +
-                    event.payload['head']);
-              },
-              child: Column(
-                children: commits.map((commit) {
-                  return Row(children: <Widget>[
-                    Text(
-                      (commit['sha'] as String).substring(0, 7),
-                      style: TextStyle(
-                        color: PrimerColors.blue500,
-                        fontSize: 13,
-                        fontFamily: 'Menlo',
-                        fontFamilyFallback: ['Menlo', 'Roboto Mono'],
-                      ),
+          detailWidget: Link(
+            onTap: () {
+              launch('https://github.com/' +
+                  event.repoFullName +
+                  '/compare/' +
+                  event.payload['before'] +
+                  '...' +
+                  event.payload['head']);
+            },
+            child: Column(
+              children: commits.map((commit) {
+                return Row(children: <Widget>[
+                  Text(
+                    (commit['sha'] as String).substring(0, 7),
+                    style: TextStyle(
+                      color: PrimerColors.blue500,
+                      fontSize: 13,
+                      fontFamily: 'Menlo',
+                      fontFamilyFallback: ['Menlo', 'Roboto Mono'],
                     ),
-                    SizedBox(width: 6),
-                    Expanded(
-                      child: Text(
-                        commit['message'],
-                        style: TextStyle(color: Colors.black54, fontSize: 14),
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
-                      ),
-                    )
-                  ]);
-                }).toList(),
-              ),
+                  ),
+                  SizedBox(width: 6),
+                  Expanded(
+                    child: Text(
+                      commit['message'],
+                      style: TextStyle(color: Colors.black54, fontSize: 14),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
+                  )
+                ]);
+              }).toList(),
             ),
           ),
         );

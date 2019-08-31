@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
+import 'package:primer/primer.dart';
 import '../providers/settings.dart';
 import '../screens/repo.dart';
 export 'package:flutter_vector_icons/flutter_vector_icons.dart';
@@ -151,11 +152,7 @@ Future<T> showDialogOptions<T>(
 TextSpan createLinkSpan(BuildContext context, String text, Function handle) {
   return TextSpan(
     text: text,
-    style: TextStyle(
-      color: Colors.black87,
-      fontWeight: FontWeight.w600,
-      // decoration: TextDecoration.underline,
-    ),
+    style: TextStyle(fontWeight: FontWeight.w600),
     recognizer: TapGestureRecognizer()
       ..onTap = () {
         Navigator.of(context).push(
