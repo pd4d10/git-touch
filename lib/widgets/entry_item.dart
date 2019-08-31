@@ -12,15 +12,13 @@ class EntryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      flex: 1,
       child: Link(
         child: Container(
-          padding: EdgeInsets.symmetric(vertical: 10),
+          padding: EdgeInsets.symmetric(vertical: 12),
           child: Column(
             children: <Widget>[
-              Text(count == null ? '' : count.toString(),
-                  style: TextStyle(fontSize: 18)),
-              Text(text, style: TextStyle(fontSize: 13))
+              Text(count.toString(), style: TextStyle(fontSize: 20)),
+              Text(text, style: TextStyle(fontSize: 12))
             ],
           ),
         ),

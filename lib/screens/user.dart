@@ -211,17 +211,17 @@ class _UserScreenState extends State<UserScreen> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Avatar(url: payload['avatarUrl'], size: 28),
-                  Padding(padding: EdgeInsets.only(left: 10)),
+                  Avatar(url: payload['avatarUrl'], size: 24),
+                  SizedBox(width: 10),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
                           payload['name'] ?? widget.login,
-                          style: TextStyle(height: 1.2, fontSize: 16),
+                          style: TextStyle(fontSize: 16),
                         ),
-                        Padding(padding: EdgeInsets.only(top: 10)),
+                        SizedBox(height: 8),
                         _buildInfo(payload),
                       ],
                     ),

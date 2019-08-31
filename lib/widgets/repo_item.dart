@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:primer/primer.dart';
 import '../utils/utils.dart';
 import '../screens/repo.dart';
 import 'link.dart';
@@ -35,22 +36,26 @@ class RepoItem extends StatelessWidget {
                 Text(
                   (showOwner ? (payload['owner']['login'] + '/') : '') +
                       payload['name'],
-                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
+                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
                 ),
                 SizedBox(height: 6),
-                Text(payload['description'] ?? 'No description provided yet'),
+                Text(
+                  payload['description'] ?? 'No description provided yet',
+                  style: TextStyle(color: PrimerColors.gray600, fontSize: 14),
+                ),
                 SizedBox(height: 6),
                 DefaultTextStyle(
-                  style: TextStyle(color: Color(0xff586069), fontSize: 12),
+                  style: TextStyle(color: PrimerColors.gray600, fontSize: 13),
                   child: Row(
                     children: <Widget>[
-                      Icon(Octicons.star, size: 14, color: Colors.black54),
+                      Icon(Octicons.star,
+                          size: 14, color: PrimerColors.gray600),
                       Text(payload['stargazers']['totalCount'].toString()),
-                      Padding(padding: EdgeInsets.only(left: 16)),
+                      SizedBox(width: 16),
                       Icon(Octicons.repo_forked,
-                          size: 14, color: Colors.black54),
+                          size: 14, color: PrimerColors.gray600),
                       Text(payload['forks']['totalCount'].toString()),
-                      Padding(padding: EdgeInsets.only(left: 16)),
+                      SizedBox(width: 16),
                       payload['primaryLanguage'] == null
                           ? Container()
                           : Row(children: <Widget>[

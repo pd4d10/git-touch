@@ -82,9 +82,9 @@ class EventItem extends StatelessWidget {
           children: <Widget>[
             Row(
               children: <Widget>[
-                SizedBox(width: 18),
+                SizedBox(width: 20),
                 Icon(iconData, color: PrimerColors.gray400, size: 13),
-                SizedBox(width: 8),
+                SizedBox(width: 6),
                 Text(timeago.format(event.createdAt),
                     style: TextStyle(fontSize: 13, color: PrimerColors.gray400))
               ],
