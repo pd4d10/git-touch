@@ -1,4 +1,5 @@
 import 'package:flutter_highlight/themes/github.dart';
+import 'package:git_touch/screens/image_view.dart';
 import 'package:path/path.dart' as path;
 import 'package:flutter/material.dart';
 import 'package:flutter_highlight/flutter_highlight.dart';
@@ -23,7 +24,17 @@ class ObjectScreen extends StatelessWidget {
     this.type = 'tree',
   });
 
-  get expression => '$branch:' + paths.join('/');
+  String get expression => '$branch:' + paths.join('/');
+  String get extname {
+    if (paths.isEmpty) return '';
+    var dotext = path.extension(paths.last);
+    if (dotext.isEmpty) return '';
+    return dotext.substring(1);
+  }
+
+  String get rawUrl =>
+      'https://raw.githubusercontent.com/$owner/$name/$branch/' +
+      paths.join('/'); // TODO:
 
   IconData _buildIconData(item) {
     switch (item['type']) {
@@ -63,6 +74,12 @@ class ObjectScreen extends StatelessWidget {
       children: entries.map((item) {
         return Link(
           screenBuilder: (context) {
+            // TODO: All image types
+            var ext = path.extension(item['name']);
+            if (ext.isNotEmpty) ext = ext.substring(1);
+            if (['png', 'jpg', 'jpeg'].contains(ext)) {
+              return ImageView(NetworkImage('$rawUrl/' + item['name']));
+            }
             return ObjectScreen(
               name: name,
               owner: owner,
@@ -94,15 +111,9 @@ class ObjectScreen extends StatelessWidget {
 
   Widget _buildBlob(payload) {
     // FIXME:
-    var lang = path.extension(paths.last);
-    if (lang.isEmpty) {
-      lang = 'plaintext';
-    } else {
-      lang = lang.substring(1);
-    }
     return Highlight(
       payload['text'],
-      language: lang,
+      language: extname.isEmpty ? 'plaintext' : extname,
       theme: githubTheme,
       padding: EdgeInsets.all(10),
     );
