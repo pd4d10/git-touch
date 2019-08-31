@@ -1,5 +1,6 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:github_trending/github_trending.dart';
+import 'package:http/http.dart' as http;
 import '../scaffolds/refresh.dart';
 import '../widgets/repo_item.dart';
 
@@ -10,26 +11,27 @@ class TrendingScreen extends StatefulWidget {
 
 class _TrendingScreenState extends State<TrendingScreen> {
   Future<List<dynamic>> _fetchTrendingRepos() async {
-    var items = await getTrendingRepositories();
+    var res = await http.get('https://github-trending-api.now.sh');
+    var items = json.decode(res.body);
 
     return items.map((item) {
       return {
         'owner': {
-          'login': item.owner,
+          'login': item['author'],
         },
-        'name': item.name,
-        'description': item.description,
+        'name': item['name'],
+        'description': item['description'],
         'stargazers': {
-          'totalCount': item.starCount,
+          'totalCount': item['stars'],
         },
         'forks': {
-          'totalCount': item.forkCount,
+          'totalCount': item['forks'],
         },
-        'primaryLanguage': item.primaryLanguage == null
+        'primaryLanguage': item['language'] == null
             ? null
             : {
-                'name': item.primaryLanguage.name,
-                'color': item.primaryLanguage.color,
+                'name': item['language'],
+                'color': item['languageColor'],
               },
         'isPrivate': false,
         'isFork': false // TODO:

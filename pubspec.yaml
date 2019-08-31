@@ -26,7 +26,6 @@ dependencies:
   nanoid: ^0.0.6
   share: ^0.6.0
   flutter_vector_icons: ^0.0.2
-  github_trending: ^0.1.2
   github_contributions: ^0.1.1
   flutter_svg: ^0.13.0
   launch_review: ^2.0.0
