@@ -29,7 +29,7 @@ dependencies:
   github_contributions: ^0.1.1
   flutter_svg: ^0.13.0
   launch_review: ^2.0.0
-  flutter_highlight: ^0.2.1
+  flutter_highlight: ^0.3.0
   timeago: ^2.0.18
   primer:
     git:

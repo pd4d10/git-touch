@@ -111,7 +111,7 @@ class ObjectScreen extends StatelessWidget {
 
   Widget _buildBlob(payload) {
     // FIXME:
-    return Highlight(
+    return HighlightView(
       payload['text'],
       language: extname.isEmpty ? 'plaintext' : extname,
       theme: githubTheme,
