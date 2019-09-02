@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 import '../scaffolds/refresh_stateless.dart';
-import '../providers/notification.dart';
+import 'package:git_touch/models/notification.dart';
 import '../providers/settings.dart';
 import '../widgets/notification_item.dart';
 import '../widgets/list_group.dart';
@@ -54,7 +55,7 @@ class NotificationScreenState extends State<NotificationScreen> {
     var ns = items.map((item) => NotificationPayload.fromJson(item)).toList();
 
     if (index == 0) {
-      NotificationProvider.of(context).setCount(ns.length);
+      Provider.of<NotificationModel>(context).setCount(ns.length);
     }
 
     Map<String, NotificationGroup> _groupMap = {};

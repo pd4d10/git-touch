@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:git_touch/screens/repo.dart';
 import 'package:primer/primer.dart';
-import 'providers/notification.dart';
+import 'package:provider/provider.dart';
+import 'package:git_touch/models/notification.dart';
 import 'providers/settings.dart';
 import 'screens/news.dart';
 import 'screens/notifications.dart';
@@ -25,7 +26,7 @@ class _HomeState extends State<Home> {
   // String login;
 
   Widget _buildNotificationIcon(BuildContext context) {
-    int count = NotificationProvider.of(context).count;
+    int count = Provider.of<NotificationModel>(context).count;
     if (count == 0) {
       return Icon(Icons.notifications_none);
     }
@@ -158,19 +159,12 @@ class _HomeState extends State<Home> {
 
 class App extends StatelessWidget {
   @override
-  build(context) {
-    return NotificationProvider(
-      child: SettingsProvider(
-        child: DefaultTextStyle(
-          style: TextStyle(color: Colors.black),
-          child: Home(),
-          // theme: ThemeData(
-          //   textTheme: TextTheme(
-          //     title: TextStyle(color: Colors.red),
-          //   ),
-          // ),
-        ),
-      ),
+  Widget build(BuildContext context) {
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(builder: (context) => NotificationModel()),
+      ],
+      child: SettingsProvider(child: Home()),
     );
   }
 }
