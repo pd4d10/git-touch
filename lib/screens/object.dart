@@ -110,12 +110,14 @@ class ObjectScreen extends StatelessWidget {
   }
 
   Widget _buildBlob(payload) {
-    // FIXME:
-    return HighlightView(
-      payload['text'],
-      language: extname.isEmpty ? 'plaintext' : extname,
-      theme: githubTheme,
-      padding: EdgeInsets.all(10),
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: HighlightView(
+        payload['text'],
+        language: extname.isEmpty ? 'plaintext' : extname,
+        theme: githubTheme,
+        padding: EdgeInsets.all(10),
+      ),
     );
   }
 
