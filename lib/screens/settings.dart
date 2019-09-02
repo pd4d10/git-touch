@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:git_touch/models/theme.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:launch_review/launch_review.dart';
 import '../scaffolds/simple.dart';
-import '../providers/settings.dart';
 import '../widgets/table_view.dart';
 import '../screens/repo.dart';
 import '../screens/login.dart';
@@ -15,7 +16,7 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
-    var settings = SettingsProvider.of(context);
+    var themeProvider = Provider.of<ThemeModel>(context);
 
     return SimpleScaffold(
       title: Text('Settings'),
@@ -36,19 +37,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
               items: [
                 TableViewItem(
                   text: 'material',
-                  checked: settings.theme == ThemeMap.material,
+                  checked: themeProvider.theme == ThemeMap.material,
                   onTap: () {
-                    if (settings.theme != ThemeMap.material) {
-                      settings.setTheme(ThemeMap.material);
+                    if (themeProvider.theme != ThemeMap.material) {
+                      themeProvider.setTheme(ThemeMap.material);
                     }
                   },
                 ),
                 TableViewItem(
                   text: 'cupertino',
-                  checked: settings.theme == ThemeMap.cupertino,
+                  checked: themeProvider.theme == ThemeMap.cupertino,
                   onTap: () {
-                    if (settings.theme != ThemeMap.cupertino) {
-                      settings.setTheme(ThemeMap.cupertino);
+                    if (themeProvider.theme != ThemeMap.cupertino) {
+                      themeProvider.setTheme(ThemeMap.cupertino);
                     }
                   },
                 ),

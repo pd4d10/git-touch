@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import '../scaffolds/refresh_stateless.dart';
 import 'package:git_touch/models/notification.dart';
+import 'package:git_touch/models/theme.dart';
 import '../providers/settings.dart';
 import '../widgets/notification_item.dart';
 import '../widgets/list_group.dart';
@@ -205,7 +206,7 @@ $key: pullRequest(number: ${item.number}) {
   };
 
   Widget _buildTitle() {
-    switch (SettingsProvider.of(context).theme) {
+    switch (Provider.of<ThemeModel>(context).theme) {
       case ThemeMap.cupertino:
         // var textStyle = DefaultTextStyle.of(context).style;
         return DefaultTextStyle(
@@ -224,7 +225,8 @@ $key: pullRequest(number: ${item.number}) {
   }
 
   void _confirm() async {
-    var value = await showConfirm(context, 'Mark all as read?');
+    var value = await Provider.of<ThemeModel>(context)
+        .showConfirm(context, 'Mark all as read?');
     if (value) {
       await SettingsProvider.of(context).putWithCredentials('/notifications');
       await _onSwitchTab();

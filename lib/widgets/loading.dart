@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import '../providers/settings.dart';
+import 'package:git_touch/models/theme.dart';
+import 'package:provider/provider.dart';
 
 class Loading extends StatelessWidget {
   final bool more;
@@ -10,7 +11,7 @@ class Loading extends StatelessWidget {
   Widget _buildIndicator(BuildContext context) {
     // return Image.asset('images/loading.webp');
 
-    switch (SettingsProvider.of(context).theme) {
+    switch (Provider.of<ThemeModel>(context).theme) {
       case ThemeMap.cupertino:
         return CupertinoActivityIndicator(radius: 12);
       default:

@@ -37,12 +37,6 @@ class PlatformType {
 //   Future<T> queryGitlab(SettingsProviderState settings);
 // }
 
-class ThemeMap {
-  static const material = 0;
-  static const cupertino = 1;
-  static const values = [0, 1];
-}
-
 class SettingsProvider extends StatefulWidget {
   final Widget child;
 
@@ -60,7 +54,6 @@ class SettingsProvider extends StatefulWidget {
 
 class SettingsProviderState extends State<SettingsProvider> {
   bool ready = false;
-  int theme;
 
   Map<String, AccountModel> githubAccountMap;
   Map<String, Map<String, Map<String, AccountModel>>> accountMap;
@@ -75,16 +68,6 @@ class SettingsProviderState extends State<SettingsProvider> {
   // PlatformType platformType;
 
   String prefix = 'https://api.github.com';
-
-  Future<void> setTheme(int _theme) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    theme = _theme;
-    await prefs.setInt(StorageKeys.theme, theme);
-    print('write theme: $theme');
-
-    setState(() {});
-  }
 
   String get token {
     if (activeLogin == null) return null;
@@ -134,7 +117,7 @@ class SettingsProviderState extends State<SettingsProvider> {
         'client_id': clientId,
         'client_secret': clientSecret,
         'code': code,
-        'state': randomString,
+        'state': _oauthState,
       }),
     );
     // print(res.body);
@@ -215,7 +198,7 @@ class SettingsProviderState extends State<SettingsProvider> {
   }
 
   void _initDataFromPref() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var prefs = await SharedPreferences.getInstance();
 
     // read GitHub accounts
     try {
@@ -262,14 +245,6 @@ class SettingsProviderState extends State<SettingsProvider> {
       accountMap = {};
     }
 
-    int _theme = prefs.getInt(StorageKeys.theme);
-    print('read theme: $_theme');
-    if (ThemeMap.values.contains(_theme)) {
-      theme = _theme;
-    } else if (Platform.isIOS) {
-      theme = ThemeMap.cupertino;
-    }
-
     setState(() {
       ready = true;
     });
@@ -282,6 +257,9 @@ class SettingsProviderState extends State<SettingsProvider> {
       activeLogin = login;
     });
   }
+
+  Map<String, String> get _headers =>
+      {HttpHeaders.authorizationHeader: 'token $token'};
 
   // http timeout
   var _timeoutDuration = Duration(seconds: 10);
@@ -315,7 +293,7 @@ class SettingsProviderState extends State<SettingsProvider> {
   }
 
   Future<dynamic> getWithCredentials(String url, {String contentType}) async {
-    var headers = {HttpHeaders.authorizationHeader: 'token $token'};
+    var headers = _headers;
     if (contentType != null) {
       // https://developer.github.com/v3/repos/contents/#custom-media-types
       headers[HttpHeaders.contentTypeHeader] = contentType;
@@ -328,69 +306,37 @@ class SettingsProviderState extends State<SettingsProvider> {
     return data;
   }
 
-  Future<dynamic> patchWithCredentials(String url) async {
-    var headers = {HttpHeaders.authorizationHeader: 'token $token'};
-    await http.patch(prefix + url, headers: headers).timeout(_timeoutDuration);
-
-    return true;
+  Future<void> patchWithCredentials(String url) async {
+    await http.patch(prefix + url, headers: _headers).timeout(_timeoutDuration);
   }
 
-  Future<dynamic> putWithCredentials(String url,
+  Future<void> putWithCredentials(String url,
       {String contentType, String body}) async {
-    var headers = {HttpHeaders.authorizationHeader: 'token $token'};
-    final res = await http
-        .put(prefix + url, headers: headers, body: body ?? {})
+    await http
+        .put(prefix + url, headers: _headers, body: body ?? {})
         .timeout(_timeoutDuration);
-
-    // print(res.body);
-    return true;
   }
 
-  Future<dynamic> postWithCredentials(String url,
+  Future<void> postWithCredentials(String url,
       {String contentType, String body}) async {
-    var headers = {HttpHeaders.authorizationHeader: 'token $token'};
     final res = await http
-        .post(prefix + url, headers: headers, body: body ?? {})
-        .timeout(_timeoutDuration);
-
-    // print(res.body);
-    return true;
-  }
-
-  Future<dynamic> deleteWithCredentials(String url) async {
-    var headers = {HttpHeaders.authorizationHeader: 'token $token'};
-    final res = await http
-        .delete(prefix + url, headers: headers)
+        .post(prefix + url, headers: _headers, body: body ?? {})
         .timeout(_timeoutDuration);
     // print(res.body);
-    return true;
   }
 
-  void pushRoute({
-    @required BuildContext context,
-    @required WidgetBuilder builder,
-    bool fullscreenDialog = false,
-  }) {
-    switch (theme) {
-      case ThemeMap.cupertino:
-        Navigator.of(context).push(CupertinoPageRoute(
-          builder: builder,
-          fullscreenDialog: fullscreenDialog,
-        ));
-        break;
-      default:
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: builder,
-          fullscreenDialog: fullscreenDialog,
-        ));
-    }
+  Future<void> deleteWithCredentials(String url) async {
+    await http
+        .delete(prefix + url, headers: _headers)
+        .timeout(_timeoutDuration);
   }
 
-  String randomString;
-
-  generateRandomString() {
-    randomString = nanoid();
-    return randomString;
+  String _oauthState;
+  void redirectToGithubOauth() {
+    _oauthState = nanoid();
+    launch(
+      'https://github.com/login/oauth/authorize?client_id=$clientId&redirect_uri=gittouch://login&scope=user%20repo&state=$_oauthState',
+    );
   }
 
   @override

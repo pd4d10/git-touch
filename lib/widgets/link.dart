@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../providers/settings.dart';
+import 'package:git_touch/models/theme.dart';
 
 class Link extends StatelessWidget {
   final Widget child;
@@ -31,11 +32,10 @@ class Link extends StatelessWidget {
     }
 
     if (screenBuilder != null) {
-      SettingsProvider.of(context).pushRoute(
-        context: context,
-        builder: screenBuilder,
-        fullscreenDialog: fullscreenDialog,
-      );
+      Provider.of<ThemeModel>(context).pushRoute(
+          context: context,
+          builder: screenBuilder,
+          fullscreenDialog: fullscreenDialog);
     }
 
     if (url != null) {
@@ -45,7 +45,7 @@ class Link extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var theme = SettingsProvider.of(context).theme;
+    var theme = Provider.of<ThemeModel>(context).theme;
 
     if (iconButton != null) {
       return IconButton(

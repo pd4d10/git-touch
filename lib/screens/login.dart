@@ -113,12 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ...accounts.map(_buildAccountItem),
               _buildAddItem(
                 text: 'GitHub Account',
-                onTap: () {
-                  var state = settings.generateRandomString();
-                  launch(
-                    'https://github.com/login/oauth/authorize?client_id=$clientId&redirect_uri=gittouch://login&scope=user%20repo&state=$state',
-                  );
-                },
+                onTap: settings.redirectToGithubOauth,
               ),
               // _buildAddItem(
               //   text: 'GitLab Account',

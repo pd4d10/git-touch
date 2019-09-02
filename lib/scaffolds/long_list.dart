@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
-import '../providers/settings.dart';
+import 'package:git_touch/models/theme.dart';
+import 'package:provider/provider.dart';
 import '../widgets/loading.dart';
 import '../widgets/link.dart';
 import '../widgets/error_reload.dart';
@@ -182,7 +183,7 @@ class _LongListScaffoldState<T, K> extends State<LongListScaffold<T, K>> {
 
   @override
   Widget build(BuildContext context) {
-    switch (SettingsProvider.of(context).theme) {
+    switch (Provider.of<ThemeModel>(context).theme) {
       case ThemeMap.cupertino:
         List<Widget> slivers = [
           CupertinoSliverRefreshControl(onRefresh: _refresh)

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
-import '../providers/settings.dart';
+import 'package:git_touch/models/theme.dart';
+import 'package:provider/provider.dart';
 import '../widgets/loading.dart';
 import '../widgets/error_reload.dart';
 
@@ -39,7 +40,7 @@ class RefreshStatelessScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    switch (SettingsProvider.of(context).theme) {
+    switch (Provider.of<ThemeModel>(context).theme) {
       case ThemeMap.cupertino:
         return CupertinoPageScaffold(
           navigationBar:

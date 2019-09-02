@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:git_touch/models/theme.dart';
+import 'package:provider/provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:primer/primer.dart';
 import '../utils/utils.dart';
@@ -102,19 +104,19 @@ class CommentItem extends StatelessWidget {
                 ..add(
                   Link(
                     onTap: () async {
-                      var result = await showDialogOptions(
-                        context,
-                        emojiMap.entries.map((entry) {
-                          var emojiKey = entry.key;
-                          return DialogOption(
-                            value: emojiKey,
-                            widget: Container(
-                              decoration: _getDecorationByKey(emojiKey),
-                              child: Text(emojiKey + ' ' + entry.value),
-                            ),
-                          );
-                        }).toList(),
-                      );
+                      var result = await Provider.of<ThemeModel>(context)
+                          .showDialogOptions(
+                              context,
+                              emojiMap.entries.map((entry) {
+                                var emojiKey = entry.key;
+                                return DialogOption(
+                                  value: emojiKey,
+                                  widget: Container(
+                                    decoration: _getDecorationByKey(emojiKey),
+                                    child: Text(emojiKey + ' ' + entry.value),
+                                  ),
+                                );
+                              }).toList());
                       onReaction(result, _hasReacted(result));
                     },
                     child: Container(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/screens/repo.dart';
 import 'package:primer/primer.dart';
 import 'package:provider/provider.dart';
@@ -24,6 +25,15 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int active = 0;
   // String login;
+
+  @override
+  void initState() {
+    super.initState();
+    nextTick(() {
+      // FIXME:
+      Provider.of<ThemeModel>(context).init();
+    });
+  }
 
   Widget _buildNotificationIcon(BuildContext context) {
     int count = Provider.of<NotificationModel>(context).count;
@@ -106,7 +116,7 @@ class _HomeState extends State<Home> {
     );
 
     // TODO:
-    if (!settings.ready) {
+    if (!settings.ready || !Provider.of<ThemeModel>(context).ready) {
       return MaterialApp(theme: themData, home: Scaffold(body: Text('a')));
     }
 
@@ -115,7 +125,7 @@ class _HomeState extends State<Home> {
       return MaterialApp(theme: themData, home: LoginScreen());
     }
 
-    switch (settings.theme) {
+    switch (Provider.of<ThemeModel>(context).theme) {
       case ThemeMap.cupertino:
         return CupertinoApp(
           home: CupertinoTheme(
@@ -163,6 +173,7 @@ class App extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(builder: (context) => NotificationModel()),
+        ChangeNotifierProvider(builder: (context) => ThemeModel()),
       ],
       child: SettingsProvider(child: Home()),
     );

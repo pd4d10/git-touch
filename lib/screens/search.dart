@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:git_touch/models/theme.dart';
+import 'package:provider/provider.dart';
 import '../providers/settings.dart';
 import '../scaffolds/simple.dart';
 import '../utils/utils.dart';
@@ -42,7 +44,7 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   Widget _buildInput() {
-    switch (SettingsProvider.of(context).theme) {
+    switch (Provider.of<ThemeModel>(context).theme) {
       case ThemeMap.cupertino:
         return CupertinoTextField(
           // padding: EdgeInsets.all(10),
@@ -60,14 +62,16 @@ class _SearchScreenState extends State<SearchScreen> {
     return SimpleScaffold(
       title: Text('Search GitHub Repositories'),
       bodyBuilder: () {
-        return Column(children: <Widget>[
-          Container(padding: EdgeInsets.all(8), child: _buildInput()),
-          loading
-              ? Loading()
-              : Column(
-                  children: repos.map((repo) => RepoItem(repo)).toList(),
-                )
-        ]);
+        return Column(
+          children: <Widget>[
+            Container(padding: EdgeInsets.all(8), child: _buildInput()),
+            loading
+                ? Loading()
+                : Column(
+                    children: repos.map((repo) => RepoItem(repo)).toList(),
+                  )
+          ],
+        );
       },
     );
   }
