@@ -14,6 +14,10 @@ class StorageKeys {
 }
 
 Color convertColor(String cssHex) {
+  if (cssHex == null) {
+    return Color(0xffcccccc); // Default color
+  }
+
   if (cssHex.startsWith('#')) {
     cssHex = cssHex.substring(1);
   }
