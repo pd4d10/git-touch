@@ -11,28 +11,6 @@ import '../widgets/link.dart';
 import '../widgets/empty.dart';
 import '../utils/utils.dart';
 
-String getRepoKey(NotificationGroup group) {
-  // Add heading _ to fix number case
-  // - => __
-  // . => ___
-  return ('_' + group.owner + '_' + group.name)
-      .replaceAll('-', '__')
-      .replaceAll('.', '___');
-}
-
-String getItemKey(NotificationPayload item) {
-  return '_' + item.number.toString();
-}
-
-class NotificationGroup {
-  String owner;
-  String name;
-  get repo => owner + '/' + name;
-  List<NotificationPayload> items = [];
-
-  NotificationGroup(this.owner, this.name);
-}
-
 class NotificationScreen extends StatefulWidget {
   @override
   NotificationScreenState createState() => NotificationScreenState();
@@ -74,8 +52,6 @@ class NotificationScreenState extends State<NotificationScreen> {
       // query state of issues and pull requests
       var schema = '{';
       _groupMap.forEach((repo, group) {
-        var repoKey = getRepoKey(group);
-
         // Check if issue and pull request exist
         if (group.items.where((item) {
           return item.type == 'Issue' || item.type == 'PullRequest';
@@ -84,10 +60,10 @@ class NotificationScreenState extends State<NotificationScreen> {
         }
 
         schema +=
-            '$repoKey: repository(owner: "${group.owner}", name: "${group.name}") {';
+            '${group.key}: repository(owner: "${group.owner}", name: "${group.name}") {';
 
         group.items.forEach((item) {
-          var key = getItemKey(item);
+          var key = item.key;
 
           switch (item.type) {
             case 'Issue':
@@ -115,10 +91,10 @@ $key: pullRequest(number: ${item.number}) {
       var data = await SettingsProvider.of(context).query(schema);
       _groupMap.forEach((repo, group) {
         group.items.forEach((item) {
-          var groupData = data[getRepoKey(group)];
+          var groupData = data[group.key];
           if (groupData == null) return;
 
-          var itemData = data[getRepoKey(group)][getItemKey(item)];
+          var itemData = data[group.key][item.key];
           if (itemData != null) {
             item.state = itemData['state'];
           }

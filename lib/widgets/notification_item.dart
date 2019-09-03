@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:timeago/timeago.dart' as timeago;
+import 'package:git_touch/models/notification.dart';
 import 'package:primer/primer.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../utils/utils.dart';
@@ -8,39 +8,6 @@ import '../screens/issue.dart';
 // import '../screens/not_found.dart';
 import '../providers/settings.dart';
 import 'link.dart';
-
-class NotificationPayload {
-  String id;
-  String type;
-  String owner;
-  String name;
-  int number;
-  String title;
-  String updateAt;
-  bool unread;
-
-  String state;
-
-  NotificationPayload.fromJson(input) {
-    id = input['id'];
-    type = input['subject']['type'];
-    name = input['repository']['name'];
-    owner = input['repository']['owner']['login'];
-
-    String url = input['subject']['url'];
-
-    if (type == 'Issue' || type == 'PullRequest') {
-      String numberStr = url.split('/').lastWhere((_) => true);
-      number = int.parse(numberStr);
-    } else {
-      // print(input);
-    }
-
-    title = input['subject']['title'];
-    updateAt = timeago.format(DateTime.parse(input['updated_at']));
-    unread = input['unread'];
-  }
-}
 
 class NotificationItem extends StatefulWidget {
   final NotificationPayload payload;
