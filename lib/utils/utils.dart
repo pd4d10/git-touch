@@ -86,3 +86,35 @@ primaryLanguage {
   name
 }
 ''';
+
+List<T> join<T>(T seperator, List<T> xs) {
+  List<T> result = [];
+  xs.asMap().forEach((index, x) {
+    if (x == null) return;
+
+    result.add(x);
+    if (index < xs.length - 1) {
+      result.add(seperator);
+    }
+  });
+
+  return result;
+}
+
+List<T> joinAll<T>(T seperator, List<List<T>> xss) {
+  List<T> result = [];
+  xss.asMap().forEach((index, x) {
+    if (x == null || x.isEmpty) return;
+
+    result.addAll(x);
+    if (index < xss.length - 1) {
+      result.add(seperator);
+    }
+  });
+
+  return result;
+}
+
+K ifNotNull<T, K>(T value, K Function(T v) builder) {
+  return value == null ? null : builder(value);
+}
