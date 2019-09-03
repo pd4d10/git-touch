@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:git_touch/models/notification.dart';
+import 'package:git_touch/utils/utils.dart';
+import 'package:provider/provider.dart';
 import '../scaffolds/list.dart';
 import '../widgets/event_item.dart';
 import '../providers/settings.dart';
@@ -20,6 +23,22 @@ class NewsScreen extends StatefulWidget {
 
 class NewsScreenState extends State<NewsScreen> {
   String filter = NewsFilter.github;
+
+  @override
+  initState() {
+    super.initState();
+    // FIXME:
+    nextTick(() async {
+      // Check if there are unread notification items.
+      // 1 item is enough since count is not displayed for now.
+      var items = await SettingsProvider.of(context)
+          .getWithCredentials('/notifications?per_page=1');
+
+      if (items is List && items.isNotEmpty) {
+        Provider.of<NotificationModel>(context).setCount(1);
+      }
+    });
+  }
 
   int get pageSize {
     if (filter == NewsFilter.all) {
