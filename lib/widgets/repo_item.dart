@@ -62,7 +62,7 @@ class RepoItem extends StatelessWidget {
                               Container(
                                 width: 10,
                                 height: 10,
-                                decoration: new BoxDecoration(
+                                decoration: BoxDecoration(
                                   color: convertColor(
                                       payload['primaryLanguage']['color']),
                                   shape: BoxShape.circle,

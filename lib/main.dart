@@ -42,17 +42,26 @@ class _HomeState extends State<Home> {
     }
 
     // String text = count > 99 ? '99+' : count.toString();
-
-    // https://stackoverflow.com/a/45434404
-    return new Stack(children: <Widget>[
-      new Icon(Icons.notifications_none),
-      new Positioned(
-        // draw a red marble
-        top: 0.0,
-        right: 0.0,
-        child: new Icon(Icons.brightness_1, size: 8.0, color: Colors.redAccent),
-      )
-    ]);
+    return Stack(
+      children: <Widget>[
+        Icon(Icons.notifications_none),
+        Positioned(
+          right: 0,
+          child: Container(
+            width: 8,
+            height: 8,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(4)),
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [PrimerColors.red400, PrimerColors.red600],
+              ),
+            ),
+          ),
+        )
+      ],
+    );
   }
 
   List<BottomNavigationBarItem> _buildNavigationItems() {

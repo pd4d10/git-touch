@@ -49,7 +49,7 @@ class SettingsProvider extends StatefulWidget {
   }
 
   @override
-  SettingsProviderState createState() => new SettingsProviderState();
+  SettingsProviderState createState() => SettingsProviderState();
 }
 
 class SettingsProviderState extends State<SettingsProvider> {
@@ -286,7 +286,7 @@ class SettingsProviderState extends State<SettingsProvider> {
     final data = json.decode(res.body);
 
     if (data['errors'] != null) {
-      throw new Exception(data['errors'][0]['message']);
+      throw Exception(data['errors'][0]['message']);
     }
 
     return data['data'];
@@ -341,7 +341,7 @@ class SettingsProviderState extends State<SettingsProvider> {
 
   @override
   Widget build(BuildContext context) {
-    return new _InheritedSettingsProvider(
+    return _InheritedSettingsProvider(
       data: this,
       child: widget.child,
     );
