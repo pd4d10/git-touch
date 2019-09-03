@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/link.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:git_touch/providers/settings.dart';
@@ -30,6 +31,7 @@ class CommitsScreen extends StatelessWidget {
             }
             nodes {
               oid
+              url
               messageHeadline
               committedDate
               author {
@@ -39,6 +41,9 @@ class CommitsScreen extends StatelessWidget {
                 user {
                   login
                 }
+              }
+              status {
+                state
               }
             }
           }
@@ -58,6 +63,18 @@ class CommitsScreen extends StatelessWidget {
     );
   }
 
+  Widget _buildStatus(String state) {
+    var size = 18.0;
+    switch (state) {
+      case 'SUCCESS':
+        return Icon(Octicons.check, color: PrimerColors.green500, size: size);
+      case 'FAILURE':
+        return Icon(Octicons.x, color: PrimerColors.red600, size: size);
+      default:
+        return Container();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListScaffold(
@@ -66,12 +83,13 @@ class CommitsScreen extends StatelessWidget {
       onLoadMore: (cursor) => _query(context, cursor),
       itemBuilder: (payload) {
         return Link(
-          url: 'https://github.com/$owner/$name/commit/' + payload['oid'],
+          url: payload['url'],
           child: Container(
             padding: EdgeInsets.all(12),
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Avatar(url: payload['author']['avatarUrl']),
+                Avatar(url: payload['author']['avatarUrl'], size: 16),
                 SizedBox(width: 8),
                 Expanded(
                   child: Column(
@@ -81,7 +99,7 @@ class CommitsScreen extends StatelessWidget {
                           style: TextStyle(
                               fontWeight: FontWeight.w500, fontSize: 14)),
                       SizedBox(height: 4),
-                      Row(
+                      Wrap(
                         children: <Widget>[
                           Text(
                               payload['author']['user'] == null
@@ -95,6 +113,12 @@ class CommitsScreen extends StatelessWidget {
                                       DateTime.parse(payload['committedDate'])),
                               style: TextStyle(
                                   color: PrimerColors.gray600, fontSize: 14)),
+                          ...(payload['status'] == null
+                              ? []
+                              : [
+                                  SizedBox(width: 4),
+                                  _buildStatus(payload['status']['state'])
+                                ])
                         ],
                       )
                     ],
