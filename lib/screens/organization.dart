@@ -37,9 +37,11 @@ class _OrganizationScreenState extends State<OrganizationScreen> {
         $repoChunk
       }
     }
-    pinnedRepositories(first: $pageSize) {
+    pinnedItems(first: $pageSize) {
       nodes {
-        $repoChunk
+        ... on Repository {
+          $repoChunk
+        }
       }
     }
     url
@@ -55,12 +57,12 @@ class _OrganizationScreenState extends State<OrganizationScreen> {
   Widget _buildRepos(payload) {
     String title;
     List items;
-    if (payload['pinnedRepositories']['nodes'].length == 0) {
+    if (payload['pinnedItems']['nodes'].length == 0) {
       title = 'Popular repositories';
       items = payload['repositories']['nodes'];
     } else {
       title = 'Pinned repositories';
-      items = payload['pinnedRepositories']['nodes'];
+      items = payload['pinnedItems']['nodes'];
     }
 
     return ListGroup(
