@@ -33,6 +33,7 @@ class CommitsScreen extends StatelessWidget {
               messageHeadline
               committedDate
               author {
+                name
                 email
                 avatarUrl
                 user {
@@ -82,7 +83,10 @@ class CommitsScreen extends StatelessWidget {
                       SizedBox(height: 4),
                       Row(
                         children: <Widget>[
-                          Text(payload['author']['user']['login'],
+                          Text(
+                              payload['author']['user'] == null
+                                  ? payload['author']['name']
+                                  : payload['author']['user']['login'],
                               style: TextStyle(
                                   fontWeight: FontWeight.w500, fontSize: 14)),
                           Text(
