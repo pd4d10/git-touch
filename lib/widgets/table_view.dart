@@ -1,6 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:git_touch/utils/utils.dart';
+import 'package:primer/primer.dart';
 import 'link.dart';
+
+class TableViewSeperator extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 20,
+      color: PrimerColors.gray100,
+    );
+  }
+}
 
 class TableViewItem {
   final String text;
@@ -17,63 +29,73 @@ class TableViewItem {
 }
 
 class TableView extends StatelessWidget {
-  final String title;
+  final String headerText;
   final List<TableViewItem> items;
 
-  TableView({this.title, this.items});
+  TableView({this.headerText, @required this.items});
+
+  static const _border = SizedBox(
+    height: 1,
+    child: const DecoratedBox(
+      decoration: const BoxDecoration(color: PrimerColors.gray200),
+    ),
+  );
+
+  static const _seperator = SizedBox(
+    height: 1,
+    child: const DecoratedBox(
+      decoration: const BoxDecoration(color: PrimerColors.gray200),
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(top: 30),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            padding: EdgeInsets.only(left: 8),
-            child: Text(
-              title,
-              style: TextStyle(
-                color: Colors.black54,
-                fontSize: 15,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
-          Container(
-            decoration: BoxDecoration(
-              border: Border(bottom: BorderSide(color: Colors.black12)),
-            ),
-            padding: EdgeInsets.only(top: 4),
-          ),
-          ...items.map((item) {
-            List<Widget> children = [
-              Expanded(
-                child: Text(
-                  item.text,
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w300),
-                ),
-              ),
-            ];
-            if (item.checked) {
-              children
-                  .add(Icon(Icons.check, color: CupertinoColors.activeBlue));
-            }
-
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: <Widget>[
+        ...(headerText == null
+            ? []
+            : [
+                Container(
+                  color: PrimerColors.gray100,
+                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  child: Text(
+                    headerText,
+                    style: TextStyle(color: PrimerColors.gray600, fontSize: 13),
+                  ),
+                )
+              ]),
+        _border,
+        ...join(
+          _seperator,
+          items.map((item) {
             return Link(
               onTap: item.onTap,
               screenBuilder: item.screenBuilder,
               child: Container(
-                decoration: BoxDecoration(
-                  border: Border(bottom: BorderSide(color: Colors.black12)),
-                ),
-                padding: EdgeInsets.all(12),
-                child: Row(children: children),
+                height: 44,
+                child: Row(children: [
+                  SizedBox(width: 12),
+                  Expanded(
+                    child: Text(
+                      item.text,
+                      style: TextStyle(fontSize: 18),
+                    ),
+                  ),
+                  ...(item.checked
+                      ? [
+                          Icon(Icons.check,
+                              color: CupertinoColors.activeBlue, size: 20)
+                        ]
+                      : []),
+                  SizedBox(width: 12),
+                ]),
               ),
             );
-          }).toList()
-        ],
-      ),
+          }).toList(),
+        ),
+        _border,
+      ],
     );
   }
 }
