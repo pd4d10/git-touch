@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:primer/primer.dart';
 import 'link.dart';
 
 class EntryItem extends StatelessWidget {
@@ -17,8 +18,10 @@ class EntryItem extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 12),
           child: Column(
             children: <Widget>[
-              Text(count.toString(), style: TextStyle(fontSize: 20)),
-              Text(text, style: TextStyle(fontSize: 12))
+              Text(count.toString(),
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+              Text(text,
+                  style: TextStyle(fontSize: 12, color: PrimerColors.gray600))
             ],
           ),
         ),

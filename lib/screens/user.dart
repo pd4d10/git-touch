@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:git_touch/widgets/table_view.dart';
+import 'package:primer/primer.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:share/share.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -35,10 +37,10 @@ class _UserScreenState extends State<UserScreen> {
     name
     avatarUrl
     bio
-    websiteUrl
-    email
     company
     location
+    email
+    websiteUrl
     starredRepositories {
       totalCount
     }
@@ -96,54 +98,26 @@ class _UserScreenState extends State<UserScreen> {
     );
   }
 
-  Widget _buildInfo(payload) {
-    // TODO: redesign the UI to show all information
-    String email = payload['email'] ?? '';
-    if (email.isNotEmpty) {
-      return Link(
-        material: false,
-        child: Row(children: <Widget>[
-          Icon(
-            Octicons.mail,
-            color: Colors.black54,
-            size: 16,
-          ),
-          Padding(padding: EdgeInsets.only(left: 4)),
-          Text(email, style: TextStyle(color: Colors.black54, fontSize: 15))
-        ]),
-        onTap: () {
-          launch('mailto:' + email);
-        },
-      );
-    }
+  TableViewItem _buildTableViewItem({
+    String placeholder,
+    IconData iconData,
+    String text,
+    Function onTap,
+  }) {
+    var leftWidget = Icon(iconData, size: 20, color: PrimerColors.blue500);
+    var usePlaceholder = text == null || text.isEmpty;
+    var itemText = usePlaceholder
+        ? Text(placeholder,
+            style: TextStyle(color: PrimerColors.gray300, fontSize: 16))
+        : Text(text,
+            style: TextStyle(color: PrimerColors.gray900, fontSize: 16));
 
-    String company = payload['company'] ?? '';
-    if (company.isNotEmpty) {
-      return Row(children: <Widget>[
-        Icon(
-          Octicons.organization,
-          color: Colors.black54,
-          size: 16,
-        ),
-        Padding(padding: EdgeInsets.only(left: 4)),
-        Text(company, style: TextStyle(color: Colors.black54, fontSize: 16))
-      ]);
-    }
-
-    String location = payload['location'] ?? '';
-    if (location.isNotEmpty) {
-      return Row(children: <Widget>[
-        Icon(
-          Octicons.location,
-          color: Colors.black54,
-          size: 16,
-        ),
-        Padding(padding: EdgeInsets.only(left: 4)),
-        Text(location, style: TextStyle(color: Colors.black54, fontSize: 16))
-      ]);
-    }
-
-    return Container();
+    return TableViewItem(
+      leftWidget: leftWidget,
+      text: itemText,
+      rightWidget: Icon(CupertinoIcons.right_chevron,
+          size: 18, color: PrimerColors.gray300),
+    );
   }
 
   @override
@@ -219,12 +193,24 @@ class _UserScreenState extends State<UserScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
+                        Row(children: <Widget>[
+                          Text(
+                            payload['name'] ?? widget.login,
+                            style: TextStyle(color: PrimerColors.blue500),
+                          ),
+                          Text(
+                            '(${widget.login})',
+                            style: TextStyle(color: PrimerColors.gray500),
+                          ),
+                        ]),
                         Text(
-                          payload['name'] ?? widget.login,
-                          style: TextStyle(fontSize: 16),
+                          payload['bio'] == null ||
+                                  (payload['bio'] as String).isEmpty
+                              ? 'No bio'
+                              : payload['bio'],
+                          style: TextStyle(color: PrimerColors.gray500),
                         ),
                         SizedBox(height: 8),
-                        _buildInfo(payload),
                       ],
                     ),
                   )
@@ -234,8 +220,8 @@ class _UserScreenState extends State<UserScreen> {
             Container(
               decoration: BoxDecoration(
                 border: Border(
-                  bottom: BorderSide(color: Colors.black12),
-                  top: BorderSide(color: Colors.black12),
+                  bottom: BorderSide(color: PrimerColors.gray100),
+                  top: BorderSide(color: PrimerColors.gray100),
                 ),
               ),
               child: Row(
@@ -267,10 +253,38 @@ class _UserScreenState extends State<UserScreen> {
                 ],
               ),
             ),
-            Container(
-              child: SvgPicture.string(contributions),
-              padding: EdgeInsets.symmetric(horizontal: 10),
+            SizedBox(height: 10, child: Container(color: PrimerColors.gray100)),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Container(
+                child: SvgPicture.string(contributions),
+                padding: EdgeInsets.all(10),
+              ),
             ),
+            SizedBox(height: 10, child: Container(color: PrimerColors.gray100)),
+            TableViewSeperator(),
+            TableView(items: [
+              _buildTableViewItem(
+                  iconData: Octicons.organization,
+                  placeholder: 'Company',
+                  text: payload['company']),
+              _buildTableViewItem(
+                  iconData: Octicons.location,
+                  placeholder: 'Location',
+                  text: payload['location']),
+              _buildTableViewItem(
+                  iconData: Octicons.mail,
+                  placeholder: 'Email',
+                  text: payload['email'],
+                  onTap: () {
+                    launch('mailto:' + payload['email']);
+                  }),
+              _buildTableViewItem(
+                  iconData: Octicons.link,
+                  placeholder: 'Website',
+                  text: payload['websiteUrl']),
+            ]),
+            TableViewSeperator(),
             _buildRepos(payload),
           ],
         );

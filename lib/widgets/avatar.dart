@@ -17,7 +17,7 @@ class Avatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var avatar = ClipRRect(
-      borderRadius: BorderRadius.circular(size),
+      borderRadius: BorderRadius.circular(4),
       child: FadeInImage.assetNetwork(
         placeholder: 'images/octoface.png',
         image: url,

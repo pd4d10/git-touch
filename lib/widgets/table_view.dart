@@ -15,14 +15,16 @@ class TableViewSeperator extends StatelessWidget {
 }
 
 class TableViewItem {
-  final String text;
-  final bool checked;
+  final Widget text;
+  final Widget leftWidget;
+  final Widget rightWidget;
   final void Function() onTap;
   final WidgetBuilder screenBuilder;
 
   TableViewItem({
     this.text,
-    this.checked = false,
+    this.leftWidget,
+    this.rightWidget,
     this.onTap,
     this.screenBuilder,
   });
@@ -75,19 +77,21 @@ class TableView extends StatelessWidget {
               child: Container(
                 height: 44,
                 child: Row(children: [
+                  ...(item.leftWidget == null
+                      ? []
+                      : [
+                          SizedBox(width: 12),
+                          item.leftWidget,
+                        ]),
                   SizedBox(width: 12),
                   Expanded(
-                    child: Text(
-                      item.text,
-                      style: TextStyle(fontSize: 18),
+                    child: DefaultTextStyle(
+                      child: item.text,
+                      style:
+                          TextStyle(fontSize: 18, color: PrimerColors.gray900),
                     ),
                   ),
-                  ...(item.checked
-                      ? [
-                          Icon(Icons.check,
-                              color: CupertinoColors.activeBlue, size: 20)
-                        ]
-                      : []),
+                  ...(item.rightWidget == null ? [] : [item.rightWidget]),
                   SizedBox(width: 12),
                 ]),
               ),
