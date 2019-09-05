@@ -118,3 +118,19 @@ List<T> joinAll<T>(T seperator, List<List<T>> xss) {
 K ifNotNull<T, K>(T value, K Function(T v) builder) {
   return value == null ? null : builder(value);
 }
+
+class BorderView extends StatelessWidget {
+  final double height;
+
+  BorderView({this.height = 1});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: height,
+      child: const DecoratedBox(
+        decoration: const BoxDecoration(color: PrimerColors.gray100),
+      ),
+    );
+  }
+}

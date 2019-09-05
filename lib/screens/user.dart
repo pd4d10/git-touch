@@ -117,6 +117,7 @@ class _UserScreenState extends State<UserScreen> {
       text: itemText,
       rightWidget: Icon(CupertinoIcons.right_chevron,
           size: 18, color: PrimerColors.gray300),
+      onTap: onTap,
     );
   }
 
@@ -181,13 +182,14 @@ class _UserScreenState extends State<UserScreen> {
         var contributions = data[1];
 
         return Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Container(
-              padding: EdgeInsets.all(10),
+              padding: EdgeInsets.all(12),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Avatar(url: payload['avatarUrl'], size: 24),
+                  Avatar(url: payload['avatarUrl'], size: 30),
                   SizedBox(width: 10),
                   Expanded(
                     child: Column(
@@ -196,96 +198,101 @@ class _UserScreenState extends State<UserScreen> {
                         Row(children: <Widget>[
                           Text(
                             payload['name'] ?? widget.login,
-                            style: TextStyle(color: PrimerColors.blue500),
+                            style: TextStyle(
+                                color: PrimerColors.blue500, fontSize: 16),
                           ),
                           Text(
                             '(${widget.login})',
-                            style: TextStyle(color: PrimerColors.gray500),
+                            style: TextStyle(
+                                color: PrimerColors.gray500, fontSize: 16),
                           ),
                         ]),
+                        SizedBox(height: 4),
                         Text(
                           payload['bio'] == null ||
                                   (payload['bio'] as String).isEmpty
                               ? 'No bio'
                               : payload['bio'],
-                          style: TextStyle(color: PrimerColors.gray500),
+                          style: TextStyle(
+                              color: PrimerColors.gray500, fontSize: 15),
                         ),
-                        SizedBox(height: 8),
                       ],
                     ),
                   )
                 ],
               ),
             ),
+            BorderView(),
+            Row(children: <Widget>[
+              EntryItem(
+                count: payload['repositories']['totalCount'],
+                text: 'Repositories',
+                screenBuilder: (context) => ReposScreen(login: widget.login),
+              ),
+              EntryItem(
+                count: payload['starredRepositories']['totalCount'],
+                text: 'Stars',
+                screenBuilder: (context) =>
+                    ReposScreen(login: widget.login, star: true),
+              ),
+              EntryItem(
+                count: payload['followers']['totalCount'],
+                text: 'Followers',
+                screenBuilder: (context) => UsersScreen(login: widget.login),
+              ),
+              EntryItem(
+                count: payload['following']['totalCount'],
+                text: 'Following',
+                screenBuilder: (context) =>
+                    UsersScreen(login: widget.login, following: true),
+              ),
+            ]),
+            BorderView(height: 10),
             Container(
-              decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(color: PrimerColors.gray100),
-                  top: BorderSide(color: PrimerColors.gray100),
-                ),
-              ),
-              child: Row(
-                children: <Widget>[
-                  EntryItem(
-                    count: payload['repositories']['totalCount'],
-                    text: 'Repositories',
-                    screenBuilder: (context) =>
-                        ReposScreen(login: widget.login),
-                  ),
-                  EntryItem(
-                    count: payload['starredRepositories']['totalCount'],
-                    text: 'Stars',
-                    screenBuilder: (context) =>
-                        ReposScreen(login: widget.login, star: true),
-                  ),
-                  EntryItem(
-                    count: payload['followers']['totalCount'],
-                    text: 'Followers',
-                    screenBuilder: (context) =>
-                        UsersScreen(login: widget.login),
-                  ),
-                  EntryItem(
-                    count: payload['following']['totalCount'],
-                    text: 'Following',
-                    screenBuilder: (context) =>
-                        UsersScreen(login: widget.login, following: true),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 10, child: Container(color: PrimerColors.gray100)),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Container(
+              padding: EdgeInsets.all(10),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
                 child: SvgPicture.string(contributions),
-                padding: EdgeInsets.all(10),
               ),
             ),
-            SizedBox(height: 10, child: Container(color: PrimerColors.gray100)),
-            TableViewSeperator(),
+            BorderView(height: 10),
             TableView(items: [
               _buildTableViewItem(
-                  iconData: Octicons.organization,
-                  placeholder: 'Company',
-                  text: payload['company']),
+                iconData: Octicons.organization,
+                placeholder: 'Company',
+                text: payload['company'],
+              ),
               _buildTableViewItem(
-                  iconData: Octicons.location,
-                  placeholder: 'Location',
-                  text: payload['location']),
+                iconData: Octicons.location,
+                placeholder: 'Location',
+                text: payload['location'],
+              ),
               _buildTableViewItem(
-                  iconData: Octicons.mail,
-                  placeholder: 'Email',
-                  text: payload['email'],
-                  onTap: () {
-                    launch('mailto:' + payload['email']);
-                  }),
+                iconData: Octicons.mail,
+                placeholder: 'Email',
+                text: payload['email'],
+                onTap: (payload['email'] as String).isEmpty
+                    ? null
+                    : () {
+                        launch('mailto:' + payload['email']);
+                      },
+              ),
               _buildTableViewItem(
-                  iconData: Octicons.link,
-                  placeholder: 'Website',
-                  text: payload['websiteUrl']),
+                iconData: Octicons.link,
+                placeholder: 'Website',
+                text: payload['websiteUrl'],
+                onTap: payload['websiteUrl'] == null
+                    ? null
+                    : () {
+                        var url = payload['websiteUrl'] as String;
+                        if (!url.startsWith('http')) {
+                          url = 'http://$url';
+                        }
+                        launch(url);
+                      },
+              ),
             ]),
-            TableViewSeperator(),
-            _buildRepos(payload),
+            // _buildRepos(payload),
           ],
         );
       },
