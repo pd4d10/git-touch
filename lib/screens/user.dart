@@ -115,8 +115,10 @@ class _UserScreenState extends State<UserScreen> {
     return TableViewItem(
       leftWidget: leftWidget,
       text: itemText,
-      rightWidget: Icon(CupertinoIcons.right_chevron,
-          size: 18, color: PrimerColors.gray300),
+      rightWidget: onTap == null
+          ? null
+          : Icon(CupertinoIcons.right_chevron,
+              size: 18, color: PrimerColors.gray300),
       onTap: onTap,
     );
   }
@@ -263,10 +265,16 @@ class _UserScreenState extends State<UserScreen> {
                 text: payload['company'],
               ),
               _buildTableViewItem(
-                iconData: Octicons.location,
-                placeholder: 'Location',
-                text: payload['location'],
-              ),
+                  iconData: Octicons.location,
+                  placeholder: 'Location',
+                  text: payload['location'],
+                  onTap: payload['location'] == null
+                      ? null
+                      : () {
+                          launch('https://www.google.com/maps/place/' +
+                              (payload['location'] as String)
+                                  .replaceAll(RegExp(r'\s+'), ''));
+                        }),
               _buildTableViewItem(
                 iconData: Octicons.mail,
                 placeholder: 'Email',
