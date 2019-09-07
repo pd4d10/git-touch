@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:git_touch/models/theme.dart';
+import 'package:git_touch/utils/utils.dart';
 import 'package:provider/provider.dart';
 import '../widgets/error_reload.dart';
 import '../widgets/loading.dart';
@@ -138,11 +139,7 @@ class _ListScaffoldState<T, K> extends State<ListScaffold<T, K>> {
     }
 
     if (index % 2 == 1) {
-      return Container(
-        decoration: BoxDecoration(
-          border: Border(bottom: BorderSide(color: Colors.black12)),
-        ),
-      );
+      return BorderView(height: 1);
     }
 
     return widget.itemBuilder(items[index ~/ 2]);

@@ -60,17 +60,9 @@ class EventItem extends StatelessWidget {
     IconData iconData = Octicons.octoface,
     WidgetBuilder screenBuilder,
   }) {
-    if (detailWidget == null) {
-      if (detail == null) {
-        detailWidget = Container(); // TODO: placeholder
-      } else {
-        detailWidget = Text(
-          detail,
-          overflow: TextOverflow.ellipsis,
-          maxLines: 5,
-          style: TextStyle(color: PrimerColors.gray600, fontSize: 14),
-        );
-      }
+    if (detailWidget == null && detail != null) {
+      detailWidget =
+          Text(detail.trim(), overflow: TextOverflow.ellipsis, maxLines: 5);
     }
 
     return Link(
@@ -81,50 +73,54 @@ class EventItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Row(
-              children: <Widget>[
-                SizedBox(width: 20),
-                Icon(iconData, color: PrimerColors.gray400, size: 13),
-                SizedBox(width: 6),
-                Text(timeago.format(event.createdAt),
-                    style: TextStyle(fontSize: 13, color: PrimerColors.gray400))
-              ],
-            ),
-            SizedBox(height: 6),
-            Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Avatar(
-                    url: event.actorAvatarUrl,
-                    login: event.actorLogin,
-                    size: 16),
-                SizedBox(width: 8),
+                  url: event.actorAvatarUrl,
+                  login: event.actorLogin,
+                  size: 18,
+                ),
+                SizedBox(width: 10),
                 Expanded(
-                  child: RichText(
-                    text: TextSpan(
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: PrimerColors.gray900,
-                      ),
-                      children: [
-                        createLinkSpan(
-                          context,
-                          event.actorLogin,
-                          () => UserScreen(event.actorLogin),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: join(SizedBox(height: 6), [
+                      RichText(
+                        text: TextSpan(
+                          style: TextStyle(
+                              fontSize: 15, color: PrimerColors.gray900),
+                          children: [
+                            createLinkSpan(
+                              context,
+                              event.actorLogin,
+                              () => UserScreen(event.actorLogin),
+                            ),
+                            ...spans,
+                          ],
                         ),
-                        ...spans,
-                        // TextSpan(
-                        //     text: timeago.format(event.createdAt),
-                        //     style: TextStyle(
-                        //         fontSize: 13, color: PrimerColors.gray400))
-                      ],
-                    ),
+                      ),
+                      ...(detailWidget == null
+                          ? []
+                          : [
+                              DefaultTextStyle(
+                                style: TextStyle(
+                                    color: PrimerColors.gray500, fontSize: 14),
+                                child: detailWidget,
+                              )
+                            ]),
+                      Row(
+                        children: <Widget>[
+                          Icon(iconData, color: PrimerColors.gray700, size: 13),
+                          SizedBox(width: 4),
+                          Text(timeago.format(event.createdAt),
+                              style: TextStyle(
+                                  fontSize: 13, color: PrimerColors.gray700))
+                        ],
+                      ),
+                    ]),
                   ),
                 ),
               ],
-            ),
-            Container(
-              padding: EdgeInsets.only(left: 40, top: 6),
-              child: detailWidget,
             ),
           ],
         ),
@@ -293,8 +289,9 @@ class EventItem extends StatelessWidget {
               text: ref.replaceFirst('refs/heads/', ''),
               style: TextStyle(
                 color: PrimerColors.blue500,
+                fontSize: 14,
                 backgroundColor: Color(0xffeaf5ff),
-                fontFamily: 'Menlo',
+                fontFamily: 'Menlo', // FIXME:
               ),
             ),
             TextSpan(text: ' at '),
