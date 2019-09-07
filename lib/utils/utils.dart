@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
+import 'package:git_touch/screens/user.dart';
 import 'package:primer/primer.dart';
 import '../providers/settings.dart';
 import '../screens/repo.dart';
@@ -41,6 +42,7 @@ TextSpan createLinkSpan(BuildContext context, String text, Function handle) {
     recognizer: TapGestureRecognizer()
       ..onTap = () {
         Navigator.of(context).push(
+          // FIXME: Material route
           CupertinoPageRoute(
             builder: (context) {
               return handle();
@@ -49,6 +51,10 @@ TextSpan createLinkSpan(BuildContext context, String text, Function handle) {
         );
       },
   );
+}
+
+TextSpan createUserSpan(BuildContext context, String login) {
+  return createLinkSpan(context, login, () => UserScreen(login));
 }
 
 TextSpan createRepoLinkSpan(BuildContext context, String owner, String name) {

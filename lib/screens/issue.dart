@@ -360,40 +360,41 @@ mutation {
         );
       },
       headerBuilder: (payload) {
-        return Column(children: <Widget>[
-          Container(
-            padding: EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              border: Border(bottom: BorderSide(color: Colors.black12)),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    Expanded(
-                      child: Text(
-                        payload['title'],
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.all(10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      Expanded(
+                        child: Text(
+                          payload['title'],
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
-                    ),
-                    Padding(padding: EdgeInsets.only(right: 8)),
-                    StateLabel(_getLabelStatus(payload))
-                  ],
-                ),
-                Padding(padding: EdgeInsets.only(bottom: 16)),
-                CommentItem(
-                  payload,
-                  onReaction: _handleReaction(payload),
-                ),
-              ],
+                      Padding(padding: EdgeInsets.only(right: 8)),
+                      StateLabel(_getLabelStatus(payload))
+                    ],
+                  ),
+                  Padding(padding: EdgeInsets.only(bottom: 16)),
+                  CommentItem(
+                    payload,
+                    onReaction: _handleReaction(payload),
+                  ),
+                ],
+              ),
             ),
-          )
-        ]);
+            BorderView(),
+          ],
+        );
       },
       itemBuilder: (itemPayload) =>
           TimelineItem(itemPayload, onReaction: _handleReaction(itemPayload)),

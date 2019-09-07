@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:git_touch/models/theme.dart';
+import 'package:git_touch/utils/utils.dart';
 import 'package:provider/provider.dart';
 import '../widgets/loading.dart';
 import '../widgets/link.dart';
@@ -102,11 +103,7 @@ class _LongListScaffoldState<T, K> extends State<LongListScaffold<T, K>> {
 
   Widget _buildItem(BuildContext context, int index) {
     if (index % 2 == 1) {
-      return Container(
-        decoration: BoxDecoration(
-          border: Border(bottom: BorderSide(color: Colors.black12)),
-        ),
-      );
+      return BorderView();
     }
 
     int realIndex = index ~/ 2;

@@ -5,10 +5,6 @@ import 'link.dart';
 
 final style = TextStyle(fontWeight: FontWeight.w600);
 
-TextSpan createUserSpan(String login) {
-  return TextSpan(text: login, style: style);
-}
-
 class UserName extends StatelessWidget {
   final String login;
 

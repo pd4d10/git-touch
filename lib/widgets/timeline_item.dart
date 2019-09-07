@@ -6,6 +6,43 @@ import '../utils/utils.dart';
 import 'comment_item.dart';
 import 'user_name.dart';
 
+class TimelineEventItem extends StatelessWidget {
+  final String actor;
+  final IconData iconData;
+  final Color iconColor;
+  final TextSpan textSpan;
+  final item;
+
+  TimelineEventItem({
+    this.actor,
+    this.iconData = Octicons.octoface,
+    this.iconColor = PrimerColors.gray400,
+    this.textSpan,
+    this.item,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: <Widget>[
+        SizedBox(width: 6),
+        Icon(iconData, color: iconColor, size: 20),
+        SizedBox(width: 12),
+        Expanded(
+          child: RichText(
+            text: TextSpan(style: TextStyle(color: Colors.black), children: [
+              // TODO: actor is null
+              createUserSpan(context, actor),
+              textSpan,
+              // TextSpan(text: ' ' + TimeAgo.formatFromString(item['createdAt']))
+            ]),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 class TimelineItem extends StatelessWidget {
   final Map<String, dynamic> payload;
   final Function(String emojiKey, bool isRemove) onReaction;
@@ -21,32 +58,6 @@ class TimelineItem extends StatelessWidget {
       default:
         return warningSpan;
     }
-  }
-
-  Widget _buildItem({
-    String actor,
-    IconData iconData = Octicons.octoface,
-    Color iconColor = PrimerColors.gray400,
-    TextSpan textSpan,
-    item,
-  }) {
-    return Row(
-      children: <Widget>[
-        Padding(padding: EdgeInsets.only(left: 6)),
-        Icon(iconData, color: iconColor, size: 20),
-        Padding(padding: EdgeInsets.only(left: 12)),
-        Expanded(
-          child: RichText(
-            text: TextSpan(style: TextStyle(color: Colors.black), children: [
-              // TODO: actor is null
-              createUserSpan(actor),
-              textSpan,
-              // TextSpan(text: ' ' + TimeAgo.formatFromString(item['createdAt']))
-            ]),
-          ),
-        ),
-      ],
-    );
   }
 
   TextSpan _buildLabel(item) {
@@ -73,7 +84,7 @@ class TimelineItem extends StatelessWidget {
   Widget _buildByType(BuildContext context) {
     String type = payload['__typename'];
 
-    var defaultItem = _buildItem(
+    var defaultItem = TimelineEventItem(
       actor: '',
       iconData: Octicons.octoface,
       textSpan: TextSpan(children: [
@@ -85,7 +96,7 @@ class TimelineItem extends StatelessWidget {
     switch (type) {
       // common types
       case 'Commit':
-        return _buildItem(
+        return TimelineEventItem(
           actor: payload['author']['user'] == null
               ? null
               : payload['author']['user']['login'],
@@ -99,7 +110,7 @@ class TimelineItem extends StatelessWidget {
       case 'IssueComment':
         return CommentItem(payload, onReaction: onReaction);
       case 'CrossReferencedEvent':
-        return _buildItem(
+        return TimelineEventItem(
           actor: payload['actor']['login'],
           iconData: Octicons.primitive_dot,
           iconColor: Palette.green,
@@ -109,7 +120,7 @@ class TimelineItem extends StatelessWidget {
           item: payload,
         );
       case 'ClosedEvent':
-        return _buildItem(
+        return TimelineEventItem(
           actor: payload['actor']['login'],
           iconData: Octicons.circle_slash,
           iconColor: PrimerColors.red600,
@@ -118,7 +129,7 @@ class TimelineItem extends StatelessWidget {
         );
 
       case 'ReopenedEvent':
-        return _buildItem(
+        return TimelineEventItem(
           actor: payload['actor']['login'],
           iconData: Octicons.primitive_dot,
           iconColor: Palette.green,
@@ -134,7 +145,7 @@ class TimelineItem extends StatelessWidget {
           return Container();
         }
 
-        return _buildItem(
+        return TimelineEventItem(
           actor: payload['actor']['login'],
           iconData: Octicons.bookmark,
           textSpan: TextSpan(children: [
@@ -144,7 +155,7 @@ class TimelineItem extends StatelessWidget {
           item: payload,
         );
       case 'AssignedEvent':
-        return _buildItem(
+        return TimelineEventItem(
           actor: payload['actor']['login'],
           iconData: Octicons.key,
           textSpan: TextSpan(children: [
@@ -156,7 +167,7 @@ class TimelineItem extends StatelessWidget {
       case 'UnassignedEvent':
         return defaultItem; // TODO:
       case 'LabeledEvent':
-        return _buildItem(
+        return TimelineEventItem(
           actor: payload['actor']['login'],
           iconData: Octicons.tag,
           textSpan: TextSpan(children: [
@@ -167,7 +178,7 @@ class TimelineItem extends StatelessWidget {
           item: payload,
         );
       case 'UnlabeledEvent':
-        return _buildItem(
+        return TimelineEventItem(
           actor: payload['actor']['login'],
           iconData: Octicons.tag,
           textSpan: TextSpan(children: [
@@ -179,7 +190,7 @@ class TimelineItem extends StatelessWidget {
         );
 
       case 'MilestonedEvent':
-        return _buildItem(
+        return TimelineEventItem(
           actor: payload['actor']['login'],
           iconData: Octicons.milestone,
           textSpan: TextSpan(children: [
@@ -192,7 +203,7 @@ class TimelineItem extends StatelessWidget {
       case 'DemilestonedEvent':
         return defaultItem; // TODO:
       case 'RenamedTitleEvent':
-        return _buildItem(
+        return TimelineEventItem(
           actor: payload['actor']['login'],
           iconData: Octicons.pencil,
           textSpan: TextSpan(children: [
@@ -207,7 +218,7 @@ class TimelineItem extends StatelessWidget {
           item: payload,
         );
       case 'LockedEvent':
-        return _buildItem(
+        return TimelineEventItem(
           actor: payload['actor']['login'],
           iconData: Octicons.lock,
           textSpan: TextSpan(children: [
@@ -216,7 +227,7 @@ class TimelineItem extends StatelessWidget {
           item: payload,
         );
       case 'UnlockedEvent':
-        return _buildItem(
+        return TimelineEventItem(
           actor: payload['actor']['login'],
           iconData: Octicons.key,
           textSpan: TextSpan(children: [
@@ -233,7 +244,7 @@ class TimelineItem extends StatelessWidget {
       case 'CommitCommentThread':
         return defaultItem; // TODO:
       case 'PullRequestReview':
-        return _buildItem(
+        return TimelineEventItem(
           actor: payload['author']['login'],
           iconColor: Color(0xff28a745),
           iconData: Octicons.check,
@@ -244,7 +255,7 @@ class TimelineItem extends StatelessWidget {
       case 'PullRequestReviewComment':
         return defaultItem; // TODO:
       case 'MergedEvent':
-        return _buildItem(
+        return TimelineEventItem(
           actor: payload['actor']['login'],
           iconData: Octicons.git_merge,
           iconColor: Color(0xff6f42c1),
@@ -260,7 +271,7 @@ class TimelineItem extends StatelessWidget {
       case 'DeploymentEnvironmentChangedEvent':
         return defaultItem; // TODO:
       case 'HeadRefDeletedEvent':
-        return _buildItem(
+        return TimelineEventItem(
           actor: payload['actor']['login'],
           iconData: Octicons.git_branch,
           textSpan: TextSpan(children: [
@@ -275,14 +286,14 @@ class TimelineItem extends StatelessWidget {
       case 'BaseRefForcePushedEvent':
         return defaultItem; // TODO:
       case 'ReviewRequestedEvent':
-        return _buildItem(
+        return TimelineEventItem(
           iconData: Octicons.eye,
           // actor: payload['author']['login'],
           // TODO:
           actor: 'test',
           textSpan: TextSpan(children: [
             TextSpan(text: ' requested a review from '),
-            createUserSpan(payload['requestedReviewer']['login']),
+            createUserSpan(context, payload['requestedReviewer']['login']),
           ]),
           item: payload,
         );

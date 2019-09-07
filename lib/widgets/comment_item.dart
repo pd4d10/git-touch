@@ -48,13 +48,13 @@ class CommentItem extends StatelessWidget {
             size: 16,
             login: payload['author']['login'],
           ),
-          Padding(padding: EdgeInsets.only(left: 6)),
+          SizedBox(width: 8),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 UserName(payload['author']['login']),
-                Padding(padding: EdgeInsets.only(bottom: 2)),
+                SizedBox(height: 2),
                 Text(
                   timeago.format(DateTime.parse(payload['createdAt'])),
                   style: TextStyle(color: Colors.black54, fontSize: 13),
@@ -63,72 +63,72 @@ class CommentItem extends StatelessWidget {
             ),
           ),
         ]),
-        Padding(
-          padding: const EdgeInsets.only(top: 12),
-          child: MarkdownBody(
-            data: payload['body'],
-            // styleSheet: MarkdownStyleSheet(code: TextStyle(fontSize: 14)),
-          ),
+        SizedBox(height: 12),
+        MarkdownBody(
+          data: payload['body'] as String,
+          // styleSheet: MarkdownStyleSheet(code: TextStyle(fontSize: 14)),
         ),
+        SizedBox(height: 12),
         Wrap(
-          children: emojiMap.entries
-              .where((entry) => payload[entry.key]['totalCount'] as int != 0)
-              .map<Widget>((entry) {
-            var emojiKey = entry.key;
-            var emoji = entry.value;
-            var count = payload[entry.key]['totalCount'] as int;
+          crossAxisAlignment: WrapCrossAlignment.center,
+          children: [
+            ...emojiMap.entries
+                .where((entry) => payload[entry.key]['totalCount'] as int != 0)
+                .map<Widget>((entry) {
+              var emojiKey = entry.key;
+              var emoji = entry.value;
+              var count = payload[entry.key]['totalCount'] as int;
 
-            return Link(
-              onTap: () {
-                onReaction(emojiKey, _hasReacted(emojiKey));
-              },
-              child: Container(
-                padding: EdgeInsets.all(6),
-                decoration: _getDecorationByKey(emojiKey),
-                child: RichText(
-                  text: TextSpan(
-                    style: TextStyle(fontSize: 16),
-                    children: [
-                      TextSpan(text: emoji),
-                      TextSpan(text: ' '),
-                      TextSpan(
-                        text: count.toString(),
-                        style: TextStyle(color: PrimerColors.blue500),
-                      ),
+              return Link(
+                onTap: () {
+                  onReaction(emojiKey, _hasReacted(emojiKey));
+                },
+                child: Container(
+                  padding: EdgeInsets.all(4),
+                  decoration: _getDecorationByKey(emojiKey),
+                  child: Wrap(
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    children: <Widget>[
+                      Text(emoji, style: TextStyle(fontSize: 18)),
+                      SizedBox(width: 4),
+                      Text(count.toString(),
+                          style: TextStyle(
+                              color: PrimerColors.blue500, fontSize: 14))
                     ],
                   ),
                 ),
-              ),
-            );
-          }).toList()
-                ..add(
-                  Link(
-                    onTap: () async {
-                      var result = await Provider.of<ThemeModel>(context)
-                          .showDialogOptions(
-                              context,
-                              emojiMap.entries.map((entry) {
-                                var emojiKey = entry.key;
-                                return DialogOption(
-                                  value: emojiKey,
-                                  widget: Container(
-                                    decoration: _getDecorationByKey(emojiKey),
-                                    child: Text(emojiKey + ' ' + entry.value),
-                                  ),
-                                );
-                              }).toList());
-                      onReaction(result, _hasReacted(result));
-                    },
-                    child: Container(
-                      padding: EdgeInsets.all(12),
-                      child: Icon(
-                        Octicons.smiley,
-                        color: PrimerColors.blue500,
-                        size: 16,
-                      ),
-                    ),
-                  ),
+              );
+            }),
+            Link(
+              onTap: () async {
+                var result =
+                    await Provider.of<ThemeModel>(context).showDialogOptions(
+                        context,
+                        emojiMap.entries.map((entry) {
+                          var emojiKey = entry.key;
+                          return DialogOption(
+                            value: emojiKey,
+                            widget: Container(
+                              decoration: _getDecorationByKey(emojiKey),
+                              child: Text(emojiKey + ' ' + entry.value),
+                            ),
+                          );
+                        }).toList());
+                onReaction(result, _hasReacted(result));
+              },
+              child: Container(
+                padding: EdgeInsets.all(4),
+                child: Wrap(
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  children: <Widget>[
+                    Text('+', style: TextStyle(color: PrimerColors.blue500)),
+                    Icon(Octicons.smiley,
+                        color: PrimerColors.blue500, size: 18),
+                  ],
                 ),
+              ),
+            ),
+          ],
         ),
       ],
     );
