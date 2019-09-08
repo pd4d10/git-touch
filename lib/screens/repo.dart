@@ -35,6 +35,7 @@ class RepoScreen extends StatelessWidget {
       __typename
       login
       url
+      avatarUrl
     }
     name
     isPrivate

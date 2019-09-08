@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:git_touch/utils/utils.dart';
 import 'package:http/http.dart' as http;
 import '../scaffolds/refresh.dart';
 import '../widgets/repo_item.dart';
@@ -16,9 +17,7 @@ class _TrendingScreenState extends State<TrendingScreen> {
 
     return items.map((item) {
       return {
-        'owner': {
-          'login': item['author'],
-        },
+        'owner': {'login': item['author'], 'avatarUrl': item['avatar']},
         'name': item['name'],
         'description': item['description'],
         'stargazers': {
@@ -46,13 +45,11 @@ class _TrendingScreenState extends State<TrendingScreen> {
       onRefresh: _fetchTrendingRepos,
       bodyBuilder: (payload) {
         return Column(
-          children: payload.map<Widget>((repo) {
-            return Container(
-              decoration: BoxDecoration(
-                  border: Border(bottom: BorderSide(color: Colors.black12))),
-              child: RepoItem(repo),
-            );
-          }).toList(),
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: join(
+            BorderView(),
+            payload.map<Widget>((item) => RepoItem(item)).toList(),
+          ),
         );
       },
     );

@@ -75,6 +75,7 @@ var warningSpan =
 var repoChunk = '''
 owner {
   login
+  avatarUrl
 }
 name
 description
