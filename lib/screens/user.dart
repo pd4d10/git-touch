@@ -108,10 +108,8 @@ class _UserScreenState extends State<UserScreen> {
     var leftWidget = Icon(iconData, size: 20, color: PrimerColors.blue500);
     var usePlaceholder = text == null || text.isEmpty;
     var itemText = usePlaceholder
-        ? Text(placeholder,
-            style: TextStyle(color: PrimerColors.gray300, fontSize: 16))
-        : Text(text,
-            style: TextStyle(color: PrimerColors.gray900, fontSize: 16));
+        ? Text(placeholder, style: TextStyle(color: PrimerColors.gray300))
+        : Text(text);
 
     return TableViewItem(
       leftWidget: leftWidget,

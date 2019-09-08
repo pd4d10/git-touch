@@ -53,7 +53,7 @@ class TableView extends StatelessWidget {
         Expanded(
           child: DefaultTextStyle(
             child: item.text,
-            style: TextStyle(fontSize: 18, color: PrimerColors.gray900),
+            style: TextStyle(fontSize: 16, color: PrimerColors.gray900),
           ),
         ),
         ...(item.rightWidget == null ? [] : [item.rightWidget]),

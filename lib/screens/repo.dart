@@ -2,6 +2,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:git_touch/models/settings.dart';
+import 'package:git_touch/utils/utils.dart';
+import 'package:git_touch/widgets/table_view.dart';
+import 'package:primer/primer.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:git_touch/models/theme.dart';
@@ -20,6 +23,8 @@ import '../widgets/action.dart';
 class RepoScreen extends StatelessWidget {
   final String owner;
   final String name;
+
+  static const _languageBarPadding = 10.0;
 
   RepoScreen(this.owner, this.name);
   RepoScreen.fromFullName(String fullName)
@@ -50,12 +55,22 @@ class RepoScreen extends StatelessWidget {
     primaryLanguage {
       color
       name
-    }    
+    }
     issues(states: OPEN) {
       totalCount
     }
     pullRequests(states: OPEN) {
       totalCount
+    }
+    languages(first: 10, orderBy: {field: SIZE, direction: DESC}) {
+      totalSize
+      edges {
+        size
+        node {
+          name
+          color
+        }
+      }
     }
     url
     defaultBranchRef {
@@ -158,44 +173,73 @@ class RepoScreen extends StatelessWidget {
         var payload = data[0];
         var readme = data[1];
 
+        final langWidth =
+            MediaQuery.of(context).size.width - _languageBarPadding * 2;
+
         return Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             RepoItem(payload, isLink: false),
-            Container(
-              decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(color: Colors.black12),
-                  top: BorderSide(color: Colors.black12),
+            BorderView(),
+            Row(
+              children: <Widget>[
+                EntryItem(
+                  count: payload['issues']['totalCount'],
+                  text: 'Issues',
+                  screenBuilder: (context) =>
+                      IssuesScreen(owner: owner, name: name),
+                ),
+                EntryItem(
+                  count: payload['pullRequests']['totalCount'],
+                  text: 'Pull Requests',
+                  screenBuilder: (context) => IssuesScreen(
+                      owner: owner, name: name, isPullRequest: true),
+                ),
+                EntryItem(
+                  count: payload['defaultBranchRef']['target']['history']
+                      ['totalCount'],
+                  text: 'Commits',
+                  screenBuilder: (context) => CommitsScreen(owner, name),
+                ),
+              ],
+            ),
+            BorderView(height: 10),
+            Padding(
+              padding: const EdgeInsets.all(_languageBarPadding),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(4),
+                child: Container(
+                  height: 10,
+                  child: Row(
+                      children: (payload['languages']['edges'] as List)
+                          .map((lang) => Container(
+                              color: convertColor(lang['node']['color']),
+                              width: langWidth *
+                                  lang['size'] /
+                                  payload['languages']['totalSize']))
+                          .toList()),
                 ),
               ),
-              child: Row(
-                children: <Widget>[
-                  EntryItem(
-                    count: payload['issues']['totalCount'],
-                    text: 'Issues',
-                    screenBuilder: (context) =>
-                        IssuesScreen(owner: owner, name: name),
-                  ),
-                  EntryItem(
-                    count: payload['pullRequests']['totalCount'],
-                    text: 'Pull Requests',
-                    screenBuilder: (context) => IssuesScreen(
-                        owner: owner, name: name, isPullRequest: true),
-                  ),
-                  EntryItem(
-                    text: 'Files',
-                    screenBuilder: (context) =>
-                        ObjectScreen(owner: owner, name: name),
-                  ),
-                  EntryItem(
-                    count: payload['defaultBranchRef']['target']['history']
-                        ['totalCount'],
-                    text: 'Commits',
-                    screenBuilder: (context) => CommitsScreen(owner, name),
-                  ),
-                ],
-              ),
             ),
+            TableView(items: [
+              TableViewItem(
+                leftWidget: Icon(Octicons.code,
+                    size: 20,
+                    color: convertColor(payload['primaryLanguage'] == null
+                        ? null
+                        : payload['primaryLanguage']['color'])),
+                text: Text(payload['primaryLanguage'] == null
+                    ? 'Unknown'
+                    : payload['primaryLanguage']['name']),
+                rightWidget: Icon(
+                  CupertinoIcons.right_chevron,
+                  size: 18,
+                  color: PrimerColors.gray300,
+                ),
+                screenBuilder: (_) => ObjectScreen(owner: owner, name: name),
+              )
+            ]),
+            BorderView(height: 10),
             Container(
               padding: EdgeInsets.all(16),
               child: MarkdownBody(data: readme),
