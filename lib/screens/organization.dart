@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:share/share.dart';
-import '../providers/settings.dart';
+import 'package:git_touch/models/settings.dart';
+import 'package:provider/provider.dart';
 import '../scaffolds/refresh.dart';
 import '../widgets/avatar.dart';
 import '../widgets/entry_item.dart';
@@ -23,7 +24,7 @@ class OrganizationScreen extends StatefulWidget {
 class _OrganizationScreenState extends State<OrganizationScreen> {
   Future query() async {
     var login = widget.login;
-    var data = await SettingsProvider.of(context).query('''
+    var data = await Provider.of<SettingsModel>(context).query('''
 {
   organization(login: "$login") {
     name

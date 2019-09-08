@@ -5,7 +5,7 @@ import 'package:git_touch/utils/utils.dart';
 import 'package:provider/provider.dart';
 import '../scaffolds/list.dart';
 import '../widgets/event_item.dart';
-import '../providers/settings.dart';
+import 'package:git_touch/models/settings.dart';
 
 class NewsFilter {
   static const all = 'all';
@@ -31,7 +31,7 @@ class NewsScreenState extends State<NewsScreen> {
     nextTick(() async {
       // Check if there are unread notification items.
       // 1 item is enough since count is not displayed for now.
-      var items = await SettingsProvider.of(context)
+      var items = await Provider.of<SettingsModel>(context)
           .getWithCredentials('/notifications?per_page=1');
 
       if (items is List && items.isNotEmpty) {
@@ -48,7 +48,7 @@ class NewsScreenState extends State<NewsScreen> {
   }
 
   Future<ListPayload<EventPayload, int>> fetchEvents([int page = 1]) async {
-    var settings = SettingsProvider.of(context);
+    var settings = Provider.of<SettingsModel>(context);
     var login = settings.activeLogin;
     List data = await settings.getWithCredentials(
         '/users/$login/received_events?page=$page&per_page=$pageSize');

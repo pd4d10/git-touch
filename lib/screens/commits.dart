@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:git_touch/models/settings.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/link.dart';
+import 'package:provider/provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
-import 'package:git_touch/providers/settings.dart';
 import 'package:git_touch/scaffolds/list.dart';
 import 'package:git_touch/widgets/avatar.dart';
 import 'package:primer/primer.dart';
@@ -18,7 +19,7 @@ class CommitsScreen extends StatelessWidget {
     if (cursor != null) {
       params += ', after: "$cursor"';
     }
-    var data = await SettingsProvider.of(context).query('''
+    var data = await Provider.of<SettingsModel>(context).query('''
 {
   repository(owner: "$owner", name: "$name") {
     ref(qualifiedName: "master") {

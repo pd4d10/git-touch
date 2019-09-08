@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:git_touch/models/settings.dart';
 import 'package:primer/primer.dart';
+import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../utils/utils.dart';
 import '../scaffolds/long_list.dart';
 import '../widgets/timeline_item.dart';
 import '../widgets/comment_item.dart';
-import '../providers/settings.dart';
 import '../widgets/action.dart';
 
 var reactionChunk = emojiMap.entries.map((entry) {
@@ -272,7 +273,7 @@ __typename
       }
     }
 
-    var data = await SettingsProvider.of(context).query('''
+    var data = await Provider.of<SettingsModel>(context).query('''
 {
   repository(owner: "$owner", name: "$name") {
     $resource(number: $number) {
@@ -322,7 +323,7 @@ __typename
 
       var id = payload['id'] as String;
       var operation = isRemove ? 'remove' : 'add';
-      await SettingsProvider.of(context).query('''
+      await Provider.of<SettingsModel>(context).query('''
 mutation {
   ${operation}Reaction(input: {subjectId: "$id", content: $emojiKey}) {
     clientMutationId

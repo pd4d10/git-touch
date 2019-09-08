@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
-import '../providers/settings.dart';
+import 'package:git_touch/models/settings.dart';
+import 'package:provider/provider.dart';
 import '../scaffolds/simple.dart';
-import '../utils/constants.dart';
 import '../widgets/link.dart';
 import '../widgets/loading.dart';
 import '../models/account.dart';
@@ -16,7 +15,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   Widget _buildAccountItem(AccountModel account) {
-    var settings = SettingsProvider.of(context);
+    var settings = Provider.of<SettingsModel>(context);
 
     return Link(
       onTap: () {
@@ -75,7 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var settings = SettingsProvider.of(context);
+    var settings = Provider.of<SettingsModel>(context);
 
     List<AccountModel> accounts = [];
     settings.accountMap.forEach((platform, v0) {

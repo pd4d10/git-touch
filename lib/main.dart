@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:git_touch/models/settings.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/screens/repo.dart';
 import 'package:primer/primer.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/models/notification.dart';
-import 'providers/settings.dart';
 import 'screens/news.dart';
 import 'screens/notifications.dart';
 import 'screens/search.dart';
@@ -32,6 +32,7 @@ class _HomeState extends State<Home> {
     nextTick(() {
       // FIXME:
       Provider.of<ThemeModel>(context).init();
+      Provider.of<SettingsModel>(context).init();
     });
   }
 
@@ -114,7 +115,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    var settings = SettingsProvider.of(context);
+    var settings = Provider.of<SettingsModel>(context);
     var themData = ThemeData(
       // primaryColor: HSLColor.fromColor(Palette.primary)
       //     .withLightness(0.3)
@@ -179,8 +180,9 @@ class App extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(builder: (context) => NotificationModel()),
         ChangeNotifierProvider(builder: (context) => ThemeModel()),
+        ChangeNotifierProvider(builder: (context) => SettingsModel()),
       ],
-      child: SettingsProvider(child: Home()),
+      child: Home(),
     );
   }
 }

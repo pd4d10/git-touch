@@ -12,7 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 // import '../utils/utils.dart';
 import '../utils/constants.dart';
 import '../utils/utils.dart';
-import '../models/account.dart';
+import 'account.dart';
 
 class PlatformType {
   static const github = 'github';
@@ -21,7 +21,7 @@ class PlatformType {
 
 // abstract class Model<T> {
 //   Future<T> query(BuildContext context) {
-//     var settings = SettingsProvider.of(context);
+//     var settings = Provider.of<SettingsModel>(context);
 
 //     switch (settings.platformType) {
 //       case PlatformType.github:
@@ -37,22 +37,7 @@ class PlatformType {
 //   Future<T> queryGitlab(SettingsProviderState settings);
 // }
 
-class SettingsProvider extends StatefulWidget {
-  final Widget child;
-
-  SettingsProvider({@required this.child});
-
-  static SettingsProviderState of(BuildContext context) {
-    return (context.inheritFromWidgetOfExactType(_InheritedSettingsProvider)
-            as _InheritedSettingsProvider)
-        .data;
-  }
-
-  @override
-  SettingsProviderState createState() => SettingsProviderState();
-}
-
-class SettingsProviderState extends State<SettingsProvider> {
+class SettingsModel with ChangeNotifier {
   bool ready = false;
 
   Map<String, AccountModel> githubAccountMap;
@@ -67,7 +52,7 @@ class SettingsProviderState extends State<SettingsProvider> {
 
   // PlatformType platformType;
 
-  String prefix = 'https://api.github.com';
+  String _apiPrefix = 'https://api.github.com';
 
   String get token {
     if (activeLogin == null) return null;
@@ -80,29 +65,12 @@ class SettingsProviderState extends State<SettingsProvider> {
     }
   }
 
-  @override
-  void initState() {
-    super.initState();
-    _initDataFromPref();
-
-    _sub = getUriLinksStream().listen(_onSchemeDetected, onError: (err) {
-      print(err);
-    });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _sub.cancel();
-  }
-
   // https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/#web-application-flow
   Future<void> _onSchemeDetected(Uri uri) async {
     await closeWebView();
 
-    setState(() {
-      loading = true;
-    });
+    loading = true;
+    notifyListeners();
 
     // get token by code
     var code = uri.queryParameters['code'];
@@ -147,15 +115,13 @@ class SettingsProviderState extends State<SettingsProvider> {
         json.encode(githubAccountMap
             .map((login, account) => MapEntry(login, account.toJson()))));
 
-    setState(() {
-      loading = false;
-    });
+    loading = false;
+    notifyListeners();
   }
 
   Future<void> loginToGitlab(String domain, String token) async {
-    setState(() {
-      loading = true;
-    });
+    loading = true;
+    notifyListeners();
 
     try {
       var res = await http
@@ -191,13 +157,16 @@ class SettingsProviderState extends State<SettingsProvider> {
       print(err);
       // TODO: show errors
     } finally {
-      setState(() {
-        loading = false;
-      });
+      loading = false;
+      notifyListeners();
     }
   }
 
-  void _initDataFromPref() async {
+  void init() async {
+    _sub = getUriLinksStream().listen(_onSchemeDetected, onError: (err) {
+      print(err);
+    });
+
     var prefs = await SharedPreferences.getInstance();
 
     // read GitHub accounts
@@ -245,17 +214,15 @@ class SettingsProviderState extends State<SettingsProvider> {
       accountMap = {};
     }
 
-    setState(() {
-      ready = true;
-    });
+    ready = true;
+    notifyListeners();
   }
 
   void setActiveAccount(String platform, String domain, String login) {
-    setState(() {
-      activePlatform = platform;
-      activeDomain = domain;
-      activeLogin = login;
-    });
+    activePlatform = platform;
+    activeDomain = domain;
+    activeLogin = login;
+    notifyListeners();
   }
 
   Map<String, String> get _headers =>
@@ -274,7 +241,7 @@ class SettingsProviderState extends State<SettingsProvider> {
     }
 
     final res = await http
-        .post(prefix + '/graphql',
+        .post(_apiPrefix + '/graphql',
             headers: {
               HttpHeaders.authorizationHeader: 'token $_token',
               HttpHeaders.contentTypeHeader: 'application/json'
@@ -299,7 +266,7 @@ class SettingsProviderState extends State<SettingsProvider> {
       headers[HttpHeaders.contentTypeHeader] = contentType;
     }
     final res = await http
-        .get(prefix + url, headers: headers)
+        .get(_apiPrefix + url, headers: headers)
         .timeout(_timeoutDuration);
     // print(res.body);
     final data = json.decode(res.body);
@@ -307,27 +274,29 @@ class SettingsProviderState extends State<SettingsProvider> {
   }
 
   Future<void> patchWithCredentials(String url) async {
-    await http.patch(prefix + url, headers: _headers).timeout(_timeoutDuration);
+    await http
+        .patch(_apiPrefix + url, headers: _headers)
+        .timeout(_timeoutDuration);
   }
 
   Future<void> putWithCredentials(String url,
       {String contentType, String body}) async {
     await http
-        .put(prefix + url, headers: _headers, body: body ?? {})
+        .put(_apiPrefix + url, headers: _headers, body: body ?? {})
         .timeout(_timeoutDuration);
   }
 
   Future<void> postWithCredentials(String url,
       {String contentType, String body}) async {
     final res = await http
-        .post(prefix + url, headers: _headers, body: body ?? {})
+        .post(_apiPrefix + url, headers: _headers, body: body ?? {})
         .timeout(_timeoutDuration);
     // print(res.body);
   }
 
   Future<void> deleteWithCredentials(String url) async {
     await http
-        .delete(prefix + url, headers: _headers)
+        .delete(_apiPrefix + url, headers: _headers)
         .timeout(_timeoutDuration);
   }
 
@@ -338,25 +307,4 @@ class SettingsProviderState extends State<SettingsProvider> {
       'https://github.com/login/oauth/authorize?client_id=$clientId&redirect_uri=gittouch://login&scope=user%20repo&state=$_oauthState',
     );
   }
-
-  @override
-  Widget build(BuildContext context) {
-    return _InheritedSettingsProvider(
-      data: this,
-      child: widget.child,
-    );
-  }
-}
-
-class _InheritedSettingsProvider extends InheritedWidget {
-  final SettingsProviderState data;
-
-  _InheritedSettingsProvider({
-    Key key,
-    @required this.data,
-    @required Widget child,
-  }) : super(key: key, child: child);
-
-  @override
-  bool updateShouldNotify(_InheritedSettingsProvider old) => true;
 }

@@ -6,7 +6,8 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:share/share.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:github_contributions/github_contributions.dart';
-import '../providers/settings.dart';
+import 'package:git_touch/models/settings.dart';
+import 'package:provider/provider.dart';
 import '../scaffolds/refresh.dart';
 import '../widgets/avatar.dart';
 import '../widgets/entry_item.dart';
@@ -31,7 +32,7 @@ class UserScreen extends StatefulWidget {
 class _UserScreenState extends State<UserScreen> {
   Future query() async {
     var login = widget.login;
-    var data = await SettingsProvider.of(context).query('''
+    var data = await Provider.of<SettingsModel>(context).query('''
 {
   user(login: "$login") {
     name
@@ -149,11 +150,11 @@ class _UserScreenState extends State<UserScreen> {
               text: payload['viewerIsFollowing'] ? 'Unfollow' : 'Follow',
               onPress: () async {
                 if (payload['viewerIsFollowing']) {
-                  await SettingsProvider.of(context)
+                  await Provider.of<SettingsModel>(context)
                       .deleteWithCredentials('/user/following/${widget.login}');
                   payload['viewerIsFollowing'] = false;
                 } else {
-                  SettingsProvider.of(context)
+                  Provider.of<SettingsModel>(context)
                       .putWithCredentials('/user/following/${widget.login}');
                   payload['viewerIsFollowing'] = true;
                 }

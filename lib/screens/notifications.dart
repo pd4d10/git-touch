@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../scaffolds/refresh_stateless.dart';
 import 'package:git_touch/models/notification.dart';
 import 'package:git_touch/models/theme.dart';
-import '../providers/settings.dart';
+import 'package:git_touch/models/settings.dart';
 import '../widgets/notification_item.dart';
 import '../widgets/list_group.dart';
 import '../widgets/link.dart';
@@ -29,7 +29,7 @@ class NotificationScreenState extends State<NotificationScreen> {
   }
 
   Future<Map<String, NotificationGroup>> fetchNotifications(int index) async {
-    List items = await SettingsProvider.of(context).getWithCredentials(
+    List items = await Provider.of<SettingsModel>(context).getWithCredentials(
         '/notifications?all=${index == 2}&participating=${index == 1}');
     var ns = items.map((item) => NotificationPayload.fromJson(item)).toList();
 
@@ -88,7 +88,7 @@ $key: pullRequest(number: ${item.number}) {
       schema += '}';
 
       // print(schema);
-      var data = await SettingsProvider.of(context).query(schema);
+      var data = await Provider.of<SettingsModel>(context).query(schema);
       _groupMap.forEach((repo, group) {
         group.items.forEach((item) {
           var groupData = data[group.key];
@@ -123,7 +123,7 @@ $key: pullRequest(number: ${item.number}) {
           Link(
             material: false,
             onTap: () async {
-              await SettingsProvider.of(context)
+              await Provider.of<SettingsModel>(context)
                   .putWithCredentials('/repos/$repo/notifications');
               await _onSwitchTab();
             },
@@ -204,7 +204,8 @@ $key: pullRequest(number: ${item.number}) {
     var value = await Provider.of<ThemeModel>(context)
         .showConfirm(context, 'Mark all as read?');
     if (value) {
-      await SettingsProvider.of(context).putWithCredentials('/notifications');
+      await Provider.of<SettingsModel>(context)
+          .putWithCredentials('/notifications');
       await _onSwitchTab();
     }
   }

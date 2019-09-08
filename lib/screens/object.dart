@@ -3,7 +3,8 @@ import 'package:git_touch/screens/image_view.dart';
 import 'package:path/path.dart' as path;
 import 'package:flutter/material.dart';
 import 'package:flutter_highlight/flutter_highlight.dart';
-import 'package:git_touch/providers/settings.dart';
+import 'package:git_touch/models/settings.dart';
+import 'package:provider/provider.dart';
 import 'package:git_touch/scaffolds/refresh.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/link.dart';
@@ -126,7 +127,7 @@ class ObjectScreen extends StatelessWidget {
     return RefreshScaffold(
       title: Text(paths.join('/')),
       onRefresh: () async {
-        var data = await SettingsProvider.of(context).query('''{
+        var data = await Provider.of<SettingsModel>(context).query('''{
   repository(owner: "$owner", name: "$name") {
     object(expression: "$expression") {
       $_subQuery

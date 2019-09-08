@@ -1,14 +1,14 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:git_touch/models/settings.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/screens/commits.dart';
 import 'package:git_touch/screens/object.dart';
-import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../providers/settings.dart';
 import '../scaffolds/refresh.dart';
 import '../widgets/repo_item.dart';
 import '../widgets/entry_item.dart';
@@ -33,7 +33,7 @@ class _RepoScreenState extends State<RepoScreen> {
   String get name => widget.name;
 
   Future queryRepo(BuildContext context) async {
-    var data = await SettingsProvider.of(context).query('''
+    var data = await Provider.of<SettingsModel>(context).query('''
 {
   repository(owner: "$owner", name: "$name") {
     id
@@ -85,7 +85,7 @@ class _RepoScreenState extends State<RepoScreen> {
   Future fetchReadme(BuildContext context) async {
     var owner = widget.owner;
     var name = widget.name;
-    var data = await SettingsProvider.of(context)
+    var data = await Provider.of<SettingsModel>(context)
         .getWithCredentials('/repos/$owner/$name/readme');
 
     if (data['content'] == null) {
@@ -132,11 +132,11 @@ class _RepoScreenState extends State<RepoScreen> {
             text: payload['viewerHasStarred'] ? 'Unstar' : 'Star',
             onPress: () async {
               if (payload['viewerHasStarred']) {
-                await SettingsProvider.of(context)
+                await Provider.of<SettingsModel>(context)
                     .deleteWithCredentials('/user/starred/$owner/$name');
                 payload['viewerHasStarred'] = false;
               } else {
-                SettingsProvider.of(context)
+                Provider.of<SettingsModel>(context)
                     .putWithCredentials('/user/starred/$owner/$name');
                 payload['viewerHasStarred'] = true;
               }

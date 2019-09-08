@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../scaffolds/list.dart';
-import '../providers/settings.dart';
+import 'package:git_touch/models/settings.dart';
+import 'package:provider/provider.dart';
 import '../utils/utils.dart';
 import '../widgets/repo_item.dart';
 
@@ -32,7 +33,7 @@ class _ReposScreenState extends State<ReposScreen> {
 
   Future<ListPayload> _queryRepos([String cursor]) async {
     var cursorChunk = cursor == null ? '' : ', after: "$cursor"';
-    var data = await SettingsProvider.of(context).query('''
+    var data = await Provider.of<SettingsModel>(context).query('''
 {
   $scope(login: "$login") {
     $resource(first: $pageSize$cursorChunk, orderBy: {field: $fieldOrderBy, direction: DESC}) {

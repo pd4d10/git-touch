@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:provider/provider.dart';
-import '../providers/settings.dart';
+import 'package:git_touch/models/settings.dart';
 import '../scaffolds/simple.dart';
 import '../utils/utils.dart';
 import '../widgets/repo_item.dart';
@@ -24,7 +24,7 @@ class _SearchScreenState extends State<SearchScreen> {
     });
     try {
       // TODO: search other types
-      var data = await SettingsProvider.of(context).query('''
+      var data = await Provider.of<SettingsModel>(context).query('''
 {
   search(first: $pageSize, type: REPOSITORY, query: "$value") {
     nodes {

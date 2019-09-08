@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:git_touch/screens/user.dart';
 import 'package:primer/primer.dart';
-import '../providers/settings.dart';
 import '../screens/repo.dart';
 export 'package:flutter_vector_icons/flutter_vector_icons.dart';
 

@@ -6,7 +6,8 @@ import 'package:url_launcher/url_launcher.dart';
 import '../utils/utils.dart';
 import '../screens/issue.dart';
 // import '../screens/not_found.dart';
-import '../providers/settings.dart';
+import 'package:git_touch/models/settings.dart';
+import 'package:provider/provider.dart';
 import 'link.dart';
 
 class NotificationItem extends StatefulWidget {
@@ -80,7 +81,7 @@ class _NotificationItemState extends State<NotificationItem> {
         loading = true;
       });
       try {
-        await SettingsProvider.of(context)
+        await Provider.of<SettingsModel>(context)
             .patchWithCredentials('/notifications/threads/' + payload.id);
         widget.markAsRead();
       } finally {

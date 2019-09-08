@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:git_touch/models/settings.dart';
+import 'package:provider/provider.dart';
 import '../scaffolds/list.dart';
-import '../providers/settings.dart';
 import '../utils/utils.dart';
 import '../widgets/link.dart';
 import '../screens/issue.dart';
@@ -29,7 +30,7 @@ class _IssuesScreenState extends State<IssuesScreen> {
     var cursorChunk = cursor == null ? '' : ', after: "$cursor"';
     var resource = isPullRequest ? 'pullRequests' : 'issues';
 
-    var data = await SettingsProvider.of(context).query('''
+    var data = await Provider.of<SettingsModel>(context).query('''
 {
   repository(owner: "$owner", name: "$name") {
     $resource(states: OPEN, first: $pageSize$cursorChunk) {
