@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:git_touch/screens/repo.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:primer/primer.dart';
 import '../screens/issue.dart';
@@ -59,6 +59,7 @@ class EventItem extends StatelessWidget {
     Widget detailWidget,
     IconData iconData = Octicons.octoface,
     WidgetBuilder screenBuilder,
+    String url,
   }) {
     if (detailWidget == null && detail != null) {
       detailWidget =
@@ -67,6 +68,7 @@ class EventItem extends StatelessWidget {
 
     return Link(
       screenBuilder: screenBuilder,
+      url: url,
       child: Container(
         padding: EdgeInsets.all(10),
         child: Column(
@@ -84,7 +86,7 @@ class EventItem extends StatelessWidget {
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: join(SizedBox(height: 6), [
+                    children: join(SizedBox(height: 8), [
                       RichText(
                         text: TextSpan(
                           style: TextStyle(
@@ -170,6 +172,9 @@ class EventItem extends StatelessWidget {
             _buildRepo(context),
           ],
           iconData: Octicons.repo_forked,
+          screenBuilder: (_) => RepoScreen(
+              event.payload['forkee']['owner']['login'],
+              event.payload['forkee']['name']),
         );
       case 'ForkApplyEvent':
       case 'GitHubAppAuthorizationEvent':
@@ -298,40 +303,36 @@ class EventItem extends StatelessWidget {
             _buildRepo(context)
           ],
           iconData: Octicons.repo_push,
-          detailWidget: Link(
-            onTap: () {
-              launch('https://github.com/' +
-                  event.repoFullName +
-                  '/compare/' +
-                  event.payload['before'] +
-                  '...' +
-                  event.payload['head']);
-            },
-            child: Column(
-              children: commits.map((commit) {
-                return Row(children: <Widget>[
-                  Text(
-                    (commit['sha'] as String).substring(0, 7),
-                    style: TextStyle(
-                      color: PrimerColors.blue500,
-                      fontSize: 13,
-                      fontFamily: 'Menlo',
-                      fontFamilyFallback: ['Menlo', 'Roboto Mono'],
-                    ),
+          detailWidget: Column(
+            children: commits.map((commit) {
+              return Row(children: <Widget>[
+                Text(
+                  (commit['sha'] as String).substring(0, 7),
+                  style: TextStyle(
+                    color: PrimerColors.blue500,
+                    fontSize: 13,
+                    fontFamily: 'Menlo',
+                    fontFamilyFallback: ['Menlo', 'Roboto Mono'],
                   ),
-                  SizedBox(width: 6),
-                  Expanded(
-                    child: Text(
-                      commit['message'],
-                      style: TextStyle(color: Colors.black54, fontSize: 14),
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                    ),
-                  )
-                ]);
-              }).toList(),
-            ),
+                ),
+                SizedBox(width: 6),
+                Expanded(
+                  child: Text(
+                    commit['message'],
+                    style: TextStyle(color: Colors.black54, fontSize: 14),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                  ),
+                )
+              ]);
+            }).toList(),
           ),
+          url: 'https://github.com/' +
+              event.repoFullName +
+              '/compare/' +
+              event.payload['before'] +
+              '...' +
+              event.payload['head'],
         );
       case 'ReleaseEvent':
       case 'RepositoryEvent':
@@ -348,6 +349,7 @@ class EventItem extends StatelessWidget {
           context: context,
           spans: [TextSpan(text: ' starred '), _buildRepo(context)],
           iconData: Octicons.star,
+          screenBuilder: (_) => RepoScreen.fromFullName(event.repoFullName),
         );
       default:
         return defaultItem;

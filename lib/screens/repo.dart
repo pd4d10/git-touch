@@ -16,21 +16,15 @@ import '../screens/issues.dart';
 import '../screens/user.dart';
 import '../screens/organization.dart';
 import '../widgets/action.dart';
-import '../utils/utils.dart';
 
-class RepoScreen extends StatefulWidget {
+class RepoScreen extends StatelessWidget {
   final String owner;
   final String name;
 
   RepoScreen(this.owner, this.name);
-
-  @override
-  _RepoScreenState createState() => _RepoScreenState();
-}
-
-class _RepoScreenState extends State<RepoScreen> {
-  String get owner => widget.owner;
-  String get name => widget.name;
+  RepoScreen.fromFullName(String fullName)
+      : owner = fullName.split('/')[0],
+        name = fullName.split('/')[1];
 
   Future queryRepo(BuildContext context) async {
     var data = await Provider.of<SettingsModel>(context).query('''
@@ -83,8 +77,6 @@ class _RepoScreenState extends State<RepoScreen> {
   }
 
   Future fetchReadme(BuildContext context) async {
-    var owner = widget.owner;
-    var name = widget.name;
     var data = await Provider.of<SettingsModel>(context)
         .getWithCredentials('/repos/$owner/$name/readme');
 
@@ -100,7 +92,7 @@ class _RepoScreenState extends State<RepoScreen> {
   @override
   Widget build(BuildContext context) {
     return RefreshScaffold(
-      title: Text(widget.owner + '/' + widget.name),
+      title: Text(owner + '/' + name),
       trailingBuilder: (data) {
         var payload = data[0];
 
@@ -180,33 +172,25 @@ class _RepoScreenState extends State<RepoScreen> {
                   EntryItem(
                     count: payload['issues']['totalCount'],
                     text: 'Issues',
-                    screenBuilder: (context) => IssuesScreen(
-                      owner: widget.owner,
-                      name: widget.name,
-                    ),
+                    screenBuilder: (context) =>
+                        IssuesScreen(owner: owner, name: name),
                   ),
                   EntryItem(
                     count: payload['pullRequests']['totalCount'],
                     text: 'Pull Requests',
                     screenBuilder: (context) => IssuesScreen(
-                      owner: widget.owner,
-                      name: widget.name,
-                      isPullRequest: true,
-                    ),
+                        owner: owner, name: name, isPullRequest: true),
                   ),
                   EntryItem(
                     text: 'Files',
-                    screenBuilder: (context) => ObjectScreen(
-                      owner: widget.owner,
-                      name: widget.name,
-                    ),
+                    screenBuilder: (context) =>
+                        ObjectScreen(owner: owner, name: name),
                   ),
                   EntryItem(
                     count: payload['defaultBranchRef']['target']['history']
                         ['totalCount'],
                     text: 'Commits',
-                    screenBuilder: (context) =>
-                        CommitsScreen(widget.owner, widget.name),
+                    screenBuilder: (context) => CommitsScreen(owner, name),
                   ),
                 ],
               ),
