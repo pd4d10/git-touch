@@ -9,6 +9,7 @@ import 'package:git_touch/scaffolds/refresh.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/link.dart';
 import 'package:primer/primer.dart';
+import 'package:seti/seti.dart';
 
 class ObjectScreen extends StatelessWidget {
   final String owner;
@@ -37,14 +38,28 @@ class ObjectScreen extends StatelessWidget {
       'https://raw.githubusercontent.com/$owner/$name/$branch/' +
       paths.join('/'); // TODO:
 
-  IconData _buildIconData(item) {
+  static const _iconDefaultColor = PrimerColors.blue300;
+
+  List<Widget> _buildIcon(item) {
     switch (item['type']) {
       case 'tree':
-        return Octicons.file_directory;
+        return [
+          SizedBox(width: 10),
+          Icon(Octicons.file_directory, color: _iconDefaultColor, size: 20),
+          SizedBox(width: 10),
+        ];
       case 'blob':
-        return Octicons.file;
+        return [
+          SizedBox(width: 6),
+          SetiIcon(item['name'], size: 28),
+          SizedBox(width: 6),
+        ];
       default:
-        return Octicons.link;
+        return [
+          SizedBox(width: 10),
+          Icon(Octicons.link, color: _iconDefaultColor, size: 20),
+          SizedBox(width: 10),
+        ]; // FIXME: link type
     }
   }
 
@@ -72,41 +87,41 @@ class ObjectScreen extends StatelessWidget {
   Widget _buildTree(payload) {
     var entries = payload['entries'] as List;
     return Column(
-      children: entries.map((item) {
-        return Link(
-          screenBuilder: (context) {
-            // TODO: All image types
-            var ext = path.extension(item['name']);
-            if (ext.isNotEmpty) ext = ext.substring(1);
-            if (['png', 'jpg', 'jpeg'].contains(ext)) {
-              return ImageView(NetworkImage('$rawUrl/' + item['name']));
-            }
-            return ObjectScreen(
-              name: name,
-              owner: owner,
-              branch: branch,
-              paths: [...paths, item['name']],
-              type: item['type'],
-            );
-          },
-          child: Container(
-            padding: EdgeInsets.all(12),
-            decoration: BoxDecoration(
-                border:
-                    Border(bottom: BorderSide(color: Colors.grey.shade100))),
-            child: Row(
-              children: <Widget>[
-                Icon(_buildIconData(item), color: Color(0x80032f62), size: 20),
-                SizedBox(width: 8),
-                Expanded(
-                    child: Text(item['name'],
-                        style: TextStyle(
-                            fontSize: 16, color: PrimerColors.blue500)))
-              ],
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: join(
+        BorderView(),
+        entries.map((item) {
+          return Link(
+            screenBuilder: (context) {
+              // TODO: All image types
+              var ext = path.extension(item['name']);
+              if (ext.isNotEmpty) ext = ext.substring(1);
+              if (['png', 'jpg', 'jpeg'].contains(ext)) {
+                return ImageView(NetworkImage('$rawUrl/' + item['name']));
+              }
+              return ObjectScreen(
+                name: name,
+                owner: owner,
+                branch: branch,
+                paths: [...paths, item['name']],
+                type: item['type'],
+              );
+            },
+            child: Container(
+              height: 40,
+              child: Row(
+                children: <Widget>[
+                  ..._buildIcon(item),
+                  Expanded(
+                      child: Text(item['name'],
+                          style: TextStyle(
+                              fontSize: 16, color: PrimerColors.gray900)))
+                ],
+              ),
             ),
-          ),
-        );
-      }).toList(),
+          );
+        }).toList(),
+      ),
     );
   }
 
