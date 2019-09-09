@@ -42,24 +42,27 @@ class ObjectScreen extends StatelessWidget {
 
   List<Widget> _buildIcon(item) {
     switch (item['type']) {
-      case 'tree':
-        return [
-          SizedBox(width: 10),
-          Icon(Octicons.file_directory, color: _iconDefaultColor, size: 20),
-          SizedBox(width: 10),
-        ];
       case 'blob':
         return [
           SizedBox(width: 6),
           SetiIcon(item['name'], size: 28),
           SizedBox(width: 6),
         ];
-      default:
+      case 'tree':
+      case 'commit':
         return [
           SizedBox(width: 10),
-          Icon(Octicons.link, color: _iconDefaultColor, size: 20),
+          Icon(
+            item['type'] == 'tree'
+                ? Octicons.file_directory
+                : Octicons.file_submodule,
+            color: _iconDefaultColor,
+            size: 20,
+          ),
           SizedBox(width: 10),
-        ]; // FIXME: link type
+        ];
+      default:
+        return [];
     }
   }
 
@@ -92,21 +95,23 @@ class ObjectScreen extends StatelessWidget {
         BorderView(),
         entries.map((item) {
           return Link(
-            screenBuilder: (context) {
-              // TODO: All image types
-              var ext = path.extension(item['name']);
-              if (ext.isNotEmpty) ext = ext.substring(1);
-              if (['png', 'jpg', 'jpeg'].contains(ext)) {
-                return ImageView(NetworkImage('$rawUrl/' + item['name']));
-              }
-              return ObjectScreen(
-                name: name,
-                owner: owner,
-                branch: branch,
-                paths: [...paths, item['name']],
-                type: item['type'],
-              );
-            },
+            screenBuilder: item['type'] == 'commit'
+                ? null
+                : (context) {
+                    // TODO: All image types
+                    var ext = path.extension(item['name']);
+                    if (ext.isNotEmpty) ext = ext.substring(1);
+                    if (['png', 'jpg', 'jpeg'].contains(ext)) {
+                      return ImageView(NetworkImage('$rawUrl/' + item['name']));
+                    }
+                    return ObjectScreen(
+                      name: name,
+                      owner: owner,
+                      branch: branch,
+                      paths: [...paths, item['name']],
+                      type: item['type'],
+                    );
+                  },
             child: Container(
               height: 40,
               child: Row(
