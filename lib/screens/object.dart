@@ -45,7 +45,7 @@ class ObjectScreen extends StatelessWidget {
       case 'blob':
         return [
           SizedBox(width: 6),
-          SetiIcon(item['name'], size: 28),
+          SetiIcon(item['name'], size: 28, light: true),
           SizedBox(width: 6),
         ];
       case 'tree':
@@ -101,7 +101,7 @@ class ObjectScreen extends StatelessWidget {
                     // TODO: All image types
                     var ext = path.extension(item['name']);
                     if (ext.isNotEmpty) ext = ext.substring(1);
-                    if (['png', 'jpg', 'jpeg'].contains(ext)) {
+                    if (['png', 'jpg', 'jpeg', 'gif', 'webp'].contains(ext)) {
                       return ImageView(NetworkImage('$rawUrl/' + item['name']));
                     }
                     return ObjectScreen(

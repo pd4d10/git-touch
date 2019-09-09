@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:git_touch/models/settings.dart';
+import 'package:git_touch/screens/users.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/table_view.dart';
 import 'package:primer/primer.dart';
@@ -46,6 +47,9 @@ class RepoScreen extends StatelessWidget {
     isPrivate
     isFork
     description
+    watchers {
+      totalCount
+    }
     stargazers {
       totalCount
     }
@@ -108,7 +112,7 @@ class RepoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RefreshScaffold(
-      title: Text(owner + '/' + name),
+      title: Text('Repository'),
       trailingBuilder: (data) {
         var payload = data[0];
 
@@ -179,27 +183,25 @@ class RepoScreen extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            RepoItem(payload, isLink: false),
+            RepoItem(payload, inRepoScreen: true),
             BorderView(),
             Row(
               children: <Widget>[
                 EntryItem(
-                  count: payload['issues']['totalCount'],
-                  text: 'Issues',
+                  count: payload['watchers']['totalCount'],
+                  text: 'Watchers',
                   screenBuilder: (context) =>
-                      IssuesScreen(owner: owner, name: name),
+                      UsersScreen(login: 'pd4d10'), // FIXME:
                 ),
                 EntryItem(
-                  count: payload['pullRequests']['totalCount'],
-                  text: 'Pull Requests',
-                  screenBuilder: (context) => IssuesScreen(
-                      owner: owner, name: name, isPullRequest: true),
+                  count: payload['stargazers']['totalCount'],
+                  text: 'Stars',
+                  screenBuilder: (context) => UsersScreen(login: 'pd4d10'),
                 ),
                 EntryItem(
-                  count: payload['defaultBranchRef']['target']['history']
-                      ['totalCount'],
-                  text: 'Commits',
-                  screenBuilder: (context) => CommitsScreen(owner, name),
+                  count: payload['forks']['totalCount'],
+                  text: 'Forks',
+                  screenBuilder: (context) => UsersScreen(login: 'pd4d10'),
                 ),
               ],
             ),

@@ -51,9 +51,7 @@ class _UsersScreenState extends State<UsersScreen> {
         name
         login
         avatarUrl
-        bio
-        company
-        location
+        url
       }
     }
   }
@@ -76,53 +74,23 @@ class _UsersScreenState extends State<UsersScreen> {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Avatar(url: payload['avatarUrl']),
+            Avatar(url: payload['avatarUrl'], size: 20),
             SizedBox(width: 10),
             DefaultTextStyle(
-              style: TextStyle(color: PrimerColors.gray600, fontSize: 13),
+              style: TextStyle(color: PrimerColors.gray900, fontSize: 13),
               child: Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: join(SizedBox(height: 8), [
-                    Row(
-                      children: join(SizedBox(width: 10), [
-                        ifNotNull(
-                          payload['name'] as String,
-                          (String name) => Text(
-                            name,
-                            style: TextStyle(
-                                fontSize: 16, color: PrimerColors.gray900),
-                          ),
-                        ),
-                        Text(payload['login'], style: TextStyle(fontSize: 14)),
-                      ]),
+                  children: join(SizedBox(height: 6), [
+                    Text(
+                      payload['name'] ?? payload['login'],
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: PrimerColors.blue500,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
-                    (payload['bio'] == null ||
-                            (payload['bio'] as String).trim().isEmpty)
-                        ? null
-                        : Text(payload['bio']),
-                    Row(
-                      children: join(SizedBox(width: 10), [
-                        ifNotNull(
-                          payload['company'] as String,
-                          (String company) => Row(children: [
-                            Icon(Octicons.organization,
-                                size: 14, color: PrimerColors.gray600),
-                            SizedBox(width: 2),
-                            Text(company)
-                          ]),
-                        ),
-                        ifNotNull(
-                          payload['location'] as String,
-                          (String location) => Row(children: [
-                            Icon(Octicons.location,
-                                size: 14, color: PrimerColors.gray600),
-                            SizedBox(width: 2),
-                            Text(location)
-                          ]),
-                        ),
-                      ]),
-                    ),
+                    Text(payload['url'], style: TextStyle(fontSize: 14))
                   ]),
                 ),
               ),

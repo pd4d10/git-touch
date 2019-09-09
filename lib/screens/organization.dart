@@ -73,10 +73,7 @@ class _OrganizationScreenState extends State<OrganizationScreen> {
       ),
       items: items,
       itemBuilder: (item, _) {
-        return RepoItem(
-          item,
-          showOwner: item['owner']['login'] != widget.login,
-        );
+        return RepoItem(item);
       },
     );
   }
