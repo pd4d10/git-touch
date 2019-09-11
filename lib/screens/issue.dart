@@ -340,7 +340,7 @@ mutation {
   @override
   Widget build(BuildContext context) {
     return LongListScaffold(
-      title: Text('$owner/$name #$number'),
+      title: Text('Issue #$number'),
       trailingBuilder: (payload) {
         return ActionButton(
           title: (isPullRequest ? 'Pull Request' : 'Issue') + ' Actions',

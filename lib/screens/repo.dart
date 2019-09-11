@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:git_touch/models/settings.dart';
 import 'package:git_touch/screens/users.dart';
 import 'package:git_touch/utils/utils.dart';
+import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/table_view.dart';
 import 'package:primer/primer.dart';
 import 'package:provider/provider.dart';
@@ -112,7 +113,7 @@ class RepoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RefreshScaffold(
-      title: Text('Repository'),
+      title: AppBarTitle('Repository'),
       trailingBuilder: (data) {
         var payload = data[0];
 

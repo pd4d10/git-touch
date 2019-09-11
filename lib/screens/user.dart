@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/table_view.dart';
 import 'package:primer/primer.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -163,7 +164,7 @@ class _UserScreenState extends State<UserScreen> {
           [query(), getContributions(widget.login)],
         );
       },
-      title: Text(widget.login),
+      title: AppBarTitle(widget.login),
       trailingBuilder: (data) {
         var payload = data[0];
         if (widget.showSettings) {

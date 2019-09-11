@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/settings.dart';
+import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:provider/provider.dart';
 import '../scaffolds/list.dart';
 import '../utils/utils.dart';
@@ -136,7 +137,7 @@ class _IssuesScreenState extends State<IssuesScreen> {
   @override
   Widget build(BuildContext context) {
     return ListScaffold(
-      title: Text('Issues of $owner/$name'),
+      title: AppBarTitle('Issues of $owner/$name'),
       onRefresh: () => _query(),
       onLoadMore: (cursor) => _query(cursor),
       itemBuilder: _buildItem,

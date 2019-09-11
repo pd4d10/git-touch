@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:git_touch/utils/utils.dart';
+import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:http/http.dart' as http;
 import '../scaffolds/refresh.dart';
 import '../widgets/repo_item.dart';
@@ -41,7 +42,7 @@ class _TrendingScreenState extends State<TrendingScreen> {
   @override
   Widget build(BuildContext context) {
     return RefreshScaffold(
-      title: Text('Trending'),
+      title: AppBarTitle('Trending'),
       onRefresh: _fetchTrendingRepos,
       bodyBuilder: (payload) {
         return Column(

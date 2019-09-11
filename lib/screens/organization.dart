@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:share/share.dart';
 import 'package:git_touch/models/settings.dart';
@@ -132,7 +133,7 @@ class _OrganizationScreenState extends State<OrganizationScreen> {
   Widget build(BuildContext context) {
     return RefreshScaffold(
       onRefresh: query,
-      title: Text(widget.login),
+      title: AppBarTitle(widget.login),
       trailingBuilder: (payload) {
         return ActionButton(title: 'User Actions', actions: [
           MyAction(

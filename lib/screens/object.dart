@@ -1,5 +1,6 @@
 import 'package:flutter_highlight/themes/github.dart';
 import 'package:git_touch/screens/image_view.dart';
+import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:path/path.dart' as path;
 import 'package:flutter/material.dart';
 import 'package:flutter_highlight/flutter_highlight.dart';
@@ -145,7 +146,7 @@ class ObjectScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RefreshScaffold(
-      title: Text(paths.join('/')),
+      title: AppBarTitle(paths.join('/')),
       onRefresh: () async {
         var data = await Provider.of<SettingsModel>(context).query('''{
   repository(owner: "$owner", name: "$name") {

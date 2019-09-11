@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:git_touch/models/theme.dart';
+import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/models/settings.dart';
 import '../scaffolds/simple.dart';
@@ -60,7 +61,7 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return SimpleScaffold(
-      title: Text('Search GitHub Repositories'),
+      title: AppBarTitle('Search GitHub Repositories'),
       bodyBuilder: () {
         return Column(
           children: <Widget>[

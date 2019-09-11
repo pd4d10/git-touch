@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:primer/primer.dart';
 import '../scaffolds/list.dart';
 import 'package:git_touch/models/settings.dart';
@@ -104,7 +105,7 @@ class _UsersScreenState extends State<UsersScreen> {
   @override
   Widget build(BuildContext context) {
     return ListScaffold(
-      title: Text('$login\'s $resource'),
+      title: AppBarTitle(resource),
       onRefresh: () => _queryUsers(),
       onLoadMore: (cursor) => _queryUsers(cursor),
       itemBuilder: _buildItem,

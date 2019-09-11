@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:provider/provider.dart';
 import '../scaffolds/refresh_stateless.dart';
 import 'package:git_touch/models/notification.dart';
@@ -196,7 +197,7 @@ $key: pullRequest(number: ${item.number}) {
           ),
         );
       default:
-        return Text('Notifications');
+        return AppBarTitle('Notifications');
     }
   }
 

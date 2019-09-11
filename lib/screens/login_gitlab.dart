@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/settings.dart';
+import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:provider/provider.dart';
 import '../scaffolds/simple.dart';
 
@@ -15,7 +16,7 @@ class _LoginGitlabScreenState extends State<LoginGitlabScreen> {
   @override
   Widget build(BuildContext context) {
     return SimpleScaffold(
-      title: Text('Login to GitLab'),
+      title: AppBarTitle('Login to GitLab'),
       bodyBuilder: () {
         return Column(
           children: <Widget>[

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:git_touch/models/notification.dart';
 import 'package:git_touch/utils/utils.dart';
+import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:provider/provider.dart';
 import '../scaffolds/list.dart';
 import '../widgets/event_item.dart';
@@ -67,7 +68,7 @@ class NewsScreenState extends State<NewsScreen> {
   @override
   Widget build(context) {
     return ListScaffold<EventPayload, int>(
-      title: Text('News'),
+      title: AppBarTitle('News'),
       itemBuilder: (payload) => EventItem(payload),
       onRefresh: fetchEvents,
       onLoadMore: (page) => fetchEvents(page),

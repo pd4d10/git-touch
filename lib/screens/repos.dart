@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:git_touch/widgets/app_bar_title.dart';
 import '../scaffolds/list.dart';
 import 'package:git_touch/models/settings.dart';
 import 'package:provider/provider.dart';
@@ -59,9 +60,8 @@ class _ReposScreenState extends State<ReposScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var title = widget.star ? 'stars' : 'repositories';
     return ListScaffold(
-      title: Text('$login\'s $title'),
+      title: AppBarTitle(widget.star ? 'Stars' : 'Repositories'),
       onRefresh: () => _queryRepos(),
       onLoadMore: (cursor) => _queryRepos(cursor),
       itemBuilder: (payload) => RepoItem(payload),

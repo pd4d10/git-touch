@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/settings.dart';
+import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:provider/provider.dart';
 import '../scaffolds/simple.dart';
 import '../widgets/link.dart';
@@ -92,7 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
     });
 
     return SimpleScaffold(
-      title: Text('Select account'),
+      title: AppBarTitle('Select account'),
       bodyBuilder: () {
         if (settings.loading) {
           return Center(child: Loading());

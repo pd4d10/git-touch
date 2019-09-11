@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/utils/utils.dart';
+import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:launch_review/launch_review.dart';
@@ -26,7 +27,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     var themeProvider = Provider.of<ThemeModel>(context);
 
     return SimpleScaffold(
-      title: Text('Settings'),
+      title: AppBarTitle('Settings'),
       bodyBuilder: () {
         return Column(
           children: <Widget>[
