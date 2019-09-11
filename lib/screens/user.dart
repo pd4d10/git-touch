@@ -4,7 +4,6 @@ import 'package:git_touch/widgets/table_view.dart';
 import 'package:primer/primer.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:share/share.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:github_contributions/github_contributions.dart';
 import 'package:git_touch/models/settings.dart';
 import 'package:provider/provider.dart';
@@ -119,12 +118,49 @@ class _UserScreenState extends State<UserScreen> {
     );
   }
 
+  Widget _buildContributions(List<ContributionsInfo> contributions) {
+    var row = Row(
+      children: <Widget>[],
+      crossAxisAlignment: CrossAxisAlignment.start,
+    );
+    Column column;
+
+    contributions.asMap().forEach((i, v) {
+      var rect = SizedBox(
+        width: 10,
+        height: 10,
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            color: convertColor(v.color),
+          ),
+        ),
+      );
+
+      if (i % 7 == 0) {
+        column = Column(children: <Widget>[rect]);
+        row.children.add(column);
+        row.children.add(SizedBox(width: 3));
+      } else {
+        column.children.add(SizedBox(height: 3));
+        column.children.add(rect);
+      }
+    });
+
+    return Container(
+      padding: EdgeInsets.all(10),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: row,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return RefreshScaffold(
       onRefresh: () {
         return Future.wait(
-          [query(), getContributionsSvg(widget.login)],
+          [query(), getContributions(widget.login)],
         );
       },
       title: Text(widget.login),
@@ -177,7 +213,7 @@ class _UserScreenState extends State<UserScreen> {
       },
       bodyBuilder: (data) {
         var payload = data[0];
-        var contributions = data[1];
+        var contributions = data[1] as List<ContributionsInfo>;
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -246,13 +282,7 @@ class _UserScreenState extends State<UserScreen> {
               ),
             ]),
             BorderView(height: 10),
-            Container(
-              padding: EdgeInsets.all(10),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: SvgPicture.string(contributions),
-              ),
-            ),
+            _buildContributions(contributions),
             BorderView(height: 10),
             TableView(items: [
               _buildTableViewItem(
