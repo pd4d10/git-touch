@@ -32,7 +32,7 @@ dependencies:
   flutter_highlight: ^0.3.0
   timeago: ^2.0.18
   provider: ^3.1.0
-  seti: ^0.1.0
+  seti: ^0.2.0
   primer:
     git:
       url: git://github.com/pd4d10/primer-flutter

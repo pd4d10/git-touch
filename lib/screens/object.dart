@@ -45,7 +45,7 @@ class ObjectScreen extends StatelessWidget {
       case 'blob':
         return [
           SizedBox(width: 6),
-          SetiIcon(item['name'], size: 28, light: true),
+          SetiIcon(item['name'], size: 28),
           SizedBox(width: 6),
         ];
       case 'tree':
