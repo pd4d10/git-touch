@@ -124,14 +124,14 @@ class RepoItem extends StatelessWidget {
     );
 
     if (inRepoScreen) {
+      return widget;
+    } else {
       // TODO: text style
       return Link(
         screenBuilder: (_) =>
             RepoScreen(payload['owner']['login'], payload['name']),
         child: widget,
       );
-    } else {
-      return widget;
     }
   }
 }
