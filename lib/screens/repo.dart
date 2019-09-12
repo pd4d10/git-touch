@@ -90,33 +90,23 @@ class RepoScreen extends StatelessWidget {
     }
     viewerHasStarred
     viewerSubscription
+    object(expression: "master:README.md") {
+      ... on Blob {
+        text
+      }
+    }
   }
 }
-
 ''');
+    // FIXME: 1. Default branch 2. Other readme file names
     return data['repository'];
-  }
-
-  Future fetchReadme(BuildContext context) async {
-    var data = await Provider.of<SettingsModel>(context)
-        .getWithCredentials('/repos/$owner/$name/readme');
-
-    if (data['content'] == null) {
-      return '';
-    }
-
-    var bits = base64.decode(data['content'].replaceAll('\n', ''));
-    var str = utf8.decode(bits);
-    return str;
   }
 
   @override
   Widget build(BuildContext context) {
     return RefreshScaffold(
       title: AppBarTitle('Repository'),
-      trailingBuilder: (data) {
-        var payload = data[0];
-
+      trailingBuilder: (payload) {
         return ActionButton(title: 'Repository Actions', actions: [
           MyAction(
             text: '@$owner',
@@ -170,14 +160,8 @@ class RepoScreen extends StatelessWidget {
           ),
         ]);
       },
-      onRefresh: () => Future.wait([
-        queryRepo(context),
-        fetchReadme(context),
-      ]),
-      bodyBuilder: (data) {
-        var payload = data[0];
-        var readme = data[1];
-
+      onRefresh: () => queryRepo(context),
+      bodyBuilder: (payload) {
         final langWidth =
             MediaQuery.of(context).size.width - _languageBarPadding * 2;
 
@@ -243,10 +227,11 @@ class RepoScreen extends StatelessWidget {
               )
             ]),
             BorderView(height: 10),
-            Container(
-              padding: EdgeInsets.all(16),
-              child: MarkdownBody(data: readme),
-            ),
+            if (payload['object'] != null)
+              Container(
+                padding: EdgeInsets.all(16),
+                child: MarkdownBody(data: payload['object']['text']),
+              ),
           ],
         );
       },
