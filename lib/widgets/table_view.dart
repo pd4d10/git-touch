@@ -43,12 +43,10 @@ class TableView extends StatelessWidget {
     var widget = Container(
       height: 44,
       child: Row(children: [
-        ...(item.leftWidget == null
-            ? []
-            : [
-                SizedBox(width: 12),
-                item.leftWidget,
-              ]),
+        if (item.leftWidget != null) ...[
+          SizedBox(width: 12),
+          item.leftWidget,
+        ],
         SizedBox(width: 12),
         Expanded(
           child: DefaultTextStyle(
@@ -56,7 +54,7 @@ class TableView extends StatelessWidget {
             style: TextStyle(fontSize: 16, color: PrimerColors.gray900),
           ),
         ),
-        ...(item.rightWidget == null ? [] : [item.rightWidget]),
+        if (item.rightWidget != null) item.rightWidget,
         SizedBox(width: 12),
       ]),
     );
@@ -76,18 +74,15 @@ class TableView extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        ...(headerText == null
-            ? []
-            : [
-                Container(
-                  color: PrimerColors.gray100,
-                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  child: Text(
-                    headerText,
-                    style: TextStyle(color: PrimerColors.gray600, fontSize: 13),
-                  ),
-                )
-              ]),
+        if (headerText != null)
+          Container(
+            color: PrimerColors.gray100,
+            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            child: Text(
+              headerText,
+              style: TextStyle(color: PrimerColors.gray600, fontSize: 13),
+            ),
+          ),
         _border,
         ...join(_seperator, items.map(_buildItem).toList()),
         _border,

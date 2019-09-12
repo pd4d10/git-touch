@@ -101,15 +101,12 @@ class EventItem extends StatelessWidget {
                           ],
                         ),
                       ),
-                      ...(detailWidget == null
-                          ? []
-                          : [
-                              DefaultTextStyle(
-                                style: TextStyle(
-                                    color: PrimerColors.gray500, fontSize: 14),
-                                child: detailWidget,
-                              )
-                            ]),
+                      if (detailWidget != null)
+                        DefaultTextStyle(
+                          style: TextStyle(
+                              color: PrimerColors.gray500, fontSize: 14),
+                          child: detailWidget,
+                        ),
                       Row(
                         children: <Widget>[
                           Icon(iconData, color: PrimerColors.gray700, size: 13),

@@ -115,12 +115,10 @@ class CommitsScreen extends StatelessWidget {
                                       DateTime.parse(payload['committedDate'])),
                               style: TextStyle(
                                   color: PrimerColors.gray600, fontSize: 14)),
-                          ...(payload['status'] == null
-                              ? []
-                              : [
-                                  SizedBox(width: 4),
-                                  _buildStatus(payload['status']['state'])
-                                ])
+                          if (payload['status'] != null) ...[
+                            SizedBox(width: 4),
+                            _buildStatus(payload['status']['state'])
+                          ],
                         ],
                       )
                     ],

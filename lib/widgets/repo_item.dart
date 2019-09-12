@@ -114,7 +114,7 @@ class RepoItem extends StatelessWidget {
                         style: TextStyle(
                             color: PrimerColors.gray700, fontSize: 14),
                       ),
-                ...(inRepoScreen ? [] : [_buildStatus()])
+                if (!inRepoScreen) _buildStatus(),
               ]),
             ),
           ),
