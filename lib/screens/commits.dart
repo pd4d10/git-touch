@@ -20,6 +20,7 @@ class CommitsScreen extends StatelessWidget {
     if (cursor != null) {
       params += ', after: "$cursor"';
     }
+    // TODO: Specify branch
     var data = await Provider.of<SettingsModel>(context).query('''
 {
   repository(owner: "$owner", name: "$name") {

@@ -33,6 +33,7 @@ dependencies:
   timeago: ^2.0.18
   provider: ^3.1.0
   seti: ^0.2.0
+  filesize: ^1.0.4
   primer:
     git:
       url: git://github.com/pd4d10/primer-flutter

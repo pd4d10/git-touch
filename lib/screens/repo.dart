@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:filesize/filesize.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:git_touch/models/settings.dart';
@@ -94,6 +95,10 @@ class RepoScreen extends StatelessWidget {
       ... on Blob {
         text
       }
+    }
+    licenseInfo {
+      name
+      nickname
     }
   }
 }
@@ -218,13 +223,78 @@ class RepoScreen extends StatelessWidget {
                 text: Text(payload['primaryLanguage'] == null
                     ? 'Unknown'
                     : payload['primaryLanguage']['name']),
-                rightWidget: Icon(
-                  CupertinoIcons.right_chevron,
-                  size: 18,
-                  color: PrimerColors.gray300,
+                rightWidget: Row(
+                  children: <Widget>[
+                    Text(filesize(payload['languages']['totalSize'] as int)),
+                    Icon(
+                      CupertinoIcons.right_chevron,
+                      size: 18,
+                      color: PrimerColors.gray300,
+                    ),
+                  ],
                 ),
                 screenBuilder: (_) => ObjectScreen(owner: owner, name: name),
-              )
+              ),
+              TableViewItem(
+                leftWidget: Icon(Octicons.issue_opened, size: 20),
+                text: Text('Issues'),
+                rightWidget: Row(
+                  children: <Widget>[
+                    Text(payload['issues']['totalCount'].toString()),
+                    Icon(
+                      CupertinoIcons.right_chevron,
+                      size: 18,
+                      color: PrimerColors.gray300,
+                    ),
+                  ],
+                ),
+                screenBuilder: (_) => IssuesScreen(owner: owner, name: name),
+              ),
+              TableViewItem(
+                leftWidget: Icon(Octicons.git_pull_request, size: 20),
+                text: Text('Pull requests'),
+                rightWidget: Row(
+                  children: <Widget>[
+                    Text(payload['pullRequests']['totalCount'].toString()),
+                    Icon(
+                      CupertinoIcons.right_chevron,
+                      size: 18,
+                      color: PrimerColors.gray300,
+                    ),
+                  ],
+                ),
+                screenBuilder: (_) =>
+                    IssuesScreen(owner: owner, name: name, isPullRequest: true),
+              ),
+            ]),
+            BorderView(height: 10),
+            TableView(items: [
+              TableViewItem(
+                leftWidget: Icon(Octicons.law, size: 20),
+                text: Text('License'),
+                rightWidget: Text(payload['licenseInfo'] == null
+                    ? 'Unknown'
+                    : (payload['licenseInfo']['nickname'] ??
+                            payload['licenseInfo']['name'])
+                        .toString()),
+              ),
+              TableViewItem(
+                leftWidget: Icon(Octicons.history, size: 20),
+                text: Text('Commits'),
+                rightWidget: Row(
+                  children: <Widget>[
+                    Text(payload['defaultBranchRef']['target']['history']
+                            ['totalCount']
+                        .toString()),
+                    Icon(
+                      CupertinoIcons.right_chevron,
+                      size: 18,
+                      color: PrimerColors.gray300,
+                    ),
+                  ],
+                ),
+                screenBuilder: (_) => CommitsScreen(owner, name),
+              ),
             ]),
             BorderView(height: 10),
             if (payload['object'] != null)
