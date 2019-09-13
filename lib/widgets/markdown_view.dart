@@ -7,55 +7,49 @@ class MarkdownView extends StatelessWidget {
 
   MarkdownView(this.text);
 
+  static const _basicStyle =
+      TextStyle(fontSize: 16, color: PrimerColors.gray900, height: 1.5);
+
+  static final _hStyle =
+      _basicStyle.copyWith(fontWeight: FontWeight.w600, height: 1.25);
+
   @override
   Widget build(BuildContext context) {
     return MarkdownBody(
       data: text,
       styleSheet: MarkdownStyleSheet(
-        a: TextStyle(fontSize: 16, height: 1.5, color: PrimerColors.blue500),
-        p: TextStyle(fontSize: 16, height: 1.5, color: PrimerColors.gray900),
-        code: TextStyle(fontSize: 16, color: PrimerColors.gray900),
-        h1: TextStyle(
-            fontSize: 32,
-            color: PrimerColors.gray900,
-            fontWeight: FontWeight.w600),
-        h2: TextStyle(
-            fontSize: 24,
-            color: PrimerColors.gray900,
-            fontWeight: FontWeight.w600),
-        h3: TextStyle(
-            fontSize: 20,
-            color: PrimerColors.gray900,
-            fontWeight: FontWeight.w600),
-        h4: TextStyle(
-            fontSize: 16,
-            color: PrimerColors.gray900,
-            fontWeight: FontWeight.w600),
-        h5: TextStyle(
-            fontSize: 14,
-            color: PrimerColors.gray900,
-            fontWeight: FontWeight.w600),
-        h6: TextStyle(
-            fontSize: 13.6,
-            color: PrimerColors.gray500,
-            fontWeight: FontWeight.w600),
-        em: TextStyle(fontStyle: FontStyle.italic),
-        strong: TextStyle(fontWeight: FontWeight.w600),
-        blockquote: TextStyle(),
-        img: TextStyle(),
-        blockSpacing: 8.0,
-        listIndent: 32.0,
-        blockquotePadding: 8.0,
+        a: _basicStyle.copyWith(color: PrimerColors.blue500),
+        p: _basicStyle,
+        code: _basicStyle.copyWith(
+          fontSize: 16 * 0.85,
+          height: 1.45,
+          fontFamily: 'monospace', // FIXME:
+        ),
+        h1: _hStyle.copyWith(fontSize: 32),
+        h2: _hStyle.copyWith(fontSize: 24),
+        h3: _hStyle.copyWith(fontSize: 20),
+        h4: _hStyle,
+        h5: _hStyle.copyWith(fontSize: 14),
+        h6: _hStyle.copyWith(fontSize: 16 * 0.85, color: PrimerColors.gray500),
+        em: _basicStyle.copyWith(fontStyle: FontStyle.italic),
+        strong: _basicStyle.copyWith(fontWeight: FontWeight.w600),
+        blockquote: _basicStyle.copyWith(color: PrimerColors.gray500),
+        img: _basicStyle,
+        blockSpacing: 16,
+        listIndent: 32,
+        blockquotePadding: 16, // FIXME: only horizontal
         blockquoteDecoration: BoxDecoration(
-            color: Colors.blue.shade100,
-            borderRadius: BorderRadius.circular(2.0)),
-        codeblockPadding: 8.0,
+          border: Border(left: BorderSide(color: Color(0xffdfe2e5), width: 4)),
+        ),
+        codeblockPadding: 16,
         codeblockDecoration: BoxDecoration(
-            color: Colors.grey.shade100,
-            borderRadius: BorderRadius.circular(2.0)),
+          color: PrimerColors.gray100,
+          borderRadius: BorderRadius.circular(3),
+        ),
         horizontalRuleDecoration: BoxDecoration(
-          border:
-              Border(top: BorderSide(width: 5.0, color: Colors.grey.shade300)),
+          border: Border(
+            top: BorderSide(width: 4, color: PrimerColors.gray200),
+          ),
         ),
       ),
       // syntaxHighlighter: , // TODO:
