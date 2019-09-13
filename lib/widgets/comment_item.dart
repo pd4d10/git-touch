@@ -88,7 +88,7 @@ class CommentItem extends StatelessWidget {
                     children: <Widget>[
                       Text(emoji, style: TextStyle(fontSize: 18)),
                       SizedBox(width: 4),
-                      Text(count.toString(),
+                      Text(numberFormat.format(count),
                           style: TextStyle(
                               color: PrimerColors.blue500, fontSize: 14))
                     ],

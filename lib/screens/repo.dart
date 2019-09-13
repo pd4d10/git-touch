@@ -251,7 +251,7 @@ class RepoScreen extends StatelessWidget {
                 text: Text('Issues'),
                 rightWidget: Row(
                   children: <Widget>[
-                    Text(payload['issues']['totalCount'].toString()),
+                    Text(numberFormat.format(payload['issues']['totalCount'])),
                     Icon(
                       CupertinoIcons.right_chevron,
                       size: 18,
@@ -266,7 +266,8 @@ class RepoScreen extends StatelessWidget {
                 text: Text('Pull requests'),
                 rightWidget: Row(
                   children: <Widget>[
-                    Text(payload['pullRequests']['totalCount'].toString()),
+                    Text(numberFormat
+                        .format(payload['pullRequests']['totalCount'])),
                     Icon(
                       CupertinoIcons.right_chevron,
                       size: 18,
@@ -286,17 +287,15 @@ class RepoScreen extends StatelessWidget {
                 rightWidget: Text(payload['licenseInfo'] == null
                     ? 'Unknown'
                     : (payload['licenseInfo']['spdxId'] ??
-                            payload['licenseInfo']['name'])
-                        .toString()),
+                        payload['licenseInfo']['name'])),
               ),
               TableViewItem(
                 leftWidget: Icon(Octicons.history, size: 20),
                 text: Text('Commits'),
                 rightWidget: Row(
                   children: <Widget>[
-                    Text(payload['defaultBranchRef']['target']['history']
-                            ['totalCount']
-                        .toString()),
+                    Text(numberFormat.format(payload['defaultBranchRef']
+                        ['target']['history']['totalCount'])),
                     Icon(
                       CupertinoIcons.right_chevron,
                       size: 18,

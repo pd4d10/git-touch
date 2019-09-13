@@ -54,7 +54,7 @@ class RepoItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Icon(Octicons.star, size: 14, color: PrimerColors.gray600),
-                Text(payload['stargazers']['totalCount'].toString()),
+                Text(numberFormat.format(payload['stargazers']['totalCount'])),
               ],
             ),
           ),
@@ -64,7 +64,7 @@ class RepoItem extends StatelessWidget {
               children: <Widget>[
                 Icon(Octicons.repo_forked,
                     size: 14, color: PrimerColors.gray600),
-                Text(payload['forks']['totalCount'].toString())
+                Text(numberFormat.format(payload['forks']['totalCount'])),
               ],
             ),
           ),

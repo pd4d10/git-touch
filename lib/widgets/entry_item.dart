@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:git_touch/utils/utils.dart';
+import 'package:intl/intl.dart';
 import 'package:primer/primer.dart';
 import 'link.dart';
 
@@ -19,7 +21,7 @@ class EntryItem extends StatelessWidget {
           child: Column(
             children: <Widget>[
               Text(
-                count.toString(),
+                numberFormat.format(count),
                 style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
               ),
               Text(

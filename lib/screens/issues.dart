@@ -156,8 +156,8 @@ class IssuesScreen extends StatelessWidget {
                                 Icon(Octicons.comment,
                                     size: 13, color: PrimerColors.gray700),
                                 SizedBox(width: 4),
-                                Text(payload['comments']['totalCount']
-                                    .toString())
+                                Text(numberFormat
+                                    .format(payload['comments']['totalCount']))
                               ],
                             ],
                           ),

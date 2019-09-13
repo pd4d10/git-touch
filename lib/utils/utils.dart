@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:git_touch/screens/user.dart';
+import 'package:intl/intl.dart';
 import 'package:primer/primer.dart';
 import '../screens/repo.dart';
 export 'package:flutter_vector_icons/flutter_vector_icons.dart';
@@ -124,6 +125,8 @@ List<T> joinAll<T>(T seperator, List<List<T>> xss) {
 K ifNotNull<T, K>(T value, K Function(T v) builder) {
   return value == null ? null : builder(value);
 }
+
+final numberFormat = NumberFormat();
 
 class BorderView extends StatelessWidget {
   final double height;
