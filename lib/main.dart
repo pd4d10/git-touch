@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:git_touch/models/settings.dart';
 import 'package:git_touch/models/theme.dart';
+import 'package:git_touch/screens/issues.dart';
 import 'package:git_touch/screens/repo.dart';
 import 'package:git_touch/screens/user.dart';
 import 'package:primer/primer.dart';
@@ -91,6 +92,7 @@ class _HomeState extends State<Home> {
   }
 
   _buildScreen(int index) {
+    // return IssuesScreen(owner: 'flutter', name: 'flutter', isPullRequest: true);
     // return IssueScreen(number: 29, owner: 'reactjs', name: 'rfcs');
     // return IssueScreen(
     //     number: 68, owner: 'reactjs', name: 'rfcs', isPullRequest: true);
