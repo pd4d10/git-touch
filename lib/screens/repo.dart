@@ -98,7 +98,7 @@ class RepoScreen extends StatelessWidget {
     }
     licenseInfo {
       name
-      nickname
+      spdxId
     }
   }
 }
@@ -274,7 +274,7 @@ class RepoScreen extends StatelessWidget {
                 text: Text('License'),
                 rightWidget: Text(payload['licenseInfo'] == null
                     ? 'Unknown'
-                    : (payload['licenseInfo']['nickname'] ??
+                    : (payload['licenseInfo']['spdxId'] ??
                             payload['licenseInfo']['name'])
                         .toString()),
               ),
