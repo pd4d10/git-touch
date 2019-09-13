@@ -6,10 +6,10 @@ import 'package:git_touch/models/settings.dart';
 import 'package:git_touch/screens/users.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
+import 'package:git_touch/widgets/markdown_view.dart';
 import 'package:git_touch/widgets/table_view.dart';
 import 'package:primer/primer.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/screens/commits.dart';
 import 'package:git_touch/screens/object.dart';
@@ -300,7 +300,7 @@ class RepoScreen extends StatelessWidget {
             if (payload['object'] != null)
               Container(
                 padding: EdgeInsets.all(16),
-                child: MarkdownBody(data: payload['object']['text']),
+                child: MarkdownView(payload['object']['text']),
               ),
           ],
         );

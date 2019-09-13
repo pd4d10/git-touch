@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:git_touch/models/theme.dart';
+import 'package:git_touch/widgets/markdown_view.dart';
 import 'package:provider/provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:primer/primer.dart';
@@ -64,10 +64,7 @@ class CommentItem extends StatelessWidget {
           ),
         ]),
         SizedBox(height: 12),
-        MarkdownBody(
-          data: payload['body'] as String,
-          // styleSheet: MarkdownStyleSheet(code: TextStyle(fontSize: 14)),
-        ),
+        MarkdownView(payload['body'] as String),
         SizedBox(height: 12),
         Wrap(
           crossAxisAlignment: WrapCrossAlignment.center,
