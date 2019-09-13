@@ -180,18 +180,25 @@ class RepoScreen extends StatelessWidget {
                 EntryItem(
                   count: payload['watchers']['totalCount'],
                   text: 'Watchers',
-                  screenBuilder: (context) =>
-                      UsersScreen(login: 'pd4d10'), // FIXME:
+                  screenBuilder: (context) => UsersScreen(
+                    login: owner,
+                    name: name,
+                    type: UsersScreenType.repoWatchers,
+                  ),
                 ),
                 EntryItem(
                   count: payload['stargazers']['totalCount'],
                   text: 'Stars',
-                  screenBuilder: (context) => UsersScreen(login: 'pd4d10'),
+                  screenBuilder: (context) => UsersScreen(
+                    login: owner,
+                    name: name,
+                    type: UsersScreenType.repoStars,
+                  ),
                 ),
                 EntryItem(
                   count: payload['forks']['totalCount'],
                   text: 'Forks',
-                  screenBuilder: (context) => UsersScreen(login: 'pd4d10'),
+                  // screenBuilder: (context) => UsersScreen(),
                 ),
               ],
             ),

@@ -20,18 +20,13 @@ import '../screens/users.dart';
 import '../screens/settings.dart';
 import '../utils/utils.dart';
 
-class UserScreen extends StatefulWidget {
+class UserScreen extends StatelessWidget {
   final String login;
   final bool showSettings;
 
   UserScreen(this.login, {this.showSettings = false});
 
-  _UserScreenState createState() => _UserScreenState();
-}
-
-class _UserScreenState extends State<UserScreen> {
-  Future query() async {
-    var login = widget.login;
+  Future query(BuildContext context) async {
     var data = await Provider.of<SettingsModel>(context).query('''
 {
   user(login: "$login") {
@@ -161,13 +156,13 @@ class _UserScreenState extends State<UserScreen> {
     return RefreshScaffold(
       onRefresh: () {
         return Future.wait(
-          [query(), getContributions(widget.login)],
+          [query(context), getContributions(login)],
         );
       },
       title: AppBarTitle('User'),
       trailingBuilder: (data) {
         var payload = data[0];
-        if (widget.showSettings) {
+        if (showSettings) {
           return Link(
             child: Icon(Icons.settings, size: 24),
             screenBuilder: (_) => SettingsScreen(),
@@ -183,11 +178,11 @@ class _UserScreenState extends State<UserScreen> {
               onPress: () async {
                 if (payload['viewerIsFollowing']) {
                   await Provider.of<SettingsModel>(context)
-                      .deleteWithCredentials('/user/following/${widget.login}');
+                      .deleteWithCredentials('/user/following/$login');
                   payload['viewerIsFollowing'] = false;
                 } else {
                   Provider.of<SettingsModel>(context)
-                      .putWithCredentials('/user/following/${widget.login}');
+                      .putWithCredentials('/user/following/$login');
                   payload['viewerIsFollowing'] = true;
                 }
               },
@@ -234,7 +229,7 @@ class _UserScreenState extends State<UserScreen> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: <Widget>[
                             Text(
-                              payload['name'] ?? widget.login,
+                              payload['name'] ?? login,
                               style: TextStyle(
                                 color: PrimerColors.blue500,
                                 fontSize: 18,
@@ -243,7 +238,7 @@ class _UserScreenState extends State<UserScreen> {
                             ),
                             SizedBox(width: 8),
                             Text(
-                              widget.login,
+                              login,
                               style: TextStyle(
                                   color: PrimerColors.gray700, fontSize: 16),
                             ),
@@ -271,24 +266,25 @@ class _UserScreenState extends State<UserScreen> {
               EntryItem(
                 count: payload['repositories']['totalCount'],
                 text: 'Repositories',
-                screenBuilder: (context) => ReposScreen(login: widget.login),
+                screenBuilder: (context) => ReposScreen(login: login),
               ),
               EntryItem(
                 count: payload['starredRepositories']['totalCount'],
                 text: 'Stars',
                 screenBuilder: (context) =>
-                    ReposScreen(login: widget.login, star: true),
+                    ReposScreen(login: login, star: true),
               ),
               EntryItem(
                 count: payload['followers']['totalCount'],
                 text: 'Followers',
-                screenBuilder: (context) => UsersScreen(login: widget.login),
+                screenBuilder: (context) => UsersScreen(
+                    login: login, type: UsersScreenType.userFollowers),
               ),
               EntryItem(
                 count: payload['following']['totalCount'],
                 text: 'Following',
-                screenBuilder: (context) =>
-                    UsersScreen(login: widget.login, following: true),
+                screenBuilder: (context) => UsersScreen(
+                    login: login, type: UsersScreenType.userFollowing),
               ),
             ]),
             BorderView(height: 10),

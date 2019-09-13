@@ -194,8 +194,8 @@ class _OrganizationScreenState extends State<OrganizationScreen> {
                   EntryItem(
                     count: payload['membersWithRole']['totalCount'],
                     text: 'Members',
-                    screenBuilder: (_) =>
-                        UsersScreen(login: widget.login, org: true),
+                    screenBuilder: (_) => UsersScreen(
+                        login: widget.login, type: UsersScreenType.orgs),
                   ),
                 ],
               ),

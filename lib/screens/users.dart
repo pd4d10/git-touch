@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:primer/primer.dart';
+import 'package:tuple/tuple.dart';
 import '../scaffolds/list.dart';
 import 'package:git_touch/models/settings.dart';
 import 'package:provider/provider.dart';
@@ -9,40 +10,52 @@ import '../widgets/link.dart';
 import '../screens/user.dart';
 import '../widgets/avatar.dart';
 
-class UsersScreen extends StatefulWidget {
-  final String login;
-  final bool following;
-  final bool org;
-
-  UsersScreen({
-    @required this.login,
-    this.following = false,
-    this.org = false,
-  });
-
-  @override
-  _UsersScreenState createState() => _UsersScreenState();
+enum UsersScreenType {
+  userFollowing,
+  userFollowers,
+  repoStars,
+  repoWatchers,
+  orgs,
 }
 
-class _UsersScreenState extends State<UsersScreen> {
-  String get login => widget.login;
-  String get scope => widget.org ? 'organization' : 'user';
-  String get resource {
-    if (widget.org) {
-      return 'members';
+class UsersScreen extends StatelessWidget {
+  final UsersScreenType type;
+  final String login;
+  final String name;
+
+  UsersScreen({
+    @required this.type,
+    @required this.login,
+    this.name,
+  });
+
+  Tuple3<String, String, String> get queryKeys {
+    switch (type) {
+      case UsersScreenType.userFollowing:
+        return Tuple3('user', 'login: "$login"', 'following');
+      case UsersScreenType.userFollowers:
+        return Tuple3('user', 'login: "$login"', 'followers');
+      case UsersScreenType.repoStars:
+        return Tuple3(
+            'repository', 'owner: "$login", name: "$name"', 'stargazers');
+      case UsersScreenType.repoWatchers:
+        return Tuple3(
+            'repository', 'owner: "$login", name: "$name"', 'watchers');
+      case UsersScreenType.orgs:
+        return Tuple3('', '', ''); // FIXME:
+      default:
+        throw 'Should not be here';
     }
-    if (widget.following) {
-      return 'following';
-    }
-    return 'followers';
   }
 
-  Future<ListPayload> _queryUsers([String cursor]) async {
+  Future<ListPayload> _queryUsers(BuildContext context, [String cursor]) async {
     var cursorChunk = cursor == null ? '' : ', after: "$cursor"';
-
+    var scope = queryKeys.item1;
+    var params = queryKeys.item2;
+    var resource = queryKeys.item3;
     var data = await Provider.of<SettingsModel>(context).query('''
 {
-  $scope(login: "$login") {
+  $scope($params) {
     $resource(first: $pageSize$cursorChunk) {
       pageInfo {
         hasNextPage
@@ -104,9 +117,9 @@ class _UsersScreenState extends State<UsersScreen> {
   @override
   Widget build(BuildContext context) {
     return ListScaffold(
-      title: AppBarTitle(resource),
-      onRefresh: () => _queryUsers(),
-      onLoadMore: (cursor) => _queryUsers(cursor),
+      title: AppBarTitle('Users'),
+      onRefresh: () => _queryUsers(context),
+      onLoadMore: (cursor) => _queryUsers(context, cursor),
       itemBuilder: _buildItem,
     );
   }
