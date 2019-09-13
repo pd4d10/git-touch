@@ -240,7 +240,11 @@ class RepoScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                screenBuilder: (_) => ObjectScreen(owner: owner, name: name),
+                screenBuilder: (_) => ObjectScreen(
+                  owner: owner,
+                  name: name,
+                  branch: payload['defaultBranchRef']['name'], // FIXME: null
+                ),
               ),
               TableViewItem(
                 leftWidget: Icon(Octicons.issue_opened, size: 20),

@@ -22,7 +22,7 @@ class ObjectScreen extends StatelessWidget {
   ObjectScreen({
     @required this.owner,
     @required this.name,
-    this.branch = 'master',
+    @required this.branch,
     this.paths = const [],
     this.type = 'tree',
   });
