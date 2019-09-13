@@ -164,7 +164,7 @@ class _UserScreenState extends State<UserScreen> {
           [query(), getContributions(widget.login)],
         );
       },
-      title: AppBarTitle(widget.login),
+      title: AppBarTitle('User'),
       trailingBuilder: (data) {
         var payload = data[0];
         if (widget.showSettings) {
@@ -230,26 +230,35 @@ class _UserScreenState extends State<UserScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Row(children: <Widget>[
-                          Text(
-                            payload['name'] ?? widget.login,
-                            style: TextStyle(
-                                color: PrimerColors.blue500, fontSize: 16),
-                          ),
-                          Text(
-                            '(${widget.login})',
-                            style: TextStyle(
-                                color: PrimerColors.gray500, fontSize: 16),
-                          ),
-                        ]),
-                        SizedBox(height: 4),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: <Widget>[
+                            Text(
+                              payload['name'] ?? widget.login,
+                              style: TextStyle(
+                                color: PrimerColors.blue500,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            SizedBox(width: 8),
+                            Text(
+                              widget.login,
+                              style: TextStyle(
+                                  color: PrimerColors.gray700, fontSize: 16),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 6),
                         Text(
                           payload['bio'] == null ||
                                   (payload['bio'] as String).isEmpty
                               ? 'No bio'
                               : payload['bio'],
                           style: TextStyle(
-                              color: PrimerColors.gray500, fontSize: 15),
+                            color: PrimerColors.gray700,
+                            fontSize: 14,
+                          ),
                         ),
                       ],
                     ),

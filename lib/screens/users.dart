@@ -73,27 +73,26 @@ class _UsersScreenState extends State<UsersScreen> {
       child: Container(
         padding: EdgeInsets.all(10),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Avatar(url: payload['avatarUrl'], size: 20),
+            Avatar(url: payload['avatarUrl'], size: 24),
             SizedBox(width: 10),
-            DefaultTextStyle(
-              style: TextStyle(color: PrimerColors.gray900, fontSize: 13),
-              child: Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: join(SizedBox(height: 6), [
-                    Text(
-                      payload['name'] ?? payload['login'],
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: PrimerColors.blue500,
-                        fontWeight: FontWeight.w500,
-                      ),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: join(SizedBox(height: 6), [
+                  Text(
+                    payload['name'] ?? payload['login'],
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: PrimerColors.blue500,
+                      fontWeight: FontWeight.w500,
                     ),
-                    Text(payload['url'], style: TextStyle(fontSize: 14))
-                  ]),
-                ),
+                  ),
+                  Text(
+                    payload['login'],
+                    style: TextStyle(fontSize: 14, color: PrimerColors.gray700),
+                  )
+                ]),
               ),
             )
           ],

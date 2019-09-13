@@ -37,7 +37,7 @@ void nextTick(Function callback, [int milliseconds = 0]) {
 TextSpan createLinkSpan(BuildContext context, String text, Function handle) {
   return TextSpan(
     text: text,
-    style: TextStyle(color: PrimerColors.blue500, fontWeight: FontWeight.w500),
+    style: TextStyle(color: PrimerColors.blue500, fontWeight: FontWeight.w600),
     recognizer: TapGestureRecognizer()
       ..onTap = () {
         Navigator.of(context).push(

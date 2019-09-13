@@ -15,13 +15,21 @@ class EntryItem extends StatelessWidget {
     return Expanded(
       child: Link(
         child: Container(
-          padding: EdgeInsets.symmetric(vertical: 12),
+          padding: EdgeInsets.symmetric(vertical: 14),
           child: Column(
             children: <Widget>[
-              Text(count.toString(),
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
-              Text(text,
-                  style: TextStyle(fontSize: 12, color: PrimerColors.gray600))
+              Text(
+                count.toString(),
+                style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
+              ),
+              Text(
+                text,
+                style: TextStyle(
+                  fontSize: 12,
+                  color: PrimerColors.gray700,
+                  fontWeight: FontWeight.w500,
+                ),
+              )
             ],
           ),
         ),

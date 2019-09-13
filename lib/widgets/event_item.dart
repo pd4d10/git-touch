@@ -70,7 +70,7 @@ class EventItem extends StatelessWidget {
       screenBuilder: screenBuilder,
       url: url,
       child: Container(
-        padding: EdgeInsets.all(10),
+        padding: EdgeInsets.all(12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -80,7 +80,7 @@ class EventItem extends StatelessWidget {
                 Avatar(
                   url: event.actorAvatarUrl,
                   login: event.actorLogin,
-                  size: 18,
+                  size: 20,
                 ),
                 SizedBox(width: 10),
                 Expanded(
@@ -90,7 +90,10 @@ class EventItem extends StatelessWidget {
                       RichText(
                         text: TextSpan(
                           style: TextStyle(
-                              fontSize: 15, color: PrimerColors.gray900),
+                            fontSize: 16,
+                            color: PrimerColors.gray900,
+                            fontWeight: FontWeight.w500,
+                          ),
                           children: [
                             createLinkSpan(
                               context,
@@ -104,16 +107,19 @@ class EventItem extends StatelessWidget {
                       if (detailWidget != null)
                         DefaultTextStyle(
                           style: TextStyle(
-                              color: PrimerColors.gray500, fontSize: 14),
+                              color: PrimerColors.gray900, fontSize: 14),
                           child: detailWidget,
                         ),
                       Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Icon(iconData, color: PrimerColors.gray700, size: 13),
+                          Icon(iconData, color: PrimerColors.gray500, size: 14),
                           SizedBox(width: 4),
                           Text(timeago.format(event.createdAt),
                               style: TextStyle(
-                                  fontSize: 13, color: PrimerColors.gray700))
+                                fontSize: 13,
+                                color: PrimerColors.gray500,
+                              ))
                         ],
                       ),
                     ]),
@@ -134,7 +140,7 @@ class EventItem extends StatelessWidget {
       spans: [
         TextSpan(
           text: ' ' + event.type,
-          style: TextStyle(color: Colors.blueAccent),
+          style: TextStyle(color: PrimerColors.blue500),
         )
       ],
       iconData: Octicons.octoface,
@@ -302,26 +308,27 @@ class EventItem extends StatelessWidget {
           iconData: Octicons.repo_push,
           detailWidget: Column(
             children: commits.map((commit) {
-              return Row(children: <Widget>[
-                Text(
-                  (commit['sha'] as String).substring(0, 7),
-                  style: TextStyle(
-                    color: PrimerColors.blue500,
-                    fontSize: 13,
-                    fontFamily: 'Menlo',
-                    fontFamilyFallback: ['Menlo', 'Roboto Mono'],
+              return Row(
+                children: <Widget>[
+                  Text(
+                    (commit['sha'] as String).substring(0, 7),
+                    style: TextStyle(
+                      color: PrimerColors.blue500,
+                      fontSize: 13,
+                      fontFamily: 'Menlo',
+                      fontFamilyFallback: ['Menlo', 'Roboto Mono'],
+                    ),
                   ),
-                ),
-                SizedBox(width: 6),
-                Expanded(
-                  child: Text(
-                    commit['message'],
-                    style: TextStyle(color: Colors.black54, fontSize: 14),
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                  ),
-                )
-              ]);
+                  SizedBox(width: 6),
+                  Expanded(
+                    child: Text(
+                      commit['message'],
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
+                  )
+                ],
+              );
             }).toList(),
           ),
           url: 'https://github.com/' +

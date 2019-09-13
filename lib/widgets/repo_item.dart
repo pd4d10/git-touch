@@ -91,7 +91,7 @@ class RepoItem extends StatelessWidget {
                     Text(
                       payload['owner']['login'] + ' / ',
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: inRepoScreen ? 18 : 16,
                         color: PrimerColors.blue500,
                         fontWeight: FontWeight.w500,
                       ),
@@ -99,7 +99,7 @@ class RepoItem extends StatelessWidget {
                     Text(
                       payload['name'],
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: inRepoScreen ? 18 : 16,
                         color: PrimerColors.blue500,
                         fontWeight: FontWeight.w600,
                       ),
