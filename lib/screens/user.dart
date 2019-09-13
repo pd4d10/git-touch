@@ -22,9 +22,9 @@ import '../utils/utils.dart';
 
 class UserScreen extends StatelessWidget {
   final String login;
-  final bool showSettings;
+  final bool isMe;
 
-  UserScreen(this.login, {this.showSettings = false});
+  UserScreen(this.login, {this.isMe = false});
 
   Future query(BuildContext context) async {
     var data = await Provider.of<SettingsModel>(context).query('''
@@ -162,7 +162,7 @@ class UserScreen extends StatelessWidget {
       title: AppBarTitle('User'),
       trailingBuilder: (data) {
         var payload = data[0];
-        if (showSettings) {
+        if (isMe) {
           return Link(
             child: Icon(Icons.settings, size: 24),
             screenBuilder: (_) => SettingsScreen(),

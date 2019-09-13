@@ -3,13 +3,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:git_touch/models/settings.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/screens/repo.dart';
+import 'package:git_touch/screens/user.dart';
 import 'package:primer/primer.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/models/notification.dart';
 import 'screens/news.dart';
 import 'screens/notifications.dart';
 import 'screens/search.dart';
-import 'screens/me.dart';
 import 'screens/login.dart';
 import 'screens/issue.dart';
 import 'screens/repos.dart';
@@ -109,7 +109,10 @@ class _HomeState extends State<Home> {
       case 3:
         return SearchScreen();
       case 4:
-        return MeScreen();
+        return UserScreen(
+          Provider.of<SettingsModel>(context).activeLogin,
+          isMe: true,
+        );
     }
   }
 
