@@ -28,6 +28,14 @@ Color convertColor(String cssHex) {
   return Color(int.parse('ff' + cssHex, radix: 16));
 }
 
+Color getFontColorByBrightness(Color color) {
+  var grayscale = color.red * 0.3 + color.green * 0.59 + color.blue * 0.11;
+  // print('color: $color, $grayscale');
+
+  var showWhite = grayscale < 128;
+  return showWhite ? Colors.white : Colors.black;
+}
+
 void nextTick(Function callback, [int milliseconds = 0]) {
   // FIXME:
   Future.delayed(Duration(milliseconds: 0)).then((_) {

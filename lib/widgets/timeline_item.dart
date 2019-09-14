@@ -61,19 +61,13 @@ class TimelineItem extends StatelessWidget {
   }
 
   TextSpan _buildLabel(item) {
+    // FIXME:
     var color = convertColor(item['label']['color']);
-    var grayscale = color.red * 0.3 + color.green * 0.59 + color.blue * 0.11;
-    // print('color: $color, $grayscale');
-
-    var showWhite = grayscale < 128;
-    var textColor = showWhite ? Colors.white : Colors.black;
-
     return TextSpan(
       text: item['label']['name'],
       style: TextStyle(
-        color: textColor,
-        // https://github.com/flutter/flutter/issues/20430
-        background: Paint()..color = color,
+        color: getFontColorByBrightness(color),
+        backgroundColor: color,
         // https://stackoverflow.com/a/52592679
         // ..strokeWidth = 16.5
         // ..style = PaintingStyle.stroke

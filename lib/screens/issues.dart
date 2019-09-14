@@ -133,7 +133,7 @@ class IssuesScreen extends StatelessWidget {
                                 label['name'],
                                 style: TextStyle(
                                   fontSize: 12,
-                                  color: PrimerColors.gray900, // FIXME:
+                                  color: getFontColorByBrightness(color),
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
