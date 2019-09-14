@@ -130,10 +130,6 @@ List<T> joinAll<T>(T seperator, List<List<T>> xss) {
   return result;
 }
 
-K ifNotNull<T, K>(T value, K Function(T v) builder) {
-  return value == null ? null : builder(value);
-}
-
 final numberFormat = NumberFormat();
 
 class BorderView extends StatelessWidget {

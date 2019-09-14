@@ -88,17 +88,13 @@ class IssuesScreen extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Avatar(
-                  login: payload['author']['login'],
-                  url: payload['author']['avatarUrl'],
-                  size: 12,
-                ),
-                SizedBox(width: 10),
+                Icon(_buildIconData(), color: Palette.green, size: 16),
+                SizedBox(width: 6),
                 Expanded(
                   child: Container(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: join(SizedBox(height: 6), [
+                      children: join(SizedBox(height: 8), [
                         // Text(
                         //   owner +
                         //       '/' +
@@ -109,48 +105,58 @@ class IssuesScreen extends StatelessWidget {
                         // ),
                         // Padding(padding: EdgeInsets.only(top: 4)),
                         Text(
-                          payload['title'],
+                          payload['title'] + ' (#${payload['number']})',
                           style: TextStyle(
-                              fontSize: 16, color: PrimerColors.gray900),
-                          maxLines: 3,
-                          overflow: TextOverflow.ellipsis,
+                            fontSize: 16,
+                            color: PrimerColors.gray900,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
-                        Wrap(
-                          spacing: 2,
-                          runSpacing: 2,
-                          children:
-                              (payload['labels']['nodes'] as List).map((label) {
-                            final color = convertColor(label['color']);
-                            return Container(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 1, horizontal: 3),
-                              decoration: BoxDecoration(
-                                color: color,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(2)),
-                              ),
-                              child: Text(
-                                label['name'],
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: getFontColorByBrightness(color),
-                                  fontWeight: FontWeight.w600,
+                        if ((payload['labels']['nodes'] as List).isNotEmpty)
+                          Wrap(
+                            spacing: 2,
+                            runSpacing: 2,
+                            children: (payload['labels']['nodes'] as List)
+                                .map((label) {
+                              final color = convertColor(label['color']);
+                              return Container(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 1, horizontal: 3),
+                                decoration: BoxDecoration(
+                                  color: color,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(2)),
                                 ),
-                              ),
-                            );
-                          }).toList(),
-                        ),
+                                child: Text(
+                                  label['name'],
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: getFontColorByBrightness(color),
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              );
+                            }).toList(),
+                          ),
                         DefaultTextStyle(
                           style: TextStyle(
                               fontSize: 13, color: PrimerColors.gray700),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
-                              Icon(_buildIconData(),
-                                  color: Palette.green, size: 13),
+                              Avatar(
+                                login: payload['author']['login'],
+                                url: payload['author']['avatarUrl'],
+                                size: 8,
+                              ),
                               SizedBox(width: 4),
-                              Text(timeago.format(
-                                  DateTime.parse(payload['updatedAt']))),
+                              Text(
+                                payload['author']['login'],
+                                style: TextStyle(fontWeight: FontWeight.w500),
+                              ),
+                              Text(' opened ' +
+                                  timeago.format(
+                                      DateTime.parse(payload['updatedAt']))),
                               if (payload['comments']['totalCount'] > 0) ...[
                                 Expanded(child: SizedBox()),
                                 Icon(Octicons.comment,
@@ -183,7 +189,8 @@ class IssuesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListScaffold(
-      title: AppBarTitle('Issues of $owner/$name'),
+      title: AppBarTitle(
+          (isPullRequest ? 'Pull requests' : 'Issues') + ' of $owner/$name'),
       onRefresh: () => _query(context),
       onLoadMore: (cursor) => _query(cursor),
       itemBuilder: _buildItem,
