@@ -29,7 +29,7 @@ class SettingsScreen extends StatelessWidget {
       bodyBuilder: () {
         return Column(
           children: <Widget>[
-            TableViewSeperator(),
+            borderView1,
             TableView(headerText: 'ACCOUNTS', items: [
               TableViewItem(
                 leftIconData: Icons.account_circle,
@@ -37,7 +37,7 @@ class SettingsScreen extends StatelessWidget {
                 screenBuilder: (_) => LoginScreen(),
               ),
             ]),
-            TableViewSeperator(),
+            borderView1,
             TableView(headerText: 'THEME', items: [
               TableViewItem(
                 leftIconData: MaterialCommunityIcons.material_design,
@@ -64,7 +64,7 @@ class SettingsScreen extends StatelessWidget {
                 hideRightChevron: true,
               ),
             ]),
-            TableViewSeperator(),
+            borderView1,
             TableView(headerText: 'ABOUT', items: [
               TableViewItem(
                 leftIconData: Octicons.code,

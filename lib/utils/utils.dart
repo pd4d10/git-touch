@@ -170,4 +170,4 @@ class BorderView extends StatelessWidget {
 }
 
 const borderView = BorderView();
-const borderView10 = BorderView(height: 20, color: PrimerColors.gray100);
+const borderView1 = BorderView(height: 20, color: PrimerColors.gray100);

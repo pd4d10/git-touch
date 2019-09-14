@@ -75,8 +75,9 @@ class RepoItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var widget = Padding(
+    var widget = Container(
       padding: EdgeInsets.all(10),
+      color: PrimerColors.white,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[

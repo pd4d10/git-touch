@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/widgets.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:provider/provider.dart';
 import '../widgets/loading.dart';
@@ -13,7 +12,6 @@ class RefreshScaffold<T> extends StatefulWidget {
   final Future<T> Function() onRefresh;
   final Widget Function(T payload) trailingBuilder;
   // final List<Widget> Function(T payload) actionsBuilder;
-  final PreferredSizeWidget bottom;
 
   RefreshScaffold({
     @required this.title,
@@ -21,7 +19,6 @@ class RefreshScaffold<T> extends StatefulWidget {
     @required this.onRefresh,
     this.trailingBuilder,
     // this.actionsBuilder,
-    this.bottom,
   });
 
   @override
@@ -103,7 +100,6 @@ class _RefreshScaffoldState<T> extends State<RefreshScaffold<T>> {
           appBar: AppBar(
             title: widget.title,
             actions: _buildActions(),
-            bottom: widget.bottom,
           ),
           body: RefreshIndicator(
             onRefresh: _refresh,

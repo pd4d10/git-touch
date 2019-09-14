@@ -85,7 +85,7 @@ class UserScreen extends StatelessWidget {
     if (items.isEmpty) return [];
 
     return [
-      borderView10,
+      borderView1,
       // Text('Pinned repositories'),
       ...join(
         borderView,
@@ -126,6 +126,7 @@ class UserScreen extends StatelessWidget {
 
     return Container(
       padding: EdgeInsets.all(10),
+      color: PrimerColors.white,
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         reverse: true,
@@ -197,14 +198,11 @@ class UserScreen extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Container(
-              padding: EdgeInsets.all(12),
-              child: UserItem(
-                login,
-                name: payload['name'],
-                avatarUrl: payload['avatarUrl'],
-                bio: payload['bio'],
-              ),
+            UserItem(
+              login,
+              name: payload['name'],
+              avatarUrl: payload['avatarUrl'],
+              bio: payload['bio'],
             ),
             borderView,
             Row(children: <Widget>[
@@ -232,9 +230,9 @@ class UserScreen extends StatelessWidget {
                     login: login, type: UsersScreenType.userFollowing),
               ),
             ]),
-            borderView10,
+            borderView1,
             _buildContributions(contributions),
-            borderView10,
+            borderView1,
             TableView(items: [
               if (isNotNullOrEmpty(payload['company']))
                 TableViewItem(

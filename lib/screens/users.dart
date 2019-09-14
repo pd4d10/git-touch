@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/user_item.dart';
-import 'package:primer/primer.dart';
 import 'package:tuple/tuple.dart';
 import '../scaffolds/list.dart';
 import 'package:git_touch/models/settings.dart';
 import 'package:provider/provider.dart';
 import '../utils/utils.dart';
-import '../widgets/link.dart';
-import '../screens/user.dart';
-import '../widgets/avatar.dart';
 
 enum UsersScreenType {
   userFollowing,
@@ -81,28 +77,18 @@ class UsersScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildItem(payload) {
-    return Link(
-      screenBuilder: (_) => UserScreen(payload['login']),
-      child: Container(
-        padding: EdgeInsets.all(10),
-        child: UserItem(
-          payload['login'],
-          name: payload['name'],
-          avatarUrl: payload['avatarUrl'],
-          bio: payload['bio'],
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return ListScaffold(
       title: AppBarTitle('Users'),
       onRefresh: () => _queryUsers(context),
       onLoadMore: (cursor) => _queryUsers(context, cursor),
-      itemBuilder: _buildItem,
+      itemBuilder: (payload) => UserItem(
+        payload['login'],
+        name: payload['name'],
+        avatarUrl: payload['avatarUrl'],
+        bio: payload['bio'],
+      ),
     );
   }
 }

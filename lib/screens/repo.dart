@@ -204,12 +204,13 @@ class RepoScreen extends StatelessWidget {
                 ),
               ],
             ),
-            borderView10,
-            Padding(
+            borderView1,
+            Container(
               padding: const EdgeInsets.all(_languageBarPadding),
+              color: PrimerColors.white,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(2),
-                child: Container(
+                child: SizedBox(
                   height: 10,
                   child: Row(
                       children: join(
@@ -226,7 +227,7 @@ class RepoScreen extends StatelessWidget {
             ),
             TableView(items: [
               TableViewItem(
-                leftWidget: Icon(Octicons.code, size: 20),
+                leftIconData: Octicons.code,
                 text: Text('Code'),
                 rightWidget:
                     Text(filesize(payload['languages']['totalSize'] as int)),
@@ -237,14 +238,14 @@ class RepoScreen extends StatelessWidget {
                 ),
               ),
               TableViewItem(
-                leftWidget: Icon(Octicons.issue_opened, size: 20),
+                leftIconData: Octicons.issue_opened,
                 text: Text('Issues'),
                 rightWidget:
                     Text(numberFormat.format(payload['issues']['totalCount'])),
                 screenBuilder: (_) => IssuesScreen(owner: owner, name: name),
               ),
               TableViewItem(
-                leftWidget: Icon(Octicons.git_pull_request, size: 20),
+                leftIconData: Octicons.git_pull_request,
                 text: Text('Pull requests'),
                 rightWidget: Text(
                     numberFormat.format(payload['pullRequests']['totalCount'])),
@@ -252,10 +253,10 @@ class RepoScreen extends StatelessWidget {
                     IssuesScreen(owner: owner, name: name, isPullRequest: true),
               ),
             ]),
-            borderView10,
+            borderView1,
             TableView(items: [
               TableViewItem(
-                leftWidget: Icon(Octicons.history, size: 20),
+                leftIconData: Octicons.history,
                 text: Text('Commits'),
                 rightWidget: Text(numberFormat.format(
                     payload['defaultBranchRef']['target']['history']
@@ -263,7 +264,7 @@ class RepoScreen extends StatelessWidget {
                 screenBuilder: (_) => CommitsScreen(owner, name),
               ),
               TableViewItem(
-                leftWidget: Icon(Octicons.law, size: 20),
+                leftIconData: Octicons.law,
                 text: Text('License'),
                 rightWidget: Text(payload['licenseInfo'] == null
                     ? 'Unknown'
@@ -271,7 +272,7 @@ class RepoScreen extends StatelessWidget {
                         payload['licenseInfo']['name'])),
               ),
             ]),
-            borderView10,
+            borderView1,
             if (payload['object'] != null)
               Container(
                 padding: EdgeInsets.all(16),
