@@ -97,7 +97,7 @@ class UserScreen extends StatelessWidget {
   }
 
   Widget _buildContributions(List<ContributionsInfo> contributions) {
-    var row = Row(
+    final row = Row(
       children: <Widget>[],
       crossAxisAlignment: CrossAxisAlignment.start,
     );
@@ -128,6 +128,7 @@ class UserScreen extends StatelessWidget {
       padding: EdgeInsets.all(10),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
+        reverse: true,
         child: row,
       ),
     );
