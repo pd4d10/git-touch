@@ -37,21 +37,22 @@ class _HomeState extends State<Home> {
     });
   }
 
-  Widget _buildNotificationIcon(BuildContext context) {
+  Widget _buildNotificationIcon(BuildContext context, bool isActive) {
+    final iconData = isActive ? Icons.notifications : Icons.notifications_none;
     int count = Provider.of<NotificationModel>(context).count;
     if (count == 0) {
-      return Icon(Icons.notifications_none);
+      return Icon(iconData);
     }
 
     // String text = count > 99 ? '99+' : count.toString();
     return Stack(
       children: <Widget>[
-        Icon(Icons.notifications_none),
+        Icon(iconData),
         Positioned(
-            right: 0,
-            top: 0,
+            right: -2,
+            top: -2,
             child: Icon(Octicons.primitive_dot,
-                color: PrimerColors.red500, size: 12))
+                color: PrimerColors.red500, size: 14))
       ],
     );
   }
@@ -63,8 +64,8 @@ class _HomeState extends State<Home> {
         title: Text('News'),
       ),
       BottomNavigationBarItem(
-        icon: _buildNotificationIcon(context),
-        activeIcon: Icon(Icons.notifications),
+        icon: _buildNotificationIcon(context, false),
+        activeIcon: _buildNotificationIcon(context, true),
         title: Text('Notification'),
       ),
       BottomNavigationBarItem(
