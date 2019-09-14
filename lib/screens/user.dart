@@ -10,7 +10,6 @@ import 'package:github_contributions/github_contributions.dart';
 import 'package:git_touch/models/settings.dart';
 import 'package:provider/provider.dart';
 import '../scaffolds/refresh.dart';
-import '../widgets/avatar.dart';
 import '../widgets/entry_item.dart';
 import '../widgets/list_group.dart';
 import '../widgets/repo_item.dart';
@@ -47,13 +46,13 @@ class UserScreen extends StatelessWidget {
     following {
       totalCount
     }
-    repositories(first: $pageSize, ownerAffiliations: OWNER, orderBy: {field: STARGAZERS, direction: DESC}) {
+    repositories(first: 6, ownerAffiliations: OWNER, orderBy: {field: STARGAZERS, direction: DESC}) {
       totalCount
       nodes {
         $repoChunk
       }
     }
-    pinnedItems(first: $pageSize) {
+    pinnedItems(first: 6) {
       nodes {
         ... on Repository {
           $repoChunk
@@ -69,27 +68,32 @@ class UserScreen extends StatelessWidget {
     return data['user'];
   }
 
-  Widget _buildRepos(payload) {
-    String title;
+  Iterable<Widget> _buildRepos(payload) {
     List items;
-    if (payload['pinnedItems']['nodes'].length == 0) {
-      title = 'Popular repositories';
-      items = payload['repositories']['nodes'];
+
+    if ((payload['pinnedItems']['nodes'] as List).isNotEmpty) {
+      items = payload['pinnedItems']['nodes'] as List;
+    } else if ((payload['repositories']['nodes'] as List).isNotEmpty) {
+      items = payload['repositories']['nodes'] as List;
     } else {
-      title = 'Pinned repositories';
-      items = payload['pinnedItems']['nodes'];
+      items = [];
     }
 
-    return ListGroup(
-      title: Text(
-        title,
-        style: TextStyle(fontSize: 16),
-      ),
-      items: items,
-      itemBuilder: (item, _) {
-        return RepoItem(item);
-      },
-    );
+    items = items
+        .where((x) => x != null)
+        .toList(); // TODO: Pinned items may include somethings other than repo
+    if (items.isEmpty) return [];
+
+    return [
+      BorderView(height: 10),
+      // Text('Pinned repositories'),
+      ...join(
+        BorderView(),
+        items.map((item) {
+          return RepoItem(item);
+        }).toList(),
+      )
+    ];
   }
 
   TableViewItem _buildTableViewItem({
@@ -287,7 +291,7 @@ class UserScreen extends StatelessWidget {
                       },
               ),
             ]),
-            // _buildRepos(payload),
+            ..._buildRepos(payload),
           ],
         );
       },
