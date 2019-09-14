@@ -2,6 +2,7 @@ import 'package:flutter_highlight/themes/github.dart';
 import 'package:git_touch/screens/image_view.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/markdown_view.dart';
+import 'package:git_touch/widgets/table_view.dart';
 import 'package:path/path.dart' as path;
 import 'package:flutter/material.dart';
 import 'package:flutter_highlight/flutter_highlight.dart';
@@ -42,29 +43,21 @@ class ObjectScreen extends StatelessWidget {
 
   static const _iconDefaultColor = PrimerColors.blue300;
 
-  List<Widget> _buildIcon(item) {
+  Widget _buildIcon(item) {
     switch (item['type']) {
       case 'blob':
-        return [
-          SizedBox(width: 6),
-          SetiIcon(item['name'], size: 28),
-          SizedBox(width: 6),
-        ];
+        return SetiIcon(item['name'], size: 36);
       case 'tree':
       case 'commit':
-        return [
-          SizedBox(width: 10),
-          Icon(
-            item['type'] == 'tree'
-                ? Octicons.file_directory
-                : Octicons.file_submodule,
-            color: _iconDefaultColor,
-            size: 20,
-          ),
-          SizedBox(width: 10),
-        ];
+        return Icon(
+          item['type'] == 'tree'
+              ? Octicons.file_directory
+              : Octicons.file_submodule,
+          color: _iconDefaultColor,
+          size: 24,
+        );
       default:
-        return [];
+        throw 'Should not be here';
     }
   }
 
@@ -91,44 +84,28 @@ class ObjectScreen extends StatelessWidget {
 
   Widget _buildTree(payload) {
     var entries = payload['entries'] as List;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: join(
-        borderView,
-        entries.map((item) {
-          return Link(
-            screenBuilder: item['type'] == 'commit'
-                ? null
-                : (context) {
-                    // TODO: All image types
-                    var ext = path.extension(item['name']);
-                    if (ext.isNotEmpty) ext = ext.substring(1);
-                    if (['png', 'jpg', 'jpeg', 'gif', 'webp'].contains(ext)) {
-                      return ImageView(NetworkImage('$rawUrl/' + item['name']));
-                    }
-                    return ObjectScreen(
-                      name: name,
-                      owner: owner,
-                      branch: branch,
-                      paths: [...paths, item['name']],
-                      type: item['type'],
-                    );
-                  },
-            child: Container(
-              height: 40,
-              child: Row(
-                children: <Widget>[
-                  ..._buildIcon(item),
-                  Expanded(
-                      child: Text(item['name'],
-                          style: TextStyle(
-                              fontSize: 16, color: PrimerColors.gray900)))
-                ],
-              ),
-            ),
-          );
-        }).toList(),
-      ),
+    return TableView(
+      items: entries.map((item) {
+        return TableViewItem(
+            leftWidget: _buildIcon(item),
+            text: Text(item['name']),
+            screenBuilder: (_) {
+              if (item['type'] == 'commit') return null;
+              // TODO: All image types
+              var ext = path.extension(item['name']);
+              if (ext.isNotEmpty) ext = ext.substring(1);
+              if (['png', 'jpg', 'jpeg', 'gif', 'webp'].contains(ext)) {
+                return ImageView(NetworkImage('$rawUrl/' + item['name']));
+              }
+              return ObjectScreen(
+                name: name,
+                owner: owner,
+                branch: branch,
+                paths: [...paths, item['name']],
+                type: item['type'],
+              );
+            });
+      }),
     );
   }
 
@@ -148,6 +125,7 @@ class ObjectScreen extends StatelessWidget {
             language: extname.isEmpty ? 'plaintext' : extname,
             theme: githubTheme,
             padding: EdgeInsets.all(10),
+            textStyle: TextStyle(fontFamily: monospaceFont),
           ),
         );
     }

@@ -24,7 +24,7 @@ class TableViewItem {
   final bool hideRightChevron;
 
   TableViewItem({
-    this.text,
+    @required this.text,
     this.leftIconData,
     this.leftWidget,
     this.rightWidget,
@@ -36,42 +36,37 @@ class TableViewItem {
 
 class TableView extends StatelessWidget {
   final String headerText;
-  final List<TableViewItem> items;
+  final Iterable<TableViewItem> items;
 
   TableView({this.headerText, @required this.items});
 
   Widget _buildItem(TableViewItem item) {
     if (item == null) return null;
 
+    var leftWidget = item.leftWidget ?? Icon(item.leftIconData);
+    // Container(
+    //   width: 24,
+    //   height: 24,
+    //   // decoration: BoxDecoration(
+    //   //     borderRadius: BorderRadius.circular(4), color: PrimerColors.blue400),
+    //   child: Icon(iconData, size: 24, color: PrimerColors.gray600),
+    // )
+
     var widget = DefaultTextStyle(
       style: TextStyle(fontSize: 16, color: PrimerColors.gray900),
       overflow: TextOverflow.ellipsis,
-      child: Container(
+      child: SizedBox(
         height: 44,
         child: Row(children: [
-          if (item.leftIconData != null) ...[
-            SizedBox(width: 12),
-            Icon(item.leftIconData),
-            // Container(
-            //   width: 24,
-            //   height: 24,
-            //   // decoration: BoxDecoration(
-            //   //     borderRadius: BorderRadius.circular(4), color: PrimerColors.blue400),
-            //   child: Icon(iconData, size: 24, color: PrimerColors.gray600),
-            // )
-          ],
-          if (item.leftWidget != null) ...[
-            SizedBox(width: 12),
-            item.leftWidget,
-          ],
-          SizedBox(width: 12),
+          SizedBox(width: 44, child: leftWidget),
           Expanded(child: item.text),
           if (item.rightWidget != null) item.rightWidget,
-          if ((item.onTap != null || item.screenBuilder != null) &
-              !item.hideRightChevron)
+          if ((item.onTap != null || item.screenBuilder != null) &&
+              !item.hideRightChevron) ...[
             Icon(CupertinoIcons.right_chevron,
-                size: 24, color: PrimerColors.gray400),
-          SizedBox(width: 4),
+                size: 24, color: PrimerColors.gray300),
+            SizedBox(width: 4),
+          ],
         ]),
       ),
     );
