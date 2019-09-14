@@ -167,8 +167,10 @@ class RepoScreen extends StatelessWidget {
       },
       onRefresh: () => queryRepo(context),
       bodyBuilder: (payload) {
-        final langWidth =
-            MediaQuery.of(context).size.width - _languageBarPadding * 2;
+        final langWidth = MediaQuery.of(context).size.width -
+            _languageBarPadding * 2 -
+            (payload['languages']['edges'] as List).length +
+            1;
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -206,17 +208,19 @@ class RepoScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(_languageBarPadding),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(4),
+                borderRadius: BorderRadius.circular(2),
                 child: Container(
                   height: 10,
                   child: Row(
-                      children: (payload['languages']['edges'] as List)
-                          .map((lang) => Container(
-                              color: convertColor(lang['node']['color']),
-                              width: langWidth *
-                                  lang['size'] /
-                                  payload['languages']['totalSize']))
-                          .toList()),
+                      children: join(
+                          SizedBox(width: 1),
+                          (payload['languages']['edges'] as List)
+                              .map((lang) => Container(
+                                  color: convertColor(lang['node']['color']),
+                                  width: langWidth *
+                                      lang['size'] /
+                                      payload['languages']['totalSize']))
+                              .toList())),
                 ),
               ),
             ),
