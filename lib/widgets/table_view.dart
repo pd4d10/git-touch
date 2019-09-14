@@ -43,7 +43,8 @@ class TableView extends StatelessWidget {
   Widget _buildItem(TableViewItem item) {
     if (item == null) return null;
 
-    var leftWidget = item.leftWidget ?? Icon(item.leftIconData);
+    var leftWidget =
+        item.leftWidget ?? Icon(item.leftIconData, color: PrimerColors.blue500);
     // Container(
     //   width: 24,
     //   height: 24,

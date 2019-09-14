@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/theme.dart';
+import 'package:git_touch/screens/object.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:launch_review/launch_review.dart';
 import '../scaffolds/simple.dart';
 import '../widgets/table_view.dart';
@@ -14,7 +14,10 @@ import '../screens/login.dart';
 class SettingsScreen extends StatelessWidget {
   Widget _buildRightWidget(bool checked) {
     if (!checked) return null;
-    return Icon(Octicons.check, color: CupertinoColors.activeBlue, size: 24);
+    return Row(children: [
+      Icon(Octicons.check, color: CupertinoColors.activeBlue, size: 24),
+      SizedBox(width: 12)
+    ]);
   }
 
   @override
@@ -29,6 +32,7 @@ class SettingsScreen extends StatelessWidget {
             TableViewSeperator(),
             TableView(headerText: 'ACCOUNTS', items: [
               TableViewItem(
+                leftIconData: Icons.account_circle,
                 text: Text('Switch to another account'),
                 screenBuilder: (_) => LoginScreen(),
               ),
@@ -63,12 +67,24 @@ class SettingsScreen extends StatelessWidget {
             TableViewSeperator(),
             TableView(headerText: 'ABOUT', items: [
               TableViewItem(
-                leftIconData: Octicons.repo,
-                text: Text('pd4d10/git-touch'),
+                leftIconData: Octicons.code,
+                text: Text('Source code'),
                 screenBuilder: (_) => RepoScreen('pd4d10', 'git-touch'),
               ),
               TableViewItem(
-                leftIconData: Octicons.star,
+                leftIconData: Octicons.law,
+                text: Text('License'),
+                rightWidget: Text('MIT'),
+                screenBuilder: (_) => ObjectScreen(
+                  owner: 'pd4d10',
+                  name: 'git-touch',
+                  branch: 'master',
+                  paths: ['LICENSE'],
+                  type: 'blob',
+                ),
+              ),
+              TableViewItem(
+                leftIconData: Icons.star,
                 text: Text('Rate this App'),
                 onTap: () {
                   LaunchReview.launch(
@@ -77,15 +93,6 @@ class SettingsScreen extends StatelessWidget {
                   );
                 },
               ),
-              TableViewItem(
-                leftIconData: Octicons.law,
-                text: Text('License'),
-                rightWidget: Text('MIT'),
-                onTap: () {
-                  launch(
-                      'https://github.com/pd4d10/git-touch/blob/master/LICENSE');
-                },
-              )
             ]),
           ],
         );
