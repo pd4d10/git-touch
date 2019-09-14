@@ -11,15 +11,10 @@ import '../widgets/table_view.dart';
 import '../screens/repo.dart';
 import '../screens/login.dart';
 
-class SettingsScreen extends StatefulWidget {
-  @override
-  _SettingsScreenState createState() => _SettingsScreenState();
-}
-
-class _SettingsScreenState extends State<SettingsScreen> {
+class SettingsScreen extends StatelessWidget {
   Widget _buildRightWidget(bool checked) {
     if (!checked) return null;
-    return Icon(Octicons.check, color: CupertinoColors.activeBlue, size: 20);
+    return Icon(Octicons.check, color: CupertinoColors.activeBlue, size: 24);
   }
 
   @override
@@ -41,7 +36,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
             TableViewSeperator(),
             TableView(headerText: 'THEME', items: [
               TableViewItem(
-                text: Text('material'),
+                leftIconData: MaterialCommunityIcons.material_design,
+                text: Text('Material'),
                 rightWidget:
                     _buildRightWidget(themeProvider.theme == ThemeMap.material),
                 onTap: () {
@@ -49,9 +45,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     themeProvider.setTheme(ThemeMap.material);
                   }
                 },
+                hideRightChevron: true,
               ),
               TableViewItem(
-                text: Text('cupertino'),
+                leftIconData: MaterialCommunityIcons.apple,
+                text: Text('Cupertino'),
                 rightWidget: _buildRightWidget(
                     themeProvider.theme == ThemeMap.cupertino),
                 onTap: () {
@@ -59,38 +57,36 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     themeProvider.setTheme(ThemeMap.cupertino);
                   }
                 },
+                hideRightChevron: true,
               ),
             ]),
             TableViewSeperator(),
-            TableView(headerText: 'REVIEW', items: [
+            TableView(headerText: 'ABOUT', items: [
               TableViewItem(
-                text: Text('Review'),
+                leftIconData: Octicons.repo,
+                text: Text('pd4d10/git-touch'),
+                screenBuilder: (_) => RepoScreen('pd4d10', 'git-touch'),
+              ),
+              TableViewItem(
+                leftIconData: Octicons.star,
+                text: Text('Rate this App'),
                 onTap: () {
                   LaunchReview.launch(
                     androidAppId: 'io.github.pd4d10.gittouch',
                     iOSAppId: '1452042346',
                   );
                 },
-              )
-            ]),
-            TableViewSeperator(),
-            TableView(headerText: 'SOURCE CODE', items: [
+              ),
               TableViewItem(
-                text: Text('pd4d10/git-touch'),
-                screenBuilder: (_) => RepoScreen('pd4d10', 'git-touch'),
-              )
-            ]),
-            TableViewSeperator(),
-            TableView(headerText: 'LICENSE', items: [
-              TableViewItem(
-                text: Text('MIT'),
+                leftIconData: Octicons.law,
+                text: Text('License'),
+                rightWidget: Text('MIT'),
                 onTap: () {
                   launch(
                       'https://github.com/pd4d10/git-touch/blob/master/LICENSE');
                 },
               )
             ]),
-            TableViewSeperator(),
           ],
         );
       },

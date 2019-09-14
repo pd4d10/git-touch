@@ -85,34 +85,15 @@ class UserScreen extends StatelessWidget {
     if (items.isEmpty) return [];
 
     return [
-      BorderView(height: 10),
+      borderView10,
       // Text('Pinned repositories'),
       ...join(
-        BorderView(),
+        borderView,
         items.map((item) {
           return RepoItem(item);
         }).toList(),
       )
     ];
-  }
-
-  TableViewItem _buildTableViewItem({
-    IconData iconData,
-    String text,
-    Function onTap,
-  }) {
-    if (text == null || text.isEmpty) return null;
-    var leftWidget = Icon(iconData, size: 20, color: PrimerColors.blue500);
-
-    return TableViewItem(
-      leftWidget: leftWidget,
-      text: Text(text),
-      rightWidget: onTap == null
-          ? null
-          : Icon(CupertinoIcons.right_chevron,
-              size: 18, color: PrimerColors.gray300),
-      onTap: onTap,
-    );
   }
 
   Widget _buildContributions(List<ContributionsInfo> contributions) {
@@ -224,7 +205,7 @@ class UserScreen extends StatelessWidget {
                 bio: payload['bio'],
               ),
             ),
-            BorderView(),
+            borderView,
             Row(children: <Widget>[
               EntryItem(
                 count: payload['repositories']['totalCount'],
@@ -250,46 +231,45 @@ class UserScreen extends StatelessWidget {
                     login: login, type: UsersScreenType.userFollowing),
               ),
             ]),
-            BorderView(height: 10),
+            borderView10,
             _buildContributions(contributions),
-            BorderView(height: 10),
+            borderView10,
             TableView(items: [
-              _buildTableViewItem(
-                iconData: Octicons.organization,
-                text: payload['company'],
-              ),
-              _buildTableViewItem(
-                  iconData: Octicons.location,
-                  text: payload['location'],
-                  onTap: payload['location'] == null
-                      ? null
-                      : () {
-                          launch('https://www.google.com/maps/place/' +
-                              (payload['location'] as String)
-                                  .replaceAll(RegExp(r'\s+'), ''));
-                        }),
-              _buildTableViewItem(
-                iconData: Octicons.mail,
-                text: payload['email'],
-                onTap: (payload['email'] as String).isEmpty
-                    ? null
-                    : () {
-                        launch('mailto:' + payload['email']);
-                      },
-              ),
-              _buildTableViewItem(
-                iconData: Octicons.link,
-                text: payload['websiteUrl'],
-                onTap: payload['websiteUrl'] == null
-                    ? null
-                    : () {
-                        var url = payload['websiteUrl'] as String;
-                        if (!url.startsWith('http')) {
-                          url = 'http://$url';
-                        }
-                        launch(url);
-                      },
-              ),
+              if (isNotNullOrEmpty(payload['company']))
+                TableViewItem(
+                  leftIconData: Octicons.organization,
+                  text: Text(payload['company']),
+                ),
+              if (isNotNullOrEmpty(payload['location']))
+                TableViewItem(
+                  leftIconData: Octicons.location,
+                  text: Text(payload['location']),
+                  onTap: () {
+                    launch('https://www.google.com/maps/place/' +
+                        (payload['location'] as String)
+                            .replaceAll(RegExp(r'\s+'), ''));
+                  },
+                ),
+              if (isNotNullOrEmpty(payload['email']))
+                TableViewItem(
+                  leftIconData: Octicons.mail,
+                  text: Text(payload['email']),
+                  onTap: () {
+                    launch('mailto:' + payload['email']);
+                  },
+                ),
+              if (isNotNullOrEmpty(payload['websiteUrl']))
+                TableViewItem(
+                  leftIconData: Octicons.link,
+                  text: Text(payload['websiteUrl']),
+                  onTap: () {
+                    var url = payload['websiteUrl'] as String;
+                    if (!url.startsWith('http')) {
+                      url = 'http://$url';
+                    }
+                    launch(url);
+                  },
+                ),
             ]),
             ..._buildRepos(payload),
           ],

@@ -94,7 +94,7 @@ class ObjectScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: join(
-        BorderView(),
+        borderView,
         entries.map((item) {
           return Link(
             screenBuilder: item['type'] == 'commit'

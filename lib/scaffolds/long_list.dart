@@ -103,7 +103,7 @@ class _LongListScaffoldState<T, K> extends State<LongListScaffold<T, K>> {
 
   Widget _buildItem(BuildContext context, int index) {
     if (index % 2 == 1) {
-      return BorderView();
+      return borderView;
     }
 
     int realIndex = index ~/ 2;

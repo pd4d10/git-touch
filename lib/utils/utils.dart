@@ -136,18 +136,38 @@ List<T> joinAll<T>(T seperator, List<List<T>> xss) {
 
 final numberFormat = NumberFormat();
 
+bool isNotNullOrEmpty(String text) {
+  return text != null && text.isNotEmpty;
+}
+
 class BorderView extends StatelessWidget {
   final double height;
+  final Color color;
+  final double leftPadding;
 
-  BorderView({this.height = 1});
+  const BorderView({
+    this.height = 1,
+    this.color = PrimerColors.gray200,
+    this.leftPadding = 0,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: height,
-      child: const DecoratedBox(
-        decoration: const BoxDecoration(color: PrimerColors.gray100),
-      ),
+    return Row(
+      children: <Widget>[
+        SizedBox(width: leftPadding),
+        Expanded(
+          child: SizedBox(
+            height: height,
+            child: DecoratedBox(
+              decoration: BoxDecoration(color: color),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
+
+const borderView = BorderView();
+const borderView10 = BorderView(height: 20, color: PrimerColors.gray100);

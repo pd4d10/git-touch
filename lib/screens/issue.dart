@@ -393,7 +393,7 @@ mutation {
                 ],
               ),
             ),
-            BorderView(),
+            borderView,
           ],
         );
       },

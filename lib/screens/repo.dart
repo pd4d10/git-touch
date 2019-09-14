@@ -174,7 +174,7 @@ class RepoScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             RepoItem(payload, inRepoScreen: true),
-            BorderView(),
+            borderView,
             Row(
               children: <Widget>[
                 EntryItem(
@@ -202,7 +202,7 @@ class RepoScreen extends StatelessWidget {
                 ),
               ],
             ),
-            BorderView(height: 10),
+            borderView10,
             Padding(
               padding: const EdgeInsets.all(_languageBarPadding),
               child: ClipRRect(
@@ -224,16 +224,8 @@ class RepoScreen extends StatelessWidget {
               TableViewItem(
                 leftWidget: Icon(Octicons.code, size: 20),
                 text: Text('Code'),
-                rightWidget: Row(
-                  children: <Widget>[
+                rightWidget:
                     Text(filesize(payload['languages']['totalSize'] as int)),
-                    Icon(
-                      CupertinoIcons.right_chevron,
-                      size: 18,
-                      color: PrimerColors.gray300,
-                    ),
-                  ],
-                ),
                 screenBuilder: (_) => ObjectScreen(
                   owner: owner,
                   name: name,
@@ -243,52 +235,27 @@ class RepoScreen extends StatelessWidget {
               TableViewItem(
                 leftWidget: Icon(Octicons.issue_opened, size: 20),
                 text: Text('Issues'),
-                rightWidget: Row(
-                  children: <Widget>[
+                rightWidget:
                     Text(numberFormat.format(payload['issues']['totalCount'])),
-                    Icon(
-                      CupertinoIcons.right_chevron,
-                      size: 18,
-                      color: PrimerColors.gray300,
-                    ),
-                  ],
-                ),
                 screenBuilder: (_) => IssuesScreen(owner: owner, name: name),
               ),
               TableViewItem(
                 leftWidget: Icon(Octicons.git_pull_request, size: 20),
                 text: Text('Pull requests'),
-                rightWidget: Row(
-                  children: <Widget>[
-                    Text(numberFormat
-                        .format(payload['pullRequests']['totalCount'])),
-                    Icon(
-                      CupertinoIcons.right_chevron,
-                      size: 18,
-                      color: PrimerColors.gray300,
-                    ),
-                  ],
-                ),
+                rightWidget: Text(
+                    numberFormat.format(payload['pullRequests']['totalCount'])),
                 screenBuilder: (_) =>
                     IssuesScreen(owner: owner, name: name, isPullRequest: true),
               ),
             ]),
-            BorderView(height: 10),
+            borderView10,
             TableView(items: [
               TableViewItem(
                 leftWidget: Icon(Octicons.history, size: 20),
                 text: Text('Commits'),
-                rightWidget: Row(
-                  children: <Widget>[
-                    Text(numberFormat.format(payload['defaultBranchRef']
-                        ['target']['history']['totalCount'])),
-                    Icon(
-                      CupertinoIcons.right_chevron,
-                      size: 18,
-                      color: PrimerColors.gray300,
-                    ),
-                  ],
-                ),
+                rightWidget: Text(numberFormat.format(
+                    payload['defaultBranchRef']['target']['history']
+                        ['totalCount'])),
                 screenBuilder: (_) => CommitsScreen(owner, name),
               ),
               TableViewItem(
@@ -300,7 +267,7 @@ class RepoScreen extends StatelessWidget {
                         payload['licenseInfo']['name'])),
               ),
             ]),
-            BorderView(height: 10),
+            borderView10,
             if (payload['object'] != null)
               Container(
                 padding: EdgeInsets.all(16),

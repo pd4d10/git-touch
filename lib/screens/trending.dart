@@ -48,7 +48,7 @@ class _TrendingScreenState extends State<TrendingScreen> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: join(
-            BorderView(),
+            borderView,
             payload.map<Widget>((item) => RepoItem(item)).toList(),
           ),
         );

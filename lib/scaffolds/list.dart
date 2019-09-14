@@ -139,7 +139,7 @@ class _ListScaffoldState<T, K> extends State<ListScaffold<T, K>> {
     }
 
     if (index % 2 == 1) {
-      return BorderView(height: 1);
+      return borderView;
     }
 
     return widget.itemBuilder(items[index ~/ 2]);
