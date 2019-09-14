@@ -64,6 +64,7 @@ class _HomeState extends State<Home> {
       ),
       BottomNavigationBarItem(
         icon: _buildNotificationIcon(context),
+        activeIcon: Icon(Icons.notifications),
         title: Text('Notification'),
       ),
       BottomNavigationBarItem(
@@ -76,6 +77,7 @@ class _HomeState extends State<Home> {
       ),
       BottomNavigationBarItem(
         icon: Icon(Icons.person_outline),
+        activeIcon: Icon(Icons.person),
         title: Text('Me'),
       ),
     ];
@@ -153,6 +155,8 @@ class _HomeState extends State<Home> {
           home: Scaffold(
             body: _buildScreen(active),
             bottomNavigationBar: BottomNavigationBar(
+              selectedItemColor: PrimerColors.blue500,
+              // unselectedItemColor: PrimerColors.gray500,
               items: _buildNavigationItems(),
               currentIndex: active,
               type: BottomNavigationBarType.fixed,
