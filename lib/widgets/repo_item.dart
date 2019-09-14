@@ -106,14 +106,14 @@ class RepoItem extends StatelessWidget {
                     ),
                   ],
                 ),
-                payload['description'] == null ||
-                        (payload['description'] as String).isEmpty
-                    ? null
-                    : Text(
-                        payload['description'],
-                        style: TextStyle(
-                            color: PrimerColors.gray700, fontSize: 14),
-                      ),
+                if (payload['description'] != null &&
+                    (payload['description'] as String).isNotEmpty)
+                  Text(
+                    payload['description'],
+                    style: TextStyle(
+                        color: PrimerColors.gray700,
+                        fontSize: inRepoScreen ? 15 : 14),
+                  ),
                 if (!inRepoScreen) _buildStatus(),
               ]),
             ),

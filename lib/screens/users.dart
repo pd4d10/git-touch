@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
+import 'package:git_touch/widgets/user_item.dart';
 import 'package:primer/primer.dart';
 import 'package:tuple/tuple.dart';
 import '../scaffolds/list.dart';
@@ -65,7 +66,7 @@ class UsersScreen extends StatelessWidget {
         name
         login
         avatarUrl
-        url
+        bio
       }
     }
   }
@@ -85,30 +86,11 @@ class UsersScreen extends StatelessWidget {
       screenBuilder: (_) => UserScreen(payload['login']),
       child: Container(
         padding: EdgeInsets.all(10),
-        child: Row(
-          children: <Widget>[
-            Avatar(url: payload['avatarUrl'], size: 24),
-            SizedBox(width: 10),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: join(SizedBox(height: 6), [
-                  Text(
-                    payload['name'] ?? payload['login'],
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: PrimerColors.blue500,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  Text(
-                    payload['login'],
-                    style: TextStyle(fontSize: 14, color: PrimerColors.gray700),
-                  )
-                ]),
-              ),
-            )
-          ],
+        child: UserItem(
+          payload['login'],
+          name: payload['name'],
+          avatarUrl: payload['avatarUrl'],
+          bio: payload['bio'],
         ),
       ),
     );

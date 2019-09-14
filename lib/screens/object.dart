@@ -1,6 +1,7 @@
 import 'package:flutter_highlight/themes/github.dart';
 import 'package:git_touch/screens/image_view.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
+import 'package:git_touch/widgets/markdown_view.dart';
 import 'package:path/path.dart' as path;
 import 'package:flutter/material.dart';
 import 'package:flutter_highlight/flutter_highlight.dart';
@@ -132,15 +133,24 @@ class ObjectScreen extends StatelessWidget {
   }
 
   Widget _buildBlob(payload) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: HighlightView(
-        payload['text'],
-        language: extname.isEmpty ? 'plaintext' : extname,
-        theme: githubTheme,
-        padding: EdgeInsets.all(10),
-      ),
-    );
+    switch (extname) {
+      case 'md':
+      case 'markdown':
+        return Padding(
+          padding: const EdgeInsets.all(12),
+          child: MarkdownView(payload['text']),
+        );
+      default:
+        return SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: HighlightView(
+            payload['text'],
+            language: extname.isEmpty ? 'plaintext' : extname,
+            theme: githubTheme,
+            padding: EdgeInsets.all(10),
+          ),
+        );
+    }
   }
 
   @override

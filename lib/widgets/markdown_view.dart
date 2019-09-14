@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:git_touch/utils/utils.dart';
 import 'package:primer/primer.dart';
 
 class MarkdownView extends StatelessWidget {
@@ -23,7 +24,7 @@ class MarkdownView extends StatelessWidget {
         code: _basicStyle.copyWith(
           fontSize: 16 * 0.85,
           height: 1.45,
-          fontFamily: 'monospace', // FIXME:
+          fontFamily: monospaceFont,
         ),
         h1: _hStyle.copyWith(fontSize: 32),
         h2: _hStyle.copyWith(fontSize: 24),

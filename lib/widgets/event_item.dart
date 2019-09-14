@@ -299,7 +299,7 @@ class EventItem extends StatelessWidget {
                 color: PrimerColors.blue500,
                 fontSize: 14,
                 backgroundColor: Color(0xffeaf5ff),
-                fontFamily: 'Menlo', // FIXME:
+                fontFamily: monospaceFont,
               ),
             ),
             TextSpan(text: ' at '),
@@ -315,8 +315,7 @@ class EventItem extends StatelessWidget {
                     style: TextStyle(
                       color: PrimerColors.blue500,
                       fontSize: 13,
-                      fontFamily: 'Menlo',
-                      fontFamilyFallback: ['Menlo', 'Roboto Mono'],
+                      fontFamily: monospaceFont,
                     ),
                   ),
                   SizedBox(width: 6),

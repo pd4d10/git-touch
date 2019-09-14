@@ -40,6 +40,8 @@ class TableView extends StatelessWidget {
   static final _seperator = BorderView();
 
   Widget _buildItem(TableViewItem item) {
+    if (item == null) return null;
+
     var widget = Container(
       height: 44,
       child: Row(children: [

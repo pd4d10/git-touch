@@ -222,14 +222,8 @@ class RepoScreen extends StatelessWidget {
             ),
             TableView(items: [
               TableViewItem(
-                leftWidget: Icon(Octicons.code,
-                    size: 20,
-                    color: convertColor(payload['primaryLanguage'] == null
-                        ? null
-                        : payload['primaryLanguage']['color'])),
-                text: Text(payload['primaryLanguage'] == null
-                    ? 'Unknown'
-                    : payload['primaryLanguage']['name']),
+                leftWidget: Icon(Octicons.code, size: 20),
+                text: Text('Code'),
                 rightWidget: Row(
                   children: <Widget>[
                     Text(filesize(payload['languages']['totalSize'] as int)),
@@ -282,14 +276,6 @@ class RepoScreen extends StatelessWidget {
             BorderView(height: 10),
             TableView(items: [
               TableViewItem(
-                leftWidget: Icon(Octicons.law, size: 20),
-                text: Text('License'),
-                rightWidget: Text(payload['licenseInfo'] == null
-                    ? 'Unknown'
-                    : (payload['licenseInfo']['spdxId'] ??
-                        payload['licenseInfo']['name'])),
-              ),
-              TableViewItem(
                 leftWidget: Icon(Octicons.history, size: 20),
                 text: Text('Commits'),
                 rightWidget: Row(
@@ -304,6 +290,14 @@ class RepoScreen extends StatelessWidget {
                   ],
                 ),
                 screenBuilder: (_) => CommitsScreen(owner, name),
+              ),
+              TableViewItem(
+                leftWidget: Icon(Octicons.law, size: 20),
+                text: Text('License'),
+                rightWidget: Text(payload['licenseInfo'] == null
+                    ? 'Unknown'
+                    : (payload['licenseInfo']['spdxId'] ??
+                        payload['licenseInfo']['name'])),
               ),
             ]),
             BorderView(height: 10),

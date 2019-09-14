@@ -48,20 +48,10 @@ class _HomeState extends State<Home> {
       children: <Widget>[
         Icon(Icons.notifications_none),
         Positioned(
-          right: 0,
-          child: Container(
-            width: 8,
-            height: 8,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(4)),
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [PrimerColors.red400, PrimerColors.red600],
-              ),
-            ),
-          ),
-        )
+            right: 0,
+            top: 0,
+            child: Icon(Octicons.primitive_dot,
+                color: PrimerColors.red500, size: 12))
       ],
     );
   }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/table_view.dart';
+import 'package:git_touch/widgets/user_item.dart';
 import 'package:primer/primer.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:share/share.dart';
@@ -92,20 +93,16 @@ class UserScreen extends StatelessWidget {
   }
 
   TableViewItem _buildTableViewItem({
-    String placeholder,
     IconData iconData,
     String text,
     Function onTap,
   }) {
+    if (text == null || text.isEmpty) return null;
     var leftWidget = Icon(iconData, size: 20, color: PrimerColors.blue500);
-    var usePlaceholder = text == null || text.isEmpty;
-    var itemText = usePlaceholder
-        ? Text(placeholder, style: TextStyle(color: PrimerColors.gray300))
-        : Text(text);
 
     return TableViewItem(
       leftWidget: leftWidget,
-      text: itemText,
+      text: Text(text),
       rightWidget: onTap == null
           ? null
           : Icon(CupertinoIcons.right_chevron,
@@ -216,49 +213,11 @@ class UserScreen extends StatelessWidget {
           children: <Widget>[
             Container(
               padding: EdgeInsets.all(12),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Avatar(url: payload['avatarUrl'], size: 30),
-                  SizedBox(width: 10),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: <Widget>[
-                            Text(
-                              payload['name'] ?? login,
-                              style: TextStyle(
-                                color: PrimerColors.blue500,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            SizedBox(width: 8),
-                            Text(
-                              login,
-                              style: TextStyle(
-                                  color: PrimerColors.gray700, fontSize: 16),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 6),
-                        Text(
-                          payload['bio'] == null ||
-                                  (payload['bio'] as String).isEmpty
-                              ? 'No bio'
-                              : payload['bio'],
-                          style: TextStyle(
-                            color: PrimerColors.gray700,
-                            fontSize: 14,
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
+              child: UserItem(
+                login,
+                name: payload['name'],
+                avatarUrl: payload['avatarUrl'],
+                bio: payload['bio'],
               ),
             ),
             BorderView(),
@@ -293,12 +252,10 @@ class UserScreen extends StatelessWidget {
             TableView(items: [
               _buildTableViewItem(
                 iconData: Octicons.organization,
-                placeholder: 'Company',
                 text: payload['company'],
               ),
               _buildTableViewItem(
                   iconData: Octicons.location,
-                  placeholder: 'Location',
                   text: payload['location'],
                   onTap: payload['location'] == null
                       ? null
@@ -309,7 +266,6 @@ class UserScreen extends StatelessWidget {
                         }),
               _buildTableViewItem(
                 iconData: Octicons.mail,
-                placeholder: 'Email',
                 text: payload['email'],
                 onTap: (payload['email'] as String).isEmpty
                     ? null
@@ -319,7 +275,6 @@ class UserScreen extends StatelessWidget {
               ),
               _buildTableViewItem(
                 iconData: Octicons.link,
-                placeholder: 'Website',
                 text: payload['websiteUrl'],
                 onTap: payload['websiteUrl'] == null
                     ? null
