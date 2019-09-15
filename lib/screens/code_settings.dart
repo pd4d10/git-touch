@@ -79,7 +79,22 @@ class CodeSettingsScreen extends StatelessWidget {
                   text: Text('Font Family'),
                   rightWidget: Text(codeProvider.fontFamily.toString()),
                   onTap: () {
-                    // TODO:
+                    Provider.of<ThemeModel>(context).showPicker(
+                      context,
+                      children:
+                          CodeModel.fontFamilies.map((k) => Text(k)).toList(),
+                      initialItem: CodeModel.fontFamilies
+                          .indexOf(codeProvider.fontFamily),
+                      onSelectedItemChanged: (int value) {
+                        if (_themeDebounce?.isActive ?? false)
+                          _themeDebounce.cancel();
+                        _themeDebounce =
+                            Timer(const Duration(milliseconds: 500), () {
+                          Provider.of<CodeModel>(context)
+                              .setFontFamily(CodeModel.fontFamilies[value]);
+                        });
+                      },
+                    );
                   },
                 ),
               ],
@@ -92,7 +107,7 @@ class CodeSettingsScreen extends StatelessWidget {
                 theme: themeMap[codeProvider.theme],
                 textStyle: TextStyle(
                   fontSize: codeProvider.fontSize.toDouble(),
-                  fontFamily: monospaceFont,
+                  fontFamily: codeProvider.fontFamilyUsed,
                 ),
                 padding: const EdgeInsets.all(10),
               ),

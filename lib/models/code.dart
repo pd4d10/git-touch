@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_highlight/theme_map.dart';
+import 'package:git_touch/utils/utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CodeModel with ChangeNotifier {
@@ -9,7 +10,14 @@ class CodeModel with ChangeNotifier {
 
   static var themes = themeMap.keys.toList();
   static const fontSizes = [12, 13, 14, 15, 16, 17, 18, 19, 20];
-  static const fontFamilies = ['System'];
+  static const fontFamilies = [
+    'System',
+    'Fira Code',
+    'Inconsolata',
+    'PT Mono',
+    'Source Code Pro',
+    'Ubuntu Mono'
+  ];
 
   String _theme = 'github';
   int _fontSize = 14;
@@ -18,6 +26,8 @@ class CodeModel with ChangeNotifier {
   String get theme => _theme;
   int get fontSize => _fontSize;
   String get fontFamily => _fontFamily;
+  String get fontFamilyUsed =>
+      _fontFamily == 'System' ? monospaceFont : _fontFamily;
 
   init() async {
     var prefs = await SharedPreferences.getInstance();

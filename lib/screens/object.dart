@@ -135,7 +135,7 @@ class ObjectScreen extends StatelessWidget {
             padding: EdgeInsets.all(10),
             textStyle: TextStyle(
                 fontSize: codeProvider.fontSize.toDouble(),
-                fontFamily: monospaceFont),
+                fontFamily: codeProvider.fontFamilyUsed),
           ),
         );
     }
