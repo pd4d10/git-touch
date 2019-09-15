@@ -144,16 +144,19 @@ class IssuesScreen extends StatelessWidget {
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
-                              Avatar(
-                                login: payload['author']['login'],
-                                url: payload['author']['avatarUrl'],
-                                size: 8,
-                              ),
-                              SizedBox(width: 4),
-                              Text(
-                                payload['author']['login'],
-                                style: TextStyle(fontWeight: FontWeight.w500),
-                              ),
+                              // FIXME: Deleted user
+                              if (payload['author'] != null) ...[
+                                Avatar(
+                                  login: payload['author']['login'],
+                                  url: payload['author']['avatarUrl'],
+                                  size: 8,
+                                ),
+                                SizedBox(width: 4),
+                                Text(
+                                  payload['author']['login'],
+                                  style: TextStyle(fontWeight: FontWeight.w500),
+                                ),
+                              ],
                               Text(' opened ' +
                                   timeago.format(
                                       DateTime.parse(payload['updatedAt']))),
