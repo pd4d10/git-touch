@@ -41,7 +41,7 @@ class RefreshStatelessScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     switch (Provider.of<ThemeModel>(context).theme) {
-      case ThemeMap.cupertino:
+      case AppThemeMap.cupertino:
         return CupertinoPageScaffold(
           navigationBar:
               CupertinoNavigationBar(middle: title, trailing: trailing),

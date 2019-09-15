@@ -1,6 +1,10 @@
-import 'package:flutter_highlight/themes/github.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_highlight/theme_map.dart';
+import 'package:git_touch/models/code.dart';
+import 'package:git_touch/screens/code_settings.dart';
 import 'package:git_touch/screens/image_view.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
+import 'package:git_touch/widgets/link.dart';
 import 'package:git_touch/widgets/markdown_view.dart';
 import 'package:git_touch/widgets/table_view.dart';
 import 'package:path/path.dart' as path;
@@ -10,7 +14,6 @@ import 'package:git_touch/models/settings.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/scaffolds/refresh.dart';
 import 'package:git_touch/utils/utils.dart';
-import 'package:git_touch/widgets/link.dart';
 import 'package:primer/primer.dart';
 import 'package:seti/seti.dart';
 
@@ -29,13 +32,15 @@ class ObjectScreen extends StatelessWidget {
     this.type = 'tree',
   });
 
-  String get expression => '$branch:' + paths.join('/');
-  String get extname {
+  String get _expression => '$branch:' + paths.join('/');
+  String get _extname {
     if (paths.isEmpty) return '';
     var dotext = path.extension(paths.last);
     if (dotext.isEmpty) return '';
     return dotext.substring(1);
   }
+
+  String get _language => _extname.isEmpty ? 'plaintext' : _extname;
 
   String get rawUrl =>
       'https://raw.githubusercontent.com/$owner/$name/$branch/' +
@@ -111,8 +116,9 @@ class ObjectScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildBlob(payload) {
-    switch (extname) {
+  Widget _buildBlob(BuildContext context, payload) {
+    var codeProvider = Provider.of<CodeModel>(context);
+    switch (_extname) {
       case 'md':
       case 'markdown':
         return Padding(
@@ -124,10 +130,12 @@ class ObjectScreen extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           child: HighlightView(
             payload['text'],
-            language: extname.isEmpty ? 'plaintext' : extname,
-            theme: githubTheme,
+            language: _language,
+            theme: themeMap[codeProvider.theme],
             padding: EdgeInsets.all(10),
-            textStyle: TextStyle(fontFamily: monospaceFont),
+            textStyle: TextStyle(
+                fontSize: codeProvider.fontSize.toDouble(),
+                fontFamily: monospaceFont),
           ),
         );
     }
@@ -140,7 +148,7 @@ class ObjectScreen extends StatelessWidget {
       onRefresh: () async {
         var data = await Provider.of<SettingsModel>(context).query('''{
   repository(owner: "$owner", name: "$name") {
-    object(expression: "$expression") {
+    object(expression: "$_expression") {
       $_subQuery
     }
   }
@@ -161,12 +169,25 @@ class ObjectScreen extends StatelessWidget {
 
         return data['repository']['object'];
       },
+      trailingBuilder: (payload) {
+        switch (type) {
+          case 'blob':
+            return Link(
+              child: Icon(Octicons.settings, size: 20),
+              material: false,
+              screenBuilder: (_) =>
+                  CodeSettingsScreen(payload['text'], _language),
+            );
+          default:
+            return null;
+        }
+      },
       bodyBuilder: (payload) {
         switch (type) {
           case 'tree':
             return _buildTree(payload);
           case 'blob':
-            return _buildBlob(payload);
+            return _buildBlob(context, payload);
           default:
             return null;
         }

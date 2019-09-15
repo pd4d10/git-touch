@@ -148,7 +148,7 @@ class UserScreen extends StatelessWidget {
         var payload = data[0];
         if (isMe) {
           return Link(
-            child: Icon(Icons.settings, size: 24),
+            child: Icon(Icons.settings),
             screenBuilder: (_) => SettingsScreen(),
             material: false,
             fullscreenDialog: true,

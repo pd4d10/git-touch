@@ -181,7 +181,7 @@ class _LongListScaffoldState<T, K> extends State<LongListScaffold<T, K>> {
   @override
   Widget build(BuildContext context) {
     switch (Provider.of<ThemeModel>(context).theme) {
-      case ThemeMap.cupertino:
+      case AppThemeMap.cupertino:
         List<Widget> slivers = [
           CupertinoSliverRefreshControl(onRefresh: _refresh)
         ];

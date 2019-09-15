@@ -10,10 +10,10 @@ class DialogOption<T> {
   DialogOption({this.value, this.widget});
 }
 
-class ThemeMap {
+class AppThemeMap {
   static const material = 0;
   static const cupertino = 1;
-  static const values = [ThemeMap.material, ThemeMap.cupertino];
+  static const values = [AppThemeMap.material, AppThemeMap.cupertino];
 }
 
 class ThemeModel with ChangeNotifier {
@@ -28,12 +28,12 @@ class ThemeModel with ChangeNotifier {
 
     int v = prefs.getInt(storageKey);
     print('read theme: $v');
-    if (ThemeMap.values.contains(v)) {
+    if (AppThemeMap.values.contains(v)) {
       _theme = v;
     } else if (Platform.isIOS) {
-      _theme = ThemeMap.cupertino;
+      _theme = AppThemeMap.cupertino;
     } else {
-      _theme = ThemeMap.material;
+      _theme = AppThemeMap.material;
     }
 
     notifyListeners();
@@ -55,7 +55,7 @@ class ThemeModel with ChangeNotifier {
     bool fullscreenDialog = false,
   }) {
     switch (theme) {
-      case ThemeMap.cupertino:
+      case AppThemeMap.cupertino:
         Navigator.of(context).push(CupertinoPageRoute(
           builder: builder,
           fullscreenDialog: fullscreenDialog,
@@ -71,7 +71,7 @@ class ThemeModel with ChangeNotifier {
 
   Future<bool> showConfirm(BuildContext context, String text) {
     switch (theme) {
-      case ThemeMap.cupertino:
+      case AppThemeMap.cupertino:
         return showCupertinoDialog(
           context: context,
           builder: (context) {
@@ -130,7 +130,7 @@ class ThemeModel with ChangeNotifier {
     var cancelWidget = Text('Cancel');
 
     switch (theme) {
-      case ThemeMap.cupertino:
+      case AppThemeMap.cupertino:
         return showCupertinoDialog<T>(
           context: context,
           builder: (BuildContext context) {
@@ -177,6 +177,40 @@ class ThemeModel with ChangeNotifier {
                   },
                 )),
             );
+          },
+        );
+    }
+  }
+
+  Future<T> showPicker<T>(
+    BuildContext context, {
+    @required int initialItem,
+    @required List<Widget> children,
+    @required Function(int) onSelectedItemChanged,
+  }) {
+    switch (theme) {
+      case AppThemeMap.cupertino:
+        return showCupertinoModalPopup<T>(
+          context: context,
+          builder: (context) {
+            return Container(
+              height: 300,
+              child: CupertinoPicker(
+                backgroundColor: CupertinoColors.white,
+                children: children,
+                itemExtent: 40,
+                scrollController:
+                    FixedExtentScrollController(initialItem: initialItem),
+                onSelectedItemChanged: onSelectedItemChanged,
+              ),
+            );
+          },
+        );
+      default:
+        return showModalBottomSheet<T>(
+          context: context,
+          builder: (context) {
+            return null; // TODO:
           },
         );
     }

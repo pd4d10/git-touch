@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:git_touch/models/code.dart';
 import 'package:git_touch/models/settings.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/screens/issues.dart';
@@ -34,6 +35,7 @@ class _HomeState extends State<Home> {
       // FIXME:
       Provider.of<ThemeModel>(context).init();
       Provider.of<SettingsModel>(context).init();
+      Provider.of<CodeModel>(context).init();
     });
   }
 
@@ -134,7 +136,7 @@ class _HomeState extends State<Home> {
     }
 
     switch (Provider.of<ThemeModel>(context).theme) {
-      case ThemeMap.cupertino:
+      case AppThemeMap.cupertino:
         return CupertinoApp(
           home: CupertinoTheme(
             data: CupertinoThemeData(
@@ -181,6 +183,7 @@ class App extends StatelessWidget {
         ChangeNotifierProvider(builder: (context) => NotificationModel()),
         ChangeNotifierProvider(builder: (context) => ThemeModel()),
         ChangeNotifierProvider(builder: (context) => SettingsModel()),
+        ChangeNotifierProvider(builder: (context) => CodeModel()),
       ],
       child: Home(),
     );

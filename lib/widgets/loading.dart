@@ -12,7 +12,7 @@ class Loading extends StatelessWidget {
     // return Image.asset('images/loading.webp');
 
     switch (Provider.of<ThemeModel>(context).theme) {
-      case ThemeMap.cupertino:
+      case AppThemeMap.cupertino:
         return CupertinoActivityIndicator(radius: 12);
       default:
         return Center(

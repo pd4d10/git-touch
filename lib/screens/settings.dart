@@ -37,11 +37,11 @@ class SettingsScreen extends StatelessWidget {
             TableView(headerText: 'THEME', items: [
               TableViewItem(
                 text: Text('Material'),
-                rightWidget:
-                    _buildRightWidget(themeProvider.theme == ThemeMap.material),
+                rightWidget: _buildRightWidget(
+                    themeProvider.theme == AppThemeMap.material),
                 onTap: () {
-                  if (themeProvider.theme != ThemeMap.material) {
-                    themeProvider.setTheme(ThemeMap.material);
+                  if (themeProvider.theme != AppThemeMap.material) {
+                    themeProvider.setTheme(AppThemeMap.material);
                   }
                 },
                 hideRightChevron: true,
@@ -49,10 +49,10 @@ class SettingsScreen extends StatelessWidget {
               TableViewItem(
                 text: Text('Cupertino'),
                 rightWidget: _buildRightWidget(
-                    themeProvider.theme == ThemeMap.cupertino),
+                    themeProvider.theme == AppThemeMap.cupertino),
                 onTap: () {
-                  if (themeProvider.theme != ThemeMap.cupertino) {
-                    themeProvider.setTheme(ThemeMap.cupertino);
+                  if (themeProvider.theme != AppThemeMap.cupertino) {
+                    themeProvider.setTheme(AppThemeMap.cupertino);
                   }
                 },
                 hideRightChevron: true,

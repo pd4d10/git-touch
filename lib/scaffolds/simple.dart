@@ -22,7 +22,7 @@ class SimpleScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     switch (Provider.of<ThemeModel>(context).theme) {
-      case ThemeMap.cupertino:
+      case AppThemeMap.cupertino:
         return CupertinoPageScaffold(
           navigationBar:
               CupertinoNavigationBar(middle: title, trailing: trailing),
@@ -32,11 +32,7 @@ class SimpleScaffold extends StatelessWidget {
         );
       default:
         return Scaffold(
-          appBar: AppBar(
-            title: title,
-            actions: actions,
-            bottom: bottom,
-          ),
+          appBar: AppBar(title: title, actions: actions, bottom: bottom),
           body: SingleChildScrollView(child: bodyBuilder()),
         );
     }
