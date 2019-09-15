@@ -225,53 +225,59 @@ class RepoScreen extends StatelessWidget {
                 ),
               ),
             ),
-            TableView(items: [
-              TableViewItem(
-                leftIconData: Octicons.code,
-                text: Text('Code'),
-                rightWidget:
-                    Text(filesize(payload['languages']['totalSize'] as int)),
-                screenBuilder: (_) => ObjectScreen(
-                  owner: owner,
-                  name: name,
-                  branch: payload['defaultBranchRef']['name'], // FIXME: null
+            TableView(
+              hasIcon: true,
+              items: [
+                TableViewItem(
+                  leftIconData: Octicons.code,
+                  text: Text('Code'),
+                  rightWidget:
+                      Text(filesize(payload['languages']['totalSize'] as int)),
+                  screenBuilder: (_) => ObjectScreen(
+                    owner: owner,
+                    name: name,
+                    branch: payload['defaultBranchRef']['name'], // FIXME: null
+                  ),
                 ),
-              ),
-              TableViewItem(
-                leftIconData: Octicons.issue_opened,
-                text: Text('Issues'),
-                rightWidget:
-                    Text(numberFormat.format(payload['issues']['totalCount'])),
-                screenBuilder: (_) => IssuesScreen(owner: owner, name: name),
-              ),
-              TableViewItem(
-                leftIconData: Octicons.git_pull_request,
-                text: Text('Pull requests'),
-                rightWidget: Text(
-                    numberFormat.format(payload['pullRequests']['totalCount'])),
-                screenBuilder: (_) =>
-                    IssuesScreen(owner: owner, name: name, isPullRequest: true),
-              ),
-            ]),
+                TableViewItem(
+                  leftIconData: Octicons.issue_opened,
+                  text: Text('Issues'),
+                  rightWidget: Text(
+                      numberFormat.format(payload['issues']['totalCount'])),
+                  screenBuilder: (_) => IssuesScreen(owner: owner, name: name),
+                ),
+                TableViewItem(
+                  leftIconData: Octicons.git_pull_request,
+                  text: Text('Pull requests'),
+                  rightWidget: Text(numberFormat
+                      .format(payload['pullRequests']['totalCount'])),
+                  screenBuilder: (_) => IssuesScreen(
+                      owner: owner, name: name, isPullRequest: true),
+                ),
+              ],
+            ),
             borderView1,
-            TableView(items: [
-              TableViewItem(
-                leftIconData: Octicons.history,
-                text: Text('Commits'),
-                rightWidget: Text(numberFormat.format(
-                    payload['defaultBranchRef']['target']['history']
-                        ['totalCount'])),
-                screenBuilder: (_) => CommitsScreen(owner, name),
-              ),
-              TableViewItem(
-                leftIconData: Octicons.law,
-                text: Text('License'),
-                rightWidget: Text(payload['licenseInfo'] == null
-                    ? 'Unknown'
-                    : (payload['licenseInfo']['spdxId'] ??
-                        payload['licenseInfo']['name'])),
-              ),
-            ]),
+            TableView(
+              hasIcon: true,
+              items: [
+                TableViewItem(
+                  leftIconData: Octicons.history,
+                  text: Text('Commits'),
+                  rightWidget: Text(numberFormat.format(
+                      payload['defaultBranchRef']['target']['history']
+                          ['totalCount'])),
+                  screenBuilder: (_) => CommitsScreen(owner, name),
+                ),
+                TableViewItem(
+                  leftIconData: Octicons.law,
+                  text: Text('License'),
+                  rightWidget: Text(payload['licenseInfo'] == null
+                      ? 'Unknown'
+                      : (payload['licenseInfo']['spdxId'] ??
+                          payload['licenseInfo']['name'])),
+                ),
+              ],
+            ),
             borderView1,
             if (payload['object'] != null)
               Container(

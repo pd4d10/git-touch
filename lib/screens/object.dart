@@ -85,26 +85,28 @@ class ObjectScreen extends StatelessWidget {
   Widget _buildTree(payload) {
     var entries = payload['entries'] as List;
     return TableView(
+      hasIcon: true,
       items: entries.map((item) {
         return TableViewItem(
-            leftWidget: _buildIcon(item),
-            text: Text(item['name']),
-            screenBuilder: (_) {
-              if (item['type'] == 'commit') return null;
-              // TODO: All image types
-              var ext = path.extension(item['name']);
-              if (ext.isNotEmpty) ext = ext.substring(1);
-              if (['png', 'jpg', 'jpeg', 'gif', 'webp'].contains(ext)) {
-                return ImageView(NetworkImage('$rawUrl/' + item['name']));
-              }
-              return ObjectScreen(
-                name: name,
-                owner: owner,
-                branch: branch,
-                paths: [...paths, item['name']],
-                type: item['type'],
-              );
-            });
+          leftWidget: _buildIcon(item),
+          text: Text(item['name']),
+          screenBuilder: (_) {
+            if (item['type'] == 'commit') return null;
+            // TODO: All image types
+            var ext = path.extension(item['name']);
+            if (ext.isNotEmpty) ext = ext.substring(1);
+            if (['png', 'jpg', 'jpeg', 'gif', 'webp'].contains(ext)) {
+              return ImageView(NetworkImage('$rawUrl/' + item['name']));
+            }
+            return ObjectScreen(
+              name: name,
+              owner: owner,
+              branch: branch,
+              paths: [...paths, item['name']],
+              type: item['type'],
+            );
+          },
+        );
       }),
     );
   }

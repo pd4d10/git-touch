@@ -27,18 +27,23 @@ class TableViewItem {
 class TableView extends StatelessWidget {
   final String headerText;
   final Iterable<TableViewItem> items;
+  final bool hasIcon;
 
-  TableView({this.headerText, @required this.items});
+  double get _leftPadding => hasIcon ? 44 : 12;
+
+  TableView({this.headerText, @required this.items, this.hasIcon = false});
 
   Widget _buildItem(TableViewItem item) {
     if (item == null) return null;
 
-    var leftWidget = item.leftWidget ??
-        Icon(
-          item.leftIconData,
-          color: PrimerColors.blue500,
-          size: 18,
-        );
+    var leftWidget = item.leftWidget;
+    if (leftWidget == null && hasIcon) {
+      leftWidget = Icon(
+        item.leftIconData,
+        color: PrimerColors.blue500,
+        size: 18,
+      );
+    }
     // Container(
     //   width: 24,
     //   height: 24,
@@ -55,7 +60,7 @@ class TableView extends StatelessWidget {
         color: PrimerColors.white,
         child: Row(
           children: [
-            SizedBox(width: 44, child: leftWidget),
+            SizedBox(width: _leftPadding, child: leftWidget),
             Expanded(child: item.text),
             if (item.rightWidget != null) ...[
               DefaultTextStyle(
@@ -101,7 +106,8 @@ class TableView extends StatelessWidget {
             ),
           ),
         borderView,
-        ...join(BorderView(leftPadding: 44), items.map(_buildItem).toList()),
+        ...join(BorderView(leftPadding: _leftPadding),
+            items.map(_buildItem).toList()),
         borderView,
       ],
     );

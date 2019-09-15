@@ -14,10 +14,7 @@ import '../screens/login.dart';
 class SettingsScreen extends StatelessWidget {
   Widget _buildRightWidget(bool checked) {
     if (!checked) return null;
-    return Row(children: [
-      Icon(Octicons.check, color: CupertinoColors.activeBlue, size: 24),
-      SizedBox(width: 12)
-    ]);
+    return Icon(Octicons.check, color: CupertinoColors.activeBlue, size: 24);
   }
 
   @override
@@ -32,7 +29,6 @@ class SettingsScreen extends StatelessWidget {
             borderView1,
             TableView(headerText: 'ACCOUNTS', items: [
               TableViewItem(
-                leftIconData: Icons.account_circle,
                 text: Text('Switch to another account'),
                 screenBuilder: (_) => LoginScreen(),
               ),
@@ -40,7 +36,6 @@ class SettingsScreen extends StatelessWidget {
             borderView1,
             TableView(headerText: 'THEME', items: [
               TableViewItem(
-                leftIconData: MaterialCommunityIcons.material_design,
                 text: Text('Material'),
                 rightWidget:
                     _buildRightWidget(themeProvider.theme == ThemeMap.material),
@@ -52,7 +47,6 @@ class SettingsScreen extends StatelessWidget {
                 hideRightChevron: true,
               ),
               TableViewItem(
-                leftIconData: MaterialCommunityIcons.apple,
                 text: Text('Cupertino'),
                 rightWidget: _buildRightWidget(
                     themeProvider.theme == ThemeMap.cupertino),
@@ -67,12 +61,10 @@ class SettingsScreen extends StatelessWidget {
             borderView1,
             TableView(headerText: 'ABOUT', items: [
               TableViewItem(
-                leftIconData: Octicons.code,
-                text: Text('Source code'),
+                text: Text('Source Code'),
                 screenBuilder: (_) => RepoScreen('pd4d10', 'git-touch'),
               ),
               TableViewItem(
-                leftIconData: Octicons.law,
                 text: Text('License'),
                 rightWidget: Text('MIT'),
                 screenBuilder: (_) => ObjectScreen(
@@ -84,8 +76,7 @@ class SettingsScreen extends StatelessWidget {
                 ),
               ),
               TableViewItem(
-                leftIconData: Icons.star,
-                text: Text('Rate this App'),
+                text: Text('Rate This App'),
                 onTap: () {
                   LaunchReview.launch(
                     androidAppId: 'io.github.pd4d10.gittouch',

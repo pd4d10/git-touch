@@ -233,43 +233,46 @@ class UserScreen extends StatelessWidget {
             borderView1,
             _buildContributions(contributions),
             borderView1,
-            TableView(items: [
-              if (isNotNullOrEmpty(payload['company']))
-                TableViewItem(
-                  leftIconData: Octicons.organization,
-                  text: Text(payload['company']),
-                ),
-              if (isNotNullOrEmpty(payload['location']))
-                TableViewItem(
-                  leftIconData: Octicons.location,
-                  text: Text(payload['location']),
-                  onTap: () {
-                    launch('https://www.google.com/maps/place/' +
-                        (payload['location'] as String)
-                            .replaceAll(RegExp(r'\s+'), ''));
-                  },
-                ),
-              if (isNotNullOrEmpty(payload['email']))
-                TableViewItem(
-                  leftIconData: Octicons.mail,
-                  text: Text(payload['email']),
-                  onTap: () {
-                    launch('mailto:' + payload['email']);
-                  },
-                ),
-              if (isNotNullOrEmpty(payload['websiteUrl']))
-                TableViewItem(
-                  leftIconData: Octicons.link,
-                  text: Text(payload['websiteUrl']),
-                  onTap: () {
-                    var url = payload['websiteUrl'] as String;
-                    if (!url.startsWith('http')) {
-                      url = 'http://$url';
-                    }
-                    launch(url);
-                  },
-                ),
-            ]),
+            TableView(
+              hasIcon: true,
+              items: [
+                if (isNotNullOrEmpty(payload['company']))
+                  TableViewItem(
+                    leftIconData: Octicons.organization,
+                    text: Text(payload['company']),
+                  ),
+                if (isNotNullOrEmpty(payload['location']))
+                  TableViewItem(
+                    leftIconData: Octicons.location,
+                    text: Text(payload['location']),
+                    onTap: () {
+                      launch('https://www.google.com/maps/place/' +
+                          (payload['location'] as String)
+                              .replaceAll(RegExp(r'\s+'), ''));
+                    },
+                  ),
+                if (isNotNullOrEmpty(payload['email']))
+                  TableViewItem(
+                    leftIconData: Octicons.mail,
+                    text: Text(payload['email']),
+                    onTap: () {
+                      launch('mailto:' + payload['email']);
+                    },
+                  ),
+                if (isNotNullOrEmpty(payload['websiteUrl']))
+                  TableViewItem(
+                    leftIconData: Octicons.link,
+                    text: Text(payload['websiteUrl']),
+                    onTap: () {
+                      var url = payload['websiteUrl'] as String;
+                      if (!url.startsWith('http')) {
+                        url = 'http://$url';
+                      }
+                      launch(url);
+                    },
+                  ),
+              ],
+            ),
             ..._buildRepos(payload),
           ],
         );

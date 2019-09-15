@@ -155,7 +155,13 @@ class BorderView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: <Widget>[
-        SizedBox(width: leftPadding),
+        SizedBox(
+          width: leftPadding,
+          height: 1,
+          child: DecoratedBox(
+            decoration: BoxDecoration(color: PrimerColors.white),
+          ),
+        ),
         Expanded(
           child: SizedBox(
             height: height,
