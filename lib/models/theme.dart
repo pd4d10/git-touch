@@ -190,12 +190,12 @@ class ThemeModel with ChangeNotifier {
 
   static Timer _debounce;
 
-  Future<T> showPicker<T>(
+  showPicker<T>(
     BuildContext context, {
     @required T initialValue,
     @required List<PickerItem<T>> items,
     @required Function(T item) onChange,
-  }) {
+  }) async {
     switch (theme) {
       case AppThemeMap.cupertino:
         return showCupertinoModalPopup<T>(
@@ -220,12 +220,18 @@ class ThemeModel with ChangeNotifier {
           },
         );
       default:
-        return showModalBottomSheet<T>(
+        final value = await showMenu<T>(
           context: context,
-          builder: (context) {
-            return null; // TODO:
-          },
+          initialValue: initialValue,
+          items: items
+              .map((item) =>
+                  PopupMenuItem(value: item.value, child: Text(item.text)))
+              .toList(),
+          position: RelativeRect.fill,
         );
+        if (value != null) {
+          onChange(value);
+        }
     }
   }
 }
