@@ -80,7 +80,7 @@ class _RefreshScaffoldState<T> extends State<RefreshScaffold<T>> {
   @override
   Widget build(BuildContext context) {
     switch (Provider.of<ThemeModel>(context).theme) {
-      case AppThemeMap.cupertino:
+      case AppThemeType.cupertino:
         return CupertinoPageScaffold(
           navigationBar: CupertinoNavigationBar(
             middle: widget.title,

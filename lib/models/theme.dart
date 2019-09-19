@@ -16,10 +16,10 @@ class PickerItem<T> {
   PickerItem(this.value, {@required this.text});
 }
 
-class AppThemeMap {
+class AppThemeType {
   static const material = 0;
   static const cupertino = 1;
-  static const values = [AppThemeMap.material, AppThemeMap.cupertino];
+  static const values = [AppThemeType.material, AppThemeType.cupertino];
 }
 
 class ThemeModel with ChangeNotifier {
@@ -34,12 +34,12 @@ class ThemeModel with ChangeNotifier {
 
     int v = prefs.getInt(storageKey);
     print('read theme: $v');
-    if (AppThemeMap.values.contains(v)) {
+    if (AppThemeType.values.contains(v)) {
       _theme = v;
     } else if (Platform.isIOS) {
-      _theme = AppThemeMap.cupertino;
+      _theme = AppThemeType.cupertino;
     } else {
-      _theme = AppThemeMap.material;
+      _theme = AppThemeType.material;
     }
 
     notifyListeners();
@@ -61,7 +61,7 @@ class ThemeModel with ChangeNotifier {
     bool fullscreenDialog = false,
   }) {
     switch (theme) {
-      case AppThemeMap.cupertino:
+      case AppThemeType.cupertino:
         Navigator.of(context).push(CupertinoPageRoute(
           builder: builder,
           fullscreenDialog: fullscreenDialog,
@@ -77,7 +77,7 @@ class ThemeModel with ChangeNotifier {
 
   Future<bool> showConfirm(BuildContext context, String text) {
     switch (theme) {
-      case AppThemeMap.cupertino:
+      case AppThemeType.cupertino:
         return showCupertinoDialog(
           context: context,
           builder: (context) {
@@ -136,7 +136,7 @@ class ThemeModel with ChangeNotifier {
     var cancelWidget = Text('Cancel');
 
     switch (theme) {
-      case AppThemeMap.cupertino:
+      case AppThemeType.cupertino:
         return showCupertinoDialog<T>(
           context: context,
           builder: (BuildContext context) {
@@ -197,28 +197,30 @@ class ThemeModel with ChangeNotifier {
     @required Function(T item) onChange,
   }) async {
     switch (theme) {
-      case AppThemeMap.cupertino:
-        return showCupertinoModalPopup<T>(
+      case AppThemeType.cupertino:
+        await showCupertinoModalPopup<void>(
           context: context,
           builder: (context) {
             return Container(
               height: 300,
               child: CupertinoPicker(
-                  backgroundColor: CupertinoColors.white,
-                  children: items.map((item) => Text(item.text)).toList(),
-                  itemExtent: 40,
-                  scrollController: FixedExtentScrollController(
-                      initialItem: items
-                          .indexWhere((item) => item.value == initialValue)),
-                  onSelectedItemChanged: (index) {
-                    if (_debounce?.isActive ?? false) _debounce.cancel();
-                    _debounce = Timer(const Duration(milliseconds: 500), () {
-                      return onChange(items[index].value);
-                    });
-                  }),
+                backgroundColor: CupertinoColors.white,
+                children: items.map((item) => Text(item.text)).toList(),
+                itemExtent: 40,
+                scrollController: FixedExtentScrollController(
+                    initialItem:
+                        items.indexWhere((item) => item.value == initialValue)),
+                onSelectedItemChanged: (index) {
+                  if (_debounce?.isActive ?? false) _debounce.cancel();
+                  _debounce = Timer(const Duration(milliseconds: 500), () {
+                    return onChange(items[index].value);
+                  });
+                },
+              ),
             );
           },
         );
+        break;
       default:
         final value = await showMenu<T>(
           context: context,

@@ -46,7 +46,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   Widget _buildInput() {
     switch (Provider.of<ThemeModel>(context).theme) {
-      case AppThemeMap.cupertino:
+      case AppThemeType.cupertino:
         return CupertinoTextField(
           // padding: EdgeInsets.all(10),
           placeholder: 'Type to search',

@@ -28,20 +28,21 @@ class CodeSettingsScreen extends StatelessWidget {
             TableView(
               items: [
                 TableViewItem(
-                    text: Text('Syntax Highlighting'),
-                    rightWidget: Text(codeProvider.theme),
-                    onTap: () {
-                      Provider.of<ThemeModel>(context).showPicker(
-                        context,
-                        items: CodeModel.themes
-                            .map((t) => PickerItem(t, text: t))
-                            .toList(),
-                        initialValue: codeProvider.theme,
-                        onChange: (String value) {
-                          Provider.of<CodeModel>(context).setTheme(value);
-                        },
-                      );
-                    }),
+                  text: Text('Syntax Highlighting'),
+                  rightWidget: Text(codeProvider.theme),
+                  onTap: () {
+                    Provider.of<ThemeModel>(context).showPicker(
+                      context,
+                      items: CodeModel.themes
+                          .map((t) => PickerItem(t, text: t))
+                          .toList(),
+                      initialValue: codeProvider.theme,
+                      onChange: (String value) {
+                        Provider.of<CodeModel>(context).setTheme(value);
+                      },
+                    );
+                  },
+                ),
                 TableViewItem(
                   text: Text('Font Size'),
                   rightWidget: Text(codeProvider.fontSize.toString()),

@@ -184,7 +184,7 @@ $key: pullRequest(number: ${item.number}) {
 
   Widget _buildTitle() {
     switch (Provider.of<ThemeModel>(context).theme) {
-      case AppThemeMap.cupertino:
+      case AppThemeType.cupertino:
         // var textStyle = DefaultTextStyle.of(context).style;
         return DefaultTextStyle(
           style: TextStyle(fontSize: 16),

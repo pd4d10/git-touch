@@ -184,7 +184,7 @@ class _ListScaffoldState<T, K> extends State<ListScaffold<T, K>> {
   @override
   Widget build(BuildContext context) {
     switch (Provider.of<ThemeModel>(context).theme) {
-      case AppThemeMap.cupertino:
+      case AppThemeType.cupertino:
         List<Widget> slivers = [
           CupertinoSliverRefreshControl(onRefresh: _refresh)
         ];

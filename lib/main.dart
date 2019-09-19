@@ -136,7 +136,7 @@ class _HomeState extends State<Home> {
     }
 
     switch (Provider.of<ThemeModel>(context).theme) {
-      case AppThemeMap.cupertino:
+      case AppThemeType.cupertino:
         return CupertinoApp(
           home: CupertinoTheme(
             data: CupertinoThemeData(

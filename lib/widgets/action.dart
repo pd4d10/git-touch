@@ -30,7 +30,7 @@ class ActionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     switch (Provider.of<ThemeModel>(context).theme) {
-      case AppThemeMap.cupertino:
+      case AppThemeType.cupertino:
         return GestureDetector(
           child: Icon(iconData, size: 24),
           onTap: () async {
