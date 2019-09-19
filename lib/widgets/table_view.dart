@@ -57,7 +57,6 @@ class TableView extends StatelessWidget {
       overflow: TextOverflow.ellipsis,
       child: Container(
         height: 44,
-        color: PrimerColors.white,
         child: Row(
           children: [
             SizedBox(width: _leftPadding, child: leftWidget),
