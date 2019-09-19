@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_highlight/flutter_highlight.dart';
@@ -16,8 +14,6 @@ class CodeSettingsScreen extends StatelessWidget {
   final String language;
 
   CodeSettingsScreen(this.code, this.language);
-
-  static Timer _themeDebounce;
 
   @override
   Widget build(BuildContext context) {
