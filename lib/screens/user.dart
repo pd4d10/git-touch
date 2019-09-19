@@ -126,7 +126,6 @@ class UserScreen extends StatelessWidget {
 
     return Container(
       padding: EdgeInsets.all(10),
-      color: PrimerColors.white,
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         reverse: true,

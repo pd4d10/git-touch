@@ -207,7 +207,6 @@ class RepoScreen extends StatelessWidget {
             borderView1,
             Container(
               padding: const EdgeInsets.all(_languageBarPadding),
-              color: PrimerColors.white,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(2),
                 child: SizedBox(

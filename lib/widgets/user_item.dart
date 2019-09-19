@@ -18,7 +18,6 @@ class UserItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final widget = Container(
       padding: EdgeInsets.all(10),
-      color: PrimerColors.white,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
