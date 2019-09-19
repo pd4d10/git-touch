@@ -1,5 +1,5 @@
+import 'dart:async';
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -8,6 +8,12 @@ class DialogOption<T> {
   final T value;
   final Widget widget;
   DialogOption({this.value, this.widget});
+}
+
+class PickerItem<T> {
+  final T value;
+  final String text;
+  PickerItem(this.value, {@required this.text});
 }
 
 class AppThemeMap {
@@ -182,11 +188,13 @@ class ThemeModel with ChangeNotifier {
     }
   }
 
+  static Timer _debounce;
+
   Future<T> showPicker<T>(
     BuildContext context, {
-    @required int initialItem,
-    @required List<Widget> children,
-    @required Function(int) onSelectedItemChanged,
+    @required T initialValue,
+    @required List<PickerItem<T>> items,
+    @required Function(T item) onChange,
   }) {
     switch (theme) {
       case AppThemeMap.cupertino:
@@ -196,13 +204,18 @@ class ThemeModel with ChangeNotifier {
             return Container(
               height: 300,
               child: CupertinoPicker(
-                backgroundColor: CupertinoColors.white,
-                children: children,
-                itemExtent: 40,
-                scrollController:
-                    FixedExtentScrollController(initialItem: initialItem),
-                onSelectedItemChanged: onSelectedItemChanged,
-              ),
+                  backgroundColor: CupertinoColors.white,
+                  children: items.map((item) => Text(item.text)).toList(),
+                  itemExtent: 40,
+                  scrollController: FixedExtentScrollController(
+                      initialItem: items
+                          .indexWhere((item) => item.value == initialValue)),
+                  onSelectedItemChanged: (index) {
+                    if (_debounce?.isActive ?? false) _debounce.cancel();
+                    _debounce = Timer(const Duration(milliseconds: 500), () {
+                      return onChange(items[index].value);
+                    });
+                  }),
             );
           },
         );

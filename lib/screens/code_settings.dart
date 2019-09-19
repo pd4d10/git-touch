@@ -7,7 +7,6 @@ import 'package:flutter_highlight/theme_map.dart';
 import 'package:git_touch/models/code.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/simple.dart';
-import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/table_view.dart';
 import 'package:provider/provider.dart';
@@ -38,17 +37,12 @@ class CodeSettingsScreen extends StatelessWidget {
                     onTap: () {
                       Provider.of<ThemeModel>(context).showPicker(
                         context,
-                        children: CodeModel.themes.map((k) => Text(k)).toList(),
-                        initialItem:
-                            CodeModel.themes.indexOf(codeProvider.theme),
-                        onSelectedItemChanged: (int value) {
-                          if (_themeDebounce?.isActive ?? false)
-                            _themeDebounce.cancel();
-                          _themeDebounce =
-                              Timer(const Duration(milliseconds: 500), () {
-                            Provider.of<CodeModel>(context)
-                                .setTheme(CodeModel.themes[value]);
-                          });
+                        items: CodeModel.themes
+                            .map((t) => PickerItem(t, text: t))
+                            .toList(),
+                        initialValue: codeProvider.theme,
+                        onChange: (String value) {
+                          Provider.of<CodeModel>(context).setTheme(value);
                         },
                       );
                     }),
@@ -58,19 +52,13 @@ class CodeSettingsScreen extends StatelessWidget {
                   onTap: () {
                     Provider.of<ThemeModel>(context).showPicker(
                       context,
-                      children: CodeModel.fontSizes
-                          .map((k) => Text(k.toString()))
+                      items: CodeModel.fontSizes
+                          .map(
+                              (size) => PickerItem(size, text: size.toString()))
                           .toList(),
-                      initialItem:
-                          CodeModel.fontSizes.indexOf(codeProvider.fontSize),
-                      onSelectedItemChanged: (int value) {
-                        if (_themeDebounce?.isActive ?? false)
-                          _themeDebounce.cancel();
-                        _themeDebounce =
-                            Timer(const Duration(milliseconds: 500), () {
-                          Provider.of<CodeModel>(context)
-                              .setFontSize(CodeModel.fontSizes[value]);
-                        });
+                      initialValue: codeProvider.fontSize,
+                      onChange: (int value) {
+                        Provider.of<CodeModel>(context).setFontSize(value);
                       },
                     );
                   },
@@ -81,18 +69,12 @@ class CodeSettingsScreen extends StatelessWidget {
                   onTap: () {
                     Provider.of<ThemeModel>(context).showPicker(
                       context,
-                      children:
-                          CodeModel.fontFamilies.map((k) => Text(k)).toList(),
-                      initialItem: CodeModel.fontFamilies
-                          .indexOf(codeProvider.fontFamily),
-                      onSelectedItemChanged: (int value) {
-                        if (_themeDebounce?.isActive ?? false)
-                          _themeDebounce.cancel();
-                        _themeDebounce =
-                            Timer(const Duration(milliseconds: 500), () {
-                          Provider.of<CodeModel>(context)
-                              .setFontFamily(CodeModel.fontFamilies[value]);
-                        });
+                      items: CodeModel.fontFamilies
+                          .map((v) => PickerItem(v, text: v))
+                          .toList(),
+                      initialValue: codeProvider.fontFamily,
+                      onChange: (String value) {
+                        Provider.of<CodeModel>(context).setFontFamily(value);
                       },
                     );
                   },
