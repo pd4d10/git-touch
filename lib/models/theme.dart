@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,12 +7,6 @@ class DialogOption<T> {
   final T value;
   final Widget widget;
   DialogOption({this.value, this.widget});
-}
-
-class PickerItem<T> {
-  final T value;
-  final String text;
-  PickerItem(this.value, {@required this.text});
 }
 
 class AppThemeType {
@@ -185,55 +178,6 @@ class ThemeModel with ChangeNotifier {
             );
           },
         );
-    }
-  }
-
-  static Timer _debounce;
-
-  showPicker<T>(
-    BuildContext context, {
-    @required T initialValue,
-    @required List<PickerItem<T>> items,
-    @required Function(T item) onChange,
-  }) async {
-    switch (theme) {
-      case AppThemeType.cupertino:
-        await showCupertinoModalPopup<void>(
-          context: context,
-          builder: (context) {
-            return Container(
-              height: 300,
-              child: CupertinoPicker(
-                backgroundColor: CupertinoColors.white,
-                children: items.map((item) => Text(item.text)).toList(),
-                itemExtent: 40,
-                scrollController: FixedExtentScrollController(
-                    initialItem:
-                        items.indexWhere((item) => item.value == initialValue)),
-                onSelectedItemChanged: (index) {
-                  if (_debounce?.isActive ?? false) _debounce.cancel();
-                  _debounce = Timer(const Duration(milliseconds: 500), () {
-                    return onChange(items[index].value);
-                  });
-                },
-              ),
-            );
-          },
-        );
-        break;
-      default:
-        final value = await showMenu<T>(
-          context: context,
-          initialValue: initialValue,
-          items: items
-              .map((item) =>
-                  PopupMenuItem(value: item.value, child: Text(item.text)))
-              .toList(),
-          position: RelativeRect.fill,
-        );
-        if (value != null) {
-          onChange(value);
-        }
     }
   }
 }

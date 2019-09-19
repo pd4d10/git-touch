@@ -20,7 +20,7 @@ class CodeModel with ChangeNotifier {
   ];
 
   String _theme = 'github';
-  int _fontSize = 14;
+  int _fontSize = 16;
   String _fontFamily = 'System';
 
   String get theme => _theme;

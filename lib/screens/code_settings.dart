@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_highlight/flutter_highlight.dart';
 import 'package:flutter_highlight/theme_map.dart';
 import 'package:git_touch/models/code.dart';
-import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/simple.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
-import 'package:git_touch/widgets/table_view.dart';
+import 'package:git_touch/widgets/picker.dart';
 import 'package:provider/provider.dart';
 
 class CodeSettingsScreen extends StatelessWidget {
@@ -25,55 +24,33 @@ class CodeSettingsScreen extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            TableView(
+            PickerGroup(
               items: [
-                TableViewItem(
-                  text: Text('Syntax Highlighting'),
-                  rightWidget: Text(codeProvider.theme),
-                  onTap: () {
-                    Provider.of<ThemeModel>(context).showPicker(
-                      context,
-                      items: CodeModel.themes
-                          .map((t) => PickerItem(t, text: t))
-                          .toList(),
-                      initialValue: codeProvider.theme,
-                      onChange: (String value) {
-                        Provider.of<CodeModel>(context).setTheme(value);
-                      },
-                    );
+                PickerGroupItem(
+                  title: 'Syntax Highlighting',
+                  value: codeProvider.theme,
+                  items: CodeModel.themes.map((v) => PickerItem(v, text: v)),
+                  onChange: (value) {
+                    Provider.of<CodeModel>(context).setTheme(value);
                   },
                 ),
-                TableViewItem(
-                  text: Text('Font Size'),
-                  rightWidget: Text(codeProvider.fontSize.toString()),
-                  onTap: () {
-                    Provider.of<ThemeModel>(context).showPicker(
-                      context,
-                      items: CodeModel.fontSizes
-                          .map(
-                              (size) => PickerItem(size, text: size.toString()))
-                          .toList(),
-                      initialValue: codeProvider.fontSize,
-                      onChange: (int value) {
-                        Provider.of<CodeModel>(context).setFontSize(value);
-                      },
-                    );
+                PickerGroupItem(
+                  title: 'Font Size',
+                  value: codeProvider.fontSize.toString(),
+                  items: CodeModel.fontSizes
+                      .map((v) => PickerItem(v.toString(), text: v.toString())),
+                  onChange: (value) {
+                    Provider.of<CodeModel>(context)
+                        .setFontSize(int.tryParse(value) ?? 16);
                   },
                 ),
-                TableViewItem(
-                  text: Text('Font Family'),
-                  rightWidget: Text(codeProvider.fontFamily.toString()),
-                  onTap: () {
-                    Provider.of<ThemeModel>(context).showPicker(
-                      context,
-                      items: CodeModel.fontFamilies
-                          .map((v) => PickerItem(v, text: v))
-                          .toList(),
-                      initialValue: codeProvider.fontFamily,
-                      onChange: (String value) {
-                        Provider.of<CodeModel>(context).setFontFamily(value);
-                      },
-                    );
+                PickerGroupItem(
+                  title: 'Font Family',
+                  value: codeProvider.fontFamily,
+                  items:
+                      CodeModel.fontFamilies.map((v) => PickerItem(v, text: v)),
+                  onChange: (String value) {
+                    Provider.of<CodeModel>(context).setFontFamily(value);
                   },
                 ),
               ],
