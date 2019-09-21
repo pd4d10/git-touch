@@ -303,8 +303,9 @@ class SettingsModel with ChangeNotifier {
   String _oauthState;
   void redirectToGithubOauth() {
     _oauthState = nanoid();
+    var scope = Uri.encodeComponent('user,repo,read:org');
     launch(
-      'https://github.com/login/oauth/authorize?client_id=$clientId&redirect_uri=gittouch://login&scope=user%20repo&state=$_oauthState',
+      'https://github.com/login/oauth/authorize?client_id=$clientId&redirect_uri=gittouch://login&scope=$scope&state=$_oauthState',
     );
   }
 }

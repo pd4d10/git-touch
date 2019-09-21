@@ -7,33 +7,28 @@ import '../utils/utils.dart';
 import '../widgets/repo_item.dart';
 
 /// Repos of user
-class ReposScreen extends StatefulWidget {
+class ReposScreen extends StatelessWidget {
   final String login;
   final bool star;
   final bool org;
 
-  ReposScreen({this.login, this.star = false, this.org = false});
+  ReposScreen(this.login, {this.star = false, this.org = false});
 
-  @override
-  _ReposScreenState createState() => _ReposScreenState();
-}
-
-class _ReposScreenState extends State<ReposScreen> {
-  String get login => widget.login;
-  String get scope => widget.org ? 'organization' : 'user';
-  String get resource => widget.star ? 'starredRepositories' : 'repositories';
+  String get scope => org ? 'organization' : 'user';
+  String get resource => star ? 'starredRepositories' : 'repositories';
   String get fieldOrderBy {
-    if (widget.star) {
+    if (star) {
       return 'STARRED_AT';
     }
-    if (widget.org) {
+    if (org) {
       return 'PUSHED_AT';
     }
     return 'UPDATED_AT';
   }
 
-  Future<ListPayload> _queryRepos([String cursor]) async {
+  Future<ListPayload> _queryRepos(BuildContext context, [String cursor]) async {
     var cursorChunk = cursor == null ? '' : ', after: "$cursor"';
+    // FIXME: organization scope not work due to permissions
     var data = await Provider.of<SettingsModel>(context).query('''
 {
   $scope(login: "$login") {
@@ -61,9 +56,9 @@ class _ReposScreenState extends State<ReposScreen> {
   @override
   Widget build(BuildContext context) {
     return ListScaffold(
-      title: AppBarTitle(widget.star ? 'Stars' : 'Repositories'),
-      onRefresh: () => _queryRepos(),
-      onLoadMore: (cursor) => _queryRepos(cursor),
+      title: AppBarTitle(star ? 'Stars' : 'Repositories'),
+      onRefresh: () => _queryRepos(context),
+      onLoadMore: (cursor) => _queryRepos(context, cursor),
       itemBuilder: (payload) => RepoItem(payload),
     );
   }

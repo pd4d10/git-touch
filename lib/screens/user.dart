@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/table_view.dart';
 import 'package:git_touch/widgets/user_item.dart';
-import 'package:primer/primer.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:share/share.dart';
 import 'package:github_contributions/github_contributions.dart';
@@ -11,7 +10,6 @@ import 'package:git_touch/models/settings.dart';
 import 'package:provider/provider.dart';
 import '../scaffolds/refresh.dart';
 import '../widgets/entry_item.dart';
-import '../widgets/list_group.dart';
 import '../widgets/repo_item.dart';
 import '../widgets/link.dart';
 import '../widgets/action.dart';
@@ -156,26 +154,22 @@ class UserScreen extends StatelessWidget {
             fullscreenDialog: true,
           );
         } else {
-          List<MyAction> actions = [];
-
-          if (payload['viewerCanFollow']) {
-            actions.add(MyAction(
-              text: payload['viewerIsFollowing'] ? 'Unfollow' : 'Follow',
-              onPress: () async {
-                if (payload['viewerIsFollowing']) {
-                  await Provider.of<SettingsModel>(context)
-                      .deleteWithCredentials('/user/following/$login');
-                  payload['viewerIsFollowing'] = false;
-                } else {
-                  Provider.of<SettingsModel>(context)
-                      .putWithCredentials('/user/following/$login');
-                  payload['viewerIsFollowing'] = true;
-                }
-              },
-            ));
-          }
-
-          actions.addAll([
+          return ActionButton(title: 'User Actions', actions: [
+            if (payload['viewerCanFollow'])
+              MyAction(
+                text: payload['viewerIsFollowing'] ? 'Unfollow' : 'Follow',
+                onPress: () async {
+                  if (payload['viewerIsFollowing']) {
+                    await Provider.of<SettingsModel>(context)
+                        .deleteWithCredentials('/user/following/$login');
+                    payload['viewerIsFollowing'] = false;
+                  } else {
+                    Provider.of<SettingsModel>(context)
+                        .putWithCredentials('/user/following/$login');
+                    payload['viewerIsFollowing'] = true;
+                  }
+                },
+              ),
             MyAction(
               text: 'Share',
               onPress: () {
@@ -189,8 +183,6 @@ class UserScreen extends StatelessWidget {
               },
             ),
           ]);
-
-          return ActionButton(title: 'User Actions', actions: actions);
         }
       },
       bodyBuilder: (data) {
@@ -211,13 +203,12 @@ class UserScreen extends StatelessWidget {
               EntryItem(
                 count: payload['repositories']['totalCount'],
                 text: 'Repositories',
-                screenBuilder: (context) => ReposScreen(login: login),
+                screenBuilder: (context) => ReposScreen(login),
               ),
               EntryItem(
                 count: payload['starredRepositories']['totalCount'],
                 text: 'Stars',
-                screenBuilder: (context) =>
-                    ReposScreen(login: login, star: true),
+                screenBuilder: (context) => ReposScreen(login, star: true),
               ),
               EntryItem(
                 count: payload['followers']['totalCount'],

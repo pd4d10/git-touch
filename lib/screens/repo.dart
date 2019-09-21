@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:filesize/filesize.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -8,7 +7,6 @@ import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/markdown_view.dart';
 import 'package:git_touch/widgets/table_view.dart';
-import 'package:primer/primer.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/screens/commits.dart';
@@ -42,7 +40,6 @@ class RepoScreen extends StatelessWidget {
     owner {
       __typename
       login
-      url
       avatarUrl
     }
     name
@@ -120,13 +117,8 @@ class RepoScreen extends StatelessWidget {
 
               switch (payload['owner']['__typename']) {
                 case 'Organization':
-                  // builder = (_) => OrganizationScreen(owner);
-                  // break;
-
-                  // Seems organization permission is a little complicated
-                  // So we just launch browser currently
-                  launch(payload['owner']['url']);
-                  return;
+                  builder = (_) => OrganizationScreen(owner);
+                  break;
                 case 'User':
                   builder = (_) => UserScreen(owner);
                   break;
