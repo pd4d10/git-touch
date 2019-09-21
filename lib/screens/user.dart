@@ -69,11 +69,14 @@ class UserScreen extends StatelessWidget {
   }
 
   Iterable<Widget> _buildRepos(payload) {
+    String title;
     List items;
 
     if ((payload['pinnedItems']['nodes'] as List).isNotEmpty) {
+      title = 'pinned repositories';
       items = payload['pinnedItems']['nodes'] as List;
     } else if ((payload['repositories']['nodes'] as List).isNotEmpty) {
+      title = 'popular repositories';
       items = payload['repositories']['nodes'] as List;
     } else {
       items = [];
@@ -86,7 +89,7 @@ class UserScreen extends StatelessWidget {
 
     return [
       borderView1,
-      // Text('Pinned repositories'),
+      if (title != null) TableViewHeader(title),
       ...join(
         borderView,
         items.map((item) {

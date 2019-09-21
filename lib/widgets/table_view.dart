@@ -4,6 +4,24 @@ import 'package:git_touch/utils/utils.dart';
 import 'package:primer/primer.dart';
 import 'link.dart';
 
+class TableViewHeader extends StatelessWidget {
+  final String title;
+
+  TableViewHeader(this.title);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: PrimerColors.gray100,
+      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      child: Text(
+        title.toUpperCase(),
+        style: TextStyle(color: PrimerColors.gray600, fontSize: 13),
+      ),
+    );
+  }
+}
+
 class TableViewItem {
   final Widget text;
   final IconData leftIconData;
@@ -95,15 +113,7 @@ class TableView extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        if (headerText != null)
-          Container(
-            color: PrimerColors.gray100,
-            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            child: Text(
-              headerText,
-              style: TextStyle(color: PrimerColors.gray600, fontSize: 13),
-            ),
-          ),
+        if (headerText != null) TableViewHeader(headerText),
         borderView,
         ...join(BorderView(leftPadding: _leftPadding),
             items.map(_buildItem).toList()),
