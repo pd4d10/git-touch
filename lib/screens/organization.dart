@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:git_touch/screens/repos.dart';
 import 'package:git_touch/screens/users.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/entry_item.dart';
@@ -21,13 +22,17 @@ class OrganizationScreen extends StatelessWidget {
 
   Iterable<Widget> _buildRepos(payload) {
     String title;
-    List items;
+    List items = [];
 
-    if ((payload['pinnedItems']['nodes'] as List).isNotEmpty) {
+    var pinnedItems = payload['pinnedItems']['nodes'] as List;
+    var repositories = payload['pinnableItems']['nodes'] as List;
+
+    if (pinnedItems.isNotEmpty) {
       title = 'pinned repositories';
-      items = payload['pinnedItems']['nodes'] as List;
-    } else {
-      items = [];
+      items = pinnedItems;
+    } else if (repositories.isNotEmpty) {
+      title = 'popular repositories';
+      items = repositories;
     }
 
     items = items
@@ -51,6 +56,7 @@ class OrganizationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return RefreshScaffold(
       onRefresh: () async {
+        // Use pinnableItems instead of organization here due to token permission
         var data = await Provider.of<SettingsModel>(context).query('''
 {
   organization(login: "$login") {
@@ -61,10 +67,18 @@ class OrganizationScreen extends StatelessWidget {
     email
     websiteUrl
     url
-    pinnedItems(first: $pageSize) {
+    pinnedItems(first: 6) {
       nodes {
         ... on Repository {
           $repoChunk
+        }
+      }
+    }
+    pinnableItems(first: 6, types: [REPOSITORY]) {
+      totalCount
+      nodes {
+        ... on Repository {
+        	$repoChunk
         }
       }
     }
@@ -105,6 +119,11 @@ class OrganizationScreen extends StatelessWidget {
             ),
             borderView,
             Row(children: <Widget>[
+              EntryItem(
+                count: payload['pinnableItems']['totalCount'],
+                text: 'Repositories',
+                screenBuilder: (context) => ReposScreen(login, org: true),
+              ),
               EntryItem(
                 count: payload['membersWithRole']['totalCount'],
                 text: 'Members',

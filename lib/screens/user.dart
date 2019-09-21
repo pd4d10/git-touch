@@ -68,16 +68,17 @@ class UserScreen extends StatelessWidget {
 
   Iterable<Widget> _buildRepos(payload) {
     String title;
-    List items;
+    List items = [];
 
-    if ((payload['pinnedItems']['nodes'] as List).isNotEmpty) {
+    var pinnedItems = payload['pinnedItems']['nodes'] as List;
+    var repositories = payload['repositories']['nodes'] as List;
+
+    if (pinnedItems.isNotEmpty) {
       title = 'pinned repositories';
-      items = payload['pinnedItems']['nodes'] as List;
-    } else if ((payload['repositories']['nodes'] as List).isNotEmpty) {
+      items = pinnedItems;
+    } else if (repositories.isNotEmpty) {
       title = 'popular repositories';
-      items = payload['repositories']['nodes'] as List;
-    } else {
-      items = [];
+      items = repositories;
     }
 
     items = items

@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import '../utils/utils.dart';
 import '../widgets/repo_item.dart';
 
-/// Repos of user
+// TODO: refactor
 class ReposScreen extends StatelessWidget {
   final String login;
   final bool star;
@@ -15,7 +15,8 @@ class ReposScreen extends StatelessWidget {
   ReposScreen(this.login, {this.star = false, this.org = false});
 
   String get scope => org ? 'organization' : 'user';
-  String get resource => star ? 'starredRepositories' : 'repositories';
+  String get resource =>
+      org ? 'pinnableItems' : star ? 'starredRepositories' : 'repositories';
   String get fieldOrderBy {
     if (star) {
       return 'STARRED_AT';
@@ -27,18 +28,21 @@ class ReposScreen extends StatelessWidget {
   }
 
   Future<ListPayload> _queryRepos(BuildContext context, [String cursor]) async {
+    var filterChunk = org
+        ? ', types: [REPOSITORY],'
+        : ', orderBy: {field: $fieldOrderBy, direction: DESC}';
     var cursorChunk = cursor == null ? '' : ', after: "$cursor"';
-    // FIXME: organization scope not work due to permissions
+    var contentChunk = org ? '''... on Repository { $repoChunk }''' : repoChunk;
     var data = await Provider.of<SettingsModel>(context).query('''
 {
   $scope(login: "$login") {
-    $resource(first: $pageSize$cursorChunk, orderBy: {field: $fieldOrderBy, direction: DESC}) {
+    $resource(first: $pageSize$cursorChunk$filterChunk) {
       pageInfo {
         hasNextPage
         endCursor
       }
       nodes {
-        $repoChunk
+        $contentChunk
       }
     }
   }
