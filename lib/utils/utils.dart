@@ -85,27 +85,6 @@ var createWarning =
 var warningSpan =
     TextSpan(text: 'xxx', style: TextStyle(color: Colors.redAccent));
 
-var repoChunk = '''
-owner {
-  login
-  avatarUrl
-}
-name
-description
-isPrivate
-isFork
-stargazers {
-  totalCount
-}
-forks {
-  totalCount
-}
-primaryLanguage {
-  color
-  name
-}
-''';
-
 List<T> join<T>(T seperator, List<T> xs) {
   List<T> result = [];
   xs.asMap().forEach((index, x) {

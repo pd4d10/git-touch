@@ -4,6 +4,12 @@ import 'package:git_touch/widgets/avatar.dart';
 import 'package:git_touch/widgets/link.dart';
 import 'package:primer/primer.dart';
 
+const userGqlChunk = '''
+  name
+  avatarUrl
+  bio
+''';
+
 class UserItem extends StatelessWidget {
   final String login;
   final String name;

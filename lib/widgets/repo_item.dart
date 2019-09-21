@@ -6,6 +6,27 @@ import '../utils/utils.dart';
 import '../screens/repo.dart';
 import 'link.dart';
 
+const repoChunk = '''
+owner {
+  login
+  avatarUrl
+}
+name
+description
+isPrivate
+isFork
+stargazers {
+  totalCount
+}
+forks {
+  totalCount
+}
+primaryLanguage {
+  color
+  name
+}
+''';
+
 class RepoItem extends StatelessWidget {
   final Map<String, dynamic> payload;
   final bool inRepoScreen;

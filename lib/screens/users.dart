@@ -39,7 +39,7 @@ class UsersScreen extends StatelessWidget {
         return Tuple3(
             'repository', 'owner: "$login", name: "$name"', 'watchers');
       case UsersScreenType.orgs:
-        return Tuple3('', '', ''); // FIXME:
+        return Tuple3('organization', 'login: "$login"', 'membersWithRole');
       default:
         throw 'Should not be here';
     }

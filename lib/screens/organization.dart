@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:git_touch/screens/users.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
+import 'package:git_touch/widgets/entry_item.dart';
 import 'package:git_touch/widgets/table_view.dart';
 import 'package:git_touch/widgets/user_item.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -58,6 +60,7 @@ class OrganizationScreen extends StatelessWidget {
     location
     email
     websiteUrl
+    url
     pinnedItems(first: $pageSize) {
       nodes {
         ... on Repository {
@@ -65,7 +68,9 @@ class OrganizationScreen extends StatelessWidget {
         }
       }
     }
-    url
+    membersWithRole {
+      totalCount
+    }
   }
 }
 ''');
@@ -98,6 +103,15 @@ class OrganizationScreen extends StatelessWidget {
               avatarUrl: payload['avatarUrl'],
               bio: payload['description'],
             ),
+            borderView,
+            Row(children: <Widget>[
+              EntryItem(
+                count: payload['membersWithRole']['totalCount'],
+                text: 'Members',
+                screenBuilder: (context) =>
+                    UsersScreen(type: UsersScreenType.orgs, login: login),
+              ),
+            ]),
             borderView1,
             TableView(
               hasIcon: true,
