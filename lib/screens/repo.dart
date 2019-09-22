@@ -46,6 +46,7 @@ class RepoScreen extends StatelessWidget {
     isPrivate
     isFork
     description
+    diskUsage
     watchers {
       totalCount
     }
@@ -223,7 +224,7 @@ class RepoScreen extends StatelessWidget {
                   leftIconData: Octicons.code,
                   text: Text('Code'),
                   rightWidget:
-                      Text(filesize(payload['languages']['totalSize'] as int)),
+                      Text(filesize((payload['diskUsage'] as int) * 1000)),
                   screenBuilder: (_) => ObjectScreen(
                     owner: owner,
                     name: name,
