@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:git_touch/utils/utils.dart';
-import 'package:intl/intl.dart';
 import 'package:primer/primer.dart';
 import 'link.dart';
 

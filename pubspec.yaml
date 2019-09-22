@@ -10,35 +10,30 @@ description: A new Flutter project.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.3.0-dev <3.0.0"
+  sdk: ">=2.3.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
+  flutter_vector_icons: ^0.2.1
+  flutter_highlight: ^0.4.0
+  primer: ^0.0.2
+  nanoid: ^0.0.6
+  github_contributions: ^0.2.0
+  seti: ^0.2.0
   http: ^0.12.0
-  rxdart: ^0.22.2
-  uri: ^0.11.3
-  intl: ^0.15.7
+  intl: ^0.16.0
   url_launcher: ^5.0.2
   uni_links: ^0.1.4
   flutter_markdown: ^0.2.0
   shared_preferences: ^0.5.0
-  nanoid: ^0.0.6
   share: ^0.6.0
-  flutter_vector_icons: ^0.2.1
-  github_contributions: ^0.2.0
   flutter_svg: ^0.13.0
   launch_review: ^2.0.0
-  flutter_highlight: ^0.4.0
   timeago: ^2.0.18
   provider: ^3.1.0
-  seti: ^0.2.0
   filesize: ^1.0.4
   tuple: ^1.0.2
-  primer:
-    git:
-      url: git://github.com/pd4d10/primer-flutter
-      path: primer
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
