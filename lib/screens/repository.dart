@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:filesize/filesize.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -102,11 +104,6 @@ class RepositoryScreen extends StatelessWidget {
         name
       }
     }
-    object(expression: "$_branchName:README.md") {
-      ... on Blob {
-        text
-      }
-    }
     licenseInfo {
       name
       spdxId
@@ -118,11 +115,25 @@ class RepositoryScreen extends StatelessWidget {
     return data['repository'];
   }
 
+  Future<String> fetchReadme(BuildContext context) async {
+    var data = await Provider.of<SettingsModel>(context)
+        .getWithCredentials('/repos/$owner/$name/readme');
+
+    if (data['content'] == null) {
+      return null;
+    }
+
+    var bits = base64.decode((data['content'] as String).replaceAll('\n', ''));
+    var str = utf8.decode(bits);
+    return str;
+  }
+
   @override
   Widget build(BuildContext context) {
     return RefreshScaffold(
       title: AppBarTitle('Repository'),
-      trailingBuilder: (payload) {
+      trailingBuilder: (data) {
+        var payload = data[0];
         return ActionButton(title: 'Repository Actions', actions: [
           MyAction(
             text: '@$owner',
@@ -170,8 +181,14 @@ class RepositoryScreen extends StatelessWidget {
           ),
         ]);
       },
-      onRefresh: () => queryRepo(context),
-      bodyBuilder: (payload) {
+      onRefresh: () => Future.wait([
+        queryRepo(context),
+        fetchReadme(context),
+      ]),
+      bodyBuilder: (data) {
+        var payload = data[0];
+        var readme = data[1] as String;
+
         final langWidth = MediaQuery.of(context).size.width -
             _languageBarPadding * 2 -
             (payload['languages']['edges'] as List).length +
@@ -312,10 +329,10 @@ class RepositoryScreen extends StatelessWidget {
               ],
             ),
             borderView1,
-            if (payload['object'] != null)
+            if (readme != null)
               Container(
                 padding: EdgeInsets.all(16),
-                child: MarkdownView(payload['object']['text']),
+                child: MarkdownView(readme),
               ),
           ],
         );
