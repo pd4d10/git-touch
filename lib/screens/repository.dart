@@ -37,7 +37,6 @@ class RepositoryScreen extends StatelessWidget {
 
   get _branchQueryChunk =>
       branch == null ? 'defaultBranchRef' : 'ref(qualifiedName: "$branch")';
-  get _branchName => branch ?? 'master';
   get branchInfoKey => branch == null ? 'defaultBranchRef' : 'ref';
 
   Future queryRepo(BuildContext context) async {
@@ -284,7 +283,7 @@ class RepositoryScreen extends StatelessWidget {
             TableView(
               hasIcon: true,
               items: [
-                if (payload[branchInfoKey] != null)
+                if (payload[branchInfoKey] != null) ...[
                   TableViewItem(
                     leftIconData: Octicons.history,
                     text: Text('Commits'),
@@ -293,31 +292,33 @@ class RepositoryScreen extends StatelessWidget {
                     screenBuilder: (_) =>
                         CommitsScreen(owner, name, branch: branch),
                   ),
-                if (payload['refs'] != null)
-                  TableViewItem(
-                    leftIconData: Octicons.git_branch,
-                    text: Text('Branches'),
-                    rightWidget: Text(_branchName +
-                        ' • ' +
-                        numberFormat.format(payload['refs']['totalCount'])),
-                    onTap: () async {
-                      var result = await Provider.of<ThemeModel>(context)
-                          .showDialogOptions(
-                              context,
-                              (payload['refs']['nodes'] as List)
-                                  .map((b) => DialogOption(
-                                      value: b['name'] as String,
-                                      widget: Text(b['name'] as String)))
-                                  .toList());
+                  if (payload['refs'] != null)
+                    TableViewItem(
+                      leftIconData: Octicons.git_branch,
+                      text: Text('Branches'),
+                      rightWidget: Text(payload[branchInfoKey]['name'] +
+                          ' • ' +
+                          numberFormat.format(payload['refs']['totalCount'])),
+                      onTap: () async {
+                        // FIXME: Show all branches
+                        var result = await Provider.of<ThemeModel>(context)
+                            .showDialogOptions(
+                                context,
+                                (payload['refs']['nodes'] as List)
+                                    .map((b) => DialogOption(
+                                        value: b['name'] as String,
+                                        widget: Text(b['name'] as String)))
+                                    .toList());
 
-                      if (result != null) {
-                        Provider.of<ThemeModel>(context).pushReplacementRoute(
-                            context,
-                            (_) =>
-                                RepositoryScreen(owner, name, branch: result));
-                      }
-                    },
-                  ),
+                        if (result != null) {
+                          Provider.of<ThemeModel>(context).pushReplacementRoute(
+                              context,
+                              (_) => RepositoryScreen(owner, name,
+                                  branch: result));
+                        }
+                      },
+                    ),
+                ],
                 TableViewItem(
                   leftIconData: Octicons.law,
                   text: Text('License'),
