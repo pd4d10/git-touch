@@ -221,17 +221,19 @@ class RepoScreen extends StatelessWidget {
             TableView(
               hasIcon: true,
               items: [
-                TableViewItem(
-                  leftIconData: Octicons.code,
-                  text: Text('Code'),
-                  rightWidget:
-                      Text(filesize((payload['diskUsage'] as int) * 1000)),
-                  screenBuilder: (_) => ObjectScreen(
-                    owner: owner,
-                    name: name,
-                    branch: payload['defaultBranchRef']['name'], // FIXME: null
+                if (payload['defaultBranchRef'] != null)
+                  TableViewItem(
+                    leftIconData: Octicons.code,
+                    text: Text('Code'),
+                    rightWidget:
+                        Text(filesize((payload['diskUsage'] as int) * 1000)),
+                    screenBuilder: (_) => ObjectScreen(
+                      owner: owner,
+                      name: name,
+                      branch: payload['defaultBranchRef']
+                          ['name'], // FIXME: null
+                    ),
                   ),
-                ),
                 if (payload['hasIssuesEnabled'] as bool)
                   TableViewItem(
                     leftIconData: Octicons.issue_opened,
@@ -255,14 +257,15 @@ class RepoScreen extends StatelessWidget {
             TableView(
               hasIcon: true,
               items: [
-                TableViewItem(
-                  leftIconData: Octicons.history,
-                  text: Text('Commits'),
-                  rightWidget: Text(numberFormat.format(
-                      payload['defaultBranchRef']['target']['history']
-                          ['totalCount'])),
-                  screenBuilder: (_) => CommitsScreen(owner, name),
-                ),
+                if (payload['defaultBranchRef'] != null)
+                  TableViewItem(
+                    leftIconData: Octicons.history,
+                    text: Text('Commits'),
+                    rightWidget: Text(numberFormat.format(
+                        payload['defaultBranchRef']['target']['history']
+                            ['totalCount'])),
+                    screenBuilder: (_) => CommitsScreen(owner, name),
+                  ),
                 TableViewItem(
                   leftIconData: Octicons.law,
                   text: Text('License'),
