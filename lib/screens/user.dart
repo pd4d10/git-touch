@@ -209,8 +209,7 @@ class UserScreen extends StatelessWidget {
               EntryItem(
                 count: payload['starredRepositories']['totalCount'],
                 text: 'Stars',
-                screenBuilder: (context) =>
-                    RepositoriesScreen(login, star: true),
+                screenBuilder: (context) => RepositoriesScreen.stars(login),
               ),
               EntryItem(
                 count: payload['followers']['totalCount'],

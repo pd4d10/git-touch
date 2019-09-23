@@ -123,7 +123,7 @@ class OrganizationScreen extends StatelessWidget {
                 count: payload['pinnableItems']['totalCount'],
                 text: 'Repositories',
                 screenBuilder: (context) =>
-                    RepositoriesScreen(login, org: true),
+                    RepositoriesScreen.ofOrganization(login),
               ),
               EntryItem(
                 count: payload['membersWithRole']['totalCount'],
