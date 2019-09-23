@@ -43,13 +43,15 @@ class EventItem extends StatelessWidget {
     // var resource = isPullRequest ? 'pull_request' : 'issue';
     // int number = event.payload['issue']['number'];
 
-    return createLinkSpan(context, '#' + number.toString(), () {
-      return IssueScreen.fromFullName(
+    return createLinkSpan(
+      context,
+      '#' + number.toString(),
+      (_) => IssueScreen.fromFullName(
         number: number,
         fullName: event.repoFullName,
         isPullRequest: isPullRequest,
-      );
-    });
+      ),
+    );
   }
 
   Widget _buildItem({
@@ -98,7 +100,7 @@ class EventItem extends StatelessWidget {
                             createLinkSpan(
                               context,
                               event.actorLogin,
-                              () => UserScreen(event.actorLogin),
+                              (_) => UserScreen(event.actorLogin),
                             ),
                             ...spans,
                           ],

@@ -3,10 +3,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
+import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/screens/repository.dart';
 import 'package:git_touch/screens/user.dart';
 import 'package:intl/intl.dart';
 import 'package:primer/primer.dart';
+import 'package:provider/provider.dart';
 export 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
 final monospaceFont = Platform.isIOS ? 'Menlo' : 'monospace'; // FIXME:
@@ -47,31 +49,28 @@ void nextTick(Function callback, [int milliseconds = 0]) {
   });
 }
 
-TextSpan createLinkSpan(BuildContext context, String text, Function handle) {
+TextSpan createLinkSpan(
+  BuildContext context,
+  String text,
+  Widget Function(BuildContext) builder,
+) {
   return TextSpan(
     text: text,
     style: TextStyle(color: PrimerColors.blue500, fontWeight: FontWeight.w600),
     recognizer: TapGestureRecognizer()
       ..onTap = () {
-        Navigator.of(context).push(
-          // FIXME: Material route
-          CupertinoPageRoute(
-            builder: (context) {
-              return handle();
-            },
-          ),
-        );
+        Provider.of<ThemeModel>(context).pushRoute(context, builder);
       },
   );
 }
 
 TextSpan createUserSpan(BuildContext context, String login) {
-  return createLinkSpan(context, login, () => UserScreen(login));
+  return createLinkSpan(context, login, (_) => UserScreen(login));
 }
 
 TextSpan createRepoLinkSpan(BuildContext context, String owner, String name) {
   return createLinkSpan(
-      context, '$owner/$name', () => RepositoryScreen(owner, name));
+      context, '$owner/$name', (_) => RepositoryScreen(owner, name));
 }
 
 class Palette {
