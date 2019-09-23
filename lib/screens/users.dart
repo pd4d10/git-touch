@@ -10,27 +10,33 @@ class UsersScreen extends StatelessWidget {
   final String scope;
   final String params;
   final String resource;
+  final String title;
 
   UsersScreen.followers(String login)
       : scope = 'user',
         params = 'login: "$login"',
-        resource = 'followers';
+        resource = 'followers',
+        title = 'Followers';
   UsersScreen.following(String login)
       : scope = 'user',
         params = 'login: "$login"',
-        resource = 'following';
+        resource = 'following',
+        title = 'Following';
   UsersScreen.stars(String owner, String name)
       : scope = 'repository',
         params = 'owner: "$owner", name: "$name"',
-        resource = 'stargazers';
+        resource = 'stargazers',
+        title = 'Stargazers';
   UsersScreen.watchers(String owner, String name)
       : scope = 'repository',
         params = 'owner: "$owner", name: "$name"',
-        resource = 'watchers';
+        resource = 'watchers',
+        title = 'Watchers';
   UsersScreen.members(String login)
       : scope = 'organization',
         params = 'login: "$login"',
-        resource = 'membersWithRole';
+        resource = 'membersWithRole',
+        title = 'Members';
 
   Future<ListPayload> _queryUsers(BuildContext context, [String cursor]) async {
     var cursorChunk = cursor == null ? '' : ', after: "$cursor"';
@@ -64,7 +70,7 @@ class UsersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListScaffold(
-      title: AppBarTitle('Users'),
+      title: AppBarTitle(title),
       onRefresh: () => _queryUsers(context),
       onLoadMore: (cursor) => _queryUsers(context, cursor),
       itemBuilder: (payload) => UserItem(
