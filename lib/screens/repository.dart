@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:filesize/filesize.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -74,6 +73,9 @@ class RepositoryScreen extends StatelessWidget {
       totalCount
     }
     pullRequests(states: OPEN) {
+      totalCount
+    }
+    releases {
       totalCount
     }
     languages(first: 10, orderBy: {field: SIZE, direction: DESC}) {
@@ -310,6 +312,14 @@ class RepositoryScreen extends StatelessWidget {
                       },
                     ),
                 ],
+                if ((payload['releases']['totalCount'] as int) > 0)
+                  TableViewItem(
+                    leftIconData: Octicons.tag,
+                    text: Text('Releases'),
+                    rightWidget: Text(
+                        (payload['releases']['totalCount'] as int).toString()),
+                    url: payload['url'] + '/releases',
+                  ),
                 TableViewItem(
                   leftIconData: Octicons.law,
                   text: Text('License'),

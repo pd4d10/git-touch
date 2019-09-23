@@ -28,6 +28,7 @@ class TableViewItem {
   final Widget leftWidget;
   final Widget rightWidget;
   final void Function() onTap;
+  final String url;
   final WidgetBuilder screenBuilder;
   final bool hideRightChevron;
 
@@ -37,6 +38,7 @@ class TableViewItem {
     this.leftWidget,
     this.rightWidget,
     this.onTap,
+    this.url,
     this.screenBuilder,
     this.hideRightChevron = false,
   }) : assert(leftIconData == null || leftWidget == null);
@@ -86,7 +88,9 @@ class TableView extends StatelessWidget {
               ),
               SizedBox(width: 6)
             ],
-            if ((item.onTap != null || item.screenBuilder != null) &&
+            if ((item.onTap != null ||
+                    item.screenBuilder != null ||
+                    item.url != null) &&
                 !item.hideRightChevron)
               Icon(CupertinoIcons.right_chevron,
                   size: 20, color: PrimerColors.gray300)
@@ -98,12 +102,13 @@ class TableView extends StatelessWidget {
       ),
     );
 
-    if (item.onTap == null && item.screenBuilder == null) {
+    if (item.onTap == null && item.screenBuilder == null && item.url == null) {
       return widget;
     }
     return Link(
       onTap: item.onTap,
       screenBuilder: item.screenBuilder,
+      url: item.url,
       child: widget,
     );
   }
