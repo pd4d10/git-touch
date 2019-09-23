@@ -4,10 +4,10 @@ Open source GitHub client built with Flutter
 
 <p>
   <a href="https://itunes.apple.com/us/app/gittouch/id1452042346">
-    <img alt="Download on the App Store" title="App Store" src="assets/app-store.svg" />
+    <img alt="Download on the App Store" title="App Store" src="https://raw.githubusercontent.com/pd4d10/git-touch/master/assets/app-store-badge.png" height="60" />
   </a>
   <a href="https://play.google.com/store/apps/details?id=io.github.pd4d10.gittouch">
-    <img alt="Get it on Google Play" title="Google Play" src="https://raw.githubusercontent.com/pd4d10/git-touch/master/assets/google-play.png" height="40" />
+    <img alt="Get it on Google Play" title="Google Play" src="https://raw.githubusercontent.com/pd4d10/git-touch/master/assets/google-play-badge.png" height="60" />
   </a>
 </p>
 
@@ -36,11 +36,7 @@ A screenshot would be great if it is a bug report.
 
 ### Bug fixes or new feature
 
-We use Flutter `dev` channel, run following command to switch to it:
-
-```sh
-flutter channel dev
-```
+Pull requests are welcome.
 
 ## Contributors
 
@@ -55,4 +51,4 @@ This project follows the [all-contributors](https://github.com/all-contributors/
 
 ## License
 
-MIT
+Apache License 2.0
