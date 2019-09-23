@@ -201,20 +201,12 @@ class RepositoryScreen extends StatelessWidget {
                 EntryItem(
                   count: payload['watchers']['totalCount'],
                   text: 'Watchers',
-                  screenBuilder: (context) => UsersScreen(
-                    login: owner,
-                    name: name,
-                    type: UsersScreenType.repoWatchers,
-                  ),
+                  screenBuilder: (context) => UsersScreen.watchers(owner, name),
                 ),
                 EntryItem(
                   count: payload['stargazers']['totalCount'],
                   text: 'Stars',
-                  screenBuilder: (context) => UsersScreen(
-                    login: owner,
-                    name: name,
-                    type: UsersScreenType.repoStars,
-                  ),
+                  screenBuilder: (context) => UsersScreen.stars(owner, name),
                 ),
                 EntryItem(
                   count: payload['forks']['totalCount'],

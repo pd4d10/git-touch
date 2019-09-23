@@ -215,14 +215,12 @@ class UserScreen extends StatelessWidget {
               EntryItem(
                 count: payload['followers']['totalCount'],
                 text: 'Followers',
-                screenBuilder: (context) => UsersScreen(
-                    login: login, type: UsersScreenType.userFollowers),
+                screenBuilder: (context) => UsersScreen.followers(login),
               ),
               EntryItem(
                 count: payload['following']['totalCount'],
                 text: 'Following',
-                screenBuilder: (context) => UsersScreen(
-                    login: login, type: UsersScreenType.userFollowing),
+                screenBuilder: (context) => UsersScreen.following(login),
               ),
             ]),
             borderView1,

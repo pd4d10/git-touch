@@ -128,8 +128,7 @@ class OrganizationScreen extends StatelessWidget {
               EntryItem(
                 count: payload['membersWithRole']['totalCount'],
                 text: 'Members',
-                screenBuilder: (context) =>
-                    UsersScreen(type: UsersScreenType.orgs, login: login),
+                screenBuilder: (context) => UsersScreen.members(login),
               ),
             ]),
             borderView1,

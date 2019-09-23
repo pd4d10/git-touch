@@ -1,55 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/user_item.dart';
-import 'package:tuple/tuple.dart';
 import '../scaffolds/list.dart';
 import 'package:git_touch/models/settings.dart';
 import 'package:provider/provider.dart';
 import '../utils/utils.dart';
 
-enum UsersScreenType {
-  userFollowing,
-  userFollowers,
-  repoStars,
-  repoWatchers,
-  orgs,
-}
-
 class UsersScreen extends StatelessWidget {
-  final UsersScreenType type;
-  final String login;
-  final String name;
+  final String scope;
+  final String params;
+  final String resource;
 
-  UsersScreen({
-    @required this.type,
-    @required this.login,
-    this.name,
-  });
-
-  Tuple3<String, String, String> get queryKeys {
-    switch (type) {
-      case UsersScreenType.userFollowing:
-        return Tuple3('user', 'login: "$login"', 'following');
-      case UsersScreenType.userFollowers:
-        return Tuple3('user', 'login: "$login"', 'followers');
-      case UsersScreenType.repoStars:
-        return Tuple3(
-            'repository', 'owner: "$login", name: "$name"', 'stargazers');
-      case UsersScreenType.repoWatchers:
-        return Tuple3(
-            'repository', 'owner: "$login", name: "$name"', 'watchers');
-      case UsersScreenType.orgs:
-        return Tuple3('organization', 'login: "$login"', 'membersWithRole');
-      default:
-        throw 'Should not be here';
-    }
-  }
+  UsersScreen.followers(String login)
+      : scope = 'user',
+        params = 'login: "$login"',
+        resource = 'followers';
+  UsersScreen.following(String login)
+      : scope = 'user',
+        params = 'login: "$login"',
+        resource = 'following';
+  UsersScreen.stars(String owner, String name)
+      : scope = 'repository',
+        params = 'owner: "$owner", name: "$name"',
+        resource = 'stargazers';
+  UsersScreen.watchers(String owner, String name)
+      : scope = 'repository',
+        params = 'owner: "$owner", name: "$name"',
+        resource = 'watchers';
+  UsersScreen.members(String login)
+      : scope = 'organization',
+        params = 'login: "$login"',
+        resource = 'membersWithRole';
 
   Future<ListPayload> _queryUsers(BuildContext context, [String cursor]) async {
     var cursorChunk = cursor == null ? '' : ', after: "$cursor"';
-    var scope = queryKeys.item1;
-    var params = queryKeys.item2;
-    var resource = queryKeys.item3;
     var data = await Provider.of<SettingsModel>(context).query('''
 {
   $scope($params) {
