@@ -47,6 +47,7 @@ class RepoScreen extends StatelessWidget {
     isFork
     description
     diskUsage
+    hasIssuesEnabled
     watchers {
       totalCount
     }
@@ -231,13 +232,15 @@ class RepoScreen extends StatelessWidget {
                     branch: payload['defaultBranchRef']['name'], // FIXME: null
                   ),
                 ),
-                TableViewItem(
-                  leftIconData: Octicons.issue_opened,
-                  text: Text('Issues'),
-                  rightWidget: Text(
-                      numberFormat.format(payload['issues']['totalCount'])),
-                  screenBuilder: (_) => IssuesScreen(owner: owner, name: name),
-                ),
+                if (payload['hasIssuesEnabled'] as bool)
+                  TableViewItem(
+                    leftIconData: Octicons.issue_opened,
+                    text: Text('Issues'),
+                    rightWidget: Text(
+                        numberFormat.format(payload['issues']['totalCount'])),
+                    screenBuilder: (_) =>
+                        IssuesScreen(owner: owner, name: name),
+                  ),
                 TableViewItem(
                   leftIconData: Octicons.git_pull_request,
                   text: Text('Pull requests'),
