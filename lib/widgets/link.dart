@@ -32,9 +32,7 @@ class Link extends StatelessWidget {
     }
 
     if (screenBuilder != null) {
-      Provider.of<ThemeModel>(context).pushRoute(
-          context: context,
-          builder: screenBuilder,
+      Provider.of<ThemeModel>(context).pushRoute(context, screenBuilder,
           fullscreenDialog: fullscreenDialog);
     }
 

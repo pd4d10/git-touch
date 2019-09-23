@@ -35,7 +35,7 @@ class RepoScreen extends StatelessWidget {
 
   get _branchQueryChunk =>
       branch == null ? 'defaultBranchRef' : 'ref(qualifiedName: "$branch")';
-  get _readmeChunk => (branch ?? 'master') + ':README.md';
+  get _branchName => branch ?? 'master';
   get branchInfoKey => branch == null ? 'defaultBranchRef' : 'ref';
 
   Future queryRepo(BuildContext context) async {
@@ -102,7 +102,7 @@ class RepoScreen extends StatelessWidget {
         name
       }
     }
-    object(expression: "$_readmeChunk") {
+    object(expression: "$_branchName:README.md") {
       ... on Blob {
         text
       }
@@ -138,8 +138,7 @@ class RepoScreen extends StatelessWidget {
                   break;
               }
 
-              Provider.of<ThemeModel>(context)
-                  .pushRoute(context: context, builder: builder);
+              Provider.of<ThemeModel>(context).pushRoute(context, builder);
             },
           ),
           MyAction(
@@ -281,21 +280,25 @@ class RepoScreen extends StatelessWidget {
                   TableViewItem(
                     leftIconData: Octicons.git_branch,
                     text: Text('Branches'),
-                    rightWidget: Text(
+                    rightWidget: Text(_branchName +
+                        ' • ' +
                         numberFormat.format(payload['refs']['totalCount'])),
-                    // onTap: () {
-                    //   Provider.of<ThemeModel>(context).showPicker(
-                    //     context,
-                    //     PickerGroupItem(
-                    //       items: (payload['refs']['nodes'] as List).map((b) =>
-                    //           PickerItem(b['name'] as String, text: b['name'])),
-                    //       onChange: (v) {
-                    //         // FIXME:
-                    //         queryRepo(context);
-                    //       },
-                    //     ),
-                    //   );
-                    // },
+                    onTap: () async {
+                      var result = await Provider.of<ThemeModel>(context)
+                          .showDialogOptions(
+                              context,
+                              (payload['refs']['nodes'] as List)
+                                  .map((b) => DialogOption(
+                                      value: b['name'] as String,
+                                      widget: Text(b['name'] as String)))
+                                  .toList());
+
+                      if (result != null) {
+                        Provider.of<ThemeModel>(context).pushReplacementRoute(
+                            context,
+                            (_) => RepoScreen(owner, name, branch: result));
+                      }
+                    },
                   ),
                 TableViewItem(
                   leftIconData: Octicons.law,

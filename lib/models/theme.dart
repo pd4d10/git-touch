@@ -50,23 +50,33 @@ class ThemeModel with ChangeNotifier {
     notifyListeners();
   }
 
-  void pushRoute({
-    @required BuildContext context,
-    @required WidgetBuilder builder,
+  pushRoute(
+    BuildContext context,
+    WidgetBuilder builder, {
     bool fullscreenDialog = false,
   }) {
     switch (theme) {
       case AppThemeType.cupertino:
-        Navigator.of(context).push(CupertinoPageRoute(
+        return Navigator.of(context).push(CupertinoPageRoute(
           builder: builder,
           fullscreenDialog: fullscreenDialog,
         ));
-        break;
       default:
-        Navigator.of(context).push(MaterialPageRoute(
+        return Navigator.of(context).push(MaterialPageRoute(
           builder: builder,
           fullscreenDialog: fullscreenDialog,
         ));
+    }
+  }
+
+  pushReplacementRoute(BuildContext context, WidgetBuilder builder) {
+    switch (theme) {
+      case AppThemeType.cupertino:
+        return Navigator.of(context)
+            .pushReplacement(CupertinoPageRoute(builder: builder));
+      default:
+        return Navigator.of(context)
+            .pushReplacement(MaterialPageRoute(builder: builder));
     }
   }
 
