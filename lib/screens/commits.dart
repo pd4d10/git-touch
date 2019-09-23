@@ -21,11 +21,11 @@ class CommitsScreen extends StatelessWidget {
     if (cursor != null) {
       params += ', after: "$cursor"';
     }
-    // TODO: Specify branch
+    var key = getBranchQueryKey(branch, withParams: true);
     var data = await Provider.of<SettingsModel>(context).query('''
 {
   repository(owner: "$owner", name: "$name") {
-    ref(qualifiedName: "master") {
+    $key {
       target {
         ... on Commit {
           history($params) {
@@ -58,7 +58,8 @@ class CommitsScreen extends StatelessWidget {
 }
     ''');
 
-    var history = data["repository"]['ref']['target']['history'];
+    var history =
+        data["repository"][getBranchQueryKey(branch)]['target']['history'];
 
     return ListPayload(
       cursor: history["pageInfo"]["endCursor"],

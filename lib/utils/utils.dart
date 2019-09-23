@@ -157,3 +157,8 @@ class BorderView extends StatelessWidget {
 
 const borderView = BorderView();
 const borderView1 = BorderView(height: 20, color: PrimerColors.gray100);
+
+String getBranchQueryKey(String branch, {bool withParams = false}) {
+  if (branch == null) return 'defaultBranchRef';
+  return 'ref' + (withParams ? '(qualifiedName: "$branch")' : '');
+}

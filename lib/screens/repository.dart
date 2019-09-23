@@ -35,11 +35,10 @@ class RepositoryScreen extends StatelessWidget {
       : owner = fullName.split('/')[0],
         name = fullName.split('/')[1];
 
-  get _branchQueryChunk =>
-      branch == null ? 'defaultBranchRef' : 'ref(qualifiedName: "$branch")';
-  get branchInfoKey => branch == null ? 'defaultBranchRef' : 'ref';
+  get branchInfoKey => getBranchQueryKey(branch);
 
   Future queryRepo(BuildContext context) async {
+    var branchKey = getBranchQueryKey(branch, withParams: true);
     var data = await Provider.of<SettingsModel>(context).query('''
 {
   repository(owner: "$owner", name: "$name") {
@@ -87,7 +86,7 @@ class RepositoryScreen extends StatelessWidget {
         }
       }
     }
-    $_branchQueryChunk {
+    $branchKey {
       name
       target {
         ... on Commit {
@@ -110,7 +109,6 @@ class RepositoryScreen extends StatelessWidget {
   }
 }
 ''');
-    // FIXME: 1. Default branch 2. Other readme file names
     return data['repository'];
   }
 
@@ -131,6 +129,10 @@ class RepositoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return RefreshScaffold(
       title: AppBarTitle('Repository'),
+      onRefresh: () => Future.wait([
+        queryRepo(context),
+        fetchReadme(context),
+      ]),
       trailingBuilder: (data) {
         var payload = data[0];
         return ActionButton(title: 'Repository Actions', actions: [
@@ -180,10 +182,6 @@ class RepositoryScreen extends StatelessWidget {
           ),
         ]);
       },
-      onRefresh: () => Future.wait([
-        queryRepo(context),
-        fetchReadme(context),
-      ]),
       bodyBuilder: (data) {
         var payload = data[0];
         var readme = data[1] as String;
@@ -256,9 +254,10 @@ class RepositoryScreen extends StatelessWidget {
                     rightWidget:
                         Text(filesize((payload['diskUsage'] as int) * 1000)),
                     screenBuilder: (_) => ObjectScreen(
-                        owner: owner,
-                        name: name,
-                        branch: payload[branchInfoKey]['name']),
+                      owner: owner,
+                      name: name,
+                      branch: payload[branchInfoKey]['name'],
+                    ),
                   ),
                 if (payload['hasIssuesEnabled'] as bool)
                   TableViewItem(
