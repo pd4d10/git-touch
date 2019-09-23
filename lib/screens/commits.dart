@@ -12,8 +12,9 @@ import 'package:primer/primer.dart';
 class CommitsScreen extends StatelessWidget {
   final String owner;
   final String name;
+  final String branch;
 
-  CommitsScreen(this.owner, this.name);
+  CommitsScreen(this.owner, this.name, {this.branch});
 
   Future<ListPayload> _query(BuildContext context, [String cursor]) async {
     var params = 'first: 30';

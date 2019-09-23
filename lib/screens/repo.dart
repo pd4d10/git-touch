@@ -24,13 +24,19 @@ import '../widgets/action.dart';
 class RepoScreen extends StatelessWidget {
   final String owner;
   final String name;
+  final String branch;
 
   static const _languageBarPadding = 10.0;
 
-  RepoScreen(this.owner, this.name);
-  RepoScreen.fromFullName(String fullName)
+  RepoScreen(this.owner, this.name, {this.branch});
+  RepoScreen.fromFullName(String fullName, {this.branch})
       : owner = fullName.split('/')[0],
         name = fullName.split('/')[1];
+
+  get _branchQueryChunk =>
+      branch == null ? 'defaultBranchRef' : 'ref(qualifiedName: "$branch")';
+  get _readmeChunk => (branch ?? 'master') + ':README.md';
+  get branchInfoKey => branch == null ? 'defaultBranchRef' : 'ref';
 
   Future queryRepo(BuildContext context) async {
     var data = await Provider.of<SettingsModel>(context).query('''
@@ -48,6 +54,9 @@ class RepoScreen extends StatelessWidget {
     description
     diskUsage
     hasIssuesEnabled
+    url
+    viewerHasStarred
+    viewerSubscription
     watchers {
       totalCount
     }
@@ -77,8 +86,7 @@ class RepoScreen extends StatelessWidget {
         }
       }
     }
-    url
-    defaultBranchRef {
+    $_branchQueryChunk {
       name
       target {
         ... on Commit {
@@ -88,9 +96,13 @@ class RepoScreen extends StatelessWidget {
         }
       }
     }
-    viewerHasStarred
-    viewerSubscription
-    object(expression: "master:README.md") {
+    refs(first: 10, refPrefix: "refs/heads/") {
+      totalCount
+      nodes {
+        name
+      }
+    }
+    object(expression: "$_readmeChunk") {
       ... on Blob {
         text
       }
@@ -222,18 +234,16 @@ class RepoScreen extends StatelessWidget {
             TableView(
               hasIcon: true,
               items: [
-                if (payload['defaultBranchRef'] != null)
+                if (payload[branchInfoKey] != null)
                   TableViewItem(
                     leftIconData: Octicons.code,
                     text: Text('Code'),
                     rightWidget:
                         Text(filesize((payload['diskUsage'] as int) * 1000)),
                     screenBuilder: (_) => ObjectScreen(
-                      owner: owner,
-                      name: name,
-                      branch: payload['defaultBranchRef']
-                          ['name'], // FIXME: null
-                    ),
+                        owner: owner,
+                        name: name,
+                        branch: payload[branchInfoKey]['name']),
                   ),
                 if (payload['hasIssuesEnabled'] as bool)
                   TableViewItem(
@@ -258,14 +268,34 @@ class RepoScreen extends StatelessWidget {
             TableView(
               hasIcon: true,
               items: [
-                if (payload['defaultBranchRef'] != null)
+                if (payload[branchInfoKey] != null)
                   TableViewItem(
                     leftIconData: Octicons.history,
                     text: Text('Commits'),
-                    rightWidget: Text(numberFormat.format(
-                        payload['defaultBranchRef']['target']['history']
-                            ['totalCount'])),
-                    screenBuilder: (_) => CommitsScreen(owner, name),
+                    rightWidget: Text(numberFormat.format(payload[branchInfoKey]
+                        ['target']['history']['totalCount'])),
+                    screenBuilder: (_) =>
+                        CommitsScreen(owner, name, branch: branch),
+                  ),
+                if (payload['refs'] != null)
+                  TableViewItem(
+                    leftIconData: Octicons.git_branch,
+                    text: Text('Branches'),
+                    rightWidget: Text(
+                        numberFormat.format(payload['refs']['totalCount'])),
+                    // onTap: () {
+                    //   Provider.of<ThemeModel>(context).showPicker(
+                    //     context,
+                    //     PickerGroupItem(
+                    //       items: (payload['refs']['nodes'] as List).map((b) =>
+                    //           PickerItem(b['name'] as String, text: b['name'])),
+                    //       onChange: (v) {
+                    //         // FIXME:
+                    //         queryRepo(context);
+                    //       },
+                    //     ),
+                    //   );
+                    // },
                   ),
                 TableViewItem(
                   leftIconData: Octicons.law,
