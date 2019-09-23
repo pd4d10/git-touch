@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:git_touch/screens/repository.dart';
 import 'package:git_touch/widgets/avatar.dart';
 import 'package:primer/primer.dart';
 import '../utils/utils.dart';
-import '../screens/repo.dart';
 import 'link.dart';
 
 const repoChunk = '''
@@ -27,11 +27,11 @@ primaryLanguage {
 }
 ''';
 
-class RepoItem extends StatelessWidget {
+class RepositoryItem extends StatelessWidget {
   final Map<String, dynamic> payload;
   final bool inRepoScreen;
 
-  RepoItem(this.payload, {this.inRepoScreen = false});
+  RepositoryItem(this.payload, {this.inRepoScreen = false});
 
   IconData _buildIconData() {
     if (payload['isPrivate']) {
@@ -150,7 +150,7 @@ class RepoItem extends StatelessWidget {
       // TODO: text style
       return Link(
         screenBuilder: (_) =>
-            RepoScreen(payload['owner']['login'], payload['name']),
+            RepositoryScreen(payload['owner']['login'], payload['name']),
         child: widget,
       );
     }

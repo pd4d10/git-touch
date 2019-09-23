@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:git_touch/screens/repos.dart';
+import 'package:git_touch/screens/repositories.dart';
 import 'package:git_touch/screens/users.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/entry_item.dart';
+import 'package:git_touch/widgets/repository_item.dart';
 import 'package:git_touch/widgets/table_view.dart';
 import 'package:git_touch/widgets/user_item.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -11,7 +12,6 @@ import 'package:share/share.dart';
 import 'package:git_touch/models/settings.dart';
 import 'package:provider/provider.dart';
 import '../scaffolds/refresh.dart';
-import '../widgets/repo_item.dart';
 import '../widgets/action.dart';
 import '../utils/utils.dart';
 
@@ -46,7 +46,7 @@ class OrganizationScreen extends StatelessWidget {
       ...join(
         borderView,
         items.map((item) {
-          return RepoItem(item);
+          return RepositoryItem(item);
         }).toList(),
       )
     ];
@@ -122,7 +122,8 @@ class OrganizationScreen extends StatelessWidget {
               EntryItem(
                 count: payload['pinnableItems']['totalCount'],
                 text: 'Repositories',
-                screenBuilder: (context) => ReposScreen(login, org: true),
+                screenBuilder: (context) =>
+                    RepositoriesScreen(login, org: true),
               ),
               EntryItem(
                 count: payload['membersWithRole']['totalCount'],

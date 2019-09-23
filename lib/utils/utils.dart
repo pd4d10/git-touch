@@ -3,10 +3,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
+import 'package:git_touch/screens/repository.dart';
 import 'package:git_touch/screens/user.dart';
 import 'package:intl/intl.dart';
 import 'package:primer/primer.dart';
-import '../screens/repo.dart';
 export 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
 final monospaceFont = Platform.isIOS ? 'Menlo' : 'monospace'; // FIXME:
@@ -70,7 +70,8 @@ TextSpan createUserSpan(BuildContext context, String login) {
 }
 
 TextSpan createRepoLinkSpan(BuildContext context, String owner, String name) {
-  return createLinkSpan(context, '$owner/$name', () => RepoScreen(owner, name));
+  return createLinkSpan(
+      context, '$owner/$name', () => RepositoryScreen(owner, name));
 }
 
 class Palette {

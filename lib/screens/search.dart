@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:git_touch/models/settings.dart';
 import '../scaffolds/simple.dart';
 import '../utils/utils.dart';
-import '../widgets/repo_item.dart';
+import 'package:git_touch/widgets/repository_item.dart';
 import '../widgets/loading.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -69,7 +69,8 @@ class _SearchScreenState extends State<SearchScreen> {
             loading
                 ? Loading()
                 : Column(
-                    children: repos.map((repo) => RepoItem(repo)).toList(),
+                    children:
+                        repos.map((repo) => RepositoryItem(repo)).toList(),
                   )
           ],
         );

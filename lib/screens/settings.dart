@@ -2,13 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/screens/object.dart';
+import 'package:git_touch/screens/repository.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:provider/provider.dart';
 import 'package:launch_review/launch_review.dart';
 import '../scaffolds/simple.dart';
 import '../widgets/table_view.dart';
-import '../screens/repo.dart';
 import '../screens/login.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -62,7 +62,7 @@ class SettingsScreen extends StatelessWidget {
             TableView(headerText: 'ABOUT', items: [
               TableViewItem(
                 text: Text('Source Code'),
-                screenBuilder: (_) => RepoScreen('pd4d10', 'git-touch'),
+                screenBuilder: (_) => RepositoryScreen('pd4d10', 'git-touch'),
               ),
               TableViewItem(
                 text: Text('License'),

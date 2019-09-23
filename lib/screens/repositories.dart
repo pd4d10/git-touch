@@ -4,15 +4,15 @@ import '../scaffolds/list.dart';
 import 'package:git_touch/models/settings.dart';
 import 'package:provider/provider.dart';
 import '../utils/utils.dart';
-import '../widgets/repo_item.dart';
+import 'package:git_touch/widgets/repository_item.dart';
 
 // TODO: refactor
-class ReposScreen extends StatelessWidget {
+class RepositoriesScreen extends StatelessWidget {
   final String login;
   final bool star;
   final bool org;
 
-  ReposScreen(this.login, {this.star = false, this.org = false});
+  RepositoriesScreen(this.login, {this.star = false, this.org = false});
 
   String get scope => org ? 'organization' : 'user';
   String get resource =>
@@ -63,7 +63,7 @@ class ReposScreen extends StatelessWidget {
       title: AppBarTitle(star ? 'Stars' : 'Repositories'),
       onRefresh: () => _queryRepos(context),
       onLoadMore: (cursor) => _queryRepos(context, cursor),
-      itemBuilder: (payload) => RepoItem(payload),
+      itemBuilder: (payload) => RepositoryItem(payload),
     );
   }
 }

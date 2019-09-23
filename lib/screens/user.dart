@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:git_touch/screens/repositories.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/table_view.dart';
 import 'package:git_touch/widgets/user_item.dart';
@@ -10,10 +11,9 @@ import 'package:git_touch/models/settings.dart';
 import 'package:provider/provider.dart';
 import '../scaffolds/refresh.dart';
 import '../widgets/entry_item.dart';
-import '../widgets/repo_item.dart';
+import 'package:git_touch/widgets/repository_item.dart';
 import '../widgets/link.dart';
 import '../widgets/action.dart';
-import '../screens/repos.dart';
 import '../screens/users.dart';
 import '../screens/settings.dart';
 import '../utils/utils.dart';
@@ -92,7 +92,7 @@ class UserScreen extends StatelessWidget {
       ...join(
         borderView,
         items.map((item) {
-          return RepoItem(item);
+          return RepositoryItem(item);
         }).toList(),
       )
     ];
@@ -204,12 +204,13 @@ class UserScreen extends StatelessWidget {
               EntryItem(
                 count: payload['repositories']['totalCount'],
                 text: 'Repositories',
-                screenBuilder: (context) => ReposScreen(login),
+                screenBuilder: (context) => RepositoriesScreen(login),
               ),
               EntryItem(
                 count: payload['starredRepositories']['totalCount'],
                 text: 'Stars',
-                screenBuilder: (context) => ReposScreen(login, star: true),
+                screenBuilder: (context) =>
+                    RepositoriesScreen(login, star: true),
               ),
               EntryItem(
                 count: payload['followers']['totalCount'],

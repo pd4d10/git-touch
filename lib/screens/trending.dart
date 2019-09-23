@@ -4,7 +4,7 @@ import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:http/http.dart' as http;
 import '../scaffolds/refresh.dart';
-import '../widgets/repo_item.dart';
+import 'package:git_touch/widgets/repository_item.dart';
 
 class TrendingScreen extends StatefulWidget {
   @override
@@ -49,7 +49,7 @@ class _TrendingScreenState extends State<TrendingScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: join(
             borderView,
-            payload.map<Widget>((item) => RepoItem(item)).toList(),
+            payload.map<Widget>((item) => RepositoryItem(item)).toList(),
           ),
         );
       },

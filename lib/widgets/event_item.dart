@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:git_touch/screens/repo.dart';
+import 'package:git_touch/screens/repository.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:primer/primer.dart';
 import '../screens/issue.dart';
@@ -175,7 +175,7 @@ class EventItem extends StatelessWidget {
             _buildRepo(context),
           ],
           iconData: Octicons.repo_forked,
-          screenBuilder: (_) => RepoScreen(
+          screenBuilder: (_) => RepositoryScreen(
               event.payload['forkee']['owner']['login'],
               event.payload['forkee']['name']),
         );
@@ -352,7 +352,8 @@ class EventItem extends StatelessWidget {
           context: context,
           spans: [TextSpan(text: ' starred '), _buildRepo(context)],
           iconData: Octicons.star,
-          screenBuilder: (_) => RepoScreen.fromFullName(event.repoFullName),
+          screenBuilder: (_) =>
+              RepositoryScreen.fromFullName(event.repoFullName),
         );
       default:
         return defaultItem;

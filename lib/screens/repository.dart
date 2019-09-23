@@ -14,22 +14,22 @@ import 'package:git_touch/screens/object.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../scaffolds/refresh.dart';
-import '../widgets/repo_item.dart';
+import 'package:git_touch/widgets/repository_item.dart';
 import '../widgets/entry_item.dart';
 import '../screens/issues.dart';
 import '../screens/user.dart';
 import '../screens/organization.dart';
 import '../widgets/action.dart';
 
-class RepoScreen extends StatelessWidget {
+class RepositoryScreen extends StatelessWidget {
   final String owner;
   final String name;
   final String branch;
 
   static const _languageBarPadding = 10.0;
 
-  RepoScreen(this.owner, this.name, {this.branch});
-  RepoScreen.fromFullName(String fullName, {this.branch})
+  RepositoryScreen(this.owner, this.name, {this.branch});
+  RepositoryScreen.fromFullName(String fullName, {this.branch})
       : owner = fullName.split('/')[0],
         name = fullName.split('/')[1];
 
@@ -180,7 +180,7 @@ class RepoScreen extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            RepoItem(payload, inRepoScreen: true),
+            RepositoryItem(payload, inRepoScreen: true),
             borderView,
             Row(
               children: <Widget>[
@@ -296,7 +296,8 @@ class RepoScreen extends StatelessWidget {
                       if (result != null) {
                         Provider.of<ThemeModel>(context).pushReplacementRoute(
                             context,
-                            (_) => RepoScreen(owner, name, branch: result));
+                            (_) =>
+                                RepositoryScreen(owner, name, branch: result));
                       }
                     },
                   ),
