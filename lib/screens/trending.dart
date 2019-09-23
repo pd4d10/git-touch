@@ -12,38 +12,36 @@ class TrendingScreen extends StatefulWidget {
 }
 
 class _TrendingScreenState extends State<TrendingScreen> {
-  Future<List<dynamic>> _fetchTrendingRepos() async {
-    var res = await http.get('https://github-trending-api.now.sh');
-    var items = json.decode(res.body);
-
-    return items.map((item) {
-      return {
-        'owner': {'login': item['author'], 'avatarUrl': item['avatar']},
-        'name': item['name'],
-        'description': item['description'],
-        'stargazers': {
-          'totalCount': item['stars'],
-        },
-        'forks': {
-          'totalCount': item['forks'],
-        },
-        'primaryLanguage': item['language'] == null
-            ? null
-            : {
-                'name': item['language'],
-                'color': item['languageColor'],
-              },
-        'isPrivate': false,
-        'isFork': false // TODO:
-      };
-    }).toList();
-  }
-
   @override
   Widget build(BuildContext context) {
     return RefreshScaffold(
       title: AppBarTitle('Trending'),
-      onRefresh: _fetchTrendingRepos,
+      onRefresh: (_) async {
+        var res = await http.get('https://github-trending-api.now.sh');
+        var items = json.decode(res.body);
+
+        return items.map((item) {
+          return {
+            'owner': {'login': item['author'], 'avatarUrl': item['avatar']},
+            'name': item['name'],
+            'description': item['description'],
+            'stargazers': {
+              'totalCount': item['stars'],
+            },
+            'forks': {
+              'totalCount': item['forks'],
+            },
+            'primaryLanguage': item['language'] == null
+                ? null
+                : {
+                    'name': item['language'],
+                    'color': item['languageColor'],
+                  },
+            'isPrivate': false,
+            'isFork': false // TODO:
+          };
+        }).toList();
+      },
       bodyBuilder: (payload) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,

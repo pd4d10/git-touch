@@ -5,20 +5,19 @@ import 'package:provider/provider.dart';
 import '../widgets/loading.dart';
 import '../widgets/error_reload.dart';
 
-// This is a scaffold for pull to refresh
 class RefreshScaffold<T> extends StatefulWidget {
   final Widget title;
   final Widget Function(T payload) bodyBuilder;
-  final Future<T> Function() onRefresh;
+  final Future<T> Function(int activeTab) onRefresh;
   final Widget Function(T payload) trailingBuilder;
-  // final List<Widget> Function(T payload) actionsBuilder;
+  final List<String> tabs;
 
   RefreshScaffold({
     @required this.title,
     @required this.bodyBuilder,
     @required this.onRefresh,
     this.trailingBuilder,
-    // this.actionsBuilder,
+    this.tabs,
   });
 
   @override
@@ -26,9 +25,10 @@ class RefreshScaffold<T> extends StatefulWidget {
 }
 
 class _RefreshScaffoldState<T> extends State<RefreshScaffold<T>> {
-  bool loading;
-  T payload;
-  String error = '';
+  bool _loading;
+  T _payload;
+  String _error = '';
+  int _activeTab = 0;
 
   @override
   void initState() {
@@ -37,43 +37,46 @@ class _RefreshScaffoldState<T> extends State<RefreshScaffold<T>> {
   }
 
   Widget _buildBody() {
-    if (error.isNotEmpty) {
-      return ErrorReload(text: error, onTap: _refresh);
-    } else if (payload == null) {
+    if (_error.isNotEmpty) {
+      return ErrorReload(text: _error, onTap: _refresh);
+    } else if (_payload == null) {
       return Loading(more: false);
     } else {
-      return widget.bodyBuilder(payload);
+      return widget.bodyBuilder(_payload);
     }
   }
 
-  Future<void> _refresh() async {
+  Future<void> _refresh([int activeTab]) async {
     try {
       setState(() {
-        error = '';
-        loading = true;
+        _error = '';
+        _loading = true;
+        if (activeTab != null) {
+          _activeTab = activeTab;
+        }
       });
-      payload = await widget.onRefresh();
+      _payload = await widget.onRefresh(activeTab);
     } catch (err) {
-      error = err.toString();
+      _error = err.toString();
       throw err;
     } finally {
       if (mounted) {
         setState(() {
-          loading = false;
+          _loading = false;
         });
       }
     }
   }
 
   Widget _buildTrailing() {
-    if (payload == null || widget.trailingBuilder == null) return null;
+    if (_payload == null || widget.trailingBuilder == null) return null;
 
-    return widget.trailingBuilder(payload);
+    return widget.trailingBuilder(_payload);
   }
 
   List<Widget> _buildActions() {
-    if (payload == null || widget.trailingBuilder == null) return null;
-    var w = widget.trailingBuilder(payload);
+    if (_payload == null || widget.trailingBuilder == null) return null;
+    var w = widget.trailingBuilder(_payload);
     return [if (w != null) w];
   }
 
@@ -83,8 +86,22 @@ class _RefreshScaffoldState<T> extends State<RefreshScaffold<T>> {
       case AppThemeType.cupertino:
         return CupertinoPageScaffold(
           navigationBar: CupertinoNavigationBar(
-            middle: widget.title,
-            trailing: _buildTrailing(),
+            middle: widget.tabs == null
+                ? widget.title
+                : DefaultTextStyle(
+                    style: TextStyle(),
+                    child: CupertinoSegmentedControl(
+                      groupValue: _activeTab,
+                      onValueChanged: _refresh,
+                      children: widget.tabs.asMap().map((key, text) => MapEntry(
+                          key,
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 4),
+                            child: Text(text),
+                          ))),
+                    ),
+                  ),
+            trailing: widget.tabs == null ? _buildTrailing() : null,
           ),
           child: SafeArea(
             child: CustomScrollView(
@@ -96,16 +113,28 @@ class _RefreshScaffoldState<T> extends State<RefreshScaffold<T>> {
           ),
         );
       default:
-        return Scaffold(
+        var w = Scaffold(
           appBar: AppBar(
             title: widget.title,
             actions: _buildActions(),
+            bottom: widget.tabs == null
+                ? null
+                : TabBar(
+                    onTap: _refresh,
+                    tabs: widget.tabs
+                        .map((text) => Tab(text: text.toUpperCase()))
+                        .toList(),
+                  ),
           ),
           body: RefreshIndicator(
             onRefresh: _refresh,
             child: SingleChildScrollView(child: _buildBody()),
           ),
         );
+        if (widget.tabs == null) {
+          return w;
+        }
+        return DefaultTabController(length: widget.tabs.length, child: w);
     }
   }
 }

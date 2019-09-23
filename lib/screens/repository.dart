@@ -131,7 +131,7 @@ class RepositoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return RefreshScaffold(
       title: AppBarTitle('Repository'),
-      onRefresh: () => Future.wait([
+      onRefresh: (_) => Future.wait([
         queryRepo(context),
         fetchReadme(context),
       ]),

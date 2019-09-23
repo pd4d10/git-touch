@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:git_touch/scaffolds/refresh.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:provider/provider.dart';
-import '../scaffolds/refresh_stateless.dart';
 import 'package:git_touch/models/notification.dart';
-import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/models/settings.dart';
 import '../widgets/notification_item.dart';
 import '../widgets/list_group.dart';
@@ -18,17 +17,6 @@ class NotificationScreen extends StatefulWidget {
 }
 
 class NotificationScreenState extends State<NotificationScreen> {
-  String error = '';
-  int active = 0;
-  bool loading = false;
-  Map<String, NotificationGroup> groupMap = {};
-
-  @override
-  void initState() {
-    super.initState();
-    nextTick(_onSwitchTab);
-  }
-
   Future<Map<String, NotificationGroup>> fetchNotifications(int index) async {
     List items = await Provider.of<SettingsModel>(context).getWithCredentials(
         '/notifications?all=${index == 2}&participating=${index == 1}');
@@ -108,9 +96,9 @@ $key: pullRequest(number: ${item.number}) {
   }
 
   Widget _buildGroupItem(
-    BuildContext context,
-    MapEntry<String, NotificationGroup> entry,
-  ) {
+      BuildContext context,
+      MapEntry<String, NotificationGroup> entry,
+      Map<String, NotificationGroup> groupMap) {
     var group = entry.value;
     var repo = group.repo;
     return ListGroup(
@@ -126,7 +114,7 @@ $key: pullRequest(number: ${item.number}) {
             onTap: () async {
               await Provider.of<SettingsModel>(context)
                   .putWithCredentials('/repos/$repo/notifications');
-              await _onSwitchTab();
+              // await _onSwitchTab(); // TODO:
             },
             child: Icon(
               Octicons.check,
@@ -152,75 +140,11 @@ $key: pullRequest(number: ${item.number}) {
     );
   }
 
-  Future<void> _onSwitchTab([int index]) async {
-    if (loading) return;
-
-    setState(() {
-      error = '';
-      if (index != null) {
-        active = index;
-      }
-      loading = true;
-    });
-    try {
-      groupMap = await fetchNotifications(active);
-    } catch (err) {
-      error = err.toString();
-      throw err;
-    } finally {
-      if (mounted) {
-        setState(() {
-          loading = false;
-        });
-      }
-    }
-  }
-
-  var textMap = {
-    0: 'Unread',
-    1: 'Paticipating',
-    2: 'All',
-  };
-
-  Widget _buildTitle() {
-    switch (Provider.of<ThemeModel>(context).theme) {
-      case AppThemeType.cupertino:
-        // var textStyle = DefaultTextStyle.of(context).style;
-        return DefaultTextStyle(
-          style: TextStyle(fontSize: 16),
-          child: SizedBox.expand(
-            child: CupertinoSegmentedControl(
-              groupValue: active,
-              onValueChanged: _onSwitchTab,
-              children: textMap.map((key, text) => MapEntry(key, Text(text))),
-            ),
-          ),
-        );
-      default:
-        return AppBarTitle('Notifications');
-    }
-  }
-
-  void _confirm() async {
-    var value = await Provider.of<ThemeModel>(context)
-        .showConfirm(context, 'Mark all as read?');
-    if (value) {
-      await Provider.of<SettingsModel>(context)
-          .putWithCredentials('/notifications');
-      await _onSwitchTab();
-    }
-  }
-
   @override
   Widget build(context) {
-    return RefreshStatelessScaffold(
-      title: _buildTitle(),
-      bottom: TabBar(
-        onTap: _onSwitchTab,
-        tabs: textMap.entries
-            .map((entry) => Tab(text: entry.value.toUpperCase()))
-            .toList(),
-      ),
+    return RefreshScaffold(
+      title: AppBarTitle('Notifications'),
+      tabs: ['Unread', 'Paticipating', 'All'],
       // trailing: GestureDetector(
       //   child: Icon(Icons.more_vert, size: 20),
       //   onTap: () async {
@@ -243,22 +167,27 @@ $key: pullRequest(number: ${item.number}) {
       //     _onSwitchTab(value);
       //   },
       // ),
-      actions: <Widget>[
-        IconButton(
-          icon: Icon(Icons.done_all),
-          onPressed: _confirm,
-        )
-      ],
-      onRefresh: _onSwitchTab,
-      loading: loading,
-      error: error,
-      bodyBuilder: () {
+      trailingBuilder: (_) => IconButton(
+        icon: Icon(Icons.done_all),
+        onPressed: () async {
+          // TODO:
+          // var value = await Provider.of<ThemeModel>(context)
+          //     .showConfirm(context, 'Mark all as read?');
+          // if (value) {
+          //   await Provider.of<SettingsModel>(context)
+          //       .putWithCredentials('/notifications');
+          //   await fetchNotifications(0);
+          // }
+        },
+      ),
+      onRefresh: fetchNotifications,
+      bodyBuilder: (groupMap) {
         return groupMap.isEmpty
             ? EmptyWidget()
             : Column(children: [
                 Padding(padding: EdgeInsets.only(top: 10)),
                 ...groupMap.entries
-                    .map((entry) => _buildGroupItem(context, entry))
+                    .map((entry) => _buildGroupItem(context, entry, groupMap))
                     .toList()
               ]);
       },
