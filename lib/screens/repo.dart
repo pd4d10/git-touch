@@ -199,25 +199,26 @@ class RepoScreen extends StatelessWidget {
               ],
             ),
             borderView1,
-            Container(
-              padding: const EdgeInsets.all(_languageBarPadding),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(2),
-                child: SizedBox(
-                  height: 10,
-                  child: Row(
-                      children: join(
-                          SizedBox(width: 1),
-                          (payload['languages']['edges'] as List)
-                              .map((lang) => Container(
-                                  color: convertColor(lang['node']['color']),
-                                  width: langWidth *
-                                      lang['size'] /
-                                      payload['languages']['totalSize']))
-                              .toList())),
+            if ((payload['languages']['edges'] as List).isNotEmpty)
+              Container(
+                padding: const EdgeInsets.all(_languageBarPadding),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(2),
+                  child: SizedBox(
+                    height: 10,
+                    child: Row(
+                        children: join(
+                            SizedBox(width: 1),
+                            (payload['languages']['edges'] as List)
+                                .map((lang) => Container(
+                                    color: convertColor(lang['node']['color']),
+                                    width: langWidth *
+                                        lang['size'] /
+                                        payload['languages']['totalSize']))
+                                .toList())),
+                  ),
                 ),
               ),
-            ),
             TableView(
               hasIcon: true,
               items: [
