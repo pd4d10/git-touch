@@ -139,7 +139,7 @@ class UserScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RefreshScaffold(
-      onRefresh: (_) {
+      onRefresh: () {
         return Future.wait(
           [query(context), getContributions(login)],
         );

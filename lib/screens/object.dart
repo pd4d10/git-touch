@@ -145,7 +145,7 @@ class ObjectScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return RefreshScaffold(
       title: AppBarTitle(paths.join('/')),
-      onRefresh: (_) async {
+      onRefresh: () async {
         var data = await Provider.of<SettingsModel>(context).query('''{
   repository(owner: "$owner", name: "$name") {
     object(expression: "$_expression") {

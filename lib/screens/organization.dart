@@ -55,7 +55,7 @@ class OrganizationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RefreshScaffold(
-      onRefresh: (_) async {
+      onRefresh: () async {
         // Use pinnableItems instead of organization here due to token permission
         var data = await Provider.of<SettingsModel>(context).query('''
 {

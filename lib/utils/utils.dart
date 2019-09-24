@@ -8,7 +8,8 @@ import 'package:git_touch/screens/user.dart';
 import 'package:intl/intl.dart';
 import 'package:primer/primer.dart';
 import 'package:provider/provider.dart';
-export 'package:flutter_vector_icons/flutter_vector_icons.dart';
+export 'package:flutter_vector_icons/flutter_vector_icons.dart' hide Octicons;
+export 'package:primer/primer.dart' show Octicons;
 
 final monospaceFont = Platform.isIOS ? 'Menlo' : 'monospace'; // FIXME:
 
@@ -55,7 +56,10 @@ TextSpan createLinkSpan(
 ) {
   return TextSpan(
     text: text,
-    style: TextStyle(color: PrimerColors.blue500, fontWeight: FontWeight.w600),
+    style: TextStyle(
+      color: PrimerColors.blue500,
+      fontWeight: FontWeight.w600,
+    ),
     recognizer: TapGestureRecognizer()
       ..onTap = () {
         Provider.of<ThemeModel>(context).pushRoute(context, builder);

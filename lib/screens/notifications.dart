@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:git_touch/scaffolds/refresh.dart';
+import 'package:git_touch/scaffolds/tab.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/models/notification.dart';
@@ -142,7 +142,7 @@ $key: pullRequest(number: ${item.number}) {
 
   @override
   Widget build(context) {
-    return RefreshScaffold(
+    return TabScaffold(
       title: AppBarTitle('Notifications'),
       tabs: ['Unread', 'Paticipating', 'All'],
       // trailing: GestureDetector(
