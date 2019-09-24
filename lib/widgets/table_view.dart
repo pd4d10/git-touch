@@ -103,7 +103,7 @@ class TableView extends StatelessWidget {
     );
 
     if (item.onTap == null && item.screenBuilder == null && item.url == null) {
-      return Ink(color: PrimerColors.white, child: widget);
+      return widget;
     }
     return Link(
       onTap: item.onTap,

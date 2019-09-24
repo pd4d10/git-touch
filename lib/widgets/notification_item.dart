@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:git_touch/models/notification.dart';
+import 'package:git_touch/models/theme.dart';
 import 'package:primer/primer.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../utils/utils.dart';
@@ -96,38 +97,34 @@ class _NotificationItemState extends State<NotificationItem> {
 
   @override
   Widget build(BuildContext context) {
-    WidgetBuilder screenBuilder;
-    Function onTap;
-
-    switch (payload.type) {
-      case 'Issue':
-      case 'PullRequest':
-        screenBuilder = (_) => IssueScreen(
-              number: payload.number,
-              owner: payload.owner,
-              name: payload.name,
-              isPullRequest: payload.type == 'PullRequest',
-            );
-        break;
-      case 'Release':
-        onTap = () {
-          launch(
-              'https://github.com/${payload.owner}/${payload.name}/releases/tag/${payload.title}');
-        };
-        break;
-      case 'Commit':
-        // TODO:
-        // onTap = () {
-        // launch('urlString');
-        // };
-        break;
-    }
-
     return Link(
-      screenBuilder: screenBuilder,
       onTap: () {
         _markAsRead();
-        if (onTap != null) onTap();
+
+        switch (payload.type) {
+          case 'Issue':
+          case 'PullRequest':
+            Provider.of<ThemeModel>(context).pushRoute(
+                context,
+                (_) => IssueScreen(
+                      number: payload.number,
+                      owner: payload.owner,
+                      name: payload.name,
+                      isPullRequest: payload.type == 'PullRequest',
+                    ));
+
+            break;
+          case 'Release':
+            launch(
+                'https://github.com/${payload.owner}/${payload.name}/releases/tag/${payload.title}');
+            break;
+          case 'Commit':
+            // TODO:
+            // onTap = () {
+            // launch('urlString');
+            // };
+            break;
+        }
       },
       child: Opacity(
         opacity: payload.unread ? 1 : 0.5,

@@ -9,33 +9,26 @@ class Link extends StatelessWidget {
   final String url;
   final WidgetBuilder screenBuilder;
   final Function onTap;
-  final Color bgColor;
   final bool material;
   final bool fullscreenDialog;
-  final Icon iconButton;
 
   Link({
     this.child,
     this.url,
     this.screenBuilder,
     this.onTap,
-    this.bgColor,
     this.material = true,
     this.fullscreenDialog = false,
-    this.iconButton,
-  })  : assert(child != null || iconButton != null),
-        assert(screenBuilder == null || url == null);
+  }) : assert(screenBuilder == null || url == null);
 
-  void _onTap(BuildContext context, int theme) {
+  void _onTap(BuildContext context) {
     if (onTap != null) {
-      onTap();
+      return onTap();
     }
-
     if (screenBuilder != null) {
-      Provider.of<ThemeModel>(context).pushRoute(context, screenBuilder,
+      return Provider.of<ThemeModel>(context).pushRoute(context, screenBuilder,
           fullscreenDialog: fullscreenDialog);
     }
-
     if (url != null) {
       launch(url);
     }
@@ -43,30 +36,21 @@ class Link extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var theme = Provider.of<ThemeModel>(context).theme;
-
-    if (iconButton != null) {
-      return IconButton(
-        icon: iconButton,
-        onPressed: () => _onTap(context, theme),
-      );
-    }
-
     if (!material) {
       return GestureDetector(
         child: child,
-        onTap: () => _onTap(context, theme),
+        onTap: () => _onTap(context),
       );
     }
 
     return Material(
       child: Ink(
-        color: bgColor ?? Colors.white,
+        color: Colors.white,
         child: InkWell(
           child: child,
           // splashColor:
           //     theme == AppThemeType.cupertino ? Colors.transparent : null,
-          onTap: () => _onTap(context, theme),
+          onTap: () => _onTap(context),
         ),
       ),
     );

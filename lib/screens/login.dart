@@ -52,8 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget _buildAddItem(
-      {String text, Function onTap, WidgetBuilder screenBuilder}) {
+  Widget _buildAddItem({String text, Function onTap}) {
     return Link(
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 20),
@@ -69,7 +68,6 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
       onTap: onTap,
-      screenBuilder: screenBuilder,
     );
   }
 
