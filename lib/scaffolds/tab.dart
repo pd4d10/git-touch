@@ -9,15 +9,15 @@ class TabScaffold<T> extends StatefulWidget {
   final Widget title;
   final Widget Function(T payload) bodyBuilder;
   final Future<T> Function(int activeTab) onRefresh;
-  final Widget Function(T payload) trailingBuilder;
   final List<String> tabs;
+  final Widget Function(T payload) trailingBuilder;
 
   TabScaffold({
     @required this.title,
     @required this.bodyBuilder,
     @required this.onRefresh,
+    @required this.tabs,
     this.trailingBuilder,
-    this.tabs,
   });
 
   @override
@@ -26,9 +26,40 @@ class TabScaffold<T> extends StatefulWidget {
 
 class _TabScaffoldState<T> extends State<TabScaffold<T>> {
   bool _loading;
-  T _payload;
+  T _payload0;
+  T _payload1;
+  T _payload2;
   String _error = '';
   int _activeTab = 0;
+
+  T _getPayload(int selected) {
+    switch (selected) {
+      case 0:
+        return _payload0;
+      case 1:
+        return _payload1;
+      case 2:
+        return _payload2;
+      default:
+        throw '';
+    }
+  }
+
+  T get _payload => _getPayload(_activeTab);
+
+  set _payload(T v) {
+    switch (_activeTab) {
+      case 0:
+        _payload0 = v;
+        break;
+      case 1:
+        _payload1 = v;
+        break;
+      case 2:
+        _payload2 = v;
+        break;
+    }
+  }
 
   @override
   void initState() {
@@ -46,16 +77,13 @@ class _TabScaffoldState<T> extends State<TabScaffold<T>> {
     }
   }
 
-  Future<void> _refresh([int activeTab]) async {
+  Future<void> _refresh() async {
     try {
       setState(() {
         _error = '';
         _loading = true;
-        if (activeTab != null) {
-          _activeTab = activeTab;
-        }
       });
-      _payload = await widget.onRefresh(activeTab);
+      _payload = await widget.onRefresh(_activeTab);
     } catch (err) {
       _error = err.toString();
       throw err;
@@ -65,6 +93,15 @@ class _TabScaffoldState<T> extends State<TabScaffold<T>> {
           _loading = false;
         });
       }
+    }
+  }
+
+ Future<void> _switch(int selected)async {
+    setState(() {
+      _activeTab = selected;
+    });
+    if (_getPayload(selected) == null) {
+await      _refresh();
     }
   }
 
@@ -87,14 +124,14 @@ class _TabScaffoldState<T> extends State<TabScaffold<T>> {
         return CupertinoPageScaffold(
           navigationBar: CupertinoNavigationBar(
             middle: DefaultTextStyle(
-              style: TextStyle(),
+              style: TextStyle(fontSize: 16),
               child: CupertinoSegmentedControl(
                 groupValue: _activeTab,
-                onValueChanged: _refresh,
+                onValueChanged: _switch,
                 children: widget.tabs.asMap().map((key, text) => MapEntry(
                     key,
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 4),
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
                       child: Text(text),
                     ))),
               ),
@@ -118,7 +155,7 @@ class _TabScaffoldState<T> extends State<TabScaffold<T>> {
               title: widget.title,
               actions: _buildActions(),
               bottom: TabBar(
-                onTap: _refresh,
+                onTap: _switch,
                 tabs: widget.tabs
                     .map((text) => Tab(text: text.toUpperCase()))
                     .toList(),
