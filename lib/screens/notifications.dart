@@ -181,15 +181,17 @@ $key: pullRequest(number: ${item.number}) {
         },
       ),
       onRefresh: fetchNotifications,
-      bodyBuilder: (groupMap) {
-        return groupMap.isEmpty
-            ? EmptyWidget()
-            : Column(children: [
-                Padding(padding: EdgeInsets.only(top: 10)),
-                ...groupMap.entries
-                    .map((entry) => _buildGroupItem(context, entry, groupMap))
-                    .toList()
-              ]);
+      bodyBuilder: (groupMap, activeTab) {
+        if (groupMap.isEmpty) return EmptyWidget();
+
+        return Column(
+          children: [
+            Padding(padding: EdgeInsets.only(top: 10)),
+            ...groupMap.entries
+                .map((entry) => _buildGroupItem(context, entry, groupMap))
+                .toList()
+          ],
+        );
       },
     );
   }

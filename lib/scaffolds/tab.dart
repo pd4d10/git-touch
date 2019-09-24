@@ -7,7 +7,7 @@ import '../widgets/error_reload.dart';
 
 class TabScaffold<T> extends StatefulWidget {
   final Widget title;
-  final Widget Function(T payload) bodyBuilder;
+  final Widget Function(T payload, int activeTab) bodyBuilder;
   final Future<T> Function(int activeTab) onRefresh;
   final List<String> tabs;
   final Widget Function(T payload) trailingBuilder;
@@ -73,7 +73,7 @@ class _TabScaffoldState<T> extends State<TabScaffold<T>> {
     } else if (_payload == null) {
       return Loading(more: false);
     } else {
-      return widget.bodyBuilder(_payload);
+      return widget.bodyBuilder(_payload, _activeTab);
     }
   }
 
@@ -96,12 +96,12 @@ class _TabScaffoldState<T> extends State<TabScaffold<T>> {
     }
   }
 
- Future<void> _switch(int selected)async {
+  Future<void> _switch(int selected) async {
     setState(() {
       _activeTab = selected;
     });
     if (_getPayload(selected) == null) {
-await      _refresh();
+      await _refresh();
     }
   }
 
