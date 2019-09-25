@@ -146,7 +146,6 @@ class UserScreen extends StatelessWidget {
       },
       title: AppBarTitle('User'),
       trailingBuilder: (data) {
-        var payload = data[0];
         if (isMe) {
           return Link(
             child: Icon(Icons.settings, size: 20),
@@ -155,35 +154,42 @@ class UserScreen extends StatelessWidget {
             fullscreenDialog: true,
           );
         } else {
-          return ActionButton(title: 'User Actions', actions: [
-            if (payload['viewerCanFollow'])
+          return ActionButton(
+            title: 'User Actions',
+            actions: [
+              if (data != null && data[0]['viewerCanFollow'])
+                MyAction(
+                  text: data[0]['viewerIsFollowing'] ? 'Unfollow' : 'Follow',
+                  onPress: () async {
+                    if (data[0]['viewerIsFollowing']) {
+                      await Provider.of<SettingsModel>(context)
+                          .deleteWithCredentials('/user/following/$login');
+                      data[0]['viewerIsFollowing'] = false;
+                    } else {
+                      Provider.of<SettingsModel>(context)
+                          .putWithCredentials('/user/following/$login');
+                      data[0]['viewerIsFollowing'] = true;
+                    }
+                  },
+                ),
               MyAction(
-                text: payload['viewerIsFollowing'] ? 'Unfollow' : 'Follow',
-                onPress: () async {
-                  if (payload['viewerIsFollowing']) {
-                    await Provider.of<SettingsModel>(context)
-                        .deleteWithCredentials('/user/following/$login');
-                    payload['viewerIsFollowing'] = false;
-                  } else {
-                    Provider.of<SettingsModel>(context)
-                        .putWithCredentials('/user/following/$login');
-                    payload['viewerIsFollowing'] = true;
+                text: 'Share',
+                onPress: () {
+                  if (data[0] != null) {
+                    Share.share(data[0]['url']);
                   }
                 },
               ),
-            MyAction(
-              text: 'Share',
-              onPress: () {
-                Share.share(payload['url']);
-              },
-            ),
-            MyAction(
-              text: 'Open in Browser',
-              onPress: () {
-                launch(payload['url']);
-              },
-            ),
-          ]);
+              MyAction(
+                text: 'Open in Browser',
+                onPress: () {
+                  if (data[0] != null) {
+                    launch(data[0]['url']);
+                  }
+                },
+              ),
+            ],
+          );
         }
       },
       bodyBuilder: (data) {

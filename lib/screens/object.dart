@@ -175,8 +175,9 @@ class ObjectScreen extends StatelessWidget {
             return Link(
               child: Icon(Octicons.settings, size: 20),
               material: false,
-              screenBuilder: (_) =>
-                  CodeSettingsScreen(payload['text'], _language),
+              screenBuilder: payload == null
+                  ? null
+                  : (_) => CodeSettingsScreen(payload['text'], _language),
             );
           default:
             return null;

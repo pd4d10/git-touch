@@ -136,53 +136,61 @@ class RepositoryScreen extends StatelessWidget {
         fetchReadme(context),
       ]),
       trailingBuilder: (data) {
-        var payload = data[0];
-        return ActionButton(title: 'Repository Actions', actions: [
-          MyAction(
-            text: '@$owner',
-            onPress: () {
-              WidgetBuilder builder;
+        return ActionButton(
+          title: 'Repository Actions',
+          actions: [
+            MyAction(
+              text: '@$owner',
+              onPress: () {
+                if (data == null) return;
+                WidgetBuilder builder;
 
-              switch (payload['owner']['__typename']) {
-                case 'Organization':
-                  builder = (_) => OrganizationScreen(owner);
-                  break;
-                case 'User':
-                  builder = (_) => UserScreen(owner);
-                  break;
-              }
+                switch (data[0]['owner']['__typename']) {
+                  case 'Organization':
+                    builder = (_) => OrganizationScreen(owner);
+                    break;
+                  case 'User':
+                    builder = (_) => UserScreen(owner);
+                    break;
+                }
 
-              Provider.of<ThemeModel>(context).pushRoute(context, builder);
-            },
-          ),
-          MyAction(
-            text: payload['viewerHasStarred'] ? 'Unstar' : 'Star',
-            onPress: () async {
-              if (payload['viewerHasStarred']) {
-                await Provider.of<SettingsModel>(context)
-                    .deleteWithCredentials('/user/starred/$owner/$name');
-                payload['viewerHasStarred'] = false;
-              } else {
-                Provider.of<SettingsModel>(context)
-                    .putWithCredentials('/user/starred/$owner/$name');
-                payload['viewerHasStarred'] = true;
-              }
-            },
-          ),
-          // TODO: watch
-          MyAction(
-            text: 'Share',
-            onPress: () {
-              Share.share(payload['url']);
-            },
-          ),
-          MyAction(
-            text: 'Open in Browser',
-            onPress: () {
-              launch(payload['url']);
-            },
-          ),
-        ]);
+                Provider.of<ThemeModel>(context).pushRoute(context, builder);
+              },
+            ),
+            if (data != null)
+              MyAction(
+                text: data[0]['viewerHasStarred'] ? 'Unstar' : 'Star',
+                onPress: () async {
+                  if (data[0]['viewerHasStarred']) {
+                    await Provider.of<SettingsModel>(context)
+                        .deleteWithCredentials('/user/starred/$owner/$name');
+                    data[0]['viewerHasStarred'] = false;
+                  } else {
+                    Provider.of<SettingsModel>(context)
+                        .putWithCredentials('/user/starred/$owner/$name');
+                    data[0]['viewerHasStarred'] = true;
+                  }
+                },
+              ),
+            // TODO: watch
+            MyAction(
+              text: 'Share',
+              onPress: () {
+                if (data != null) {
+                  Share.share(data[0]['url']);
+                }
+              },
+            ),
+            MyAction(
+              text: 'Open in Browser',
+              onPress: () {
+                if (data != null) {
+                  launch(data[0]['url']);
+                }
+              },
+            ),
+          ],
+        );
       },
       bodyBuilder: (data) {
         var payload = data[0];

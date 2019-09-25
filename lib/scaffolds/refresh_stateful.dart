@@ -52,7 +52,7 @@ class _RefreshStatefulScaffoldState<T>
   }
 
   Widget get _trailing {
-    if (_payload == null || widget.trailingBuilder == null) return null;
+    if (widget.trailingBuilder == null) return null;
     return widget.trailingBuilder(_payload);
   }
 

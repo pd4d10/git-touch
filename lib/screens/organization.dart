@@ -92,20 +92,27 @@ class OrganizationScreen extends StatelessWidget {
       },
       title: AppBarTitle('Organization'),
       trailingBuilder: (payload) {
-        return ActionButton(title: 'Organization Actions', actions: [
-          MyAction(
-            text: 'Share',
-            onPress: () {
-              Share.share(payload['url']);
-            },
-          ),
-          MyAction(
-            text: 'Open in Browser',
-            onPress: () {
-              launch(payload['url']);
-            },
-          ),
-        ]);
+        return ActionButton(
+          title: 'Organization Actions',
+          actions: [
+            MyAction(
+              text: 'Share',
+              onPress: () {
+                if (payload != null) {
+                  Share.share(payload['url']);
+                }
+              },
+            ),
+            MyAction(
+              text: 'Open in Browser',
+              onPress: () {
+                if (payload != null) {
+                  launch(payload['url']);
+                }
+              },
+            ),
+          ],
+        );
       },
       bodyBuilder: (payload) {
         return Column(
