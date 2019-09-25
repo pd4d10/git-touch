@@ -293,11 +293,14 @@ class RepositoryScreen extends StatelessWidget {
                           ' • ' +
                           numberFormat.format(payload['refs']['totalCount'])),
                       onTap: () async {
+                        var refs = payload['refs']['nodes'] as List;
+                        if (refs.length < 2) return;
+
                         // FIXME: Show all branches
                         var result = await Provider.of<ThemeModel>(context)
                             .showDialogOptions(
                                 context,
-                                (payload['refs']['nodes'] as List)
+                                refs
                                     .map((b) => DialogOption(
                                         value: b['name'] as String,
                                         widget: Text(b['name'] as String)))
