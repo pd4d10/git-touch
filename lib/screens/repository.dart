@@ -157,7 +157,7 @@ class RepositoryScreen extends StatelessWidget {
                 Provider.of<ThemeModel>(context).pushRoute(context, builder);
               },
             ),
-            if (data != null)
+            if (data != null) ...[
               MyAction(
                 text: data[0]['viewerHasStarred'] ? 'Unstar' : 'Star',
                 onPress: () async {
@@ -172,7 +172,24 @@ class RepositoryScreen extends StatelessWidget {
                   }
                 },
               ),
-            // TODO: watch
+              MyAction(
+                text: data[0]['viewerSubscription'] == 'SUBSCRIBED'
+                    ? 'Unwatch'
+                    : 'Watch',
+                onPress: () async {
+                  if (data[0]['viewerSubscription'] == 'SUBSCRIBED') {
+                    await Provider.of<SettingsModel>(context)
+                        .deleteWithCredentials(
+                            '/repos/$owner/$name/subscription');
+                    data[0]['viewerSubscription'] = 'UNSUBSCRIBED';
+                  } else {
+                    Provider.of<SettingsModel>(context)
+                        .putWithCredentials('/repos/$owner/$name/subscription');
+                    data[0]['viewerSubscription'] = 'SUBSCRIBED';
+                  }
+                },
+              ),
+            ],
             MyAction(
               text: 'Share',
               onPress: () {
