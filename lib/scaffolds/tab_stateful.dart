@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:git_touch/scaffolds/tab.dart';
-import '../widgets/loading.dart';
-import '../widgets/error_reload.dart';
+import 'package:git_touch/scaffolds/utils.dart';
 
 class TabStatefulScaffold<T> extends StatefulWidget {
   final Widget title;
@@ -66,16 +65,6 @@ class _TabStatefulScaffoldState<T> extends State<TabStatefulScaffold<T>> {
     _refresh();
   }
 
-  Widget _buildBody() {
-    if (_error.isNotEmpty) {
-      return ErrorReload(text: _error, onTap: _refresh);
-    } else if (_payload == null) {
-      return Loading(more: false);
-    } else {
-      return widget.bodyBuilder(_payload, _activeTab);
-    }
-  }
-
   Future<void> _refresh() async {
     try {
       setState(() {
@@ -114,13 +103,16 @@ class _TabStatefulScaffoldState<T> extends State<TabStatefulScaffold<T>> {
     return TabScaffold(
       title: widget.title,
       trailing: _buildTrailing(),
-      tabPayload: CommonTabPayload(
-        tabs: widget.tabs,
-        activeTab: _activeTab,
-        onTabSwitch: _switch,
-      ),
+      tabs: widget.tabs,
+      activeTab: _activeTab,
+      onTabSwitch: _switch,
       onRefresh: _refresh,
-      body: _buildBody(),
+      body: ErrorLoadingWrapper(
+        bodyBuilder: () => widget.bodyBuilder(_payload, _activeTab),
+        error: _error,
+        loading: _payload == null,
+        reload: _refresh,
+      ),
     );
   }
 }

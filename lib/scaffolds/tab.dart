@@ -4,30 +4,23 @@ import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/utils.dart';
 import 'package:provider/provider.dart';
 
-class CommonTabPayload {
-  final List<String> tabs;
-  final int activeTab;
-  final Function(int active) onTabSwitch;
-  CommonTabPayload({
-    @required this.tabs,
-    @required this.activeTab,
-    @required this.onTabSwitch,
-  });
-}
-
 class TabScaffold extends StatelessWidget {
   final Widget title;
   final Widget body;
   final Widget trailing;
   final void Function() onRefresh;
-  final CommonTabPayload tabPayload;
+  final List<String> tabs;
+  final int activeTab;
+  final Function(int index) onTabSwitch;
 
   TabScaffold({
     @required this.title,
     @required this.body,
     this.trailing,
     @required this.onRefresh,
-    @required this.tabPayload,
+    @required this.tabs,
+    @required this.activeTab,
+    @required this.onTabSwitch,
   });
 
   Widget _buildTitle(BuildContext context) {
@@ -36,9 +29,9 @@ class TabScaffold extends StatelessWidget {
         return DefaultTextStyle(
           style: TextStyle(fontSize: 16),
           child: CupertinoSegmentedControl(
-            groupValue: tabPayload.activeTab,
-            onValueChanged: tabPayload.onTabSwitch,
-            children: tabPayload.tabs.asMap().map((key, text) => MapEntry(
+            groupValue: activeTab,
+            onValueChanged: onTabSwitch,
+            children: tabs.asMap().map((key, text) => MapEntry(
                 key,
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -58,10 +51,8 @@ class TabScaffold extends StatelessWidget {
       body: RefreshWrapper(body: body, onRefresh: onRefresh),
       trailing: trailing,
       bottom: TabBar(
-        onTap: tabPayload.onTabSwitch,
-        tabs: tabPayload.tabs
-            .map((text) => Tab(text: text.toUpperCase()))
-            .toList(),
+        onTap: onTabSwitch,
+        tabs: tabs.map((text) => Tab(text: text.toUpperCase())).toList(),
       ),
     );
 
@@ -70,7 +61,7 @@ class TabScaffold extends StatelessWidget {
         return scaffold;
       default:
         return DefaultTabController(
-          length: tabPayload.tabs.length,
+          length: tabs.length,
           child: scaffold,
         );
     }

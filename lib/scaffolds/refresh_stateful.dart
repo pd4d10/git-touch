@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:git_touch/scaffolds/utils.dart';
-import '../widgets/loading.dart';
-import '../widgets/error_reload.dart';
 
 class RefreshStatefulScaffold<T> extends StatefulWidget {
   final Widget title;
@@ -58,21 +56,19 @@ class _RefreshStatefulScaffoldState<T>
     return widget.trailingBuilder(_payload);
   }
 
-  Widget get _body {
-    if (_error.isNotEmpty) {
-      return ErrorReload(text: _error, onTap: _refresh);
-    } else if (_payload == null) {
-      return Loading(more: false);
-    } else {
-      return widget.bodyBuilder(_payload);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return CommonScaffold(
       title: widget.title,
-      body: RefreshWrapper(onRefresh: _refresh, body: _body),
+      body: RefreshWrapper(
+        onRefresh: _refresh,
+        body: ErrorLoadingWrapper(
+          bodyBuilder: () => widget.bodyBuilder(_payload),
+          error: _error,
+          loading: _payload == null,
+          reload: _refresh,
+        ),
+      ),
       trailing: _trailing,
     );
   }
