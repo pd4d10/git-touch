@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:git_touch/scaffolds/tab.dart';
+import 'package:git_touch/scaffolds/tab_stateful.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/models/notification.dart';
@@ -142,7 +142,7 @@ $key: pullRequest(number: ${item.number}) {
 
   @override
   Widget build(context) {
-    return TabScaffold(
+    return TabStatefulScaffold(
       title: AppBarTitle('Notifications'),
       tabs: ['Unread', 'Paticipating', 'All'],
       // trailing: GestureDetector(
@@ -167,19 +167,19 @@ $key: pullRequest(number: ${item.number}) {
       //     _onSwitchTab(value);
       //   },
       // ),
-      trailingBuilder: (_) => IconButton(
-        icon: Icon(Icons.done_all),
-        onPressed: () async {
-          // TODO:
-          // var value = await Provider.of<ThemeModel>(context)
-          //     .showConfirm(context, 'Mark all as read?');
-          // if (value) {
-          //   await Provider.of<SettingsModel>(context)
-          //       .putWithCredentials('/notifications');
-          //   await fetchNotifications(0);
-          // }
-        },
-      ),
+      // trailingBuilder: (_) => IconButton(
+      //   icon: Icon(Icons.done_all),
+      //   onPressed: () async {
+      //     // TODO:
+      //     // var value = await Provider.of<ThemeModel>(context)
+      //     //     .showConfirm(context, 'Mark all as read?');
+      //     // if (value) {
+      //     //   await Provider.of<SettingsModel>(context)
+      //     //       .putWithCredentials('/notifications');
+      //     //   await fetchNotifications(0);
+      //     // }
+      //   },
+      // ),
       onRefresh: fetchNotifications,
       bodyBuilder: (groupMap, activeTab) {
         if (groupMap.isEmpty) return EmptyWidget();

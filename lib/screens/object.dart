@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_highlight/theme_map.dart';
 import 'package:git_touch/models/code.dart';
+import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/screens/code_settings.dart';
 import 'package:git_touch/screens/image_view.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
@@ -12,7 +13,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_highlight/flutter_highlight.dart';
 import 'package:git_touch/models/settings.dart';
 import 'package:provider/provider.dart';
-import 'package:git_touch/scaffolds/refresh.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:primer/primer.dart';
 import 'package:seti/seti.dart';
@@ -143,7 +143,7 @@ class ObjectScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RefreshScaffold(
+    return RefreshStatefulScaffold(
       title: AppBarTitle(paths.join('/')),
       onRefresh: () async {
         var data = await Provider.of<SettingsModel>(context).query('''{

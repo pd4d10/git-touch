@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:git_touch/models/theme.dart';
+import 'package:git_touch/scaffolds/utils.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:provider/provider.dart';
 import '../widgets/error_reload.dart';
@@ -17,14 +18,14 @@ class ListPayload<T, K> {
 }
 
 // This is a scaffold for infinite scroll screens
-class ListScaffold<T, K> extends StatefulWidget {
+class ListStatefulScaffold<T, K> extends StatefulWidget {
   final Widget title;
-  final Widget Function({Function({bool force}) refresh}) trailingBuiler;
+  final Widget Function() trailingBuiler;
   final Widget Function(T payload) itemBuilder;
   final Future<ListPayload<T, K>> Function() onRefresh;
   final Future<ListPayload<T, K>> Function(K cursor) onLoadMore;
 
-  ListScaffold({
+  ListStatefulScaffold({
     @required this.title,
     @required this.itemBuilder,
     @required this.onRefresh,
@@ -33,10 +34,12 @@ class ListScaffold<T, K> extends StatefulWidget {
   });
 
   @override
-  _ListScaffoldState<T, K> createState() => _ListScaffoldState();
+  _ListStatefulScaffoldState<T, K> createState() =>
+      _ListStatefulScaffoldState();
 }
 
-class _ListScaffoldState<T, K> extends State<ListScaffold<T, K>> {
+class _ListStatefulScaffoldState<T, K>
+    extends State<ListStatefulScaffold<T, K>> {
   bool loading = false;
   bool loadingMore = false;
   String error = '';
@@ -145,7 +148,7 @@ class _ListScaffoldState<T, K> extends State<ListScaffold<T, K>> {
     return widget.itemBuilder(items[index ~/ 2]);
   }
 
-  Widget _buildSliver(BuildContext context) {
+  Widget _buildCupertinoSliver() {
     if (error.isNotEmpty) {
       return SliverToBoxAdapter(
         child: ErrorReload(text: error, onTap: _refresh),
@@ -164,7 +167,7 @@ class _ListScaffoldState<T, K> extends State<ListScaffold<T, K>> {
     }
   }
 
-  Widget _buildBody(BuildContext context) {
+  Widget _buildMaterial() {
     if (error.isNotEmpty) {
       return ErrorReload(text: error, onTap: _refresh);
     } else if (loading && items.isEmpty) {
@@ -181,45 +184,30 @@ class _ListScaffoldState<T, K> extends State<ListScaffold<T, K>> {
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildBody() {
     switch (Provider.of<ThemeModel>(context).theme) {
       case AppThemeType.cupertino:
-        List<Widget> slivers = [
-          CupertinoSliverRefreshControl(onRefresh: _refresh)
-        ];
-        // if (widget.header != null) {
-        //   slivers.add(SliverToBoxAdapter(child: widget.header));
-        // }
-        slivers.add(_buildSliver(context));
-
-        return CupertinoPageScaffold(
-          navigationBar: CupertinoNavigationBar(
-            middle: widget.title,
-            trailing: widget.trailingBuiler == null
-                ? null
-                : widget.trailingBuiler(refresh: _refresh),
-          ),
-          child: SafeArea(
-            child: CustomScrollView(
-              controller: _controller,
-              slivers: slivers,
-            ),
-          ),
+        return CustomScrollView(
+          controller: _controller,
+          slivers: [
+            CupertinoSliverRefreshControl(onRefresh: _refresh),
+            _buildCupertinoSliver(),
+          ],
         );
       default:
-        return Scaffold(
-          appBar: AppBar(
-            title: widget.title,
-            actions: widget.trailingBuiler == null
-                ? null
-                : [widget.trailingBuiler(refresh: _refresh)],
-          ),
-          body: RefreshIndicator(
-            onRefresh: _refresh,
-            child: _buildBody(context),
-          ),
+        return RefreshIndicator(
+          onRefresh: _refresh,
+          child: _buildMaterial(),
         );
     }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return CommonScaffold(
+      title: widget.title,
+      body: _buildBody(),
+      trailing: widget.trailingBuiler == null ? null : widget.trailingBuiler(),
+    );
   }
 }

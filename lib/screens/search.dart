@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:git_touch/models/theme.dart';
+import 'package:git_touch/scaffolds/single.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/models/settings.dart';
-import '../scaffolds/simple.dart';
 import '../utils/utils.dart';
 import 'package:git_touch/widgets/repository_item.dart';
 import '../widgets/loading.dart';
@@ -60,9 +60,9 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SimpleScaffold(
+    return SingleScaffold(
       title: AppBarTitle('Search GitHub Repositories'),
-      child: Column(
+      body: Column(
         children: <Widget>[
           Container(padding: EdgeInsets.all(8), child: _buildInput()),
           loading

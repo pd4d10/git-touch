@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/settings.dart';
+import 'package:git_touch/scaffolds/single.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:provider/provider.dart';
-import '../scaffolds/simple.dart';
 import '../widgets/link.dart';
 import '../widgets/loading.dart';
 import '../models/account.dart';
@@ -90,9 +90,9 @@ class _LoginScreenState extends State<LoginScreen> {
       });
     });
 
-    return SimpleScaffold(
+    return SingleScaffold(
       title: AppBarTitle('Select account'),
-      child: settings.loading
+      body: settings.loading
           ? Center(child: Loading())
           : Container(
               child: Column(

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:git_touch/scaffolds/single.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
-import '../scaffolds/simple.dart';
 
 class NotFoundScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return SimpleScaffold(
+    return SingleScaffold(
       title: AppBarTitle('Not Found'),
-      child: Text('Woops, This page is not implemented yet'),
+      body: Text('Woops, This page is not implemented yet'),
     );
   }
 }

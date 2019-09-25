@@ -3,6 +3,7 @@ import 'package:filesize/filesize.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:git_touch/models/settings.dart';
+import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/screens/users.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
@@ -14,7 +15,6 @@ import 'package:git_touch/screens/commits.dart';
 import 'package:git_touch/screens/object.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../scaffolds/refresh.dart';
 import 'package:git_touch/widgets/repository_item.dart';
 import '../widgets/entry_item.dart';
 import '../screens/issues.dart';
@@ -129,7 +129,7 @@ class RepositoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RefreshScaffold(
+    return RefreshStatefulScaffold(
       title: AppBarTitle('Repository'),
       onRefresh: () => Future.wait([
         queryRepo(context),

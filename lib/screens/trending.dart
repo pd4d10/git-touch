@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:git_touch/scaffolds/tab.dart';
+import 'package:git_touch/scaffolds/tab_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/user_item.dart';
@@ -9,7 +9,7 @@ import 'package:git_touch/widgets/repository_item.dart';
 
 class TrendingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
-    return TabScaffold(
+    return TabStatefulScaffold(
       title: AppBarTitle('Trending'),
       tabs: ['Repositories', 'Users'],
       onRefresh: (tabIndex) async {

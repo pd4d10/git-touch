@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/settings.dart';
+import 'package:git_touch/scaffolds/list_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/link.dart';
 import 'package:provider/provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
-import 'package:git_touch/scaffolds/list.dart';
 import 'package:git_touch/widgets/avatar.dart';
 import 'package:primer/primer.dart';
 
@@ -82,7 +82,7 @@ class CommitsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListScaffold(
+    return ListStatefulScaffold(
       title: AppBarTitle('Commits'),
       onRefresh: () => _query(context),
       onLoadMore: (cursor) => _query(context, cursor),

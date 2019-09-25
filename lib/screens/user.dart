@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/screens/repositories.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/table_view.dart';
@@ -9,7 +10,6 @@ import 'package:share/share.dart';
 import 'package:github_contributions/github_contributions.dart';
 import 'package:git_touch/models/settings.dart';
 import 'package:provider/provider.dart';
-import '../scaffolds/refresh.dart';
 import '../widgets/entry_item.dart';
 import 'package:git_touch/widgets/repository_item.dart';
 import '../widgets/link.dart';
@@ -138,7 +138,7 @@ class UserScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RefreshScaffold(
+    return RefreshStatefulScaffold(
       onRefresh: () {
         return Future.wait(
           [query(context), getContributions(login)],

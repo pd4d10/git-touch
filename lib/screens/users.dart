@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:git_touch/scaffolds/list_stateful.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/user_item.dart';
-import '../scaffolds/list.dart';
 import 'package:git_touch/models/settings.dart';
 import 'package:provider/provider.dart';
 import '../utils/utils.dart';
@@ -69,7 +69,7 @@ class UsersScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListScaffold(
+    return ListStatefulScaffold(
       title: AppBarTitle(title),
       onRefresh: () => _queryUsers(context),
       onLoadMore: (cursor) => _queryUsers(context, cursor),

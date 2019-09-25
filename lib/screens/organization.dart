@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/screens/repositories.dart';
 import 'package:git_touch/screens/users.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
@@ -11,7 +12,6 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:share/share.dart';
 import 'package:git_touch/models/settings.dart';
 import 'package:provider/provider.dart';
-import '../scaffolds/refresh.dart';
 import '../widgets/action.dart';
 import '../utils/utils.dart';
 
@@ -54,7 +54,7 @@ class OrganizationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RefreshScaffold(
+    return RefreshStatefulScaffold(
       onRefresh: () async {
         // Use pinnableItems instead of organization here due to token permission
         var data = await Provider.of<SettingsModel>(context).query('''
