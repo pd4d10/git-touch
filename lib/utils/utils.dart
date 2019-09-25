@@ -8,8 +8,7 @@ import 'package:git_touch/screens/user.dart';
 import 'package:intl/intl.dart';
 import 'package:primer/primer.dart';
 import 'package:provider/provider.dart';
-export 'package:flutter_vector_icons/flutter_vector_icons.dart' hide Octicons;
-export 'package:primer/primer.dart' show Octicons;
+export 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
 final monospaceFont = Platform.isIOS ? 'Menlo' : 'monospace'; // FIXME:
 
@@ -163,4 +162,34 @@ const borderView1 = BorderView(height: 20, color: PrimerColors.gray100);
 String getBranchQueryKey(String branch, {bool withParams = false}) {
   if (branch == null) return 'defaultBranchRef';
   return 'ref' + (withParams ? '(qualifiedName: "$branch")' : '');
+}
+
+// TODO: Primer
+class PrimerBranchName extends StatelessWidget {
+  final String name;
+
+  PrimerBranchName(this.name);
+
+  static const branchBgColor = Color(0xffeaf5ff);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 2, horizontal: 4),
+      height: 16,
+      decoration: BoxDecoration(
+        color: branchBgColor,
+        borderRadius: BorderRadius.all(Radius.circular(3)),
+      ),
+      child: Text(
+        name,
+        style: TextStyle(
+          color: PrimerColors.blue500,
+          fontSize: 12,
+          height: 1,
+          fontFamily: monospaceFont,
+        ),
+      ),
+    );
+  }
 }

@@ -56,7 +56,7 @@ class EventItem extends StatelessWidget {
 
   Widget _buildItem({
     @required BuildContext context,
-    @required List<TextSpan> spans,
+    @required List<InlineSpan> spans,
     String detail,
     Widget detailWidget,
     IconData iconData = Octicons.octoface,
@@ -287,22 +287,15 @@ class EventItem extends StatelessWidget {
           ),
         );
       case 'PushEvent':
-        String ref = event.payload['ref'];
-        List commits = event.payload['commits'];
+        var ref = event.payload['ref'] as String;
+        var commits = event.payload['commits'] as List;
 
         return _buildItem(
           context: context,
           spans: [
             TextSpan(text: ' pushed to '),
-            // TODO: Use primer widgets
-            TextSpan(
-              text: ref.replaceFirst('refs/heads/', ''),
-              style: TextStyle(
-                color: PrimerColors.blue500,
-                fontSize: 14,
-                backgroundColor: Color(0xffeaf5ff),
-                fontFamily: monospaceFont,
-              ),
+            WidgetSpan(
+              child: PrimerBranchName(ref.replaceFirst('refs/heads/', '')),
             ),
             TextSpan(text: ' at '),
             _buildRepo(context)
