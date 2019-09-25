@@ -92,35 +92,31 @@ class _LoginScreenState extends State<LoginScreen> {
 
     return SimpleScaffold(
       title: AppBarTitle('Select account'),
-      bodyBuilder: () {
-        if (settings.loading) {
-          return Center(child: Loading());
-        }
-
-        return Container(
-          child: Column(
-            children: [
-              ...settings.githubAccountMap.entries
-                  .map<Widget>((entry) => _buildAccountItem(AccountModel(
-                      avatarUrl: entry.value.avatarUrl,
-                      token: entry.value.token,
-                      platform: PlatformType.github,
-                      domain: 'https://github.com',
-                      login: entry.key)))
-                  .toList(),
-              ...accounts.map(_buildAccountItem),
-              _buildAddItem(
-                text: 'GitHub Account',
-                onTap: settings.redirectToGithubOauth,
+      child: settings.loading
+          ? Center(child: Loading())
+          : Container(
+              child: Column(
+                children: [
+                  ...settings.githubAccountMap.entries
+                      .map<Widget>((entry) => _buildAccountItem(AccountModel(
+                          avatarUrl: entry.value.avatarUrl,
+                          token: entry.value.token,
+                          platform: PlatformType.github,
+                          domain: 'https://github.com',
+                          login: entry.key)))
+                      .toList(),
+                  ...accounts.map(_buildAccountItem),
+                  _buildAddItem(
+                    text: 'GitHub Account',
+                    onTap: settings.redirectToGithubOauth,
+                  ),
+                  // _buildAddItem(
+                  //   text: 'GitLab Account',
+                  //   screenBuilder: (_) => LoginGitlabScreen(),
+                  // )
+                ],
               ),
-              // _buildAddItem(
-              //   text: 'GitLab Account',
-              //   screenBuilder: (_) => LoginGitlabScreen(),
-              // )
-            ],
-          ),
-        );
-      },
+            ),
     );
   }
 }

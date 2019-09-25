@@ -11,11 +11,9 @@ class ImageView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SimpleScaffold(
       title: AppBarTitle('Image preview'),
-      bodyBuilder: () {
-        return Container(
-          child: Image(image: imageProvider),
-        );
-      },
+      child: Container(
+        child: Image(image: imageProvider),
+      ),
     );
   }
 }

@@ -62,19 +62,16 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return SimpleScaffold(
       title: AppBarTitle('Search GitHub Repositories'),
-      bodyBuilder: () {
-        return Column(
-          children: <Widget>[
-            Container(padding: EdgeInsets.all(8), child: _buildInput()),
-            loading
-                ? Loading()
-                : Column(
-                    children:
-                        repos.map((repo) => RepositoryItem(repo)).toList(),
-                  )
-          ],
-        );
-      },
+      child: Column(
+        children: <Widget>[
+          Container(padding: EdgeInsets.all(8), child: _buildInput()),
+          loading
+              ? Loading()
+              : Column(
+                  children: repos.map((repo) => RepositoryItem(repo)).toList(),
+                )
+        ],
+      ),
     );
   }
 }

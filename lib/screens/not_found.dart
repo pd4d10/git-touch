@@ -7,9 +7,7 @@ class NotFoundScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SimpleScaffold(
       title: AppBarTitle('Not Found'),
-      bodyBuilder: () {
-        return Text('Woops, This page is not implemented yet');
-      },
+      child: Text('Woops, This page is not implemented yet'),
     );
   }
 }

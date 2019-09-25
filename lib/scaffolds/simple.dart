@@ -6,14 +6,14 @@ import 'package:provider/provider.dart';
 
 class SimpleScaffold extends StatelessWidget {
   final Widget title;
-  final Widget Function() bodyBuilder;
+  final Widget child;
   final Widget trailing;
   final List<Widget> actions;
   final PreferredSizeWidget bottom;
 
   SimpleScaffold({
     @required this.title,
-    @required this.bodyBuilder,
+    @required this.child,
     this.trailing,
     this.actions,
     this.bottom,
@@ -27,13 +27,13 @@ class SimpleScaffold extends StatelessWidget {
           navigationBar:
               CupertinoNavigationBar(middle: title, trailing: trailing),
           child: SafeArea(
-            child: SingleChildScrollView(child: bodyBuilder()),
+            child: SingleChildScrollView(child: child),
           ),
         );
       default:
         return Scaffold(
           appBar: AppBar(title: title, actions: actions, bottom: bottom),
-          body: SingleChildScrollView(child: bodyBuilder()),
+          body: SingleChildScrollView(child: child),
         );
     }
   }

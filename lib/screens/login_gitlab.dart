@@ -17,31 +17,29 @@ class _LoginGitlabScreenState extends State<LoginGitlabScreen> {
   Widget build(BuildContext context) {
     return SimpleScaffold(
       title: AppBarTitle('Login to GitLab'),
-      bodyBuilder: () {
-        return Column(
-          children: <Widget>[
-            TextField(
-              // decoration: InputDecoration(icon: Icon(Icons.more_vert)),
-              onChanged: (value) {
-                _domain = value;
-              },
-            ),
-            TextField(
-              onChanged: (value) {
-                _token = value;
-              },
-            ),
-            MaterialButton(
-              child: Text('Login'),
-              onPressed: () {
-                Provider.of<SettingsModel>(context)
-                    .loginToGitlab(_domain, _token);
-                Navigator.of(context).pop();
-              },
-            )
-          ],
-        );
-      },
+      child: Column(
+        children: <Widget>[
+          TextField(
+            // decoration: InputDecoration(icon: Icon(Icons.more_vert)),
+            onChanged: (value) {
+              _domain = value;
+            },
+          ),
+          TextField(
+            onChanged: (value) {
+              _token = value;
+            },
+          ),
+          MaterialButton(
+            child: Text('Login'),
+            onPressed: () {
+              Provider.of<SettingsModel>(context)
+                  .loginToGitlab(_domain, _token);
+              Navigator.of(context).pop();
+            },
+          )
+        ],
+      ),
     );
   }
 }

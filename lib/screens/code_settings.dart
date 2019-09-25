@@ -20,57 +20,55 @@ class CodeSettingsScreen extends StatelessWidget {
 
     return SimpleScaffold(
       title: AppBarTitle('Code theme'),
-      bodyBuilder: () {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            PickerGroup(
-              items: [
-                PickerGroupItem(
-                  title: 'Syntax Highlighting',
-                  value: codeProvider.theme,
-                  items: CodeModel.themes.map((v) => PickerItem(v, text: v)),
-                  onChange: (value) {
-                    Provider.of<CodeModel>(context).setTheme(value);
-                  },
-                ),
-                PickerGroupItem(
-                  title: 'Font Size',
-                  value: codeProvider.fontSize.toString(),
-                  items: CodeModel.fontSizes
-                      .map((v) => PickerItem(v.toString(), text: v.toString())),
-                  onChange: (value) {
-                    Provider.of<CodeModel>(context)
-                        .setFontSize(int.tryParse(value) ?? 16);
-                  },
-                ),
-                PickerGroupItem(
-                  title: 'Font Family',
-                  value: codeProvider.fontFamily,
-                  items:
-                      CodeModel.fontFamilies.map((v) => PickerItem(v, text: v)),
-                  onChange: (String value) {
-                    Provider.of<CodeModel>(context).setFontFamily(value);
-                  },
-                ),
-              ],
-            ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: HighlightView(
-                code,
-                language: language,
-                theme: themeMap[codeProvider.theme],
-                textStyle: TextStyle(
-                  fontSize: codeProvider.fontSize.toDouble(),
-                  fontFamily: codeProvider.fontFamilyUsed,
-                ),
-                padding: const EdgeInsets.all(10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          PickerGroup(
+            items: [
+              PickerGroupItem(
+                title: 'Syntax Highlighting',
+                value: codeProvider.theme,
+                items: CodeModel.themes.map((v) => PickerItem(v, text: v)),
+                onChange: (value) {
+                  Provider.of<CodeModel>(context).setTheme(value);
+                },
               ),
-            )
-          ],
-        );
-      },
+              PickerGroupItem(
+                title: 'Font Size',
+                value: codeProvider.fontSize.toString(),
+                items: CodeModel.fontSizes
+                    .map((v) => PickerItem(v.toString(), text: v.toString())),
+                onChange: (value) {
+                  Provider.of<CodeModel>(context)
+                      .setFontSize(int.tryParse(value) ?? 16);
+                },
+              ),
+              PickerGroupItem(
+                title: 'Font Family',
+                value: codeProvider.fontFamily,
+                items:
+                    CodeModel.fontFamilies.map((v) => PickerItem(v, text: v)),
+                onChange: (String value) {
+                  Provider.of<CodeModel>(context).setFontFamily(value);
+                },
+              ),
+            ],
+          ),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: HighlightView(
+              code,
+              language: language,
+              theme: themeMap[codeProvider.theme],
+              textStyle: TextStyle(
+                fontSize: codeProvider.fontSize.toDouble(),
+                fontFamily: codeProvider.fontFamilyUsed,
+              ),
+              padding: const EdgeInsets.all(10),
+            ),
+          )
+        ],
+      ),
     );
   }
 }

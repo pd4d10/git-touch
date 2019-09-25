@@ -23,71 +23,69 @@ class SettingsScreen extends StatelessWidget {
 
     return SimpleScaffold(
       title: AppBarTitle('Settings'),
-      bodyBuilder: () {
-        return Column(
-          children: <Widget>[
-            borderView1,
-            TableView(headerText: 'ACCOUNTS', items: [
-              TableViewItem(
-                text: Text('Switch to another account'),
-                screenBuilder: (_) => LoginScreen(),
+      child: Column(
+        children: <Widget>[
+          borderView1,
+          TableView(headerText: 'ACCOUNTS', items: [
+            TableViewItem(
+              text: Text('Switch to another account'),
+              screenBuilder: (_) => LoginScreen(),
+            ),
+          ]),
+          borderView1,
+          TableView(headerText: 'THEME', items: [
+            TableViewItem(
+              text: Text('Material'),
+              rightWidget: _buildRightWidget(
+                  themeProvider.theme == AppThemeType.material),
+              onTap: () {
+                if (themeProvider.theme != AppThemeType.material) {
+                  themeProvider.setTheme(AppThemeType.material);
+                }
+              },
+              hideRightChevron: true,
+            ),
+            TableViewItem(
+              text: Text('Cupertino'),
+              rightWidget: _buildRightWidget(
+                  themeProvider.theme == AppThemeType.cupertino),
+              onTap: () {
+                if (themeProvider.theme != AppThemeType.cupertino) {
+                  themeProvider.setTheme(AppThemeType.cupertino);
+                }
+              },
+              hideRightChevron: true,
+            ),
+          ]),
+          borderView1,
+          TableView(headerText: 'ABOUT', items: [
+            TableViewItem(
+              text: Text('Source Code'),
+              screenBuilder: (_) => RepositoryScreen('pd4d10', 'git-touch'),
+            ),
+            TableViewItem(
+              text: Text('License'),
+              rightWidget: Text('MIT'),
+              screenBuilder: (_) => ObjectScreen(
+                owner: 'pd4d10',
+                name: 'git-touch',
+                branch: 'master',
+                paths: ['LICENSE'],
+                type: 'blob',
               ),
-            ]),
-            borderView1,
-            TableView(headerText: 'THEME', items: [
-              TableViewItem(
-                text: Text('Material'),
-                rightWidget: _buildRightWidget(
-                    themeProvider.theme == AppThemeType.material),
-                onTap: () {
-                  if (themeProvider.theme != AppThemeType.material) {
-                    themeProvider.setTheme(AppThemeType.material);
-                  }
-                },
-                hideRightChevron: true,
-              ),
-              TableViewItem(
-                text: Text('Cupertino'),
-                rightWidget: _buildRightWidget(
-                    themeProvider.theme == AppThemeType.cupertino),
-                onTap: () {
-                  if (themeProvider.theme != AppThemeType.cupertino) {
-                    themeProvider.setTheme(AppThemeType.cupertino);
-                  }
-                },
-                hideRightChevron: true,
-              ),
-            ]),
-            borderView1,
-            TableView(headerText: 'ABOUT', items: [
-              TableViewItem(
-                text: Text('Source Code'),
-                screenBuilder: (_) => RepositoryScreen('pd4d10', 'git-touch'),
-              ),
-              TableViewItem(
-                text: Text('License'),
-                rightWidget: Text('MIT'),
-                screenBuilder: (_) => ObjectScreen(
-                  owner: 'pd4d10',
-                  name: 'git-touch',
-                  branch: 'master',
-                  paths: ['LICENSE'],
-                  type: 'blob',
-                ),
-              ),
-              TableViewItem(
-                text: Text('Rate This App'),
-                onTap: () {
-                  LaunchReview.launch(
-                    androidAppId: 'io.github.pd4d10.gittouch',
-                    iOSAppId: '1452042346',
-                  );
-                },
-              ),
-            ]),
-          ],
-        );
-      },
+            ),
+            TableViewItem(
+              text: Text('Rate This App'),
+              onTap: () {
+                LaunchReview.launch(
+                  androidAppId: 'io.github.pd4d10.gittouch',
+                  iOSAppId: '1452042346',
+                );
+              },
+            ),
+          ]),
+        ],
+      ),
     );
   }
 }
