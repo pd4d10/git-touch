@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:git_touch/scaffolds/single.dart';
 import 'package:git_touch/screens/repository.dart';
+import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/table_view.dart';
 import 'package:tuple/tuple.dart';
 
@@ -28,17 +29,42 @@ class CreditsScreen extends StatelessWidget {
     Tuple2('tuple', 'dart-lang/tuple'),
   ];
 
+  static const fonts = [
+    'Fira Code',
+    'Inconsolata',
+    'PT Mono',
+    'Source Code Pro',
+    'Ubuntu Mono'
+  ];
+
   @override
   Widget build(BuildContext context) {
     return SingleScaffold(
       title: Text('Credits'),
-      body: TableView(
-        items: projects.map((t) {
-          return TableViewItem(
-            text: Text(t.item1),
-            screenBuilder: (_) => RepositoryScreen.fromFullName(t.item2),
-          );
-        }),
+      body: Column(
+        children: <Widget>[
+          borderView1,
+          TableView(
+            headerText: 'packages',
+            items: projects.map((t) {
+              return TableViewItem(
+                text: Text(t.item1),
+                screenBuilder: (_) => RepositoryScreen.fromFullName(t.item2),
+              );
+            }),
+          ),
+          borderView1,
+          TableView(
+            headerText: 'fonts',
+            items: fonts.map((font) {
+              return TableViewItem(
+                text: Text(font),
+                screenBuilder: (_) =>
+                    RepositoryScreen.fromFullName('google/fonts'),
+              );
+            }),
+          ),
+        ],
       ),
     );
   }
