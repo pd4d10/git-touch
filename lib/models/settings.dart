@@ -54,6 +54,23 @@ class SettingsModel with ChangeNotifier {
 
   String get token => activeAccount.token;
 
+  _setAccounts(AccountModel account) async {
+    // Remove previous if duplicated
+    List<AccountModel> newAccounts = [];
+    for (var a in _accounts) {
+      if (!account.equals(a)) {
+        newAccounts.add(a);
+      }
+    }
+    newAccounts.add(account);
+
+    _accounts = newAccounts;
+
+    // Save
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(StorageKeys.accounts, json.encode(_accounts));
+  }
+
   // https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/#web-application-flow
   Future<void> _onSchemeDetected(Uri uri) async {
     await closeWebView();
@@ -90,22 +107,13 @@ class SettingsModel with ChangeNotifier {
 }
 ''', token);
 
-    final account = AccountModel(
+    await _setAccounts(AccountModel(
       platform: PlatformType.github,
       domain: 'github.com',
       token: token,
       login: queryData['viewer']['login'] as String,
       avatarUrl: queryData['viewer']['avatarUrl'] as String,
-    );
-
-    // TODO: duplicated
-    // if (_accounts.where(account.equals).isNotEmpty) {}
-
-    _accounts.add(account);
-
-    // Write to perfs
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(StorageKeys.accounts, json.encode(_accounts));
+    ));
 
     loading = false;
     notifyListeners();
@@ -124,18 +132,13 @@ class SettingsModel with ChangeNotifier {
         throw info['message'];
       }
 
-      final account = AccountModel(
+      await _setAccounts(AccountModel(
         platform: PlatformType.gitlab,
         domain: domain,
         token: token,
         login: info['username'] as String,
         avatarUrl: info['avatar_url'] as String,
-      );
-
-      _accounts.add(account);
-
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setString(StorageKeys.accounts, json.encode(_accounts));
+      ));
     } catch (err) {
       print(err);
       // TODO: show errors
