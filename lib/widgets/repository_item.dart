@@ -94,6 +94,30 @@ class RepositoryItem extends StatelessWidget {
     );
   }
 
+  Widget _buildTopics() {
+    // TODO: link
+    return Wrap(
+      spacing: 4,
+      runSpacing: 4,
+      children: (payload['repositoryTopics']['nodes'] as List).map((node) {
+        return Container(
+          padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+          decoration: BoxDecoration(
+            color: PrimerColors.blue000,
+            borderRadius: BorderRadius.all(Radius.circular(4)),
+          ),
+          child: Text(
+            node['topic']['name'],
+            style: TextStyle(
+              fontSize: 12,
+              color: PrimerColors.blue500,
+            ),
+          ),
+        );
+      }).toList(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     var widget = Container(
@@ -135,7 +159,7 @@ class RepositoryItem extends StatelessWidget {
                         color: PrimerColors.gray700,
                         fontSize: inRepoScreen ? 15 : 14),
                   ),
-                if (!inRepoScreen) _buildStatus(),
+                if (inRepoScreen) _buildTopics() else _buildStatus(),
               ]),
             ),
           ),

@@ -108,6 +108,14 @@ class RepositoryScreen extends StatelessWidget {
       name
       spdxId
     }
+    repositoryTopics(first: 100) {
+      nodes {
+        url
+        topic {
+          name
+        }
+      }
+    }
   }
 }
 ''');
