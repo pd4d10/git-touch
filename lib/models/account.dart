@@ -11,8 +11,16 @@ class AccountModel {
   String login;
   String avatarUrl;
 
-  equals(AccountModel a) =>
-      a.platform == platform && a.domain == domain && a.login == login;
+  equals(AccountModel a) {
+    final uri = Uri.parse(domain);
+    final uriA = Uri.parse(a.domain);
+
+    // Treat domains as the same if they have the same hosts and ports
+    return a.platform == platform &&
+        a.login == login &&
+        uri.host == uriA.host &&
+        uri.port == uriA.port;
+  }
 
   AccountModel({
     @required this.platform,

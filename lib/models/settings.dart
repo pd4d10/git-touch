@@ -109,7 +109,7 @@ class SettingsModel with ChangeNotifier {
 
     await _setAccounts(AccountModel(
       platform: PlatformType.github,
-      domain: 'github.com',
+      domain: 'https://github.com',
       token: token,
       login: queryData['viewer']['login'] as String,
       avatarUrl: queryData['viewer']['avatarUrl'] as String,
