@@ -107,7 +107,7 @@ class _HomeState extends State<Home> {
         return SearchScreen();
       case 4:
         return UserScreen(
-          Provider.of<SettingsModel>(context).activeLogin,
+          Provider.of<SettingsModel>(context).activeAccount.login,
           isMe: true,
         );
     }
@@ -131,7 +131,7 @@ class _HomeState extends State<Home> {
     }
 
     // print(settings.activeLogin);
-    if (settings.activeLogin == null) {
+    if (settings.activeAccount == null) {
       return MaterialApp(theme: themData, home: LoginScreen());
     }
 

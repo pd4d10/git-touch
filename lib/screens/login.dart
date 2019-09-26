@@ -5,7 +5,6 @@ import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:provider/provider.dart';
 import '../widgets/link.dart';
 import '../widgets/loading.dart';
-import '../models/account.dart';
 import '../widgets/avatar.dart';
 // import 'login_gitlab.dart';
 
@@ -15,39 +14,39 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  Widget _buildAccountItem(AccountModel account) {
-    var settings = Provider.of<SettingsModel>(context);
+  Widget _buildAccountItem(int index) {
+    final settings = Provider.of<SettingsModel>(context);
+    final account = settings.accounts[index];
 
     return Link(
       onTap: () {
         // Navigator.of(context).pop();
-        settings.setActiveAccount(
-            account.platform, account.domain, account.login);
+        settings.setActiveAccountIndex(index);
       },
       child: Container(
         padding: EdgeInsets.all(10),
         decoration: BoxDecoration(
           border: Border(bottom: BorderSide(color: Colors.black12)),
         ),
-        child: Row(children: <Widget>[
-          Avatar(url: account.avatarUrl, size: 24),
-          Padding(padding: EdgeInsets.only(left: 10)),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(account.login, style: TextStyle(fontSize: 20)),
-                Padding(padding: EdgeInsets.only(top: 6)),
-                Text(account.domain)
-              ],
+        child: Row(
+          children: <Widget>[
+            Avatar(url: account.avatarUrl, size: 24),
+            Padding(padding: EdgeInsets.only(left: 10)),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(account.login, style: TextStyle(fontSize: 20)),
+                  Padding(padding: EdgeInsets.only(top: 6)),
+                  Text(account.domain)
+                ],
+              ),
             ),
-          ),
-          (settings.activePlatform == account.platform &&
-                  settings.activeDomain == account.domain &&
-                  settings.activeLogin == account.login)
-              ? Icon(Icons.check)
-              : Container(),
-        ]),
+            (index == settings.activeAccountIndex)
+                ? Icon(Icons.check)
+                : Container(),
+          ],
+        ),
       ),
     );
   }
@@ -73,22 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var settings = Provider.of<SettingsModel>(context);
-
-    List<AccountModel> accounts = [];
-    settings.accountMap.forEach((platform, v0) {
-      v0.forEach((domain, v1) {
-        v1.forEach((login, v2) {
-          accounts.add(AccountModel(
-            avatarUrl: v2.avatarUrl,
-            token: v2.token,
-            platform: platform,
-            domain: domain,
-            login: login,
-          ));
-        });
-      });
-    });
+    final settings = Provider.of<SettingsModel>(context);
 
     return SingleScaffold(
       title: AppBarTitle('Select account'),
@@ -97,15 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
           : Container(
               child: Column(
                 children: [
-                  ...settings.githubAccountMap.entries
-                      .map<Widget>((entry) => _buildAccountItem(AccountModel(
-                          avatarUrl: entry.value.avatarUrl,
-                          token: entry.value.token,
-                          platform: PlatformType.github,
-                          domain: 'https://github.com',
-                          login: entry.key)))
-                      .toList(),
-                  ...accounts.map(_buildAccountItem),
+                  ...List.generate(settings.accounts.length, _buildAccountItem),
                   _buildAddItem(
                     text: 'GitHub Account',
                     onTap: settings.redirectToGithubOauth,

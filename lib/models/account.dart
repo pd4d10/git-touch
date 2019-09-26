@@ -5,22 +5,21 @@ part 'account.g.dart';
 
 @JsonSerializable()
 class AccountModel {
-  String avatarUrl;
-  String token;
-
-  @JsonKey(ignore: true)
   String platform;
-  @JsonKey(ignore: true)
   String domain;
-  @JsonKey(ignore: true)
+  String token;
   String login;
+  String avatarUrl;
+
+  equals(AccountModel a) =>
+      a.platform == platform && a.domain == domain && a.login == login;
 
   AccountModel({
-    @required this.avatarUrl,
+    @required this.platform,
+    @required this.domain,
     @required this.token,
-    this.platform,
-    this.domain,
-    this.login,
+    @required this.login,
+    @required this.avatarUrl,
   });
 
   factory AccountModel.fromJson(Map<String, dynamic> json) =>

@@ -49,8 +49,8 @@ class NewsScreenState extends State<NewsScreen> {
   }
 
   Future<ListPayload<EventPayload, int>> fetchEvents([int page = 1]) async {
-    var settings = Provider.of<SettingsModel>(context);
-    var login = settings.activeLogin;
+    final settings = Provider.of<SettingsModel>(context);
+    final login = settings.activeAccount.login;
     List data = await settings.getWithCredentials(
         '/users/$login/received_events?page=$page&per_page=$pageSize');
     // print(data.length);

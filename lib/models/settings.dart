@@ -38,32 +38,21 @@ class PlatformType {
 // }
 
 class SettingsModel with ChangeNotifier {
-  bool ready = false;
+  static const _apiPrefix = 'https://api.github.com';
 
-  Map<String, AccountModel> githubAccountMap;
-  Map<String, Map<String, Map<String, AccountModel>>> accountMap;
-
-  String activePlatform;
-  String activeDomain;
-  String activeLogin;
-
+  List<AccountModel> _accounts;
+  int activeAccountIndex;
   StreamSubscription<Uri> _sub;
   bool loading = false;
 
-  // PlatformType platformType;
-
-  String _apiPrefix = 'https://api.github.com';
-
-  String get token {
-    if (activeLogin == null) return null;
-
-    switch (activePlatform) {
-      case PlatformType.github:
-        return githubAccountMap[activeLogin].token;
-      default:
-        return accountMap[activePlatform][activeDomain][activeLogin].token;
-    }
+  List<AccountModel> get accounts => _accounts;
+  bool get ready => _accounts != null;
+  AccountModel get activeAccount {
+    if (activeAccountIndex == null || _accounts == null) return null;
+    return _accounts[activeAccountIndex];
   }
+
+  String get token => activeAccount.token;
 
   // https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/#web-application-flow
   Future<void> _onSchemeDetected(Uri uri) async {
@@ -72,10 +61,8 @@ class SettingsModel with ChangeNotifier {
     loading = true;
     notifyListeners();
 
-    // get token by code
-    var code = uri.queryParameters['code'];
-    // print(code);
-    var res = await http.post(
+    // Get token by code
+    final res = await http.post(
       'https://github.com/login/oauth/access_token',
       headers: {
         HttpHeaders.acceptHeader: 'application/json',
@@ -84,18 +71,17 @@ class SettingsModel with ChangeNotifier {
       body: json.encode({
         'client_id': clientId,
         'client_secret': clientSecret,
-        'code': code,
+        'code': uri.queryParameters['code'],
         'state': _oauthState,
       }),
     );
-    // print(res.body);
-    var data = json.decode(res.body);
-    _loginWithToken(data['access_token']);
+    final token = json.decode(res.body)['access_token'] as String;
+    await _loginWithToken(token);
   }
 
   Future<void> _loginWithToken(String token) async {
-    // get login and avatar url
-    var queryData = await query('''
+    // Get login and avatar url
+    final queryData = await query('''
 {
   viewer {
     login
@@ -103,56 +89,53 @@ class SettingsModel with ChangeNotifier {
   }
 }
 ''', token);
-    String login = queryData['viewer']['login'];
-    String avatarUrl = queryData['viewer']['avatarUrl'];
 
-    githubAccountMap[login] = AccountModel(avatarUrl: avatarUrl, token: token);
+    final account = AccountModel(
+      platform: PlatformType.github,
+      domain: 'github.com',
+      token: token,
+      login: queryData['viewer']['login'] as String,
+      avatarUrl: queryData['viewer']['avatarUrl'] as String,
+    );
 
-    // write
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString(
-        StorageKeys.github,
-        json.encode(githubAccountMap
-            .map((login, account) => MapEntry(login, account.toJson()))));
+    // TODO: duplicated
+    // if (_accounts.where(account.equals).isNotEmpty) {}
+
+    _accounts.add(account);
+
+    // Write to perfs
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(StorageKeys.accounts, json.encode(_accounts));
 
     loading = false;
     notifyListeners();
   }
 
   Future<void> loginToGitlab(String domain, String token) async {
-    loading = true;
-    notifyListeners();
-
     try {
-      var res = await http
+      loading = true;
+      notifyListeners();
+
+      final res = await http
           .get('$domain/api/v4/user', headers: {'Private-Token': token});
-      var info = json.decode(res.body);
+      final info = json.decode(res.body);
 
       if (info['message'] != null) {
         throw info['message'];
       }
 
-      String login = info['username'];
-      String avatarUrl = info['avatar_url'];
+      final account = AccountModel(
+        platform: PlatformType.gitlab,
+        domain: domain,
+        token: token,
+        login: info['username'] as String,
+        avatarUrl: info['avatar_url'] as String,
+      );
 
-      if (accountMap[PlatformType.gitlab] == null)
-        accountMap[PlatformType.gitlab] = {};
-      if (accountMap[PlatformType.gitlab][domain] == null)
-        accountMap[PlatformType.gitlab][domain] = {};
+      _accounts.add(account);
 
-      accountMap[PlatformType.gitlab][domain][login] =
-          AccountModel(token: token, avatarUrl: avatarUrl);
-
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-
-      String str = json.encode(accountMap.map((type, v0) {
-        return MapEntry(type, v0.map((domain, v1) {
-          return MapEntry(domain, v1.map((login, v2) {
-            return MapEntry(login, v2.toJson());
-          }));
-        }));
-      }));
-      await prefs.setString(StorageKeys.account, str);
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString(StorageKeys.accounts, json.encode(_accounts));
     } catch (err) {
       print(err);
       // TODO: show errors
@@ -163,65 +146,30 @@ class SettingsModel with ChangeNotifier {
   }
 
   void init() async {
+    // Listen scheme
     _sub = getUriLinksStream().listen(_onSchemeDetected, onError: (err) {
       print(err);
     });
 
     var prefs = await SharedPreferences.getInstance();
 
-    // read GitHub accounts
+    // Read accounts
     try {
-      String str = prefs.getString(StorageKeys.github);
-      print('read github: $str');
-
-      Map<String, dynamic> data = json.decode(str ?? '{}');
-      githubAccountMap = data.map<String, AccountModel>((login, _accountMap) =>
-          MapEntry(login, AccountModel.fromJson(_accountMap)));
+      String str = prefs.getString(StorageKeys.accounts);
+      print('read accounts: $str');
+      _accounts = (json.decode(str ?? '[]') as List)
+          .map((item) => AccountModel.fromJson(item))
+          .toList();
     } catch (err) {
       print(err);
-      githubAccountMap = {};
+      _accounts = [];
     }
 
-    // read accounts
-    try {
-      String str = prefs.getString(StorageKeys.account);
-      print('read account: $str');
-
-      var data = Map<String, Map<String, dynamic>>.from(
-          Map<String, dynamic>.from(json.decode(str ?? '{}')));
-
-      accountMap = {};
-      data.forEach((platform, v0) {
-        accountMap[platform] = {};
-        v0.forEach((domain, v1) {
-          accountMap[platform][domain] = {};
-          v1.forEach((login, v2) {
-            accountMap[platform][domain][login] = AccountModel.fromJson(v2);
-          });
-        });
-      });
-
-      // TODO: type cast
-      // accountMap = data.map((type, v0) {
-      //   return MapEntry(type, v0.map((domain, v1) {
-      //     return MapEntry(domain, v1.map((login, v2) {
-      //       return MapEntry(login, AccountModel.fromJson(v2));
-      //     }));
-      //   }));
-      // });
-    } catch (err) {
-      print(err);
-      accountMap = {};
-    }
-
-    ready = true;
     notifyListeners();
   }
 
-  void setActiveAccount(String platform, String domain, String login) {
-    activePlatform = platform;
-    activeDomain = domain;
-    activeLogin = login;
+  void setActiveAccountIndex(int index) {
+    activeAccountIndex = index;
     notifyListeners();
   }
 
@@ -237,7 +185,7 @@ class SettingsModel with ChangeNotifier {
       _token = token;
     }
     if (_token == null) {
-      throw Exception('token is null');
+      throw 'token is null';
     }
 
     final res = await http
@@ -253,7 +201,7 @@ class SettingsModel with ChangeNotifier {
     final data = json.decode(res.body);
 
     if (data['errors'] != null) {
-      throw Exception(data['errors'][0]['message']);
+      throw data['errors'][0]['message'];
     }
 
     return data['data'];

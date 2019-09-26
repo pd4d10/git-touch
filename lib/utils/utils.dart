@@ -13,6 +13,7 @@ export 'package:flutter_vector_icons/flutter_vector_icons.dart';
 final monospaceFont = Platform.isIOS ? 'Menlo' : 'monospace'; // FIXME:
 
 class StorageKeys {
+  static const accounts = 'accounts';
   static const account = 'account';
   static const github = 'github';
   static const theme = 'theme';
