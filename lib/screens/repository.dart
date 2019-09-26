@@ -56,6 +56,7 @@ class RepositoryScreen extends StatelessWidget {
     url
     viewerHasStarred
     viewerSubscription
+    projectsResourcePath
     watchers {
       totalCount
     }
@@ -73,6 +74,9 @@ class RepositoryScreen extends StatelessWidget {
       totalCount
     }
     pullRequests(states: OPEN) {
+      totalCount
+    }
+    projects {
       totalCount
     }
     releases {
@@ -302,6 +306,13 @@ class RepositoryScreen extends StatelessWidget {
                       .format(payload['pullRequests']['totalCount'])),
                   screenBuilder: (_) => IssuesScreen(
                       owner: owner, name: name, isPullRequest: true),
+                ),
+                TableViewItem(
+                  leftIconData: Octicons.project,
+                  text: Text('Projects'),
+                  rightWidget: Text(
+                      numberFormat.format(payload['projects']['totalCount'])),
+                  url: 'https://github.com' + payload['projectsResourcePath'],
                 ),
               ],
             ),
