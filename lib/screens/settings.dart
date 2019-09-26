@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/single.dart';
+import 'package:git_touch/screens/credits.dart';
 import 'package:git_touch/screens/object.dart';
 import 'package:git_touch/screens/repository.dart';
 import 'package:git_touch/utils/utils.dart';
@@ -73,6 +74,10 @@ class SettingsScreen extends StatelessWidget {
                 paths: ['LICENSE'],
                 type: 'blob',
               ),
+            ),
+            TableViewItem(
+              text: Text('Credits'),
+              screenBuilder: (_) => CreditsScreen(),
             ),
             TableViewItem(
               text: Text('Rate This App'),
