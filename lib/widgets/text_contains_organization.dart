@@ -10,7 +10,7 @@ class TextContainsOrganization extends StatelessWidget {
   TextContainsOrganization(this.text,
       {this.style, this.overflow = TextOverflow.clip});
 
-  static final _reg = RegExp(r'@\S+');
+  static final _reg = RegExp(r'@[\x00-\x7F]+');
 
   @override
   Widget build(BuildContext context) {
