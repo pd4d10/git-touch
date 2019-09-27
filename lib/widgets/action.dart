@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:git_touch/utils/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/models/theme.dart';
 
@@ -62,16 +63,31 @@ class ActionButton extends StatelessWidget {
           },
         );
       default:
-        return PopupMenuButton<int>(
+        return IconButton(
           icon: Icon(iconData),
-          onSelected: _onSelected,
-          itemBuilder: (BuildContext context) {
-            return actions.asMap().entries.map((entry) {
-              return PopupMenuItem(
-                value: entry.key,
-                child: Text(entry.value.text),
-              );
-            }).toList();
+          onPressed: () async {
+            await showModalBottomSheet(
+              context: context,
+              builder: (_) {
+                return Column(
+                  children: join(
+                    PopupMenuDivider(height: 1),
+                    actions.asMap().entries.map((entry) {
+                      return GestureDetector(
+                        child: PopupMenuItem(
+                          value: entry.key,
+                          child: Text(entry.value.text),
+                        ),
+                        onTap: () {
+                          Navigator.of(context).pop();
+                          _onSelected(entry.key);
+                        },
+                      );
+                    }).toList(),
+                  ),
+                );
+              },
+            );
           },
         );
     }

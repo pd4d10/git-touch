@@ -27,7 +27,7 @@ class TabScaffold extends StatelessWidget {
     switch (Provider.of<ThemeModel>(context).theme) {
       case AppThemeType.cupertino:
         return DefaultTextStyle(
-          style: TextStyle(fontSize: 16),
+          style: TextStyle(fontSize: 14),
           child: CupertinoSegmentedControl(
             groupValue: activeTab,
             onValueChanged: onTabSwitch,
