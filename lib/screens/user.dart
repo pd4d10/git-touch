@@ -30,9 +30,7 @@ class UserScreen extends StatelessWidget {
     var data = await Provider.of<AuthModel>(context).query('''
 {
   user(login: "$login") {
-    name
-    avatarUrl
-    bio
+    $userGqlChunk
     company
     location
     email
@@ -201,12 +199,7 @@ class UserScreen extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            UserItem(
-              login,
-              name: payload['name'],
-              avatarUrl: payload['avatarUrl'],
-              bio: payload['bio'],
-            ),
+            UserItem.fromData(payload, inUserScreen: true),
             borderView,
             Row(children: <Widget>[
               EntryItem(

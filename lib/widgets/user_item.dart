@@ -7,6 +7,7 @@ import 'package:git_touch/widgets/text_contains_organization.dart';
 import 'package:primer/primer.dart';
 
 const userGqlChunk = '''
+  login
   name
   avatarUrl
   bio
@@ -20,20 +21,22 @@ class UserItem extends StatelessWidget {
   final bool inUserScreen;
   final bool isOrganization;
 
-  UserItem(
-    this.login, {
+  UserItem({
+    this.login,
     this.name,
     this.avatarUrl,
     this.bio,
     this.inUserScreen = false,
     this.isOrganization = false,
   });
-  UserItem.fromData(data, {this.isOrganization = false})
-      : login = data['login'],
+  UserItem.fromData(
+    data, {
+    this.isOrganization = false,
+    this.inUserScreen = false,
+  })  : login = data['login'],
         name = data['name'],
         avatarUrl = data['avatarUrl'],
-        bio = data['bio'],
-        inUserScreen = false;
+        bio = data['bio'];
 
   @override
   Widget build(BuildContext context) {
@@ -55,15 +58,16 @@ class UserItem extends StatelessWidget {
                       name ?? login,
                       style: TextStyle(
                         color: PrimerColors.blue500,
-                        fontSize: 18,
+                        fontSize: inUserScreen ? 18 : 16,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                     SizedBox(width: 8),
                     Text(
                       login,
-                      style:
-                          TextStyle(color: PrimerColors.gray700, fontSize: 16),
+                      style: TextStyle(
+                          color: PrimerColors.gray700,
+                          fontSize: inUserScreen ? 16 : 14),
                     ),
                   ],
                 ),
@@ -71,7 +75,9 @@ class UserItem extends StatelessWidget {
                 if (bio != null && bio.isNotEmpty)
                   TextContainsOrganization(
                     bio,
-                    style: TextStyle(color: PrimerColors.gray700, fontSize: 15),
+                    style: TextStyle(
+                        color: PrimerColors.gray700,
+                        fontSize: inUserScreen ? 15 : 14),
                   ),
               ],
             ),

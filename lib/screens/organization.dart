@@ -119,7 +119,7 @@ class OrganizationScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             UserItem(
-              login,
+              login: login,
               name: payload['name'],
               avatarUrl: payload['avatarUrl'],
               bio: payload['description'],

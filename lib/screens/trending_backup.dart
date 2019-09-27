@@ -30,7 +30,7 @@ class _TrendingScreenState extends State<TrendingScreen> {
     switch (_activeTab) {
       case 0:
         return _userItems?.map((item) => UserItem(
-              item['username'],
+              login: item['username'],
               name: item['name'],
               avatarUrl: item['avatar'],
               bio: '',

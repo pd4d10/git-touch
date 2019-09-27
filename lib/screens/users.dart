@@ -49,10 +49,7 @@ class UsersScreen extends StatelessWidget {
         endCursor
       }
       nodes {
-        name
-        login
-        avatarUrl
-        bio
+        $userGqlChunk
       }
     }
   }
@@ -73,12 +70,7 @@ class UsersScreen extends StatelessWidget {
       title: AppBarTitle(title),
       onRefresh: () => _queryUsers(context),
       onLoadMore: (cursor) => _queryUsers(context, cursor),
-      itemBuilder: (payload) => UserItem(
-        payload['login'],
-        name: payload['name'],
-        avatarUrl: payload['avatarUrl'],
-        bio: payload['bio'],
-      ),
+      itemBuilder: (payload) => UserItem.fromData(payload),
     );
   }
 }

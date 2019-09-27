@@ -51,7 +51,7 @@ class TrendingScreen extends StatelessWidget {
                   });
                 case 1:
                   return UserItem(
-                    item['username'],
+                    login: item['username'],
                     name: item['name'],
                     avatarUrl: item['avatar'],
                     bio: '',

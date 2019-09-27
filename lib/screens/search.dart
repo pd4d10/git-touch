@@ -64,7 +64,6 @@ class _SearchScreenState extends State<SearchScreen> {
       }
       ... on User {
         $userGqlChunk
-        login
       }
     }
   }
