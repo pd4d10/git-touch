@@ -4,7 +4,9 @@ import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/screens/repositories.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/table_view.dart';
+import 'package:git_touch/widgets/text_contains_organization.dart';
 import 'package:git_touch/widgets/user_item.dart';
+import 'package:primer/primer.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:share/share.dart';
 import 'package:github_contributions/github_contributions.dart';
@@ -237,7 +239,10 @@ class UserScreen extends StatelessWidget {
                 if (isNotNullOrEmpty(payload['company']))
                   TableViewItem(
                     leftIconData: Octicons.organization,
-                    text: Text(payload['company']),
+                    text: TextContainsOrganization(payload['company'],
+                        style: TextStyle(
+                            fontSize: 16, color: PrimerColors.gray900),
+                        overflow: TextOverflow.ellipsis),
                   ),
                 if (isNotNullOrEmpty(payload['location']))
                   TableViewItem(

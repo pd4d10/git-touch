@@ -359,14 +359,13 @@ class RepositoryScreen extends StatelessWidget {
                       },
                     ),
                 ],
-                if ((payload['releases']['totalCount'] as int) > 0)
-                  TableViewItem(
-                    leftIconData: Octicons.tag,
-                    text: Text('Releases'),
-                    rightWidget: Text(
-                        (payload['releases']['totalCount'] as int).toString()),
-                    url: payload['url'] + '/releases',
-                  ),
+                TableViewItem(
+                  leftIconData: Octicons.tag,
+                  text: Text('Releases'),
+                  rightWidget: Text(
+                      (payload['releases']['totalCount'] as int).toString()),
+                  url: payload['url'] + '/releases',
+                ),
                 TableViewItem(
                   leftIconData: Octicons.law,
                   text: Text('License'),

@@ -3,6 +3,7 @@ import 'package:git_touch/screens/organization.dart';
 import 'package:git_touch/screens/user.dart';
 import 'package:git_touch/widgets/avatar.dart';
 import 'package:git_touch/widgets/link.dart';
+import 'package:git_touch/widgets/text_contains_organization.dart';
 import 'package:primer/primer.dart';
 
 const userGqlChunk = '''
@@ -68,7 +69,7 @@ class UserItem extends StatelessWidget {
                 ),
                 SizedBox(height: 6),
                 if (bio != null && bio.isNotEmpty)
-                  Text(
+                  TextContainsOrganization(
                     bio,
                     style: TextStyle(color: PrimerColors.gray700, fontSize: 15),
                   ),
