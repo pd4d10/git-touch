@@ -6,7 +6,7 @@ import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/issue_item.dart';
 import 'package:git_touch/widgets/user_item.dart';
 import 'package:provider/provider.dart';
-import 'package:git_touch/models/settings.dart';
+import 'package:git_touch/models/auth.dart';
 import '../utils/utils.dart';
 import 'package:git_touch/widgets/repository_item.dart';
 
@@ -44,7 +44,7 @@ class _SearchScreenState extends State<SearchScreen> {
       _loading = true;
     });
     try {
-      var data = await Provider.of<SettingsModel>(context).query('''
+      var data = await Provider.of<AuthModel>(context).query('''
 {
   repository: search(first: $pageSize, type: REPOSITORY, query: "$keyword") {
     nodes {

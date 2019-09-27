@@ -11,7 +11,7 @@ import 'package:git_touch/widgets/table_view.dart';
 import 'package:path/path.dart' as path;
 import 'package:flutter/material.dart';
 import 'package:flutter_highlight/flutter_highlight.dart';
-import 'package:git_touch/models/settings.dart';
+import 'package:git_touch/models/auth.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:primer/primer.dart';
@@ -146,7 +146,7 @@ class ObjectScreen extends StatelessWidget {
     return RefreshStatefulScaffold(
       title: AppBarTitle(paths.join('/')),
       onRefresh: () async {
-        var data = await Provider.of<SettingsModel>(context).query('''{
+        var data = await Provider.of<AuthModel>(context).query('''{
   repository(owner: "$owner", name: "$name") {
     object(expression: "$_expression") {
       $_subQuery

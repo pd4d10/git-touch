@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:git_touch/models/code.dart';
-import 'package:git_touch/models/settings.dart';
+import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/screens/issues.dart';
 import 'package:git_touch/screens/repository.dart';
@@ -34,7 +34,7 @@ class _HomeState extends State<Home> {
     nextTick(() {
       // FIXME:
       Provider.of<ThemeModel>(context).init();
-      Provider.of<SettingsModel>(context).init();
+      Provider.of<AuthModel>(context).init();
       Provider.of<CodeModel>(context).init();
     });
   }
@@ -107,7 +107,7 @@ class _HomeState extends State<Home> {
         return SearchScreen();
       case 4:
         return UserScreen(
-          Provider.of<SettingsModel>(context).activeAccount.login,
+          Provider.of<AuthModel>(context).activeAccount.login,
           isMe: true,
         );
     }
@@ -115,7 +115,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    var settings = Provider.of<SettingsModel>(context);
+    var settings = Provider.of<AuthModel>(context);
     var themData = ThemeData(
       // primaryColor: HSLColor.fromColor(Palette.primary)
       //     .withLightness(0.3)
@@ -182,7 +182,7 @@ class App extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(builder: (context) => NotificationModel()),
         ChangeNotifierProvider(builder: (context) => ThemeModel()),
-        ChangeNotifierProvider(builder: (context) => SettingsModel()),
+        ChangeNotifierProvider(builder: (context) => AuthModel()),
         ChangeNotifierProvider(builder: (context) => CodeModel()),
       ],
       child: Home(),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:git_touch/models/settings.dart';
+import 'package:git_touch/models/auth.dart';
 import 'package:primer/primer.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
@@ -273,7 +273,7 @@ __typename
       }
     }
 
-    var data = await Provider.of<SettingsModel>(context).query('''
+    var data = await Provider.of<AuthModel>(context).query('''
 {
   repository(owner: "$owner", name: "$name") {
     $resource(number: $number) {
@@ -323,7 +323,7 @@ __typename
 
       var id = payload['id'] as String;
       var operation = isRemove ? 'remove' : 'add';
-      await Provider.of<SettingsModel>(context).query('''
+      await Provider.of<AuthModel>(context).query('''
 mutation {
   ${operation}Reaction(input: {subjectId: "$id", content: $emojiKey}) {
     clientMutationId

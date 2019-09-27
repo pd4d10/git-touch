@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:filesize/filesize.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:git_touch/models/settings.dart';
+import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/screens/users.dart';
 import 'package:git_touch/utils/utils.dart';
@@ -38,7 +38,7 @@ class RepositoryScreen extends StatelessWidget {
 
   Future queryRepo(BuildContext context) async {
     var branchKey = getBranchQueryKey(branch, withParams: true);
-    var data = await Provider.of<SettingsModel>(context).query('''
+    var data = await Provider.of<AuthModel>(context).query('''
 {
   repository(owner: "$owner", name: "$name") {
     id
@@ -127,7 +127,7 @@ class RepositoryScreen extends StatelessWidget {
   }
 
   Future<String> fetchReadme(BuildContext context) async {
-    var data = await Provider.of<SettingsModel>(context)
+    var data = await Provider.of<AuthModel>(context)
         .getWithCredentials('/repos/$owner/$name/readme');
 
     if (data['content'] == null) {
@@ -174,11 +174,11 @@ class RepositoryScreen extends StatelessWidget {
                 text: data[0]['viewerHasStarred'] ? 'Unstar' : 'Star',
                 onPress: () async {
                   if (data[0]['viewerHasStarred']) {
-                    await Provider.of<SettingsModel>(context)
+                    await Provider.of<AuthModel>(context)
                         .deleteWithCredentials('/user/starred/$owner/$name');
                     data[0]['viewerHasStarred'] = false;
                   } else {
-                    Provider.of<SettingsModel>(context)
+                    Provider.of<AuthModel>(context)
                         .putWithCredentials('/user/starred/$owner/$name');
                     data[0]['viewerHasStarred'] = true;
                   }
@@ -190,12 +190,11 @@ class RepositoryScreen extends StatelessWidget {
                     : 'Watch',
                 onPress: () async {
                   if (data[0]['viewerSubscription'] == 'SUBSCRIBED') {
-                    await Provider.of<SettingsModel>(context)
-                        .deleteWithCredentials(
-                            '/repos/$owner/$name/subscription');
+                    await Provider.of<AuthModel>(context).deleteWithCredentials(
+                        '/repos/$owner/$name/subscription');
                     data[0]['viewerSubscription'] = 'UNSUBSCRIBED';
                   } else {
-                    Provider.of<SettingsModel>(context)
+                    Provider.of<AuthModel>(context)
                         .putWithCredentials('/repos/$owner/$name/subscription');
                     data[0]['viewerSubscription'] = 'SUBSCRIBED';
                   }

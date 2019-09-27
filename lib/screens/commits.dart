@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:git_touch/models/settings.dart';
+import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/scaffolds/list_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
@@ -22,7 +22,7 @@ class CommitsScreen extends StatelessWidget {
       params += ', after: "$cursor"';
     }
     var key = getBranchQueryKey(branch, withParams: true);
-    var data = await Provider.of<SettingsModel>(context).query('''
+    var data = await Provider.of<AuthModel>(context).query('''
 {
   repository(owner: "$owner", name: "$name") {
     $key {

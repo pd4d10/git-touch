@@ -10,7 +10,7 @@ import 'package:git_touch/widgets/table_view.dart';
 import 'package:git_touch/widgets/user_item.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:share/share.dart';
-import 'package:git_touch/models/settings.dart';
+import 'package:git_touch/models/auth.dart';
 import 'package:provider/provider.dart';
 import '../widgets/action.dart';
 import '../utils/utils.dart';
@@ -57,7 +57,7 @@ class OrganizationScreen extends StatelessWidget {
     return RefreshStatefulScaffold(
       onRefresh: () async {
         // Use pinnableItems instead of organization here due to token permission
-        var data = await Provider.of<SettingsModel>(context).query('''
+        var data = await Provider.of<AuthModel>(context).query('''
 {
   organization(login: "$login") {
     name

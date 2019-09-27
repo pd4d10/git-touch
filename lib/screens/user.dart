@@ -10,7 +10,7 @@ import 'package:primer/primer.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:share/share.dart';
 import 'package:github_contributions/github_contributions.dart';
-import 'package:git_touch/models/settings.dart';
+import 'package:git_touch/models/auth.dart';
 import 'package:provider/provider.dart';
 import '../widgets/entry_item.dart';
 import 'package:git_touch/widgets/repository_item.dart';
@@ -27,7 +27,7 @@ class UserScreen extends StatelessWidget {
   UserScreen(this.login, {this.isMe = false});
 
   Future query(BuildContext context) async {
-    var data = await Provider.of<SettingsModel>(context).query('''
+    var data = await Provider.of<AuthModel>(context).query('''
 {
   user(login: "$login") {
     name
@@ -164,11 +164,11 @@ class UserScreen extends StatelessWidget {
                   text: data[0]['viewerIsFollowing'] ? 'Unfollow' : 'Follow',
                   onPress: () async {
                     if (data[0]['viewerIsFollowing']) {
-                      await Provider.of<SettingsModel>(context)
+                      await Provider.of<AuthModel>(context)
                           .deleteWithCredentials('/user/following/$login');
                       data[0]['viewerIsFollowing'] = false;
                     } else {
-                      Provider.of<SettingsModel>(context)
+                      Provider.of<AuthModel>(context)
                           .putWithCredentials('/user/following/$login');
                       data[0]['viewerIsFollowing'] = true;
                     }

@@ -4,14 +4,14 @@ import 'package:meta/meta.dart';
 part 'account.g.dart';
 
 @JsonSerializable()
-class AccountModel {
+class Account {
   String platform;
   String domain;
   String token;
   String login;
   String avatarUrl;
 
-  equals(AccountModel a) {
+  equals(Account a) {
     final uri = Uri.parse(domain);
     final uriA = Uri.parse(a.domain);
 
@@ -22,7 +22,7 @@ class AccountModel {
         uri.port == uriA.port;
   }
 
-  AccountModel({
+  Account({
     @required this.platform,
     @required this.domain,
     @required this.token,
@@ -30,8 +30,8 @@ class AccountModel {
     @required this.avatarUrl,
   });
 
-  factory AccountModel.fromJson(Map<String, dynamic> json) =>
-      _$AccountModelFromJson(json);
+  factory Account.fromJson(Map<String, dynamic> json) =>
+      _$AccountFromJson(json);
 
-  Map<String, dynamic> toJson() => _$AccountModelToJson(this);
+  Map<String, dynamic> toJson() => _$AccountToJson(this);
 }

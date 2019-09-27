@@ -4,7 +4,7 @@ import 'package:git_touch/scaffolds/tab_stateful.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/models/notification.dart';
-import 'package:git_touch/models/settings.dart';
+import 'package:git_touch/models/auth.dart';
 import '../widgets/notification_item.dart';
 import '../widgets/list_group.dart';
 import '../widgets/link.dart';
@@ -18,7 +18,7 @@ class NotificationScreen extends StatefulWidget {
 
 class NotificationScreenState extends State<NotificationScreen> {
   Future<Map<String, NotificationGroup>> fetchNotifications(int index) async {
-    List items = await Provider.of<SettingsModel>(context).getWithCredentials(
+    List items = await Provider.of<AuthModel>(context).getWithCredentials(
         '/notifications?all=${index == 2}&participating=${index == 1}');
     var ns = items.map((item) => NotificationPayload.fromJson(item)).toList();
 
@@ -77,7 +77,7 @@ $key: pullRequest(number: ${item.number}) {
       schema += '}';
 
       // print(schema);
-      var data = await Provider.of<SettingsModel>(context).query(schema);
+      var data = await Provider.of<AuthModel>(context).query(schema);
       _groupMap.forEach((repo, group) {
         group.items.forEach((item) {
           var groupData = data[group.key];
@@ -112,7 +112,7 @@ $key: pullRequest(number: ${item.number}) {
           Link(
             material: false,
             onTap: () async {
-              await Provider.of<SettingsModel>(context)
+              await Provider.of<AuthModel>(context)
                   .putWithCredentials('/repos/$repo/notifications');
               // await _onSwitchTab(); // TODO:
             },

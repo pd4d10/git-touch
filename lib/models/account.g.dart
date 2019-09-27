@@ -6,8 +6,8 @@ part of 'account.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-AccountModel _$AccountModelFromJson(Map<String, dynamic> json) {
-  return AccountModel(
+Account _$AccountFromJson(Map<String, dynamic> json) {
+  return Account(
     platform: json['platform'] as String,
     domain: json['domain'] as String,
     token: json['token'] as String,
@@ -16,8 +16,7 @@ AccountModel _$AccountModelFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$AccountModelToJson(AccountModel instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$AccountToJson(Account instance) => <String, dynamic>{
       'platform': instance.platform,
       'domain': instance.domain,
       'token': instance.token,

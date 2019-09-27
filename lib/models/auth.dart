@@ -19,44 +19,26 @@ class PlatformType {
   static const gitlab = 'gitlab';
 }
 
-// abstract class Model<T> {
-//   Future<T> query(BuildContext context) {
-//     var settings = Provider.of<SettingsModel>(context);
-
-//     switch (settings.platformType) {
-//       case PlatformType.github:
-//         return queryGithub(settings);
-//       case PlatformType.gitlab:
-//         return queryGitlab(settings);
-//       default:
-//         return null;
-//     }
-//   }
-
-//   Future<T> queryGithub(SettingsProviderState settings);
-//   Future<T> queryGitlab(SettingsProviderState settings);
-// }
-
-class SettingsModel with ChangeNotifier {
+class AuthModel with ChangeNotifier {
   static const _apiPrefix = 'https://api.github.com';
 
-  List<AccountModel> _accounts;
+  List<Account> _accounts;
   int activeAccountIndex;
   StreamSubscription<Uri> _sub;
   bool loading = false;
 
-  List<AccountModel> get accounts => _accounts;
+  List<Account> get accounts => _accounts;
   bool get ready => _accounts != null;
-  AccountModel get activeAccount {
+  Account get activeAccount {
     if (activeAccountIndex == null || _accounts == null) return null;
     return _accounts[activeAccountIndex];
   }
 
   String get token => activeAccount.token;
 
-  _setAccounts(AccountModel account) async {
+  _addAccount(Account account) async {
     // Remove previous if duplicated
-    List<AccountModel> newAccounts = [];
+    List<Account> newAccounts = [];
     for (var a in _accounts) {
       if (!account.equals(a)) {
         newAccounts.add(a);
@@ -107,7 +89,7 @@ class SettingsModel with ChangeNotifier {
 }
 ''', token);
 
-    await _setAccounts(AccountModel(
+    await _addAccount(Account(
       platform: PlatformType.github,
       domain: 'https://github.com',
       token: token,
@@ -132,7 +114,7 @@ class SettingsModel with ChangeNotifier {
         throw info['message'];
       }
 
-      await _setAccounts(AccountModel(
+      await _addAccount(Account(
         platform: PlatformType.gitlab,
         domain: domain,
         token: token,
@@ -161,7 +143,7 @@ class SettingsModel with ChangeNotifier {
       String str = prefs.getString(StorageKeys.accounts);
       print('read accounts: $str');
       _accounts = (json.decode(str ?? '[]') as List)
-          .map((item) => AccountModel.fromJson(item))
+          .map((item) => Account.fromJson(item))
           .toList();
     } catch (err) {
       print(err);

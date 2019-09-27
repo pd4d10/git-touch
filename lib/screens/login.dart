@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:git_touch/models/settings.dart';
+import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/scaffolds/single.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:provider/provider.dart';
@@ -15,7 +15,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   Widget _buildAccountItem(int index) {
-    final settings = Provider.of<SettingsModel>(context);
+    final settings = Provider.of<AuthModel>(context);
     final account = settings.accounts[index];
 
     return Link(
@@ -72,7 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final settings = Provider.of<SettingsModel>(context);
+    final settings = Provider.of<AuthModel>(context);
 
     return SingleScaffold(
       title: AppBarTitle('Select account'),

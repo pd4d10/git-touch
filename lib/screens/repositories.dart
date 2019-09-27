@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:git_touch/scaffolds/list_stateful.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
-import 'package:git_touch/models/settings.dart';
+import 'package:git_touch/models/auth.dart';
 import 'package:provider/provider.dart';
 import '../utils/utils.dart';
 import 'package:git_touch/widgets/repository_item.dart';
@@ -39,7 +39,7 @@ class RepositoriesScreen extends StatelessWidget {
 
   Future<ListPayload> _queryRepos(BuildContext context, [String cursor]) async {
     var cursorChunk = cursor == null ? '' : ', after: "$cursor"';
-    var data = await Provider.of<SettingsModel>(context).query('''
+    var data = await Provider.of<AuthModel>(context).query('''
 {
   $scope(login: "$login") {
     $resource(first: $pageSize$cursorChunk, $extra0) {
