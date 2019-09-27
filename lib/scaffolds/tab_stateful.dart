@@ -85,6 +85,8 @@ class _TabStatefulScaffoldState<T> extends State<TabStatefulScaffold<T>> {
   }
 
   Future<void> _switch(int selected) async {
+    if (_loading) return;
+
     setState(() {
       _activeTab = selected;
     });
