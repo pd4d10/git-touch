@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/screens/repositories.dart';
+import 'package:git_touch/widgets/action_entry.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/table_view.dart';
 import 'package:git_touch/widgets/text_contains_organization.dart';
@@ -89,12 +91,14 @@ class UserScreen extends StatelessWidget {
     return [
       borderView1,
       if (title != null) TableViewHeader(title),
+      borderView,
       ...join(
         borderView,
         items.map((item) {
           return RepositoryItem(item);
         }).toList(),
-      )
+      ),
+      borderView,
     ];
   }
 
@@ -127,6 +131,7 @@ class UserScreen extends StatelessWidget {
     });
 
     return Container(
+      color: Colors.white,
       padding: EdgeInsets.all(10),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
@@ -147,11 +152,13 @@ class UserScreen extends StatelessWidget {
       title: AppBarTitle('User'),
       trailingBuilder: (data) {
         if (isMe) {
-          return Link(
-            child: Icon(Icons.settings, size: 20),
-            screenBuilder: (_) => SettingsScreen(),
-            material: false,
-            fullscreenDialog: true,
+          return ActionEntry(
+            iconData: Icons.settings,
+            onTap: () {
+              Provider.of<ThemeModel>(context).pushRoute(
+                  context, (_) => SettingsScreen(),
+                  fullscreenDialog: true);
+            },
           );
         } else {
           return ActionButton(
@@ -223,8 +230,11 @@ class UserScreen extends StatelessWidget {
                 screenBuilder: (context) => UsersScreen.following(login),
               ),
             ]),
+            borderView,
             borderView1,
+            borderView,
             _buildContributions(contributions),
+            borderView,
             borderView1,
             TableView(
               hasIcon: true,
@@ -270,6 +280,7 @@ class UserScreen extends StatelessWidget {
               ],
             ),
             ..._buildRepos(payload),
+            borderView1,
           ],
         );
       },

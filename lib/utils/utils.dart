@@ -8,6 +8,7 @@ import 'package:git_touch/screens/user.dart';
 import 'package:intl/intl.dart';
 import 'package:primer/primer.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 export 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
 final monospaceFont = Platform.isIOS ? 'Menlo' : 'monospace'; // FIXME:

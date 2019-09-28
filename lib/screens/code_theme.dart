@@ -8,11 +8,11 @@ import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/picker.dart';
 import 'package:provider/provider.dart';
 
-class CodeSettingsScreen extends StatelessWidget {
+class CodeThemeScreen extends StatelessWidget {
   final String code;
   final String language;
 
-  CodeSettingsScreen(this.code, this.language);
+  CodeThemeScreen(this.code, this.language);
 
   @override
   Widget build(BuildContext context) {

@@ -10,7 +10,6 @@ class Link extends StatelessWidget {
   final WidgetBuilder screenBuilder;
   final Function onTap;
   final bool material;
-  final bool fullscreenDialog;
 
   Link({
     this.child,
@@ -18,7 +17,6 @@ class Link extends StatelessWidget {
     this.screenBuilder,
     this.onTap,
     this.material = true,
-    this.fullscreenDialog = false,
   }) : assert(screenBuilder == null || url == null);
 
   void _onTap(BuildContext context) {
@@ -26,8 +24,7 @@ class Link extends StatelessWidget {
       return onTap();
     }
     if (screenBuilder != null) {
-      return Provider.of<ThemeModel>(context).pushRoute(context, screenBuilder,
-          fullscreenDialog: fullscreenDialog);
+      return Provider.of<ThemeModel>(context).pushRoute(context, screenBuilder);
     }
     if (url != null) {
       launch(url);

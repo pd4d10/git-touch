@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_highlight/theme_map.dart';
 import 'package:git_touch/models/code.dart';
+import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
-import 'package:git_touch/screens/code_settings.dart';
+import 'package:git_touch/screens/code_theme.dart';
 import 'package:git_touch/screens/image_view.dart';
+import 'package:git_touch/widgets/action_entry.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/link.dart';
 import 'package:git_touch/widgets/markdown_view.dart';
@@ -172,12 +174,14 @@ class ObjectScreen extends StatelessWidget {
       trailingBuilder: (payload) {
         switch (type) {
           case 'blob':
-            return Link(
-              child: Icon(Octicons.settings, size: 20),
-              material: false,
-              screenBuilder: payload == null
-                  ? null
-                  : (_) => CodeSettingsScreen(payload['text'], _language),
+            return ActionEntry(
+              iconData: Octicons.settings,
+              onTap: () {
+                if (payload != null) {
+                  Provider.of<ThemeModel>(context).pushRoute(context,
+                      (_) => CodeThemeScreen(payload['text'], _language));
+                }
+              },
             );
           default:
             return null;

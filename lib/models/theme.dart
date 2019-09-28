@@ -198,11 +198,12 @@ class ThemeModel with ChangeNotifier {
   showPicker(BuildContext context, PickerGroupItem<String> groupItem) async {
     switch (theme) {
       case AppThemeType.cupertino:
+      default:
         await showCupertinoModalPopup<void>(
           context: context,
           builder: (context) {
             return Container(
-              height: 300,
+              height: 216,
               child: CupertinoPicker(
                 backgroundColor: CupertinoColors.white,
                 children: groupItem.items.map((v) => Text(v.text)).toList(),
@@ -222,20 +223,6 @@ class ThemeModel with ChangeNotifier {
             );
           },
         );
-        break;
-      default:
-        final value = await showMenu(
-          context: context,
-          initialValue: groupItem.value,
-          items: groupItem.items
-              .map((item) =>
-                  PopupMenuItem(value: item.value, child: Text(item.text)))
-              .toList(),
-          position: RelativeRect.fill,
-        );
-        if (value != null) {
-          groupItem.onChange(value);
-        }
     }
   }
 }
