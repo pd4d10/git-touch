@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/widgets/link.dart';
 import 'package:git_touch/widgets/loading.dart';
+import 'package:primer/primer.dart';
 import 'package:provider/provider.dart';
 
 class CommonScaffold extends StatelessWidget {
@@ -55,16 +56,20 @@ class RefreshWrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     switch (Provider.of<ThemeModel>(context).theme) {
       case AppThemeType.cupertino:
-        return CustomScrollView(
-          slivers: <Widget>[
-            CupertinoSliverRefreshControl(onRefresh: onRefresh),
-            SliverToBoxAdapter(child: body),
-          ],
+        return CupertinoScrollbar(
+          child: CustomScrollView(
+            slivers: <Widget>[
+              CupertinoSliverRefreshControl(onRefresh: onRefresh),
+              SliverToBoxAdapter(child: body),
+            ],
+          ),
         );
       default:
         return RefreshIndicator(
           onRefresh: onRefresh,
-          child: SingleChildScrollView(child: body),
+          child: Scrollbar(
+            child: SingleChildScrollView(child: body),
+          ),
         );
     }
   }

@@ -175,11 +175,12 @@ class _ListStatefulScaffoldState<T, K>
     } else if (items.isEmpty) {
       return EmptyWidget();
     } else {
-      return ListView.builder(
-        // shrinkWrap: true,
-        controller: _controller,
-        itemCount: 2 * items.length + 1,
-        itemBuilder: _buildItem,
+      return Scrollbar(
+        child: ListView.builder(
+          controller: _controller,
+          itemCount: 2 * items.length + 1,
+          itemBuilder: _buildItem,
+        ),
       );
     }
   }
@@ -187,12 +188,14 @@ class _ListStatefulScaffoldState<T, K>
   Widget _buildBody() {
     switch (Provider.of<ThemeModel>(context).theme) {
       case AppThemeType.cupertino:
-        return CustomScrollView(
-          controller: _controller,
-          slivers: [
-            CupertinoSliverRefreshControl(onRefresh: _refresh),
-            _buildCupertinoSliver(),
-          ],
+        return CupertinoScrollbar(
+          child: CustomScrollView(
+            controller: _controller,
+            slivers: [
+              CupertinoSliverRefreshControl(onRefresh: _refresh),
+              _buildCupertinoSliver(),
+            ],
+          ),
         );
       default:
         return RefreshIndicator(

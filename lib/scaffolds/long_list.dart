@@ -199,18 +199,12 @@ class _LongListScaffoldState<T, K> extends State<LongListScaffold<T, K>> {
                 payload == null ? null : widget.trailingBuilder(payload.header),
           ),
           child: SafeArea(
-            child: CustomScrollView(slivers: slivers),
+            child: CupertinoScrollbar(
+              child: CustomScrollView(slivers: slivers),
+            ),
           ),
         );
       default:
-        List<Widget> slivers = [];
-        if (payload != null) {
-          slivers.add(
-            SliverToBoxAdapter(child: widget.headerBuilder(payload.header)),
-          );
-        }
-        slivers.add(_buildSliver());
-
         return Scaffold(
           appBar: AppBar(
             title: widget.title,
@@ -220,7 +214,14 @@ class _LongListScaffoldState<T, K> extends State<LongListScaffold<T, K>> {
           ),
           body: RefreshIndicator(
             onRefresh: _refresh,
-            child: CustomScrollView(slivers: slivers),
+            child: Scrollbar(
+              child: CustomScrollView(slivers: [
+                if (payload != null)
+                  SliverToBoxAdapter(
+                      child: widget.headerBuilder(payload.header)),
+                _buildSliver(),
+              ]),
+            ),
           ),
         );
     }

@@ -16,7 +16,7 @@ class SingleScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return CommonScaffold(
       title: title,
-      body: SingleChildScrollView(child: body),
+      body: Scrollbar(child: SingleChildScrollView(child: body)),
       trailing: trailing,
     );
   }
