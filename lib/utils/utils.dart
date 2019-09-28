@@ -128,31 +128,20 @@ class BorderView extends StatelessWidget {
   final double leftPadding;
 
   const BorderView({
-    this.height = 1,
-    this.color = PrimerColors.gray100,
+    this.height = 0, // One physical pixel.
+    this.color = PrimerColors.gray500,
     this.leftPadding = 0,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        SizedBox(
-          width: leftPadding,
-          height: 1,
-          child: DecoratedBox(
-            decoration: BoxDecoration(color: PrimerColors.white),
-          ),
+    return Container(
+      margin: EdgeInsets.only(left: leftPadding),
+      decoration: BoxDecoration(
+        border: Border(
+          top: BorderSide(color: color, width: height),
         ),
-        Expanded(
-          child: SizedBox(
-            height: height,
-            child: DecoratedBox(
-              decoration: BoxDecoration(color: color),
-            ),
-          ),
-        ),
-      ],
+      ),
     );
   }
 }
