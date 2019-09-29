@@ -12,7 +12,7 @@ class ActionEntry extends StatelessWidget {
     switch (Provider.of<ThemeModel>(context).theme) {
       case AppThemeType.cupertino:
         return GestureDetector(
-          child: Icon(iconData),
+          child: Icon(iconData, size: 22),
           onTap: onTap,
         );
       default:

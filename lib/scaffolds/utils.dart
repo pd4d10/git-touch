@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/widgets/link.dart';
 import 'package:git_touch/widgets/loading.dart';
-import 'package:primer/primer.dart';
 import 'package:provider/provider.dart';
 
 class CommonScaffold extends StatelessWidget {
