@@ -4,10 +4,8 @@ import 'package:git_touch/models/code.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/screens/code_theme.dart';
-import 'package:git_touch/screens/image_view.dart';
 import 'package:git_touch/widgets/action_entry.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
-import 'package:git_touch/widgets/link.dart';
 import 'package:git_touch/widgets/markdown_view.dart';
 import 'package:git_touch/widgets/table_view.dart';
 import 'package:path/path.dart' as path;
@@ -99,12 +97,6 @@ class ObjectScreen extends StatelessWidget {
           text: Text(item['name']),
           screenBuilder: (_) {
             if (item['type'] == 'commit') return null;
-            // TODO: All image types
-            var ext = path.extension(item['name']);
-            if (ext.isNotEmpty) ext = ext.substring(1);
-            if (['png', 'jpg', 'jpeg', 'gif', 'webp'].contains(ext)) {
-              return ImageView(NetworkImage('$rawUrl/' + item['name']));
-            }
             return ObjectScreen(
               name: name,
               owner: owner,
@@ -127,6 +119,13 @@ class ObjectScreen extends StatelessWidget {
           padding: const EdgeInsets.all(12),
           child: MarkdownView(payload['text']),
         );
+      case 'png':
+      case 'jpg':
+      case 'jpeg':
+      case 'gif':
+      case 'webp':
+        // TODO: All image types
+        return Image.network(rawUrl);
       default:
         return SingleChildScrollView(
           scrollDirection: Axis.horizontal,
