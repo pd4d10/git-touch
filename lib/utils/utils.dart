@@ -130,7 +130,7 @@ class BorderView extends StatelessWidget {
 
   const BorderView({
     this.height = 0, // One physical pixel.
-    this.color = PrimerColors.gray500,
+    this.color = PrimerColors.gray400,
     this.leftPadding = 0,
   });
 

@@ -84,6 +84,7 @@ class CommitsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListStatefulScaffold(
       title: AppBarTitle('Commits'),
+      leftPadding: 52,
       onRefresh: () => _query(context),
       onLoadMore: (cursor) => _query(context, cursor),
       itemBuilder: (payload) {

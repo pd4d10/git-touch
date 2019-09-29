@@ -69,6 +69,7 @@ class RepositoriesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListStatefulScaffold(
       title: AppBarTitle(title),
+      leftPadding: 42,
       onRefresh: () => _queryRepos(context),
       onLoadMore: (cursor) => _queryRepos(context, cursor),
       itemBuilder: (payload) => RepositoryItem(payload),

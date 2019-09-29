@@ -69,6 +69,7 @@ class NewsScreenState extends State<NewsScreen> {
   Widget build(context) {
     return ListStatefulScaffold<EventPayload, int>(
       title: AppBarTitle('News'),
+      leftPadding: 62,
       itemBuilder: (payload) => EventItem(payload),
       onRefresh: fetchEvents,
       onLoadMore: (page) => fetchEvents(page),

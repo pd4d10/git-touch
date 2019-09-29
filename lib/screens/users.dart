@@ -68,6 +68,7 @@ class UsersScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListStatefulScaffold(
       title: AppBarTitle(title),
+      leftPadding: 68,
       onRefresh: () => _queryUsers(context),
       onLoadMore: (cursor) => _queryUsers(context, cursor),
       itemBuilder: (payload) => UserItem.fromData(payload),
