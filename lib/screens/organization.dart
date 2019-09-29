@@ -8,7 +8,6 @@ import 'package:git_touch/widgets/entry_item.dart';
 import 'package:git_touch/widgets/repository_item.dart';
 import 'package:git_touch/widgets/table_view.dart';
 import 'package:git_touch/widgets/user_item.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:share/share.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:provider/provider.dart';
@@ -107,7 +106,7 @@ class OrganizationScreen extends StatelessWidget {
               text: 'Open in Browser',
               onPress: () {
                 if (payload != null) {
-                  launch(payload['url']);
+                  launchUrl(payload['url']);
                 }
               },
             ),
@@ -147,7 +146,7 @@ class OrganizationScreen extends StatelessWidget {
                     leftIconData: Octicons.location,
                     text: Text(payload['location']),
                     onTap: () {
-                      launch('https://www.google.com/maps/place/' +
+                      launchUrl('https://www.google.com/maps/place/' +
                           (payload['location'] as String)
                               .replaceAll(RegExp(r'\s+'), ''));
                     },
@@ -157,7 +156,7 @@ class OrganizationScreen extends StatelessWidget {
                     leftIconData: Octicons.mail,
                     text: Text(payload['email']),
                     onTap: () {
-                      launch('mailto:' + payload['email']);
+                      launchUrl('mailto:' + payload['email']);
                     },
                   ),
                 if (isNotNullOrEmpty(payload['websiteUrl']))
@@ -169,7 +168,7 @@ class OrganizationScreen extends StatelessWidget {
                       if (!url.startsWith('http')) {
                         url = 'http://$url';
                       }
-                      launch(url);
+                      launchUrl(url);
                     },
                   ),
               ],

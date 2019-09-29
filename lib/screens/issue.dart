@@ -4,7 +4,6 @@ import 'package:git_touch/models/auth.dart';
 import 'package:primer/primer.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../utils/utils.dart';
 import '../scaffolds/long_list.dart';
 import '../widgets/timeline_item.dart';
@@ -354,7 +353,7 @@ mutation {
             MyAction(
               text: 'Open in Browser',
               onPress: () {
-                launch(payload['url']);
+                launchUrl(payload['url']);
               },
             ),
           ],

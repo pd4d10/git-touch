@@ -184,3 +184,13 @@ class PrimerBranchName extends StatelessWidget {
     );
   }
 }
+
+launchUrl(String url) async {
+  if (url == null) return;
+
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    // TODO: fallback
+  }
+}

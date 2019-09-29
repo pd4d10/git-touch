@@ -14,7 +14,6 @@ import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/screens/commits.dart';
 import 'package:git_touch/screens/object.dart';
 import 'package:share/share.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:git_touch/widgets/repository_item.dart';
 import '../widgets/entry_item.dart';
 import '../screens/issues.dart';
@@ -213,7 +212,7 @@ class RepositoryScreen extends StatelessWidget {
               text: 'Open in Browser',
               onPress: () {
                 if (data != null) {
-                  launch(data[0]['url']);
+                  launchUrl(data[0]['url']);
                 }
               },
             ),

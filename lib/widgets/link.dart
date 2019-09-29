@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:git_touch/utils/utils.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:git_touch/models/theme.dart';
 
 class Link extends StatelessWidget {
@@ -27,7 +27,7 @@ class Link extends StatelessWidget {
       return Provider.of<ThemeModel>(context).pushRoute(context, screenBuilder);
     }
     if (url != null) {
-      launch(url);
+      launchUrl(url);
     }
   }
 

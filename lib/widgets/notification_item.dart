@@ -3,10 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:git_touch/models/notification.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:primer/primer.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../utils/utils.dart';
 import '../screens/issue.dart';
-// import '../screens/not_found.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:provider/provider.dart';
 import 'link.dart';
@@ -115,7 +113,7 @@ class _NotificationItemState extends State<NotificationItem> {
 
             break;
           case 'Release':
-            launch(
+            launchUrl(
                 'https://github.com/${payload.owner}/${payload.name}/releases/tag/${payload.title}');
             break;
           case 'Commit':
