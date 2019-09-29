@@ -34,7 +34,6 @@ class Avatar extends StatelessWidget {
       return Link(
         screenBuilder: (_) => UserScreen(login),
         child: avatar,
-        material: false,
       );
     }
   }

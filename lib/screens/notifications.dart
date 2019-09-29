@@ -7,7 +7,6 @@ import 'package:git_touch/models/notification.dart';
 import 'package:git_touch/models/auth.dart';
 import '../widgets/notification_item.dart';
 import '../widgets/list_group.dart';
-import '../widgets/link.dart';
 import '../widgets/empty.dart';
 import '../utils/utils.dart';
 
@@ -109,8 +108,7 @@ $key: pullRequest(number: ${item.number}) {
             repo,
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
           ),
-          Link(
-            material: false,
+          GestureDetector(
             onTap: () async {
               await Provider.of<AuthModel>(context)
                   .putWithCredentials('/repos/$repo/notifications');

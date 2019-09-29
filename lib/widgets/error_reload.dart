@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'link.dart';
 
 class ErrorReload extends StatelessWidget {
   final String text;
@@ -27,13 +26,12 @@ class ErrorReload extends StatelessWidget {
             ),
           ),
           Padding(padding: EdgeInsets.only(top: 10)),
-          Link(
+          GestureDetector(
             child: Text(
               'Reload',
               style: TextStyle(fontSize: 20, color: Colors.blueAccent),
             ),
             onTap: onTap,
-            material: false,
           ),
         ],
       ),

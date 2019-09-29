@@ -9,14 +9,12 @@ class Link extends StatelessWidget {
   final String url;
   final WidgetBuilder screenBuilder;
   final Function onTap;
-  final bool material;
 
   Link({
     this.child,
     this.url,
     this.screenBuilder,
     this.onTap,
-    this.material = true,
   }) : assert(screenBuilder == null || url == null);
 
   void _onTap(BuildContext context) {
@@ -33,13 +31,6 @@ class Link extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (!material) {
-      return GestureDetector(
-        child: child,
-        onTap: () => _onTap(context),
-      );
-    }
-
     return Material(
       child: Ink(
         color: Colors.white,

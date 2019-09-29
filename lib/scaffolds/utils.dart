@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/theme.dart';
-import 'package:git_touch/widgets/link.dart';
+import 'package:git_touch/widgets/error_reload.dart';
 import 'package:git_touch/widgets/loading.dart';
 import 'package:provider/provider.dart';
 
@@ -90,35 +90,7 @@ class ErrorLoadingWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (error.isNotEmpty) {
-      return Container(
-        padding: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
-        child: Column(
-          children: <Widget>[
-            Text(
-              'Woops, something bad happened. Error message:',
-              style: TextStyle(fontSize: 16),
-            ),
-            Padding(padding: EdgeInsets.only(top: 10)),
-            Text(
-              error,
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w300,
-                color: Colors.redAccent,
-              ),
-            ),
-            Padding(padding: EdgeInsets.only(top: 10)),
-            Link(
-              child: Text(
-                'Reload',
-                style: TextStyle(fontSize: 20, color: Colors.blueAccent),
-              ),
-              onTap: reload,
-              material: false,
-            ),
-          ],
-        ),
-      );
+      return ErrorReload(text: error, onTap: reload);
     }
 
     if (loading) {
