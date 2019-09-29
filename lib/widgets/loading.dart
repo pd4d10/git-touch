@@ -9,34 +9,25 @@ class Loading extends StatelessWidget {
   Loading({this.more = false});
 
   Widget _buildIndicator(BuildContext context) {
-    // return Image.asset('images/loading.webp');
-
     switch (Provider.of<ThemeModel>(context).theme) {
       case AppThemeType.cupertino:
         return CupertinoActivityIndicator(radius: 12);
       default:
-        return Center(
-          child: SizedBox(
-            width: 24,
-            height: 24,
-            child: CircularProgressIndicator(),
-          ),
+        return SizedBox(
+          width: 24,
+          height: 24,
+          child: CircularProgressIndicator(),
         );
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    if (more) {
-      return Padding(
-        padding: EdgeInsets.symmetric(vertical: 20),
+    return Center(
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: more ? 20 : 100),
         child: _buildIndicator(context),
-      );
-    } else {
-      return Padding(
-        padding: EdgeInsets.symmetric(vertical: 50),
-        child: _buildIndicator(context),
-      );
-    }
+      ),
+    );
   }
 }

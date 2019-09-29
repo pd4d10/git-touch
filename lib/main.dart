@@ -117,12 +117,8 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     var settings = Provider.of<AuthModel>(context);
     var themData = ThemeData(
-      // primaryColor: HSLColor.fromColor(Palette.primary)
-      //     .withLightness(0.3)
-      //     .toColor(),
-      // primaryColor: Color(0xff333333),
-      primaryColor: PrimerColors.gray900,
-      accentColor: PrimerColors.gray900,
+      primaryColor: PrimerColors.white,
+      accentColor: PrimerColors.blue500,
     );
 
     // TODO:
