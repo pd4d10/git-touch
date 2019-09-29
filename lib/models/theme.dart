@@ -199,7 +199,7 @@ class ThemeModel with ChangeNotifier {
     switch (theme) {
       case AppThemeType.cupertino:
       default:
-        await showCupertinoModalPopup<void>(
+        await showCupertinoModalPopup(
           context: context,
           builder: (context) {
             return Container(
@@ -213,10 +213,12 @@ class ThemeModel with ChangeNotifier {
                         .toList()
                         .indexWhere((v) => v.value == groupItem.value)),
                 onSelectedItemChanged: (index) {
-                  if (_debounce?.isActive ?? false) _debounce.cancel();
+                  if (_debounce?.isActive ?? false) {
+                    _debounce.cancel();
+                  }
+
                   _debounce = Timer(const Duration(milliseconds: 500), () {
-                    return groupItem
-                        .onChange(groupItem.items.toList()[index].value);
+                    groupItem.onChange(groupItem.items[index].value);
                   });
                 },
               ),
