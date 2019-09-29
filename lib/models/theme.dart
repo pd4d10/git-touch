@@ -2,7 +2,6 @@ import 'dart:io';
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:git_touch/widgets/picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DialogOption<T> {
@@ -15,6 +14,26 @@ class AppThemeType {
   static const material = 0;
   static const cupertino = 1;
   static const values = [AppThemeType.material, AppThemeType.cupertino];
+}
+
+class PickerItem<T> {
+  final T value;
+  final String text;
+  PickerItem(this.value, {@required this.text});
+}
+
+class PickerGroupItem<T> {
+  final T value;
+  final List<PickerItem<T>> items;
+  final Function(T value) onChange;
+  final Function(T value) onClose;
+
+  PickerGroupItem({
+    @required this.value,
+    @required this.items,
+    this.onChange,
+    this.onClose,
+  });
 }
 
 class ThemeModel with ChangeNotifier {
@@ -195,6 +214,8 @@ class ThemeModel with ChangeNotifier {
 
   static Timer _debounce;
 
+  String _selectedItem;
+
   showPicker(BuildContext context, PickerGroupItem<String> groupItem) async {
     switch (theme) {
       case AppThemeType.cupertino:
@@ -213,18 +234,25 @@ class ThemeModel with ChangeNotifier {
                         .toList()
                         .indexWhere((v) => v.value == groupItem.value)),
                 onSelectedItemChanged: (index) {
-                  if (_debounce?.isActive ?? false) {
-                    _debounce.cancel();
-                  }
+                  _selectedItem = groupItem.items[index].value;
 
-                  _debounce = Timer(const Duration(milliseconds: 500), () {
-                    groupItem.onChange(groupItem.items[index].value);
-                  });
+                  if (groupItem.onChange != null) {
+                    if (_debounce?.isActive ?? false) {
+                      _debounce.cancel();
+                    }
+
+                    _debounce = Timer(const Duration(milliseconds: 500), () {
+                      groupItem.onChange(_selectedItem);
+                    });
+                  }
                 },
               ),
             );
           },
         );
+        if (groupItem.onClose != null) {
+          groupItem.onClose(_selectedItem);
+        }
     }
   }
 }

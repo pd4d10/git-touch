@@ -101,7 +101,7 @@ class RepositoryScreen extends StatelessWidget {
         }
       }
     }
-    refs(first: 10, refPrefix: "refs/heads/") {
+    refs(first: 100, refPrefix: "refs/heads/") {
       totalCount
       nodes {
         name
@@ -338,22 +338,24 @@ class RepositoryScreen extends StatelessWidget {
                         var refs = payload['refs']['nodes'] as List;
                         if (refs.length < 2) return;
 
-                        // FIXME: Show all branches
-                        var result = await Provider.of<ThemeModel>(context)
-                            .showDialogOptions(
+                        await Provider.of<ThemeModel>(context).showPicker(
+                          context,
+                          PickerGroupItem(
+                            value: payload[branchInfoKey]['name'],
+                            items: refs
+                                .map((b) => PickerItem(b['name'] as String,
+                                    text: (b['name'] as String)))
+                                .toList(),
+                            onClose: (result) {
+                              Provider.of<ThemeModel>(context)
+                                  .pushReplacementRoute(
                                 context,
-                                refs
-                                    .map((b) => DialogOption(
-                                        value: b['name'] as String,
-                                        widget: Text(b['name'] as String)))
-                                    .toList());
-
-                        if (result != null) {
-                          Provider.of<ThemeModel>(context).pushReplacementRoute(
-                              context,
-                              (_) => RepositoryScreen(owner, name,
-                                  branch: result));
-                        }
+                                (_) => RepositoryScreen(owner, name,
+                                    branch: result),
+                              );
+                            },
+                          ),
+                        );
                       },
                     ),
                 ],

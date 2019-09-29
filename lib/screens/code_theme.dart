@@ -6,7 +6,6 @@ import 'package:git_touch/models/code.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/single.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
-import 'package:git_touch/widgets/picker.dart';
 import 'package:git_touch/widgets/table_view.dart';
 import 'package:provider/provider.dart';
 
