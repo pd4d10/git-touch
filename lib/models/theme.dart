@@ -36,6 +36,25 @@ class PickerGroupItem<T> {
   });
 }
 
+// No animation. For replacing route
+// TODO: Go back
+class StaticRoute extends PageRouteBuilder {
+  final WidgetBuilder builder;
+  StaticRoute({this.builder})
+      : super(
+          pageBuilder: (BuildContext context, Animation<double> animation,
+              Animation<double> secondaryAnimation) {
+            return builder(context);
+          },
+          transitionsBuilder: (BuildContext context,
+              Animation<double> animation,
+              Animation<double> secondaryAnimation,
+              Widget child) {
+            return child;
+          },
+        );
+}
+
 class ThemeModel with ChangeNotifier {
   static const storageKey = 'theme';
 
@@ -89,14 +108,7 @@ class ThemeModel with ChangeNotifier {
   }
 
   pushReplacementRoute(BuildContext context, WidgetBuilder builder) {
-    switch (theme) {
-      case AppThemeType.cupertino:
-        return Navigator.of(context)
-            .pushReplacement(CupertinoPageRoute(builder: builder));
-      default:
-        return Navigator.of(context)
-            .pushReplacement(MaterialPageRoute(builder: builder));
-    }
+    return Navigator.of(context).pushReplacement(StaticRoute(builder: builder));
   }
 
   Future<bool> showConfirm(BuildContext context, String text) {
