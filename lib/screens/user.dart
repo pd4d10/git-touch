@@ -9,7 +9,6 @@ import 'package:git_touch/widgets/table_view.dart';
 import 'package:git_touch/widgets/text_contains_organization.dart';
 import 'package:git_touch/widgets/user_item.dart';
 import 'package:primer/primer.dart';
-import 'package:share/share.dart';
 import 'package:github_contributions/github_contributions.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:provider/provider.dart';
@@ -161,9 +160,9 @@ class UserScreen extends StatelessWidget {
         } else {
           return ActionButton(
             title: 'User Actions',
-            actions: [
+            items: [
               if (data != null && data[0]['viewerCanFollow'])
-                MyAction(
+                ActionItem(
                   text: data[0]['viewerIsFollowing'] ? 'Unfollow' : 'Follow',
                   onPress: () async {
                     if (data[0]['viewerIsFollowing']) {
@@ -177,22 +176,10 @@ class UserScreen extends StatelessWidget {
                     }
                   },
                 ),
-              MyAction(
-                text: 'Share',
-                onPress: () {
-                  if (data[0] != null) {
-                    Share.share(data[0]['url']);
-                  }
-                },
-              ),
-              MyAction(
-                text: 'Open in Browser',
-                onPress: () {
-                  if (data[0] != null) {
-                    launchUrl(data[0]['url']);
-                  }
-                },
-              ),
+              if (data != null) ...[
+                ActionItem.share(data[0]['url']),
+                ActionItem.launch(data[0]['url']),
+              ],
             ],
           );
         }

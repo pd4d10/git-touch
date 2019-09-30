@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:primer/primer.dart';
 import 'package:provider/provider.dart';
-import 'package:share/share.dart';
 import '../utils/utils.dart';
 import '../scaffolds/long_list.dart';
 import '../widgets/timeline_item.dart';
@@ -343,19 +342,11 @@ mutation {
       trailingBuilder: (payload) {
         return ActionButton(
           title: (isPullRequest ? 'Pull Request' : 'Issue') + ' Actions',
-          actions: [
-            MyAction(
-              text: 'Share',
-              onPress: () {
-                Share.share(payload['url']);
-              },
-            ),
-            MyAction(
-              text: 'Open in Browser',
-              onPress: () {
-                launchUrl(payload['url']);
-              },
-            ),
+          items: [
+            if (payload != null) ...[
+              ActionItem.share(payload['url']),
+              ActionItem.launch(payload['url']),
+            ],
           ],
         );
       },

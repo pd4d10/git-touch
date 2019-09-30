@@ -8,7 +8,6 @@ import 'package:git_touch/widgets/entry_item.dart';
 import 'package:git_touch/widgets/repository_item.dart';
 import 'package:git_touch/widgets/table_view.dart';
 import 'package:git_touch/widgets/user_item.dart';
-import 'package:share/share.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:provider/provider.dart';
 import '../widgets/action.dart';
@@ -93,23 +92,11 @@ class OrganizationScreen extends StatelessWidget {
       trailingBuilder: (payload) {
         return ActionButton(
           title: 'Organization Actions',
-          actions: [
-            MyAction(
-              text: 'Share',
-              onPress: () {
-                if (payload != null) {
-                  Share.share(payload['url']);
-                }
-              },
-            ),
-            MyAction(
-              text: 'Open in Browser',
-              onPress: () {
-                if (payload != null) {
-                  launchUrl(payload['url']);
-                }
-              },
-            ),
+          items: [
+            if (payload != null) ...[
+              ActionItem.share(payload['url']),
+              ActionItem.launch(payload['url']),
+            ],
           ],
         );
       },

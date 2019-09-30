@@ -13,7 +13,6 @@ import 'package:provider/provider.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/screens/commits.dart';
 import 'package:git_touch/screens/object.dart';
-import 'package:share/share.dart';
 import 'package:git_touch/widgets/repository_item.dart';
 import '../widgets/entry_item.dart';
 import '../screens/issues.dart';
@@ -149,8 +148,8 @@ class RepositoryScreen extends StatelessWidget {
       trailingBuilder: (data) {
         return ActionButton(
           title: 'Repository Actions',
-          actions: [
-            MyAction(
+          items: [
+            ActionItem(
               text: '@$owner',
               onPress: () {
                 if (data == null) return;
@@ -169,7 +168,7 @@ class RepositoryScreen extends StatelessWidget {
               },
             ),
             if (data != null) ...[
-              MyAction(
+              ActionItem(
                 text: data[0]['viewerHasStarred'] ? 'Unstar' : 'Star',
                 onPress: () async {
                   if (data[0]['viewerHasStarred']) {
@@ -183,7 +182,7 @@ class RepositoryScreen extends StatelessWidget {
                   }
                 },
               ),
-              MyAction(
+              ActionItem(
                 text: data[0]['viewerSubscription'] == 'SUBSCRIBED'
                     ? 'Unwatch'
                     : 'Watch',
@@ -200,22 +199,10 @@ class RepositoryScreen extends StatelessWidget {
                 },
               ),
             ],
-            MyAction(
-              text: 'Share',
-              onPress: () {
-                if (data != null) {
-                  Share.share(data[0]['url']);
-                }
-              },
-            ),
-            MyAction(
-              text: 'Open in Browser',
-              onPress: () {
-                if (data != null) {
-                  launchUrl(data[0]['url']);
-                }
-              },
-            ),
+            if (data != null) ...[
+              ActionItem.share(data[0]['url']),
+              ActionItem.launch(data[0]['url']),
+            ],
           ],
         );
       },
