@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/tab_stateful.dart';
+import 'package:git_touch/widgets/action_entry.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/models/notification.dart';
@@ -143,42 +145,7 @@ $key: pullRequest(number: ${item.number}) {
     return TabStatefulScaffold(
       title: AppBarTitle('Notifications'),
       tabs: ['Unread', 'Paticipating', 'All'],
-      // trailing: GestureDetector(
-      //   child: Icon(Icons.more_vert, size: 20),
-      //   onTap: () async {
-      //     int value = await showCupertinoDialog(
-      //       context: context,
-      //       builder: (context) {
-      //         return CupertinoAlertDialog(
-      //           title: Text('Select filter'),
-      //           actions: textMap.entries.map((entry) {
-      //             return CupertinoDialogAction(
-      //               child: Text(entry.value),
-      //               onPressed: () {
-      //                 Navigator.pop(context, entry.key);
-      //               },
-      //             );
-      //           }).toList(),
-      //         );
-      //       },
-      //     );
-      //     _onSwitchTab(value);
-      //   },
-      // ),
-      // trailingBuilder: (_) => IconButton(
-      //   icon: Icon(Icons.done_all),
-      //   onPressed: () async {
-      //     // TODO:
-      //     // var value = await Provider.of<ThemeModel>(context)
-      //     //     .showConfirm(context, 'Mark all as read?');
-      //     // if (value) {
-      //     //   await Provider.of<SettingsModel>(context)
-      //     //       .putWithCredentials('/notifications');
-      //     //   await fetchNotifications(0);
-      //     // }
-      //   },
-      // ),
-      onRefresh: fetchNotifications,
+      fetchData: fetchNotifications,
       bodyBuilder: (groupMap, activeTab) {
         if (groupMap.isEmpty) return EmptyWidget();
 
@@ -191,6 +158,18 @@ $key: pullRequest(number: ${item.number}) {
           ],
         );
       },
+      actionBuilder: (_, refresh) => ActionEntry(
+        iconData: Icons.done_all,
+        onTap: () async {
+          var value = await Provider.of<ThemeModel>(context)
+              .showConfirm(context, 'Mark all as read?');
+          if (value) {
+            await Provider.of<AuthModel>(context)
+                .putWithCredentials('/notifications');
+            refresh();
+          }
+        },
+      ),
     );
   }
 }

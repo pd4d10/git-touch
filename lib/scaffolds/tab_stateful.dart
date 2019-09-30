@@ -6,16 +6,16 @@ import 'package:git_touch/scaffolds/utils.dart';
 class TabStatefulScaffold<T> extends StatefulWidget {
   final Widget title;
   final Widget Function(T payload, int activeTab) bodyBuilder;
-  final Future<T> Function(int activeTab) onRefresh;
+  final Future<T> Function(int activeTab) fetchData;
   final List<String> tabs;
-  final Widget Function(T payload) trailingBuilder;
+  final Widget Function(T payload, void Function() refresh) actionBuilder;
 
   TabStatefulScaffold({
     @required this.title,
     @required this.bodyBuilder,
-    @required this.onRefresh,
+    @required this.fetchData,
     @required this.tabs,
-    this.trailingBuilder,
+    this.actionBuilder,
   });
 
   @override
@@ -71,7 +71,7 @@ class _TabStatefulScaffoldState<T> extends State<TabStatefulScaffold<T>> {
         _error = '';
         _loading = true;
       });
-      _payload = await widget.onRefresh(_activeTab);
+      _payload = await widget.fetchData(_activeTab);
     } catch (err) {
       _error = err.toString();
       throw err;
@@ -95,16 +95,13 @@ class _TabStatefulScaffoldState<T> extends State<TabStatefulScaffold<T>> {
     }
   }
 
-  Widget _buildTrailing() {
-    if (_payload == null || widget.trailingBuilder == null) return null;
-    return widget.trailingBuilder(_payload);
-  }
-
   @override
   Widget build(BuildContext context) {
     return TabScaffold(
       title: widget.title,
-      trailing: _buildTrailing(),
+      trailing: widget.actionBuilder == null
+          ? null
+          : widget.actionBuilder(_payload, _refresh),
       tabs: widget.tabs,
       activeTab: _activeTab,
       onTabSwitch: _switch,

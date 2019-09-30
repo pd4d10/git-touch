@@ -4,6 +4,7 @@ import 'package:git_touch/models/code.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/screens/issues.dart';
+import 'package:git_touch/screens/notification.dart';
 import 'package:git_touch/screens/repository.dart';
 import 'package:git_touch/screens/repositories.dart';
 import 'package:git_touch/screens/user.dart';
@@ -11,7 +12,6 @@ import 'package:primer/primer.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/models/notification.dart';
 import 'screens/news.dart';
-import 'screens/notifications.dart';
 import 'screens/search.dart';
 import 'screens/login.dart';
 import 'screens/issue.dart';
@@ -154,8 +154,8 @@ class _HomeState extends State<Home> {
           home: Scaffold(
             body: _buildScreen(active),
             bottomNavigationBar: BottomNavigationBar(
+              backgroundColor: Colors.white,
               selectedItemColor: PrimerColors.blue500,
-              // unselectedItemColor: PrimerColors.gray500,
               items: _buildNavigationItems(),
               currentIndex: active,
               type: BottomNavigationBarType.fixed,
