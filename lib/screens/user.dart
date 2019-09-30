@@ -14,7 +14,7 @@ import 'package:git_touch/models/auth.dart';
 import 'package:provider/provider.dart';
 import '../widgets/entry_item.dart';
 import 'package:git_touch/widgets/repository_item.dart';
-import '../widgets/action.dart';
+import 'package:git_touch/widgets/action_button.dart';
 import '../screens/users.dart';
 import '../screens/settings.dart';
 import '../utils/utils.dart';

@@ -10,7 +10,7 @@ import 'package:git_touch/widgets/table_view.dart';
 import 'package:git_touch/widgets/user_item.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:provider/provider.dart';
-import '../widgets/action.dart';
+import 'package:git_touch/widgets/action_button.dart';
 import '../utils/utils.dart';
 
 class OrganizationScreen extends StatelessWidget {

@@ -18,7 +18,7 @@ import '../widgets/entry_item.dart';
 import '../screens/issues.dart';
 import '../screens/user.dart';
 import '../screens/organization.dart';
-import '../widgets/action.dart';
+import 'package:git_touch/widgets/action_button.dart';
 
 class RepositoryScreen extends StatelessWidget {
   final String owner;
