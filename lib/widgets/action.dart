@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:git_touch/utils/utils.dart';
-import 'package:git_touch/widgets/action_entry.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:share/share.dart';
@@ -9,8 +8,14 @@ import 'package:share/share.dart';
 class ActionItem {
   String text;
   void Function() onPress;
+  IconData iconData;
 
-  ActionItem({@required this.text, @required this.onPress});
+  ActionItem({
+    @required this.text,
+    @required this.onPress,
+    this.iconData,
+  });
+
   ActionItem.share(String url)
       : text = 'Share',
         onPress = (() {
@@ -38,9 +43,8 @@ class ActionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     switch (Provider.of<ThemeModel>(context).theme) {
       case AppThemeType.cupertino:
-      default:
-        return ActionEntry(
-          iconData: iconData,
+        return GestureDetector(
+          child: Icon(iconData, size: 22),
           onTap: () async {
             var value = await showCupertinoModalPopup<int>(
               context: context,
@@ -69,6 +73,21 @@ class ActionButton extends StatelessWidget {
             if (value != null) {
               items[value].onPress();
             }
+          },
+        );
+      default:
+        return PopupMenuButton(
+          icon: Icon(iconData),
+          itemBuilder: (context) {
+            return items.asMap().entries.map((entry) {
+              return PopupMenuItem(
+                value: entry.key,
+                child: Text(entry.value.text),
+              );
+            }).toList();
+          },
+          onSelected: (selected) {
+            items[selected].onPress();
           },
         );
     }
