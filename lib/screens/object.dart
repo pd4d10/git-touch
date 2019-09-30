@@ -146,7 +146,7 @@ class ObjectScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold(
       title: AppBarTitle(paths.join('/')),
-      onRefresh: () async {
+      fetchData: () async {
         var data = await Provider.of<AuthModel>(context).query('''{
   repository(owner: "$owner", name: "$name") {
     object(expression: "$_expression") {
@@ -170,15 +170,15 @@ class ObjectScreen extends StatelessWidget {
 
         return data['repository']['object'];
       },
-      trailingBuilder: (payload) {
+      actionBuilder: (payload) {
         switch (type) {
           case 'blob':
             return ActionEntry(
               iconData: Octicons.settings,
               onTap: () {
-                if (payload != null) {
+                if (payload.data != null) {
                   Provider.of<ThemeModel>(context).pushRoute(context,
-                      (_) => CodeThemeScreen(payload['text'], _language));
+                      (_) => CodeThemeScreen(payload.data['text'], _language));
                 }
               },
             );

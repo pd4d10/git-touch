@@ -53,7 +53,7 @@ class OrganizationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold(
-      onRefresh: () async {
+      fetchData: () async {
         // Use pinnableItems instead of organization here due to token permission
         var data = await Provider.of<AuthModel>(context).query('''
 {
@@ -89,37 +89,39 @@ class OrganizationScreen extends StatelessWidget {
         return data['organization'];
       },
       title: AppBarTitle('Organization'),
-      trailingBuilder: (payload) {
+      actionBuilder: (payload) {
         return ActionButton(
           title: 'Organization Actions',
           items: [
-            if (payload != null) ...[
-              ActionItem.share(payload['url']),
-              ActionItem.launch(payload['url']),
+            if (payload.data != null) ...[
+              ActionItem.share(payload.data['url']),
+              ActionItem.launch(payload.data['url']),
             ],
           ],
         );
       },
       bodyBuilder: (payload) {
+        var data = payload.data;
+
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             UserItem(
               login: login,
-              name: payload['name'],
-              avatarUrl: payload['avatarUrl'],
-              bio: payload['description'],
+              name: data['name'],
+              avatarUrl: data['avatarUrl'],
+              bio: data['description'],
             ),
             borderView,
             Row(children: <Widget>[
               EntryItem(
-                count: payload['pinnableItems']['totalCount'],
+                count: data['pinnableItems']['totalCount'],
                 text: 'Repositories',
                 screenBuilder: (context) =>
                     RepositoriesScreen.ofOrganization(login),
               ),
               EntryItem(
-                count: payload['membersWithRole']['totalCount'],
+                count: data['membersWithRole']['totalCount'],
                 text: 'Members',
                 screenBuilder: (context) => UsersScreen.members(login),
               ),
@@ -128,30 +130,30 @@ class OrganizationScreen extends StatelessWidget {
             TableView(
               hasIcon: true,
               items: [
-                if (isNotNullOrEmpty(payload['location']))
+                if (isNotNullOrEmpty(data['location']))
                   TableViewItem(
                     leftIconData: Octicons.location,
-                    text: Text(payload['location']),
+                    text: Text(data['location']),
                     onTap: () {
                       launchUrl('https://www.google.com/maps/place/' +
-                          (payload['location'] as String)
+                          (data['location'] as String)
                               .replaceAll(RegExp(r'\s+'), ''));
                     },
                   ),
-                if (isNotNullOrEmpty(payload['email']))
+                if (isNotNullOrEmpty(data['email']))
                   TableViewItem(
                     leftIconData: Octicons.mail,
-                    text: Text(payload['email']),
+                    text: Text(data['email']),
                     onTap: () {
-                      launchUrl('mailto:' + payload['email']);
+                      launchUrl('mailto:' + data['email']);
                     },
                   ),
-                if (isNotNullOrEmpty(payload['websiteUrl']))
+                if (isNotNullOrEmpty(data['websiteUrl']))
                   TableViewItem(
                     leftIconData: Octicons.link,
-                    text: Text(payload['websiteUrl']),
+                    text: Text(data['websiteUrl']),
                     onTap: () {
-                      var url = payload['websiteUrl'] as String;
+                      var url = data['websiteUrl'] as String;
                       if (!url.startsWith('http')) {
                         url = 'http://$url';
                       }
@@ -160,7 +162,7 @@ class OrganizationScreen extends StatelessWidget {
                   ),
               ],
             ),
-            ..._buildRepos(payload),
+            ..._buildRepos(data),
           ],
         );
       },

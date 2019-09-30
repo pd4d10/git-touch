@@ -141,13 +141,14 @@ class UserScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold(
-      onRefresh: () {
+      fetchData: () {
         return Future.wait(
           [query(context), getContributions(login)],
         );
       },
       title: AppBarTitle('User'),
-      trailingBuilder: (data) {
+      actionBuilder: (payload) {
+        var data = payload.data;
         if (isMe) {
           return ActionEntry(
             iconData: Icons.settings,
@@ -184,33 +185,33 @@ class UserScreen extends StatelessWidget {
           );
         }
       },
-      bodyBuilder: (data) {
-        var payload = data[0];
-        var contributions = data[1] as List<ContributionsInfo>;
+      bodyBuilder: (payload) {
+        var data = payload.data[0];
+        var contributions = payload.data[1] as List<ContributionsInfo>;
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            UserItem.fromData(payload, inUserScreen: true),
+            UserItem.fromData(data, inUserScreen: true),
             borderView,
             Row(children: <Widget>[
               EntryItem(
-                count: payload['repositories']['totalCount'],
+                count: data['repositories']['totalCount'],
                 text: 'Repositories',
                 screenBuilder: (context) => RepositoriesScreen(login),
               ),
               EntryItem(
-                count: payload['starredRepositories']['totalCount'],
+                count: data['starredRepositories']['totalCount'],
                 text: 'Stars',
                 screenBuilder: (context) => RepositoriesScreen.stars(login),
               ),
               EntryItem(
-                count: payload['followers']['totalCount'],
+                count: data['followers']['totalCount'],
                 text: 'Followers',
                 screenBuilder: (context) => UsersScreen.followers(login),
               ),
               EntryItem(
-                count: payload['following']['totalCount'],
+                count: data['following']['totalCount'],
                 text: 'Following',
                 screenBuilder: (context) => UsersScreen.following(login),
               ),
@@ -224,38 +225,38 @@ class UserScreen extends StatelessWidget {
             TableView(
               hasIcon: true,
               items: [
-                if (isNotNullOrEmpty(payload['company']))
+                if (isNotNullOrEmpty(data['company']))
                   TableViewItem(
                     leftIconData: Octicons.organization,
-                    text: TextContainsOrganization(payload['company'],
+                    text: TextContainsOrganization(data['company'],
                         style: TextStyle(
                             fontSize: 16, color: PrimerColors.gray900),
                         overflow: TextOverflow.ellipsis),
                   ),
-                if (isNotNullOrEmpty(payload['location']))
+                if (isNotNullOrEmpty(data['location']))
                   TableViewItem(
                     leftIconData: Octicons.location,
-                    text: Text(payload['location']),
+                    text: Text(data['location']),
                     onTap: () {
                       launchUrl('https://www.google.com/maps/place/' +
-                          (payload['location'] as String)
+                          (data['location'] as String)
                               .replaceAll(RegExp(r'\s+'), ''));
                     },
                   ),
-                if (isNotNullOrEmpty(payload['email']))
+                if (isNotNullOrEmpty(data['email']))
                   TableViewItem(
                     leftIconData: Octicons.mail,
-                    text: Text(payload['email']),
+                    text: Text(data['email']),
                     onTap: () {
-                      launchUrl('mailto:' + payload['email']);
+                      launchUrl('mailto:' + data['email']);
                     },
                   ),
-                if (isNotNullOrEmpty(payload['websiteUrl']))
+                if (isNotNullOrEmpty(data['websiteUrl']))
                   TableViewItem(
                     leftIconData: Octicons.link,
-                    text: Text(payload['websiteUrl']),
+                    text: Text(data['websiteUrl']),
                     onTap: () {
-                      var url = payload['websiteUrl'] as String;
+                      var url = data['websiteUrl'] as String;
                       if (!url.startsWith('http')) {
                         url = 'http://$url';
                       }
@@ -264,7 +265,7 @@ class UserScreen extends StatelessWidget {
                   ),
               ],
             ),
-            ..._buildRepos(payload),
+            ..._buildRepos(data),
             borderView1,
           ],
         );
