@@ -189,9 +189,9 @@ class ObjectScreen extends StatelessWidget {
       bodyBuilder: (payload) {
         switch (type) {
           case 'tree':
-            return _buildTree(payload);
+            return _buildTree(payload.data);
           case 'blob':
-            return _buildBlob(context, payload);
+            return _buildBlob(context, payload.data);
           default:
             return null;
         }
