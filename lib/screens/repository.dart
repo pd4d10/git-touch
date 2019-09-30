@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
+import 'package:git_touch/screens/repositories.dart';
 import 'package:git_touch/screens/users.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
@@ -236,7 +237,8 @@ class RepositoryScreen extends StatelessWidget {
                 EntryItem(
                   count: data['forks']['totalCount'],
                   text: 'Forks',
-                  // screenBuilder: (context) => UsersScreen(),
+                  screenBuilder: (context) =>
+                      RepositoriesScreen.forks(owner, name),
                 ),
               ],
             ),

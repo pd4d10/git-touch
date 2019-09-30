@@ -7,50 +7,54 @@ import '../utils/utils.dart';
 import 'package:git_touch/widgets/repository_item.dart';
 
 class RepositoriesScreen extends StatelessWidget {
-  final String login;
   final String title;
   final String scope;
+  final String scopeParams;
   final String resource;
-  final String extra0;
-  final String extra1;
-  final String extra2;
+  final String extraFilter;
+  final String queryChunk;
 
-  RepositoriesScreen(this.login)
+  RepositoriesScreen(String login)
       : title = 'Repositories',
         scope = 'user',
+        scopeParams = 'login: "$login"',
         resource = 'repositories',
-        extra0 = 'orderBy: {field: UPDATED_AT, direction: DESC}',
-        extra1 = '',
-        extra2 = '';
-  RepositoriesScreen.stars(this.login)
+        extraFilter = ', orderBy: {field: UPDATED_AT, direction: DESC}',
+        queryChunk = repoChunk;
+  RepositoriesScreen.stars(String login)
       : title = 'Stars',
         scope = 'user',
+        scopeParams = 'login: "$login"',
         resource = 'starredRepositories',
-        extra0 = 'orderBy: {field: STARRED_AT, direction: DESC}',
-        extra1 = '',
-        extra2 = '';
-  RepositoriesScreen.ofOrganization(this.login)
+        extraFilter = ', orderBy: {field: STARRED_AT, direction: DESC}',
+        queryChunk = repoChunk;
+  RepositoriesScreen.ofOrganization(String login)
       : title = 'Repositories',
         scope = 'organization',
+        scopeParams = 'login: "$login"',
         resource = 'pinnableItems',
-        extra0 = 'types: [REPOSITORY]',
-        extra1 = '... on Repository {',
-        extra2 = '}';
+        extraFilter = ', types: [REPOSITORY]',
+        queryChunk = '... on Repository { $repoChunk }';
+  RepositoriesScreen.forks(String owner, String name)
+      : title = 'Forks',
+        scope = 'repository',
+        scopeParams = 'owner: "$owner", name: "$name"',
+        resource = 'forks',
+        extraFilter = ', orderBy: {field: CREATED_AT, direction: DESC}',
+        queryChunk = repoChunk;
 
   Future<ListPayload> _queryRepos(BuildContext context, [String cursor]) async {
     var cursorChunk = cursor == null ? '' : ', after: "$cursor"';
     var data = await Provider.of<AuthModel>(context).query('''
 {
-  $scope(login: "$login") {
-    $resource(first: $pageSize$cursorChunk, $extra0) {
+  $scope($scopeParams) {
+    $resource(first: $pageSize$cursorChunk$extraFilter) {
       pageInfo {
         hasNextPage
         endCursor
       }
       nodes {
-        $extra1
-        $repoChunk
-        $extra2
+        $queryChunk
       }
     }
   }
