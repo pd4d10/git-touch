@@ -27,6 +27,7 @@ class CreditsScreen extends StatelessWidget {
     Tuple2('provider', 'rrousselGit/provider'),
     Tuple2('filesize', 'synw/filesize'),
     Tuple2('tuple', 'dart-lang/tuple'),
+    Tuple2('uri', 'google/uri.dart'),
   ];
 
   static const fonts = [

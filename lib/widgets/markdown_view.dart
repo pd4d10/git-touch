@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:git_touch/models/theme.dart';
+import 'package:git_touch/screens/issue.dart';
+import 'package:git_touch/screens/repository.dart';
+import 'package:git_touch/screens/user.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:primer/primer.dart';
+import 'package:provider/provider.dart';
+import 'package:uri/uri.dart';
 
 class MarkdownView extends StatelessWidget {
   final String text;
@@ -14,9 +20,57 @@ class MarkdownView extends StatelessWidget {
   static final _hStyle =
       _basicStyle.copyWith(fontWeight: FontWeight.w600, height: 1.25);
 
+  Map<String, String> matchPattern(String url, String pattern) {
+    var uri = Uri.parse(url);
+    return UriParser(UriTemplate(pattern)).match(uri)?.parameters;
+  }
+
   @override
   Widget build(BuildContext context) {
     return MarkdownBody(
+      onTapLink: (url) {
+        // TODO: Relative paths
+        if (url.startsWith('https://github.com')) {
+          Map<String, String> m;
+
+          m = matchPattern(url, '/{owner}/{name}/pull/{number}');
+          if (m != null) {
+            return Provider.of<ThemeModel>(context).pushRoute(
+                context,
+                (_) => IssueScreen(
+                      owner: m['owner'],
+                      name: m['name'],
+                      number: int.parse(m['number']),
+                      isPullRequest: true,
+                    ));
+          }
+
+          m = matchPattern(url, '/{owner}/{name}/issues/{number}');
+          if (m != null) {
+            return Provider.of<ThemeModel>(context).pushRoute(
+                context,
+                (_) => IssueScreen(
+                      owner: m['owner'],
+                      name: m['name'],
+                      number: int.parse(m['number']),
+                    ));
+          }
+
+          m = matchPattern(url, '/{owner}/{name}');
+          if (m != null) {
+            return Provider.of<ThemeModel>(context).pushRoute(
+                context, (_) => RepositoryScreen(m['owner'], m['name']));
+          }
+
+          m = matchPattern(url, '/{login}');
+          if (m != null) {
+            return Provider.of<ThemeModel>(context)
+                .pushRoute(context, (_) => UserScreen(m['login']));
+          }
+        }
+
+        launchUrl(url);
+      },
       data: text,
       styleSheet: MarkdownStyleSheet(
         a: _basicStyle.copyWith(color: PrimerColors.blue500),

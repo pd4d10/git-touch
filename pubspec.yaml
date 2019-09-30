@@ -34,6 +34,7 @@ dependencies:
   provider: ^3.1.0
   filesize: ^1.0.4
   tuple: ^1.0.2
+  uri: ^0.11.3
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
