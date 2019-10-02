@@ -140,6 +140,7 @@ class RepositoryItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: join(SizedBox(height: 8), <Widget>[
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
                         payload['owner']['login'] + ' / ',
@@ -157,6 +158,9 @@ class RepositoryItem extends StatelessWidget {
                           fontWeight: FontWeight.w600,
                         ),
                       ),
+                      Expanded(child: Container()),
+                      Icon(_buildIconData(),
+                          size: 18, color: PrimerColors.gray600),
                     ],
                   ),
                   if (payload['description'] != null &&
@@ -171,7 +175,6 @@ class RepositoryItem extends StatelessWidget {
                 ]),
               ),
             ),
-            Icon(_buildIconData(), size: 18, color: PrimerColors.gray600),
           ],
         ),
       ),
