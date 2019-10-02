@@ -115,7 +115,7 @@ class _LongListScaffoldState<T, K> extends State<LongListScaffold<T, K>> {
           payload.leadingItems.length +
           payload.trailingItems.length;
       return Container(
-        padding: EdgeInsets.all(16),
+        padding: commonItemPadding,
         decoration: BoxDecoration(
           image: DecorationImage(
             image: ExactAssetImage('images/progressive-disclosure-line.png',
@@ -127,7 +127,7 @@ class _LongListScaffoldState<T, K> extends State<LongListScaffold<T, K>> {
           child: Link(
             onTap: _loadMore,
             child: Container(
-              padding: EdgeInsets.all(10),
+              padding: commonItemPadding,
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.black12),
               ),

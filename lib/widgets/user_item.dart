@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:git_touch/screens/organization.dart';
 import 'package:git_touch/screens/user.dart';
+import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/avatar.dart';
 import 'package:git_touch/widgets/link.dart';
 import 'package:git_touch/widgets/text_contains_organization.dart';
@@ -46,7 +47,7 @@ class UserItem extends StatelessWidget {
           : (_) =>
               isOrganization ? OrganizationScreen(login) : UserScreen(login),
       child: Container(
-        padding: EdgeInsets.all(10),
+        padding: commonItemPadding,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[

@@ -5,6 +5,7 @@ import 'package:flutter_highlight/theme_map.dart';
 import 'package:git_touch/models/code.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/single.dart';
+import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/table_view.dart';
 import 'package:provider/provider.dart';
@@ -95,7 +96,7 @@ class CodeThemeScreen extends StatelessWidget {
                 fontSize: codeProvider.fontSize.toDouble(),
                 fontFamily: codeProvider.fontFamilyUsed,
               ),
-              padding: const EdgeInsets.all(10),
+              padding: commonItemPadding,
             ),
           )
         ],

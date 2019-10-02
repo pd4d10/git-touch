@@ -72,7 +72,7 @@ class EventItem extends StatelessWidget {
       screenBuilder: screenBuilder,
       url: url,
       child: Container(
-        padding: EdgeInsets.all(12),
+        padding: commonItemPadding,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[

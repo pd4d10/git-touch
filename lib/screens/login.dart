@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/scaffolds/single.dart';
+import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:provider/provider.dart';
 import '../widgets/link.dart';
@@ -24,7 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
         settings.setActiveAccountIndex(index);
       },
       child: Container(
-        padding: EdgeInsets.all(10),
+        padding: commonItemPadding,
         decoration: BoxDecoration(
           border: Border(bottom: BorderSide(color: Colors.black12)),
         ),

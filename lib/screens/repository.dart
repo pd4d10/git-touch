@@ -26,8 +26,6 @@ class RepositoryScreen extends StatelessWidget {
   final String name;
   final String branch;
 
-  static const _languageBarPadding = 10.0;
-
   RepositoryScreen(this.owner, this.name, {this.branch});
   RepositoryScreen.fromFullName(String fullName, {this.branch})
       : owner = fullName.split('/')[0],
@@ -213,7 +211,8 @@ class RepositoryScreen extends StatelessWidget {
         var readme = payload.data[1] as String;
 
         final langWidth = MediaQuery.of(context).size.width -
-            _languageBarPadding * 2 -
+            commonItemPadding.left -
+            commonItemPadding.right -
             (data['languages']['edges'] as List).length +
             1;
 
@@ -246,7 +245,7 @@ class RepositoryScreen extends StatelessWidget {
             if ((data['languages']['edges'] as List).isNotEmpty)
               Container(
                 color: Colors.white,
-                padding: const EdgeInsets.all(_languageBarPadding),
+                padding: commonItemPadding.copyWith(top: 8, bottom: 8),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(2),
                   child: SizedBox(
@@ -370,7 +369,7 @@ class RepositoryScreen extends StatelessWidget {
             verticalGap,
             if (readme != null)
               Container(
-                padding: EdgeInsets.all(12),
+                padding: commonItemPadding,
                 color: Colors.white,
                 child: MarkdownView(readme),
               ),

@@ -125,7 +125,7 @@ bool isNotNullOrEmpty(String text) {
 }
 
 const borderView = BorderView();
-const verticalGap = SizedBox(height: 20);
+const verticalGap = SizedBox(height: 18);
 
 String getBranchQueryKey(String branch, {bool withParams = false}) {
   if (branch == null) return 'defaultBranchRef';
@@ -171,3 +171,5 @@ launchUrl(String url) async {
     // TODO: fallback
   }
 }
+
+const commonItemPadding = EdgeInsets.all(12);
