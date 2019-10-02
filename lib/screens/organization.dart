@@ -39,7 +39,7 @@ class OrganizationScreen extends StatelessWidget {
     if (items.isEmpty) return [];
 
     return [
-      borderView1,
+      verticalGap,
       if (title != null) TableViewHeader(title),
       ...join(
         borderView,
@@ -126,7 +126,7 @@ class OrganizationScreen extends StatelessWidget {
                 screenBuilder: (context) => UsersScreen.members(login),
               ),
             ]),
-            borderView1,
+            verticalGap,
             TableView(
               hasIcon: true,
               items: [

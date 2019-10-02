@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/theme.dart';
+import 'package:git_touch/scaffolds/common.dart';
 import 'package:git_touch/scaffolds/utils.dart';
 import 'package:provider/provider.dart';
 
@@ -49,7 +50,7 @@ class TabScaffold extends StatelessWidget {
     final scaffold = CommonScaffold(
       title: _buildTitle(context),
       body: RefreshWrapper(body: body, onRefresh: onRefresh),
-      trailing: trailing,
+      action: trailing,
       bottom: TabBar(
         onTap: onTabSwitch,
         tabs: tabs.map((text) => Tab(text: text.toUpperCase())).toList(),

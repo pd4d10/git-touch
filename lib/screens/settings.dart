@@ -25,14 +25,14 @@ class SettingsScreen extends StatelessWidget {
       title: AppBarTitle('Settings'),
       body: Column(
         children: <Widget>[
-          borderView1,
+          verticalGap,
           TableView(headerText: 'ACCOUNTS', items: [
             TableViewItem(
               text: Text('Switch to another account'),
               screenBuilder: (_) => LoginScreen(),
             ),
           ]),
-          borderView1,
+          verticalGap,
           TableView(headerText: 'THEME', items: [
             TableViewItem(
               text: Text('Material'),
@@ -57,7 +57,7 @@ class SettingsScreen extends StatelessWidget {
               hideRightChevron: true,
             ),
           ]),
-          borderView1,
+          verticalGap,
           TableView(headerText: 'ABOUT', items: [
             TableViewItem(
               text: Text('Source Code'),

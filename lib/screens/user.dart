@@ -86,16 +86,14 @@ class UserScreen extends StatelessWidget {
     if (items.isEmpty) return [];
 
     return [
-      borderView1,
+      verticalGap,
       if (title != null) TableViewHeader(title),
-      borderView,
       ...join(
         borderView,
         items.map((item) {
           return RepositoryItem(item);
         }).toList(),
       ),
-      borderView,
     ];
   }
 
@@ -216,12 +214,9 @@ class UserScreen extends StatelessWidget {
                 screenBuilder: (context) => UsersScreen.following(login),
               ),
             ]),
-            borderView,
-            borderView1,
-            borderView,
+            verticalGap,
             _buildContributions(contributions),
-            borderView,
-            borderView1,
+            verticalGap,
             TableView(
               hasIcon: true,
               items: [
@@ -266,7 +261,7 @@ class UserScreen extends StatelessWidget {
               ],
             ),
             ..._buildRepos(data),
-            borderView1,
+            verticalGap,
           ],
         );
       },

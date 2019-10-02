@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:git_touch/models/theme.dart';
-import 'package:git_touch/scaffolds/utils.dart';
+import 'package:git_touch/scaffolds/common.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:provider/provider.dart';
 import '../widgets/error_reload.dart';
@@ -24,16 +24,14 @@ class ListStatefulScaffold<T, K> extends StatefulWidget {
   final Widget Function(T payload) itemBuilder;
   final Future<ListPayload<T, K>> Function() onRefresh;
   final Future<ListPayload<T, K>> Function(K cursor) onLoadMore;
-  final Widget borderView;
 
   ListStatefulScaffold({
     @required this.title,
-    @required double leftPadding,
     @required this.itemBuilder,
     @required this.onRefresh,
     @required this.onLoadMore,
     this.trailingBuiler,
-  }) : borderView = BorderView(leftPadding: leftPadding);
+  });
 
   @override
   _ListStatefulScaffoldState<T, K> createState() =>
@@ -144,7 +142,7 @@ class _ListStatefulScaffoldState<T, K>
     }
 
     if (index % 2 == 1) {
-      return widget.borderView;
+      return borderView;
     }
 
     return widget.itemBuilder(items[index ~/ 2]);
@@ -212,7 +210,7 @@ class _ListStatefulScaffoldState<T, K>
     return CommonScaffold(
       title: widget.title,
       body: _buildBody(),
-      trailing: widget.trailingBuiler == null ? null : widget.trailingBuiler(),
+      action: widget.trailingBuiler == null ? null : widget.trailingBuiler(),
     );
   }
 }

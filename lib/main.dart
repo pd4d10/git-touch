@@ -59,7 +59,7 @@ class _HomeState extends State<Home> {
     );
   }
 
-  List<BottomNavigationBarItem> _buildNavigationItems() {
+  List<BottomNavigationBarItem> get _navigationItems {
     return [
       BottomNavigationBarItem(
         icon: Icon(Icons.rss_feed),
@@ -139,7 +139,10 @@ class _HomeState extends State<Home> {
               primaryColor: PrimerColors.blue500,
             ),
             child: CupertinoTabScaffold(
-              tabBar: CupertinoTabBar(items: _buildNavigationItems()),
+              tabBar: CupertinoTabBar(
+                items: _navigationItems,
+                // backgroundColor: PrimerColors.gray000, // TODO:
+              ),
               tabBuilder: (context, index) {
                 return CupertinoTabView(builder: (context) {
                   return _buildScreen(index);
@@ -156,7 +159,7 @@ class _HomeState extends State<Home> {
             bottomNavigationBar: BottomNavigationBar(
               backgroundColor: Colors.white,
               selectedItemColor: PrimerColors.blue500,
-              items: _buildNavigationItems(),
+              items: _navigationItems,
               currentIndex: active,
               type: BottomNavigationBarType.fixed,
               onTap: (int index) {

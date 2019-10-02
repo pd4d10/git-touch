@@ -242,9 +242,10 @@ class RepositoryScreen extends StatelessWidget {
                 ),
               ],
             ),
-            borderView1,
+            verticalGap,
             if ((data['languages']['edges'] as List).isNotEmpty)
               Container(
+                color: Colors.white,
                 padding: const EdgeInsets.all(_languageBarPadding),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(2),
@@ -304,7 +305,7 @@ class RepositoryScreen extends StatelessWidget {
                 ),
               ],
             ),
-            borderView1,
+            verticalGap,
             TableView(
               hasIcon: true,
               items: [
@@ -366,12 +367,14 @@ class RepositoryScreen extends StatelessWidget {
                 ),
               ],
             ),
-            borderView1,
+            verticalGap,
             if (readme != null)
               Container(
-                padding: EdgeInsets.all(16),
+                padding: EdgeInsets.all(12),
+                color: Colors.white,
                 child: MarkdownView(readme),
               ),
+            verticalGap,
           ],
         );
       },

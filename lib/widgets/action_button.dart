@@ -32,11 +32,13 @@ class ActionButton extends StatelessWidget {
   final String title;
   final List<ActionItem> items;
   final IconData iconData;
+  final int selected;
 
   ActionButton({
     @required this.title,
     @required this.items,
     this.iconData = Icons.more_vert,
+    this.selected,
   });
 
   @override
@@ -53,7 +55,13 @@ class ActionButton extends StatelessWidget {
                   title: Text(title),
                   actions: items.asMap().entries.map((entry) {
                     return CupertinoActionSheetAction(
-                      child: Text(entry.value.text),
+                      child: Text(
+                        entry.value.text,
+                        style: TextStyle(
+                            fontWeight: selected == entry.key
+                                ? FontWeight.w500
+                                : FontWeight.w400),
+                      ),
                       onPressed: () {
                         Navigator.pop(context, entry.key);
                       },
@@ -78,6 +86,7 @@ class ActionButton extends StatelessWidget {
       default:
         return PopupMenuButton(
           icon: Icon(iconData),
+          initialValue: selected,
           itemBuilder: (context) {
             return items.asMap().entries.map((entry) {
               return PopupMenuItem(
@@ -86,8 +95,8 @@ class ActionButton extends StatelessWidget {
               );
             }).toList();
           },
-          onSelected: (selected) {
-            items[selected].onPress();
+          onSelected: (value) {
+            items[value].onPress();
           },
         );
     }

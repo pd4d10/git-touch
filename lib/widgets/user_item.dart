@@ -40,59 +40,56 @@ class UserItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final widget = Container(
-      padding: EdgeInsets.all(10),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Avatar(url: avatarUrl, size: 24),
-          SizedBox(width: 10),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: <Widget>[
-                    Text(
-                      name ?? login,
-                      style: TextStyle(
-                        color: PrimerColors.blue500,
-                        fontSize: inUserScreen ? 18 : 16,
-                        fontWeight: FontWeight.w600,
+    return Link(
+      screenBuilder: inUserScreen
+          ? null
+          : (_) =>
+              isOrganization ? OrganizationScreen(login) : UserScreen(login),
+      child: Container(
+        padding: EdgeInsets.all(10),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Avatar(url: avatarUrl, size: 24),
+            SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: <Widget>[
+                      Text(
+                        name ?? login,
+                        style: TextStyle(
+                          color: PrimerColors.blue500,
+                          fontSize: inUserScreen ? 18 : 16,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 8),
-                    Text(
-                      login,
+                      SizedBox(width: 8),
+                      Text(
+                        login,
+                        style: TextStyle(
+                            color: PrimerColors.gray700,
+                            fontSize: inUserScreen ? 16 : 14),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 6),
+                  if (bio != null && bio.isNotEmpty)
+                    TextContainsOrganization(
+                      bio,
                       style: TextStyle(
                           color: PrimerColors.gray700,
-                          fontSize: inUserScreen ? 16 : 14),
+                          fontSize: inUserScreen ? 15 : 14),
                     ),
-                  ],
-                ),
-                SizedBox(height: 6),
-                if (bio != null && bio.isNotEmpty)
-                  TextContainsOrganization(
-                    bio,
-                    style: TextStyle(
-                        color: PrimerColors.gray700,
-                        fontSize: inUserScreen ? 15 : 14),
-                  ),
-              ],
-            ),
-          )
-        ],
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
-
-    if (inUserScreen) {
-      return widget;
-    } else {
-      return Link(
-          screenBuilder: (_) =>
-              isOrganization ? OrganizationScreen(login) : UserScreen(login),
-          child: widget);
-    }
   }
 }

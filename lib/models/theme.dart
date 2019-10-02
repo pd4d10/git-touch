@@ -36,6 +36,12 @@ class PickerGroupItem<T> {
   });
 }
 
+class SelectorItem<T> {
+  T value;
+  String text;
+  SelectorItem({@required this.value, @required this.text});
+}
+
 // No animation. For replacing route
 // TODO: Go back
 class StaticRoute extends PageRouteBuilder {
@@ -224,8 +230,27 @@ class ThemeModel with ChangeNotifier {
     }
   }
 
-  static Timer _debounce;
+  showSelector<T>({
+    @required BuildContext context,
+    @required Iterable<SelectorItem<T>> items,
+    @required T selected,
+  }) async {
+    switch (theme) {
+      case AppThemeType.cupertino:
+      default:
+        return showMenu<T>(
+          context: context,
+          initialValue: selected,
+          items: items
+              .map((item) =>
+                  PopupMenuItem(value: item.value, child: Text(item.text)))
+              .toList(),
+          position: RelativeRect.fromLTRB(1, 10, 0, 0),
+        );
+    }
+  }
 
+  static Timer _debounce;
   String _selectedItem;
 
   showPicker(BuildContext context, PickerGroupItem<String> groupItem) async {

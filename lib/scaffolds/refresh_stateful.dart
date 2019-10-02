@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:git_touch/scaffolds/common.dart';
 import 'package:git_touch/scaffolds/utils.dart';
+import 'package:primer/primer.dart';
 
 class RefreshStatefulScaffoldPayload<T> {
   bool loading;
@@ -73,6 +75,7 @@ class _RefreshStatefulScaffoldState<T>
   @override
   Widget build(BuildContext context) {
     return CommonScaffold(
+      backgroundColor: _data == null ? Colors.white : PrimerColors.gray100,
       title: widget.title,
       body: RefreshWrapper(
         onRefresh: _refresh,
@@ -83,7 +86,7 @@ class _RefreshStatefulScaffoldState<T>
           reload: _refresh,
         ),
       ),
-      trailing: _trailing,
+      action: _trailing,
     );
   }
 }

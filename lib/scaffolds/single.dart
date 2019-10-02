@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:git_touch/scaffolds/utils.dart';
+import 'package:git_touch/scaffolds/common.dart';
 
 class SingleScaffold extends StatelessWidget {
   final Widget title;
@@ -17,7 +17,7 @@ class SingleScaffold extends StatelessWidget {
     return CommonScaffold(
       title: title,
       body: Scrollbar(child: SingleChildScrollView(child: body)),
-      trailing: trailing,
+      action: trailing,
     );
   }
 }

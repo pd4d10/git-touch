@@ -49,7 +49,6 @@ class IssuesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold(
-      leftPadding: 34,
       title: AppBarTitle(
           (isPullRequest ? 'Pull requests' : 'Issues') + ' of $owner/$name'),
       onRefresh: () => _query(context),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:git_touch/models/theme.dart';
-import 'package:git_touch/scaffolds/utils.dart';
+import 'package:git_touch/scaffolds/common.dart';
 import 'package:git_touch/widgets/issue_item.dart';
 import 'package:git_touch/widgets/loading.dart';
 import 'package:git_touch/widgets/user_item.dart';

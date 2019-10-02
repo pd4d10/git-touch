@@ -5,6 +5,7 @@ import 'package:flutter/gestures.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/screens/repository.dart';
 import 'package:git_touch/screens/user.dart';
+import 'package:git_touch/widgets/border_view.dart';
 import 'package:intl/intl.dart';
 import 'package:primer/primer.dart';
 import 'package:provider/provider.dart';
@@ -123,32 +124,8 @@ bool isNotNullOrEmpty(String text) {
   return text != null && text.isNotEmpty;
 }
 
-class BorderView extends StatelessWidget {
-  final double height;
-  final Color color;
-  final double leftPadding;
-
-  const BorderView({
-    this.height = 0, // One physical pixel.
-    this.color = PrimerColors.gray400,
-    this.leftPadding = 0,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(left: leftPadding),
-      decoration: BoxDecoration(
-        border: Border(
-          top: BorderSide(color: color, width: height),
-        ),
-      ),
-    );
-  }
-}
-
 const borderView = BorderView();
-const borderView1 = BorderView(height: 20, color: PrimerColors.gray100);
+const verticalGap = SizedBox(height: 20);
 
 String getBranchQueryKey(String branch, {bool withParams = false}) {
   if (branch == null) return 'defaultBranchRef';
