@@ -44,7 +44,7 @@ class CreditsScreen extends StatelessWidget {
       title: Text('Credits'),
       body: Column(
         children: <Widget>[
-          verticalGap,
+          CommonStyle.verticalGap,
           TableView(
             headerText: 'packages',
             items: projects.map((t) {
@@ -54,7 +54,7 @@ class CreditsScreen extends StatelessWidget {
               );
             }),
           ),
-          verticalGap,
+          CommonStyle.verticalGap,
           TableView(
             headerText: 'fonts',
             items: fonts.map((font) {

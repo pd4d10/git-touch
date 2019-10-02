@@ -126,7 +126,7 @@ class RepositoryItem extends StatelessWidget {
           ? null
           : (_) => RepositoryScreen(payload['owner']['login'], payload['name']),
       child: Container(
-        padding: commonItemPadding,
+        padding: CommonStyle.padding,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[

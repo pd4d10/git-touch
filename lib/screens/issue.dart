@@ -355,7 +355,7 @@ mutation {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Container(
-              padding: commonItemPadding,
+              padding: CommonStyle.padding,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -383,7 +383,7 @@ mutation {
                 ],
               ),
             ),
-            borderView,
+            CommonStyle.border,
           ],
         );
       },

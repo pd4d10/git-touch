@@ -13,7 +13,6 @@ class TableViewHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: PrimerColors.gray100,
       padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       child: Text(
         title.toUpperCase(),
@@ -117,10 +116,10 @@ class TableView extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         if (headerText != null) TableViewHeader(headerText),
-        borderView,
+        CommonStyle.border,
         ...join(BorderView(leftPadding: _leftPadding),
             items.map(_buildItem).toList()),
-        borderView,
+        CommonStyle.border,
       ],
     );
   }

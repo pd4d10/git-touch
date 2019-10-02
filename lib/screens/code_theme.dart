@@ -96,7 +96,7 @@ class CodeThemeScreen extends StatelessWidget {
                 fontSize: codeProvider.fontSize.toDouble(),
                 fontFamily: codeProvider.fontFamilyUsed,
               ),
-              padding: commonItemPadding,
+              padding: CommonStyle.padding,
             ),
           )
         ],

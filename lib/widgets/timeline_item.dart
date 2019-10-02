@@ -302,7 +302,7 @@ class TimelineItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: commonItemPadding,
+      padding: CommonStyle.padding,
       child: _buildByType(context),
     );
   }

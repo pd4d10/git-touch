@@ -90,7 +90,7 @@ class CommitsScreen extends StatelessWidget {
         return Link(
           url: payload['url'],
           child: Container(
-            padding: commonItemPadding,
+            padding: CommonStyle.padding,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[

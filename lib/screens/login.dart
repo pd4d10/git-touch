@@ -25,7 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
         settings.setActiveAccountIndex(index);
       },
       child: Container(
-        padding: commonItemPadding,
+        padding: CommonStyle.padding,
         decoration: BoxDecoration(
           border: Border(bottom: BorderSide(color: Colors.black12)),
         ),

@@ -49,7 +49,7 @@ class IssueItem extends StatelessWidget {
         );
       },
       child: Container(
-        padding: commonItemPadding,
+        padding: CommonStyle.padding,
         // color: payload.unread ? Colors.white : Colors.black12,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

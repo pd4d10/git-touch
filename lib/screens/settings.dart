@@ -6,6 +6,7 @@ import 'package:git_touch/screens/credits.dart';
 import 'package:git_touch/screens/repository.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
+import 'package:primer/primer.dart';
 import 'package:provider/provider.dart';
 import 'package:launch_review/launch_review.dart';
 import '../widgets/table_view.dart';
@@ -23,16 +24,17 @@ class SettingsScreen extends StatelessWidget {
 
     return SingleScaffold(
       title: AppBarTitle('Settings'),
+      backgroundColor: PrimerColors.gray000,
       body: Column(
         children: <Widget>[
-          verticalGap,
+          CommonStyle.verticalGap,
           TableView(headerText: 'ACCOUNTS', items: [
             TableViewItem(
               text: Text('Switch to another account'),
               screenBuilder: (_) => LoginScreen(),
             ),
           ]),
-          verticalGap,
+          CommonStyle.verticalGap,
           TableView(headerText: 'THEME', items: [
             TableViewItem(
               text: Text('Material'),
@@ -57,7 +59,7 @@ class SettingsScreen extends StatelessWidget {
               hideRightChevron: true,
             ),
           ]),
-          verticalGap,
+          CommonStyle.verticalGap,
           TableView(headerText: 'ABOUT', items: [
             TableViewItem(
               text: Text('Source Code'),

@@ -87,7 +87,7 @@ class _TrendingScreenState extends State<TrendingScreen> {
       onRefresh: _refresh,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: join(borderView, _buildItems()).toList(),
+        children: join(CommonStyle.border, _buildItems()).toList(),
       ),
       activeTab: _activeTab,
       onTabSwitch: (int index) {

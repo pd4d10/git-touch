@@ -12,14 +12,19 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 export 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
-final monospaceFont = Platform.isIOS ? 'Menlo' : 'monospace'; // FIXME:
-
 class StorageKeys {
   static const accounts = 'accounts';
   static const account = 'account';
   static const github = 'github';
   static const theme = 'theme';
   static const newsFilter = 'news.filter';
+}
+
+class CommonStyle {
+  static const padding = EdgeInsets.all(12);
+  static const border = BorderView();
+  static const verticalGap = SizedBox(height: 18);
+  static final monospace = Platform.isIOS ? 'Menlo' : 'monospace'; // FIXME:
 }
 
 Color convertColor(String cssHex) {
@@ -124,9 +129,6 @@ bool isNotNullOrEmpty(String text) {
   return text != null && text.isNotEmpty;
 }
 
-const borderView = BorderView();
-const verticalGap = SizedBox(height: 18);
-
 String getBranchQueryKey(String branch, {bool withParams = false}) {
   if (branch == null) return 'defaultBranchRef';
   return 'ref' + (withParams ? '(qualifiedName: "$branch")' : '');
@@ -155,7 +157,7 @@ class PrimerBranchName extends StatelessWidget {
           color: PrimerColors.blue500,
           fontSize: 12,
           height: 1,
-          fontFamily: monospaceFont,
+          fontFamily: CommonStyle.monospace,
         ),
       ),
     );
@@ -171,5 +173,3 @@ launchUrl(String url) async {
     // TODO: fallback
   }
 }
-
-const commonItemPadding = EdgeInsets.all(12);

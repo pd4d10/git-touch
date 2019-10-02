@@ -142,7 +142,7 @@ class _ListStatefulScaffoldState<T, K>
     }
 
     if (index % 2 == 1) {
-      return borderView;
+      return CommonStyle.border;
     }
 
     return widget.itemBuilder(items[index ~/ 2]);

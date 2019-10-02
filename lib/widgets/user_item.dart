@@ -47,7 +47,7 @@ class UserItem extends StatelessWidget {
           : (_) =>
               isOrganization ? OrganizationScreen(login) : UserScreen(login),
       child: Container(
-        padding: commonItemPadding,
+        padding: CommonStyle.padding,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[

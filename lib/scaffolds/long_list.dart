@@ -103,7 +103,7 @@ class _LongListScaffoldState<T, K> extends State<LongListScaffold<T, K>> {
 
   Widget _buildItem(BuildContext context, int index) {
     if (index % 2 == 1) {
-      return borderView;
+      return CommonStyle.border;
     }
 
     int realIndex = index ~/ 2;
@@ -115,7 +115,7 @@ class _LongListScaffoldState<T, K> extends State<LongListScaffold<T, K>> {
           payload.leadingItems.length +
           payload.trailingItems.length;
       return Container(
-        padding: commonItemPadding,
+        padding: CommonStyle.padding,
         decoration: BoxDecoration(
           image: DecorationImage(
             image: ExactAssetImage('images/progressive-disclosure-line.png',
@@ -127,7 +127,7 @@ class _LongListScaffoldState<T, K> extends State<LongListScaffold<T, K>> {
           child: Link(
             onTap: _loadMore,
             child: Container(
-              padding: commonItemPadding,
+              padding: CommonStyle.padding,
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.black12),
               ),

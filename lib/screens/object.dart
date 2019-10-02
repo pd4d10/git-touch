@@ -116,7 +116,7 @@ class ObjectScreen extends StatelessWidget {
       case 'md':
       case 'markdown':
         return Padding(
-          padding: commonItemPadding,
+          padding: CommonStyle.padding,
           child: MarkdownView(payload['text']),
         );
       case 'png':
@@ -133,7 +133,7 @@ class ObjectScreen extends StatelessWidget {
             payload['text'],
             language: _language,
             theme: themeMap[codeProvider.theme],
-            padding: commonItemPadding,
+            padding: CommonStyle.padding,
             textStyle: TextStyle(
                 fontSize: codeProvider.fontSize.toDouble(),
                 fontFamily: codeProvider.fontFamilyUsed),

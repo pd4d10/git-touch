@@ -23,7 +23,7 @@ class TrendingScreen extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: join(
-            borderView,
+            CommonStyle.border,
             payload.map<Widget>((item) {
               switch (activeTab) {
                 case 0:

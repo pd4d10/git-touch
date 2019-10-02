@@ -39,10 +39,10 @@ class OrganizationScreen extends StatelessWidget {
     if (items.isEmpty) return [];
 
     return [
-      verticalGap,
+      CommonStyle.verticalGap,
       if (title != null) TableViewHeader(title),
       ...join(
-        borderView,
+        CommonStyle.border,
         items.map((item) {
           return RepositoryItem(item);
         }).toList(),
@@ -112,7 +112,7 @@ class OrganizationScreen extends StatelessWidget {
               avatarUrl: data['avatarUrl'],
               bio: data['description'],
             ),
-            borderView,
+            CommonStyle.border,
             Row(children: <Widget>[
               EntryItem(
                 count: data['pinnableItems']['totalCount'],
@@ -126,7 +126,7 @@ class OrganizationScreen extends StatelessWidget {
                 screenBuilder: (context) => UsersScreen.members(login),
               ),
             ]),
-            verticalGap,
+            CommonStyle.verticalGap,
             TableView(
               hasIcon: true,
               items: [

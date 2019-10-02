@@ -211,8 +211,8 @@ class RepositoryScreen extends StatelessWidget {
         var readme = payload.data[1] as String;
 
         final langWidth = MediaQuery.of(context).size.width -
-            commonItemPadding.left -
-            commonItemPadding.right -
+            CommonStyle.padding.left -
+            CommonStyle.padding.right -
             (data['languages']['edges'] as List).length +
             1;
 
@@ -220,7 +220,7 @@ class RepositoryScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             RepositoryItem(data, inRepoScreen: true),
-            borderView,
+            CommonStyle.border,
             Row(
               children: <Widget>[
                 EntryItem(
@@ -241,11 +241,11 @@ class RepositoryScreen extends StatelessWidget {
                 ),
               ],
             ),
-            verticalGap,
+            CommonStyle.verticalGap,
             if ((data['languages']['edges'] as List).isNotEmpty)
               Container(
                 color: Colors.white,
-                padding: commonItemPadding.copyWith(top: 8, bottom: 8),
+                padding: CommonStyle.padding.copyWith(top: 8, bottom: 8),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(2),
                   child: SizedBox(
@@ -304,7 +304,7 @@ class RepositoryScreen extends StatelessWidget {
                 ),
               ],
             ),
-            verticalGap,
+            CommonStyle.verticalGap,
             TableView(
               hasIcon: true,
               items: [
@@ -366,14 +366,14 @@ class RepositoryScreen extends StatelessWidget {
                 ),
               ],
             ),
-            verticalGap,
+            CommonStyle.verticalGap,
             if (readme != null)
               Container(
-                padding: commonItemPadding,
+                padding: CommonStyle.padding,
                 color: Colors.white,
                 child: MarkdownView(readme),
               ),
-            verticalGap,
+            CommonStyle.verticalGap,
           ],
         );
       },

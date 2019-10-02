@@ -86,10 +86,10 @@ class UserScreen extends StatelessWidget {
     if (items.isEmpty) return [];
 
     return [
-      verticalGap,
+      CommonStyle.verticalGap,
       if (title != null) TableViewHeader(title),
       ...join(
-        borderView,
+        CommonStyle.border,
         items.map((item) {
           return RepositoryItem(item);
         }).toList(),
@@ -127,7 +127,7 @@ class UserScreen extends StatelessWidget {
 
     return Container(
       color: Colors.white,
-      padding: commonItemPadding,
+      padding: CommonStyle.padding,
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         reverse: true,
@@ -191,7 +191,7 @@ class UserScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             UserItem.fromData(data, inUserScreen: true),
-            borderView,
+            CommonStyle.border,
             Row(children: <Widget>[
               EntryItem(
                 count: data['repositories']['totalCount'],
@@ -214,9 +214,9 @@ class UserScreen extends StatelessWidget {
                 screenBuilder: (context) => UsersScreen.following(login),
               ),
             ]),
-            verticalGap,
+            CommonStyle.verticalGap,
             _buildContributions(contributions),
-            verticalGap,
+            CommonStyle.verticalGap,
             TableView(
               hasIcon: true,
               items: [
@@ -261,7 +261,7 @@ class UserScreen extends StatelessWidget {
               ],
             ),
             ..._buildRepos(data),
-            verticalGap,
+            CommonStyle.verticalGap,
           ],
         );
       },

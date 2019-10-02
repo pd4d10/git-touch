@@ -27,7 +27,7 @@ class CodeModel with ChangeNotifier {
   int get fontSize => _fontSize;
   String get fontFamily => _fontFamily;
   String get fontFamilyUsed =>
-      _fontFamily == 'System' ? monospaceFont : _fontFamily;
+      _fontFamily == 'System' ? CommonStyle.monospace : _fontFamily;
 
   init() async {
     var prefs = await SharedPreferences.getInstance();

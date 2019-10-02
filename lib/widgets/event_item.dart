@@ -72,7 +72,7 @@ class EventItem extends StatelessWidget {
       screenBuilder: screenBuilder,
       url: url,
       child: Container(
-        padding: commonItemPadding,
+        padding: CommonStyle.padding,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -309,7 +309,7 @@ class EventItem extends StatelessWidget {
                     style: TextStyle(
                       color: PrimerColors.blue500,
                       fontSize: 13,
-                      fontFamily: monospaceFont,
+                      fontFamily: CommonStyle.monospace,
                     ),
                   ),
                   SizedBox(width: 6),
