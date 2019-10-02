@@ -130,7 +130,10 @@ class RepositoryItem extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Avatar(url: payload['owner']['avatarUrl'], size: 12),
+            Avatar.small(
+              url: payload['owner']['avatarUrl'],
+              login: payload['owner']['login'],
+            ),
             SizedBox(width: 8),
             Expanded(
               child: Column(

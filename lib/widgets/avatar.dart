@@ -10,9 +10,25 @@ class Avatar extends StatelessWidget {
 
   Avatar({
     @required this.url,
-    this.size = 18,
     this.login,
+    @required this.size,
   });
+  Avatar.extraSmall({
+    @required this.url,
+    this.login,
+  }) : size = 16;
+  Avatar.small({
+    @required this.url,
+    this.login,
+  }) : size = 24;
+  Avatar.medium({
+    @required this.url,
+    this.login,
+  }) : size = 36;
+  Avatar.large({
+    @required this.url,
+    this.login,
+  }) : size = 48;
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +37,8 @@ class Avatar extends StatelessWidget {
       child: FadeInImage.assetNetwork(
         placeholder: 'images/octoface.png',
         image: url,
-        width: 2 * size,
-        height: 2 * size,
+        width: size,
+        height: size,
         fadeInDuration: Duration(milliseconds: 200),
         fadeOutDuration: Duration(milliseconds: 100),
       ),

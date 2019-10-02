@@ -120,10 +120,9 @@ class IssueItem extends StatelessWidget {
                             children: <Widget>[
                               // FIXME: Deleted user
                               if (payload['author'] != null) ...[
-                                Avatar(
+                                Avatar.extraSmall(
                                   login: payload['author']['login'],
                                   url: payload['author']['avatarUrl'],
-                                  size: 8,
                                 ),
                                 SizedBox(width: 4),
                                 Text(

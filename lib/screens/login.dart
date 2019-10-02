@@ -30,7 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
         child: Row(
           children: <Widget>[
-            Avatar(url: account.avatarUrl, size: 24),
+            Avatar.large(url: account.avatarUrl),
             Padding(padding: EdgeInsets.only(left: 10)),
             Expanded(
               child: Column(

@@ -50,7 +50,7 @@ class UserItem extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Avatar(url: avatarUrl, size: 24),
+            Avatar.large(url: avatarUrl),
             SizedBox(width: 10),
             Expanded(
               child: Column(
