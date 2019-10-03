@@ -51,9 +51,10 @@ class _IssueFormScreenState extends State<IssueFormScreen> {
                   _body = v;
                 });
               },
+              maxLines: 10,
             ),
           ),
-          CupertinoButton(
+          CupertinoButton.filled(
             child: Text('Submit'),
             onPressed: () async {
               try {
