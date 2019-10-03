@@ -75,10 +75,10 @@ class AuthModel with ChangeNotifier {
       }),
     );
     final token = json.decode(res.body)['access_token'] as String;
-    await _loginWithToken(token);
+    await loginWithToken(token);
   }
 
-  Future<void> _loginWithToken(String token) async {
+  Future<void> loginWithToken(String token) async {
     // Get login and avatar url
     final queryData = await query('''
 {

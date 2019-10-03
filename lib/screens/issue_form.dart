@@ -66,7 +66,7 @@ class _IssueFormScreenState extends State<IssueFormScreen> {
                   throw 'Create fail, response: ${res.body}';
                 }
                 await Provider.of<ThemeModel>(context)
-                    .showConfirm(context, 'Issue created');
+                    .showConfirm(context, Text('Issue created'));
                 Navigator.of(context).pop();
               } catch (err) {
                 print(err); // TODO:

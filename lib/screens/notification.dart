@@ -162,7 +162,7 @@ $key: pullRequest(number: ${item.number}) {
         iconData: Icons.done_all,
         onTap: () async {
           var value = await Provider.of<ThemeModel>(context)
-              .showConfirm(context, 'Mark all as read?');
+              .showConfirm(context, Text('Mark all as read?'));
           if (value) {
             await Provider.of<AuthModel>(context)
                 .putWithCredentials('/notifications');

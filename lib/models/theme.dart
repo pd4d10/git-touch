@@ -117,14 +117,14 @@ class ThemeModel with ChangeNotifier {
     return Navigator.of(context).pushReplacement(StaticRoute(builder: builder));
   }
 
-  Future<bool> showConfirm(BuildContext context, String text) {
+  Future<bool> showConfirm(BuildContext context, Widget content) {
     switch (theme) {
       case AppThemeType.cupertino:
         return showCupertinoDialog(
           context: context,
           builder: (context) {
             return CupertinoAlertDialog(
-              title: Text(text),
+              title: content,
               actions: <Widget>[
                 CupertinoDialogAction(
                   child: const Text('cancel'),
@@ -148,10 +148,7 @@ class ThemeModel with ChangeNotifier {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              content: Text(
-                text,
-                // style: dialogTextStyle
-              ),
+              content: content,
               actions: <Widget>[
                 FlatButton(
                   child: const Text('CANCEL'),

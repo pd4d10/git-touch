@@ -1,8 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/auth.dart';
+import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/single.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
+import 'package:primer/primer.dart';
 import 'package:provider/provider.dart';
 import '../widgets/link.dart';
 import '../widgets/loading.dart';
@@ -15,6 +18,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  String _token = '';
+
   Widget _buildAccountItem(int index) {
     final settings = Provider.of<AuthModel>(context);
     final account = settings.accounts[index];
@@ -73,20 +78,61 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final settings = Provider.of<AuthModel>(context);
+    final auth = Provider.of<AuthModel>(context);
 
     return SingleScaffold(
       title: AppBarTitle('Select account'),
-      body: settings.loading
+      body: auth.loading
           ? Center(child: Loading())
           : Container(
               child: Column(
                 children: [
-                  ...List.generate(settings.accounts.length, _buildAccountItem),
+                  ...List.generate(auth.accounts.length, _buildAccountItem),
                   _buildAddItem(
-                    text: 'GitHub Account',
-                    onTap: settings.redirectToGithubOauth,
+                    text: 'GitHub Account by OAuth',
+                    onTap: auth.redirectToGithubOauth,
                   ),
+                  _buildAddItem(
+                    text: 'GitHub Account by Token',
+                    onTap: () async {
+                      var result =
+                          await Provider.of<ThemeModel>(context).showConfirm(
+                        context,
+                        Column(
+                          children: <Widget>[
+                            CupertinoTextField(
+                              placeholder: 'Access token',
+                              onChanged: (v) {
+                                setState(() {
+                                  _token = v;
+                                });
+                              },
+                            ),
+                            SizedBox(height: 8),
+                            Text(
+                              'GitTouch needs these permissions',
+                              style: TextStyle(
+                                  fontSize: 14, fontWeight: FontWeight.w400),
+                            ),
+                            SizedBox(height: 8),
+                            Text(
+                              'user, repo, read:org',
+                              style: TextStyle(
+                                  fontSize: 16, color: PrimerColors.blue500),
+                            )
+                          ],
+                        ),
+                      );
+                      if (result == true) {
+                        try {
+                          await auth.loginWithToken(_token);
+                        } catch (err) {
+                          Provider.of<ThemeModel>(context).showConfirm(
+                              context, Text('Token invalid: $err'));
+                        }
+                      }
+                    },
+                  )
                   // _buildAddItem(
                   //   text: 'GitLab Account',
                   //   screenBuilder: (_) => LoginGitlabScreen(),
