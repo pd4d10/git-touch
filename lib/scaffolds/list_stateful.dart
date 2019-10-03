@@ -20,7 +20,7 @@ class ListPayload<T, K> {
 // This is a scaffold for infinite scroll screens
 class ListStatefulScaffold<T, K> extends StatefulWidget {
   final Widget title;
-  final Widget Function() trailingBuiler;
+  final Widget Function() actionBuilder;
   final Widget Function(T payload) itemBuilder;
   final Future<ListPayload<T, K>> Function() onRefresh;
   final Future<ListPayload<T, K>> Function(K cursor) onLoadMore;
@@ -30,7 +30,7 @@ class ListStatefulScaffold<T, K> extends StatefulWidget {
     @required this.itemBuilder,
     @required this.onRefresh,
     @required this.onLoadMore,
-    this.trailingBuiler,
+    this.actionBuilder,
   });
 
   @override
@@ -210,7 +210,7 @@ class _ListStatefulScaffoldState<T, K>
     return CommonScaffold(
       title: widget.title,
       body: _buildBody(),
-      action: widget.trailingBuiler == null ? null : widget.trailingBuiler(),
+      action: widget.actionBuilder == null ? null : widget.actionBuilder(),
     );
   }
 }

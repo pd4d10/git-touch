@@ -67,7 +67,7 @@ class _RefreshStatefulScaffoldState<T>
     }
   }
 
-  Widget get _trailing {
+  Widget get _action {
     if (widget.actionBuilder == null) return null;
     return widget.actionBuilder(_payload);
   }
@@ -86,7 +86,7 @@ class _RefreshStatefulScaffoldState<T>
           reload: _refresh,
         ),
       ),
-      action: _trailing,
+      action: _action,
     );
   }
 }

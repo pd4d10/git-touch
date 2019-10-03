@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 class TabScaffold extends StatelessWidget {
   final Widget title;
   final Widget body;
-  final Widget trailing;
+  final Widget action;
   final void Function() onRefresh;
   final List<String> tabs;
   final int activeTab;
@@ -17,7 +17,7 @@ class TabScaffold extends StatelessWidget {
   TabScaffold({
     @required this.title,
     @required this.body,
-    this.trailing,
+    this.action,
     @required this.onRefresh,
     @required this.tabs,
     @required this.activeTab,
@@ -50,7 +50,7 @@ class TabScaffold extends StatelessWidget {
     final scaffold = CommonScaffold(
       title: _buildTitle(context),
       body: RefreshWrapper(body: body, onRefresh: onRefresh),
-      action: trailing,
+      action: action,
       bottom: TabBar(
         onTap: onTabSwitch,
         tabs: tabs.map((text) => Tab(text: text.toUpperCase())).toList(),

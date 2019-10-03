@@ -99,7 +99,7 @@ class _TabStatefulScaffoldState<T> extends State<TabStatefulScaffold<T>> {
   Widget build(BuildContext context) {
     return TabScaffold(
       title: widget.title,
-      trailing: widget.actionBuilder == null
+      action: widget.actionBuilder == null
           ? null
           : widget.actionBuilder(_payload, _refresh),
       tabs: widget.tabs,
