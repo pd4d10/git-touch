@@ -153,6 +153,12 @@ class AuthModel with ChangeNotifier {
     notifyListeners();
   }
 
+  @override
+  void dispose() {
+    _sub.cancel();
+    super.dispose();
+  }
+
   void setActiveAccountIndex(int index) {
     activeAccountIndex = index;
     notifyListeners();
