@@ -49,10 +49,9 @@ class IssuesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold(
-      title: AppBarTitle(
-          (isPullRequest ? 'Pull requests' : 'Issues') + ' of $owner/$name'),
+      title: AppBarTitle((isPullRequest ? 'Pull requests' : 'Issues')),
       onRefresh: () => _query(context),
-      onLoadMore: (cursor) => _query(cursor),
+      onLoadMore: (cursor) => _query(context, cursor),
       itemBuilder: (payload) =>
           IssueItem(payload: payload, isPullRequest: isPullRequest),
     );
