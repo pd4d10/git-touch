@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:git_touch/screens/organization.dart';
 import 'package:git_touch/screens/repository.dart';
+import 'package:git_touch/screens/user.dart';
 import 'package:git_touch/widgets/avatar.dart';
 import 'package:primer/primer.dart';
 import '../utils/utils.dart';
@@ -8,6 +10,7 @@ import 'link.dart';
 
 const repoChunk = '''
 owner {
+  __typename
   login
   avatarUrl
 }
@@ -130,9 +133,12 @@ class RepositoryItem extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Avatar.small(
-              url: payload['owner']['avatarUrl'],
-              login: payload['owner']['login'],
+            Link(
+              child: Avatar.small(url: payload['owner']['avatarUrl']),
+              screenBuilder: (_) =>
+                  payload['owner']['__typename'] == 'Organization'
+                      ? OrganizationScreen(payload['owner']['login'])
+                      : UserScreen(payload['owner']['login']),
             ),
             SizedBox(width: 8),
             Expanded(

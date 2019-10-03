@@ -38,16 +38,8 @@ class RepositoryScreen extends StatelessWidget {
     var data = await Provider.of<AuthModel>(context).query('''
 {
   repository(owner: "$owner", name: "$name") {
+    $repoChunk
     id
-    owner {
-      __typename
-      login
-      avatarUrl
-    }
-    name
-    isPrivate
-    isFork
-    description
     diskUsage
     hasIssuesEnabled
     url
@@ -56,16 +48,6 @@ class RepositoryScreen extends StatelessWidget {
     projectsResourcePath
     watchers {
       totalCount
-    }
-    stargazers {
-      totalCount
-    }
-    forks {
-      totalCount
-    }
-    primaryLanguage {
-      color
-      name
     }
     issues(states: OPEN) {
       totalCount

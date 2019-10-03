@@ -79,9 +79,9 @@ class EventItem extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Avatar.medium(
-                  url: event.actorAvatarUrl,
-                  login: event.actorLogin,
+                Link(
+                  child: Avatar.medium(url: event.actorAvatarUrl),
+                  screenBuilder: (_) => UserScreen(event.actorLogin),
                 ),
                 SizedBox(width: 10),
                 Expanded(

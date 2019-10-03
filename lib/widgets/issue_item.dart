@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:git_touch/screens/user.dart';
 import 'package:git_touch/widgets/avatar.dart';
 import 'package:primer/primer.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -120,9 +121,11 @@ class IssueItem extends StatelessWidget {
                             children: <Widget>[
                               // FIXME: Deleted user
                               if (payload['author'] != null) ...[
-                                Avatar.extraSmall(
-                                  login: payload['author']['login'],
-                                  url: payload['author']['avatarUrl'],
+                                Link(
+                                  child: Avatar.extraSmall(
+                                      url: payload['author']['avatarUrl']),
+                                  screenBuilder: (_) =>
+                                      UserScreen(payload['author']['login']),
                                 ),
                                 SizedBox(width: 4),
                                 Text(
