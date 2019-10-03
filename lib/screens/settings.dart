@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/single.dart';
 import 'package:git_touch/screens/credits.dart';
+import 'package:git_touch/screens/issue_form.dart';
 import 'package:git_touch/screens/repository.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
@@ -64,6 +65,10 @@ class SettingsScreen extends StatelessWidget {
             TableViewItem(
               text: Text('Source Code'),
               screenBuilder: (_) => RepositoryScreen('pd4d10', 'git-touch'),
+            ),
+            TableViewItem(
+              text: Text('Feedback'),
+              screenBuilder: (_) => IssueFormScreen('pd4d10', 'git-touch'),
             ),
             TableViewItem(
               text: Text('Credits'),
