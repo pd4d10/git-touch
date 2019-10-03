@@ -63,27 +63,24 @@ class IssueItem extends StatelessWidget {
                         ? Octicons.git_pull_request
                         : Octicons.issue_opened,
                     color: Palette.green,
-                    size: 16),
+                    size: 18),
                 SizedBox(width: 6),
                 Expanded(
                   child: Container(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: join(SizedBox(height: 8), [
-                        // Text(
-                        //   owner +
-                        //       '/' +
-                        //       name +
-                        //       ' #' +
-                        //       payload['number'].toString(),
-                        //   style: TextStyle(fontSize: 13, color: Colors.black54),
-                        // ),
-                        // Padding(padding: EdgeInsets.only(top: 4)),
-                        Text(
-                          payload['title'] + ' (#${payload['number']})',
+                        Text.rich(
+                          TextSpan(children: [
+                            TextSpan(text: payload['title'] + ' '),
+                            TextSpan(
+                              text: '#${payload['number']}',
+                              style: TextStyle(color: PrimerColors.gray500),
+                            ),
+                          ]),
                           style: TextStyle(
                             fontSize: 16,
-                            color: PrimerColors.gray900,
+                            color: PrimerColors.blue500,
                             fontWeight: FontWeight.w600,
                           ),
                         ),

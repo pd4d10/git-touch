@@ -337,7 +337,7 @@ mutation {
 
   @override
   Widget build(BuildContext context) {
-    return LongListScaffold(
+    return LongListStatefulScaffold(
       title: Text('Issue #$number'),
       trailingBuilder: (payload) {
         return ActionButton(

@@ -28,7 +28,7 @@ class LongListPayload<T, K> {
 // Since the list could be very long, and some users may only want to to check trailing items
 // We should load leading and trailing items at first fetching, and do load more in the middle
 // e.g. https://github.com/reactjs/rfcs/pull/68
-class LongListScaffold<T, K> extends StatefulWidget {
+class LongListStatefulScaffold<T, K> extends StatefulWidget {
   final Widget title;
   final Widget Function(T headerPayload) trailingBuilder;
   final Widget Function(T headerPayload) headerBuilder;
@@ -36,7 +36,7 @@ class LongListScaffold<T, K> extends StatefulWidget {
   final Future<LongListPayload<T, K>> Function() onRefresh;
   final Future<LongListPayload<T, K>> Function(String cursor) onLoadMore;
 
-  LongListScaffold({
+  LongListStatefulScaffold({
     @required this.title,
     this.trailingBuilder,
     @required this.headerBuilder,
@@ -46,10 +46,12 @@ class LongListScaffold<T, K> extends StatefulWidget {
   });
 
   @override
-  _LongListScaffoldState createState() => _LongListScaffoldState();
+  _LongListStatefulScaffoldState createState() =>
+      _LongListStatefulScaffoldState();
 }
 
-class _LongListScaffoldState<T, K> extends State<LongListScaffold<T, K>> {
+class _LongListStatefulScaffoldState<T, K>
+    extends State<LongListStatefulScaffold<T, K>> {
   bool loading;
   bool loadingMore = false;
   String error = '';

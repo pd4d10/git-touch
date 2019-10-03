@@ -131,24 +131,6 @@ class RepositoryScreen extends StatelessWidget {
         return ActionButton(
           title: 'Repository Actions',
           items: [
-            ActionItem(
-              text: '@$owner',
-              onPress: () {
-                if (data == null) return;
-                WidgetBuilder builder;
-
-                switch (data[0]['owner']['__typename']) {
-                  case 'Organization':
-                    builder = (_) => OrganizationScreen(owner);
-                    break;
-                  case 'User':
-                    builder = (_) => UserScreen(owner);
-                    break;
-                }
-
-                Provider.of<ThemeModel>(context).pushRoute(context, builder);
-              },
-            ),
             if (data != null) ...[
               ActionItem(
                 text: data[0]['viewerHasStarred'] ? 'Unstar' : 'Star',

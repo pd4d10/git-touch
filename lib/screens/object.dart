@@ -32,7 +32,7 @@ class ObjectScreen extends StatelessWidget {
     this.type = 'tree',
   });
 
-  String get _expression => '$branch:' + paths.join('/');
+  String get _expression => '$branch:$_path';
   String get _extname {
     if (paths.isEmpty) return '';
     var dotext = path.extension(paths.last);
@@ -41,10 +41,10 @@ class ObjectScreen extends StatelessWidget {
   }
 
   String get _language => _extname.isEmpty ? 'plaintext' : _extname;
+  String get _path => paths.join('/');
 
   String get rawUrl =>
-      'https://raw.githubusercontent.com/$owner/$name/$branch/' +
-      paths.join('/'); // TODO:
+      'https://raw.githubusercontent.com/$owner/$name/$branch/$_path'; // TODO:
 
   static const _iconDefaultColor = PrimerColors.blue300;
 
@@ -145,7 +145,7 @@ class ObjectScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold(
-      title: AppBarTitle(paths.join('/')),
+      title: AppBarTitle(_path.isEmpty ? 'Files' : _path),
       fetchData: () async {
         var data = await Provider.of<AuthModel>(context).query('''{
   repository(owner: "$owner", name: "$name") {
