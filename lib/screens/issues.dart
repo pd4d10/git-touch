@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/auth.dart';
+import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/list_stateful.dart';
+import 'package:git_touch/screens/issue_form.dart';
+import 'package:git_touch/widgets/action_entry.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/issue_item.dart';
 import 'package:provider/provider.dart';
@@ -50,6 +53,13 @@ class IssuesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListStatefulScaffold(
       title: AppBarTitle((isPullRequest ? 'Pull requests' : 'Issues')),
+      actionBuilder: () => ActionEntry(
+          iconData: Octicons.plus,
+          onTap: () {
+            Provider.of<ThemeModel>(context).pushRoute(
+                context, (_) => IssueFormScreen(owner, name),
+                fullscreenDialog: true);
+          }),
       onRefresh: () => _query(context),
       onLoadMore: (cursor) => _query(context, cursor),
       itemBuilder: (payload) =>

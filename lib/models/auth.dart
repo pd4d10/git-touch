@@ -212,19 +212,32 @@ class AuthModel with ChangeNotifier {
         .timeout(_timeoutDuration);
   }
 
-  Future<void> putWithCredentials(String url,
-      {String contentType, String body}) async {
-    await http
-        .put(_apiPrefix + url, headers: _headers, body: body ?? {})
+  Future<http.Response> putWithCredentials(
+    String url, {
+    String contentType = 'application/json',
+    Map<String, dynamic> body = const {},
+  }) async {
+    return http
+        .put(
+          _apiPrefix + url,
+          headers: {..._headers, HttpHeaders.contentTypeHeader: contentType},
+          body: json.encode(body),
+        )
         .timeout(_timeoutDuration);
   }
 
-  Future<void> postWithCredentials(String url,
-      {String contentType, String body}) async {
-    final res = await http
-        .post(_apiPrefix + url, headers: _headers, body: body ?? {})
+  Future<http.Response> postWithCredentials(
+    String url, {
+    String contentType = 'application/json',
+    Map<String, dynamic> body = const {},
+  }) async {
+    return http
+        .post(
+          _apiPrefix + url,
+          headers: {..._headers, HttpHeaders.contentTypeHeader: contentType},
+          body: json.encode(body),
+        )
         .timeout(_timeoutDuration);
-    // print(res.body);
   }
 
   Future<void> deleteWithCredentials(String url) async {
