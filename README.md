@@ -20,8 +20,8 @@ Android users can also download APK file from [release page](https://github.com/
 ## Screenshots
 
 <p>
-  <img src="https://raw.githubusercontent.com/pd4d10/git-touch/master/assets/screenshot-ios.png" alt="iOS screenshot" width="320" />
-  <img src="https://raw.githubusercontent.com/pd4d10/git-touch/master/assets/screenshot-android.png" alt="Android screenshot" width="325" />
+  <img src="assets/screenshot-ios.png" alt="iOS screenshot" width="320" />
+  <img src="assets/screenshot-android.png" alt="Android screenshot" width="325" />
 </p>
 
 ## Contributing
