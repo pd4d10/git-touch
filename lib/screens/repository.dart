@@ -17,8 +17,6 @@ import 'package:git_touch/screens/object.dart';
 import 'package:git_touch/widgets/repository_item.dart';
 import '../widgets/entry_item.dart';
 import '../screens/issues.dart';
-import '../screens/user.dart';
-import '../screens/organization.dart';
 import 'package:git_touch/widgets/action_button.dart';
 
 class RepositoryScreen extends StatelessWidget {
@@ -140,10 +138,11 @@ class RepositoryScreen extends StatelessWidget {
                         .deleteWithCredentials('/user/starred/$owner/$name');
                     data[0]['viewerHasStarred'] = false;
                   } else {
-                    Provider.of<AuthModel>(context)
+                    await Provider.of<AuthModel>(context)
                         .putWithCredentials('/user/starred/$owner/$name');
                     data[0]['viewerHasStarred'] = true;
                   }
+                  payload.refresh();
                 },
               ),
               ActionItem(
@@ -156,10 +155,11 @@ class RepositoryScreen extends StatelessWidget {
                         '/repos/$owner/$name/subscription');
                     data[0]['viewerSubscription'] = 'UNSUBSCRIBED';
                   } else {
-                    Provider.of<AuthModel>(context)
+                    await Provider.of<AuthModel>(context)
                         .putWithCredentials('/repos/$owner/$name/subscription');
                     data[0]['viewerSubscription'] = 'SUBSCRIBED';
                   }
+                  payload.refresh();
                 },
               ),
             ],
