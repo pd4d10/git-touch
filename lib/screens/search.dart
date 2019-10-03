@@ -112,6 +112,7 @@ class _SearchScreenState extends State<SearchScreen> {
         );
       default:
         return TextField(
+          decoration: InputDecoration.collapsed(hintText: 'Search'),
           textInputAction: TextInputAction.go,
           onSubmitted: (_) => _query(),
           controller: _controller,
@@ -153,31 +154,30 @@ class _SearchScreenState extends State<SearchScreen> {
     final scaffold = CommonScaffold(
       title: _buildInput(),
       body: SingleChildScrollView(
-        child: _loading
-            ? Loading()
-            : Column(
-                children: [
-                  if (theme == AppThemeType.cupertino)
-                    Center(
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 8),
-                        child: CupertinoSegmentedControl(
-                          groupValue: _activeTab,
-                          onValueChanged: _onTabSwitch,
-                          children: tabs.asMap().map((key, text) => MapEntry(
-                              key,
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8),
-                                child:
-                                    Text(text, style: TextStyle(fontSize: 14)),
-                              ))),
-                        ),
-                      ),
-                    ),
-                  ..._payloads[_activeTab].map(_buildItem).toList(),
-                ],
+        child: Column(
+          children: [
+            if (theme == AppThemeType.cupertino)
+              Center(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 8),
+                  child: CupertinoSegmentedControl(
+                    groupValue: _activeTab,
+                    onValueChanged: _onTabSwitch,
+                    children: tabs.asMap().map((key, text) => MapEntry(
+                        key,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          child: Text(text, style: TextStyle(fontSize: 14)),
+                        ))),
+                  ),
+                ),
               ),
+            if (_loading)
+              Loading()
+            else
+              ..._payloads[_activeTab].map(_buildItem).toList(),
+          ],
+        ),
       ),
       bottom: TabBar(
         onTap: _onTabSwitch,
