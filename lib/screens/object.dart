@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_highlight/theme_map.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:git_touch/models/code.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
@@ -126,6 +127,8 @@ class ObjectScreen extends StatelessWidget {
       case 'webp':
         // TODO: All image types
         return Image.network(rawUrl);
+      case 'svg':
+        return SvgPicture.network(rawUrl);
       default:
         return SingleChildScrollView(
           scrollDirection: Axis.horizontal,
