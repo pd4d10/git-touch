@@ -132,11 +132,50 @@ class _LoginScreenState extends State<LoginScreen> {
                         }
                       }
                     },
+                  ),
+                  _buildAddItem(
+                    text: 'GitLab Account by Token',
+                    onTap: () async {
+                      var result =
+                          await Provider.of<ThemeModel>(context).showConfirm(
+                        context,
+                        Column(
+                          children: <Widget>[
+                            CupertinoTextField(
+                              placeholder: 'Access token',
+                              onChanged: (v) {
+                                setState(() {
+                                  _token = v;
+                                });
+                              },
+                            ),
+                            SizedBox(height: 8),
+                            Text(
+                              'GitTouch needs these permissions',
+                              style: TextStyle(
+                                  fontSize: 14, fontWeight: FontWeight.w400),
+                            ),
+                            SizedBox(height: 8),
+                            Text(
+                              'api, read_user, read_repository',
+                              style: TextStyle(
+                                  fontSize: 16, color: PrimerColors.blue500),
+                            )
+                          ],
+                        ),
+                      );
+                      if (result == true) {
+                        try {
+                          await auth.loginToGitlab(
+                              'https://gitlab.com', _token);
+                          // TODO: Custom domain
+                        } catch (err) {
+                          Provider.of<ThemeModel>(context).showConfirm(
+                              context, Text('Token invalid: $err'));
+                        }
+                      }
+                    },
                   )
-                  // _buildAddItem(
-                  //   text: 'GitLab Account',
-                  //   screenBuilder: (_) => LoginGitlabScreen(),
-                  // )
                 ],
               ),
             ),
