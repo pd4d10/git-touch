@@ -301,12 +301,14 @@ class RepositoryScreen extends StatelessWidget {
                                     text: (b['name'] as String)))
                                 .toList(),
                             onClose: (result) {
-                              Provider.of<ThemeModel>(context)
-                                  .pushReplacementRoute(
-                                context,
-                                (_) => RepositoryScreen(owner, name,
-                                    branch: result),
-                              );
+                              if (result != branch) {
+                                Provider.of<ThemeModel>(context)
+                                    .pushReplacementRoute(
+                                  context,
+                                  (_) => RepositoryScreen(owner, name,
+                                      branch: result),
+                                );
+                              }
                             },
                           ),
                         );
