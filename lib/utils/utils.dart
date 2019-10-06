@@ -6,6 +6,8 @@ import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/screens/repository.dart';
 import 'package:git_touch/screens/user.dart';
 import 'package:git_touch/widgets/border_view.dart';
+import 'package:git_touch/widgets/repository_item.dart';
+import 'package:git_touch/widgets/table_view.dart';
 import 'package:intl/intl.dart';
 import 'package:primer/primer.dart';
 import 'package:provider/provider.dart';
@@ -172,4 +174,33 @@ launchUrl(String url) async {
   } else {
     // TODO: fallback
   }
+}
+
+Iterable<Widget> buildPinnedItems(List pinnedItems, List repositories) {
+  String title;
+  List items = [];
+
+  if (pinnedItems.isNotEmpty) {
+    title = 'pinned repositories';
+    items = pinnedItems;
+  } else if (repositories.isNotEmpty) {
+    title = 'popular repositories';
+    items = repositories;
+  }
+
+  items = items
+      .where((x) => x.isNotEmpty)
+      .toList(); // TODO: Pinned items may include Gist
+  if (items.isEmpty) return [];
+
+  return [
+    CommonStyle.verticalGap,
+    if (title != null) TableViewHeader(title),
+    ...join(
+      CommonStyle.border,
+      items.map((item) {
+        return RepositoryItem(item);
+      }).toList(),
+    ),
+  ];
 }

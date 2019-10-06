@@ -65,38 +65,6 @@ class UserScreen extends StatelessWidget {
     return data['user'];
   }
 
-  Iterable<Widget> _buildRepos(payload) {
-    String title;
-    List items = [];
-
-    var pinnedItems = payload['pinnedItems']['nodes'] as List;
-    var repositories = payload['repositories']['nodes'] as List;
-
-    if (pinnedItems.isNotEmpty) {
-      title = 'pinned repositories';
-      items = pinnedItems;
-    } else if (repositories.isNotEmpty) {
-      title = 'popular repositories';
-      items = repositories;
-    }
-
-    items = items
-        .where((x) => x != null)
-        .toList(); // TODO: Pinned items may include somethings other than repo
-    if (items.isEmpty) return [];
-
-    return [
-      CommonStyle.verticalGap,
-      if (title != null) TableViewHeader(title),
-      ...join(
-        CommonStyle.border,
-        items.map((item) {
-          return RepositoryItem(item);
-        }).toList(),
-      ),
-    ];
-  }
-
   Widget _buildContributions(List<ContributionsInfo> contributions) {
     final row = Row(
       children: <Widget>[],
@@ -260,7 +228,8 @@ class UserScreen extends StatelessWidget {
                   ),
               ],
             ),
-            ..._buildRepos(data),
+            ...buildPinnedItems(
+                data['pinnedItems']['nodes'], data['repositories']['nodes']),
             CommonStyle.verticalGap,
           ],
         );
