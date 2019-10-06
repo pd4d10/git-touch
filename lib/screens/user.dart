@@ -7,6 +7,7 @@ import 'package:git_touch/widgets/action_entry.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/table_view.dart';
 import 'package:git_touch/widgets/text_contains_organization.dart';
+import 'package:git_touch/widgets/user_contributions.dart';
 import 'package:git_touch/widgets/user_item.dart';
 import 'package:primer/primer.dart';
 import 'package:github_contributions/github_contributions.dart';
@@ -21,14 +22,15 @@ import '../utils/utils.dart';
 
 class UserScreen extends StatelessWidget {
   final String login;
-  final bool isMe;
 
-  UserScreen(this.login, {this.isMe = false});
+  UserScreen(this.login);
+  UserScreen.self() : login = null;
 
   Future query(BuildContext context) async {
+    var _login = login ?? Provider.of<AuthModel>(context).activeAccount.login;
     var data = await Provider.of<AuthModel>(context).query('''
 {
-  user(login: "$login") {
+  user(login: "$_login") {
     $userGqlChunk
     company
     location
@@ -65,43 +67,19 @@ class UserScreen extends StatelessWidget {
     return data['user'];
   }
 
-  Widget _buildContributions(List<ContributionsInfo> contributions) {
-    final row = Row(
-      children: <Widget>[],
-      crossAxisAlignment: CrossAxisAlignment.start,
-    );
-    Column column;
-
-    contributions.asMap().forEach((i, v) {
-      var rect = SizedBox(
-        width: 10,
-        height: 10,
-        child: DecoratedBox(
-          decoration: BoxDecoration(
-            color: convertColor(v.color),
-          ),
-        ),
-      );
-
-      if (i % 7 == 0) {
-        column = Column(children: <Widget>[rect]);
-        row.children.add(column);
-        row.children.add(SizedBox(width: 3));
-      } else {
-        column.children.add(SizedBox(height: 3));
-        column.children.add(rect);
-      }
-    });
-
-    return Container(
-      color: Colors.white,
-      padding: CommonStyle.padding,
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        reverse: true,
-        child: row,
-      ),
-    );
+  Future<List<ContributionsInfo>> fetchContributions(
+      BuildContext context) async {
+    var _login = login ?? Provider.of<AuthModel>(context).activeAccount.login;
+    switch (Provider.of<AuthModel>(context).activeAccount.platform) {
+      case PlatformType.gitlab:
+        return [];
+      default:
+        try {
+          return await getContributions(_login);
+        } catch (err) {
+          return [];
+        }
+    }
   }
 
   @override
@@ -109,13 +87,13 @@ class UserScreen extends StatelessWidget {
     return RefreshStatefulScaffold(
       fetchData: () {
         return Future.wait(
-          [query(context), getContributions(login)],
+          [query(context), fetchContributions(context)],
         );
       },
       title: AppBarTitle('User'),
       actionBuilder: (payload) {
         var data = payload.data;
-        if (isMe) {
+        if (login == null) {
           return ActionEntry(
             iconData: Icons.settings,
             onTap: () {
@@ -154,6 +132,8 @@ class UserScreen extends StatelessWidget {
       bodyBuilder: (payload) {
         var data = payload.data[0];
         var contributions = payload.data[1] as List<ContributionsInfo>;
+        var _login =
+            login ?? Provider.of<AuthModel>(context).activeAccount.login;
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -164,27 +144,29 @@ class UserScreen extends StatelessWidget {
               EntryItem(
                 count: data['repositories']['totalCount'],
                 text: 'Repositories',
-                screenBuilder: (context) => RepositoriesScreen(login),
+                screenBuilder: (context) => RepositoriesScreen(_login),
               ),
               EntryItem(
                 count: data['starredRepositories']['totalCount'],
                 text: 'Stars',
-                screenBuilder: (context) => RepositoriesScreen.stars(login),
+                screenBuilder: (context) => RepositoriesScreen.stars(_login),
               ),
               EntryItem(
                 count: data['followers']['totalCount'],
                 text: 'Followers',
-                screenBuilder: (context) => UsersScreen.followers(login),
+                screenBuilder: (context) => UsersScreen.followers(_login),
               ),
               EntryItem(
                 count: data['following']['totalCount'],
                 text: 'Following',
-                screenBuilder: (context) => UsersScreen.following(login),
+                screenBuilder: (context) => UsersScreen.following(_login),
               ),
             ]),
             CommonStyle.verticalGap,
-            _buildContributions(contributions),
-            CommonStyle.verticalGap,
+            if (contributions.isNotEmpty) ...[
+              UserContributions(contributions),
+              CommonStyle.verticalGap,
+            ],
             TableView(
               hasIcon: true,
               items: [

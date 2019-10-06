@@ -106,10 +106,7 @@ class _HomeState extends State<Home> {
       case 3:
         return SearchScreen();
       case 4:
-        return UserScreen(
-          Provider.of<AuthModel>(context).activeAccount.login,
-          isMe: true,
-        );
+        return UserScreen.self();
     }
   }
 
