@@ -8,23 +8,12 @@ import 'package:provider/provider.dart';
 import '../widgets/event_item.dart';
 import 'package:git_touch/models/auth.dart';
 
-class NewsFilter {
-  static const all = 'all';
-
-  /// The same as GitHub dashboard
-  ///
-  /// Exclude issue and pull request events
-  static const github = 'github';
-}
-
 class NewsScreen extends StatefulWidget {
   @override
   NewsScreenState createState() => NewsScreenState();
 }
 
 class NewsScreenState extends State<NewsScreen> {
-  String filter = NewsFilter.github;
-
   @override
   initState() {
     super.initState();
@@ -39,13 +28,6 @@ class NewsScreenState extends State<NewsScreen> {
         Provider.of<NotificationModel>(context).setCount(1);
       }
     });
-  }
-
-  int get pageSize {
-    if (filter == NewsFilter.all) {
-      return 30;
-    }
-    return 60;
   }
 
   Future<ListPayload<EventPayload, int>> fetchEvents([int page = 1]) async {
