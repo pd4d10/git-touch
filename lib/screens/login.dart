@@ -19,6 +19,8 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   String _token = '';
+  String _gitlabToken = '';
+  String _gitlabDomain = 'https://gitlab.com';
 
   Widget _buildAccountItem(int index) {
     final settings = Provider.of<AuthModel>(context);
@@ -142,10 +144,19 @@ class _LoginScreenState extends State<LoginScreen> {
                         Column(
                           children: <Widget>[
                             CupertinoTextField(
+                              placeholder: 'Domain',
+                              onChanged: (v) {
+                                setState(() {
+                                  _gitlabDomain = v;
+                                });
+                              },
+                            ),
+                            SizedBox(height: 8),
+                            CupertinoTextField(
                               placeholder: 'Access token',
                               onChanged: (v) {
                                 setState(() {
-                                  _token = v;
+                                  _gitlabToken = v;
                                 });
                               },
                             ),
@@ -166,8 +177,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       );
                       if (result == true) {
                         try {
-                          await auth.loginToGitlab(
-                              'https://gitlab.com', _token);
+                          await auth.loginToGitlab(_gitlabDomain, _gitlabToken);
                           // TODO: Custom domain
                         } catch (err) {
                           Provider.of<ThemeModel>(context).showConfirm(
