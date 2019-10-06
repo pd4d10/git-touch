@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:git_touch/screens/organization.dart';
 import 'package:git_touch/screens/user.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/avatar.dart';
@@ -44,8 +43,7 @@ class UserItem extends StatelessWidget {
     return Link(
       screenBuilder: inUserScreen
           ? null
-          : (_) =>
-              isOrganization ? OrganizationScreen(login) : UserScreen(login),
+          : (_) => UserScreen(login, isOrganization: isOrganization),
       child: Container(
         padding: CommonStyle.padding,
         child: Row(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:git_touch/screens/organization.dart';
 import 'package:git_touch/screens/repository.dart';
 import 'package:git_touch/screens/user.dart';
 import 'package:git_touch/widgets/avatar.dart';
@@ -135,10 +134,11 @@ class RepositoryItem extends StatelessWidget {
           children: <Widget>[
             Link(
               child: Avatar.small(url: payload['owner']['avatarUrl']),
-              screenBuilder: (_) =>
-                  payload['owner']['__typename'] == 'Organization'
-                      ? OrganizationScreen(payload['owner']['login'])
-                      : UserScreen(payload['owner']['login']),
+              screenBuilder: (_) => UserScreen(
+                payload['owner']['login'],
+                isOrganization:
+                    payload['owner']['__typename'] == 'Organization',
+              ),
             ),
             SizedBox(width: 8),
             Expanded(

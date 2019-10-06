@@ -15,7 +15,6 @@ import 'screens/news.dart';
 import 'screens/search.dart';
 import 'screens/login.dart';
 import 'screens/issue.dart';
-import 'screens/organization.dart';
 import 'screens/trending.dart';
 import 'utils/utils.dart';
 
@@ -106,7 +105,7 @@ class _HomeState extends State<Home> {
       case 3:
         return SearchScreen();
       case 4:
-        return UserScreen.self();
+        return UserScreen(null);
     }
   }
 

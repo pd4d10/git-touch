@@ -2,31 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
-import 'package:git_touch/screens/repositories.dart';
+import 'package:git_touch/screens/settings.dart';
+import 'package:git_touch/screens/users.dart';
+import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/action_entry.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
+import 'package:git_touch/screens/repositories.dart';
+import 'package:git_touch/widgets/entry_item.dart';
 import 'package:git_touch/widgets/table_view.dart';
 import 'package:git_touch/widgets/text_contains_organization.dart';
 import 'package:git_touch/widgets/user_contributions.dart';
 import 'package:git_touch/widgets/user_item.dart';
-import 'package:primer/primer.dart';
 import 'package:github_contributions/github_contributions.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:provider/provider.dart';
-import '../widgets/entry_item.dart';
 import 'package:git_touch/widgets/repository_item.dart';
 import 'package:git_touch/widgets/action_button.dart';
-import '../screens/users.dart';
-import '../screens/settings.dart';
-import '../utils/utils.dart';
+import 'package:primer/primer.dart';
 
 class UserScreen extends StatelessWidget {
   final String login;
+  final bool isOrganization;
 
-  UserScreen(this.login);
-  UserScreen.self() : login = null;
+  UserScreen(this.login, {this.isOrganization = false});
 
-  Future query(BuildContext context) async {
+  Future queryUser(BuildContext context) async {
     var _login = login ?? Provider.of<AuthModel>(context).activeAccount.login;
     var data = await Provider.of<AuthModel>(context).query('''
 {
@@ -67,6 +67,43 @@ class UserScreen extends StatelessWidget {
     return data['user'];
   }
 
+  Future queryOrganization(BuildContext context) async {
+    // Use pinnableItems instead of organization here due to token permission
+    var data = await Provider.of<AuthModel>(context).query('''
+{
+  organization(login: "$login") {
+    login
+    name
+    avatarUrl
+    description
+    location
+    email
+    websiteUrl
+    url
+    pinnedItems(first: 6) {
+      nodes {
+        ... on Repository {
+          $repoChunk
+        }
+      }
+    }
+    pinnableItems(first: 6, types: [REPOSITORY]) {
+      totalCount
+      nodes {
+        ... on Repository {
+        	$repoChunk
+        }
+      }
+    }
+    membersWithRole {
+      totalCount
+    }
+  }
+}
+''');
+    return data['organization'];
+  }
+
   Future<List<ContributionsInfo>> fetchContributions(
       BuildContext context) async {
     var _login = login ?? Provider.of<AuthModel>(context).activeAccount.login;
@@ -87,12 +124,33 @@ class UserScreen extends StatelessWidget {
     return RefreshStatefulScaffold(
       fetchData: () {
         return Future.wait(
-          [query(context), fetchContributions(context)],
+          isOrganization
+              ? [
+                  queryOrganization(context),
+                  Future.value([].cast<ContributionsInfo>())
+                ]
+              : [
+                  queryUser(context),
+                  fetchContributions(context),
+                ],
         );
       },
-      title: AppBarTitle('User'),
+      title: AppBarTitle(isOrganization ? 'Organization' : 'User'),
       actionBuilder: (payload) {
         var data = payload.data;
+
+        if (isOrganization) {
+          return ActionButton(
+            title: 'Organization Actions',
+            items: [
+              if (data != null) ...[
+                ActionItem.share(payload.data[0]['url']),
+                ActionItem.launch(payload.data[0]['url']),
+              ],
+            ],
+          );
+        }
+
         if (login == null) {
           return ActionEntry(
             iconData: Icons.settings,
@@ -131,36 +189,57 @@ class UserScreen extends StatelessWidget {
       },
       bodyBuilder: (payload) {
         var data = payload.data[0];
-        var contributions = payload.data[1] as List<ContributionsInfo>;
-        var _login =
-            login ?? Provider.of<AuthModel>(context).activeAccount.login;
-
+        var contributions = payload.data[1];
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            UserItem.fromData(data, inUserScreen: true),
+            UserItem(
+              login: data['login'],
+              name: data['name'],
+              avatarUrl: data['avatarUrl'],
+              bio: isOrganization ? data['description'] : data['bio'],
+              inUserScreen: true,
+            ),
             CommonStyle.border,
-            Row(children: <Widget>[
-              EntryItem(
-                count: data['repositories']['totalCount'],
-                text: 'Repositories',
-                screenBuilder: (context) => RepositoriesScreen(_login),
-              ),
-              EntryItem(
-                count: data['starredRepositories']['totalCount'],
-                text: 'Stars',
-                screenBuilder: (context) => RepositoriesScreen.stars(_login),
-              ),
-              EntryItem(
-                count: data['followers']['totalCount'],
-                text: 'Followers',
-                screenBuilder: (context) => UsersScreen.followers(_login),
-              ),
-              EntryItem(
-                count: data['following']['totalCount'],
-                text: 'Following',
-                screenBuilder: (context) => UsersScreen.following(_login),
-              ),
+            Row(children: [
+              if (isOrganization) ...[
+                EntryItem(
+                  count: data['pinnableItems']['totalCount'],
+                  text: 'Repositories',
+                  screenBuilder: (context) =>
+                      RepositoriesScreen.ofOrganization(data['login']),
+                ),
+                EntryItem(
+                  count: data['membersWithRole']['totalCount'],
+                  text: 'Members',
+                  screenBuilder: (context) =>
+                      UsersScreen.members(data['login']),
+                ),
+              ] else ...[
+                EntryItem(
+                  count: data['repositories']['totalCount'],
+                  text: 'Repositories',
+                  screenBuilder: (context) => RepositoriesScreen(data['login']),
+                ),
+                EntryItem(
+                  count: data['starredRepositories']['totalCount'],
+                  text: 'Stars',
+                  screenBuilder: (context) =>
+                      RepositoriesScreen.stars(data['login']),
+                ),
+                EntryItem(
+                  count: data['followers']['totalCount'],
+                  text: 'Followers',
+                  screenBuilder: (context) =>
+                      UsersScreen.followers(data['login']),
+                ),
+                EntryItem(
+                  count: data['following']['totalCount'],
+                  text: 'Following',
+                  screenBuilder: (context) =>
+                      UsersScreen.following(data['login']),
+                ),
+              ]
             ]),
             CommonStyle.verticalGap,
             if (contributions.isNotEmpty) ...[
@@ -170,7 +249,7 @@ class UserScreen extends StatelessWidget {
             TableView(
               hasIcon: true,
               items: [
-                if (isNotNullOrEmpty(data['company']))
+                if (!isOrganization && isNotNullOrEmpty(data['company']))
                   TableViewItem(
                     leftIconData: Octicons.organization,
                     text: TextContainsOrganization(data['company'],
@@ -211,7 +290,9 @@ class UserScreen extends StatelessWidget {
               ],
             ),
             ...buildPinnedItems(
-                data['pinnedItems']['nodes'], data['repositories']['nodes']),
+                data['pinnedItems']['nodes'],
+                data[isOrganization ? 'pinnableItems' : 'repositories']
+                    ['nodes']),
             CommonStyle.verticalGap,
           ],
         );
