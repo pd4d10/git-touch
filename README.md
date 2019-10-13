@@ -44,7 +44,13 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore -->
-<table><tr><td align="center"><a href="https://github.com/pd4d10"><img src="https://avatars0.githubusercontent.com/u/9524411?v=4" width="100px;" alt="Rongjian Zhang"/><br /><sub><b>Rongjian Zhang</b></sub></a><br /><a href="https://github.com/pd4d10/git-touch/commits?author=pd4d10" title="Code">💻</a></td></tr></table>
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/pd4d10"><img src="https://avatars0.githubusercontent.com/u/9524411?v=4" width="100px;" alt="Rongjian Zhang"/><br /><sub><b>Rongjian Zhang</b></sub></a><br /><a href="https://github.com/pd4d10/git-touch/commits?author=pd4d10" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/anticafe"><img src="https://avatars1.githubusercontent.com/u/340836?v=4" width="100px;" alt="anticafe"/><br /><sub><b>anticafe</b></sub></a><br /><a href="https://github.com/pd4d10/git-touch/commits?author=anticafe" title="Code">💻</a></td>
+  </tr>
+</table>
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
