@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:convert';
 import 'dart:async';
+import 'package:fimber/fimber.dart';
 import 'package:http/http.dart' as http;
 import 'package:uni_links/uni_links.dart';
 import 'package:nanoid/nanoid.dart';
@@ -122,7 +123,7 @@ class AuthModel with ChangeNotifier {
         avatarUrl: info['avatar_url'] as String,
       ));
     } catch (err) {
-      print(err);
+      Fimber.e('loginToGitlab failed', ex: err);
       // TODO: show errors
     } finally {
       loading = false;
@@ -133,7 +134,7 @@ class AuthModel with ChangeNotifier {
   void init() async {
     // Listen scheme
     _sub = getUriLinksStream().listen(_onSchemeDetected, onError: (err) {
-      print(err);
+      Fimber.e('getUriLinksStream failed', ex: err);
     });
 
     var prefs = await SharedPreferences.getInstance();
@@ -141,12 +142,12 @@ class AuthModel with ChangeNotifier {
     // Read accounts
     try {
       String str = prefs.getString(StorageKeys.accounts);
-      print('read accounts: $str');
+      Fimber.d('read accounts: $str');
       _accounts = (json.decode(str ?? '[]') as List)
           .map((item) => Account.fromJson(item))
           .toList();
     } catch (err) {
-      print(err);
+      Fimber.e('prefs getAccount failed', ex: err);
       _accounts = [];
     }
 
@@ -188,7 +189,7 @@ class AuthModel with ChangeNotifier {
             body: json.encode({'query': query}))
         .timeout(_timeoutDuration);
 
-    // print(res.body);
+    // Fimber.d(res.body);
     final data = json.decode(res.body);
 
     if (data['errors'] != null) {
@@ -207,7 +208,7 @@ class AuthModel with ChangeNotifier {
     final res = await http
         .get(_apiPrefix + url, headers: headers)
         .timeout(_timeoutDuration);
-    // print(res.body);
+    // Fimber.d(res.body);
     final data = json.decode(res.body);
     return data;
   }

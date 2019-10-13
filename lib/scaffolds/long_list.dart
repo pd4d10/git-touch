@@ -65,7 +65,7 @@ class _LongListStatefulScaffoldState<T, K>
   }
 
   Future<void> _refresh() async {
-    // print('long list scaffold refresh');
+    // Fimber.d('long list scaffold refresh');
     setState(() {
       error = '';
       loading = true;
@@ -85,7 +85,7 @@ class _LongListStatefulScaffoldState<T, K>
   }
 
   Future<void> _loadMore() async {
-    // print('long list scaffold load more');
+    // Fimber.d('long list scaffold load more');
     setState(() {
       loadingMore = true;
     });

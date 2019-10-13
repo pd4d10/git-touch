@@ -35,7 +35,7 @@ class NewsScreenState extends State<NewsScreen> {
     final login = settings.activeAccount.login;
     List data = await settings.getWithCredentials(
         '/users/$login/received_events?page=$page&per_page=$pageSize');
-    // print(data.length);
+    // Fimber.d(data.length);
     var hasMore = data.length == pageSize;
     var events =
         data.map<EventPayload>((item) => EventPayload.fromJson(item)).toList();

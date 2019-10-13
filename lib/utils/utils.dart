@@ -45,7 +45,7 @@ Color convertColor(String cssHex) {
 
 Color getFontColorByBrightness(Color color) {
   var grayscale = color.red * 0.3 + color.green * 0.59 + color.blue * 0.11;
-  // print('color: $color, $grayscale');
+  // Fimber.d('color: $color, $grayscale');
 
   var showWhite = grayscale < 128;
   return showWhite ? Colors.white : Colors.black;

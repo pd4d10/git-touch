@@ -27,7 +27,7 @@ class NotificationPayload {
       String numberStr = url.split('/').lastWhere((_) => true);
       number = int.parse(numberStr);
     } else {
-      // print(input);
+      // Fimber.d(input);
     }
 
     title = input['subject']['title'];

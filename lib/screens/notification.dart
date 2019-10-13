@@ -77,7 +77,7 @@ $key: pullRequest(number: ${item.number}) {
       });
       schema += '}';
 
-      // print(schema);
+      // Fimber.d(schema);
       var data = await Provider.of<AuthModel>(context).query(schema);
       _groupMap.forEach((repo, group) {
         group.items.forEach((item) {
@@ -90,7 +90,7 @@ $key: pullRequest(number: ${item.number}) {
           }
         });
       });
-      // print(data);
+      // Fimber.d(data);
     }
 
     return _groupMap;
