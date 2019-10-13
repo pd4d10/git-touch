@@ -1,3 +1,4 @@
+import 'package:fimber/fimber.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:git_touch/models/notification.dart';
@@ -61,7 +62,7 @@ class _NotificationItemState extends State<NotificationItem> {
       case 'Commit':
         return _buildIcon(Octicons.git_commit);
       default:
-        print('Unhandled notification type: ${payload.type}');
+        Fimber.d('Unhandled notification type: ${payload.type}');
         return _buildIcon(Octicons.octoface);
     }
   }

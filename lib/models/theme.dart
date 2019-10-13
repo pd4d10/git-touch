@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:async';
+import 'package:fimber/fimber.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -72,7 +73,7 @@ class ThemeModel with ChangeNotifier {
     var prefs = await SharedPreferences.getInstance();
 
     int v = prefs.getInt(storageKey);
-    print('read theme: $v');
+    Fimber.d('read theme: $v');
     if (AppThemeType.values.contains(v)) {
       _theme = v;
     } else if (Platform.isIOS) {
@@ -89,7 +90,7 @@ class ThemeModel with ChangeNotifier {
 
     _theme = v;
     await prefs.setInt(storageKey, v);
-    print('write theme: $v');
+    Fimber.d('write theme: $v');
 
     notifyListeners();
   }

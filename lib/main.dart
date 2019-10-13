@@ -17,6 +17,7 @@ import 'screens/login.dart';
 import 'screens/issue.dart';
 import 'screens/trending.dart';
 import 'utils/utils.dart';
+import 'package:fimber/fimber.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -122,7 +123,7 @@ class _HomeState extends State<Home> {
       return MaterialApp(theme: themData, home: Scaffold(body: Text('a')));
     }
 
-    // print(settings.activeLogin);
+    // Fimber.d(settings.activeLogin);
     if (settings.activeAccount == null) {
       return MaterialApp(theme: themData, home: LoginScreen());
     }
@@ -190,17 +191,20 @@ void main() async {
 
   // try {
   //   String initialLink = await getInitialLink();
-  //   print(initialLink);
+  //   Fimber.d(initialLink);
   // } on PlatformException {
-  //   print('test');
+  //   Fimber.d('test');
   // }
 
   // DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
   // AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-  // print('Running on ${androidInfo.model}'); // e.g. "Moto G (4)"
+  // Fimber.d('Running on ${androidInfo.model}'); // e.g. "Moto G (4)"
 
   // IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
-  // print('Running on ${iosInfo.utsname.machine}'); // e.g. "iPod7,1"
+  // Fimber.d('Running on ${iosInfo.utsname.machine}'); // e.g. "iPod7,1"
+
+  // TODO: Later, should check to enable debug log in debug build only
+  Fimber.plantTree(DebugTree());
 
   runApp(App());
 }

@@ -64,7 +64,7 @@ class _ListStatefulScaffoldState<T, K>
   }
 
   void onScroll() {
-    // print(_controller.position.maxScrollExtent - _controller.offset);
+    // Fimber.d(_controller.position.maxScrollExtent - _controller.offset);
     if (_controller.position.maxScrollExtent - _controller.offset < 100 &&
         !_controller.position.outOfRange &&
         !loading &&
@@ -83,7 +83,7 @@ class _ListStatefulScaffoldState<T, K>
   }
 
   Future<void> _refresh({bool force = false}) async {
-    // print('list scaffold refresh');
+    // Fimber.d('list scaffold refresh');
     setState(() {
       error = '';
       loading = true;
@@ -110,7 +110,7 @@ class _ListStatefulScaffoldState<T, K>
   }
 
   Future<void> _loadMore() async {
-    // print('list scaffold load more');
+    // Fimber.d('list scaffold load more');
     setState(() {
       loadingMore = true;
     });

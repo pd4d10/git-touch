@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:fimber/fimber.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/auth.dart';
@@ -70,7 +71,7 @@ class _IssueFormScreenState extends State<IssueFormScreen> {
                     .showConfirm(context, Text('Issue created'));
                 Navigator.of(context).pop();
               } catch (err) {
-                print(err); // TODO:
+                Fimber.e('postWithCredentials failed', ex: err); // TODO:
               }
             },
           ),

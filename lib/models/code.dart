@@ -1,3 +1,4 @@
+import 'package:fimber/fimber.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_highlight/theme_map.dart';
 import 'package:git_touch/utils/utils.dart';
@@ -35,7 +36,7 @@ class CodeModel with ChangeNotifier {
     var vs = prefs.getInt(_kFontSize);
     var vf = prefs.getString(_kFontFamily);
 
-    print('read code: $vh, $vs, $vf');
+    Fimber.d('read code: $vh, $vs, $vf');
     if (themeMap.keys.contains(vh)) {
       _theme = vh;
     }
@@ -53,7 +54,7 @@ class CodeModel with ChangeNotifier {
     var prefs = await SharedPreferences.getInstance();
 
     await prefs.setString(_kTheme, v);
-    print('write code theme: $v');
+    Fimber.d('write code theme: $v');
 
     _theme = v;
     notifyListeners();
@@ -63,7 +64,7 @@ class CodeModel with ChangeNotifier {
     var prefs = await SharedPreferences.getInstance();
 
     await prefs.setInt(_kFontSize, v);
-    print('write code font size: $v');
+    Fimber.d('write code font size: $v');
 
     _fontSize = v;
     notifyListeners();
@@ -73,7 +74,7 @@ class CodeModel with ChangeNotifier {
     var prefs = await SharedPreferences.getInstance();
 
     await prefs.setString(_kFontFamily, v);
-    print('write code font family: $v');
+    Fimber.d('write code font family: $v');
 
     _fontFamily = v;
     notifyListeners();
