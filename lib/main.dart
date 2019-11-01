@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:git_touch/models/code.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/theme.dart';
+import 'package:git_touch/screens/gitlab/todos.dart';
+import 'package:git_touch/screens/gitlab/user.dart';
 import 'package:git_touch/screens/issues.dart';
 import 'package:git_touch/screens/notification.dart';
 import 'package:git_touch/screens/repository.dart';
@@ -60,30 +62,45 @@ class _HomeState extends State<Home> {
   }
 
   List<BottomNavigationBarItem> get _navigationItems {
-    return [
-      BottomNavigationBarItem(
-        icon: Icon(Icons.rss_feed),
-        title: Text('News'),
-      ),
-      BottomNavigationBarItem(
-        icon: _buildNotificationIcon(context, false),
-        activeIcon: _buildNotificationIcon(context, true),
-        title: Text('Notification'),
-      ),
-      BottomNavigationBarItem(
-        icon: Icon(Icons.trending_up),
-        title: Text('Trending'),
-      ),
-      BottomNavigationBarItem(
-        icon: Icon(Icons.search),
-        title: Text('Search'),
-      ),
-      BottomNavigationBarItem(
-        icon: Icon(Icons.person_outline),
-        activeIcon: Icon(Icons.person),
-        title: Text('Me'),
-      ),
-    ];
+    switch (Provider.of<AuthModel>(context).activeAccount.platform) {
+      case PlatformType.github:
+        return [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.rss_feed),
+            title: Text('News'),
+          ),
+          BottomNavigationBarItem(
+            icon: _buildNotificationIcon(context, false),
+            activeIcon: _buildNotificationIcon(context, true),
+            title: Text('Notification'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.trending_up),
+            title: Text('Trending'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            title: Text('Search'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person_outline),
+            activeIcon: Icon(Icons.person),
+            title: Text('Me'),
+          ),
+        ];
+      case PlatformType.gitlab:
+        return [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.timeline),
+            title: Text('Todos'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person_outline),
+            activeIcon: Icon(Icons.person),
+            title: Text('Me'),
+          ),
+        ];
+    }
   }
 
   _buildScreen(int index) {
@@ -96,17 +113,30 @@ class _HomeState extends State<Home> {
     // return TrendingScreen();
     // return RepoScreen('flutter', 'flutter');
     // return Image.asset('images/spinner.webp', width: 32, height: 32);
-    switch (index) {
-      case 0:
-        return NewsScreen();
-      case 1:
-        return NotificationScreen();
-      case 2:
-        return TrendingScreen();
-      case 3:
-        return SearchScreen();
-      case 4:
-        return UserScreen(null);
+    switch (Provider.of<AuthModel>(context).activeAccount.platform) {
+      case PlatformType.github:
+        switch (index) {
+          case 0:
+            return NewsScreen();
+          case 1:
+            return NotificationScreen();
+          case 2:
+            return TrendingScreen();
+          case 3:
+            return SearchScreen();
+          case 4:
+            return UserScreen(null);
+        }
+        break;
+      case PlatformType.gitlab:
+        switch (index) {
+          case 0:
+            return GitlabTodosScreen();
+          case 1:
+            return GitlabUserScreen(
+                Provider.of<AuthModel>(context).activeAccount.login);
+        }
+        break;
     }
   }
 
