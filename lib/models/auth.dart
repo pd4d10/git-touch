@@ -131,6 +131,13 @@ class AuthModel with ChangeNotifier {
     }
   }
 
+  Future fetchGitlab(String p) async {
+    final res = await http.get(activeAccount.domain + '/api/v4' + p,
+        headers: {'Private-Token': token});
+    final info = json.decode(utf8.decode(res.bodyBytes));
+    return info;
+  }
+
   void init() async {
     // Listen scheme
     _sub = getUriLinksStream().listen(_onSchemeDetected, onError: (err) {
