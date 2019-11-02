@@ -49,9 +49,11 @@ class CreditsScreen extends StatelessWidget {
             headerText: 'packages',
             items: projects.map((t) {
               return TableViewItem(
-                text: Text(t.item1),
-                screenBuilder: (_) => RepositoryScreen.fromFullName(t.item2),
-              );
+                  text: Text(t.item1),
+                  screenBuilder: (_) {
+                    final repo = parseRepositoryFullName(t.item2);
+                    return RepositoryScreen(repo.item1, repo.item2);
+                  });
             }),
           ),
           CommonStyle.verticalGap,
@@ -60,8 +62,7 @@ class CreditsScreen extends StatelessWidget {
             items: fonts.map((font) {
               return TableViewItem(
                 text: Text(font),
-                screenBuilder: (_) =>
-                    RepositoryScreen.fromFullName('google/fonts'),
+                screenBuilder: (_) => RepositoryScreen('google', 'fonts'),
               );
             }),
           ),

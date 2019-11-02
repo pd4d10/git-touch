@@ -25,9 +25,6 @@ class RepositoryScreen extends StatelessWidget {
   final String branch;
 
   RepositoryScreen(this.owner, this.name, {this.branch});
-  RepositoryScreen.fromFullName(String fullName, {this.branch})
-      : owner = fullName.split('/')[0],
-        name = fullName.split('/')[1];
 
   get branchInfoKey => getBranchQueryKey(branch);
 

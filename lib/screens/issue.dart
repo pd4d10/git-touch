@@ -32,13 +32,6 @@ class IssueScreen extends StatefulWidget {
     this.isPullRequest = false,
   });
 
-  IssueScreen.fromFullName({
-    @required this.number,
-    @required String fullName,
-    this.isPullRequest = false,
-  })  : owner = fullName.split('/')[0],
-        name = fullName.split('/')[1];
-
   @override
   _IssueScreenState createState() => _IssueScreenState();
 }
