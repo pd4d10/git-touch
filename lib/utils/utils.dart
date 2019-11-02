@@ -80,11 +80,6 @@ TextSpan createUserSpan(BuildContext context, String login) {
   return createLinkSpan(context, login, (_) => UserScreen(login));
 }
 
-TextSpan createRepoLinkSpan(BuildContext context, String owner, String name) {
-  return createLinkSpan(
-      context, '$owner/$name', (_) => RepositoryScreen(owner, name));
-}
-
 class Palette {
   static const green = Color(0xff2cbe4e);
 }

@@ -9,12 +9,14 @@ class Link extends StatelessWidget {
   final String url;
   final WidgetBuilder screenBuilder;
   final Function onTap;
+  final VoidCallback onLongPress;
 
   Link({
     this.child,
     this.url,
     this.screenBuilder,
     this.onTap,
+    this.onLongPress,
   }) : assert(screenBuilder == null || url == null);
 
   void _onTap(BuildContext context) {
@@ -39,6 +41,11 @@ class Link extends StatelessWidget {
           // splashColor:
           //     theme == AppThemeType.cupertino ? Colors.transparent : null,
           onTap: () => _onTap(context),
+          onLongPress: () {
+            if (onLongPress != null) {
+              onLongPress();
+            }
+          },
         ),
       ),
     );

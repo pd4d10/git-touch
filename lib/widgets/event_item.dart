@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:git_touch/screens/repository.dart';
+import 'package:git_touch/widgets/action_button.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:primer/primer.dart';
 import '../screens/issue.dart';
@@ -32,26 +33,24 @@ class EventItem extends StatelessWidget {
 
   EventItem(this.event);
 
+  static const linkStyle = TextStyle(
+    color: PrimerColors.blue500,
+    fontWeight: FontWeight.w600,
+  );
+
   TextSpan _buildRepo(BuildContext context) {
-    String name = event.repoFullName;
-    var arr = name.split('/');
-    return createRepoLinkSpan(context, arr[0], arr[1]);
+    final ls = event.repoFullName.split('/');
+    assert(ls.length == 2);
+    final owner = ls[0];
+    final name = ls[1];
+    return TextSpan(text: '$owner/$name', style: linkStyle);
   }
 
-  TextSpan _buildIssue(BuildContext context,
-      {@required int number, bool isPullRequest = false}) {
+  TextSpan _buildIssue(BuildContext context, {@required int number}) {
     // var resource = isPullRequest ? 'pull_request' : 'issue';
     // int number = event.payload['issue']['number'];
 
-    return createLinkSpan(
-      context,
-      '#' + number.toString(),
-      (_) => IssueScreen.fromFullName(
-        number: number,
-        fullName: event.repoFullName,
-        isPullRequest: isPullRequest,
-      ),
-    );
+    return TextSpan(text: '#$number', style: linkStyle);
   }
 
   Widget _buildItem({
@@ -62,6 +61,7 @@ class EventItem extends StatelessWidget {
     IconData iconData = Octicons.octoface,
     WidgetBuilder screenBuilder,
     String url,
+    List<ActionItem> actionItems,
   }) {
     if (detailWidget == null && detail != null) {
       detailWidget =
@@ -71,6 +71,37 @@ class EventItem extends StatelessWidget {
     return Link(
       screenBuilder: screenBuilder,
       url: url,
+      onLongPress: () async {
+        if (actionItems == null) return;
+
+        final value = await showCupertinoModalPopup<int>(
+          context: context,
+          builder: (BuildContext context) {
+            return CupertinoActionSheet(
+              title: Text('Actions'),
+              actions: actionItems.asMap().entries.map((entry) {
+                return CupertinoActionSheetAction(
+                  child: Text(entry.value.text),
+                  onPressed: () {
+                    Navigator.pop(context, entry.key);
+                  },
+                );
+              }).toList(),
+              cancelButton: CupertinoActionSheetAction(
+                child: const Text('Cancel'),
+                isDefaultAction: true,
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            );
+          },
+        );
+
+        if (value != null) {
+          actionItems[value].onPress(context);
+        }
+      },
       child: Container(
         padding: CommonStyle.padding,
         child: Column(
@@ -96,11 +127,7 @@ class EventItem extends StatelessWidget {
                             fontWeight: FontWeight.w500,
                           ),
                           children: [
-                            createLinkSpan(
-                              context,
-                              event.actorLogin,
-                              (_) => UserScreen(event.actorLogin),
-                            ),
+                            TextSpan(text: event.actorLogin, style: linkStyle),
                             ...spans,
                           ],
                         ),
@@ -164,21 +191,23 @@ class EventItem extends StatelessWidget {
         // TODO:
         return defaultItem;
       case 'ForkEvent':
+        final forkeeOwner = event.payload['forkee']['owner']['login'] as String;
+        final forkeeName = event.payload['forkee']['name'] as String;
         return _buildItem(
           context: context,
           spans: [
             TextSpan(text: ' forked '),
-            createRepoLinkSpan(
-                context,
-                event.payload['forkee']['owner']['login'],
-                event.payload['forkee']['name']),
+            TextSpan(text: '$forkeeOwner/$forkeeName', style: linkStyle),
             TextSpan(text: ' from '),
             _buildRepo(context),
           ],
           iconData: Octicons.repo_forked,
-          screenBuilder: (_) => RepositoryScreen(
-              event.payload['forkee']['owner']['login'],
-              event.payload['forkee']['name']),
+          screenBuilder: (_) => RepositoryScreen(forkeeOwner, forkeeName),
+          actionItems: [
+            ActionItem.user(event.actorLogin),
+            ActionItem.user(forkeeOwner),
+            ActionItem.repository(forkeeOwner, forkeeName),
+          ],
         );
       case 'ForkApplyEvent':
       case 'GitHubAppAuthorizationEvent':
@@ -189,48 +218,67 @@ class EventItem extends StatelessWidget {
         // TODO:
         return defaultItem;
       case 'IssueCommentEvent':
-        bool isPullRequest = event.payload['issue']['pull_request'] != null;
-        String resource = isPullRequest ? 'pull request' : 'issue';
-        int number = event.payload['issue']['number'];
+        final isPullRequest = event.payload['issue']['pull_request'] != null;
+        final resource = isPullRequest ? 'pull request' : 'issue';
+        final number = event.payload['issue']['number'] as int;
+        final ls = event.repoFullName.split('/');
+        assert(ls.length == 2);
+        final owner = ls[0];
+        final name = ls[1];
 
         return _buildItem(
           context: context,
           spans: [
             TextSpan(text: ' commented on $resource '),
-            _buildIssue(
-              context,
-              number: number,
-              isPullRequest: isPullRequest,
-            ),
+            _buildIssue(context, number: number),
             TextSpan(text: ' at '),
             _buildRepo(context),
             // TextSpan(text: event.payload['comment']['body'])
           ],
           detail: event.payload['comment']['body'],
           iconData: Octicons.comment_discussion,
-          screenBuilder: (_) => IssueScreen.fromFullName(
+          screenBuilder: (_) => IssueScreen(
+            owner: owner,
+            name: name,
             number: number,
-            fullName: event.repoFullName,
             isPullRequest: isPullRequest,
           ),
+          actionItems: [
+            ActionItem.user(event.actorLogin),
+            ActionItem.user(owner),
+            ActionItem.repository(owner, name),
+            ActionItem.issue(owner, name, number),
+          ],
         );
       case 'IssuesEvent':
-        int number = event.payload['issue']['number'];
+        final action = event.payload['action'];
+        final number = event.payload['issue']['number'] as int;
+        final ls = event.repoFullName.split('/');
+        assert(ls.length == 2);
+        final owner = ls[0];
+        final name = ls[1];
 
         return _buildItem(
           context: context,
           spans: [
-            TextSpan(text: ' ${event.payload['action']} issue '),
+            TextSpan(text: ' $action issue '),
             _buildIssue(context, number: number),
             TextSpan(text: ' at '),
             _buildRepo(context),
           ],
           iconData: Octicons.issue_opened,
           detail: event.payload['issue']['title'],
-          screenBuilder: (_) => IssueScreen.fromFullName(
+          screenBuilder: (_) => IssueScreen(
+            owner: owner,
+            name: name,
             number: number,
-            fullName: event.repoFullName,
           ),
+          actionItems: [
+            ActionItem.user(event.actorLogin),
+            ActionItem.user(owner),
+            ActionItem.repository(owner, name),
+            ActionItem.issue(owner, name, number),
+          ],
         );
       case 'LabelEvent':
       case 'MarketplacePurchaseEvent':
@@ -247,47 +295,75 @@ class EventItem extends StatelessWidget {
         // TODO:
         return defaultItem;
       case 'PullRequestEvent':
+        final action = event.payload['action'];
+        final number = event.payload['pull_request']['number'] as int;
+        final ls = event.repoFullName.split('/');
+        assert(ls.length == 2);
+        final owner = ls[0];
+        final name = ls[1];
+
         return _buildItem(
           context: context,
           spans: [
-            TextSpan(text: ' ${event.payload['action']} pull request '),
-            _buildIssue(context,
-                number: event.payload['number'], isPullRequest: true),
+            TextSpan(text: ' $action pull request '),
+            _buildIssue(context, number: number),
             TextSpan(text: ' at '),
             _buildRepo(context),
           ],
           iconData: Octicons.git_pull_request,
           detail: event.payload['pull_request']['title'],
-          screenBuilder: (_) => IssueScreen.fromFullName(
-            number: event.payload['pull_request']['number'],
-            fullName: event.repoFullName,
+          screenBuilder: (_) => IssueScreen(
+            owner: owner,
+            name: name,
+            number: number,
             isPullRequest: true,
           ),
+          actionItems: [
+            ActionItem.user(event.actorLogin),
+            ActionItem.user(owner),
+            ActionItem.repository(owner, name),
+            ActionItem.issue(owner, name, number),
+          ],
         );
       case 'PullRequestReviewEvent':
         // TODO:
         return defaultItem;
       case 'PullRequestReviewCommentEvent':
+        final number = event.payload['pull_request']['number'] as int;
+        final ls = event.repoFullName.split('/');
+        assert(ls.length == 2);
+        final owner = ls[0];
+        final name = ls[1];
+
         return _buildItem(
           context: context,
           spans: [
             TextSpan(text: ' reviewed pull request '),
-            _buildIssue(context,
-                number: event.payload['pull_request']['number'],
-                isPullRequest: true),
+            _buildIssue(context, number: number),
             TextSpan(text: ' at '),
             _buildRepo(context),
           ],
           detail: event.payload['comment']['body'],
-          screenBuilder: (_) => IssueScreen.fromFullName(
-            number: event.payload['pull_request']['number'],
-            fullName: event.repoFullName,
+          screenBuilder: (_) => IssueScreen(
+            owner: owner,
+            name: name,
+            number: number,
             isPullRequest: true,
           ),
+          actionItems: [
+            ActionItem.user(event.actorLogin),
+            ActionItem.user(owner),
+            ActionItem.repository(owner, name),
+            ActionItem.issue(owner, name, number),
+          ],
         );
       case 'PushEvent':
-        var ref = event.payload['ref'] as String;
-        var commits = event.payload['commits'] as List;
+        final ref = event.payload['ref'] as String;
+        final commits = event.payload['commits'] as List;
+        final ls = event.repoFullName.split('/');
+        assert(ls.length == 2);
+        final owner = ls[0];
+        final name = ls[1];
 
         return _buildItem(
           context: context,
@@ -330,6 +406,11 @@ class EventItem extends StatelessWidget {
               event.payload['before'] +
               '...' +
               event.payload['head'],
+          actionItems: [
+            ActionItem.user(event.actorLogin),
+            ActionItem.user(owner),
+            ActionItem.repository(owner, name),
+          ],
         );
       case 'ReleaseEvent':
       case 'RepositoryEvent':
@@ -342,12 +423,21 @@ class EventItem extends StatelessWidget {
         // TODO:
         return defaultItem;
       case 'WatchEvent':
+        final ls = event.repoFullName.split('/');
+        assert(ls.length == 2);
+        final owner = ls[0];
+        final name = ls[1];
+
         return _buildItem(
           context: context,
           spans: [TextSpan(text: ' starred '), _buildRepo(context)],
           iconData: Octicons.star,
-          screenBuilder: (_) =>
-              RepositoryScreen.fromFullName(event.repoFullName),
+          screenBuilder: (_) => RepositoryScreen(owner, name),
+          actionItems: [
+            ActionItem.user(event.actorLogin),
+            ActionItem.user(owner),
+            ActionItem.repository(owner, name),
+          ],
         );
       default:
         return defaultItem;

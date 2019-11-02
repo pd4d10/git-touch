@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:git_touch/screens/issue.dart';
+import 'package:git_touch/screens/repository.dart';
+import 'package:git_touch/screens/user.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/models/theme.dart';
@@ -7,7 +10,7 @@ import 'package:share/share.dart';
 
 class ActionItem {
   String text;
-  void Function() onPress;
+  void Function(BuildContext context) onPress;
   IconData iconData;
 
   ActionItem({
@@ -18,13 +21,31 @@ class ActionItem {
 
   ActionItem.share(String url)
       : text = 'Share',
-        onPress = (() {
+        onPress = ((_) {
           Share.share(url);
         });
   ActionItem.launch(String url)
       : text = 'Open in Browser',
-        onPress = (() {
+        onPress = ((_) {
           launchUrl(url);
+        });
+  ActionItem.user(String login)
+      : text = '@$login',
+        onPress = ((context) {
+          Provider.of<ThemeModel>(context)
+              .pushRoute(context, (_) => UserScreen(login));
+        });
+  ActionItem.repository(String owner, String name)
+      : text = '$owner/$name',
+        onPress = ((context) {
+          Provider.of<ThemeModel>(context)
+              .pushRoute(context, (_) => RepositoryScreen(owner, name));
+        });
+  ActionItem.issue(String owner, String name, int number)
+      : text = '#$number',
+        onPress = ((context) {
+          Provider.of<ThemeModel>(context).pushRoute(context,
+              (_) => IssueScreen(owner: owner, name: name, number: number));
         });
 }
 
@@ -79,7 +100,7 @@ class ActionButton extends StatelessWidget {
             );
 
             if (value != null) {
-              items[value].onPress();
+              items[value].onPress(context);
             }
           },
         );
@@ -96,7 +117,7 @@ class ActionButton extends StatelessWidget {
             }).toList();
           },
           onSelected: (value) {
-            items[value].onPress();
+            items[value].onPress(context);
           },
         );
     }

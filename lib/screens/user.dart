@@ -149,7 +149,7 @@ class UserScreen extends StatelessWidget {
                     ActionItem(
                       text:
                           data[0]['viewerIsFollowing'] ? 'Unfollow' : 'Follow',
-                      onPress: () async {
+                      onPress: (_) async {
                         if (data[0]['viewerIsFollowing']) {
                           await Provider.of<AuthModel>(context)
                               .deleteWithCredentials('/user/following/$login');

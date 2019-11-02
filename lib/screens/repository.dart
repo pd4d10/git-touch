@@ -131,7 +131,7 @@ class RepositoryScreen extends StatelessWidget {
             if (data != null) ...[
               ActionItem(
                 text: data[0]['viewerHasStarred'] ? 'Unstar' : 'Star',
-                onPress: () async {
+                onPress: (_) async {
                   if (data[0]['viewerHasStarred']) {
                     await Provider.of<AuthModel>(context)
                         .deleteWithCredentials('/user/starred/$owner/$name');
@@ -148,7 +148,7 @@ class RepositoryScreen extends StatelessWidget {
                 text: data[0]['viewerSubscription'] == 'SUBSCRIBED'
                     ? 'Unwatch'
                     : 'Watch',
-                onPress: () async {
+                onPress: (_) async {
                   if (data[0]['viewerSubscription'] == 'SUBSCRIBED') {
                     await Provider.of<AuthModel>(context).deleteWithCredentials(
                         '/repos/$owner/$name/subscription');
