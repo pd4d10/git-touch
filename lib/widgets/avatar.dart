@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/theme.dart';
-import 'package:git_touch/widgets/image_view.dart';
+import 'package:git_touch/screens/image_view.dart';
 import 'package:provider/provider.dart';
 
 class Avatar extends StatelessWidget {
@@ -37,8 +37,9 @@ class Avatar extends StatelessWidget {
         ),
       ),
       onTap: () {
-        Provider.of<ThemeModel>(context)
-            .pushRoute(context, (_) => ImageView(url), fullscreenDialog: true);
+        Provider.of<ThemeModel>(context).pushRoute(
+            context, (_) => ImageViewScreen(url),
+            fullscreenDialog: true);
       },
     );
   }

@@ -7,6 +7,7 @@ import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/screens/code_theme.dart';
 import 'package:git_touch/widgets/action_entry.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
+import 'package:git_touch/screens/image_view.dart';
 import 'package:git_touch/widgets/markdown_view.dart';
 import 'package:git_touch/widgets/table_view.dart';
 import 'package:path/path.dart' as path;
@@ -120,13 +121,6 @@ class ObjectScreen extends StatelessWidget {
           padding: CommonStyle.padding,
           child: MarkdownView(payload['text']),
         );
-      case 'png':
-      case 'jpg':
-      case 'jpeg':
-      case 'gif':
-      case 'webp':
-        // TODO: All image types
-        return Image.network(rawUrl);
       case 'svg':
         return SvgPicture.network(rawUrl);
       default:
@@ -147,6 +141,12 @@ class ObjectScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // TODO: All image types
+    if (type == 'blob' &&
+        ['png', 'jpg', 'jpeg', 'gif', 'webp'].contains(_extname)) {
+      return ImageViewScreen(rawUrl, title: Text(paths.last));
+    }
+
     return RefreshStatefulScaffold(
       title: AppBarTitle(_path.isEmpty ? 'Files' : _path),
       fetchData: () async {
