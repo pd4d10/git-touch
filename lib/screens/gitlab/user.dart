@@ -43,22 +43,7 @@ class GitlabUserScreen extends StatelessWidget {
             BorderView(height: 10),
             Column(
               children: projects.map((project) {
-                return RepositoryItem({
-                  'owner': {
-                    '__typename': 'user',
-                    'login': project['owner']['name'],
-                    'avatarUrl': project['owner']['avatar_url'],
-                  },
-                  'name': project['name'],
-                  'description': project['description'],
-                  'isPrivate': project['visibility'] == 'private',
-                  'isFork': false,
-                  'stargazers': {'totalCount': project['star_count']},
-                  'forks': {
-                    'totalCount': project['forks_count'],
-                  },
-                  'primaryLanguage': null
-                });
+                return RepositoryItem.gitlab(project);
               }).toList(),
             )
           ],

@@ -30,12 +30,54 @@ primaryLanguage {
 ''';
 
 class RepositoryItem extends StatelessWidget {
-  final Map<String, dynamic> payload;
+  final String owner;
+  final String avatarUrl;
+  final String name;
+  final String description;
+  final IconData iconData;
+  final int starCount;
+  final int forkCount;
+  final String primaryLanguageName;
+  final String primaryLanguageColor;
+  final Widget Function(BuildContext context) screenBuilder;
   final bool inRepoScreen;
+  final List topics;
 
-  RepositoryItem(this.payload, {this.inRepoScreen = false});
+  RepositoryItem(payload, {this.inRepoScreen = false})
+      : this.owner = payload['owner']['login'],
+        this.avatarUrl = payload['owner']['avatarUrl'],
+        this.name = payload['name'],
+        this.description = payload['description'],
+        this.iconData = _buildIconData(payload),
+        this.starCount = payload['stargazers']['totalCount'],
+        this.forkCount = payload['forks']['totalCount'],
+        this.primaryLanguageName = payload['primaryLanguage'] == null
+            ? null
+            : payload['primaryLanguage']['name'],
+        this.primaryLanguageColor = payload['primaryLanguage'] == null
+            ? null
+            : payload['primaryLanguage']['color'],
+        this.screenBuilder = ((_) =>
+            RepositoryScreen(payload['owner']['login'], payload['name'])),
+        this.topics = payload['repositoryTopics'] == null
+            ? []
+            : payload['repositoryTopics']['nodes'];
 
-  IconData _buildIconData() {
+  RepositoryItem.gitlab(payload, {this.inRepoScreen = false})
+      : this.owner = payload['namespace']['name'],
+        this.avatarUrl = payload['owner']['avatar_url'],
+        this.name = payload['name'],
+        this.description = payload['description'],
+        this.iconData = Octicons.repo,
+        this.starCount = payload['star_count'],
+        this.forkCount = payload['forks_count'],
+        this.primaryLanguageName = null,
+        this.primaryLanguageColor = null,
+        this.screenBuilder = ((_) =>
+            RepositoryScreen(payload['owner']['login'], payload['name'])),
+        this.topics = [];
+
+  static IconData _buildIconData(payload) {
     if (payload['isPrivate']) {
       return Octicons.lock;
     }
@@ -60,16 +102,12 @@ class RepositoryItem extends StatelessWidget {
                 width: 10,
                 height: 10,
                 decoration: BoxDecoration(
-                  color: convertColor(payload['primaryLanguage'] == null
-                      ? null
-                      : payload['primaryLanguage']['color']),
+                  color: convertColor(primaryLanguageColor),
                   shape: BoxShape.circle,
                 ),
               ),
               SizedBox(width: 4),
-              Text(payload['primaryLanguage'] == null
-                  ? 'Unknown'
-                  : payload['primaryLanguage']['name']),
+              Text(primaryLanguageName ?? 'Unknown'),
             ]),
           ),
           Expanded(
@@ -77,7 +115,7 @@ class RepositoryItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Icon(Octicons.star, size: 14, color: PrimerColors.gray600),
-                Text(numberFormat.format(payload['stargazers']['totalCount'])),
+                Text(numberFormat.format(starCount)),
               ],
             ),
           ),
@@ -87,7 +125,7 @@ class RepositoryItem extends StatelessWidget {
               children: <Widget>[
                 Icon(Octicons.repo_forked,
                     size: 14, color: PrimerColors.gray600),
-                Text(numberFormat.format(payload['forks']['totalCount'])),
+                Text(numberFormat.format(forkCount)),
               ],
             ),
           ),
@@ -101,7 +139,7 @@ class RepositoryItem extends StatelessWidget {
     return Wrap(
       spacing: 4,
       runSpacing: 4,
-      children: (payload['repositoryTopics']['nodes'] as List).map((node) {
+      children: topics.map((node) {
         return Container(
           padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
           decoration: BoxDecoration(
@@ -124,22 +162,13 @@ class RepositoryItem extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: text style
     return Link(
-      screenBuilder: inRepoScreen
-          ? null
-          : (_) => RepositoryScreen(payload['owner']['login'], payload['name']),
+      screenBuilder: inRepoScreen ? null : screenBuilder,
       child: Container(
         padding: CommonStyle.padding,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Link(
-              child: Avatar.small(url: payload['owner']['avatarUrl']),
-              screenBuilder: (_) => UserScreen(
-                payload['owner']['login'],
-                isOrganization:
-                    payload['owner']['__typename'] == 'Organization',
-              ),
-            ),
+            Avatar.small(url: avatarUrl),
             SizedBox(width: 8),
             Expanded(
               child: Column(
@@ -149,7 +178,7 @@ class RepositoryItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        payload['owner']['login'] + ' / ',
+                        owner + ' / ',
                         style: TextStyle(
                           fontSize: inRepoScreen ? 18 : 16,
                           color: PrimerColors.blue500,
@@ -157,7 +186,7 @@ class RepositoryItem extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        payload['name'],
+                        name,
                         style: TextStyle(
                           fontSize: inRepoScreen ? 18 : 16,
                           color: PrimerColors.blue500,
@@ -165,14 +194,12 @@ class RepositoryItem extends StatelessWidget {
                         ),
                       ),
                       Expanded(child: Container()),
-                      Icon(_buildIconData(),
-                          size: 18, color: PrimerColors.gray600),
+                      Icon(iconData, size: 18, color: PrimerColors.gray600),
                     ],
                   ),
-                  if (payload['description'] != null &&
-                      (payload['description'] as String).isNotEmpty)
+                  if (description != null && description.isNotEmpty)
                     Text(
-                      payload['description'],
+                      description,
                       style: TextStyle(
                           color: PrimerColors.gray700,
                           fontSize: inRepoScreen ? 15 : 14),
