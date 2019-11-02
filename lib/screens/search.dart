@@ -136,10 +136,7 @@ class _SearchScreenState extends State<SearchScreen> {
       case 0:
         return RepositoryItem(data);
       case 1:
-        return UserItem.fromData(
-          data,
-          isOrganization: data['__typename'] == 'Organization',
-        );
+        return UserItem.fromData(data);
       case 2:
       default:
         return IssueItem(

@@ -22,8 +22,8 @@ class TextContainsOrganization extends StatelessWidget {
       if (chunks[index].isNotEmpty) {
         spans.add(TextSpan(text: chunks[index]));
       }
-      spans.add(createLinkSpan(context, orgs[index],
-          (_) => UserScreen(orgs[index].substring(1), isOrganization: true)));
+      spans.add(createLinkSpan(
+          context, orgs[index], (_) => UserScreen(orgs[index].substring(1))));
     }
     if (chunks.last.isNotEmpty) {
       spans.add(TextSpan(text: chunks.last));

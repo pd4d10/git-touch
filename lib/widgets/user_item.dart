@@ -19,7 +19,6 @@ class UserItem extends StatelessWidget {
   final String avatarUrl;
   final String bio;
   final bool inUserScreen;
-  final bool isOrganization;
 
   UserItem({
     this.login,
@@ -27,11 +26,9 @@ class UserItem extends StatelessWidget {
     this.avatarUrl,
     this.bio,
     this.inUserScreen = false,
-    this.isOrganization = false,
   });
   UserItem.fromData(
     data, {
-    this.isOrganization = false,
     this.inUserScreen = false,
   })  : login = data['login'],
         name = data['name'],
@@ -41,9 +38,7 @@ class UserItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Link(
-      screenBuilder: inUserScreen
-          ? null
-          : (_) => UserScreen(login, isOrganization: isOrganization),
+      screenBuilder: inUserScreen ? null : (_) => UserScreen(login),
       child: Container(
         padding: CommonStyle.padding,
         child: Row(

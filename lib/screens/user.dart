@@ -22,89 +22,83 @@ import 'package:primer/primer.dart';
 
 class UserScreen extends StatelessWidget {
   final String login;
-  final bool isOrganization;
 
-  UserScreen(this.login, {this.isOrganization = false});
+  UserScreen(this.login);
 
-  Future queryUser(BuildContext context) async {
+  Future _query(BuildContext context) async {
     var _login = login ?? Provider.of<AuthModel>(context).activeAccount.login;
     var data = await Provider.of<AuthModel>(context).query('''
 {
-  user(login: "$_login") {
-    $userGqlChunk
-    company
-    location
-    email
-    websiteUrl
-    starredRepositories {
-      totalCount
-    }
-    followers {
-      totalCount
-    }
-    following {
-      totalCount
-    }
-    repositories(first: 6, ownerAffiliations: OWNER, orderBy: {field: STARGAZERS, direction: DESC}) {
-      totalCount
-      nodes {
-        $repoChunk
+  repositoryOwner(login: "$_login") {
+    __typename
+    ... on User {
+      $userGqlChunk
+      company
+      location
+      email
+      websiteUrl
+      starredRepositories {
+        totalCount
       }
-    }
-    pinnedItems(first: 6) {
-      nodes {
-        ... on Repository {
+      followers {
+        totalCount
+      }
+      following {
+        totalCount
+      }
+      repositories(first: 6, ownerAffiliations: OWNER, orderBy: {field: STARGAZERS, direction: DESC}) {
+        totalCount
+        nodes {
           $repoChunk
         }
       }
-    }
-    viewerCanFollow
-    viewerIsFollowing
-    url
-  }
-}
-''');
-    return data['user'];
-  }
-
-  Future queryOrganization(BuildContext context) async {
-    // Use pinnableItems instead of organization here due to token permission
-    var data = await Provider.of<AuthModel>(context).query('''
-{
-  organization(login: "$login") {
-    login
-    name
-    avatarUrl
-    description
-    location
-    email
-    websiteUrl
-    url
-    pinnedItems(first: 6) {
-      nodes {
-        ... on Repository {
-          $repoChunk
+      pinnedItems(first: 6) {
+        nodes {
+          ... on Repository {
+            $repoChunk
+          }
         }
       }
+      viewerCanFollow
+      viewerIsFollowing
+      url
     }
-    pinnableItems(first: 6, types: [REPOSITORY]) {
-      totalCount
-      nodes {
-        ... on Repository {
-        	$repoChunk
+    ... on Organization {
+      login
+      name
+      avatarUrl
+      description
+      location
+      email
+      websiteUrl
+      url
+      pinnedItems(first: 6) {
+        nodes {
+          ... on Repository {
+            $repoChunk
+          }
         }
       }
-    }
-    membersWithRole {
-      totalCount
+      pinnableItems(first: 6, types: [REPOSITORY]) {
+        totalCount
+        nodes {
+          ... on Repository {
+            $repoChunk
+          }
+        }
+      }
+      membersWithRole {
+        totalCount
+      }
     }
   }
 }
-''');
-    return data['organization'];
+'''); // Use pinnableItems instead of organization here due to token permission
+
+    return data['repositoryOwner'];
   }
 
-  Future<List<ContributionsInfo>> fetchContributions(
+  Future<List<ContributionsInfo>> _fetchContributions(
       BuildContext context) async {
     var _login = login ?? Provider.of<AuthModel>(context).activeAccount.login;
     switch (Provider.of<AuthModel>(context).activeAccount.platform) {
@@ -123,73 +117,78 @@ class UserScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold(
       fetchData: () {
-        return Future.wait(
-          isOrganization
-              ? [
-                  queryOrganization(context),
-                  Future.value([].cast<ContributionsInfo>())
-                ]
-              : [
-                  queryUser(context),
-                  fetchContributions(context),
-                ],
-        );
+        return Future.wait([
+          _query(context),
+          _fetchContributions(context),
+        ]);
       },
-      title: AppBarTitle(isOrganization ? 'Organization' : 'User'),
+      title: AppBarTitle('User'), // TODO:
       actionBuilder: (payload) {
         var data = payload.data;
-
-        if (isOrganization) {
+        if (data == null)
           return ActionButton(
-            title: 'Organization Actions',
-            items: [
-              if (data != null) ...[
-                ActionItem.share(payload.data[0]['url']),
-                ActionItem.launch(payload.data[0]['url']),
-              ],
-            ],
+            title: "Actions",
+            items: [],
           );
-        }
 
-        if (login == null) {
-          return ActionEntry(
-            iconData: Icons.settings,
-            onTap: () {
-              Provider.of<ThemeModel>(context).pushRoute(
-                  context, (_) => SettingsScreen(),
-                  fullscreenDialog: true);
-            },
-          );
-        } else {
-          return ActionButton(
-            title: 'User Actions',
-            items: [
-              if (data != null && data[0]['viewerCanFollow'])
-                ActionItem(
-                  text: data[0]['viewerIsFollowing'] ? 'Unfollow' : 'Follow',
-                  onPress: () async {
-                    if (data[0]['viewerIsFollowing']) {
-                      await Provider.of<AuthModel>(context)
-                          .deleteWithCredentials('/user/following/$login');
-                      data[0]['viewerIsFollowing'] = false;
-                    } else {
-                      Provider.of<AuthModel>(context)
-                          .putWithCredentials('/user/following/$login');
-                      data[0]['viewerIsFollowing'] = true;
-                    }
-                  },
-                ),
-              if (data != null) ...[
-                ActionItem.share(data[0]['url']),
-                ActionItem.launch(data[0]['url']),
+        switch (data[0]['__typename']) {
+          case 'User':
+            if (login == null) {
+              return ActionEntry(
+                iconData: Icons.settings,
+                onTap: () {
+                  Provider.of<ThemeModel>(context).pushRoute(
+                      context, (_) => SettingsScreen(),
+                      fullscreenDialog: true);
+                },
+              );
+            } else {
+              return ActionButton(
+                title: 'User Actions',
+                items: [
+                  if (data != null && data[0]['viewerCanFollow'])
+                    ActionItem(
+                      text:
+                          data[0]['viewerIsFollowing'] ? 'Unfollow' : 'Follow',
+                      onPress: () async {
+                        if (data[0]['viewerIsFollowing']) {
+                          await Provider.of<AuthModel>(context)
+                              .deleteWithCredentials('/user/following/$login');
+                          data[0]['viewerIsFollowing'] = false;
+                        } else {
+                          Provider.of<AuthModel>(context)
+                              .putWithCredentials('/user/following/$login');
+                          data[0]['viewerIsFollowing'] = true;
+                        }
+                      },
+                    ),
+                  if (data != null) ...[
+                    ActionItem.share(data[0]['url']),
+                    ActionItem.launch(data[0]['url']),
+                  ],
+                ],
+              );
+            }
+            break;
+          case 'Organization':
+            return ActionButton(
+              title: 'Organization Actions',
+              items: [
+                if (data != null) ...[
+                  ActionItem.share(payload.data[0]['url']),
+                  ActionItem.launch(payload.data[0]['url']),
+                ],
               ],
-            ],
-          );
+            );
+          default:
+            return null;
         }
       },
       bodyBuilder: (payload) {
         var data = payload.data[0];
         var contributions = payload.data[1];
+        final isOrganization = data['__typename'] == 'Organization';
+
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
