@@ -106,9 +106,9 @@ class _NotificationItemState extends State<NotificationItem> {
             Provider.of<ThemeModel>(context).pushRoute(
                 context,
                 (_) => IssueScreen(
-                      number: payload.number,
-                      owner: payload.owner,
-                      name: payload.name,
+                      payload.owner,
+                      payload.name,
+                      payload.number,
                       isPullRequest: payload.type == 'PullRequest',
                     ));
 

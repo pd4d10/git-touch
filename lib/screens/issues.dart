@@ -14,11 +14,7 @@ class IssuesScreen extends StatelessWidget {
   final String name;
   final bool isPullRequest;
 
-  IssuesScreen({
-    @required this.owner,
-    @required this.name,
-    this.isPullRequest = false,
-  });
+  IssuesScreen(this.owner, this.name, {this.isPullRequest = false});
 
   Future<ListPayload> _query(BuildContext context, [String cursor]) async {
     var cursorChunk = cursor == null ? '' : ', after: "$cursor"';

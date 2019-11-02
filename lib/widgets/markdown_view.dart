@@ -38,9 +38,9 @@ class MarkdownView extends StatelessWidget {
             return Provider.of<ThemeModel>(context).pushRoute(
                 context,
                 (_) => IssueScreen(
-                      owner: m['owner'],
-                      name: m['name'],
-                      number: int.parse(m['number']),
+                      m['owner'],
+                      m['name'],
+                      int.parse(m['number']),
                       isPullRequest: true,
                     ));
           }
@@ -50,9 +50,9 @@ class MarkdownView extends StatelessWidget {
             return Provider.of<ThemeModel>(context).pushRoute(
                 context,
                 (_) => IssueScreen(
-                      owner: m['owner'],
-                      name: m['name'],
-                      number: int.parse(m['number']),
+                      m['owner'],
+                      m['name'],
+                      int.parse(m['number']),
                     ));
           }
 

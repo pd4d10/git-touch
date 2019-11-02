@@ -232,9 +232,9 @@ class EventItem extends StatelessWidget {
           detail: event.payload['comment']['body'],
           iconData: Octicons.comment_discussion,
           screenBuilder: (_) => IssueScreen(
-            owner: event.repoOwner,
-            name: event.repoName,
-            number: number,
+            event.repoOwner,
+            event.repoName,
+            number,
             isPullRequest: isPullRequest,
           ),
           actionItems: [
@@ -258,11 +258,8 @@ class EventItem extends StatelessWidget {
           ],
           iconData: Octicons.issue_opened,
           detail: event.payload['issue']['title'],
-          screenBuilder: (_) => IssueScreen(
-            owner: event.repoOwner,
-            name: event.repoName,
-            number: number,
-          ),
+          screenBuilder: (_) =>
+              IssueScreen(event.repoOwner, event.repoName, number),
           actionItems: [
             ActionItem.user(event.actorLogin),
             ActionItem.user(event.repoOwner),
@@ -299,9 +296,9 @@ class EventItem extends StatelessWidget {
           iconData: Octicons.git_pull_request,
           detail: event.payload['pull_request']['title'],
           screenBuilder: (_) => IssueScreen(
-            owner: event.repoOwner,
-            name: event.repoName,
-            number: number,
+            event.repoOwner,
+            event.repoName,
+            number,
             isPullRequest: true,
           ),
           actionItems: [
@@ -327,9 +324,9 @@ class EventItem extends StatelessWidget {
           ],
           detail: event.payload['comment']['body'],
           screenBuilder: (_) => IssueScreen(
-            owner: event.repoOwner,
-            name: event.repoName,
-            number: number,
+            event.repoOwner,
+            event.repoName,
+            number,
             isPullRequest: true,
           ),
           actionItems: [

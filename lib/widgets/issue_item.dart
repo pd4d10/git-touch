@@ -43,9 +43,9 @@ class IssueItem extends StatelessWidget {
     return Link(
       screenBuilder: (context) {
         return IssueScreen(
-          number: payload['number'],
-          owner: payload['repository']['owner']['login'],
-          name: payload['repository']['name'],
+          payload['repository']['owner']['login'] as String,
+          payload['repository']['name'] as String,
+          payload['number'] as int,
           isPullRequest: isPullRequest,
         );
       },

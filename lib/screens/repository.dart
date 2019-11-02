@@ -233,9 +233,9 @@ class RepositoryScreen extends StatelessWidget {
                     rightWidget:
                         Text(filesize((repo['diskUsage'] as int) * 1000)),
                     screenBuilder: (_) => ObjectScreen(
-                      owner: owner,
-                      name: name,
-                      branch: repo[branchInfoKey]['name'],
+                      owner,
+                      name,
+                      repo[branchInfoKey]['name'] as String,
                     ),
                   ),
                 if (repo['hasIssuesEnabled'] as bool)
@@ -244,16 +244,15 @@ class RepositoryScreen extends StatelessWidget {
                     text: Text('Issues'),
                     rightWidget:
                         Text(numberFormat.format(repo['issues']['totalCount'])),
-                    screenBuilder: (_) =>
-                        IssuesScreen(owner: owner, name: name),
+                    screenBuilder: (_) => IssuesScreen(owner, name),
                   ),
                 TableViewItem(
                   leftIconData: Octicons.git_pull_request,
                   text: Text('Pull requests'),
                   rightWidget: Text(
                       numberFormat.format(repo['pullRequests']['totalCount'])),
-                  screenBuilder: (_) => IssuesScreen(
-                      owner: owner, name: name, isPullRequest: true),
+                  screenBuilder: (_) =>
+                      IssuesScreen(owner, name, isPullRequest: true),
                 ),
                 TableViewItem(
                   leftIconData: Octicons.project,

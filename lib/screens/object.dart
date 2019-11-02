@@ -26,13 +26,8 @@ class ObjectScreen extends StatelessWidget {
   final List<String> paths;
   final String type;
 
-  ObjectScreen({
-    @required this.owner,
-    @required this.name,
-    @required this.branch,
-    this.paths = const [],
-    this.type = 'tree',
-  });
+  ObjectScreen(this.owner, this.name, this.branch,
+      {this.paths = const [], this.type = 'tree'});
 
   String get _expression => '$branch:$_path';
   String get _extname {
@@ -100,9 +95,9 @@ class ObjectScreen extends StatelessWidget {
           screenBuilder: (_) {
             if (item['type'] == 'commit') return null;
             return ObjectScreen(
-              name: name,
-              owner: owner,
-              branch: branch,
+              owner,
+              name,
+              branch,
               paths: [...paths, item['name']],
               type: item['type'],
             );

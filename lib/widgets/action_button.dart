@@ -44,8 +44,8 @@ class ActionItem {
   ActionItem.issue(String owner, String name, int number)
       : text = '#$number',
         onPress = ((context) {
-          Provider.of<ThemeModel>(context).pushRoute(context,
-              (_) => IssueScreen(owner: owner, name: name, number: number));
+          Provider.of<ThemeModel>(context)
+              .pushRoute(context, (_) => IssueScreen(owner, name, number));
         });
 }
 

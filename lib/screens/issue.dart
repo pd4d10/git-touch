@@ -20,17 +20,12 @@ $key: reactions(content: $key) {
 
 /// Screen for issue and pull request
 class IssueScreen extends StatefulWidget {
-  final int number;
   final String owner;
   final String name;
+  final int number;
   final bool isPullRequest;
 
-  IssueScreen({
-    @required this.number,
-    @required this.owner,
-    @required this.name,
-    this.isPullRequest = false,
-  });
+  IssueScreen(this.owner, this.name, this.number, {this.isPullRequest = false});
 
   @override
   _IssueScreenState createState() => _IssueScreenState();
