@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:git_touch/models/theme.dart';
+import 'package:git_touch/widgets/image_view.dart';
+import 'package:provider/provider.dart';
 
 class Avatar extends StatelessWidget {
   final String url;
@@ -21,16 +24,22 @@ class Avatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(4),
-      child: FadeInImage.assetNetwork(
-        placeholder: 'images/octoface.png',
-        image: url,
-        width: size,
-        height: size,
-        fadeInDuration: Duration(milliseconds: 200),
-        fadeOutDuration: Duration(milliseconds: 100),
+    return GestureDetector(
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(4),
+        child: FadeInImage.assetNetwork(
+          placeholder: 'images/octoface.png',
+          image: url,
+          width: size,
+          height: size,
+          fadeInDuration: Duration(milliseconds: 200),
+          fadeOutDuration: Duration(milliseconds: 100),
+        ),
       ),
+      onTap: () {
+        Provider.of<ThemeModel>(context)
+            .pushRoute(context, (_) => ImageView(url), fullscreenDialog: true);
+      },
     );
   }
 }
