@@ -173,15 +173,15 @@ class ObjectScreen extends StatelessWidget {
 
         return data['repository']['object'];
       },
-      actionBuilder: (payload) {
+      actionBuilder: (data, _) {
         switch (type) {
           case 'blob':
             return ActionEntry(
               iconData: Octicons.settings,
               onTap: () {
-                if (payload.data != null) {
-                  Provider.of<ThemeModel>(context).pushRoute(context,
-                      (_) => CodeThemeScreen(payload.data['text'], _language));
+                if (data != null) {
+                  Provider.of<ThemeModel>(context).pushRoute(
+                      context, (_) => CodeThemeScreen(data['text'], _language));
                 }
               },
             );
@@ -189,12 +189,12 @@ class ObjectScreen extends StatelessWidget {
             return null;
         }
       },
-      bodyBuilder: (payload) {
+      bodyBuilder: (data, _) {
         switch (type) {
           case 'tree':
-            return _buildTree(payload.data);
+            return _buildTree(data);
           case 'blob':
-            return _buildBlob(context, payload.data);
+            return _buildBlob(context, data);
           default:
             return null;
         }

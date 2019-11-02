@@ -123,8 +123,7 @@ class UserScreen extends StatelessWidget {
         ]);
       },
       title: AppBarTitle('User'), // TODO:
-      actionBuilder: (payload) {
-        var data = payload.data;
+      actionBuilder: (data, _) {
         if (data == null)
           return ActionButton(
             title: "Actions",
@@ -175,8 +174,8 @@ class UserScreen extends StatelessWidget {
               title: 'Organization Actions',
               items: [
                 if (data != null) ...[
-                  ActionItem.share(payload.data[0]['url']),
-                  ActionItem.launch(payload.data[0]['url']),
+                  ActionItem.share(data[0]['url']),
+                  ActionItem.launch(data[0]['url']),
                 ],
               ],
             );
@@ -184,59 +183,59 @@ class UserScreen extends StatelessWidget {
             return null;
         }
       },
-      bodyBuilder: (payload) {
-        var data = payload.data[0];
-        var contributions = payload.data[1];
-        final isOrganization = data['__typename'] == 'Organization';
+      bodyBuilder: (data, _) {
+        var user = data[0];
+        var contributions = data[1];
+        final isOrganization = user['__typename'] == 'Organization';
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             UserItem(
-              login: data['login'],
-              name: data['name'],
-              avatarUrl: data['avatarUrl'],
-              bio: isOrganization ? data['description'] : data['bio'],
+              login: user['login'],
+              name: user['name'],
+              avatarUrl: user['avatarUrl'],
+              bio: isOrganization ? user['description'] : user['bio'],
               inUserScreen: true,
             ),
             CommonStyle.border,
             Row(children: [
               if (isOrganization) ...[
                 EntryItem(
-                  count: data['pinnableItems']['totalCount'],
+                  count: user['pinnableItems']['totalCount'],
                   text: 'Repositories',
                   screenBuilder: (context) =>
-                      RepositoriesScreen.ofOrganization(data['login']),
+                      RepositoriesScreen.ofOrganization(user['login']),
                 ),
                 EntryItem(
-                  count: data['membersWithRole']['totalCount'],
+                  count: user['membersWithRole']['totalCount'],
                   text: 'Members',
                   screenBuilder: (context) =>
-                      UsersScreen.members(data['login']),
+                      UsersScreen.members(user['login']),
                 ),
               ] else ...[
                 EntryItem(
-                  count: data['repositories']['totalCount'],
+                  count: user['repositories']['totalCount'],
                   text: 'Repositories',
-                  screenBuilder: (context) => RepositoriesScreen(data['login']),
+                  screenBuilder: (context) => RepositoriesScreen(user['login']),
                 ),
                 EntryItem(
-                  count: data['starredRepositories']['totalCount'],
+                  count: user['starredRepositories']['totalCount'],
                   text: 'Stars',
                   screenBuilder: (context) =>
-                      RepositoriesScreen.stars(data['login']),
+                      RepositoriesScreen.stars(user['login']),
                 ),
                 EntryItem(
-                  count: data['followers']['totalCount'],
+                  count: user['followers']['totalCount'],
                   text: 'Followers',
                   screenBuilder: (context) =>
-                      UsersScreen.followers(data['login']),
+                      UsersScreen.followers(user['login']),
                 ),
                 EntryItem(
-                  count: data['following']['totalCount'],
+                  count: user['following']['totalCount'],
                   text: 'Following',
                   screenBuilder: (context) =>
-                      UsersScreen.following(data['login']),
+                      UsersScreen.following(user['login']),
                 ),
               ]
             ]),
@@ -248,38 +247,38 @@ class UserScreen extends StatelessWidget {
             TableView(
               hasIcon: true,
               items: [
-                if (!isOrganization && isNotNullOrEmpty(data['company']))
+                if (!isOrganization && isNotNullOrEmpty(user['company']))
                   TableViewItem(
                     leftIconData: Octicons.organization,
-                    text: TextContainsOrganization(data['company'],
+                    text: TextContainsOrganization(user['company'],
                         style: TextStyle(
                             fontSize: 16, color: PrimerColors.gray900),
                         overflow: TextOverflow.ellipsis),
                   ),
-                if (isNotNullOrEmpty(data['location']))
+                if (isNotNullOrEmpty(user['location']))
                   TableViewItem(
                     leftIconData: Octicons.location,
-                    text: Text(data['location']),
+                    text: Text(user['location']),
                     onTap: () {
                       launchUrl('https://www.google.com/maps/place/' +
-                          (data['location'] as String)
+                          (user['location'] as String)
                               .replaceAll(RegExp(r'\s+'), ''));
                     },
                   ),
-                if (isNotNullOrEmpty(data['email']))
+                if (isNotNullOrEmpty(user['email']))
                   TableViewItem(
                     leftIconData: Octicons.mail,
-                    text: Text(data['email']),
+                    text: Text(user['email']),
                     onTap: () {
-                      launchUrl('mailto:' + data['email']);
+                      launchUrl('mailto:' + user['email']);
                     },
                   ),
-                if (isNotNullOrEmpty(data['websiteUrl']))
+                if (isNotNullOrEmpty(user['websiteUrl']))
                   TableViewItem(
                     leftIconData: Octicons.link,
-                    text: Text(data['websiteUrl']),
+                    text: Text(user['websiteUrl']),
                     onTap: () {
-                      var url = data['websiteUrl'] as String;
+                      var url = user['websiteUrl'] as String;
                       if (!url.startsWith('http')) {
                         url = 'http://$url';
                       }
@@ -289,8 +288,8 @@ class UserScreen extends StatelessWidget {
               ],
             ),
             ...buildPinnedItems(
-                data['pinnedItems']['nodes'],
-                data[isOrganization ? 'pinnableItems' : 'repositories']
+                user['pinnedItems']['nodes'],
+                user[isOrganization ? 'pinnableItems' : 'repositories']
                     ['nodes']),
             CommonStyle.verticalGap,
           ],

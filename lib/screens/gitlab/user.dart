@@ -29,16 +29,16 @@ class GitlabUserScreen extends StatelessWidget {
         }
         return [user, projects];
       },
-      bodyBuilder: (payload) {
-        final data = payload.data[0];
-        final projects = payload.data[1] as List;
+      bodyBuilder: (data, _) {
+        final user = data[0];
+        final projects = data[1] as List;
 
         return Column(
           children: <Widget>[
             UserItem(
-              login: data['username'],
-              avatarUrl: data['avatar_url'],
-              name: data['name'],
+              login: user['username'],
+              avatarUrl: user['avatar_url'],
+              name: user['name'],
             ),
             BorderView(height: 10),
             Column(

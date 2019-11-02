@@ -4,21 +4,12 @@ import 'package:git_touch/scaffolds/common.dart';
 import 'package:git_touch/scaffolds/utils.dart';
 import 'package:primer/primer.dart';
 
-class RefreshStatefulScaffoldPayload<T> {
-  bool loading;
-  String error;
-  T data;
-  void Function() refresh;
-
-  RefreshStatefulScaffoldPayload(
-      this.loading, this.error, this.data, this.refresh);
-}
-
 class RefreshStatefulScaffold<T> extends StatefulWidget {
   final Widget title;
-  final Widget Function(RefreshStatefulScaffoldPayload<T> payload) bodyBuilder;
+  final Widget Function(T data, void Function(VoidCallback fn) setState)
+      bodyBuilder;
   final Future<T> Function() fetchData;
-  final Widget Function(RefreshStatefulScaffoldPayload<T> payload)
+  final Widget Function(T data, void Function(VoidCallback fn) setState)
       actionBuilder;
 
   RefreshStatefulScaffold({
@@ -39,13 +30,11 @@ class _RefreshStatefulScaffoldState<T>
   T _data;
   String _error = '';
 
-  RefreshStatefulScaffoldPayload get _payload =>
-      RefreshStatefulScaffoldPayload(_loading, _error, _data, _refresh);
-
   @override
   void initState() {
     super.initState();
     _refresh();
+    setState(() {});
   }
 
   Future<void> _refresh() async {
@@ -69,7 +58,7 @@ class _RefreshStatefulScaffoldState<T>
 
   Widget get _action {
     if (widget.actionBuilder == null) return null;
-    return widget.actionBuilder(_payload);
+    return widget.actionBuilder(_data, setState);
   }
 
   @override
@@ -80,7 +69,7 @@ class _RefreshStatefulScaffoldState<T>
       body: RefreshWrapper(
         onRefresh: _refresh,
         body: ErrorLoadingWrapper(
-          bodyBuilder: () => widget.bodyBuilder(_payload),
+          bodyBuilder: () => widget.bodyBuilder(_data, setState),
           error: _error,
           loading: _data == null,
           reload: _refresh,

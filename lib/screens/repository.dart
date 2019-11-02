@@ -124,8 +124,7 @@ class RepositoryScreen extends StatelessWidget {
         queryRepo(context),
         fetchReadme(context),
       ]),
-      actionBuilder: (payload) {
-        var data = payload.data;
+      actionBuilder: (data, setState) {
         return ActionButton(
           title: 'Repository Actions',
           items: [
@@ -142,7 +141,7 @@ class RepositoryScreen extends StatelessWidget {
                         .putWithCredentials('/user/starred/$owner/$name');
                     data[0]['viewerHasStarred'] = true;
                   }
-                  payload.refresh();
+                  setState(() {});
                 },
               ),
               ActionItem(
@@ -159,7 +158,7 @@ class RepositoryScreen extends StatelessWidget {
                         .putWithCredentials('/repos/$owner/$name/subscription');
                     data[0]['viewerSubscription'] = 'SUBSCRIBED';
                   }
-                  payload.refresh();
+                  setState(() {});
                 },
               ),
             ],
@@ -170,35 +169,35 @@ class RepositoryScreen extends StatelessWidget {
           ],
         );
       },
-      bodyBuilder: (payload) {
-        var data = payload.data[0];
-        var readme = payload.data[1] as String;
+      bodyBuilder: (data, _) {
+        var repo = data[0];
+        var readme = data[1] as String;
 
         final langWidth = MediaQuery.of(context).size.width -
             CommonStyle.padding.left -
             CommonStyle.padding.right -
-            (data['languages']['edges'] as List).length +
+            (repo['languages']['edges'] as List).length +
             1;
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            RepositoryItem(data, inRepoScreen: true),
+            RepositoryItem(repo, inRepoScreen: true),
             CommonStyle.border,
             Row(
               children: <Widget>[
                 EntryItem(
-                  count: data['watchers']['totalCount'],
+                  count: repo['watchers']['totalCount'],
                   text: 'Watchers',
                   screenBuilder: (context) => UsersScreen.watchers(owner, name),
                 ),
                 EntryItem(
-                  count: data['stargazers']['totalCount'],
+                  count: repo['stargazers']['totalCount'],
                   text: 'Stars',
                   screenBuilder: (context) => UsersScreen.stars(owner, name),
                 ),
                 EntryItem(
-                  count: data['forks']['totalCount'],
+                  count: repo['forks']['totalCount'],
                   text: 'Forks',
                   screenBuilder: (context) =>
                       RepositoriesScreen.forks(owner, name),
@@ -206,7 +205,7 @@ class RepositoryScreen extends StatelessWidget {
               ],
             ),
             CommonStyle.verticalGap,
-            if ((data['languages']['edges'] as List).isNotEmpty)
+            if ((repo['languages']['edges'] as List).isNotEmpty)
               Container(
                 color: Colors.white,
                 padding: CommonStyle.padding.copyWith(top: 8, bottom: 8),
@@ -217,12 +216,12 @@ class RepositoryScreen extends StatelessWidget {
                     child: Row(
                         children: join(
                             SizedBox(width: 1),
-                            (data['languages']['edges'] as List)
+                            (repo['languages']['edges'] as List)
                                 .map((lang) => Container(
                                     color: convertColor(lang['node']['color']),
                                     width: langWidth *
                                         lang['size'] /
-                                        data['languages']['totalSize']))
+                                        repo['languages']['totalSize']))
                                 .toList())),
                   ),
                 ),
@@ -230,24 +229,24 @@ class RepositoryScreen extends StatelessWidget {
             TableView(
               hasIcon: true,
               items: [
-                if (data[branchInfoKey] != null)
+                if (repo[branchInfoKey] != null)
                   TableViewItem(
                     leftIconData: Octicons.code,
                     text: Text('Code'),
                     rightWidget:
-                        Text(filesize((data['diskUsage'] as int) * 1000)),
+                        Text(filesize((repo['diskUsage'] as int) * 1000)),
                     screenBuilder: (_) => ObjectScreen(
                       owner: owner,
                       name: name,
-                      branch: data[branchInfoKey]['name'],
+                      branch: repo[branchInfoKey]['name'],
                     ),
                   ),
-                if (data['hasIssuesEnabled'] as bool)
+                if (repo['hasIssuesEnabled'] as bool)
                   TableViewItem(
                     leftIconData: Octicons.issue_opened,
                     text: Text('Issues'),
                     rightWidget:
-                        Text(numberFormat.format(data['issues']['totalCount'])),
+                        Text(numberFormat.format(repo['issues']['totalCount'])),
                     screenBuilder: (_) =>
                         IssuesScreen(owner: owner, name: name),
                   ),
@@ -255,7 +254,7 @@ class RepositoryScreen extends StatelessWidget {
                   leftIconData: Octicons.git_pull_request,
                   text: Text('Pull requests'),
                   rightWidget: Text(
-                      numberFormat.format(data['pullRequests']['totalCount'])),
+                      numberFormat.format(repo['pullRequests']['totalCount'])),
                   screenBuilder: (_) => IssuesScreen(
                       owner: owner, name: name, isPullRequest: true),
                 ),
@@ -263,8 +262,8 @@ class RepositoryScreen extends StatelessWidget {
                   leftIconData: Octicons.project,
                   text: Text('Projects'),
                   rightWidget:
-                      Text(numberFormat.format(data['projects']['totalCount'])),
-                  url: 'https://github.com' + data['projectsResourcePath'],
+                      Text(numberFormat.format(repo['projects']['totalCount'])),
+                  url: 'https://github.com' + repo['projectsResourcePath'],
                 ),
               ],
             ),
@@ -272,30 +271,30 @@ class RepositoryScreen extends StatelessWidget {
             TableView(
               hasIcon: true,
               items: [
-                if (data[branchInfoKey] != null) ...[
+                if (repo[branchInfoKey] != null) ...[
                   TableViewItem(
                     leftIconData: Octicons.history,
                     text: Text('Commits'),
-                    rightWidget: Text(numberFormat.format(data[branchInfoKey]
+                    rightWidget: Text(numberFormat.format(repo[branchInfoKey]
                         ['target']['history']['totalCount'])),
                     screenBuilder: (_) =>
                         CommitsScreen(owner, name, branch: branch),
                   ),
-                  if (data['refs'] != null)
+                  if (repo['refs'] != null)
                     TableViewItem(
                       leftIconData: Octicons.git_branch,
                       text: Text('Branches'),
-                      rightWidget: Text(data[branchInfoKey]['name'] +
+                      rightWidget: Text(repo[branchInfoKey]['name'] +
                           ' • ' +
-                          numberFormat.format(data['refs']['totalCount'])),
+                          numberFormat.format(repo['refs']['totalCount'])),
                       onTap: () async {
-                        var refs = data['refs']['nodes'] as List;
+                        var refs = repo['refs']['nodes'] as List;
                         if (refs.length < 2) return;
 
                         await Provider.of<ThemeModel>(context).showPicker(
                           context,
                           PickerGroupItem(
-                            value: data[branchInfoKey]['name'],
+                            value: repo[branchInfoKey]['name'],
                             items: refs
                                 .map((b) => PickerItem(b['name'] as String,
                                     text: (b['name'] as String)))
@@ -319,16 +318,16 @@ class RepositoryScreen extends StatelessWidget {
                   leftIconData: Octicons.tag,
                   text: Text('Releases'),
                   rightWidget:
-                      Text((data['releases']['totalCount'] as int).toString()),
-                  url: data['url'] + '/releases',
+                      Text((repo['releases']['totalCount'] as int).toString()),
+                  url: repo['url'] + '/releases',
                 ),
                 TableViewItem(
                   leftIconData: Octicons.law,
                   text: Text('License'),
-                  rightWidget: Text(data['licenseInfo'] == null
+                  rightWidget: Text(repo['licenseInfo'] == null
                       ? 'Unknown'
-                      : (data['licenseInfo']['spdxId'] ??
-                          data['licenseInfo']['name'])),
+                      : (repo['licenseInfo']['spdxId'] ??
+                          repo['licenseInfo']['name'])),
                 ),
               ],
             ),

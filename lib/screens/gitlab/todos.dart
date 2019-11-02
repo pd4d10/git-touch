@@ -16,10 +16,10 @@ class GitlabTodosScreen extends StatelessWidget {
       fetchData: () {
         return Provider.of<AuthModel>(context).fetchGitlab('/todos');
       },
-      bodyBuilder: (payload) {
+      bodyBuilder: (data, _) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: (payload.data as List).map((item) {
+          children: (data as List).map((item) {
             return Link(
               screenBuilder: (_) => GitlabIssueScreen(
                   item['target']['project_id'], item['target']['iid'],

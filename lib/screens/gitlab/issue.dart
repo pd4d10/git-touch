@@ -30,10 +30,10 @@ class GitlabIssueScreen extends StatelessWidget {
         ]);
         return items;
       },
-      bodyBuilder: (payload) {
-        final data = payload.data[0];
-        final notes = payload.data[1] as List;
-        final emoji = payload.data[2];
+      bodyBuilder: (data, _) {
+        final issue = data[0];
+        final notes = data[1] as List;
+        final emoji = data[2];
 
         return Column(
           children: <Widget>[
@@ -41,16 +41,16 @@ class GitlabIssueScreen extends StatelessWidget {
               padding: CommonStyle.padding,
               child: Column(
                 children: <Widget>[
-                  Text(data['title']),
+                  Text(issue['title']),
                   Row(
                     children: <Widget>[
-                      Avatar.medium(url: data['author']['avatar_url']),
+                      Avatar.medium(url: issue['author']['avatar_url']),
                       Expanded(
-                        child: Text(data['description']),
+                        child: Text(issue['description']),
                       ),
                     ],
                   ),
-                  Text(timeago.format(DateTime.parse(data['created_at'])))
+                  Text(timeago.format(DateTime.parse(issue['created_at'])))
                 ],
               ),
             ),
