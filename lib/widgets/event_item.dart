@@ -51,6 +51,13 @@ class EventItem extends StatelessWidget {
   TextSpan _buildIssue(int number) =>
       TextSpan(text: '#$number', style: linkStyle);
 
+  Iterable<ActionItem> _getUserActions(List<String> users) {
+    // Remove duplicates
+    return users.toSet().map((user) {
+      return ActionItem.user(user);
+    });
+  }
+
   Widget _buildItem({
     @required BuildContext context,
     @required List<InlineSpan> spans,
@@ -202,9 +209,9 @@ class EventItem extends StatelessWidget {
           iconData: Octicons.repo_forked,
           screenBuilder: (_) => RepositoryScreen(forkeeOwner, forkeeName),
           actionItems: [
-            ActionItem.user(event.actorLogin),
-            ActionItem.user(forkeeOwner),
+            ..._getUserActions([event.actorLogin, forkeeOwner]),
             ActionItem.repository(forkeeOwner, forkeeName),
+            ActionItem.repository(event.repoOwner, event.repoName),
           ],
         );
       case 'ForkApplyEvent':
@@ -238,9 +245,7 @@ class EventItem extends StatelessWidget {
             isPullRequest: isPullRequest,
           ),
           actionItems: [
-            ActionItem.user(event.actorLogin),
-            ActionItem.user(event.repoOwner),
-            ActionItem.repository(event.repoOwner, event.repoName),
+            ..._getUserActions([event.actorLogin, event.repoOwner]),
             ActionItem.issue(event.repoOwner, event.repoName, number,
                 isPullRequest: isPullRequest),
           ],
@@ -262,8 +267,7 @@ class EventItem extends StatelessWidget {
           screenBuilder: (_) =>
               IssueScreen(event.repoOwner, event.repoName, number),
           actionItems: [
-            ActionItem.user(event.actorLogin),
-            ActionItem.user(event.repoOwner),
+            ..._getUserActions([event.actorLogin, event.repoOwner]),
             ActionItem.repository(event.repoOwner, event.repoName),
             ActionItem.issue(event.repoOwner, event.repoName, number),
           ],
@@ -303,8 +307,7 @@ class EventItem extends StatelessWidget {
             isPullRequest: true,
           ),
           actionItems: [
-            ActionItem.user(event.actorLogin),
-            ActionItem.user(event.repoOwner),
+            ..._getUserActions([event.actorLogin, event.repoOwner]),
             ActionItem.repository(event.repoOwner, event.repoName),
             ActionItem.issue(event.repoOwner, event.repoName, number,
                 isPullRequest: true),
@@ -332,8 +335,7 @@ class EventItem extends StatelessWidget {
             isPullRequest: true,
           ),
           actionItems: [
-            ActionItem.user(event.actorLogin),
-            ActionItem.user(event.repoOwner),
+            ..._getUserActions([event.actorLogin, event.repoOwner]),
             ActionItem.repository(event.repoOwner, event.repoName),
             ActionItem.issue(event.repoOwner, event.repoName, number,
                 isPullRequest: true),
@@ -381,8 +383,7 @@ class EventItem extends StatelessWidget {
           url:
               'https://github.com/${event.repoOwner}/${event.repoName}/compare/${event.payload['before']}...${event.payload['head']}',
           actionItems: [
-            ActionItem.user(event.actorLogin),
-            ActionItem.user(event.repoOwner),
+            ..._getUserActions([event.actorLogin, event.repoOwner]),
             ActionItem.repository(event.repoOwner, event.repoName),
           ],
         );
@@ -404,8 +405,7 @@ class EventItem extends StatelessWidget {
           screenBuilder: (_) =>
               RepositoryScreen(event.repoOwner, event.repoName),
           actionItems: [
-            ActionItem.user(event.actorLogin),
-            ActionItem.user(event.repoOwner),
+            ..._getUserActions([event.actorLogin, event.repoOwner]),
             ActionItem.repository(event.repoOwner, event.repoName),
           ],
         );
