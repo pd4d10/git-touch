@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/screens/repository.dart';
-import 'package:git_touch/screens/user.dart';
+import 'package:git_touch/widgets/action_button.dart';
 import 'package:git_touch/widgets/avatar.dart';
 import 'package:primer/primer.dart';
+import 'package:provider/provider.dart';
 import '../utils/utils.dart';
 import 'link.dart';
 
@@ -163,6 +165,12 @@ class RepositoryItem extends StatelessWidget {
     // TODO: text style
     return Link(
       screenBuilder: inRepoScreen ? null : screenBuilder,
+      onLongPress: () async {
+        await Provider.of<ThemeModel>(context).showActions(context, [
+          ActionItem.user(owner),
+          ActionItem.repository(owner, name),
+        ]);
+      },
       child: Container(
         padding: CommonStyle.padding,
         child: Row(

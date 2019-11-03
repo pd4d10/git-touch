@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:fimber/fimber.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:git_touch/widgets/action_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DialogOption<T> {
@@ -288,6 +289,36 @@ class ThemeModel with ChangeNotifier {
         if (groupItem.onClose != null) {
           groupItem.onClose(_selectedItem);
         }
+    }
+  }
+
+  showActions(BuildContext context, List<ActionItem> actionItems) async {
+    final value = await showCupertinoModalPopup<int>(
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoActionSheet(
+          title: Text('Actions'),
+          actions: actionItems.asMap().entries.map((entry) {
+            return CupertinoActionSheetAction(
+              child: Text(entry.value.text),
+              onPressed: () {
+                Navigator.pop(context, entry.key);
+              },
+            );
+          }).toList(),
+          cancelButton: CupertinoActionSheetAction(
+            child: const Text('Cancel'),
+            isDefaultAction: true,
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        );
+      },
+    );
+
+    if (value != null) {
+      actionItems[value].onPress(context);
     }
   }
 }
