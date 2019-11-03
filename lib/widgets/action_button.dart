@@ -41,11 +41,14 @@ class ActionItem {
           Provider.of<ThemeModel>(context)
               .pushRoute(context, (_) => RepositoryScreen(owner, name));
         });
-  ActionItem.issue(String owner, String name, int number)
-      : text = '#$number',
+  ActionItem.issue(String owner, String name, int number,
+      {isPullRequest = false})
+      : text = (isPullRequest ? 'Pull Request' : 'Issue') + ' #$number',
         onPress = ((context) {
-          Provider.of<ThemeModel>(context)
-              .pushRoute(context, (_) => IssueScreen(owner, name, number));
+          Provider.of<ThemeModel>(context).pushRoute(
+              context,
+              (_) => IssueScreen(owner, name, number,
+                  isPullRequest: isPullRequest));
         });
 }
 

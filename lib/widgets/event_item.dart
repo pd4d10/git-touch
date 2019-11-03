@@ -241,7 +241,8 @@ class EventItem extends StatelessWidget {
             ActionItem.user(event.actorLogin),
             ActionItem.user(event.repoOwner),
             ActionItem.repository(event.repoOwner, event.repoName),
-            ActionItem.issue(event.repoOwner, event.repoName, number),
+            ActionItem.issue(event.repoOwner, event.repoName, number,
+                isPullRequest: isPullRequest),
           ],
         );
       case 'IssuesEvent':
@@ -305,7 +306,8 @@ class EventItem extends StatelessWidget {
             ActionItem.user(event.actorLogin),
             ActionItem.user(event.repoOwner),
             ActionItem.repository(event.repoOwner, event.repoName),
-            ActionItem.issue(event.repoOwner, event.repoName, number),
+            ActionItem.issue(event.repoOwner, event.repoName, number,
+                isPullRequest: true),
           ],
         );
       case 'PullRequestReviewEvent':
@@ -333,7 +335,8 @@ class EventItem extends StatelessWidget {
             ActionItem.user(event.actorLogin),
             ActionItem.user(event.repoOwner),
             ActionItem.repository(event.repoOwner, event.repoName),
-            ActionItem.issue(event.repoOwner, event.repoName, number),
+            ActionItem.issue(event.repoOwner, event.repoName, number,
+                isPullRequest: true),
           ],
         );
       case 'PushEvent':
