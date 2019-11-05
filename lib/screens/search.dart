@@ -157,7 +157,7 @@ class _SearchScreenState extends State<SearchScreen> {
               Center(
                 child: Padding(
                   padding: EdgeInsets.symmetric(vertical: 8),
-                  child: CupertinoSegmentedControl(
+                  child: CupertinoSlidingSegmentedControl(
                     groupValue: _activeTab,
                     onValueChanged: _onTabSwitch,
                     children: tabs.asMap().map((key, text) => MapEntry(
