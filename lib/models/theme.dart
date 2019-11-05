@@ -70,7 +70,7 @@ class ThemeModel with ChangeNotifier {
   int get theme => _theme;
   bool get ready => _theme != null;
 
-  init() async {
+  Future<void> init() async {
     var prefs = await SharedPreferences.getInstance();
 
     int v = prefs.getInt(storageKey);

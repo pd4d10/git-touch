@@ -138,7 +138,7 @@ class AuthModel with ChangeNotifier {
     return info;
   }
 
-  void init() async {
+  Future<void> init() async {
     // Listen scheme
     _sub = getUriLinksStream().listen(_onSchemeDetected, onError: (err) {
       Fimber.e('getUriLinksStream failed', ex: err);

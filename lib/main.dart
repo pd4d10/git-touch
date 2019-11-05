@@ -30,17 +30,6 @@ class _HomeState extends State<Home> {
   int active = 0;
   // String login;
 
-  @override
-  void initState() {
-    super.initState();
-    nextTick(() {
-      // FIXME:
-      Provider.of<ThemeModel>(context).init();
-      Provider.of<AuthModel>(context).init();
-      Provider.of<CodeModel>(context).init();
-    });
-  }
-
   Widget _buildNotificationIcon(BuildContext context, bool isActive) {
     final iconData = isActive ? Icons.notifications : Icons.notifications_none;
     int count = Provider.of<NotificationModel>(context).count;
@@ -201,22 +190,8 @@ class _HomeState extends State<Home> {
   }
 }
 
-class App extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(builder: (context) => NotificationModel()),
-        ChangeNotifierProvider(builder: (context) => ThemeModel()),
-        ChangeNotifierProvider(builder: (context) => AuthModel()),
-        ChangeNotifierProvider(builder: (context) => CodeModel()),
-      ],
-      child: Home(),
-    );
-  }
-}
-
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   // Platform messages may fail, so we use a try/catch PlatformException.
 
   // try {
@@ -236,5 +211,23 @@ void main() async {
   // TODO: Later, should check to enable debug log in debug build only
   Fimber.plantTree(DebugTree());
 
-  runApp(App());
+  final notificationModel = NotificationModel();
+  final themeModel = ThemeModel();
+  final authModel = AuthModel();
+  final codeModel = CodeModel();
+  await Future.wait([
+    themeModel.init(),
+    authModel.init(),
+    codeModel.init(),
+  ]);
+
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(builder: (context) => notificationModel),
+      ChangeNotifierProvider(builder: (context) => themeModel),
+      ChangeNotifierProvider(builder: (context) => authModel),
+      ChangeNotifierProvider(builder: (context) => codeModel),
+    ],
+    child: Home(),
+  ));
 }
