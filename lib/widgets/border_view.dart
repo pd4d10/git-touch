@@ -1,28 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:primer/primer.dart';
+import 'package:git_touch/models/theme.dart';
+import 'package:provider/provider.dart';
 
 class BorderView extends StatelessWidget {
   final double height;
-  final Color color;
   final double leftPadding;
 
-  const BorderView({
+  BorderView({
     this.height = 1,
-    this.color = PrimerColors.gray100,
     this.leftPadding = 0,
   });
 
   @override
   Widget build(BuildContext context) {
-    final b = SizedBox(
-      height: height,
-      child: DecoratedBox(
-        decoration: BoxDecoration(color: color),
-      ),
-    );
-    if (leftPadding == 0) {
-      return b;
-    }
+    final theme = Provider.of<ThemeModel>(context);
 
     return Row(
       children: <Widget>[
@@ -30,10 +21,17 @@ class BorderView extends StatelessWidget {
           width: leftPadding,
           height: height,
           child: DecoratedBox(
-            decoration: BoxDecoration(color: PrimerColors.white),
+            decoration: BoxDecoration(color: theme.palette.background),
           ),
         ),
-        Expanded(child: b),
+        Expanded(
+          child: SizedBox(
+            height: height,
+            child: DecoratedBox(
+              decoration: BoxDecoration(color: theme.palette.border),
+            ),
+          ),
+        ),
       ],
     );
 

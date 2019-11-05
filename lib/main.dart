@@ -131,40 +131,41 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    var settings = Provider.of<AuthModel>(context);
-    var themData = ThemeData(
+    final authModel = Provider.of<AuthModel>(context);
+    final themeModel = Provider.of<ThemeModel>(context);
+
+    final themData = ThemeData(
+      brightness: themeModel.brightness,
       primaryColor: PrimerColors.white,
       accentColor: PrimerColors.blue500,
     );
 
     // TODO:
-    if (!settings.ready || !Provider.of<ThemeModel>(context).ready) {
+    if (!authModel.ready || !Provider.of<ThemeModel>(context).ready) {
       return MaterialApp(theme: themData, home: Scaffold(body: Text('a')));
     }
 
     // Fimber.d(settings.activeLogin);
-    if (settings.activeAccount == null) {
+    if (authModel.activeAccount == null) {
       return MaterialApp(theme: themData, home: LoginScreen());
     }
 
-    switch (Provider.of<ThemeModel>(context).theme) {
+    switch (themeModel.theme) {
       case AppThemeType.cupertino:
         return CupertinoApp(
-          home: CupertinoTheme(
-            data: CupertinoThemeData(
-              primaryColor: PrimerColors.blue500,
-            ),
-            child: CupertinoTabScaffold(
-              tabBar: CupertinoTabBar(
-                items: _navigationItems,
-                // backgroundColor: PrimerColors.gray000, // TODO:
-              ),
-              tabBuilder: (context, index) {
-                return CupertinoTabView(builder: (context) {
+          theme: CupertinoThemeData(
+            brightness: themeModel.brightness,
+            primaryColor: PrimerColors.blue500,
+          ),
+          home: CupertinoTabScaffold(
+            tabBar: CupertinoTabBar(items: _navigationItems),
+            tabBuilder: (context, index) {
+              return CupertinoTabView(
+                builder: (context) {
                   return _buildScreen(index);
-                });
-              },
-            ),
+                },
+              );
+            },
           ),
         );
       default:

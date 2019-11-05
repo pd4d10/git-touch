@@ -33,19 +33,17 @@ class Link extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Provider.of<ThemeModel>(context).theme;
+
     return Material(
       child: Ink(
-        color: Colors.white,
+        color: CupertinoTheme.of(context).scaffoldBackgroundColor,
         child: InkWell(
           child: child,
-          // splashColor:
-          //     theme == AppThemeType.cupertino ? Colors.transparent : null,
+          splashColor:
+              theme == AppThemeType.cupertino ? Colors.transparent : null,
           onTap: () => _onTap(context),
-          onLongPress: () {
-            if (onLongPress != null) {
-              onLongPress();
-            }
-          },
+          onLongPress: onLongPress,
         ),
       ),
     );

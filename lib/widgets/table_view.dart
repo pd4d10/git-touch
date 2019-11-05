@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/border_view.dart';
 import 'package:primer/primer.dart';
+import 'package:provider/provider.dart';
 import 'link.dart';
 
 class TableViewHeader extends StatelessWidget {
@@ -53,72 +55,76 @@ class TableView extends StatelessWidget {
 
   TableView({this.headerText, @required this.items, this.hasIcon = false});
 
-  Widget _buildItem(TableViewItem item) {
-    if (item == null) return null;
-
-    var leftWidget = item.leftWidget;
-    if (leftWidget == null && hasIcon) {
-      leftWidget = Icon(
-        item.leftIconData,
-        color: PrimerColors.blue500,
-        size: 18,
-      );
-    }
-    // Container(
-    //   width: 24,
-    //   height: 24,
-    //   // decoration: BoxDecoration(
-    //   //     borderRadius: BorderRadius.circular(4), color: PrimerColors.blue400),
-    //   child: Icon(iconData, size: 24, color: PrimerColors.gray600),
-    // )
-
-    var widget = DefaultTextStyle(
-      style: TextStyle(fontSize: 16, color: PrimerColors.gray900),
-      overflow: TextOverflow.ellipsis,
-      child: Container(
-        height: 44,
-        child: Row(
-          children: [
-            SizedBox(width: _leftPadding, child: leftWidget),
-            Expanded(child: item.text),
-            if (item.rightWidget != null) ...[
-              DefaultTextStyle(
-                style: TextStyle(fontSize: 16, color: PrimerColors.gray500),
-                child: item.rightWidget,
-              ),
-              SizedBox(width: 6)
-            ],
-            if ((item.onTap != null ||
-                    item.screenBuilder != null ||
-                    item.url != null) &&
-                !item.hideRightChevron)
-              Icon(CupertinoIcons.right_chevron,
-                  size: 20, color: PrimerColors.gray300)
-            else
-              SizedBox(width: 2),
-            SizedBox(width: 8),
-          ],
-        ),
-      ),
-    );
-
-    return Link(
-      onTap: item.onTap,
-      screenBuilder: item.screenBuilder,
-      url: item.url,
-      child: widget,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
+    final themeModel = Provider.of<ThemeModel>(context);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         if (headerText != null) TableViewHeader(headerText),
         CommonStyle.border,
-        ...join(BorderView(leftPadding: _leftPadding),
-            items.map(_buildItem).toList()),
+        ...join(
+            BorderView(leftPadding: _leftPadding),
+            items.map((item) {
+              if (item == null) return null;
+
+              var leftWidget = item.leftWidget;
+              if (leftWidget == null && hasIcon) {
+                leftWidget = Icon(
+                  item.leftIconData,
+                  color: themeModel.palette.primary,
+                  size: 18,
+                );
+              }
+              // Container(
+              //   width: 24,
+              //   height: 24,
+              //   // decoration: BoxDecoration(
+              //   //     borderRadius: BorderRadius.circular(4), color: PrimerColors.blue400),
+              //   child: Icon(iconData, size: 24, color: PrimerColors.gray600),
+              // )
+
+              var widget = DefaultTextStyle(
+                style: TextStyle(fontSize: 16, color: themeModel.palette.text),
+                overflow: TextOverflow.ellipsis,
+                child: Container(
+                  height: 44,
+                  child: Row(
+                    children: [
+                      SizedBox(width: _leftPadding, child: leftWidget),
+                      Expanded(child: item.text),
+                      if (item.rightWidget != null) ...[
+                        DefaultTextStyle(
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: themeModel.palette.tertiaryText,
+                          ),
+                          child: item.rightWidget,
+                        ),
+                        SizedBox(width: 6)
+                      ],
+                      if ((item.onTap != null ||
+                              item.screenBuilder != null ||
+                              item.url != null) &&
+                          !item.hideRightChevron)
+                        Icon(CupertinoIcons.right_chevron,
+                            size: 20, color: themeModel.palette.tertiaryText)
+                      else
+                        SizedBox(width: 2),
+                      SizedBox(width: 8),
+                    ],
+                  ),
+                ),
+              );
+
+              return Link(
+                onTap: item.onTap,
+                screenBuilder: item.screenBuilder,
+                url: item.url,
+                child: widget,
+              );
+            }).toList()),
         CommonStyle.border,
       ],
     );

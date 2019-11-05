@@ -4,6 +4,7 @@ import 'package:fimber/fimber.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:git_touch/widgets/action_button.dart';
+import 'package:primer/primer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DialogOption<T> {
@@ -63,12 +64,63 @@ class StaticRoute extends PageRouteBuilder {
         );
 }
 
+class Palette {
+  Color primary;
+  Color text;
+  Color secondaryText;
+  Color tertiaryText;
+  Color background;
+  Color border;
+
+  Palette({
+    this.primary,
+    this.text,
+    this.secondaryText,
+    this.tertiaryText,
+    this.background,
+    this.border,
+  });
+}
+
 class ThemeModel with ChangeNotifier {
   static const storageKey = 'theme';
 
   int _theme;
   int get theme => _theme;
   bool get ready => _theme != null;
+
+  Brightness _brightness = Brightness.dark;
+  Brightness get brightness => _brightness;
+  Future<void> setBrightness(Brightness v) async {
+    // TODO: Save
+    _brightness = v;
+    notifyListeners();
+  }
+
+  Palette get palette {
+    switch (brightness) {
+      case Brightness.light:
+        return Palette(
+          primary: PrimerColors.blue500,
+          text: PrimerColors.gray900,
+          secondaryText: PrimerColors.gray700,
+          tertiaryText: PrimerColors.gray500,
+          background: PrimerColors.white,
+          border: PrimerColors.gray100,
+        );
+      case Brightness.dark:
+        return Palette(
+          primary: PrimerColors.blue500,
+          text: PrimerColors.gray400,
+          secondaryText: PrimerColors.gray500,
+          tertiaryText: PrimerColors.gray600,
+          background: PrimerColors.black,
+          border: PrimerColors.gray900,
+        );
+      default:
+        return null;
+    }
+  }
 
   Future<void> init() async {
     var prefs = await SharedPreferences.getInstance();

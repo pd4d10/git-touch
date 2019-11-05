@@ -25,7 +25,7 @@ class StorageKeys {
 
 class CommonStyle {
   static const padding = EdgeInsets.all(12);
-  static const border = BorderView();
+  static final border = BorderView();
   static const verticalGap = SizedBox(height: 18);
   static final monospace = Platform.isIOS ? 'Menlo' : 'monospace'; // FIXME:
 }
@@ -87,7 +87,7 @@ Tuple2<String, String> parseRepositoryFullName(String fullName) {
   return Tuple2(ls[0], ls[1]);
 }
 
-class Palette {
+class GithubPalette {
   static const green = Color(0xff2cbe4e);
 }
 

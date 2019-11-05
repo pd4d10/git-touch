@@ -5,7 +5,6 @@ import 'package:git_touch/screens/repository.dart';
 import 'package:git_touch/widgets/action_button.dart';
 import 'package:provider/provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
-import 'package:primer/primer.dart';
 import '../screens/issue.dart';
 import '../screens/user.dart';
 import 'avatar.dart';
@@ -42,16 +41,18 @@ class EventItem extends StatelessWidget {
 
   EventItem(this.event);
 
-  static const linkStyle = TextStyle(
-    color: PrimerColors.blue500,
-    fontWeight: FontWeight.w600,
-  );
+  TextSpan _buildLinkSpan(ThemeModel theme, String text) {
+    return TextSpan(
+      text: text,
+      style: TextStyle(
+        color: theme.palette.primary,
+        fontWeight: FontWeight.w600,
+      ),
+    );
+  }
 
-  TextSpan _buildRepo() =>
-      TextSpan(text: '${event.repoOwner}/${event.repoName}', style: linkStyle);
-
-  TextSpan _buildIssue(int number) =>
-      TextSpan(text: '#$number', style: linkStyle);
+  TextSpan _buildRepo(ThemeModel theme) =>
+      _buildLinkSpan(theme, '${event.repoOwner}/${event.repoName}');
 
   Iterable<ActionItem> _getUserActions(List<String> users) {
     // Remove duplicates
@@ -70,6 +71,8 @@ class EventItem extends StatelessWidget {
     String url,
     List<ActionItem> actionItems,
   }) {
+    final theme = Provider.of<ThemeModel>(context);
+
     if (detailWidget == null && detail != null) {
       detailWidget =
           Text(detail.trim(), overflow: TextOverflow.ellipsis, maxLines: 5);
@@ -105,11 +108,11 @@ class EventItem extends StatelessWidget {
                         text: TextSpan(
                           style: TextStyle(
                             fontSize: 16,
-                            color: PrimerColors.gray900,
+                            color: theme.palette.text,
                             fontWeight: FontWeight.w500,
                           ),
                           children: [
-                            TextSpan(text: event.actorLogin, style: linkStyle),
+                            _buildLinkSpan(theme, event.actorLogin),
                             ...spans,
                           ],
                         ),
@@ -117,18 +120,19 @@ class EventItem extends StatelessWidget {
                       if (detailWidget != null)
                         DefaultTextStyle(
                           style: TextStyle(
-                              color: PrimerColors.gray900, fontSize: 14),
+                              color: theme.palette.text, fontSize: 14),
                           child: detailWidget,
                         ),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Icon(iconData, color: PrimerColors.gray500, size: 14),
+                          Icon(iconData,
+                              color: theme.palette.tertiaryText, size: 14),
                           SizedBox(width: 4),
                           Text(timeago.format(event.createdAt),
                               style: TextStyle(
                                 fontSize: 13,
-                                color: PrimerColors.gray500,
+                                color: theme.palette.tertiaryText,
                               ))
                         ],
                       ),
@@ -145,12 +149,14 @@ class EventItem extends StatelessWidget {
 
   @override
   build(BuildContext context) {
+    final theme = Provider.of<ThemeModel>(context);
+
     var defaultItem = _buildItem(
       context: context,
       spans: [
         TextSpan(
           text: ' ' + event.type,
-          style: TextStyle(color: PrimerColors.blue500),
+          style: TextStyle(color: theme.palette.primary),
         )
       ],
       iconData: Octicons.octoface,
@@ -179,9 +185,9 @@ class EventItem extends StatelessWidget {
           context: context,
           spans: [
             TextSpan(text: ' forked '),
-            TextSpan(text: '$forkeeOwner/$forkeeName', style: linkStyle),
+            _buildLinkSpan(theme, '$forkeeOwner/$forkeeName'),
             TextSpan(text: ' from '),
-            _buildRepo(),
+            _buildRepo(theme),
           ],
           iconData: Octicons.repo_forked,
           screenBuilder: (_) => RepositoryScreen(forkeeOwner, forkeeName),
@@ -208,9 +214,9 @@ class EventItem extends StatelessWidget {
           context: context,
           spans: [
             TextSpan(text: ' commented on $resource '),
-            _buildIssue(number),
+            _buildLinkSpan(theme, '#$number'),
             TextSpan(text: ' at '),
-            _buildRepo(),
+            _buildRepo(theme),
             // TextSpan(text: event.payload['comment']['body'])
           ],
           detail: event.payload['comment']['body'],
@@ -235,9 +241,9 @@ class EventItem extends StatelessWidget {
           context: context,
           spans: [
             TextSpan(text: ' $action issue '),
-            _buildIssue(number),
+            _buildLinkSpan(theme, '#$number'),
             TextSpan(text: ' at '),
-            _buildRepo(),
+            _buildRepo(theme),
           ],
           iconData: Octicons.issue_opened,
           detail: event.payload['issue']['title'],
@@ -271,9 +277,9 @@ class EventItem extends StatelessWidget {
           context: context,
           spans: [
             TextSpan(text: ' $action pull request '),
-            _buildIssue(number),
+            _buildLinkSpan(theme, '#$number'),
             TextSpan(text: ' at '),
-            _buildRepo(),
+            _buildRepo(theme),
           ],
           iconData: Octicons.git_pull_request,
           detail: event.payload['pull_request']['title'],
@@ -300,9 +306,9 @@ class EventItem extends StatelessWidget {
           context: context,
           spans: [
             TextSpan(text: ' reviewed pull request '),
-            _buildIssue(number),
+            _buildLinkSpan(theme, '#$number'),
             TextSpan(text: ' at '),
-            _buildRepo(),
+            _buildRepo(theme),
           ],
           detail: event.payload['comment']['body'],
           screenBuilder: (_) => IssueScreen(
@@ -330,7 +336,7 @@ class EventItem extends StatelessWidget {
               child: PrimerBranchName(ref.replaceFirst('refs/heads/', '')),
             ),
             TextSpan(text: ' at '),
-            _buildRepo()
+            _buildRepo(theme)
           ],
           iconData: Octicons.repo_push,
           detailWidget: Column(
@@ -340,7 +346,7 @@ class EventItem extends StatelessWidget {
                   Text(
                     (commit['sha'] as String).substring(0, 7),
                     style: TextStyle(
-                      color: PrimerColors.blue500,
+                      color: theme.palette.primary,
                       fontSize: 13,
                       fontFamily: CommonStyle.monospace,
                     ),
@@ -377,7 +383,7 @@ class EventItem extends StatelessWidget {
       case 'WatchEvent':
         return _buildItem(
           context: context,
-          spans: [TextSpan(text: ' starred '), _buildRepo()],
+          spans: [TextSpan(text: ' starred '), _buildRepo(theme)],
           iconData: Octicons.star,
           screenBuilder: (_) =>
               RepositoryScreen(event.repoOwner, event.repoName),

@@ -211,15 +211,17 @@ class RepositoryScreen extends StatelessWidget {
                   child: SizedBox(
                     height: 10,
                     child: Row(
-                        children: join(
-                            SizedBox(width: 1),
-                            (repo['languages']['edges'] as List)
-                                .map((lang) => Container(
-                                    color: convertColor(lang['node']['color']),
-                                    width: langWidth *
-                                        lang['size'] /
-                                        repo['languages']['totalSize']))
-                                .toList())),
+                      children: join(
+                        SizedBox(width: 1),
+                        (repo['languages']['edges'] as List)
+                            .map((lang) => Container(
+                                color: convertColor(lang['node']['color']),
+                                width: langWidth *
+                                    lang['size'] /
+                                    repo['languages']['totalSize']))
+                            .toList(),
+                      ),
+                    ),
                   ),
                 ),
               ),

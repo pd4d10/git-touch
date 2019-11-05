@@ -89,79 +89,10 @@ class RepositoryItem extends StatelessWidget {
     return Octicons.repo;
   }
 
-  Widget _buildStatus() {
-    return DefaultTextStyle(
-      style: TextStyle(
-        color: PrimerColors.gray800,
-        fontSize: 13,
-        fontWeight: FontWeight.w500,
-      ),
-      child: Row(
-        children: <Widget>[
-          Expanded(
-            child: Row(children: <Widget>[
-              Container(
-                width: 10,
-                height: 10,
-                decoration: BoxDecoration(
-                  color: convertColor(primaryLanguageColor),
-                  shape: BoxShape.circle,
-                ),
-              ),
-              SizedBox(width: 4),
-              Text(primaryLanguageName ?? 'Unknown'),
-            ]),
-          ),
-          Expanded(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Icon(Octicons.star, size: 14, color: PrimerColors.gray600),
-                Text(numberFormat.format(starCount)),
-              ],
-            ),
-          ),
-          Expanded(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Icon(Octicons.repo_forked,
-                    size: 14, color: PrimerColors.gray600),
-                Text(numberFormat.format(forkCount)),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildTopics() {
-    // TODO: link
-    return Wrap(
-      spacing: 4,
-      runSpacing: 4,
-      children: topics.map((node) {
-        return Container(
-          padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-          decoration: BoxDecoration(
-            color: PrimerColors.blue000,
-            borderRadius: BorderRadius.all(Radius.circular(4)),
-          ),
-          child: Text(
-            node['topic']['name'],
-            style: TextStyle(
-              fontSize: 12,
-              color: PrimerColors.blue500,
-            ),
-          ),
-        );
-      }).toList(),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
+    final theme = Provider.of<ThemeModel>(context);
+
     // TODO: text style
     return Link(
       screenBuilder: inRepoScreen ? null : screenBuilder,
@@ -189,7 +120,7 @@ class RepositoryItem extends StatelessWidget {
                         owner + ' / ',
                         style: TextStyle(
                           fontSize: inRepoScreen ? 18 : 16,
-                          color: PrimerColors.blue500,
+                          color: theme.palette.primary,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -197,22 +128,91 @@ class RepositoryItem extends StatelessWidget {
                         name,
                         style: TextStyle(
                           fontSize: inRepoScreen ? 18 : 16,
-                          color: PrimerColors.blue500,
+                          color: theme.palette.primary,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
                       Expanded(child: Container()),
-                      Icon(iconData, size: 18, color: PrimerColors.gray600),
+                      Icon(iconData,
+                          size: 18, color: theme.palette.tertiaryText),
                     ],
                   ),
                   if (description != null && description.isNotEmpty)
                     Text(
                       description,
                       style: TextStyle(
-                          color: PrimerColors.gray700,
+                          color: theme.palette.secondaryText,
                           fontSize: inRepoScreen ? 15 : 14),
                     ),
-                  if (inRepoScreen) _buildTopics() else _buildStatus(),
+                  if (inRepoScreen)
+                    // TODO: link
+                    Wrap(
+                      spacing: 4,
+                      runSpacing: 4,
+                      children: topics.map((node) {
+                        return Container(
+                          padding:
+                              EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                          decoration: BoxDecoration(
+                            color: PrimerColors.blue000,
+                            borderRadius: BorderRadius.all(Radius.circular(4)),
+                          ),
+                          child: Text(
+                            node['topic']['name'],
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: theme.palette.primary,
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                    )
+                  else
+                    DefaultTextStyle(
+                      style: TextStyle(
+                        color: theme.palette.text,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      child: Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: Row(children: <Widget>[
+                              Container(
+                                width: 10,
+                                height: 10,
+                                decoration: BoxDecoration(
+                                  color: convertColor(primaryLanguageColor),
+                                  shape: BoxShape.circle,
+                                ),
+                              ),
+                              SizedBox(width: 4),
+                              Text(primaryLanguageName ?? 'Unknown'),
+                            ]),
+                          ),
+                          Expanded(
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Icon(Octicons.star,
+                                    size: 14, color: theme.palette.text),
+                                Text(numberFormat.format(starCount)),
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Icon(Octicons.repo_forked,
+                                    size: 14, color: theme.palette.text),
+                                Text(numberFormat.format(forkCount)),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                 ]),
               ),
             ),

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/utils/utils.dart';
-import 'package:primer/primer.dart';
+import 'package:provider/provider.dart';
 import 'link.dart';
 
 class EntryItem extends StatelessWidget {
@@ -13,6 +14,8 @@ class EntryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Provider.of<ThemeModel>(context);
+
     return Expanded(
       child: Link(
         child: Container(
@@ -21,13 +24,17 @@ class EntryItem extends StatelessWidget {
             children: <Widget>[
               Text(
                 numberFormat.format(count),
-                style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
+                style: TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w600,
+                  color: theme.palette.text,
+                ),
               ),
               Text(
                 text,
                 style: TextStyle(
                   fontSize: 12,
-                  color: PrimerColors.gray700,
+                  color: theme.palette.secondaryText,
                   fontWeight: FontWeight.w500,
                 ),
               )

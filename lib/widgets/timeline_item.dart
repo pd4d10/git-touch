@@ -107,7 +107,7 @@ class TimelineItem extends StatelessWidget {
         return TimelineEventItem(
           actor: payload['actor']['login'],
           iconData: Octicons.primitive_dot,
-          iconColor: Palette.green,
+          iconColor: GithubPalette.green,
           textSpan: TextSpan(
               text: ' referenced this on #' +
                   payload['source']['number'].toString()),
@@ -126,7 +126,7 @@ class TimelineItem extends StatelessWidget {
         return TimelineEventItem(
           actor: payload['actor']['login'],
           iconData: Octicons.primitive_dot,
-          iconColor: Palette.green,
+          iconColor: GithubPalette.green,
           textSpan: TextSpan(text: ' reopened this '),
           item: payload,
         );

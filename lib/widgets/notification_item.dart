@@ -37,7 +37,7 @@ class _NotificationItemState extends State<NotificationItem> {
       case 'Issue':
         switch (payload.state) {
           case 'OPEN':
-            return _buildIcon(Octicons.issue_opened, Palette.green);
+            return _buildIcon(Octicons.issue_opened, GithubPalette.green);
           case 'CLOSED':
             return _buildIcon(Octicons.issue_closed, PrimerColors.red600);
           default:
@@ -47,7 +47,7 @@ class _NotificationItemState extends State<NotificationItem> {
       case 'PullRequest':
         switch (payload.state) {
           case 'OPEN':
-            return _buildIcon(Octicons.git_pull_request, Palette.green);
+            return _buildIcon(Octicons.git_pull_request, GithubPalette.green);
           case 'CLOSED':
             return _buildIcon(Octicons.git_pull_request, PrimerColors.red600);
           case 'MERGED':

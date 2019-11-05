@@ -62,7 +62,7 @@ class IssueItem extends StatelessWidget {
                     isPullRequest
                         ? Octicons.git_pull_request
                         : Octicons.issue_opened,
-                    color: Palette.green,
+                    color: GithubPalette.green,
                     size: 18),
                 SizedBox(width: 6),
                 Expanded(

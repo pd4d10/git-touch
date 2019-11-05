@@ -5,13 +5,11 @@ class SingleScaffold extends StatelessWidget {
   final Widget title;
   final Widget body;
   final Widget action;
-  final Color backgroundColor;
 
   SingleScaffold({
     @required this.title,
     @required this.body,
     this.action,
-    this.backgroundColor,
   });
 
   @override
@@ -20,7 +18,6 @@ class SingleScaffold extends StatelessWidget {
       title: title,
       body: Scrollbar(child: SingleChildScrollView(child: body)),
       action: action,
-      backgroundColor: backgroundColor,
     );
   }
 }

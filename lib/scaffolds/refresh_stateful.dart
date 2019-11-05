@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:git_touch/scaffolds/common.dart';
 import 'package:git_touch/scaffolds/utils.dart';
-import 'package:primer/primer.dart';
 
 class RefreshStatefulScaffold<T> extends StatefulWidget {
   final Widget title;
@@ -64,7 +63,6 @@ class _RefreshStatefulScaffoldState<T>
   @override
   Widget build(BuildContext context) {
     return CommonScaffold(
-      backgroundColor: _data == null ? Colors.white : PrimerColors.gray100,
       title: widget.title,
       body: RefreshWrapper(
         onRefresh: _refresh,
