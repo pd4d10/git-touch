@@ -114,7 +114,8 @@ class ObjectScreen extends StatelessWidget {
       case 'markdown':
         return Padding(
           padding: CommonStyle.padding,
-          child: MarkdownView(payload['text']),
+          child: MarkdownView(payload['text'],
+              basePaths: [owner, name, branch, ...paths]),
         );
       case 'svg':
         return SvgPicture.network(rawUrl);

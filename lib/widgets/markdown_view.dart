@@ -2,17 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/screens/issue.dart';
+import 'package:git_touch/screens/object.dart';
 import 'package:git_touch/screens/repository.dart';
 import 'package:git_touch/screens/user.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:primer/primer.dart';
 import 'package:provider/provider.dart';
 import 'package:uri/uri.dart';
+import 'package:path/path.dart' as path;
 
 class MarkdownView extends StatelessWidget {
   final String text;
+  final List<String> basePaths;
 
-  MarkdownView(this.text);
+  MarkdownView(this.text, {this.basePaths});
 
   static const _basicStyle =
       TextStyle(fontSize: 16, color: PrimerColors.gray900, height: 1.5);
@@ -29,6 +32,27 @@ class MarkdownView extends StatelessWidget {
   Widget build(BuildContext context) {
     return MarkdownBody(
       onTapLink: (url) {
+        if (basePaths != null &&
+            !url.startsWith('https://') &&
+            !url.startsWith('http://')) {
+          // Treat as relative path
+
+          final x = basePaths.sublist(3).join('/');
+          var y = path.join(x, url);
+          if (y.startsWith('/')) y = y.substring(1);
+          final paths = path.split(y);
+
+          return Provider.of<ThemeModel>(context).pushRoute(
+            context,
+            (_) => ObjectScreen(
+              basePaths[0],
+              basePaths[1],
+              basePaths[2],
+              paths: paths,
+            ),
+          );
+        }
+
         // TODO: Relative paths
         if (url.startsWith('https://github.com')) {
           Map<String, String> m;

@@ -334,7 +334,10 @@ class RepositoryScreen extends StatelessWidget {
               Container(
                 padding: CommonStyle.padding,
                 color: Colors.white,
-                child: MarkdownView(readme),
+                child: MarkdownView(
+                  readme,
+                  basePaths: [owner, name, branch ?? 'master'], // TODO:
+                ),
               ),
             CommonStyle.verticalGap,
           ],
