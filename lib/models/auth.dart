@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'dart:convert';
 import 'dart:async';
+// import 'package:artemis/client.dart';
+// import 'package:gql_http_link/gql_http_link.dart';
 import 'package:fimber/fimber.dart';
 import 'package:http/http.dart' as http;
 import 'package:uni_links/uni_links.dart';
@@ -178,6 +180,20 @@ class AuthModel with ChangeNotifier {
   // http timeout
   var _timeoutDuration = Duration(seconds: 10);
   // var _timeoutDuration = Duration(seconds: 1);
+
+  // ArtemisClient _gqlClient;
+  // ArtemisClient get gqlClient {
+  //   if (token == null) return null;
+
+  //   if (_gqlClient == null) {
+  //     _gqlClient = ArtemisClient.fromLink(
+  //       HttpLink(_apiPrefix + '/graphql',
+  //           defaultHeaders: {HttpHeaders.authorizationHeader: 'token $token'}),
+  //     );
+  //   }
+
+  //   return _gqlClient;
+  // }
 
   Future<dynamic> query(String query, [String _token]) async {
     if (_token == null) {

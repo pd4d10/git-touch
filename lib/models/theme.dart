@@ -89,7 +89,7 @@ class ThemeModel with ChangeNotifier {
   int get theme => _theme;
   bool get ready => _theme != null;
 
-  Brightness _brightness = Brightness.dark;
+  Brightness _brightness = Brightness.light;
   Brightness get brightness => _brightness;
   Future<void> setBrightness(Brightness v) async {
     // TODO: Save
