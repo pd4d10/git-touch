@@ -116,11 +116,11 @@ class MarkdownView extends StatelessWidget {
         img: _basicStyle,
         blockSpacing: 16,
         listIndent: 32,
-        blockquotePadding: 16, // FIXME: only horizontal
+        blockquotePadding: EdgeInsets.symmetric(horizontal: 16),
         blockquoteDecoration: BoxDecoration(
           border: Border(left: BorderSide(color: Color(0xffdfe2e5), width: 4)),
         ),
-        codeblockPadding: 16,
+        codeblockPadding: EdgeInsets.all(16),
         codeblockDecoration: BoxDecoration(
           color: PrimerColors.gray100,
           borderRadius: BorderRadius.circular(3),
