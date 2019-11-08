@@ -87,7 +87,9 @@ Tuple2<String, String> parseRepositoryFullName(String fullName) {
 }
 
 class GithubPalette {
-  static const green = Color(0xff2cbe4e);
+  static const open = Color(0xff2cbe4e);
+  static const closed = PrimerColors.red600;
+  static const merged = PrimerColors.purple500;
 }
 
 // final pageSize = 5;

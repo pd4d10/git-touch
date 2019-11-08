@@ -113,7 +113,7 @@ class TimelineItem extends StatelessWidget {
         return TimelineEventItem(
           actor: payload['actor']['login'],
           iconData: Octicons.primitive_dot,
-          iconColor: GithubPalette.green,
+          iconColor: GithubPalette.open,
           textSpan: TextSpan(
               text: ' referenced this on #' +
                   payload['source']['number'].toString()),
@@ -123,7 +123,7 @@ class TimelineItem extends StatelessWidget {
         return TimelineEventItem(
           actor: payload['actor']['login'],
           iconData: Octicons.circle_slash,
-          iconColor: PrimerColors.red600,
+          iconColor: GithubPalette.closed,
           textSpan: TextSpan(text: ' closed this '),
           item: payload,
         );
@@ -132,7 +132,7 @@ class TimelineItem extends StatelessWidget {
         return TimelineEventItem(
           actor: payload['actor']['login'],
           iconData: Octicons.primitive_dot,
-          iconColor: GithubPalette.green,
+          iconColor: GithubPalette.open,
           textSpan: TextSpan(text: ' reopened this '),
           item: payload,
         );
@@ -246,7 +246,7 @@ class TimelineItem extends StatelessWidget {
       case 'PullRequestReview':
         return TimelineEventItem(
           actor: payload['author']['login'],
-          iconColor: PrimerColors.green500,
+          iconColor: GithubPalette.open,
           iconData: Octicons.check,
           textSpan: _buildReviewText(context, payload),
           item: payload,
@@ -258,7 +258,7 @@ class TimelineItem extends StatelessWidget {
         return TimelineEventItem(
           actor: payload['actor']['login'],
           iconData: Octicons.git_merge,
-          iconColor: PrimerColors.purple500,
+          iconColor: GithubPalette.merged,
           textSpan: TextSpan(children: [
             TextSpan(text: ' merged commit '),
             TextSpan(text: payload['commit']['oid'].substring(0, 8)),

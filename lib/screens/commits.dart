@@ -72,9 +72,9 @@ class CommitsScreen extends StatelessWidget {
     var size = 18.0;
     switch (state) {
       case 'SUCCESS':
-        return Icon(Octicons.check, color: PrimerColors.green500, size: size);
+        return Icon(Octicons.check, color: GithubPalette.open, size: size);
       case 'FAILURE':
-        return Icon(Octicons.x, color: PrimerColors.red600, size: size);
+        return Icon(Octicons.x, color: GithubPalette.closed, size: size);
       default:
         return Container();
     }
