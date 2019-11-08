@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:github_contributions/github_contributions.dart';
+import 'package:provider/provider.dart';
 
 class UserContributions extends StatelessWidget {
   final List<ContributionsInfo> contributions;
@@ -9,6 +11,8 @@ class UserContributions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Provider.of<ThemeModel>(context);
+
     final row = Row(
       children: <Widget>[],
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -16,13 +20,16 @@ class UserContributions extends StatelessWidget {
     Column column;
 
     contributions.asMap().forEach((i, v) {
-      var rect = SizedBox(
+      var color = convertColor(v.color);
+      if (theme.brightness == Brightness.dark) {
+        color = Color.fromRGBO(
+            0xff - color.red, 0xff - color.green, 0xff - color.blue, 1);
+      }
+      final rect = SizedBox(
         width: 10,
         height: 10,
         child: DecoratedBox(
-          decoration: BoxDecoration(
-            color: convertColor(v.color),
-          ),
+          decoration: BoxDecoration(color: color),
         ),
       );
 
@@ -37,7 +44,7 @@ class UserContributions extends StatelessWidget {
     });
 
     return Container(
-      color: Colors.white,
+      color: theme.palette.background,
       padding: CommonStyle.padding,
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
