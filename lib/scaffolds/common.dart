@@ -18,7 +18,9 @@ class CommonScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    switch (Provider.of<ThemeModel>(context).theme) {
+    final theme = Provider.of<ThemeModel>(context);
+
+    switch (theme.theme) {
       case AppThemeType.cupertino:
         return CupertinoPageScaffold(
           navigationBar: CupertinoNavigationBar(
@@ -30,6 +32,7 @@ class CommonScaffold extends StatelessWidget {
       default:
         return Scaffold(
           appBar: AppBar(
+            brightness: theme.brightness,
             title: title,
             actions: [
               if (action != null) action,
