@@ -17,12 +17,6 @@ class MarkdownView extends StatelessWidget {
 
   MarkdownView(this.text, {this.basePaths});
 
-  static const _basicStyle =
-      TextStyle(fontSize: 16, color: PrimerColors.gray900, height: 1.5);
-
-  static final _hStyle =
-      _basicStyle.copyWith(fontWeight: FontWeight.w600, height: 1.25);
-
   Map<String, String> matchPattern(String url, String pattern) {
     var uri = Uri.parse(url);
     return UriParser(UriTemplate(pattern)).match(uri)?.parameters;
@@ -30,6 +24,12 @@ class MarkdownView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Provider.of<ThemeModel>(context);
+    final _basicStyle =
+        TextStyle(fontSize: 16, color: theme.palette.text, height: 1.5);
+    final _hStyle =
+        _basicStyle.copyWith(fontWeight: FontWeight.w600, height: 1.25);
+
     return MarkdownBody(
       onTapLink: (url) {
         if (basePaths != null &&
@@ -97,7 +97,7 @@ class MarkdownView extends StatelessWidget {
       },
       data: text,
       styleSheet: MarkdownStyleSheet(
-        a: _basicStyle.copyWith(color: PrimerColors.blue500),
+        a: _basicStyle.copyWith(color: theme.palette.primary),
         p: _basicStyle,
         code: _basicStyle.copyWith(
           fontSize: 16 * 0.85,
@@ -109,10 +109,11 @@ class MarkdownView extends StatelessWidget {
         h3: _hStyle.copyWith(fontSize: 20),
         h4: _hStyle,
         h5: _hStyle.copyWith(fontSize: 14),
-        h6: _hStyle.copyWith(fontSize: 16 * 0.85, color: PrimerColors.gray500),
+        h6: _hStyle.copyWith(
+            fontSize: 16 * 0.85, color: theme.palette.tertiaryText),
         em: _basicStyle.copyWith(fontStyle: FontStyle.italic),
         strong: _basicStyle.copyWith(fontWeight: FontWeight.w600),
-        blockquote: _basicStyle.copyWith(color: PrimerColors.gray500),
+        blockquote: _basicStyle.copyWith(color: theme.palette.tertiaryText),
         img: _basicStyle,
         blockSpacing: 16,
         listIndent: 32,
