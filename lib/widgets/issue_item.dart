@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/screens/user.dart';
 import 'package:git_touch/widgets/avatar.dart';
-import 'package:primer/primer.dart';
+import 'package:provider/provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import '../utils/utils.dart';
 import '../widgets/link.dart';
@@ -40,6 +41,8 @@ class IssueItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Provider.of<ThemeModel>(context);
+
     return Link(
       screenBuilder: (context) {
         return IssueScreen(
@@ -75,12 +78,13 @@ class IssueItem extends StatelessWidget {
                             TextSpan(text: payload['title'] + ' '),
                             TextSpan(
                               text: '#${payload['number']}',
-                              style: TextStyle(color: PrimerColors.gray500),
+                              style:
+                                  TextStyle(color: theme.palette.tertiaryText),
                             ),
                           ]),
                           style: TextStyle(
                             fontSize: 16,
-                            color: PrimerColors.blue500,
+                            color: theme.palette.primary,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -112,7 +116,7 @@ class IssueItem extends StatelessWidget {
                           ),
                         DefaultTextStyle(
                           style: TextStyle(
-                              fontSize: 13, color: PrimerColors.gray700),
+                              fontSize: 13, color: theme.palette.secondaryText),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
@@ -136,7 +140,8 @@ class IssueItem extends StatelessWidget {
                               if (payload['comments']['totalCount'] > 0) ...[
                                 Expanded(child: SizedBox()),
                                 Icon(Octicons.comment,
-                                    size: 13, color: PrimerColors.gray700),
+                                    size: 13,
+                                    color: theme.palette.secondaryText),
                                 SizedBox(width: 4),
                                 Text(numberFormat
                                     .format(payload['comments']['totalCount']))

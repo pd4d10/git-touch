@@ -40,6 +40,8 @@ class CommentItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Provider.of<ThemeModel>(context);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -57,7 +59,8 @@ class CommentItem extends StatelessWidget {
                 SizedBox(height: 2),
                 Text(
                   timeago.format(DateTime.parse(payload['createdAt'])),
-                  style: TextStyle(color: Colors.black54, fontSize: 13),
+                  style: TextStyle(
+                      color: theme.palette.tertiaryText, fontSize: 13),
                 ),
               ],
             ),
@@ -90,7 +93,7 @@ class CommentItem extends StatelessWidget {
                       SizedBox(width: 4),
                       Text(numberFormat.format(count),
                           style: TextStyle(
-                              color: PrimerColors.blue500, fontSize: 14))
+                              color: theme.palette.primary, fontSize: 14))
                     ],
                   ),
                 ),
@@ -118,9 +121,9 @@ class CommentItem extends StatelessWidget {
                 child: Wrap(
                   crossAxisAlignment: WrapCrossAlignment.center,
                   children: <Widget>[
-                    Text('+', style: TextStyle(color: PrimerColors.blue500)),
+                    Text('+', style: TextStyle(color: theme.palette.primary)),
                     Icon(Octicons.smiley,
-                        color: PrimerColors.blue500, size: 18),
+                        color: theme.palette.primary, size: 18),
                   ],
                 ),
               ),

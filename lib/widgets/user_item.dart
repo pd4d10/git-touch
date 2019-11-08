@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/screens/user.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/avatar.dart';
 import 'package:git_touch/widgets/link.dart';
 import 'package:git_touch/widgets/text_contains_organization.dart';
-import 'package:primer/primer.dart';
+import 'package:provider/provider.dart';
 
 const userGqlChunk = '''
   login
@@ -37,6 +38,8 @@ class UserItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Provider.of<ThemeModel>(context);
+
     return Link(
       screenBuilder: inUserScreen ? null : (_) => UserScreen(login),
       child: Container(
@@ -56,7 +59,7 @@ class UserItem extends StatelessWidget {
                       Text(
                         name ?? login,
                         style: TextStyle(
-                          color: PrimerColors.blue500,
+                          color: theme.palette.primary,
                           fontSize: inUserScreen ? 18 : 16,
                           fontWeight: FontWeight.w600,
                         ),
@@ -65,7 +68,7 @@ class UserItem extends StatelessWidget {
                       Text(
                         login,
                         style: TextStyle(
-                            color: PrimerColors.gray700,
+                            color: theme.palette.secondaryText,
                             fontSize: inUserScreen ? 16 : 14),
                       ),
                     ],
@@ -75,7 +78,7 @@ class UserItem extends StatelessWidget {
                     TextContainsOrganization(
                       bio,
                       style: TextStyle(
-                          color: PrimerColors.gray700,
+                          color: theme.palette.secondaryText,
                           fontSize: inUserScreen ? 15 : 14),
                     ),
                 ],

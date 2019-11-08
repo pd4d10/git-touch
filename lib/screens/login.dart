@@ -5,7 +5,6 @@ import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/single.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
-import 'package:primer/primer.dart';
 import 'package:provider/provider.dart';
 import '../widgets/link.dart';
 import '../widgets/loading.dart';
@@ -23,18 +22,19 @@ class _LoginScreenState extends State<LoginScreen> {
   String _gitlabDomain = 'https://gitlab.com';
 
   Widget _buildAccountItem(int index) {
-    final settings = Provider.of<AuthModel>(context);
-    final account = settings.accounts[index];
+    final theme = Provider.of<ThemeModel>(context);
+    final auth = Provider.of<AuthModel>(context);
+    final account = auth.accounts[index];
 
     return Link(
       onTap: () {
         // Navigator.of(context).pop();
-        settings.setActiveAccountIndex(index);
+        auth.setActiveAccountIndex(index);
       },
       child: Container(
         padding: CommonStyle.padding,
         decoration: BoxDecoration(
-          border: Border(bottom: BorderSide(color: Colors.black12)),
+          border: Border(bottom: BorderSide(color: theme.palette.border)),
         ),
         child: Row(
           children: <Widget>[
@@ -50,7 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ],
               ),
             ),
-            (index == settings.activeAccountIndex)
+            (index == auth.activeAccountIndex)
                 ? Icon(Icons.check)
                 : Container(),
           ],
@@ -60,11 +60,13 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget _buildAddItem({String text, Function onTap}) {
+    final theme = Provider.of<ThemeModel>(context);
+
     return Link(
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 20),
         decoration: BoxDecoration(
-          border: Border(bottom: BorderSide(color: Colors.black12)),
+          border: Border(bottom: BorderSide(color: theme.palette.border)),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -81,6 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthModel>(context);
+    final theme = Provider.of<ThemeModel>(context);
 
     return SingleScaffold(
       title: AppBarTitle('Select account'),
@@ -120,7 +123,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             Text(
                               'user, repo, read:org',
                               style: TextStyle(
-                                  fontSize: 16, color: PrimerColors.blue500),
+                                  fontSize: 16, color: theme.palette.primary),
                             )
                           ],
                         ),
@@ -170,7 +173,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             Text(
                               'api, read_user, read_repository',
                               style: TextStyle(
-                                  fontSize: 16, color: PrimerColors.blue500),
+                                  fontSize: 16, color: theme.palette.primary),
                             )
                           ],
                         ),

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:git_touch/models/theme.dart';
-import 'package:git_touch/screens/repository.dart';
 import 'package:git_touch/screens/user.dart';
 import 'package:git_touch/widgets/border_view.dart';
 import 'package:git_touch/widgets/repository_item.dart';

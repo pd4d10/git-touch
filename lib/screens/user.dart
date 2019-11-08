@@ -18,7 +18,6 @@ import 'package:git_touch/models/auth.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/widgets/repository_item.dart';
 import 'package:git_touch/widgets/action_button.dart';
-import 'package:primer/primer.dart';
 
 class UserScreen extends StatelessWidget {
   final String login;
@@ -187,6 +186,7 @@ class UserScreen extends StatelessWidget {
         var user = data[0];
         var contributions = data[1];
         final isOrganization = user['__typename'] == 'Organization';
+        final theme = Provider.of<ThemeModel>(context);
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -250,10 +250,11 @@ class UserScreen extends StatelessWidget {
                 if (!isOrganization && isNotNullOrEmpty(user['company']))
                   TableViewItem(
                     leftIconData: Octicons.organization,
-                    text: TextContainsOrganization(user['company'],
-                        style: TextStyle(
-                            fontSize: 16, color: PrimerColors.gray900),
-                        overflow: TextOverflow.ellipsis),
+                    text: TextContainsOrganization(
+                      user['company'],
+                      style: TextStyle(fontSize: 16, color: theme.palette.text),
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 if (isNotNullOrEmpty(user['location']))
                   TableViewItem(

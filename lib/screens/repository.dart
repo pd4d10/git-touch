@@ -176,6 +176,8 @@ class RepositoryScreen extends StatelessWidget {
             (repo['languages']['edges'] as List).length +
             1;
 
+        final theme = Provider.of<ThemeModel>(context);
+
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
@@ -204,7 +206,7 @@ class RepositoryScreen extends StatelessWidget {
             CommonStyle.verticalGap,
             if ((repo['languages']['edges'] as List).isNotEmpty)
               Container(
-                color: Colors.white,
+                color: theme.palette.background,
                 padding: CommonStyle.padding.copyWith(top: 8, bottom: 8),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(2),
@@ -333,7 +335,7 @@ class RepositoryScreen extends StatelessWidget {
             if (readme != null)
               Container(
                 padding: CommonStyle.padding,
-                color: Colors.white,
+                color: theme.palette.background,
                 child: MarkdownView(
                   readme,
                   basePaths: [owner, name, branch ?? 'master'], // TODO:

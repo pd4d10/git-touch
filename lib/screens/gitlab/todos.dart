@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/auth.dart';
+import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/screens/gitlab/issue.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/avatar.dart';
 import 'package:git_touch/widgets/link.dart';
-import 'package:primer/primer.dart';
 import 'package:provider/provider.dart';
 
 class GitlabTodosScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final theme = Provider.of<ThemeModel>(context);
+
     return RefreshStatefulScaffold(
       title: Text('Todos'),
       fetchData: () {
@@ -39,7 +41,7 @@ class GitlabTodosScreen extends StatelessWidget {
                             TextSpan(
                               text: item['author']['name'],
                               style: TextStyle(
-                                color: PrimerColors.blue500,
+                                color: theme.palette.primary,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),

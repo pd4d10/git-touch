@@ -111,10 +111,10 @@ class ThemeModel with ChangeNotifier {
         );
       case Brightness.dark:
         return Palette(
-          primary: PrimerColors.blue500,
-          text: PrimerColors.gray400,
-          secondaryText: PrimerColors.gray500,
-          tertiaryText: PrimerColors.gray600,
+          primary: PrimerColors.blue400,
+          text: PrimerColors.gray300,
+          secondaryText: PrimerColors.gray400,
+          tertiaryText: PrimerColors.gray500,
           background: PrimerColors.black,
           border: PrimerColors.gray900,
         );

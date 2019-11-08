@@ -104,6 +104,8 @@ class _LongListStatefulScaffoldState<T, K>
   }
 
   Widget _buildItem(BuildContext context, int index) {
+    final theme = Provider.of<ThemeModel>(context);
+
     if (index % 2 == 1) {
       return CommonStyle.border;
     }
@@ -131,19 +133,20 @@ class _LongListStatefulScaffoldState<T, K>
             child: Container(
               padding: CommonStyle.padding,
               decoration: BoxDecoration(
-                border: Border.all(color: Colors.black12),
+                border: Border.all(color: theme.palette.text),
               ),
               child: Column(
                 children: <Widget>[
                   Text('$count hidden items',
-                      style: TextStyle(color: Colors.black87, fontSize: 15)),
+                      style:
+                          TextStyle(color: theme.palette.text, fontSize: 15)),
                   Padding(padding: EdgeInsets.only(top: 4)),
                   loadingMore
                       ? CupertinoActivityIndicator()
                       : Text(
                           'Load more...',
-                          style:
-                              TextStyle(color: Colors.blueAccent, fontSize: 16),
+                          style: TextStyle(
+                              color: theme.palette.primary, fontSize: 16),
                         ),
                 ],
               ),

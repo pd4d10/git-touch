@@ -1,10 +1,11 @@
 import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:git_touch/models/theme.dart';
 import 'package:primer/primer.dart';
+import 'package:provider/provider.dart';
 import '../utils/utils.dart';
 import 'comment_item.dart';
-import 'user_name.dart';
 
 class TimelineEventItem extends StatelessWidget {
   final String actor;
@@ -23,6 +24,8 @@ class TimelineEventItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Provider.of<ThemeModel>(context);
+
     return Row(
       children: <Widget>[
         SizedBox(width: 6),
@@ -30,12 +33,15 @@ class TimelineEventItem extends StatelessWidget {
         SizedBox(width: 12),
         Expanded(
           child: RichText(
-            text: TextSpan(style: TextStyle(color: Colors.black), children: [
-              // TODO: actor is null
-              createUserSpan(context, actor),
-              textSpan,
-              // TextSpan(text: ' ' + TimeAgo.formatFromString(item['createdAt']))
-            ]),
+            text: TextSpan(
+              style: TextStyle(color: theme.palette.text),
+              children: [
+                // TODO: actor is null
+                createUserSpan(context, actor),
+                textSpan,
+                // TextSpan(text: ' ' + TimeAgo.formatFromString(item['createdAt']))
+              ],
+            ),
           ),
         ),
       ],
@@ -240,7 +246,7 @@ class TimelineItem extends StatelessWidget {
       case 'PullRequestReview':
         return TimelineEventItem(
           actor: payload['author']['login'],
-          iconColor: Color(0xff28a745),
+          iconColor: PrimerColors.green500,
           iconData: Octicons.check,
           textSpan: _buildReviewText(context, payload),
           item: payload,
@@ -252,7 +258,7 @@ class TimelineItem extends StatelessWidget {
         return TimelineEventItem(
           actor: payload['actor']['login'],
           iconData: Octicons.git_merge,
-          iconColor: Color(0xff6f42c1),
+          iconColor: PrimerColors.purple500,
           textSpan: TextSpan(children: [
             TextSpan(text: ' merged commit '),
             TextSpan(text: payload['commit']['oid'].substring(0, 8)),
