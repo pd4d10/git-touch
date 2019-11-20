@@ -16,7 +16,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_vector_icons: ^0.2.1
-  flutter_highlight: ^0.4.0
+  flutter_highlight: ^0.5.0
   primer: ^0.0.2
   nanoid: ^0.0.6
   github_contributions: ^0.2.0
