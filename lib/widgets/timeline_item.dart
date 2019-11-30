@@ -60,7 +60,7 @@ class TimelineItem extends StatelessWidget {
       case 'APPROVED':
         return TextSpan(text: ' approved these changes');
       case 'COMMENTED':
-        return TextSpan(text: ' commented ');
+        return TextSpan(text: ' reviewed ');
       default:
         return warningSpan;
     }
@@ -81,9 +81,8 @@ class TimelineItem extends StatelessWidget {
     );
   }
 
-  Widget _buildByType(BuildContext context) {
+  Widget _buildByType(BuildContext context, String type) {
     final theme = Provider.of<ThemeModel>(context);
-    final type = payload['__typename'] as String;
 
     var defaultItem = TimelineEventItem(
       actor: '',
@@ -330,9 +329,31 @@ class TimelineItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    final type = payload['__typename'] as String;
+
+    Widget widget = Container(
       padding: CommonStyle.padding,
-      child: _buildByType(context),
+      child: _buildByType(context, type),
     );
+
+    if (type == 'PullRequestReview') {
+      final comments = payload['comments']['nodes'] as List;
+      if (comments.isNotEmpty) {
+        widget = Column(
+          children: <Widget>[
+            widget,
+            Container(
+              padding: CommonStyle.padding.copyWith(left: 50),
+              child: Column(
+                  children: comments.map((v) {
+                return CommentItem(v, onReaction: (_, __) {});
+              }).toList()),
+            ),
+          ],
+        );
+      }
+    }
+
+    return widget;
   }
 }

@@ -9,7 +9,7 @@ import '../scaffolds/long_list.dart';
 import '../widgets/timeline_item.dart';
 import '../widgets/comment_item.dart';
 
-var reactionChunk = emojiMap.entries.map((entry) {
+final reactionChunk = emojiMap.entries.map((entry) {
   var key = entry.key;
   return '''
 $key: reactions(content: $key) {
@@ -41,17 +41,11 @@ class _IssueScreenState extends State<IssueScreen> {
 
   String get issueChunk {
     var base = '''
-id
-title
-createdAt
-body
-author {
-  login
-  avatarUrl
-}
-closed
-url
-$reactionChunk
+  title
+  closed
+  url
+  ...CommentParts
+  ...ReactableParts
 ''';
 
     if (isPullRequest) {
@@ -71,14 +65,8 @@ commits {
     var base = '''
 __typename
 ... on IssueComment {
-  id
-  createdAt
-  body
-  author {
-    login
-    avatarUrl
-  }
-  $reactionChunk
+  ...CommentParts
+  ...ReactableParts
 }
 ... on Commit {
   committedDate
@@ -240,6 +228,12 @@ __typename
   author {
     login
   }
+  comments(first: 10) {
+    nodes {
+      ...CommentParts
+      ...ReactableParts
+    }
+  }
 }
 ... on MergedEvent {
   createdAt
@@ -277,6 +271,20 @@ __typename
     }
 
     var data = await Provider.of<AuthModel>(context).query('''
+fragment CommentParts on Comment {
+  id
+  createdAt
+  body
+  author {
+    login
+    avatarUrl
+  }
+}
+
+fragment ReactableParts on Reactable {
+  $reactionChunk
+}
+
 {
   repository(owner: "$owner", name: "$name") {
     $resource(number: $number) {
