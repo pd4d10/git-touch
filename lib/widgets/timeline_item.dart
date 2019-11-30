@@ -288,9 +288,7 @@ class TimelineItem extends StatelessWidget {
       case 'ReviewRequestedEvent':
         return TimelineEventItem(
           iconData: Octicons.eye,
-          // actor: payload['author']['login'],
-          // TODO:
-          actor: 'test',
+          actor: payload['actor']['login'],
           textSpan: TextSpan(children: [
             TextSpan(text: ' requested a review from '),
             createUserSpan(context, payload['requestedReviewer']['login']),
