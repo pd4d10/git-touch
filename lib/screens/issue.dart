@@ -206,6 +206,23 @@ __typename
 
     if (isPullRequest) {
       base += '''
+... on HeadRefForcePushedEvent {
+  createdAt
+  actor {
+    login
+  }
+  pullRequest {
+    headRef {
+      name
+    }
+  }
+  beforeCommit {
+    oid
+  }
+  afterCommit {
+    oid
+  }
+}
 ... on ReviewRequestedEvent {
   createdAt
   actor {

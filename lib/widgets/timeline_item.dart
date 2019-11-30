@@ -82,7 +82,8 @@ class TimelineItem extends StatelessWidget {
   }
 
   Widget _buildByType(BuildContext context) {
-    String type = payload['__typename'];
+    final theme = Provider.of<ThemeModel>(context);
+    final type = payload['__typename'] as String;
 
     var defaultItem = TimelineEventItem(
       actor: '',
@@ -283,6 +284,30 @@ class TimelineItem extends StatelessWidget {
         );
       case 'HeadRefRestoredEvent':
       case 'HeadRefForcePushedEvent':
+        return TimelineEventItem(
+          iconData: Octicons.repo_force_push,
+          actor: payload['actor']['login'],
+          textSpan: TextSpan(
+            children: [
+              TextSpan(text: ' force-pushed the '),
+              WidgetSpan(
+                  child: PrimerBranchName(
+                      payload['pullRequest']['headRef']['name'])),
+              TextSpan(text: ' branch from '),
+              TextSpan(
+                text:
+                    (payload['beforeCommit']['oid'] as String).substring(0, 7),
+                style: TextStyle(color: theme.palette.primary),
+              ),
+              TextSpan(text: ' to '),
+              TextSpan(
+                text: (payload['afterCommit']['oid'] as String).substring(0, 7),
+                style: TextStyle(color: theme.palette.primary),
+              ),
+            ],
+          ),
+          item: payload,
+        );
       case 'BaseRefForcePushedEvent':
         return defaultItem; // TODO:
       case 'ReviewRequestedEvent':
