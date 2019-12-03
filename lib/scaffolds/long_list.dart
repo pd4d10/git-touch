@@ -46,7 +46,7 @@ class LongListStatefulScaffold<T, K> extends StatefulWidget {
   });
 
   @override
-  _LongListStatefulScaffoldState createState() =>
+  _LongListStatefulScaffoldState<T, K> createState() =>
       _LongListStatefulScaffoldState();
 }
 

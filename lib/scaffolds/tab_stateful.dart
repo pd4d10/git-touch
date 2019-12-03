@@ -19,7 +19,7 @@ class TabStatefulScaffold<T> extends StatefulWidget {
   });
 
   @override
-  _TabStatefulScaffoldState createState() => _TabStatefulScaffoldState();
+  _TabStatefulScaffoldState<T> createState() => _TabStatefulScaffoldState();
 }
 
 class _TabStatefulScaffoldState<T> extends State<TabStatefulScaffold<T>> {

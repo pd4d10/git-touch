@@ -19,7 +19,7 @@ class RefreshStatefulScaffold<T> extends StatefulWidget {
   });
 
   @override
-  _RefreshStatefulScaffoldState createState() =>
+  _RefreshStatefulScaffoldState<T> createState() =>
       _RefreshStatefulScaffoldState();
 }
 
