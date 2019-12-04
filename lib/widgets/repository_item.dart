@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:git_touch/models/gitea.dart';
 import 'package:git_touch/models/gitlab.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/screens/repository.dart';
@@ -78,6 +79,19 @@ class RepositoryItem extends StatelessWidget {
         this.primaryLanguageColor = null,
         this.screenBuilder =
             ((_) => RepositoryScreen(payload.owner.username, payload.name)),
+        this.topics = [];
+
+  RepositoryItem.gitea(GiteaRepository payload, {this.inRepoScreen = false})
+      : this.owner = payload.owner.login,
+        this.avatarUrl = payload.owner.avatarUrl,
+        this.name = payload.name,
+        this.description = payload.description,
+        this.iconData = Octicons.repo,
+        this.starCount = payload.starsCount,
+        this.forkCount = payload.forksCount,
+        this.primaryLanguageName = null,
+        this.primaryLanguageColor = null,
+        this.screenBuilder = ((_) => RepositoryScreen('', '')), // TODO:
         this.topics = [];
 
   static IconData _buildIconData(payload) {

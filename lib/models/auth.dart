@@ -140,6 +140,13 @@ class AuthModel with ChangeNotifier {
     return info;
   }
 
+  Future fetchGitea(String p) async {
+    final res = await http.get('https://try.gitea.io' + '/api/v1' + p,
+        headers: {'Authorization': ''});
+    final info = json.decode(utf8.decode(res.bodyBytes));
+    return info;
+  }
+
   Future<void> init() async {
     // Listen scheme
     _sub = getUriLinksStream().listen(_onSchemeDetected, onError: (err) {
