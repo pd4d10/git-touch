@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:git_touch/models/gitlab.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/screens/repository.dart';
 import 'package:git_touch/widgets/action_button.dart';
@@ -65,18 +66,18 @@ class RepositoryItem extends StatelessWidget {
             ? []
             : payload['repositoryTopics']['nodes'];
 
-  RepositoryItem.gitlab(payload, {this.inRepoScreen = false})
-      : this.owner = payload['namespace']['name'],
-        this.avatarUrl = payload['owner']['avatar_url'],
-        this.name = payload['name'],
-        this.description = payload['description'],
+  RepositoryItem.gitlab(GitlabRepository payload, {this.inRepoScreen = false})
+      : this.owner = payload.owner.name,
+        this.avatarUrl = payload.owner.avatarUrl,
+        this.name = payload.name,
+        this.description = payload.description,
         this.iconData = Octicons.repo,
-        this.starCount = payload['star_count'],
-        this.forkCount = payload['forks_count'],
+        this.starCount = payload.starCount,
+        this.forkCount = payload.forksCount,
         this.primaryLanguageName = null,
         this.primaryLanguageColor = null,
-        this.screenBuilder = ((_) =>
-            RepositoryScreen(payload['owner']['login'], payload['name'])),
+        this.screenBuilder =
+            ((_) => RepositoryScreen(payload.owner.username, payload.name)),
         this.topics = [];
 
   static IconData _buildIconData(payload) {

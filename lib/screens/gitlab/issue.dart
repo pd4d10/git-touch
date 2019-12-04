@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:git_touch/models/gitlab.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/avatar.dart';
@@ -6,34 +7,40 @@ import 'package:git_touch/widgets/markdown_view.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:timeago/timeago.dart' as timeago;
+import 'package:tuple/tuple.dart';
 
 class GitlabIssueScreen extends StatelessWidget {
   final int projectId;
-  final int issueIid;
+  final int iid;
   final bool isMr;
 
-  GitlabIssueScreen(this.projectId, this.issueIid, {this.isMr});
+  GitlabIssueScreen(this.projectId, this.iid, {this.isMr});
 
   @override
   Widget build(BuildContext context) {
-    return RefreshStatefulScaffold(
-      title: Text('Issue #$issueIid'),
+    return RefreshStatefulScaffold<
+        Tuple3<GitlabIssue, Iterable<GitlabIssueNote>, List>>(
+      title: Text('Issue #$iid'),
       fetchData: () async {
         final type = isMr ? 'merge_requests' : 'issues';
         final items = await Future.wait([
           Provider.of<AuthModel>(context)
-              .fetchGitlab('/projects/$projectId/$type/$issueIid'),
+              .fetchGitlab('/projects/$projectId/$type/$iid'),
           Provider.of<AuthModel>(context)
-              .fetchGitlab('/projects/$projectId/$type/$issueIid/notes'),
+              .fetchGitlab('/projects/$projectId/$type/$iid/notes'),
           Provider.of<AuthModel>(context)
-              .fetchGitlab('/projects/$projectId/$type/$issueIid/award_emoji'),
+              .fetchGitlab('/projects/$projectId/$type/$iid/award_emoji'),
         ]);
-        return items;
+        return Tuple3(
+          GitlabIssue.fromJson(items[0]),
+          (items[1] as List).map((v) => GitlabIssueNote.fromJson(v)),
+          items[2] as List,
+        );
       },
       bodyBuilder: (data, _) {
-        final issue = data[0];
-        final notes = data[1] as List;
-        final emoji = data[2];
+        final issue = data.item1;
+        final notes = data.item2;
+        final emoji = data.item3;
 
         return Column(
           children: <Widget>[
@@ -41,16 +48,16 @@ class GitlabIssueScreen extends StatelessWidget {
               padding: CommonStyle.padding,
               child: Column(
                 children: <Widget>[
-                  Text(issue['title']),
+                  Text(issue.title),
                   Row(
                     children: <Widget>[
-                      Avatar.medium(url: issue['author']['avatar_url']),
+                      Avatar.medium(url: issue.author.avatarUrl),
                       Expanded(
-                        child: Text(issue['description']),
+                        child: Text(issue.description),
                       ),
                     ],
                   ),
-                  Text(timeago.format(DateTime.parse(issue['created_at'])))
+                  Text(timeago.format(DateTime.parse(issue.createdAt)))
                 ],
               ),
             ),
@@ -63,15 +70,15 @@ class GitlabIssueScreen extends StatelessWidget {
                     children: <Widget>[
                       Row(
                         children: <Widget>[
-                          Avatar.medium(url: note['author']['avatar_url']),
+                          Avatar.medium(url: note.author.avatarUrl),
                           Expanded(
                             child: Column(
-                              children: <Widget>[Text(note['author']['name'])],
+                              children: <Widget>[Text(note.author.name)],
                             ),
                           )
                         ],
                       ),
-                      MarkdownView(note['body']),
+                      MarkdownView(note.body),
                     ],
                   ),
                 );
