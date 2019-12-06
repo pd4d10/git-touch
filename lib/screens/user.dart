@@ -29,7 +29,7 @@ class UserScreen extends StatelessWidget {
   Future<RepositoryOwner> _query(BuildContext context) async {
     final data = await Provider.of<AuthModel>(context)
         .gqlClient
-        .execute(GhUserQuery(variables: GhUserArguments(login: 'pd4d10')));
+        .execute(GhUserQuery(variables: GhUserArguments(login: login)));
     return data.data.repositoryOwner;
   }
 

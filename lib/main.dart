@@ -102,7 +102,9 @@ class _HomeState extends State<Home> {
     // return TrendingScreen();
     // return RepoScreen('flutter', 'flutter');
     // return Image.asset('images/spinner.webp', width: 32, height: 32);
-    switch (Provider.of<AuthModel>(context).activeAccount.platform) {
+    final auth = Provider.of<AuthModel>(context);
+
+    switch (auth.activeAccount.platform) {
       case PlatformType.github:
         switch (index) {
           case 0:
@@ -114,7 +116,7 @@ class _HomeState extends State<Home> {
           case 3:
             return SearchScreen();
           case 4:
-            return UserScreen(null);
+            return UserScreen(auth.activeAccount.login);
         }
         break;
       case PlatformType.gitlab:
@@ -122,8 +124,7 @@ class _HomeState extends State<Home> {
           case 0:
             return GitlabTodosScreen();
           case 1:
-            return GitlabUserScreen(
-                Provider.of<AuthModel>(context).activeAccount.login);
+            return GitlabUserScreen(auth.activeAccount.login);
         }
         break;
     }
