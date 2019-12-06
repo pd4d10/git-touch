@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:git_touch/graphql/gh_user.dart';
 import 'package:git_touch/models/gitea.dart';
 import 'package:git_touch/models/gitlab.dart';
 import 'package:git_touch/models/theme.dart';
@@ -66,6 +67,23 @@ class RepositoryItem extends StatelessWidget {
         this.topics = payload['repositoryTopics'] == null
             ? []
             : payload['repositoryTopics']['nodes'];
+
+  RepositoryItem.github(Repository payload, {this.inRepoScreen = false})
+      : this.owner = (payload.owner as User).login,
+        this.avatarUrl = (payload.owner as User).avatarUrl,
+        this.name = payload.name,
+        this.description = payload.description,
+        this.iconData = Octicons.repo, // TODO:
+        this.starCount = payload.stargazers.totalCount,
+        this.forkCount = payload.forks.totalCount,
+        this.primaryLanguageName = payload.primaryLanguage?.name,
+        this.primaryLanguageColor = payload.primaryLanguage?.color,
+        this.screenBuilder = ((_) =>
+            RepositoryScreen((payload.owner as User).login, payload.name)),
+        this.topics = []; // TODO:
+  // this.topics = payload['repositoryTopics'] == null
+  // ? []
+  // : payload['repositoryTopics']['nodes'];
 
   RepositoryItem.gitlab(GitlabRepository payload, {this.inRepoScreen = false})
       : this.owner = payload.owner.name,

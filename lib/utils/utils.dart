@@ -178,32 +178,3 @@ launchUrl(String url) async {
     // TODO: fallback
   }
 }
-
-Iterable<Widget> buildPinnedItems(List pinnedItems, List repositories) {
-  String title;
-  List items = [];
-
-  if (pinnedItems.isNotEmpty) {
-    title = 'pinned repositories';
-    items = pinnedItems;
-  } else if (repositories.isNotEmpty) {
-    title = 'popular repositories';
-    items = repositories;
-  }
-
-  items = items
-      .where((x) => x.isNotEmpty)
-      .toList(); // TODO: Pinned items may include Gist
-  if (items.isEmpty) return [];
-
-  return [
-    CommonStyle.verticalGap,
-    if (title != null) TableViewHeader(title),
-    ...join(
-      CommonStyle.border,
-      items.map((item) {
-        return RepositoryItem(item);
-      }).toList(),
-    ),
-  ];
-}

@@ -1,0 +1,144 @@
+query($login: String!) {
+  repositoryOwner(login: $login) {
+    __typename
+    ... on User {
+      login
+      name
+      avatarUrl
+      bio
+      company
+      location
+      email
+      websiteUrl
+      starredRepositories {
+        totalCount
+      }
+      followers {
+        totalCount
+      }
+      following {
+        totalCount
+      }
+      repositories(
+        first: 6
+        ownerAffiliations: OWNER
+        orderBy: { field: STARGAZERS, direction: DESC }
+      ) {
+        totalCount
+        nodes {
+          owner {
+            __typename
+            login
+            avatarUrl
+          }
+          name
+          description
+          isPrivate
+          isFork
+          stargazers {
+            totalCount
+          }
+          forks {
+            totalCount
+          }
+          primaryLanguage {
+            color
+            name
+          }
+        }
+      }
+      pinnedItems(first: 6) {
+        nodes {
+          ... on Repository {
+            owner {
+              __typename
+              login
+              avatarUrl
+            }
+            name
+            description
+            isPrivate
+            isFork
+            stargazers {
+              totalCount
+            }
+            forks {
+              totalCount
+            }
+            primaryLanguage {
+              color
+              name
+            }
+          }
+        }
+      }
+      viewerCanFollow
+      viewerIsFollowing
+      url
+    }
+    ... on Organization {
+      login
+      name
+      avatarUrl
+      description
+      location
+      email
+      websiteUrl
+      url
+      pinnedItems(first: 6) {
+        nodes {
+          ... on Repository {
+            owner {
+              __typename
+              login
+              avatarUrl
+            }
+            name
+            description
+            isPrivate
+            isFork
+            stargazers {
+              totalCount
+            }
+            forks {
+              totalCount
+            }
+            primaryLanguage {
+              color
+              name
+            }
+          }
+        }
+      }
+      pinnableItems(first: 6, types: [REPOSITORY]) {
+        totalCount
+        nodes {
+          ... on Repository {
+            owner {
+              __typename
+              login
+              avatarUrl
+            }
+            name
+            description
+            isPrivate
+            isFork
+            stargazers {
+              totalCount
+            }
+            forks {
+              totalCount
+            }
+            primaryLanguage {
+              color
+              name
+            }
+          }
+        }
+      }
+      membersWithRole {
+        totalCount
+      }
+    }
+  }
+}

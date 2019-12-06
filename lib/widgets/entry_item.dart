@@ -10,7 +10,12 @@ class EntryItem extends StatelessWidget {
   final WidgetBuilder screenBuilder;
   final String url;
 
-  EntryItem({this.count, this.text, this.screenBuilder, this.url});
+  EntryItem({
+    @required this.count,
+    @required this.text,
+    this.screenBuilder,
+    this.url,
+  });
 
   @override
   Widget build(BuildContext context) {

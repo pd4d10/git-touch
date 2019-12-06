@@ -27,9 +27,7 @@ targets:
             - schema: lib/github.schema.json
               output: lib/graphql/gh_user.dart
               queries_glob: lib/graphql/user.graphql
-            - schema: lib/github.schema.json
-              output: lib/graphql/gh_repository.dart
-              queries_glob: lib/graphql/repository.graphql
+              resolve_type_field: __typename
           scalar_mapping:
             - graphql_type: URI
               dart_type: String
