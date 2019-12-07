@@ -48,6 +48,20 @@ class RepositoryItem extends StatelessWidget {
   final bool inRepoScreen;
   final List topics;
 
+  RepositoryItem.raw(
+      this.owner,
+      this.avatarUrl,
+      this.name,
+      this.description,
+      this.iconData,
+      this.starCount,
+      this.forkCount,
+      this.primaryLanguageName,
+      this.primaryLanguageColor,
+      this.screenBuilder,
+      this.topics,
+      {this.inRepoScreen = false});
+
   RepositoryItem(payload, {this.inRepoScreen = false})
       : this.owner = payload['owner']['login'],
         this.avatarUrl = payload['owner']['avatarUrl'],
