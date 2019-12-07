@@ -78,22 +78,21 @@ class ObjectScreen extends StatelessWidget {
                 expression: _expression,
               ),
             ));
-        return res.data.repository.object;
+        final data = res.data.repository.object;
 
-        // if (type == 'tree') {
-        //   var entries = data['repository']['object']['entries'] as List;
-        //   entries.sort((a, b) {
-        //     if (a['type'] == 'tree' && b['type'] == 'blob') {
-        //       return -1;
-        //     }
-        //     if (a['type'] == 'blob' && b['type'] == 'tree') {
-        //       return 1;
-        //     }
-        //     return 0;
-        //   });
-        // }
+        if (data.resolveType == 'Tree') {
+          (data as GithubObjectTree).entries.sort((a, b) {
+            if (a.type == 'tree' && b.type == 'blob') {
+              return -1;
+            }
+            if (a.type == 'blob' && b.type == 'tree') {
+              return 1;
+            }
+            return 0;
+          });
+        }
 
-        // return data['repository']['object'];
+        return data;
       },
       actionBuilder: (data, _) {
         if (data == null) return null;
