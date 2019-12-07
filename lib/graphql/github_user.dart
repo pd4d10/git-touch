@@ -35,11 +35,17 @@ class GithubUserRepositoryOwner with EquatableMixin {
     return _$GithubUserRepositoryOwnerFromJson(json);
   }
 
+  String login;
+
+  String avatarUrl;
+
+  String url;
+
   @JsonKey(name: '__typename')
   String resolveType;
 
   @override
-  List<Object> get props => [resolveType];
+  List<Object> get props => [login, avatarUrl, url, resolveType];
   Map<String, dynamic> toJson() {
     switch (resolveType) {
       case 'User':
@@ -70,11 +76,7 @@ class GithubUserUser extends GithubUserAuditEntryActor
   factory GithubUserUser.fromJson(Map<String, dynamic> json) =>
       _$GithubUserUserFromJson(json);
 
-  String login;
-
   String name;
-
-  String avatarUrl;
 
   String bio;
 
@@ -100,17 +102,22 @@ class GithubUserUser extends GithubUserAuditEntryActor
 
   bool viewerIsFollowing;
 
-  String url;
-
   @override
   @JsonKey(name: '__typename')
   String resolveType;
 
   @override
+  String login;
+
+  @override
+  String avatarUrl;
+
+  @override
+  String url;
+
+  @override
   List<Object> get props => [
-        login,
         name,
-        avatarUrl,
         bio,
         company,
         location,
@@ -123,8 +130,10 @@ class GithubUserUser extends GithubUserAuditEntryActor
         pinnedItems,
         viewerCanFollow,
         viewerIsFollowing,
-        url,
-        resolveType
+        resolveType,
+        login,
+        avatarUrl,
+        url
       ];
   Map<String, dynamic> toJson() => _$GithubUserUserToJson(this);
 }
@@ -466,17 +475,11 @@ class GithubUserActor with EquatableMixin {
   factory GithubUserActor.fromJson(Map<String, dynamic> json) =>
       _$GithubUserActorFromJson(json);
 
-  String login;
-
-  String avatarUrl;
-
-  String url;
-
   @JsonKey(name: '__typename')
   String resolveType;
 
   @override
-  List<Object> get props => [login, avatarUrl, url, resolveType];
+  List<Object> get props => [resolveType];
   Map<String, dynamic> toJson() => _$GithubUserActorToJson(this);
 }
 
@@ -486,8 +489,6 @@ class GithubUserProfileOwner with EquatableMixin {
 
   factory GithubUserProfileOwner.fromJson(Map<String, dynamic> json) =>
       _$GithubUserProfileOwnerFromJson(json);
-
-  String login;
 
   String name;
 
@@ -504,7 +505,7 @@ class GithubUserProfileOwner with EquatableMixin {
 
   @override
   List<Object> get props =>
-      [login, name, location, email, websiteUrl, pinnedItems, resolveType];
+      [name, location, email, websiteUrl, pinnedItems, resolveType];
   Map<String, dynamic> toJson() => _$GithubUserProfileOwnerToJson(this);
 }
 
@@ -542,11 +543,7 @@ class GithubUserOrganization extends GithubUserAuditEntryActor
   factory GithubUserOrganization.fromJson(Map<String, dynamic> json) =>
       _$GithubUserOrganizationFromJson(json);
 
-  String login;
-
   String name;
-
-  String avatarUrl;
 
   String description;
 
@@ -555,8 +552,6 @@ class GithubUserOrganization extends GithubUserAuditEntryActor
   String email;
 
   String websiteUrl;
-
-  String url;
 
   GithubUserPinnableItemConnection pinnedItems;
 
@@ -569,19 +564,28 @@ class GithubUserOrganization extends GithubUserAuditEntryActor
   String resolveType;
 
   @override
+  String login;
+
+  @override
+  String avatarUrl;
+
+  @override
+  String url;
+
+  @override
   List<Object> get props => [
-        login,
         name,
-        avatarUrl,
         description,
         location,
         email,
         websiteUrl,
-        url,
         pinnedItems,
         pinnableItems,
         membersWithRole,
-        resolveType
+        resolveType,
+        login,
+        avatarUrl,
+        url
       ];
   Map<String, dynamic> toJson() => _$GithubUserOrganizationToJson(this);
 }
@@ -665,6 +669,24 @@ class GithubUserQuery extends GraphQLQuery<GithubUser, GithubUserArguments> {
                     arguments: [],
                     directives: [],
                     selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'login'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'avatarUrl'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'url'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
                 InlineFragmentNode(
                     typeCondition: TypeConditionNode(
                         on: NamedTypeNode(
@@ -672,19 +694,7 @@ class GithubUserQuery extends GraphQLQuery<GithubUser, GithubUserArguments> {
                     directives: [],
                     selectionSet: SelectionSetNode(selections: [
                       FieldNode(
-                          name: NameNode(value: 'login'),
-                          alias: null,
-                          arguments: [],
-                          directives: [],
-                          selectionSet: null),
-                      FieldNode(
                           name: NameNode(value: 'name'),
-                          alias: null,
-                          arguments: [],
-                          directives: [],
-                          selectionSet: null),
-                      FieldNode(
-                          name: NameNode(value: 'avatarUrl'),
                           alias: null,
                           arguments: [],
                           directives: [],
@@ -803,12 +813,6 @@ class GithubUserQuery extends GraphQLQuery<GithubUser, GithubUserArguments> {
                                       directives: [],
                                       selectionSet:
                                           SelectionSetNode(selections: [
-                                        FieldNode(
-                                            name: NameNode(value: '__typename'),
-                                            alias: null,
-                                            arguments: [],
-                                            directives: [],
-                                            selectionSet: null),
                                         FieldNode(
                                             name: NameNode(value: 'login'),
                                             alias: null,
@@ -941,13 +945,6 @@ class GithubUserQuery extends GraphQLQuery<GithubUser, GithubUserArguments> {
                                             selectionSet:
                                                 SelectionSetNode(selections: [
                                               FieldNode(
-                                                  name: NameNode(
-                                                      value: '__typename'),
-                                                  alias: null,
-                                                  arguments: [],
-                                                  directives: [],
-                                                  selectionSet: null),
-                                              FieldNode(
                                                   name:
                                                       NameNode(value: 'login'),
                                                   alias: null,
@@ -1053,12 +1050,6 @@ class GithubUserQuery extends GraphQLQuery<GithubUser, GithubUserArguments> {
                           alias: null,
                           arguments: [],
                           directives: [],
-                          selectionSet: null),
-                      FieldNode(
-                          name: NameNode(value: 'url'),
-                          alias: null,
-                          arguments: [],
-                          directives: [],
                           selectionSet: null)
                     ])),
                 InlineFragmentNode(
@@ -1069,19 +1060,7 @@ class GithubUserQuery extends GraphQLQuery<GithubUser, GithubUserArguments> {
                     directives: [],
                     selectionSet: SelectionSetNode(selections: [
                       FieldNode(
-                          name: NameNode(value: 'login'),
-                          alias: null,
-                          arguments: [],
-                          directives: [],
-                          selectionSet: null),
-                      FieldNode(
                           name: NameNode(value: 'name'),
-                          alias: null,
-                          arguments: [],
-                          directives: [],
-                          selectionSet: null),
-                      FieldNode(
-                          name: NameNode(value: 'avatarUrl'),
                           alias: null,
                           arguments: [],
                           directives: [],
@@ -1106,12 +1085,6 @@ class GithubUserQuery extends GraphQLQuery<GithubUser, GithubUserArguments> {
                           selectionSet: null),
                       FieldNode(
                           name: NameNode(value: 'websiteUrl'),
-                          alias: null,
-                          arguments: [],
-                          directives: [],
-                          selectionSet: null),
-                      FieldNode(
-                          name: NameNode(value: 'url'),
                           alias: null,
                           arguments: [],
                           directives: [],
@@ -1154,13 +1127,6 @@ class GithubUserQuery extends GraphQLQuery<GithubUser, GithubUserArguments> {
                                             directives: [],
                                             selectionSet:
                                                 SelectionSetNode(selections: [
-                                              FieldNode(
-                                                  name: NameNode(
-                                                      value: '__typename'),
-                                                  alias: null,
-                                                  arguments: [],
-                                                  directives: [],
-                                                  selectionSet: null),
                                               FieldNode(
                                                   name:
                                                       NameNode(value: 'login'),
@@ -1306,13 +1272,6 @@ class GithubUserQuery extends GraphQLQuery<GithubUser, GithubUserArguments> {
                                             directives: [],
                                             selectionSet:
                                                 SelectionSetNode(selections: [
-                                              FieldNode(
-                                                  name: NameNode(
-                                                      value: '__typename'),
-                                                  alias: null,
-                                                  arguments: [],
-                                                  directives: [],
-                                                  selectionSet: null),
                                               FieldNode(
                                                   name:
                                                       NameNode(value: 'login'),

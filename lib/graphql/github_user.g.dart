@@ -22,20 +22,24 @@ Map<String, dynamic> _$GithubUserToJson(GithubUser instance) =>
 GithubUserRepositoryOwner _$GithubUserRepositoryOwnerFromJson(
     Map<String, dynamic> json) {
   return GithubUserRepositoryOwner()
+    ..login = json['login'] as String
+    ..avatarUrl = json['avatarUrl'] as String
+    ..url = json['url'] as String
     ..resolveType = json['__typename'] as String;
 }
 
 Map<String, dynamic> _$GithubUserRepositoryOwnerToJson(
         GithubUserRepositoryOwner instance) =>
     <String, dynamic>{
+      'login': instance.login,
+      'avatarUrl': instance.avatarUrl,
+      'url': instance.url,
       '__typename': instance.resolveType,
     };
 
 GithubUserUser _$GithubUserUserFromJson(Map<String, dynamic> json) {
   return GithubUserUser()
-    ..login = json['login'] as String
     ..name = json['name'] as String
-    ..avatarUrl = json['avatarUrl'] as String
     ..bio = json['bio'] as String
     ..company = json['company'] as String
     ..location = json['location'] as String
@@ -63,15 +67,15 @@ GithubUserUser _$GithubUserUserFromJson(Map<String, dynamic> json) {
             json['pinnedItems'] as Map<String, dynamic>)
     ..viewerCanFollow = json['viewerCanFollow'] as bool
     ..viewerIsFollowing = json['viewerIsFollowing'] as bool
-    ..url = json['url'] as String
-    ..resolveType = json['__typename'] as String;
+    ..resolveType = json['__typename'] as String
+    ..login = json['login'] as String
+    ..avatarUrl = json['avatarUrl'] as String
+    ..url = json['url'] as String;
 }
 
 Map<String, dynamic> _$GithubUserUserToJson(GithubUserUser instance) =>
     <String, dynamic>{
-      'login': instance.login,
       'name': instance.name,
-      'avatarUrl': instance.avatarUrl,
       'bio': instance.bio,
       'company': instance.company,
       'location': instance.location,
@@ -84,8 +88,10 @@ Map<String, dynamic> _$GithubUserUserToJson(GithubUserUser instance) =>
       'pinnedItems': instance.pinnedItems?.toJson(),
       'viewerCanFollow': instance.viewerCanFollow,
       'viewerIsFollowing': instance.viewerIsFollowing,
-      'url': instance.url,
       '__typename': instance.resolveType,
+      'login': instance.login,
+      'avatarUrl': instance.avatarUrl,
+      'url': instance.url,
     };
 
 GithubUserStarredRepositoryConnection
@@ -351,25 +357,17 @@ Map<String, dynamic> _$GithubUserAuditEntryActorToJson(
     <String, dynamic>{};
 
 GithubUserActor _$GithubUserActorFromJson(Map<String, dynamic> json) {
-  return GithubUserActor()
-    ..login = json['login'] as String
-    ..avatarUrl = json['avatarUrl'] as String
-    ..url = json['url'] as String
-    ..resolveType = json['__typename'] as String;
+  return GithubUserActor()..resolveType = json['__typename'] as String;
 }
 
 Map<String, dynamic> _$GithubUserActorToJson(GithubUserActor instance) =>
     <String, dynamic>{
-      'login': instance.login,
-      'avatarUrl': instance.avatarUrl,
-      'url': instance.url,
       '__typename': instance.resolveType,
     };
 
 GithubUserProfileOwner _$GithubUserProfileOwnerFromJson(
     Map<String, dynamic> json) {
   return GithubUserProfileOwner()
-    ..login = json['login'] as String
     ..name = json['name'] as String
     ..location = json['location'] as String
     ..email = json['email'] as String
@@ -384,7 +382,6 @@ GithubUserProfileOwner _$GithubUserProfileOwnerFromJson(
 Map<String, dynamic> _$GithubUserProfileOwnerToJson(
         GithubUserProfileOwner instance) =>
     <String, dynamic>{
-      'login': instance.login,
       'name': instance.name,
       'location': instance.location,
       'email': instance.email,
@@ -407,14 +404,11 @@ Map<String, dynamic> _$GithubUserSponsorableToJson(
 GithubUserOrganization _$GithubUserOrganizationFromJson(
     Map<String, dynamic> json) {
   return GithubUserOrganization()
-    ..login = json['login'] as String
     ..name = json['name'] as String
-    ..avatarUrl = json['avatarUrl'] as String
     ..description = json['description'] as String
     ..location = json['location'] as String
     ..email = json['email'] as String
     ..websiteUrl = json['websiteUrl'] as String
-    ..url = json['url'] as String
     ..pinnedItems = json['pinnedItems'] == null
         ? null
         : GithubUserPinnableItemConnection.fromJson(
@@ -427,24 +421,27 @@ GithubUserOrganization _$GithubUserOrganizationFromJson(
         ? null
         : GithubUserOrganizationMemberConnection.fromJson(
             json['membersWithRole'] as Map<String, dynamic>)
-    ..resolveType = json['__typename'] as String;
+    ..resolveType = json['__typename'] as String
+    ..login = json['login'] as String
+    ..avatarUrl = json['avatarUrl'] as String
+    ..url = json['url'] as String;
 }
 
 Map<String, dynamic> _$GithubUserOrganizationToJson(
         GithubUserOrganization instance) =>
     <String, dynamic>{
-      'login': instance.login,
       'name': instance.name,
-      'avatarUrl': instance.avatarUrl,
       'description': instance.description,
       'location': instance.location,
       'email': instance.email,
       'websiteUrl': instance.websiteUrl,
-      'url': instance.url,
       'pinnedItems': instance.pinnedItems?.toJson(),
       'pinnableItems': instance.pinnableItems?.toJson(),
       'membersWithRole': instance.membersWithRole?.toJson(),
       '__typename': instance.resolveType,
+      'login': instance.login,
+      'avatarUrl': instance.avatarUrl,
+      'url': instance.url,
     };
 
 GithubUserOrganizationMemberConnection

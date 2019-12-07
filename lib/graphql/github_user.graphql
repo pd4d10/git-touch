@@ -1,10 +1,11 @@
 query($login: String!) {
   repositoryOwner(login: $login) {
     __typename
+    login
+    avatarUrl
+    url
     ... on User {
-      login
       name
-      avatarUrl
       bio
       company
       location
@@ -27,7 +28,6 @@ query($login: String!) {
         totalCount
         nodes {
           owner {
-            __typename
             login
             avatarUrl
           }
@@ -53,7 +53,6 @@ query($login: String!) {
           __typename
           ... on Repository {
             owner {
-              __typename
               login
               avatarUrl
             }
@@ -76,23 +75,18 @@ query($login: String!) {
       }
       viewerCanFollow
       viewerIsFollowing
-      url
     }
     ... on Organization {
-      login
       name
-      avatarUrl
       description
       location
       email
       websiteUrl
-      url
       pinnedItems(first: 6) {
         nodes {
           __typename
           ... on Repository {
             owner {
-              __typename
               login
               avatarUrl
             }
@@ -119,7 +113,6 @@ query($login: String!) {
           __typename
           ... on Repository {
             owner {
-              __typename
               login
               avatarUrl
             }

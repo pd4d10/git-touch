@@ -83,8 +83,8 @@ class RepositoryItem extends StatelessWidget {
 
   RepositoryItem.github(GithubUserRepository payload,
       {this.inRepoScreen = false})
-      : this.owner = (payload.owner as GithubUserUser).login,
-        this.avatarUrl = (payload.owner as GithubUserUser).avatarUrl,
+      : this.owner = payload.owner.login,
+        this.avatarUrl = payload.owner.avatarUrl,
         this.name = payload.name,
         this.description = payload.description,
         this.iconData = Octicons.repo, // TODO:
@@ -92,8 +92,8 @@ class RepositoryItem extends StatelessWidget {
         this.forkCount = payload.forks.totalCount,
         this.primaryLanguageName = payload.primaryLanguage?.name,
         this.primaryLanguageColor = payload.primaryLanguage?.color,
-        this.screenBuilder = ((_) => RepositoryScreen(
-            (payload.owner as GithubUserUser).login, payload.name)),
+        this.screenBuilder =
+            ((_) => RepositoryScreen(payload.owner.login, payload.name)),
         this.topics = []; // TODO:
   // this.topics = payload['repositoryTopics'] == null
   // ? []
