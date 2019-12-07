@@ -183,8 +183,7 @@ class UserScreen extends StatelessWidget {
           EntryItem(
             count: payload.pinnableItems.totalCount,
             text: 'Repositories',
-            screenBuilder: (context) =>
-                RepositoriesScreen.ofOrganization(payload.login),
+            screenBuilder: (context) => RepositoriesScreen(payload.login),
           ),
           EntryItem(
             count: payload.membersWithRole.totalCount,

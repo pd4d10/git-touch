@@ -154,8 +154,8 @@ class RepositoryScreen extends StatelessWidget {
                 EntryItem(
                   count: repo.forks.totalCount,
                   text: 'Forks',
-                  screenBuilder: (context) =>
-                      RepositoriesScreen.forks(owner, name),
+                  // screenBuilder: (context) =>
+                  //     RepositoriesScreen.forks(owner, name), TODO:
                 ),
               ],
             ),
