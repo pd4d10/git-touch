@@ -1055,6 +1055,12 @@ class GithubRepositoryQuery
                           arguments: [],
                           directives: [],
                           selectionSet: SelectionSetNode(selections: [
+                            FieldNode(
+                                name: NameNode(value: '__typename'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
                             InlineFragmentNode(
                                 typeCondition: TypeConditionNode(
                                     on: NamedTypeNode(
@@ -1110,6 +1116,12 @@ class GithubRepositoryQuery
                           arguments: [],
                           directives: [],
                           selectionSet: SelectionSetNode(selections: [
+                            FieldNode(
+                                name: NameNode(value: '__typename'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
                             InlineFragmentNode(
                                 typeCondition: TypeConditionNode(
                                     on: NamedTypeNode(

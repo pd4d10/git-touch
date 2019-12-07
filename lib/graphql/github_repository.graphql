@@ -59,6 +59,7 @@ query(
     defaultBranchRef @skip(if: $branchSpecified) {
       name
       target {
+        __typename
         ... on Commit {
           history {
             totalCount
@@ -69,6 +70,7 @@ query(
     ref(qualifiedName: $branch) @include(if: $branchSpecified) {
       name
       target {
+        __typename
         ... on Commit {
           history {
             totalCount

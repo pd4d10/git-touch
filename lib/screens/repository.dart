@@ -230,8 +230,13 @@ class RepositoryScreen extends StatelessWidget {
                   TableViewItem(
                     leftIconData: Octicons.history,
                     text: Text('Commits'),
-                    // rightWidget: Text(numberFormat
-                    //     .format(ref['target']['history']['totalCount'])),
+                    rightWidget: Text(
+                      numberFormat.format(
+                        (ref.target as GithubRepositoryCommit)
+                            .history
+                            ?.totalCount,
+                      ),
+                    ),
                     screenBuilder: (_) =>
                         CommitsScreen(owner, name, branch: branch),
                   ),
