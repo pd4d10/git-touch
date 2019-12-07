@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:git_touch/graphql/gh_user.dart';
+import 'package:git_touch/graphql/github_user.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/screens/settings.dart';
@@ -26,10 +26,10 @@ class UserScreen extends StatelessWidget {
 
   UserScreen(this.login);
 
-  Future<RepositoryOwner> _query(BuildContext context) async {
+  Future<GithubUserRepositoryOwner> _query(BuildContext context) async {
     final data = await Provider.of<AuthModel>(context)
         .gqlClient
-        .execute(GhUserQuery(variables: GhUserArguments(login: login)));
+        .execute(GithubUserQuery(variables: GithubUserArguments(login: login)));
     return data.data.repositoryOwner;
   }
 
@@ -48,10 +48,10 @@ class UserScreen extends StatelessWidget {
     }
   }
 
-  Iterable<Widget> _buildPinnedItems(
-      Iterable<Repository> pinnedItems, Iterable<Repository> repositories) {
+  Iterable<Widget> _buildPinnedItems(Iterable<GithubUserRepository> pinnedItems,
+      Iterable<GithubUserRepository> repositories) {
     String title;
-    Iterable<Repository> items = [];
+    Iterable<GithubUserRepository> items = [];
 
     if (pinnedItems.isNotEmpty) {
       title = 'pinned repositories';
@@ -74,8 +74,8 @@ class UserScreen extends StatelessWidget {
     ];
   }
 
-  Widget _buildUser(
-      BuildContext context, User user, List<ContributionsInfo> contributions) {
+  Widget _buildUser(BuildContext context, GithubUserUser user,
+      List<ContributionsInfo> contributions) {
     final theme = Provider.of<ThemeModel>(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -158,15 +158,16 @@ class UserScreen extends StatelessWidget {
         ),
         ..._buildPinnedItems(
             user.pinnedItems.nodes
-                .where((n) => n is Repository)
-                .cast<Repository>(),
+                .where((n) => n is GithubUserRepository)
+                .cast<GithubUserRepository>(),
             user.repositories.nodes),
         CommonStyle.verticalGap,
       ],
     );
   }
 
-  Widget _buildOrganization(BuildContext context, Organization payload) {
+  Widget _buildOrganization(
+      BuildContext context, GithubUserOrganization payload) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
@@ -228,11 +229,11 @@ class UserScreen extends StatelessWidget {
         ),
         ..._buildPinnedItems(
           payload.pinnedItems.nodes
-              .where((n) => n is Repository)
-              .cast<Repository>(),
+              .where((n) => n is GithubUserRepository)
+              .cast<GithubUserRepository>(),
           payload.pinnableItems.nodes
-              .where((n) => n is Repository)
-              .cast<Repository>(),
+              .where((n) => n is GithubUserRepository)
+              .cast<GithubUserRepository>(),
         ),
         CommonStyle.verticalGap,
       ],
@@ -242,14 +243,14 @@ class UserScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold<
-        Tuple2<RepositoryOwner, List<ContributionsInfo>>>(
+        Tuple2<GithubUserRepositoryOwner, List<ContributionsInfo>>>(
       fetchData: () async {
         final vs = await Future.wait([
           _query(context),
           _fetchContributions(context),
         ]);
-        return Tuple2(
-            vs[0] as RepositoryOwner, vs[1] as List<ContributionsInfo>);
+        return Tuple2(vs[0] as GithubUserRepositoryOwner,
+            vs[1] as List<ContributionsInfo>);
       },
       title: AppBarTitle('User'), // TODO:
       actionBuilder: (data, _) {
@@ -262,7 +263,7 @@ class UserScreen extends StatelessWidget {
         final payload = data.item1;
         switch (payload.resolveType) {
           case 'User':
-            final user = payload as User;
+            final user = payload as GithubUserUser;
             if (login == null) {
               return ActionEntry(
                 iconData: Icons.settings,
@@ -300,7 +301,7 @@ class UserScreen extends StatelessWidget {
             }
             break;
           case 'Organization':
-            final organization = payload as Organization;
+            final organization = payload as GithubUserOrganization;
             return ActionButton(
               title: 'Organization Actions',
               items: [
@@ -318,9 +319,10 @@ class UserScreen extends StatelessWidget {
         final payload = data.item1;
         switch (payload.resolveType) {
           case 'User':
-            return _buildUser(context, payload as User, data.item2);
+            return _buildUser(context, payload as GithubUserUser, data.item2);
           case 'Organization':
-            return _buildOrganization(context, payload as Organization);
+            return _buildOrganization(
+                context, payload as GithubUserOrganization);
           default:
             return null;
         }

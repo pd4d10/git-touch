@@ -5,8 +5,6 @@ import 'package:flutter/gestures.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/screens/user.dart';
 import 'package:git_touch/widgets/border_view.dart';
-import 'package:git_touch/widgets/repository_item.dart';
-import 'package:git_touch/widgets/table_view.dart';
 import 'package:intl/intl.dart';
 import 'package:primer/primer.dart';
 import 'package:provider/provider.dart';

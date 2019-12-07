@@ -4,34 +4,35 @@ import 'package:artemis/artemis.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:equatable/equatable.dart';
 import 'package:gql/ast.dart';
-part 'gh_user.g.dart';
+part 'github_user.g.dart';
 
 @JsonSerializable(explicitToJson: true)
-class GhUser with EquatableMixin {
-  GhUser();
+class GithubUser with EquatableMixin {
+  GithubUser();
 
-  factory GhUser.fromJson(Map<String, dynamic> json) => _$GhUserFromJson(json);
+  factory GithubUser.fromJson(Map<String, dynamic> json) =>
+      _$GithubUserFromJson(json);
 
-  RepositoryOwner repositoryOwner;
+  GithubUserRepositoryOwner repositoryOwner;
 
   @override
   List<Object> get props => [repositoryOwner];
-  Map<String, dynamic> toJson() => _$GhUserToJson(this);
+  Map<String, dynamic> toJson() => _$GithubUserToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class RepositoryOwner with EquatableMixin {
-  RepositoryOwner();
+class GithubUserRepositoryOwner with EquatableMixin {
+  GithubUserRepositoryOwner();
 
-  factory RepositoryOwner.fromJson(Map<String, dynamic> json) {
+  factory GithubUserRepositoryOwner.fromJson(Map<String, dynamic> json) {
     switch (json['__typename'].toString()) {
       case 'User':
-        return User.fromJson(json);
+        return GithubUserUser.fromJson(json);
       case 'Organization':
-        return Organization.fromJson(json);
+        return GithubUserOrganization.fromJson(json);
       default:
     }
-    return _$RepositoryOwnerFromJson(json);
+    return _$GithubUserRepositoryOwnerFromJson(json);
   }
 
   @JsonKey(name: '__typename')
@@ -42,31 +43,32 @@ class RepositoryOwner with EquatableMixin {
   Map<String, dynamic> toJson() {
     switch (resolveType) {
       case 'User':
-        return (this as User).toJson();
+        return (this as GithubUserUser).toJson();
       case 'Organization':
-        return (this as Organization).toJson();
+        return (this as GithubUserOrganization).toJson();
       default:
     }
-    return _$RepositoryOwnerToJson(this);
+    return _$GithubUserRepositoryOwnerToJson(this);
   }
 }
 
 @JsonSerializable(explicitToJson: true)
-class User extends AuditEntryActor
+class GithubUserUser extends GithubUserAuditEntryActor
     with EquatableMixin
     implements
-        Node,
-        Actor,
-        RegistryPackageOwner,
-        RegistryPackageSearch,
-        ProjectOwner,
-        RepositoryOwner,
-        UniformResourceLocatable,
-        ProfileOwner,
-        Sponsorable {
-  User();
+        GithubUserNode,
+        GithubUserActor,
+        GithubUserRegistryPackageOwner,
+        GithubUserRegistryPackageSearch,
+        GithubUserProjectOwner,
+        GithubUserRepositoryOwner,
+        GithubUserUniformResourceLocatable,
+        GithubUserProfileOwner,
+        GithubUserSponsorable {
+  GithubUserUser();
 
-  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+  factory GithubUserUser.fromJson(Map<String, dynamic> json) =>
+      _$GithubUserUserFromJson(json);
 
   String login;
 
@@ -84,15 +86,15 @@ class User extends AuditEntryActor
 
   String websiteUrl;
 
-  StarredRepositoryConnection starredRepositories;
+  GithubUserStarredRepositoryConnection starredRepositories;
 
-  FollowerConnection followers;
+  GithubUserFollowerConnection followers;
 
-  FollowingConnection following;
+  GithubUserFollowingConnection following;
 
-  RepositoryConnection repositories;
+  GithubUserRepositoryConnection repositories;
 
-  PinnableItemConnection pinnedItems;
+  GithubUserPinnableItemConnection pinnedItems;
 
   bool viewerCanFollow;
 
@@ -124,86 +126,88 @@ class User extends AuditEntryActor
         url,
         resolveType
       ];
-  Map<String, dynamic> toJson() => _$UserToJson(this);
+  Map<String, dynamic> toJson() => _$GithubUserUserToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class StarredRepositoryConnection with EquatableMixin {
-  StarredRepositoryConnection();
+class GithubUserStarredRepositoryConnection with EquatableMixin {
+  GithubUserStarredRepositoryConnection();
 
-  factory StarredRepositoryConnection.fromJson(Map<String, dynamic> json) =>
-      _$StarredRepositoryConnectionFromJson(json);
+  factory GithubUserStarredRepositoryConnection.fromJson(
+          Map<String, dynamic> json) =>
+      _$GithubUserStarredRepositoryConnectionFromJson(json);
 
   int totalCount;
 
   @override
   List<Object> get props => [totalCount];
-  Map<String, dynamic> toJson() => _$StarredRepositoryConnectionToJson(this);
+  Map<String, dynamic> toJson() =>
+      _$GithubUserStarredRepositoryConnectionToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class FollowerConnection with EquatableMixin {
-  FollowerConnection();
+class GithubUserFollowerConnection with EquatableMixin {
+  GithubUserFollowerConnection();
 
-  factory FollowerConnection.fromJson(Map<String, dynamic> json) =>
-      _$FollowerConnectionFromJson(json);
+  factory GithubUserFollowerConnection.fromJson(Map<String, dynamic> json) =>
+      _$GithubUserFollowerConnectionFromJson(json);
 
   int totalCount;
 
   @override
   List<Object> get props => [totalCount];
-  Map<String, dynamic> toJson() => _$FollowerConnectionToJson(this);
+  Map<String, dynamic> toJson() => _$GithubUserFollowerConnectionToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class FollowingConnection with EquatableMixin {
-  FollowingConnection();
+class GithubUserFollowingConnection with EquatableMixin {
+  GithubUserFollowingConnection();
 
-  factory FollowingConnection.fromJson(Map<String, dynamic> json) =>
-      _$FollowingConnectionFromJson(json);
+  factory GithubUserFollowingConnection.fromJson(Map<String, dynamic> json) =>
+      _$GithubUserFollowingConnectionFromJson(json);
 
   int totalCount;
 
   @override
   List<Object> get props => [totalCount];
-  Map<String, dynamic> toJson() => _$FollowingConnectionToJson(this);
+  Map<String, dynamic> toJson() => _$GithubUserFollowingConnectionToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class RepositoryConnection with EquatableMixin {
-  RepositoryConnection();
+class GithubUserRepositoryConnection with EquatableMixin {
+  GithubUserRepositoryConnection();
 
-  factory RepositoryConnection.fromJson(Map<String, dynamic> json) =>
-      _$RepositoryConnectionFromJson(json);
+  factory GithubUserRepositoryConnection.fromJson(Map<String, dynamic> json) =>
+      _$GithubUserRepositoryConnectionFromJson(json);
 
   int totalCount;
 
-  List<Repository> nodes;
+  List<GithubUserRepository> nodes;
 
   @override
   List<Object> get props => [totalCount, nodes];
-  Map<String, dynamic> toJson() => _$RepositoryConnectionToJson(this);
+  Map<String, dynamic> toJson() => _$GithubUserRepositoryConnectionToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class Repository extends PinnableItem
+class GithubUserRepository extends GithubUserPinnableItem
     with EquatableMixin
     implements
-        Node,
-        ProjectOwner,
-        RegistryPackageOwner,
-        RegistryPackageSearch,
-        Subscribable,
-        Starrable,
-        UniformResourceLocatable,
-        RepositoryInfo {
-  Repository();
+        GithubUserNode,
+        GithubUserProjectOwner,
+        GithubUserRegistryPackageOwner,
+        GithubUserRegistryPackageSearch,
+        GithubUserSubscribable,
+        GithubUserStarrable,
+        GithubUserUniformResourceLocatable,
+        GithubUserRepositoryInfo {
+  GithubUserRepository();
 
-  factory Repository.fromJson(Map<String, dynamic> json) =>
-      _$RepositoryFromJson(json);
+  factory GithubUserRepository.fromJson(Map<String, dynamic> json) =>
+      _$GithubUserRepositoryFromJson(json);
 
   @override
-  RepositoryOwner owner;
+  GithubUserRepositoryOwner owner;
 
   @override
   String name;
@@ -218,11 +222,11 @@ class Repository extends PinnableItem
   bool isFork;
 
   @override
-  StargazerConnection stargazers;
+  GithubUserStargazerConnection stargazers;
 
-  RepositoryConnection forks;
+  GithubUserRepositoryConnection forks;
 
-  Language primaryLanguage;
+  GithubUserLanguage primaryLanguage;
 
   @override
   @JsonKey(name: '__typename')
@@ -240,29 +244,29 @@ class Repository extends PinnableItem
         primaryLanguage,
         resolveType
       ];
-  Map<String, dynamic> toJson() => _$RepositoryToJson(this);
+  Map<String, dynamic> toJson() => _$GithubUserRepositoryToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class StargazerConnection with EquatableMixin {
-  StargazerConnection();
+class GithubUserStargazerConnection with EquatableMixin {
+  GithubUserStargazerConnection();
 
-  factory StargazerConnection.fromJson(Map<String, dynamic> json) =>
-      _$StargazerConnectionFromJson(json);
+  factory GithubUserStargazerConnection.fromJson(Map<String, dynamic> json) =>
+      _$GithubUserStargazerConnectionFromJson(json);
 
   int totalCount;
 
   @override
   List<Object> get props => [totalCount];
-  Map<String, dynamic> toJson() => _$StargazerConnectionToJson(this);
+  Map<String, dynamic> toJson() => _$GithubUserStargazerConnectionToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class Language with EquatableMixin implements Node {
-  Language();
+class GithubUserLanguage with EquatableMixin implements GithubUserNode {
+  GithubUserLanguage();
 
-  factory Language.fromJson(Map<String, dynamic> json) =>
-      _$LanguageFromJson(json);
+  factory GithubUserLanguage.fromJson(Map<String, dynamic> json) =>
+      _$GithubUserLanguageFromJson(json);
 
   String color;
 
@@ -274,135 +278,139 @@ class Language with EquatableMixin implements Node {
 
   @override
   List<Object> get props => [color, name, resolveType];
-  Map<String, dynamic> toJson() => _$LanguageToJson(this);
+  Map<String, dynamic> toJson() => _$GithubUserLanguageToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class Node with EquatableMixin {
-  Node();
+class GithubUserNode with EquatableMixin {
+  GithubUserNode();
 
-  factory Node.fromJson(Map<String, dynamic> json) => _$NodeFromJson(json);
+  factory GithubUserNode.fromJson(Map<String, dynamic> json) =>
+      _$GithubUserNodeFromJson(json);
 
   @JsonKey(name: '__typename')
   String resolveType;
 
   @override
   List<Object> get props => [resolveType];
-  Map<String, dynamic> toJson() => _$NodeToJson(this);
+  Map<String, dynamic> toJson() => _$GithubUserNodeToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class PinnableItem with EquatableMixin {
-  PinnableItem();
+class GithubUserPinnableItem with EquatableMixin {
+  GithubUserPinnableItem();
 
-  factory PinnableItem.fromJson(Map<String, dynamic> json) =>
-      _$PinnableItemFromJson(json);
+  factory GithubUserPinnableItem.fromJson(Map<String, dynamic> json) =>
+      _$GithubUserPinnableItemFromJson(json);
 
   @override
   List<Object> get props => [];
-  Map<String, dynamic> toJson() => _$PinnableItemToJson(this);
+  Map<String, dynamic> toJson() => _$GithubUserPinnableItemToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class ProjectOwner with EquatableMixin {
-  ProjectOwner();
+class GithubUserProjectOwner with EquatableMixin {
+  GithubUserProjectOwner();
 
-  factory ProjectOwner.fromJson(Map<String, dynamic> json) =>
-      _$ProjectOwnerFromJson(json);
+  factory GithubUserProjectOwner.fromJson(Map<String, dynamic> json) =>
+      _$GithubUserProjectOwnerFromJson(json);
 
   @JsonKey(name: '__typename')
   String resolveType;
 
   @override
   List<Object> get props => [resolveType];
-  Map<String, dynamic> toJson() => _$ProjectOwnerToJson(this);
+  Map<String, dynamic> toJson() => _$GithubUserProjectOwnerToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class RegistryPackageOwner with EquatableMixin {
-  RegistryPackageOwner();
+class GithubUserRegistryPackageOwner with EquatableMixin {
+  GithubUserRegistryPackageOwner();
 
-  factory RegistryPackageOwner.fromJson(Map<String, dynamic> json) =>
-      _$RegistryPackageOwnerFromJson(json);
+  factory GithubUserRegistryPackageOwner.fromJson(Map<String, dynamic> json) =>
+      _$GithubUserRegistryPackageOwnerFromJson(json);
 
   @JsonKey(name: '__typename')
   String resolveType;
 
   @override
   List<Object> get props => [resolveType];
-  Map<String, dynamic> toJson() => _$RegistryPackageOwnerToJson(this);
+  Map<String, dynamic> toJson() => _$GithubUserRegistryPackageOwnerToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class RegistryPackageSearch with EquatableMixin {
-  RegistryPackageSearch();
+class GithubUserRegistryPackageSearch with EquatableMixin {
+  GithubUserRegistryPackageSearch();
 
-  factory RegistryPackageSearch.fromJson(Map<String, dynamic> json) =>
-      _$RegistryPackageSearchFromJson(json);
+  factory GithubUserRegistryPackageSearch.fromJson(Map<String, dynamic> json) =>
+      _$GithubUserRegistryPackageSearchFromJson(json);
 
   @JsonKey(name: '__typename')
   String resolveType;
 
   @override
   List<Object> get props => [resolveType];
-  Map<String, dynamic> toJson() => _$RegistryPackageSearchToJson(this);
+  Map<String, dynamic> toJson() =>
+      _$GithubUserRegistryPackageSearchToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class Subscribable with EquatableMixin {
-  Subscribable();
+class GithubUserSubscribable with EquatableMixin {
+  GithubUserSubscribable();
 
-  factory Subscribable.fromJson(Map<String, dynamic> json) =>
-      _$SubscribableFromJson(json);
+  factory GithubUserSubscribable.fromJson(Map<String, dynamic> json) =>
+      _$GithubUserSubscribableFromJson(json);
 
   @JsonKey(name: '__typename')
   String resolveType;
 
   @override
   List<Object> get props => [resolveType];
-  Map<String, dynamic> toJson() => _$SubscribableToJson(this);
+  Map<String, dynamic> toJson() => _$GithubUserSubscribableToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class Starrable with EquatableMixin {
-  Starrable();
+class GithubUserStarrable with EquatableMixin {
+  GithubUserStarrable();
 
-  factory Starrable.fromJson(Map<String, dynamic> json) =>
-      _$StarrableFromJson(json);
+  factory GithubUserStarrable.fromJson(Map<String, dynamic> json) =>
+      _$GithubUserStarrableFromJson(json);
 
-  StargazerConnection stargazers;
+  GithubUserStargazerConnection stargazers;
 
   @JsonKey(name: '__typename')
   String resolveType;
 
   @override
   List<Object> get props => [stargazers, resolveType];
-  Map<String, dynamic> toJson() => _$StarrableToJson(this);
+  Map<String, dynamic> toJson() => _$GithubUserStarrableToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class UniformResourceLocatable with EquatableMixin {
-  UniformResourceLocatable();
+class GithubUserUniformResourceLocatable with EquatableMixin {
+  GithubUserUniformResourceLocatable();
 
-  factory UniformResourceLocatable.fromJson(Map<String, dynamic> json) =>
-      _$UniformResourceLocatableFromJson(json);
+  factory GithubUserUniformResourceLocatable.fromJson(
+          Map<String, dynamic> json) =>
+      _$GithubUserUniformResourceLocatableFromJson(json);
 
   @JsonKey(name: '__typename')
   String resolveType;
 
   @override
   List<Object> get props => [resolveType];
-  Map<String, dynamic> toJson() => _$UniformResourceLocatableToJson(this);
+  Map<String, dynamic> toJson() =>
+      _$GithubUserUniformResourceLocatableToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class RepositoryInfo with EquatableMixin {
-  RepositoryInfo();
+class GithubUserRepositoryInfo with EquatableMixin {
+  GithubUserRepositoryInfo();
 
-  factory RepositoryInfo.fromJson(Map<String, dynamic> json) =>
-      _$RepositoryInfoFromJson(json);
+  factory GithubUserRepositoryInfo.fromJson(Map<String, dynamic> json) =>
+      _$GithubUserRepositoryInfoFromJson(json);
 
-  RepositoryOwner owner;
+  GithubUserRepositoryOwner owner;
 
   String name;
 
@@ -418,42 +426,45 @@ class RepositoryInfo with EquatableMixin {
   @override
   List<Object> get props =>
       [owner, name, description, isPrivate, isFork, resolveType];
-  Map<String, dynamic> toJson() => _$RepositoryInfoToJson(this);
+  Map<String, dynamic> toJson() => _$GithubUserRepositoryInfoToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class PinnableItemConnection with EquatableMixin {
-  PinnableItemConnection();
+class GithubUserPinnableItemConnection with EquatableMixin {
+  GithubUserPinnableItemConnection();
 
-  factory PinnableItemConnection.fromJson(Map<String, dynamic> json) =>
-      _$PinnableItemConnectionFromJson(json);
+  factory GithubUserPinnableItemConnection.fromJson(
+          Map<String, dynamic> json) =>
+      _$GithubUserPinnableItemConnectionFromJson(json);
 
   int totalCount;
 
-  List<PinnableItem> nodes;
+  List<GithubUserPinnableItem> nodes;
 
   @override
   List<Object> get props => [totalCount, nodes];
-  Map<String, dynamic> toJson() => _$PinnableItemConnectionToJson(this);
+  Map<String, dynamic> toJson() =>
+      _$GithubUserPinnableItemConnectionToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class AuditEntryActor with EquatableMixin {
-  AuditEntryActor();
+class GithubUserAuditEntryActor with EquatableMixin {
+  GithubUserAuditEntryActor();
 
-  factory AuditEntryActor.fromJson(Map<String, dynamic> json) =>
-      _$AuditEntryActorFromJson(json);
+  factory GithubUserAuditEntryActor.fromJson(Map<String, dynamic> json) =>
+      _$GithubUserAuditEntryActorFromJson(json);
 
   @override
   List<Object> get props => [];
-  Map<String, dynamic> toJson() => _$AuditEntryActorToJson(this);
+  Map<String, dynamic> toJson() => _$GithubUserAuditEntryActorToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class Actor with EquatableMixin {
-  Actor();
+class GithubUserActor with EquatableMixin {
+  GithubUserActor();
 
-  factory Actor.fromJson(Map<String, dynamic> json) => _$ActorFromJson(json);
+  factory GithubUserActor.fromJson(Map<String, dynamic> json) =>
+      _$GithubUserActorFromJson(json);
 
   String login;
 
@@ -466,15 +477,15 @@ class Actor with EquatableMixin {
 
   @override
   List<Object> get props => [login, avatarUrl, url, resolveType];
-  Map<String, dynamic> toJson() => _$ActorToJson(this);
+  Map<String, dynamic> toJson() => _$GithubUserActorToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class ProfileOwner with EquatableMixin {
-  ProfileOwner();
+class GithubUserProfileOwner with EquatableMixin {
+  GithubUserProfileOwner();
 
-  factory ProfileOwner.fromJson(Map<String, dynamic> json) =>
-      _$ProfileOwnerFromJson(json);
+  factory GithubUserProfileOwner.fromJson(Map<String, dynamic> json) =>
+      _$GithubUserProfileOwnerFromJson(json);
 
   String login;
 
@@ -486,7 +497,7 @@ class ProfileOwner with EquatableMixin {
 
   String websiteUrl;
 
-  PinnableItemConnection pinnedItems;
+  GithubUserPinnableItemConnection pinnedItems;
 
   @JsonKey(name: '__typename')
   String resolveType;
@@ -494,42 +505,42 @@ class ProfileOwner with EquatableMixin {
   @override
   List<Object> get props =>
       [login, name, location, email, websiteUrl, pinnedItems, resolveType];
-  Map<String, dynamic> toJson() => _$ProfileOwnerToJson(this);
+  Map<String, dynamic> toJson() => _$GithubUserProfileOwnerToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class Sponsorable with EquatableMixin {
-  Sponsorable();
+class GithubUserSponsorable with EquatableMixin {
+  GithubUserSponsorable();
 
-  factory Sponsorable.fromJson(Map<String, dynamic> json) =>
-      _$SponsorableFromJson(json);
+  factory GithubUserSponsorable.fromJson(Map<String, dynamic> json) =>
+      _$GithubUserSponsorableFromJson(json);
 
   @JsonKey(name: '__typename')
   String resolveType;
 
   @override
   List<Object> get props => [resolveType];
-  Map<String, dynamic> toJson() => _$SponsorableToJson(this);
+  Map<String, dynamic> toJson() => _$GithubUserSponsorableToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class Organization extends AuditEntryActor
+class GithubUserOrganization extends GithubUserAuditEntryActor
     with EquatableMixin
     implements
-        Node,
-        Actor,
-        RegistryPackageOwner,
-        RegistryPackageSearch,
-        ProjectOwner,
-        RepositoryOwner,
-        UniformResourceLocatable,
-        MemberStatusable,
-        ProfileOwner,
-        Sponsorable {
-  Organization();
+        GithubUserNode,
+        GithubUserActor,
+        GithubUserRegistryPackageOwner,
+        GithubUserRegistryPackageSearch,
+        GithubUserProjectOwner,
+        GithubUserRepositoryOwner,
+        GithubUserUniformResourceLocatable,
+        GithubUserMemberStatusable,
+        GithubUserProfileOwner,
+        GithubUserSponsorable {
+  GithubUserOrganization();
 
-  factory Organization.fromJson(Map<String, dynamic> json) =>
-      _$OrganizationFromJson(json);
+  factory GithubUserOrganization.fromJson(Map<String, dynamic> json) =>
+      _$GithubUserOrganizationFromJson(json);
 
   String login;
 
@@ -547,11 +558,11 @@ class Organization extends AuditEntryActor
 
   String url;
 
-  PinnableItemConnection pinnedItems;
+  GithubUserPinnableItemConnection pinnedItems;
 
-  PinnableItemConnection pinnableItems;
+  GithubUserPinnableItemConnection pinnableItems;
 
-  OrganizationMemberConnection membersWithRole;
+  GithubUserOrganizationMemberConnection membersWithRole;
 
   @override
   @JsonKey(name: '__typename')
@@ -572,54 +583,56 @@ class Organization extends AuditEntryActor
         membersWithRole,
         resolveType
       ];
-  Map<String, dynamic> toJson() => _$OrganizationToJson(this);
+  Map<String, dynamic> toJson() => _$GithubUserOrganizationToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class OrganizationMemberConnection with EquatableMixin {
-  OrganizationMemberConnection();
+class GithubUserOrganizationMemberConnection with EquatableMixin {
+  GithubUserOrganizationMemberConnection();
 
-  factory OrganizationMemberConnection.fromJson(Map<String, dynamic> json) =>
-      _$OrganizationMemberConnectionFromJson(json);
+  factory GithubUserOrganizationMemberConnection.fromJson(
+          Map<String, dynamic> json) =>
+      _$GithubUserOrganizationMemberConnectionFromJson(json);
 
   int totalCount;
 
   @override
   List<Object> get props => [totalCount];
-  Map<String, dynamic> toJson() => _$OrganizationMemberConnectionToJson(this);
+  Map<String, dynamic> toJson() =>
+      _$GithubUserOrganizationMemberConnectionToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class MemberStatusable with EquatableMixin {
-  MemberStatusable();
+class GithubUserMemberStatusable with EquatableMixin {
+  GithubUserMemberStatusable();
 
-  factory MemberStatusable.fromJson(Map<String, dynamic> json) =>
-      _$MemberStatusableFromJson(json);
+  factory GithubUserMemberStatusable.fromJson(Map<String, dynamic> json) =>
+      _$GithubUserMemberStatusableFromJson(json);
 
   @JsonKey(name: '__typename')
   String resolveType;
 
   @override
   List<Object> get props => [resolveType];
-  Map<String, dynamic> toJson() => _$MemberStatusableToJson(this);
+  Map<String, dynamic> toJson() => _$GithubUserMemberStatusableToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class GhUserArguments extends JsonSerializable with EquatableMixin {
-  GhUserArguments({this.login});
+class GithubUserArguments extends JsonSerializable with EquatableMixin {
+  GithubUserArguments({this.login});
 
-  factory GhUserArguments.fromJson(Map<String, dynamic> json) =>
-      _$GhUserArgumentsFromJson(json);
+  factory GithubUserArguments.fromJson(Map<String, dynamic> json) =>
+      _$GithubUserArgumentsFromJson(json);
 
   final String login;
 
   @override
   List<Object> get props => [login];
-  Map<String, dynamic> toJson() => _$GhUserArgumentsToJson(this);
+  Map<String, dynamic> toJson() => _$GithubUserArgumentsToJson(this);
 }
 
-class GhUserQuery extends GraphQLQuery<GhUser, GhUserArguments> {
-  GhUserQuery({this.variables});
+class GithubUserQuery extends GraphQLQuery<GithubUser, GithubUserArguments> {
+  GithubUserQuery({this.variables});
 
   @override
   final DocumentNode document = DocumentNode(definitions: [
@@ -1414,13 +1427,13 @@ class GhUserQuery extends GraphQLQuery<GhUser, GhUserArguments> {
   ]);
 
   @override
-  final String operationName = 'gh_user';
+  final String operationName = 'github_user';
 
   @override
-  final GhUserArguments variables;
+  final GithubUserArguments variables;
 
   @override
   List<Object> get props => [document, operationName, variables];
   @override
-  GhUser parse(Map<String, dynamic> json) => GhUser.fromJson(json);
+  GithubUser parse(Map<String, dynamic> json) => GithubUser.fromJson(json);
 }
