@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:git_touch/graphql/github_repository.dart';
 import 'package:git_touch/graphql/github_user.dart';
 import 'package:git_touch/models/gitea.dart';
 import 'package:git_touch/models/gitlab.dart';
@@ -46,7 +47,7 @@ class RepositoryItem extends StatelessWidget {
   final String primaryLanguageColor;
   final Widget Function(BuildContext context) screenBuilder;
   final bool inRepoScreen;
-  final List topics;
+  final Iterable<GithubRepositoryRepositoryTopic> topics;
 
   RepositoryItem.raw(
       this.owner,
@@ -78,9 +79,7 @@ class RepositoryItem extends StatelessWidget {
             : payload['primaryLanguage']['color'],
         this.screenBuilder = ((_) =>
             RepositoryScreen(payload['owner']['login'], payload['name'])),
-        this.topics = payload['repositoryTopics'] == null
-            ? []
-            : payload['repositoryTopics']['nodes'];
+        this.topics = [];
 
   RepositoryItem.github(GithubUserRepository payload,
       {this.inRepoScreen = false})
@@ -206,7 +205,7 @@ class RepositoryItem extends StatelessWidget {
                             borderRadius: BorderRadius.all(Radius.circular(4)),
                           ),
                           child: Text(
-                            node['topic']['name'],
+                            node.topic.name,
                             style: TextStyle(
                               fontSize: 12,
                               color: theme.palette.primary,

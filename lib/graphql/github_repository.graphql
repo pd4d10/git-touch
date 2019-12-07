@@ -1,0 +1,98 @@
+query(
+  $owner: String!
+  $name: String!
+  $branchSpecified: Boolean!
+  $branch: String!
+) {
+  repository(owner: $owner, name: $name) {
+    owner {
+      __typename
+      login
+      avatarUrl
+    }
+    name
+    description
+    isPrivate
+    isFork
+    stargazers {
+      totalCount
+    }
+    forks {
+      totalCount
+    }
+    primaryLanguage {
+      color
+      name
+    }
+    id
+    diskUsage
+    hasIssuesEnabled
+    url
+    viewerHasStarred
+    # viewerSubscription # TODO
+    projectsResourcePath
+    watchers {
+      totalCount
+    }
+    issues(states: OPEN) {
+      totalCount
+    }
+    pullRequests(states: OPEN) {
+      totalCount
+    }
+    projects {
+      totalCount
+    }
+    releases {
+      totalCount
+    }
+    languages(first: 10, orderBy: { field: SIZE, direction: DESC }) {
+      totalSize
+      edges {
+        size
+        node {
+          name
+          color
+        }
+      }
+    }
+    defaultBranchRef @skip(if: $branchSpecified) {
+      name
+      target {
+        ... on Commit {
+          history {
+            totalCount
+          }
+        }
+      }
+    }
+    ref(qualifiedName: $branch) @include(if: $branchSpecified) {
+      name
+      target {
+        ... on Commit {
+          history {
+            totalCount
+          }
+        }
+      }
+    }
+    refs(first: 100, refPrefix: "refs/heads/") {
+      totalCount
+      nodes {
+        name
+      }
+    }
+    licenseInfo {
+      name
+      spdxId
+    }
+    repositoryTopics(first: 100) {
+      nodes {
+        url
+        topic {
+          name
+        }
+      }
+    }
+  }
+}
