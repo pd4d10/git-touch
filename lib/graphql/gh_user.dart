@@ -1388,7 +1388,7 @@ class GhUserQuery extends GraphQLQuery<GhUser, GhUserArguments> {
   ]);
 
   @override
-  final String operationName = null;
+  final String operationName = 'gh_user';
 
   @override
   final GhUserArguments variables;

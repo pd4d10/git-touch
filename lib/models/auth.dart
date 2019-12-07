@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:convert';
 import 'dart:async';
+import 'package:git_touch/utils/request_serilizer.dart';
 import 'package:gql_http_link/gql_http_link.dart';
 import 'package:artemis/artemis.dart';
 import 'package:fimber/fimber.dart';
@@ -192,8 +193,11 @@ class AuthModel with ChangeNotifier {
 
     if (_gqlClient == null) {
       _gqlClient = ArtemisClient.fromLink(
-        HttpLink(_apiPrefix + '/graphql',
-            defaultHeaders: {HttpHeaders.authorizationHeader: 'token $token'}),
+        HttpLink(
+          _apiPrefix + '/graphql',
+          defaultHeaders: {HttpHeaders.authorizationHeader: 'token $token'},
+          serializer: GithubRequestSerializer(),
+        ),
       );
     }
 
