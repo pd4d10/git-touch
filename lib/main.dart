@@ -225,10 +225,10 @@ void main() async {
 
   runApp(MultiProvider(
     providers: [
-      ChangeNotifierProvider(builder: (context) => notificationModel),
-      ChangeNotifierProvider(builder: (context) => themeModel),
-      ChangeNotifierProvider(builder: (context) => authModel),
-      ChangeNotifierProvider(builder: (context) => codeModel),
+      ChangeNotifierProvider(create: (context) => notificationModel),
+      ChangeNotifierProvider(create: (context) => themeModel),
+      ChangeNotifierProvider(create: (context) => authModel),
+      ChangeNotifierProvider(create: (context) => codeModel),
     ],
     child: Home(),
   ));

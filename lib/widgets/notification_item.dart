@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:git_touch/models/notification.dart';
 import 'package:git_touch/models/theme.dart';
-import 'package:primer/primer.dart';
 import '../utils/utils.dart';
 import '../screens/issue.dart';
 import 'package:git_touch/models/auth.dart';
