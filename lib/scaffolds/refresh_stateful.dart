@@ -10,12 +10,14 @@ class RefreshStatefulScaffold<T> extends StatefulWidget {
   final Future<T> Function() fetchData;
   final Widget Function(T data, void Function(VoidCallback fn) setState)
       actionBuilder;
+  final canRefresh;
 
   RefreshStatefulScaffold({
     @required this.title,
     @required this.bodyBuilder,
     @required this.fetchData,
     this.actionBuilder,
+    this.canRefresh = true,
   });
 
   @override
@@ -62,17 +64,22 @@ class _RefreshStatefulScaffoldState<T>
 
   @override
   Widget build(BuildContext context) {
+    Widget child = ErrorLoadingWrapper(
+      bodyBuilder: () => widget.bodyBuilder(_data, setState),
+      error: _error,
+      loading: _data == null,
+      reload: _refresh,
+    );
+    if (widget.canRefresh) {
+      child = RefreshWrapper(
+        onRefresh: _refresh,
+        body: child,
+      );
+    }
+
     return CommonScaffold(
       title: widget.title,
-      body: RefreshWrapper(
-        onRefresh: _refresh,
-        body: ErrorLoadingWrapper(
-          bodyBuilder: () => widget.bodyBuilder(_data, setState),
-          error: _error,
-          loading: _data == null,
-          reload: _refresh,
-        ),
-      ),
+      body: child,
       action: _action,
     );
   }

@@ -8,13 +8,13 @@ import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/screens/code_theme.dart';
 import 'package:git_touch/widgets/action_entry.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
-import 'package:git_touch/screens/image_view.dart';
 import 'package:git_touch/widgets/markdown_view.dart';
 import 'package:git_touch/widgets/table_view.dart';
 import 'package:path/path.dart' as path;
 import 'package:flutter/material.dart';
 import 'package:flutter_highlight/flutter_highlight.dart';
 import 'package:git_touch/models/auth.dart';
+import 'package:photo_view/photo_view.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:primer/primer.dart';
@@ -25,10 +25,8 @@ class ObjectScreen extends StatelessWidget {
   final String name;
   final String branch;
   final List<String> paths;
-  final String type;
 
-  ObjectScreen(this.owner, this.name, this.branch,
-      {this.paths = const [], this.type = 'tree'});
+  ObjectScreen(this.owner, this.name, this.branch, {this.paths = const []});
 
   String get _expression => '$branch:$_path';
   String get _extname {
@@ -40,6 +38,7 @@ class ObjectScreen extends StatelessWidget {
 
   String get _language => _extname.isEmpty ? 'plaintext' : _extname;
   String get _path => paths.join('/');
+  bool get _isImage => ['png', 'jpg', 'jpeg', 'gif', 'webp'].contains(_extname);
 
   String get rawUrl =>
       'https://raw.githubusercontent.com/$owner/$name/$branch/$_path'; // TODO:
@@ -66,13 +65,8 @@ class ObjectScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: All image types
-    if (type == 'blob' &&
-        ['png', 'jpg', 'jpeg', 'gif', 'webp'].contains(_extname)) {
-      return ImageViewScreen(rawUrl, title: Text(paths.last));
-    }
-
     return RefreshStatefulScaffold<GithubObjectGitObject>(
+      canRefresh: !_isImage,
       title: AppBarTitle(_path.isEmpty ? 'Files' : _path),
       fetchData: () async {
         final res = await Provider.of<AuthModel>(context)
@@ -136,7 +130,6 @@ class ObjectScreen extends StatelessWidget {
                       name,
                       branch,
                       paths: [...paths, item.name],
-                      type: item.type,
                     );
                   },
                 );
@@ -144,8 +137,21 @@ class ObjectScreen extends StatelessWidget {
             );
           case 'Blob':
             final codeProvider = Provider.of<CodeModel>(context);
+            final theme = Provider.of<ThemeModel>(context);
             final text = (data as GithubObjectBlob).text;
+
             switch (_extname) {
+              // TODO: All image types
+              case 'png':
+              case 'jpg':
+              case 'jpeg':
+              case 'gif':
+              case 'webp':
+                return PhotoView(
+                  imageProvider: NetworkImage(rawUrl),
+                  backgroundDecoration:
+                      BoxDecoration(color: theme.palette.background),
+                );
               case 'md':
               case 'markdown':
                 return Padding(
