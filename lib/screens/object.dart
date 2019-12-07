@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_highlight/theme_map.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:git_touch/graphql/github_object.dart';
 import 'package:git_touch/models/code.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
@@ -45,93 +46,21 @@ class ObjectScreen extends StatelessWidget {
 
   static const _iconDefaultColor = PrimerColors.blue300;
 
-  Widget _buildIcon(item) {
-    switch (item['type']) {
+  Widget _buildIcon(GithubObjectTreeEntry item) {
+    switch (item.type) {
       case 'blob':
-        return SetiIcon(item['name'], size: 36);
+        return SetiIcon(item.name, size: 36);
       case 'tree':
       case 'commit':
         return Icon(
-          item['type'] == 'tree'
+          item.type == 'tree'
               ? Octicons.file_directory
               : Octicons.file_submodule,
           color: _iconDefaultColor,
           size: 24,
         );
       default:
-        throw 'Should not be here';
-    }
-  }
-
-  String get _subQuery {
-    switch (type) {
-      case 'tree':
-        return '''
-... on Tree {
-  entries {
-    type
-    name
-  }
-}
-''';
-      case 'blob':
-      default:
-        return '''
-... on Blob {
-  text
-}
-''';
-    }
-  }
-
-  Widget _buildTree(payload) {
-    var entries = payload['entries'] as List;
-    return TableView(
-      hasIcon: true,
-      items: entries.map((item) {
-        return TableViewItem(
-          leftWidget: _buildIcon(item),
-          text: Text(item['name']),
-          screenBuilder: (_) {
-            if (item['type'] == 'commit') return null;
-            return ObjectScreen(
-              owner,
-              name,
-              branch,
-              paths: [...paths, item['name']],
-              type: item['type'],
-            );
-          },
-        );
-      }),
-    );
-  }
-
-  Widget _buildBlob(BuildContext context, payload) {
-    var codeProvider = Provider.of<CodeModel>(context);
-    switch (_extname) {
-      case 'md':
-      case 'markdown':
-        return Padding(
-          padding: CommonStyle.padding,
-          child: MarkdownView(payload['text'],
-              basePaths: [owner, name, branch, ...paths]),
-        );
-      case 'svg':
-        return SvgPicture.network(rawUrl);
-      default:
-        return SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: HighlightView(
-            payload['text'],
-            language: _language,
-            theme: themeMap[codeProvider.theme],
-            padding: CommonStyle.padding,
-            textStyle: TextStyle(
-                fontSize: codeProvider.fontSize.toDouble(),
-                fontFamily: codeProvider.fontFamilyUsed),
-          ),
-        );
+        return null;
     }
   }
 
@@ -143,41 +72,46 @@ class ObjectScreen extends StatelessWidget {
       return ImageViewScreen(rawUrl, title: Text(paths.last));
     }
 
-    return RefreshStatefulScaffold(
+    return RefreshStatefulScaffold<GithubObjectGitObject>(
       title: AppBarTitle(_path.isEmpty ? 'Files' : _path),
       fetchData: () async {
-        var data = await Provider.of<AuthModel>(context).query('''{
-  repository(owner: "$owner", name: "$name") {
-    object(expression: "$_expression") {
-      $_subQuery
-    }
-  }
-}''');
+        final res = await Provider.of<AuthModel>(context)
+            .gqlClient
+            .execute(GithubObjectQuery(
+              variables: GithubObjectArguments(
+                owner: owner,
+                name: name,
+                expression: _expression,
+              ),
+            ));
+        return res.data.repository.object;
 
-        if (type == 'tree') {
-          var entries = data['repository']['object']['entries'] as List;
-          entries.sort((a, b) {
-            if (a['type'] == 'tree' && b['type'] == 'blob') {
-              return -1;
-            }
-            if (a['type'] == 'blob' && b['type'] == 'tree') {
-              return 1;
-            }
-            return 0;
-          });
-        }
+        // if (type == 'tree') {
+        //   var entries = data['repository']['object']['entries'] as List;
+        //   entries.sort((a, b) {
+        //     if (a['type'] == 'tree' && b['type'] == 'blob') {
+        //       return -1;
+        //     }
+        //     if (a['type'] == 'blob' && b['type'] == 'tree') {
+        //       return 1;
+        //     }
+        //     return 0;
+        //   });
+        // }
 
-        return data['repository']['object'];
+        // return data['repository']['object'];
       },
       actionBuilder: (data, _) {
-        switch (type) {
-          case 'blob':
+        if (data == null) return null;
+        switch (data.resolveType) {
+          case 'Blob':
+            final blob = data as GithubObjectBlob;
             return ActionEntry(
               iconData: Octicons.settings,
               onTap: () {
                 if (data != null) {
                   Provider.of<ThemeModel>(context).pushRoute(
-                      context, (_) => CodeThemeScreen(data['text'], _language));
+                      context, (_) => CodeThemeScreen(blob.text, _language));
                 }
               },
             );
@@ -186,11 +120,56 @@ class ObjectScreen extends StatelessWidget {
         }
       },
       bodyBuilder: (data, _) {
-        switch (type) {
-          case 'tree':
-            return _buildTree(data);
-          case 'blob':
-            return _buildBlob(context, data);
+        switch (data.resolveType) {
+          case 'Tree':
+            final tree = data as GithubObjectTree;
+            return TableView(
+              hasIcon: true,
+              items: tree.entries.map((item) {
+                return TableViewItem(
+                  leftWidget: _buildIcon(item),
+                  text: Text(item.name),
+                  screenBuilder: (_) {
+                    if (item.type == 'commit') return null;
+                    return ObjectScreen(
+                      owner,
+                      name,
+                      branch,
+                      paths: [...paths, item.name],
+                      type: item.type,
+                    );
+                  },
+                );
+              }),
+            );
+          case 'Blob':
+            final codeProvider = Provider.of<CodeModel>(context);
+            final text = (data as GithubObjectBlob).text;
+            switch (_extname) {
+              case 'md':
+              case 'markdown':
+                return Padding(
+                  padding: CommonStyle.padding,
+                  child: MarkdownView(text,
+                      basePaths: [owner, name, branch, ...paths]),
+                );
+              case 'svg':
+                return SvgPicture.network(rawUrl);
+              default:
+                return SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: HighlightView(
+                    text,
+                    language: _language,
+                    theme: themeMap[codeProvider.theme],
+                    padding: CommonStyle.padding,
+                    textStyle: TextStyle(
+                        fontSize: codeProvider.fontSize.toDouble(),
+                        fontFamily: codeProvider.fontFamilyUsed),
+                  ),
+                );
+            }
+            break;
           default:
             return null;
         }
