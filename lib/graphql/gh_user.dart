@@ -905,6 +905,12 @@ class GhUserQuery extends GraphQLQuery<GhUser, GhUserArguments> {
                                 arguments: [],
                                 directives: [],
                                 selectionSet: SelectionSetNode(selections: [
+                                  FieldNode(
+                                      name: NameNode(value: '__typename'),
+                                      alias: null,
+                                      arguments: [],
+                                      directives: [],
+                                      selectionSet: null),
                                   InlineFragmentNode(
                                       typeCondition: TypeConditionNode(
                                           on: NamedTypeNode(
@@ -1113,6 +1119,12 @@ class GhUserQuery extends GraphQLQuery<GhUser, GhUserArguments> {
                                 arguments: [],
                                 directives: [],
                                 selectionSet: SelectionSetNode(selections: [
+                                  FieldNode(
+                                      name: NameNode(value: '__typename'),
+                                      alias: null,
+                                      arguments: [],
+                                      directives: [],
+                                      selectionSet: null),
                                   InlineFragmentNode(
                                       typeCondition: TypeConditionNode(
                                           on: NamedTypeNode(
@@ -1259,6 +1271,12 @@ class GhUserQuery extends GraphQLQuery<GhUser, GhUserArguments> {
                                 arguments: [],
                                 directives: [],
                                 selectionSet: SelectionSetNode(selections: [
+                                  FieldNode(
+                                      name: NameNode(value: '__typename'),
+                                      alias: null,
+                                      arguments: [],
+                                      directives: [],
+                                      selectionSet: null),
                                   InlineFragmentNode(
                                       typeCondition: TypeConditionNode(
                                           on: NamedTypeNode(

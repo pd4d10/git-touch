@@ -50,6 +50,7 @@ query($login: String!) {
       pinnedItems(first: 6) {
         totalCount # TODO: Add this for correct generated code
         nodes {
+          __typename
           ... on Repository {
             owner {
               __typename
@@ -88,6 +89,7 @@ query($login: String!) {
       url
       pinnedItems(first: 6) {
         nodes {
+          __typename
           ... on Repository {
             owner {
               __typename
@@ -114,6 +116,7 @@ query($login: String!) {
       pinnableItems(first: 6, types: [REPOSITORY]) {
         totalCount
         nodes {
+          __typename
           ... on Repository {
             owner {
               __typename
