@@ -428,10 +428,12 @@ class PinnableItemConnection with EquatableMixin {
   factory PinnableItemConnection.fromJson(Map<String, dynamic> json) =>
       _$PinnableItemConnectionFromJson(json);
 
+  int totalCount;
+
   List<PinnableItem> nodes;
 
   @override
-  List<Object> get props => [nodes];
+  List<Object> get props => [totalCount, nodes];
   Map<String, dynamic> toJson() => _$PinnableItemConnectionToJson(this);
 }
 
@@ -891,6 +893,12 @@ class GhUserQuery extends GraphQLQuery<GhUser, GhUserArguments> {
                           ],
                           directives: [],
                           selectionSet: SelectionSetNode(selections: [
+                            FieldNode(
+                                name: NameNode(value: 'totalCount'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
                             FieldNode(
                                 name: NameNode(value: 'nodes'),
                                 alias: null,

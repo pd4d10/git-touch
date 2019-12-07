@@ -180,8 +180,7 @@ class UserScreen extends StatelessWidget {
         CommonStyle.border,
         Row(children: [
           EntryItem(
-            // count: payload.pinnableItems.totalCount,
-            count: 0, // TODO:
+            count: payload.pinnableItems.totalCount,
             text: 'Repositories',
             screenBuilder: (context) =>
                 RepositoriesScreen.ofOrganization(payload.login),

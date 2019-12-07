@@ -290,6 +290,7 @@ Map<String, dynamic> _$RepositoryInfoToJson(RepositoryInfo instance) =>
 PinnableItemConnection _$PinnableItemConnectionFromJson(
     Map<String, dynamic> json) {
   return PinnableItemConnection()
+    ..totalCount = json['totalCount'] as int
     ..nodes = (json['nodes'] as List)
         ?.map((e) =>
             e == null ? null : PinnableItem.fromJson(e as Map<String, dynamic>))
@@ -299,6 +300,7 @@ PinnableItemConnection _$PinnableItemConnectionFromJson(
 Map<String, dynamic> _$PinnableItemConnectionToJson(
         PinnableItemConnection instance) =>
     <String, dynamic>{
+      'totalCount': instance.totalCount,
       'nodes': instance.nodes?.map((e) => e?.toJson())?.toList(),
     };
 

@@ -48,6 +48,7 @@ query($login: String!) {
         }
       }
       pinnedItems(first: 6) {
+        totalCount # TODO: Add this for correct generated code
         nodes {
           ... on Repository {
             owner {
