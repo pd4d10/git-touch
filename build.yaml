@@ -44,6 +44,11 @@ targets:
               queries_glob: lib/graphql/github_repositories.graphql
               resolve_type_field: __typename
               add_query_prefix: true
+            - schema: lib/github.schema.json
+              output: lib/graphql/github_users.dart
+              queries_glob: lib/graphql/github_users.graphql
+              resolve_type_field: __typename
+              add_query_prefix: true
           scalar_mapping:
             - graphql_type: URI
               dart_type: String

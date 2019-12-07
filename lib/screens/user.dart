@@ -102,12 +102,14 @@ class UserScreen extends StatelessWidget {
           EntryItem(
             count: user.followers.totalCount,
             text: 'Followers',
-            screenBuilder: (context) => UsersScreen.followers(user.login),
+            screenBuilder: (context) =>
+                UsersScreen(user.login, UsersScreenType.follower),
           ),
           EntryItem(
             count: user.following.totalCount,
             text: 'Following',
-            screenBuilder: (context) => UsersScreen.following(user.login),
+            screenBuilder: (context) =>
+                UsersScreen(user.login, UsersScreenType.following),
           ),
         ]),
         CommonStyle.verticalGap,
@@ -188,7 +190,8 @@ class UserScreen extends StatelessWidget {
           EntryItem(
             count: payload.membersWithRole.totalCount,
             text: 'Members',
-            screenBuilder: (context) => UsersScreen.members(payload.login),
+            screenBuilder: (context) =>
+                UsersScreen(payload.login, UsersScreenType.member),
           ),
         ]),
         CommonStyle.verticalGap,

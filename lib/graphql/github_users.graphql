@@ -1,0 +1,84 @@
+query(
+  $login: String!
+  $repoName: String!
+  $after: String
+  $isFollowers: Boolean!
+  $isFollowing: Boolean!
+  $isMember: Boolean!
+  $isStar: Boolean!
+  $isWatch: Boolean!
+) {
+  user(login: $login) {
+    login
+    name
+    avatarUrl
+    bio
+    followers(first: 30, after: $after) @include(if: $isFollowers) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      nodes {
+        login
+        name
+        avatarUrl
+        bio
+      }
+    }
+    following(first: 30, after: $after) @include(if: $isFollowing) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      nodes {
+        login
+        name
+        avatarUrl
+        bio
+      }
+    }
+  }
+  organization(login: $login) @include(if: $isMember) {
+    login
+    name
+    avatarUrl
+    membersWithRole(first: 30, after: $after) @include(if: $isFollowing) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      nodes {
+        login
+        name
+        avatarUrl
+        bio
+      }
+    }
+  }
+  repository(owner: $login, name: $repoName) {
+    watchers(first: 30, after: $after) @include(if: $isWatch) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      nodes {
+        login
+        name
+        avatarUrl
+        bio
+      }
+    }
+    stargazers(first: 30, after: $after) @include(if: $isStar) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      nodes {
+        login
+        name
+        avatarUrl
+        bio
+      }
+    }
+  }
+}

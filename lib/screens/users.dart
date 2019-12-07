@@ -1,76 +1,113 @@
 import 'package:flutter/material.dart';
+import 'package:git_touch/graphql/github_users.dart';
 import 'package:git_touch/scaffolds/list_stateful.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/user_item.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:provider/provider.dart';
-import '../utils/utils.dart';
+
+enum UsersScreenType {
+  follower,
+  following,
+  member,
+  watch,
+  star,
+}
 
 class UsersScreen extends StatelessWidget {
-  final String scope;
-  final String params;
-  final String resource;
-  final String title;
+  final String login;
+  final String repoName;
+  final UsersScreenType type;
 
-  UsersScreen.followers(String login)
-      : scope = 'user',
-        params = 'login: "$login"',
-        resource = 'followers',
-        title = 'Followers';
-  UsersScreen.following(String login)
-      : scope = 'user',
-        params = 'login: "$login"',
-        resource = 'following',
-        title = 'Following';
-  UsersScreen.stars(String owner, String name)
-      : scope = 'repository',
-        params = 'owner: "$owner", name: "$name"',
-        resource = 'stargazers',
-        title = 'Stargazers';
-  UsersScreen.watchers(String owner, String name)
-      : scope = 'repository',
-        params = 'owner: "$owner", name: "$name"',
-        resource = 'watchers',
-        title = 'Watchers';
-  UsersScreen.members(String login)
-      : scope = 'organization',
-        params = 'login: "$login"',
-        resource = 'membersWithRole',
-        title = 'Members';
+  UsersScreen(this.login, this.type, {this.repoName = ''});
 
-  Future<ListPayload> _queryUsers(BuildContext context, [String cursor]) async {
-    var cursorChunk = cursor == null ? '' : ', after: "$cursor"';
-    var data = await Provider.of<AuthModel>(context).query('''
-{
-  $scope($params) {
-    $resource(first: $pageSize$cursorChunk) {
-      pageInfo {
-        hasNextPage
-        endCursor
-      }
-      nodes {
-        $userGqlChunk
-      }
+  String get _title {
+    switch (type) {
+      case UsersScreenType.follower:
+        return 'Followers';
+      case UsersScreenType.following:
+        return 'Following';
+      case UsersScreenType.member:
+        return 'Members';
+      case UsersScreenType.watch:
+        return 'Watchers';
+      case UsersScreenType.star:
+        return 'Stargazers';
+      default:
+        return null;
     }
   }
-}    
-    ''');
-    var repo = data[scope][resource];
 
-    return ListPayload(
-      cursor: repo["pageInfo"]["endCursor"],
-      hasMore: repo['pageInfo']['hasNextPage'],
-      items: repo["nodes"],
-    );
+  Future<ListPayload<GithubUsersUser, String>> _queryUsers(BuildContext context,
+      [String cursor]) async {
+    final res = await Provider.of<AuthModel>(context).gqlClient.execute(
+        GithubUsersQuery(
+            variables: GithubUsersArguments(
+                login: login,
+                repoName: repoName,
+                isFollowers: type == UsersScreenType.follower,
+                isFollowing: type == UsersScreenType.following,
+                isStar: type == UsersScreenType.star,
+                isWatch: type == UsersScreenType.watch,
+                isMember: type == UsersScreenType.member,
+                after: cursor)));
+
+    switch (type) {
+      case UsersScreenType.follower:
+        final payload = res.data.user.followers;
+        return ListPayload(
+          cursor: payload.pageInfo.endCursor,
+          hasMore: payload.pageInfo.hasNextPage,
+          items: payload.nodes,
+        );
+      case UsersScreenType.following:
+        final payload = res.data.user.following;
+        return ListPayload(
+          cursor: payload.pageInfo.endCursor,
+          hasMore: payload.pageInfo.hasNextPage,
+          items: payload.nodes,
+        );
+      case UsersScreenType.member:
+        final payload = res.data.organization.membersWithRole;
+        return ListPayload(
+          cursor: payload.pageInfo.endCursor,
+          hasMore: payload.pageInfo.hasNextPage,
+          items: payload.nodes,
+        );
+      case UsersScreenType.watch:
+        final payload = res.data.repository.watchers;
+        return ListPayload(
+          cursor: payload.pageInfo.endCursor,
+          hasMore: payload.pageInfo.hasNextPage,
+          items: payload.nodes,
+        );
+      case UsersScreenType.star:
+        final payload = res.data.repository.stargazers;
+        return ListPayload(
+          cursor: payload.pageInfo.endCursor,
+          hasMore: payload.pageInfo.hasNextPage,
+          items: payload.nodes,
+        );
+      default:
+        return null;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return ListStatefulScaffold(
-      title: AppBarTitle(title),
+    return ListStatefulScaffold<GithubUsersUser, String>(
+      title: AppBarTitle(_title),
       onRefresh: () => _queryUsers(context),
       onLoadMore: (cursor) => _queryUsers(context, cursor),
-      itemBuilder: (payload) => UserItem.fromData(payload),
+      itemBuilder: (payload) {
+        return UserItem(
+          login: payload.login,
+          name: payload.name,
+          avatarUrl: payload.avatarUrl,
+          bio: payload.bio,
+          inUserScreen: true,
+        );
+      },
     );
   }
 }
