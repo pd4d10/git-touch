@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:git_touch/models/github_event.dart';
 import 'package:git_touch/models/notification.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/list_stateful.dart';
@@ -32,15 +33,14 @@ class NewsScreenState extends State<NewsScreen> {
     });
   }
 
-  Future<ListPayload<EventPayload, int>> fetchEvents([int page = 1]) async {
-    final settings = Provider.of<AuthModel>(context);
-    final login = settings.activeAccount.login;
-    List data = await settings.getWithCredentials(
+  Future<ListPayload<GithubEvent, int>> fetchEvents([int page = 1]) async {
+    final auth = Provider.of<AuthModel>(context);
+    final login = auth.activeAccount.login;
+    List data = await auth.getWithCredentials(
         '/users/$login/received_events?page=$page&per_page=$pageSize');
     // Fimber.d(data.length);
     var hasMore = data.length == pageSize;
-    var events =
-        data.map<EventPayload>((item) => EventPayload.fromJson(item)).toList();
+    var events = data.map((item) => GithubEvent.fromJson(item)).toList();
 
     return ListPayload(
       cursor: page + 1,
@@ -51,7 +51,7 @@ class NewsScreenState extends State<NewsScreen> {
 
   @override
   Widget build(context) {
-    return ListStatefulScaffold<EventPayload, int>(
+    return ListStatefulScaffold<GithubEvent, int>(
       title: AppBarTitle('News'),
       actionBuilder: () {
         return ActionEntry(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:git_touch/models/github_event.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/screens/repository.dart';
 import 'package:git_touch/widgets/action_button.dart';
@@ -11,33 +12,8 @@ import 'avatar.dart';
 import '../widgets/link.dart';
 import '../utils/utils.dart';
 
-class EventPayload {
-  String actorLogin;
-  String actorAvatarUrl;
-  String type;
-  String repoOwner;
-  String repoName;
-  Map<String, dynamic> payload;
-  DateTime createdAt;
-
-  EventPayload.fromJson(input) {
-    actorLogin = input['actor']['login'];
-    actorAvatarUrl = input['actor']['avatar_url'];
-    type = input['type'];
-    payload = input['payload'];
-    createdAt = DateTime.parse(input['created_at']);
-
-    final repoFullName = input['repo']['name'] as String;
-    if (repoFullName != null) {
-      final ls = parseRepositoryFullName(repoFullName);
-      repoOwner = ls.item1;
-      repoName = ls.item2;
-    }
-  }
-}
-
 class EventItem extends StatelessWidget {
-  final EventPayload event;
+  final GithubEvent event;
 
   EventItem(this.event);
 
@@ -52,7 +28,7 @@ class EventItem extends StatelessWidget {
   }
 
   TextSpan _buildRepo(ThemeModel theme) =>
-      _buildLinkSpan(theme, '${event.repoOwner}/${event.repoName}');
+      _buildLinkSpan(theme, event.repo.name);
 
   Iterable<ActionItem> _getUserActions(List<String> users) {
     // Remove duplicates
@@ -96,8 +72,8 @@ class EventItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Link(
-                  child: Avatar.medium(url: event.actorAvatarUrl),
-                  screenBuilder: (_) => UserScreen(event.actorLogin),
+                  child: Avatar.medium(url: event.actor.avatarUrl),
+                  screenBuilder: (_) => UserScreen(event.actor.login),
                 ),
                 SizedBox(width: 10),
                 Expanded(
@@ -112,7 +88,7 @@ class EventItem extends StatelessWidget {
                             fontWeight: FontWeight.w500,
                           ),
                           children: [
-                            _buildLinkSpan(theme, event.actorLogin),
+                            _buildLinkSpan(theme, event.actor.login),
                             ...spans,
                           ],
                         ),
@@ -129,7 +105,7 @@ class EventItem extends StatelessWidget {
                           Icon(iconData,
                               color: theme.palette.tertiaryText, size: 14),
                           SizedBox(width: 4),
-                          Text(timeago.format(event.createdAt),
+                          Text(timeago.format(DateTime.parse(event.createdAt)),
                               style: TextStyle(
                                 fontSize: 13,
                                 color: theme.palette.tertiaryText,
@@ -192,7 +168,7 @@ class EventItem extends StatelessWidget {
           iconData: Octicons.repo_forked,
           screenBuilder: (_) => RepositoryScreen(forkeeOwner, forkeeName),
           actionItems: [
-            ..._getUserActions([event.actorLogin, forkeeOwner]),
+            ..._getUserActions([event.actor.login, forkeeOwner]),
             ActionItem.repository(forkeeOwner, forkeeName),
             ActionItem.repository(event.repoOwner, event.repoName),
           ],
@@ -228,7 +204,7 @@ class EventItem extends StatelessWidget {
             isPullRequest: isPullRequest,
           ),
           actionItems: [
-            ..._getUserActions([event.actorLogin, event.repoOwner]),
+            ..._getUserActions([event.actor.login, event.repoOwner]),
             ActionItem.issue(event.repoOwner, event.repoName, number,
                 isPullRequest: isPullRequest),
           ],
@@ -250,7 +226,7 @@ class EventItem extends StatelessWidget {
           screenBuilder: (_) =>
               IssueScreen(event.repoOwner, event.repoName, number),
           actionItems: [
-            ..._getUserActions([event.actorLogin, event.repoOwner]),
+            ..._getUserActions([event.actor.login, event.repoOwner]),
             ActionItem.repository(event.repoOwner, event.repoName),
             ActionItem.issue(event.repoOwner, event.repoName, number),
           ],
@@ -290,7 +266,7 @@ class EventItem extends StatelessWidget {
             isPullRequest: true,
           ),
           actionItems: [
-            ..._getUserActions([event.actorLogin, event.repoOwner]),
+            ..._getUserActions([event.actor.login, event.repoOwner]),
             ActionItem.repository(event.repoOwner, event.repoName),
             ActionItem.issue(event.repoOwner, event.repoName, number,
                 isPullRequest: true),
@@ -318,7 +294,7 @@ class EventItem extends StatelessWidget {
             isPullRequest: true,
           ),
           actionItems: [
-            ..._getUserActions([event.actorLogin, event.repoOwner]),
+            ..._getUserActions([event.actor.login, event.repoOwner]),
             ActionItem.repository(event.repoOwner, event.repoName),
             ActionItem.issue(event.repoOwner, event.repoName, number,
                 isPullRequest: true),
@@ -366,7 +342,7 @@ class EventItem extends StatelessWidget {
           url:
               'https://github.com/${event.repoOwner}/${event.repoName}/compare/${event.payload['before']}...${event.payload['head']}',
           actionItems: [
-            ..._getUserActions([event.actorLogin, event.repoOwner]),
+            ..._getUserActions([event.actor.login, event.repoOwner]),
             ActionItem.repository(event.repoOwner, event.repoName),
           ],
         );
@@ -388,7 +364,7 @@ class EventItem extends StatelessWidget {
           screenBuilder: (_) =>
               RepositoryScreen(event.repoOwner, event.repoName),
           actionItems: [
-            ..._getUserActions([event.actorLogin, event.repoOwner]),
+            ..._getUserActions([event.actor.login, event.repoOwner]),
             ActionItem.repository(event.repoOwner, event.repoName),
           ],
         );
