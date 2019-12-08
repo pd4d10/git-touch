@@ -16,18 +16,19 @@ class GitlabUser {
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class GitlabRepository {
+class GitlabProject {
   int id;
   GitlabUser owner;
   String name;
   String description;
   int starCount;
   int forksCount;
+  String visibility;
 
-  GitlabRepository();
+  GitlabProject();
 
-  factory GitlabRepository.fromJson(Map<String, dynamic> json) =>
-      _$GitlabRepositoryFromJson(json);
+  factory GitlabProject.fromJson(Map<String, dynamic> json) =>
+      _$GitlabProjectFromJson(json);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)

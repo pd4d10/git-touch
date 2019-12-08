@@ -22,8 +22,8 @@ Map<String, dynamic> _$GitlabUserToJson(GitlabUser instance) =>
       'avatar_url': instance.avatarUrl,
     };
 
-GitlabRepository _$GitlabRepositoryFromJson(Map<String, dynamic> json) {
-  return GitlabRepository()
+GitlabProject _$GitlabProjectFromJson(Map<String, dynamic> json) {
+  return GitlabProject()
     ..id = json['id'] as int
     ..owner = json['owner'] == null
         ? null
@@ -31,10 +31,11 @@ GitlabRepository _$GitlabRepositoryFromJson(Map<String, dynamic> json) {
     ..name = json['name'] as String
     ..description = json['description'] as String
     ..starCount = json['star_count'] as int
-    ..forksCount = json['forks_count'] as int;
+    ..forksCount = json['forks_count'] as int
+    ..visibility = json['visibility'] as String;
 }
 
-Map<String, dynamic> _$GitlabRepositoryToJson(GitlabRepository instance) =>
+Map<String, dynamic> _$GitlabProjectToJson(GitlabProject instance) =>
     <String, dynamic>{
       'id': instance.id,
       'owner': instance.owner,
@@ -42,6 +43,7 @@ Map<String, dynamic> _$GitlabRepositoryToJson(GitlabRepository instance) =>
       'description': instance.description,
       'star_count': instance.starCount,
       'forks_count': instance.forksCount,
+      'visibility': instance.visibility,
     };
 
 GitlabTodoProject _$GitlabTodoProjectFromJson(Map<String, dynamic> json) {

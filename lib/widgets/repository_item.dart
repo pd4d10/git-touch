@@ -99,12 +99,25 @@ class RepositoryItem extends StatelessWidget {
   // ? []
   // : payload['repositoryTopics']['nodes'];
 
-  RepositoryItem.gitlab(GitlabRepository payload, {this.inRepoScreen = false})
+  static _getGitlabIcon(String visibility) {
+    switch (visibility) {
+      case 'internal':
+        return FontAwesome.shield;
+      case 'public':
+        return FontAwesome.globe;
+      case 'private':
+        return FontAwesome.lock;
+      default:
+        return Octicons.repo;
+    }
+  }
+
+  RepositoryItem.gitlab(GitlabProject payload, {this.inRepoScreen = false})
       : this.owner = payload.owner.name,
         this.avatarUrl = payload.owner.avatarUrl,
         this.name = payload.name,
         this.description = payload.description,
-        this.iconData = Octicons.repo,
+        this.iconData = _getGitlabIcon(payload.visibility),
         this.starCount = payload.starCount,
         this.forkCount = payload.forksCount,
         this.primaryLanguageName = null,

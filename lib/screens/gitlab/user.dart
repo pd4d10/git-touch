@@ -15,9 +15,7 @@ class GitlabUserScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RefreshStatefulScaffold<
-        Tuple3<GitlabUser, Iterable<GitlabRepository>,
-            List<Map<String, double>>>>(
+    return RefreshStatefulScaffold<Tuple2<GitlabUser, Iterable<GitlabProject>>>(
       title: Text('User'),
       fetchData: () async {
         final auth = Provider.of<AuthModel>(context);
@@ -26,17 +24,14 @@ class GitlabUserScreen extends StatelessWidget {
         final user = GitlabUser.fromJson(v0[0]);
 
         final v1 = await auth.fetchGitlab('/users/${user.id}/projects');
-        final projects = (v1 as List).map((v) => GitlabRepository.fromJson(v));
+        final projects =
+            (v1 as List).map((v) => GitlabProject.fromJson(v)).toList();
 
-        final languages = await Future.wait(projects
-            .map((p) => auth.fetchGitlab('/projects/${p.id}/languages')));
-
-        return Tuple3(user, projects, languages.cast<Map<String, double>>());
+        return Tuple2(user, projects);
       },
       bodyBuilder: (data, _) {
         final user = data.item1;
         final projects = data.item2;
-        final languages = data.item3;
 
         return Column(
           children: <Widget>[
@@ -47,9 +42,7 @@ class GitlabUserScreen extends StatelessWidget {
             ),
             BorderView(height: 10),
             Column(
-              children: projects.map((project) {
-                return RepositoryItem.gitlab(project);
-              }).toList(),
+              children: projects.map((v) => RepositoryItem.gitlab(v)).toList(),
             )
           ],
         );
