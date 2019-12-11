@@ -19,8 +19,9 @@ class GitlabBlobScreen extends StatelessWidget {
     return RefreshStatefulScaffold<GitlabBlob>(
       title: AppBarTitle(path),
       fetchData: () async {
+        final encodedPath = Uri.encodeComponent(path);
         final res = await Provider.of<AuthModel>(context).fetchGitlab(
-            '/projects/$id/repository/files/$path?ref=master'); // TODO:
+            '/projects/$id/repository/files/$encodedPath?ref=master'); // TODO:
         return GitlabBlob.fromJson(res);
       },
       bodyBuilder: (data, _) {
