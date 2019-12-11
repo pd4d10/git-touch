@@ -166,3 +166,15 @@ Map<String, dynamic> _$GitlabProjectNamespaceToJson(
       'id': instance.id,
       'name': instance.name,
     };
+
+GitlabTreeItem _$GitlabTreeItemFromJson(Map<String, dynamic> json) {
+  return GitlabTreeItem()
+    ..type = json['type'] as String
+    ..path = json['path'] as String;
+}
+
+Map<String, dynamic> _$GitlabTreeItemToJson(GitlabTreeItem instance) =>
+    <String, dynamic>{
+      'type': instance.type,
+      'path': instance.path,
+    };

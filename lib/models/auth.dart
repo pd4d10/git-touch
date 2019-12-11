@@ -132,6 +132,11 @@ class AuthModel with ChangeNotifier {
     }
   }
 
+  Future<String> fetchWithGitlabToken(String p) async {
+    final res = await http.get(p, headers: {'Private-Token': token});
+    return res.body;
+  }
+
   Future fetchGitlab(String p) async {
     final res = await http.get(activeAccount.domain + '/api/v4' + p,
         headers: {'Private-Token': token});

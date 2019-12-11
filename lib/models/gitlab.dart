@@ -121,3 +121,14 @@ class GitlabProjectNamespace {
   factory GitlabProjectNamespace.fromJson(Map<String, dynamic> json) =>
       _$GitlabProjectNamespaceFromJson(json);
 }
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GitlabTreeItem {
+  String type;
+  String path;
+
+  GitlabTreeItem();
+
+  factory GitlabTreeItem.fromJson(Map<String, dynamic> json) =>
+      _$GitlabTreeItemFromJson(json);
+}
