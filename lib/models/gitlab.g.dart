@@ -178,3 +178,12 @@ Map<String, dynamic> _$GitlabTreeItemToJson(GitlabTreeItem instance) =>
       'type': instance.type,
       'path': instance.path,
     };
+
+GitlabBlob _$GitlabBlobFromJson(Map<String, dynamic> json) {
+  return GitlabBlob()..content = json['content'] as String;
+}
+
+Map<String, dynamic> _$GitlabBlobToJson(GitlabBlob instance) =>
+    <String, dynamic>{
+      'content': instance.content,
+    };
