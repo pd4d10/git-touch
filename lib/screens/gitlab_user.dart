@@ -15,7 +15,8 @@ class GitlabUserScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RefreshStatefulScaffold<Tuple2<GitlabUser, Iterable<GitlabProject>>>(
+    return RefreshStatefulScaffold<
+        Tuple2<GitlabUser, Iterable<GitlabUserProject>>>(
       title: Text('User'),
       fetchData: () async {
         final auth = Provider.of<AuthModel>(context);
@@ -25,7 +26,7 @@ class GitlabUserScreen extends StatelessWidget {
 
         final v1 = await auth.fetchGitlab('/users/${user.id}/projects');
         final projects =
-            (v1 as List).map((v) => GitlabProject.fromJson(v)).toList();
+            (v1 as List).map((v) => GitlabUserProject.fromJson(v)).toList();
 
         return Tuple2(user, projects);
       },

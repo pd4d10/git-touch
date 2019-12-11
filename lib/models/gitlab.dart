@@ -3,6 +3,22 @@ import 'package:json_annotation/json_annotation.dart';
 part 'gitlab.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
+class GitlabUserProject {
+  int id;
+  GitlabUser owner;
+  String name;
+  String description;
+  int starCount;
+  int forksCount;
+  String visibility;
+
+  GitlabUserProject();
+
+  factory GitlabUserProject.fromJson(Map<String, dynamic> json) =>
+      _$GitlabUserProjectFromJson(json);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
 class GitlabUser {
   int id;
   String username;
@@ -13,22 +29,6 @@ class GitlabUser {
 
   factory GitlabUser.fromJson(Map<String, dynamic> json) =>
       _$GitlabUserFromJson(json);
-}
-
-@JsonSerializable(fieldRename: FieldRename.snake)
-class GitlabProject {
-  int id;
-  GitlabUser owner;
-  String name;
-  String description;
-  int starCount;
-  int forksCount;
-  String visibility;
-
-  GitlabProject();
-
-  factory GitlabProject.fromJson(Map<String, dynamic> json) =>
-      _$GitlabProjectFromJson(json);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
@@ -79,4 +79,45 @@ class GitlabIssueNote {
 
   factory GitlabIssueNote.fromJson(Map<String, dynamic> json) =>
       _$GitlabIssueNoteFromJson(json);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GitlabProject {
+  int id;
+  String name;
+  String avatarUrl;
+  String description;
+  int starCount;
+  int forksCount;
+  String visibility;
+  String readmeUrl;
+  String webUrl;
+  GitlabProjectNamespace namespace;
+  bool issuesEnabled;
+  int openIssuesCount;
+  bool mergeRequestsEnabled;
+
+  @JsonKey(ignore: true)
+  String readme;
+
+  @JsonKey(ignore: true)
+  Map<String, double> languages;
+
+  @JsonKey(ignore: true)
+  String primaryLanguage;
+
+  GitlabProject();
+
+  factory GitlabProject.fromJson(Map<String, dynamic> json) =>
+      _$GitlabProjectFromJson(json);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GitlabProjectNamespace {
+  int id;
+  String name;
+  GitlabProjectNamespace();
+
+  factory GitlabProjectNamespace.fromJson(Map<String, dynamic> json) =>
+      _$GitlabProjectNamespaceFromJson(json);
 }

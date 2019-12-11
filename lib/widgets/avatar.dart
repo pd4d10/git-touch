@@ -29,7 +29,7 @@ class Avatar extends StatelessWidget {
         borderRadius: BorderRadius.circular(4),
         child: FadeInImage.assetNetwork(
           placeholder: 'images/octoface.png',
-          image: url,
+          image: url ?? 'images/octoface.png',
           width: size,
           height: size,
           fadeInDuration: Duration(milliseconds: 200),

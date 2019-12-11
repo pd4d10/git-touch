@@ -6,6 +6,30 @@ part of 'gitlab.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+GitlabUserProject _$GitlabUserProjectFromJson(Map<String, dynamic> json) {
+  return GitlabUserProject()
+    ..id = json['id'] as int
+    ..owner = json['owner'] == null
+        ? null
+        : GitlabUser.fromJson(json['owner'] as Map<String, dynamic>)
+    ..name = json['name'] as String
+    ..description = json['description'] as String
+    ..starCount = json['star_count'] as int
+    ..forksCount = json['forks_count'] as int
+    ..visibility = json['visibility'] as String;
+}
+
+Map<String, dynamic> _$GitlabUserProjectToJson(GitlabUserProject instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'owner': instance.owner,
+      'name': instance.name,
+      'description': instance.description,
+      'star_count': instance.starCount,
+      'forks_count': instance.forksCount,
+      'visibility': instance.visibility,
+    };
+
 GitlabUser _$GitlabUserFromJson(Map<String, dynamic> json) {
   return GitlabUser()
     ..id = json['id'] as int
@@ -20,30 +44,6 @@ Map<String, dynamic> _$GitlabUserToJson(GitlabUser instance) =>
       'username': instance.username,
       'name': instance.name,
       'avatar_url': instance.avatarUrl,
-    };
-
-GitlabProject _$GitlabProjectFromJson(Map<String, dynamic> json) {
-  return GitlabProject()
-    ..id = json['id'] as int
-    ..owner = json['owner'] == null
-        ? null
-        : GitlabUser.fromJson(json['owner'] as Map<String, dynamic>)
-    ..name = json['name'] as String
-    ..description = json['description'] as String
-    ..starCount = json['star_count'] as int
-    ..forksCount = json['forks_count'] as int
-    ..visibility = json['visibility'] as String;
-}
-
-Map<String, dynamic> _$GitlabProjectToJson(GitlabProject instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'owner': instance.owner,
-      'name': instance.name,
-      'description': instance.description,
-      'star_count': instance.starCount,
-      'forks_count': instance.forksCount,
-      'visibility': instance.visibility,
     };
 
 GitlabTodoProject _$GitlabTodoProjectFromJson(Map<String, dynamic> json) {
@@ -114,4 +114,55 @@ Map<String, dynamic> _$GitlabIssueNoteToJson(GitlabIssueNote instance) =>
     <String, dynamic>{
       'author': instance.author,
       'body': instance.body,
+    };
+
+GitlabProject _$GitlabProjectFromJson(Map<String, dynamic> json) {
+  return GitlabProject()
+    ..id = json['id'] as int
+    ..name = json['name'] as String
+    ..avatarUrl = json['avatar_url'] as String
+    ..description = json['description'] as String
+    ..starCount = json['star_count'] as int
+    ..forksCount = json['forks_count'] as int
+    ..visibility = json['visibility'] as String
+    ..readmeUrl = json['readme_url'] as String
+    ..webUrl = json['web_url'] as String
+    ..namespace = json['namespace'] == null
+        ? null
+        : GitlabProjectNamespace.fromJson(
+            json['namespace'] as Map<String, dynamic>)
+    ..issuesEnabled = json['issues_enabled'] as bool
+    ..openIssuesCount = json['open_issues_count'] as int
+    ..mergeRequestsEnabled = json['merge_requests_enabled'] as bool;
+}
+
+Map<String, dynamic> _$GitlabProjectToJson(GitlabProject instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'avatar_url': instance.avatarUrl,
+      'description': instance.description,
+      'star_count': instance.starCount,
+      'forks_count': instance.forksCount,
+      'visibility': instance.visibility,
+      'readme_url': instance.readmeUrl,
+      'web_url': instance.webUrl,
+      'namespace': instance.namespace,
+      'issues_enabled': instance.issuesEnabled,
+      'open_issues_count': instance.openIssuesCount,
+      'merge_requests_enabled': instance.mergeRequestsEnabled,
+    };
+
+GitlabProjectNamespace _$GitlabProjectNamespaceFromJson(
+    Map<String, dynamic> json) {
+  return GitlabProjectNamespace()
+    ..id = json['id'] as int
+    ..name = json['name'] as String;
+}
+
+Map<String, dynamic> _$GitlabProjectNamespaceToJson(
+        GitlabProjectNamespace instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
     };

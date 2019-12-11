@@ -5,6 +5,7 @@ import 'package:git_touch/graphql/github_user.dart';
 import 'package:git_touch/models/gitea.dart';
 import 'package:git_touch/models/gitlab.dart';
 import 'package:git_touch/models/theme.dart';
+import 'package:git_touch/screens/gitlab_project.dart';
 import 'package:git_touch/screens/repository.dart';
 import 'package:git_touch/widgets/action_button.dart';
 import 'package:git_touch/widgets/avatar.dart';
@@ -112,7 +113,7 @@ class RepositoryItem extends StatelessWidget {
     }
   }
 
-  RepositoryItem.gitlab(GitlabProject payload, {this.inRepoScreen = false})
+  RepositoryItem.gitlab(GitlabUserProject payload, {this.inRepoScreen = false})
       : this.owner = payload.owner.name,
         this.avatarUrl = payload.owner.avatarUrl,
         this.name = payload.name,
@@ -122,8 +123,7 @@ class RepositoryItem extends StatelessWidget {
         this.forkCount = payload.forksCount,
         this.primaryLanguageName = null,
         this.primaryLanguageColor = null,
-        this.screenBuilder =
-            ((_) => RepositoryScreen(payload.owner.username, payload.name)),
+        this.screenBuilder = ((_) => GitlabProjectScreen(payload.id)),
         this.topics = [];
 
   RepositoryItem.gitea(GiteaRepository payload, {this.inRepoScreen = false})
