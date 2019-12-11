@@ -13,11 +13,9 @@ import 'package:seti/seti.dart';
 
 class GitlabTreeScreen extends StatelessWidget {
   final int id;
-  final List<String> paths;
+  final String path;
 
-  GitlabTreeScreen(this.id, {this.paths = const []});
-
-  String get _path => paths.join('/');
+  GitlabTreeScreen(this.id, {this.path});
 
   static const _iconDefaultColor = PrimerColors.blue300;
 
@@ -42,11 +40,11 @@ class GitlabTreeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold<Iterable<GitlabTreeItem>>(
-      title: AppBarTitle(_path.isEmpty ? 'Files' : _path),
+      title: AppBarTitle(path == null ? 'Files' : path),
       fetchData: () async {
         var url = '/projects/$id/repository/tree';
-        if (paths.isNotEmpty) {
-          url += '?path=' + paths.join('/');
+        if (path != null) {
+          url += '?path=' + path;
         }
         final res = await Provider.of<AuthModel>(context).fetchGitlab(url);
         return (res as List).map((v) => GitlabTreeItem.fromJson(v));
@@ -57,17 +55,15 @@ class GitlabTreeScreen extends StatelessWidget {
           items: data.map((item) {
             return TableViewItem(
               leftWidget: _buildIcon(item),
-              text: Text(item.path),
+              text: Text(item.name),
               screenBuilder: (_) {
                 switch (item.type) {
                   case 'tree':
-                    return GitlabTreeScreen(
-                      id,
-                      paths: [...paths, item.path],
-                    );
+                    return GitlabTreeScreen(id, path: item.path);
                   case 'blob':
-                    return GitlabBlobScreen(
-                        id, [...paths, item.path].join('/'));
+                    return GitlabBlobScreen(id, item.path);
+                  default:
+                    return null;
                 }
               },
             );

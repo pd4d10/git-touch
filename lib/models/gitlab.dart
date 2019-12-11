@@ -126,6 +126,7 @@ class GitlabProjectNamespace {
 class GitlabTreeItem {
   String type;
   String path;
+  String name;
 
   GitlabTreeItem();
 
