@@ -249,14 +249,11 @@ class RepositoryScreen extends StatelessWidget {
                             items: refs
                                 .map((b) => PickerItem(b.name, text: b.name))
                                 .toList(),
-                            onClose: (result) {
-                              if (result != branch) {
-                                Provider.of<ThemeModel>(context)
-                                    .pushReplacementRoute(
-                                  context,
-                                  (_) => RepositoryScreen(owner, name,
-                                      branch: result),
-                                );
+                            onClose: (ref) {
+                              if (ref != branch) {
+                                Provider.of<ThemeModel>(context).push(
+                                    context, '/$owner/$name?ref=$ref',
+                                    replace: true);
                               }
                             },
                           ),

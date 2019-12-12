@@ -246,7 +246,12 @@ void main() async {
   ));
   themeModel.router.define('/:owner/:name', handler: Handler(
     handlerFunc: (context, params) {
-      return RepositoryScreen(params['owner'].first, params['name'].first);
+      if (params['ref'] == null) {
+        return RepositoryScreen(params['owner'].first, params['name'].first);
+      } else {
+        return RepositoryScreen(params['owner'].first, params['name'].first,
+            branch: params['ref'].first);
+      }
     },
   ));
   themeModel.router.define('/:owner/:name/issues', handler: Handler(

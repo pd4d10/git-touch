@@ -152,11 +152,17 @@ class ThemeModel with ChangeNotifier {
     notifyListeners();
   }
 
-  push(BuildContext context, String path) {
-    return router.navigateTo(context, path,
-        transition: theme == AppThemeType.cupertino
-            ? TransitionType.cupertino
-            : TransitionType.material);
+  push(BuildContext context, String path, {bool replace = false}) {
+    return router.navigateTo(
+      context,
+      path,
+      transition: replace
+          ? TransitionType.fadeIn
+          : theme == AppThemeType.cupertino
+              ? TransitionType.cupertino
+              : TransitionType.material,
+      replace: replace,
+    );
   }
 
   pushRoute(
@@ -176,10 +182,6 @@ class ThemeModel with ChangeNotifier {
           fullscreenDialog: fullscreenDialog,
         ));
     }
-  }
-
-  pushReplacementRoute(BuildContext context, WidgetBuilder builder) {
-    return Navigator.of(context).pushReplacement(StaticRoute(builder: builder));
   }
 
   Future<bool> showConfirm(BuildContext context, Widget content) {
