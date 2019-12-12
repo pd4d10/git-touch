@@ -283,8 +283,13 @@ void main() async {
   ));
   themeModel.router.define('/:owner/:name/blob/:ref', handler: Handler(
     handlerFunc: (context, params) {
+      final pathParam = params['path'];
       return ObjectScreen(
-          params['owner'][0], params['name'][0], params['ref'][0]);
+        params['owner'].first,
+        params['name'].first,
+        params['ref'].first,
+        paths: pathParam?.first?.urldecode?.split('/') ?? [],
+      );
     },
   ));
   themeModel.router.define('/:owner/:name/issues/new', handler: Handler(

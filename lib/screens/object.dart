@@ -116,17 +116,18 @@ class ObjectScreen extends StatelessWidget {
         switch (data.resolveType) {
           case 'Tree':
             final tree = data as GithubObjectTree;
+
             return TableView(
               hasIcon: true,
               items: tree.entries.map((item) {
+                // if (item.type == 'commit') return null;
+                final p = [...paths, item.name].join('/').urlencode;
+                final url = '/$owner/$name/blob/$branch?path=$p';
+
                 return TableViewItem(
                   leftWidget: _buildIcon(item),
                   text: Text(item.name),
-                  url: (() {
-                    if (item.type == 'commit') return null;
-                    final p = [...paths, item.name].join('/');
-                    return '/$owner/$name/blob/$branch?path=$p';
-                  })(),
+                  url: url,
                 );
               }),
             );
