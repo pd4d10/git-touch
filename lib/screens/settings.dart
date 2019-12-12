@@ -2,9 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/single.dart';
-import 'package:git_touch/screens/credits.dart';
-import 'package:git_touch/screens/issue_form.dart';
-import 'package:git_touch/screens/repository.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:provider/provider.dart';
@@ -30,7 +27,7 @@ class SettingsScreen extends StatelessWidget {
           TableView(headerText: 'ACCOUNTS', items: [
             TableViewItem(
               text: Text('Switch to another account'),
-              screenBuilder: (_) => LoginScreen(),
+              url: '/login',
             ),
           ]),
           CommonStyle.verticalGap,
@@ -60,18 +57,10 @@ class SettingsScreen extends StatelessWidget {
           ]),
           CommonStyle.verticalGap,
           TableView(headerText: 'ABOUT', items: [
+            TableViewItem(text: Text('Source Code'), url: '/pd4d10/git-touch'),
             TableViewItem(
-              text: Text('Source Code'),
-              screenBuilder: (_) => RepositoryScreen('pd4d10', 'git-touch'),
-            ),
-            TableViewItem(
-              text: Text('Feedback'),
-              screenBuilder: (_) => IssueFormScreen('pd4d10', 'git-touch'),
-            ),
-            TableViewItem(
-              text: Text('Credits'),
-              screenBuilder: (_) => CreditsScreen(),
-            ),
+                text: Text('Feedback'), url: '/pd4d10/git-touch/issues/new'),
+            TableViewItem(text: Text('Credits'), url: '/help/credits'),
             TableViewItem(
               text: Text('Rate This App'),
               onTap: () {

@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:git_touch/screens/issue.dart';
-import 'package:git_touch/screens/repository.dart';
-import 'package:git_touch/screens/user.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/models/theme.dart';
@@ -32,23 +29,24 @@ class ActionItem {
   ActionItem.user(String login)
       : text = '@$login',
         onPress = ((context) {
-          Provider.of<ThemeModel>(context)
-              .pushRoute(context, (_) => UserScreen(login));
+          Provider.of<ThemeModel>(context).push(context, '/$login');
         });
   ActionItem.repository(String owner, String name)
       : text = '$owner/$name',
         onPress = ((context) {
-          Provider.of<ThemeModel>(context)
-              .pushRoute(context, (_) => RepositoryScreen(owner, name));
+          Provider.of<ThemeModel>(context).push(context, '/$owner/$name');
         });
-  ActionItem.issue(String owner, String name, int number,
-      {isPullRequest = false})
+  ActionItem.issue(String owner, String name, int number)
       : text = '$owner/$name #$number',
         onPress = ((context) {
-          Provider.of<ThemeModel>(context).pushRoute(
-              context,
-              (_) => IssueScreen(owner, name, number,
-                  isPullRequest: isPullRequest));
+          Provider.of<ThemeModel>(context)
+              .push(context, '/$owner/$name/issues/$number');
+        });
+  ActionItem.pullRequest(String owner, String name, int number)
+      : text = '$owner/$name #$number',
+        onPress = ((context) {
+          Provider.of<ThemeModel>(context)
+              .push(context, '/$owner/$name/pulls/$number');
         });
 }
 

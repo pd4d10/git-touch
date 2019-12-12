@@ -27,7 +27,11 @@ class Link extends StatelessWidget {
       return Provider.of<ThemeModel>(context).pushRoute(context, screenBuilder);
     }
     if (url != null) {
-      launchUrl(url);
+      if (url.startsWith('/')) {
+        Provider.of<ThemeModel>(context).push(context, url);
+      } else {
+        launchUrl(url);
+      }
     }
   }
 

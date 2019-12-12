@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/github.dart';
 import 'package:git_touch/scaffolds/tab_stateful.dart';
-import 'package:git_touch/screens/repository.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/user_item.dart';
@@ -39,7 +38,6 @@ class TrendingScreen extends StatelessWidget {
                     item.forks ?? 0,
                     item.language,
                     item.languageColor,
-                    (_) => RepositoryScreen(item.author, item.name),
                     [],
                   );
                 case 1:

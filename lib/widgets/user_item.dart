@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/theme.dart';
-import 'package:git_touch/screens/user.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/avatar.dart';
 import 'package:git_touch/widgets/link.dart';
@@ -41,7 +40,7 @@ class UserItem extends StatelessWidget {
     final theme = Provider.of<ThemeModel>(context);
 
     return Link(
-      screenBuilder: inUserScreen ? null : (_) => UserScreen(login),
+      url: '/$login',
       child: Container(
         padding: CommonStyle.padding,
         child: Row(

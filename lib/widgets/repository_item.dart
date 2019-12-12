@@ -5,8 +5,6 @@ import 'package:git_touch/graphql/github_user.dart';
 import 'package:git_touch/models/gitea.dart';
 import 'package:git_touch/models/gitlab.dart';
 import 'package:git_touch/models/theme.dart';
-import 'package:git_touch/screens/gitlab_project.dart';
-import 'package:git_touch/screens/repository.dart';
 import 'package:git_touch/widgets/action_button.dart';
 import 'package:git_touch/widgets/avatar.dart';
 import 'package:primer/primer.dart';
@@ -46,7 +44,6 @@ class RepositoryItem extends StatelessWidget {
   final int forkCount;
   final String primaryLanguageName;
   final String primaryLanguageColor;
-  final Widget Function(BuildContext context) screenBuilder;
   final bool inRepoScreen;
   final Iterable<GithubRepositoryRepositoryTopic> topics;
 
@@ -60,7 +57,6 @@ class RepositoryItem extends StatelessWidget {
       this.forkCount,
       this.primaryLanguageName,
       this.primaryLanguageColor,
-      this.screenBuilder,
       this.topics,
       {this.inRepoScreen = false});
 
@@ -78,8 +74,6 @@ class RepositoryItem extends StatelessWidget {
         this.primaryLanguageColor = payload['primaryLanguage'] == null
             ? null
             : payload['primaryLanguage']['color'],
-        this.screenBuilder = ((_) =>
-            RepositoryScreen(payload['owner']['login'], payload['name'])),
         this.topics = [];
 
   RepositoryItem.github(GithubUserRepository payload,
@@ -93,8 +87,6 @@ class RepositoryItem extends StatelessWidget {
         this.forkCount = payload.forks.totalCount,
         this.primaryLanguageName = payload.primaryLanguage?.name,
         this.primaryLanguageColor = payload.primaryLanguage?.color,
-        this.screenBuilder =
-            ((_) => RepositoryScreen(payload.owner.login, payload.name)),
         this.topics = []; // TODO:
   // this.topics = payload['repositoryTopics'] == null
   // ? []
@@ -123,7 +115,6 @@ class RepositoryItem extends StatelessWidget {
         this.forkCount = payload.forksCount,
         this.primaryLanguageName = null,
         this.primaryLanguageColor = null,
-        this.screenBuilder = ((_) => GitlabProjectScreen(payload.id)),
         this.topics = [];
 
   RepositoryItem.gitea(GiteaRepository payload, {this.inRepoScreen = false})
@@ -136,7 +127,6 @@ class RepositoryItem extends StatelessWidget {
         this.forkCount = payload.forksCount,
         this.primaryLanguageName = null,
         this.primaryLanguageColor = null,
-        this.screenBuilder = ((_) => RepositoryScreen('', '')), // TODO:
         this.topics = [];
 
   static IconData _buildIconData(payload) {
@@ -153,9 +143,9 @@ class RepositoryItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
 
-    // TODO: text style
+    // TODO: text style inRepoScreen
     return Link(
-      screenBuilder: inRepoScreen ? null : screenBuilder,
+      url: '/$owner/$name',
       onLongPress: () async {
         await Provider.of<ThemeModel>(context).showActions(context, [
           ActionItem.user(owner),

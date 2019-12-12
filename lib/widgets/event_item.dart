@@ -2,12 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:git_touch/models/github.dart';
 import 'package:git_touch/models/theme.dart';
-import 'package:git_touch/screens/repository.dart';
 import 'package:git_touch/widgets/action_button.dart';
 import 'package:provider/provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
-import '../screens/issue.dart';
-import '../screens/user.dart';
 import 'avatar.dart';
 import '../widgets/link.dart';
 import '../utils/utils.dart';
@@ -43,7 +40,6 @@ class EventItem extends StatelessWidget {
     String detail,
     Widget detailWidget,
     IconData iconData = Octicons.octoface,
-    WidgetBuilder screenBuilder,
     String url,
     List<ActionItem> actionItems,
   }) {
@@ -55,7 +51,6 @@ class EventItem extends StatelessWidget {
     }
 
     return Link(
-      screenBuilder: screenBuilder,
       url: url,
       child: Container(
         padding: CommonStyle.padding,
@@ -66,8 +61,8 @@ class EventItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Link(
+                  url: '/' + event.actor.login,
                   child: Avatar.medium(url: event.actor.avatarUrl),
-                  screenBuilder: (_) => UserScreen(event.actor.login),
                 ),
                 SizedBox(width: 10),
                 Expanded(
@@ -170,7 +165,7 @@ class EventItem extends StatelessWidget {
             _buildRepo(theme),
           ],
           iconData: Octicons.repo_forked,
-          screenBuilder: (_) => RepositoryScreen(forkeeOwner, forkeeName),
+          url: '/$forkeeOwner/$forkeeName',
           actionItems: [
             ..._getUserActions([event.actor.login, forkeeOwner]),
             ActionItem.repository(forkeeOwner, forkeeName),
@@ -201,16 +196,11 @@ class EventItem extends StatelessWidget {
           ],
           detail: event.payload['comment']['body'],
           iconData: Octicons.comment_discussion,
-          screenBuilder: (_) => IssueScreen(
-            event.repoOwner,
-            event.repoName,
-            number,
-            isPullRequest: isPullRequest,
-          ),
+          url:
+              '/${event.repoOwner}/${event.repoName}/${isPullRequest ? 'pulls' : 'issues'}/$number',
           actionItems: [
             ..._getUserActions([event.actor.login, event.repoOwner]),
-            ActionItem.issue(event.repoOwner, event.repoName, number,
-                isPullRequest: isPullRequest),
+            ActionItem.pullRequest(event.repoOwner, event.repoName, number),
           ],
         );
       case 'IssuesEvent':
@@ -227,8 +217,7 @@ class EventItem extends StatelessWidget {
           ],
           iconData: Octicons.issue_opened,
           detail: event.payload['issue']['title'],
-          screenBuilder: (_) =>
-              IssueScreen(event.repoOwner, event.repoName, number),
+          url: '/${event.repoOwner}/${event.repoName}/issues/$number',
           actionItems: [
             ..._getUserActions([event.actor.login, event.repoOwner]),
             ActionItem.repository(event.repoOwner, event.repoName),
@@ -263,17 +252,11 @@ class EventItem extends StatelessWidget {
           ],
           iconData: Octicons.git_pull_request,
           detail: event.payload['pull_request']['title'],
-          screenBuilder: (_) => IssueScreen(
-            event.repoOwner,
-            event.repoName,
-            number,
-            isPullRequest: true,
-          ),
+          url: '/${event.repoOwner}/${event.repoName}/pulls/$number',
           actionItems: [
             ..._getUserActions([event.actor.login, event.repoOwner]),
             ActionItem.repository(event.repoOwner, event.repoName),
-            ActionItem.issue(event.repoOwner, event.repoName, number,
-                isPullRequest: true),
+            ActionItem.pullRequest(event.repoOwner, event.repoName, number),
           ],
         );
       case 'PullRequestReviewEvent':
@@ -291,17 +274,11 @@ class EventItem extends StatelessWidget {
             _buildRepo(theme),
           ],
           detail: event.payload['comment']['body'],
-          screenBuilder: (_) => IssueScreen(
-            event.repoOwner,
-            event.repoName,
-            number,
-            isPullRequest: true,
-          ),
+          url: '/${event.repoOwner}/${event.repoName}/pulls/$number',
           actionItems: [
             ..._getUserActions([event.actor.login, event.repoOwner]),
             ActionItem.repository(event.repoOwner, event.repoName),
-            ActionItem.issue(event.repoOwner, event.repoName, number,
-                isPullRequest: true),
+            ActionItem.pullRequest(event.repoOwner, event.repoName, number),
           ],
         );
       case 'PushEvent':
@@ -365,8 +342,7 @@ class EventItem extends StatelessWidget {
           context: context,
           spans: [TextSpan(text: ' starred '), _buildRepo(theme)],
           iconData: Octicons.star,
-          screenBuilder: (_) =>
-              RepositoryScreen(event.repoOwner, event.repoName),
+          url: '/${event.repoOwner}/${event.repoName}',
           actionItems: [
             ..._getUserActions([event.actor.login, event.repoOwner]),
             ActionItem.repository(event.repoOwner, event.repoName),

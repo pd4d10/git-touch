@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:git_touch/models/theme.dart';
-import 'package:git_touch/screens/user.dart';
 import 'package:git_touch/widgets/border_view.dart';
 import 'package:intl/intl.dart';
 import 'package:primer/primer.dart';
@@ -59,7 +58,7 @@ void nextTick(Function callback, [int milliseconds = 0]) {
 TextSpan createLinkSpan(
   BuildContext context,
   String text,
-  Widget Function(BuildContext) builder,
+  String url,
 ) {
   return TextSpan(
     text: text,
@@ -69,13 +68,13 @@ TextSpan createLinkSpan(
     ),
     recognizer: TapGestureRecognizer()
       ..onTap = () {
-        Provider.of<ThemeModel>(context).pushRoute(context, builder);
+        Provider.of<ThemeModel>(context).push(context, url);
       },
   );
 }
 
 TextSpan createUserSpan(BuildContext context, String login) {
-  return createLinkSpan(context, login, (_) => UserScreen(login));
+  return createLinkSpan(context, login, '/$login');
 }
 
 Tuple2<String, String> parseRepositoryFullName(String fullName) {

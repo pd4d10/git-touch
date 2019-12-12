@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
-import '../screens/user.dart';
-import 'link.dart';
+import 'package:git_touch/widgets/link.dart';
 
 final style = TextStyle(fontWeight: FontWeight.w600);
 
@@ -13,7 +11,7 @@ class UserName extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Link(
-      screenBuilder: (_) => UserScreen(login),
+      url: '/$login',
       child: Container(
         // padding: EdgeInsets.all(2),
         decoration: BoxDecoration(

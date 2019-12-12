@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:git_touch/screens/user.dart';
 import 'package:git_touch/utils/utils.dart';
 
 class TextContainsOrganization extends StatelessWidget {
@@ -22,8 +21,8 @@ class TextContainsOrganization extends StatelessWidget {
       if (chunks[index].isNotEmpty) {
         spans.add(TextSpan(text: chunks[index]));
       }
-      spans.add(createLinkSpan(
-          context, orgs[index], (_) => UserScreen(orgs[index].substring(1))));
+      spans.add(
+          createLinkSpan(context, orgs[index], '/' + orgs[index].substring(1)));
     }
     if (chunks.last.isNotEmpty) {
       spans.add(TextSpan(text: chunks.last));

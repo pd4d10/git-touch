@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:async';
 import 'package:fimber/fimber.dart';
+import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:git_touch/widgets/action_button.dart';
@@ -98,6 +99,8 @@ class ThemeModel with ChangeNotifier {
     notifyListeners();
   }
 
+  final router = Router();
+
   Palette get palette {
     switch (brightness) {
       case Brightness.light:
@@ -147,6 +150,13 @@ class ThemeModel with ChangeNotifier {
     Fimber.d('write theme: $v');
 
     notifyListeners();
+  }
+
+  push(BuildContext context, String path) {
+    return router.navigateTo(context, path,
+        transition: theme == AppThemeType.cupertino
+            ? TransitionType.cupertino
+            : TransitionType.material);
   }
 
   pushRoute(

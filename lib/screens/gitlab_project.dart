@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/gitlab.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
-import 'package:git_touch/screens/gitlab_tree.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/entry_item.dart';
@@ -70,7 +69,6 @@ class GitlabProjectScreen extends StatelessWidget {
                 data.forksCount,
                 data.languages.keys.first,
                 null,
-                null,
                 [],
                 inRepoScreen: true),
             CommonStyle.border,
@@ -116,7 +114,7 @@ class GitlabProjectScreen extends StatelessWidget {
                 TableViewItem(
                   leftIconData: Octicons.code,
                   text: Text('Code'),
-                  screenBuilder: (_) => GitlabTreeScreen(data.id),
+                  url: '/tree/$id',
                 ),
                 if (data.issuesEnabled)
                   TableViewItem(

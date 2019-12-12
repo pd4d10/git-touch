@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:git_touch/scaffolds/single.dart';
-import 'package:git_touch/screens/repository.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/table_view.dart';
 import 'package:tuple/tuple.dart';
@@ -48,22 +47,14 @@ class CreditsScreen extends StatelessWidget {
           TableView(
             headerText: 'packages',
             items: projects.map((t) {
-              return TableViewItem(
-                  text: Text(t.item1),
-                  screenBuilder: (_) {
-                    final repo = parseRepositoryFullName(t.item2);
-                    return RepositoryScreen(repo.item1, repo.item2);
-                  });
+              return TableViewItem(text: Text(t.item1), url: t.item2);
             }),
           ),
           CommonStyle.verticalGap,
           TableView(
             headerText: 'fonts',
             items: fonts.map((font) {
-              return TableViewItem(
-                text: Text(font),
-                screenBuilder: (_) => RepositoryScreen('google', 'fonts'),
-              );
+              return TableViewItem(text: Text(font), url: '/google/fonts');
             }),
           ),
         ],

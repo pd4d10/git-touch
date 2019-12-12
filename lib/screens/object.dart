@@ -122,15 +122,11 @@ class ObjectScreen extends StatelessWidget {
                 return TableViewItem(
                   leftWidget: _buildIcon(item),
                   text: Text(item.name),
-                  screenBuilder: (_) {
+                  url: (() {
                     if (item.type == 'commit') return null;
-                    return ObjectScreen(
-                      owner,
-                      name,
-                      branch,
-                      paths: [...paths, item.name],
-                    );
-                  },
+                    final p = [...paths, item.name].join('/');
+                    return '/$owner/$name/blob/$branch?path=$p';
+                  })(),
                 );
               }),
             );

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:git_touch/graphql/github_repositories.dart';
 import 'package:git_touch/scaffolds/list_stateful.dart';
-import 'package:git_touch/screens/repository.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/models/auth.dart';
@@ -74,7 +73,6 @@ class RepositoriesScreen extends StatelessWidget {
             item.forks.totalCount,
             item.primaryLanguage?.name,
             item.primaryLanguage?.color,
-            (_) => RepositoryScreen(item.owner.login, item.name),
             [],
           );
         });

@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:git_touch/models/gitlab.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
-import 'package:git_touch/screens/gitlab_blob.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/table_view.dart';
 import 'package:flutter/material.dart';
@@ -56,16 +55,16 @@ class GitlabTreeScreen extends StatelessWidget {
             return TableViewItem(
               leftWidget: _buildIcon(item),
               text: Text(item.name),
-              screenBuilder: (_) {
+              url: (() {
                 switch (item.type) {
                   case 'tree':
-                    return GitlabTreeScreen(id, path: item.path);
+                    return '/tree/$id?path=${item.path}';
                   case 'blob':
-                    return GitlabBlobScreen(id, item.path);
+                    return '/blob/$id?path=${item.path}';
                   default:
                     return null;
                 }
-              },
+              })(),
             );
           }),
         );

@@ -12,12 +12,9 @@ import 'package:git_touch/widgets/markdown_view.dart';
 import 'package:git_touch/widgets/table_view.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/models/theme.dart';
-import 'package:git_touch/screens/commits.dart';
-import 'package:git_touch/screens/object.dart';
 import 'package:git_touch/widgets/repository_item.dart';
 import 'package:tuple/tuple.dart';
 import '../widgets/entry_item.dart';
-import '../screens/issues.dart';
 import 'package:git_touch/widgets/action_button.dart';
 
 class RepositoryScreen extends StatelessWidget {
@@ -134,7 +131,6 @@ class RepositoryScreen extends StatelessWidget {
                 repo.forks.totalCount,
                 repo.primaryLanguage?.name,
                 repo.primaryLanguage?.color,
-                null,
                 repo.repositoryTopics.nodes,
                 inRepoScreen: true),
             CommonStyle.border,
@@ -192,11 +188,7 @@ class RepositoryScreen extends StatelessWidget {
                     leftIconData: Octicons.code,
                     text: Text('Code'),
                     rightWidget: Text(filesize(repo.diskUsage * 1000)),
-                    screenBuilder: (_) => ObjectScreen(
-                      owner,
-                      name,
-                      ref.name,
-                    ),
+                    url: '/$owner/$name/blob/${ref.name}',
                   ),
                 if (repo.hasIssuesEnabled)
                   TableViewItem(
@@ -204,15 +196,14 @@ class RepositoryScreen extends StatelessWidget {
                     text: Text('Issues'),
                     rightWidget:
                         Text(numberFormat.format(repo.issues.totalCount)),
-                    screenBuilder: (_) => IssuesScreen(owner, name),
+                    url: '/$owner/$name/issues',
                   ),
                 TableViewItem(
                   leftIconData: Octicons.git_pull_request,
                   text: Text('Pull requests'),
                   rightWidget:
                       Text(numberFormat.format(repo.pullRequests.totalCount)),
-                  screenBuilder: (_) =>
-                      IssuesScreen(owner, name, isPullRequest: true),
+                  url: '/$owner/$name/pulls',
                 ),
                 TableViewItem(
                   leftIconData: Octicons.project,
@@ -238,8 +229,7 @@ class RepositoryScreen extends StatelessWidget {
                             ?.totalCount,
                       ),
                     ),
-                    screenBuilder: (_) =>
-                        CommitsScreen(owner, name, branch: branch),
+                    url: '/$owner/$name/commits',
                   ),
                   if (repo.refs != null)
                     TableViewItem(

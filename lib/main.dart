@@ -3,16 +3,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:git_touch/models/code.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/theme.dart';
+import 'package:git_touch/screens/commits.dart';
+import 'package:git_touch/screens/credits.dart';
 import 'package:git_touch/screens/gitlab_todos.dart';
 import 'package:git_touch/screens/gitlab_user.dart';
+import 'package:git_touch/screens/issue_form.dart';
 import 'package:git_touch/screens/issues.dart';
 import 'package:git_touch/screens/notification.dart';
+import 'package:git_touch/screens/object.dart';
 import 'package:git_touch/screens/repository.dart';
 import 'package:git_touch/screens/repositories.dart';
 import 'package:git_touch/screens/user.dart';
 import 'package:primer/primer.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/models/notification.dart';
+import 'package:fluro/fluro.dart';
 import 'screens/news.dart';
 import 'screens/search.dart';
 import 'screens/login.dart';
@@ -132,30 +137,30 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    final authModel = Provider.of<AuthModel>(context);
-    final themeModel = Provider.of<ThemeModel>(context);
+    final auth = Provider.of<AuthModel>(context);
+    final theme = Provider.of<ThemeModel>(context);
 
     final themData = ThemeData(
-      brightness: themeModel.brightness,
+      brightness: theme.brightness,
       primaryColor: PrimerColors.white,
       accentColor: PrimerColors.blue500,
     );
 
     // TODO:
-    if (!authModel.ready || !Provider.of<ThemeModel>(context).ready) {
+    if (!auth.ready || !Provider.of<ThemeModel>(context).ready) {
       return MaterialApp(theme: themData, home: Scaffold(body: Text('a')));
     }
 
     // Fimber.d(settings.activeLogin);
-    if (authModel.activeAccount == null) {
+    if (auth.activeAccount == null) {
       return MaterialApp(theme: themData, home: LoginScreen());
     }
 
-    switch (themeModel.theme) {
+    switch (theme.theme) {
       case AppThemeType.cupertino:
         return CupertinoApp(
           theme: CupertinoThemeData(
-            brightness: themeModel.brightness,
+            brightness: theme.brightness,
             primaryColor: PrimerColors.blue500,
           ),
           home: CupertinoTabScaffold(
@@ -222,6 +227,71 @@ void main() async {
     authModel.init(),
     codeModel.init(),
   ]);
+
+  // TODO: gitlab
+  themeModel.router.define('/login', handler: Handler(
+    handlerFunc: (context, params) {
+      return LoginScreen();
+    },
+  ));
+  themeModel.router.define('/help/credits', handler: Handler(
+    handlerFunc: (context, params) {
+      return CreditsScreen();
+    },
+  ));
+  themeModel.router.define('/:login', handler: Handler(
+    handlerFunc: (context, params) {
+      return UserScreen(params['login'][0]);
+    },
+  ));
+  themeModel.router.define('/:owner/:name', handler: Handler(
+    handlerFunc: (context, params) {
+      return RepositoryScreen(params['owner'][0], params['name'][0]);
+    },
+  ));
+  themeModel.router.define('/:owner/:name/issues', handler: Handler(
+    handlerFunc: (context, params) {
+      return IssuesScreen(params['owner'][0], params['name'][0]);
+    },
+  ));
+  themeModel.router.define('/:owner/:name/pulls', handler: Handler(
+    handlerFunc: (context, params) {
+      return IssuesScreen(params['owner'][0], params['name'][0],
+          isPullRequest: true);
+    },
+  ));
+  themeModel.router.define('/:owner/:name/issues/:number', handler: Handler(
+    handlerFunc: (context, params) {
+      return IssueScreen(params['owner'][0], params['name'][0],
+          int.parse(params['number'][0]));
+    },
+  ));
+  themeModel.router.define('/:owner/:name/pulls/:number', handler: Handler(
+    handlerFunc: (context, params) {
+      return IssueScreen(
+        params['owner'][0],
+        params['name'][0],
+        int.parse(params['number'][0]),
+        isPullRequest: true,
+      );
+    },
+  ));
+  themeModel.router.define('/:owner/:name/commits', handler: Handler(
+    handlerFunc: (context, params) {
+      return CommitsScreen(params['owner'][0], params['name'][0]);
+    },
+  ));
+  themeModel.router.define('/:owner/:name/blob/:ref', handler: Handler(
+    handlerFunc: (context, params) {
+      return ObjectScreen(
+          params['owner'][0], params['name'][0], params['ref'][0]);
+    },
+  ));
+  themeModel.router.define('/:owner/:name/issues/new', handler: Handler(
+    handlerFunc: (context, params) {
+      return IssueFormScreen(params['owner'][0], params['name'][0]);
+    },
+  ));
 
   runApp(MultiProvider(
     providers: [
