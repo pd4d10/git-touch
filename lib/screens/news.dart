@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:git_touch/models/github_event.dart';
+import 'package:git_touch/models/github.dart';
 import 'package:git_touch/models/notification.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/list_stateful.dart';

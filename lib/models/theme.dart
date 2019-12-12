@@ -346,6 +346,7 @@ class ThemeModel with ChangeNotifier {
   }
 
   showActions(BuildContext context, List<ActionItem> actionItems) async {
+    if (actionItems == null) return;
     final value = await showCupertinoModalPopup<int>(
       context: context,
       builder: (BuildContext context) {

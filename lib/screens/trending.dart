@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:git_touch/models/github_trending.dart';
+import 'package:git_touch/models/github.dart';
 import 'package:git_touch/scaffolds/tab_stateful.dart';
 import 'package:git_touch/screens/repository.dart';
 import 'package:git_touch/utils/utils.dart';

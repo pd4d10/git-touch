@@ -2,7 +2,7 @@ import 'package:git_touch/utils/utils.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tuple/tuple.dart';
 
-part 'github_event.g.dart';
+part 'github.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GithubEvent {
@@ -52,4 +52,22 @@ class GithubEventRepo {
 
   factory GithubEventRepo.fromJson(Map<String, dynamic> json) =>
       _$GithubEventRepoFromJson(json);
+}
+
+@JsonSerializable()
+class GithubTrendingItem {
+  String author;
+  String name;
+  String avatar;
+  String description;
+  String language;
+  String languageColor;
+  int stars;
+  int forks;
+  int currentPeriodStars;
+
+  GithubTrendingItem();
+
+  factory GithubTrendingItem.fromJson(Map<String, dynamic> json) =>
+      _$GithubTrendingItemFromJson(json);
 }

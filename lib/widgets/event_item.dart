@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:git_touch/models/github_event.dart';
+import 'package:git_touch/models/github.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/screens/repository.dart';
 import 'package:git_touch/widgets/action_button.dart';
@@ -57,12 +57,6 @@ class EventItem extends StatelessWidget {
     return Link(
       screenBuilder: screenBuilder,
       url: url,
-      onLongPress: () async {
-        if (actionItems == null) return;
-
-        await Provider.of<ThemeModel>(context)
-            .showActions(context, actionItems);
-      },
       child: Container(
         padding: CommonStyle.padding,
         child: Column(
@@ -109,7 +103,14 @@ class EventItem extends StatelessWidget {
                               style: TextStyle(
                                 fontSize: 13,
                                 color: theme.palette.tertiaryText,
-                              ))
+                              )),
+                          Expanded(child: Container()),
+                          GestureDetector(
+                            child: Icon(Icons.more_horiz),
+                            onTap: () {
+                              theme.showActions(context, actionItems);
+                            },
+                          ),
                         ],
                       ),
                     ]),
@@ -123,11 +124,9 @@ class EventItem extends StatelessWidget {
     );
   }
 
-  @override
-  build(BuildContext context) {
+  Widget _buildDefaultItem(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
-
-    var defaultItem = _buildItem(
+    return _buildItem(
       context: context,
       spans: [
         TextSpan(
@@ -138,6 +137,11 @@ class EventItem extends StatelessWidget {
       iconData: Octicons.octoface,
       detail: 'Woops, ${event.type} not implemented yet',
     );
+  }
+
+  @override
+  build(BuildContext context) {
+    final theme = Provider.of<ThemeModel>(context);
 
     // all events types here:
     // https://developer.github.com/v3/activity/events/types/#event-types--payloads
@@ -153,7 +157,7 @@ class EventItem extends StatelessWidget {
       case 'DownloadEvent':
       case 'FollowEvent':
         // TODO:
-        return defaultItem;
+        return _buildDefaultItem(context);
       case 'ForkEvent':
         final forkeeOwner = event.payload['forkee']['owner']['login'] as String;
         final forkeeName = event.payload['forkee']['name'] as String;
@@ -180,7 +184,7 @@ class EventItem extends StatelessWidget {
       case 'InstallationEvent':
       case 'InstallationRepositoriesEvent':
         // TODO:
-        return defaultItem;
+        return _buildDefaultItem(context);
       case 'IssueCommentEvent':
         final isPullRequest = event.payload['issue']['pull_request'] != null;
         final resource = isPullRequest ? 'pull request' : 'issue';
@@ -244,7 +248,7 @@ class EventItem extends StatelessWidget {
       case 'ProjectEvent':
       case 'PublicEvent':
         // TODO:
-        return defaultItem;
+        return _buildDefaultItem(context);
       case 'PullRequestEvent':
         final action = event.payload['action'];
         final number = event.payload['pull_request']['number'] as int;
@@ -274,7 +278,7 @@ class EventItem extends StatelessWidget {
         );
       case 'PullRequestReviewEvent':
         // TODO:
-        return defaultItem;
+        return _buildDefaultItem(context);
       case 'PullRequestReviewCommentEvent':
         final number = event.payload['pull_request']['number'] as int;
 
@@ -355,7 +359,7 @@ class EventItem extends StatelessWidget {
       case 'TeamEvent':
       case 'TeamAddEvent':
         // TODO:
-        return defaultItem;
+        return _buildDefaultItem(context);
       case 'WatchEvent':
         return _buildItem(
           context: context,
@@ -369,7 +373,7 @@ class EventItem extends StatelessWidget {
           ],
         );
       default:
-        return defaultItem;
+        return _buildDefaultItem(context);
     }
   }
 }

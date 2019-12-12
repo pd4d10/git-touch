@@ -43,7 +43,7 @@ class ActionItem {
         });
   ActionItem.issue(String owner, String name, int number,
       {isPullRequest = false})
-      : text = (isPullRequest ? 'Pull Request' : 'Issue') + ' #$number',
+      : text = '$owner/$name #$number',
         onPress = ((context) {
           Provider.of<ThemeModel>(context).pushRoute(
               context,
