@@ -241,44 +241,44 @@ void main() async {
   ));
   themeModel.router.define('/:login', handler: Handler(
     handlerFunc: (context, params) {
-      return UserScreen(params['login'][0]);
+      return UserScreen(params['login'].first);
     },
   ));
   themeModel.router.define('/:owner/:name', handler: Handler(
     handlerFunc: (context, params) {
-      return RepositoryScreen(params['owner'][0], params['name'][0]);
+      return RepositoryScreen(params['owner'].first, params['name'].first);
     },
   ));
   themeModel.router.define('/:owner/:name/issues', handler: Handler(
     handlerFunc: (context, params) {
-      return IssuesScreen(params['owner'][0], params['name'][0]);
+      return IssuesScreen(params['owner'].first, params['name'].first);
     },
   ));
   themeModel.router.define('/:owner/:name/pulls', handler: Handler(
     handlerFunc: (context, params) {
-      return IssuesScreen(params['owner'][0], params['name'][0],
+      return IssuesScreen(params['owner'].first, params['name'].first,
           isPullRequest: true);
     },
   ));
   themeModel.router.define('/:owner/:name/issues/:number', handler: Handler(
     handlerFunc: (context, params) {
-      return IssueScreen(params['owner'][0], params['name'][0],
-          int.parse(params['number'][0]));
+      return IssueScreen(params['owner'].first, params['name'].first,
+          int.parse(params['number'].first));
     },
   ));
   themeModel.router.define('/:owner/:name/pulls/:number', handler: Handler(
     handlerFunc: (context, params) {
       return IssueScreen(
-        params['owner'][0],
-        params['name'][0],
-        int.parse(params['number'][0]),
+        params['owner'].first,
+        params['name'].first,
+        int.parse(params['number'].first),
         isPullRequest: true,
       );
     },
   ));
   themeModel.router.define('/:owner/:name/commits', handler: Handler(
     handlerFunc: (context, params) {
-      return CommitsScreen(params['owner'][0], params['name'][0]);
+      return CommitsScreen(params['owner'].first, params['name'].first);
     },
   ));
   themeModel.router.define('/:owner/:name/blob/:ref', handler: Handler(
@@ -294,7 +294,7 @@ void main() async {
   ));
   themeModel.router.define('/:owner/:name/issues/new', handler: Handler(
     handlerFunc: (context, params) {
-      return IssueFormScreen(params['owner'][0], params['name'][0]);
+      return IssueFormScreen(params['owner'].first, params['name'].first);
     },
   ));
 
