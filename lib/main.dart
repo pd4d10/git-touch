@@ -13,6 +13,7 @@ import 'package:git_touch/screens/notification.dart';
 import 'package:git_touch/screens/object.dart';
 import 'package:git_touch/screens/repository.dart';
 import 'package:git_touch/screens/repositories.dart';
+import 'package:git_touch/screens/settings.dart';
 import 'package:git_touch/screens/user.dart';
 import 'package:primer/primer.dart';
 import 'package:provider/provider.dart';
@@ -232,6 +233,11 @@ void main() async {
   themeModel.router.define('/login', handler: Handler(
     handlerFunc: (context, params) {
       return LoginScreen();
+    },
+  ));
+  themeModel.router.define('/settings', handler: Handler(
+    handlerFunc: (context, params) {
+      return SettingsScreen();
     },
   ));
   themeModel.router.define('/help/credits', handler: Handler(

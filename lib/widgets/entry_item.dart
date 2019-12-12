@@ -46,7 +46,6 @@ class EntryItem extends StatelessWidget {
             ],
           ),
         ),
-        screenBuilder: screenBuilder,
         url: url,
       ),
     );

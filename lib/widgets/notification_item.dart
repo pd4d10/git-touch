@@ -102,15 +102,9 @@ class _NotificationItemState extends State<NotificationItem> {
         switch (payload.type) {
           case 'Issue':
           case 'PullRequest':
-            Provider.of<ThemeModel>(context).pushRoute(
-                context,
-                (_) => IssueScreen(
-                      payload.owner,
-                      payload.name,
-                      payload.number,
-                      isPullRequest: payload.type == 'PullRequest',
-                    ));
-
+            final resource = payload.type == 'PullRequest' ? 'pulls' : 'issues';
+            Provider.of<ThemeModel>(context).push(context,
+                '/${payload.owner}/${payload.name}/$resource/${payload.number}');
             break;
           case 'Release':
             launchUrl(

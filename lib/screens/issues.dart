@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/list_stateful.dart';
-import 'package:git_touch/screens/issue_form.dart';
 import 'package:git_touch/widgets/action_entry.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/issue_item.dart';
@@ -52,9 +51,8 @@ class IssuesScreen extends StatelessWidget {
       actionBuilder: () => ActionEntry(
           iconData: Octicons.plus,
           onTap: () {
-            Provider.of<ThemeModel>(context).pushRoute(
-                context, (_) => IssueFormScreen(owner, name),
-                fullscreenDialog: true);
+            Provider.of<ThemeModel>(context)
+                .push(context, '/$owner/$name/issues/new');
           }),
       onRefresh: () => _query(context),
       onLoadMore: (cursor) => _query(context, cursor),

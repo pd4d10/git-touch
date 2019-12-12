@@ -37,9 +37,10 @@ class Avatar extends StatelessWidget {
         ),
       ),
       onTap: () {
-        Provider.of<ThemeModel>(context).pushRoute(
-            context, (_) => ImageViewScreen(url),
-            fullscreenDialog: true);
+        // TODO:
+        // Provider.of<ThemeModel>(context).pushRoute(
+        //     context, (_) => ImageViewScreen(url),
+        //     fullscreenDialog: true);
       },
     );
   }

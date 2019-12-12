@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import '../utils/utils.dart';
 import '../widgets/link.dart';
-import '../screens/issue.dart';
 
 const issueGqlChunk = '''
 number
@@ -43,14 +42,8 @@ class IssueItem extends StatelessWidget {
     final theme = Provider.of<ThemeModel>(context);
 
     return Link(
-      screenBuilder: (context) {
-        return IssueScreen(
-          payload['repository']['owner']['login'] as String,
-          payload['repository']['name'] as String,
-          payload['number'] as int,
-          isPullRequest: isPullRequest,
-        );
-      },
+      url:
+          '/${payload['repository']['owner']['login']}/${payload['repository']['name']}/${isPullRequest ? 'pulls' : 'issues'}/${payload['number']}',
       child: Container(
         padding: CommonStyle.padding,
         // color: payload.unread ? Colors.white : Colors.black12,

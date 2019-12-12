@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:git_touch/graphql/github_user.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
-import 'package:git_touch/screens/settings.dart';
 import 'package:git_touch/screens/users.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/action_entry.dart';
@@ -270,9 +269,7 @@ class UserScreen extends StatelessWidget {
               return ActionEntry(
                 iconData: Icons.settings,
                 onTap: () {
-                  Provider.of<ThemeModel>(context).pushRoute(
-                      context, (_) => SettingsScreen(),
-                      fullscreenDialog: true);
+                  Provider.of<ThemeModel>(context).push(context, '/settings');
                 },
               );
             } else {
