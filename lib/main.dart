@@ -15,9 +15,10 @@ import 'package:git_touch/screens/object.dart';
 import 'package:git_touch/screens/pull.dart';
 import 'package:git_touch/screens/pulls.dart';
 import 'package:git_touch/screens/repository.dart';
-import 'package:git_touch/screens/repositories.dart';
 import 'package:git_touch/screens/settings.dart';
+import 'package:git_touch/screens/stargazers.dart';
 import 'package:git_touch/screens/user.dart';
+import 'package:git_touch/screens/watchers.dart';
 import 'package:primer/primer.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/models/notification.dart';
@@ -245,6 +246,8 @@ void main() async {
     commitsRouter,
     objectRouter,
     issueAddRouter,
+    stargazersRouter,
+    watchersRouter,
     gitlabIssueRouter
   ];
 

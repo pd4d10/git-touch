@@ -7,13 +7,11 @@ import 'link.dart';
 class EntryItem extends StatelessWidget {
   final int count;
   final String text;
-  final WidgetBuilder screenBuilder;
   final String url;
 
   EntryItem({
     @required this.count,
     @required this.text,
-    this.screenBuilder,
     this.url,
   });
 
@@ -23,6 +21,7 @@ class EntryItem extends StatelessWidget {
 
     return Expanded(
       child: Link(
+        url: url,
         child: Container(
           padding: EdgeInsets.symmetric(vertical: 14),
           child: Column(
@@ -46,7 +45,6 @@ class EntryItem extends StatelessWidget {
             ],
           ),
         ),
-        url: url,
       ),
     );
   }

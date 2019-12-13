@@ -21,7 +21,26 @@ import 'package:git_touch/widgets/action_button.dart';
 import 'package:tuple/tuple.dart';
 
 final userRouter = RouterScreen(
-    '/:login', (context, parameters) => UserScreen(parameters['login'].first));
+  '/:login',
+  (context, parameters) {
+    final login = parameters['login'].first;
+    final tab = parameters['tab'].first;
+    switch (tab) {
+      case 'followers':
+        return UsersScreen(login, UsersScreenType.follower);
+      case 'following':
+        return UsersScreen(login, UsersScreenType.following);
+      case 'people':
+        return UsersScreen(login, UsersScreenType.member);
+      case 'stars':
+        return RepositoriesScreen.stars(login);
+      case 'repositories':
+        return RepositoriesScreen(login);
+      default:
+        return UserScreen(parameters['login'].first);
+    }
+  },
+);
 
 class UserScreen extends StatelessWidget {
   final String login;
@@ -79,6 +98,7 @@ class UserScreen extends StatelessWidget {
   Widget _buildUser(BuildContext context, GithubUserUser user,
       List<ContributionsInfo> contributions) {
     final theme = Provider.of<ThemeModel>(context);
+    final login = user.login;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
@@ -94,24 +114,22 @@ class UserScreen extends StatelessWidget {
           EntryItem(
             count: user.repositories.totalCount,
             text: 'Repositories',
-            screenBuilder: (context) => RepositoriesScreen(user.login),
+            url: '/$login?tab=repositories',
           ),
           EntryItem(
             count: user.starredRepositories.totalCount,
             text: 'Stars',
-            screenBuilder: (context) => RepositoriesScreen.stars(user.login),
+            url: '/$login?tab=stars',
           ),
           EntryItem(
             count: user.followers.totalCount,
             text: 'Followers',
-            screenBuilder: (context) =>
-                UsersScreen(user.login, UsersScreenType.follower),
+            url: '/$login?tab=followers',
           ),
           EntryItem(
             count: user.following.totalCount,
             text: 'Following',
-            screenBuilder: (context) =>
-                UsersScreen(user.login, UsersScreenType.following),
+            url: '/$login?tab=following',
           ),
         ]),
         CommonStyle.verticalGap,
@@ -187,13 +205,12 @@ class UserScreen extends StatelessWidget {
           EntryItem(
             count: payload.pinnableItems.totalCount,
             text: 'Repositories',
-            screenBuilder: (context) => RepositoriesScreen(payload.login),
+            url: '/$login?tab=repositories',
           ),
           EntryItem(
             count: payload.membersWithRole.totalCount,
             text: 'Members',
-            screenBuilder: (context) =>
-                UsersScreen(payload.login, UsersScreenType.member),
+            url: '/$login?tab=people',
           ),
         ]),
         CommonStyle.verticalGap,

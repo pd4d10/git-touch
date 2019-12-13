@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:git_touch/graphql/github_repository.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
-import 'package:git_touch/screens/users.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/markdown_view.dart';
@@ -148,14 +147,12 @@ class RepositoryScreen extends StatelessWidget {
                 EntryItem(
                   count: repo.watchers.totalCount,
                   text: 'Watchers',
-                  screenBuilder: (context) =>
-                      UsersScreen(owner, UsersScreenType.watch, repoName: name),
+                  url: '/$owner/$name/watchers',
                 ),
                 EntryItem(
                   count: repo.stargazers.totalCount,
                   text: 'Stars',
-                  screenBuilder: (context) =>
-                      UsersScreen(owner, UsersScreenType.star, repoName: name),
+                  url: '/$owner/$name/stargazers',
                 ),
                 EntryItem(
                   count: repo.forks.totalCount,
