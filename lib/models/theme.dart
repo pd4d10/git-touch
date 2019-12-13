@@ -165,25 +165,6 @@ class ThemeModel with ChangeNotifier {
     );
   }
 
-  pushRoute(
-    BuildContext context,
-    WidgetBuilder builder, {
-    bool fullscreenDialog = false,
-  }) {
-    switch (theme) {
-      case AppThemeType.cupertino:
-        return Navigator.of(context).push(CupertinoPageRoute(
-          builder: builder,
-          fullscreenDialog: fullscreenDialog,
-        ));
-      default:
-        return Navigator.of(context).push(MaterialPageRoute(
-          builder: builder,
-          fullscreenDialog: fullscreenDialog,
-        ));
-    }
-  }
-
   Future<bool> showConfirm(BuildContext context, Widget content) {
     switch (theme) {
       case AppThemeType.cupertino:

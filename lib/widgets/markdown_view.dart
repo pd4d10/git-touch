@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:git_touch/models/theme.dart';
-import 'package:git_touch/screens/issue.dart';
-import 'package:git_touch/screens/object.dart';
-import 'package:git_touch/screens/repository.dart';
-import 'package:git_touch/screens/user.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:primer/primer.dart';
 import 'package:provider/provider.dart';
@@ -40,17 +36,9 @@ class MarkdownView extends StatelessWidget {
           final x = basePaths.sublist(3).join('/');
           var y = path.join(x, url);
           if (y.startsWith('/')) y = y.substring(1);
-          final paths = path.split(y);
 
-          return Provider.of<ThemeModel>(context).pushRoute(
-            context,
-            (_) => ObjectScreen(
-              basePaths[0],
-              basePaths[1],
-              basePaths[2],
-              paths: paths,
-            ),
-          );
+          return Provider.of<ThemeModel>(context).push(context,
+              '/${basePaths[0]}/${basePaths[1]}/${basePaths[2]}?path=${y.urlencode}');
         }
 
         // TODO: Relative paths
@@ -59,37 +47,22 @@ class MarkdownView extends StatelessWidget {
 
           m = matchPattern(url, '/{owner}/{name}/pull/{number}');
           if (m != null) {
-            return Provider.of<ThemeModel>(context).pushRoute(
-                context,
-                (_) => IssueScreen(
-                      m['owner'],
-                      m['name'],
-                      int.parse(m['number']),
-                      isPullRequest: true,
-                    ));
+            return Provider.of<ThemeModel>(context).push(context, url);
           }
 
           m = matchPattern(url, '/{owner}/{name}/issues/{number}');
           if (m != null) {
-            return Provider.of<ThemeModel>(context).pushRoute(
-                context,
-                (_) => IssueScreen(
-                      m['owner'],
-                      m['name'],
-                      int.parse(m['number']),
-                    ));
+            return Provider.of<ThemeModel>(context).push(context, url);
           }
 
           m = matchPattern(url, '/{owner}/{name}');
           if (m != null) {
-            return Provider.of<ThemeModel>(context).pushRoute(
-                context, (_) => RepositoryScreen(m['owner'], m['name']));
+            return Provider.of<ThemeModel>(context).push(context, url);
           }
 
           m = matchPattern(url, '/{login}');
           if (m != null) {
-            return Provider.of<ThemeModel>(context)
-                .pushRoute(context, (_) => UserScreen(m['login']));
+            return Provider.of<ThemeModel>(context).push(context, url);
           }
         }
 
