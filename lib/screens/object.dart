@@ -5,7 +5,6 @@ import 'package:git_touch/graphql/github_object.dart';
 import 'package:git_touch/models/code.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
-import 'package:git_touch/screens/code_theme.dart';
 import 'package:git_touch/widgets/action_entry.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/markdown_view.dart';
@@ -102,10 +101,11 @@ class ObjectScreen extends StatelessWidget {
             return ActionEntry(
               iconData: Octicons.settings,
               onTap: () {
-                if (data != null) {
-                  Provider.of<ThemeModel>(context).pushRoute(
-                      context, (_) => CodeThemeScreen(blob.text, _language));
-                }
+                // TODO:
+                // if (data != null) {
+                //   Provider.of<ThemeModel>(context).pushRoute(
+                //       context, (_) => CodeThemeScreen(blob.text, _language));
+                // }
               },
             );
           default:

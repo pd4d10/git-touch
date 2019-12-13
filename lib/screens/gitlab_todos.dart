@@ -3,7 +3,6 @@ import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/gitlab.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
-import 'package:git_touch/screens/gitlab_issue.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/avatar.dart';
 import 'package:git_touch/widgets/link.dart';
@@ -25,9 +24,8 @@ class GitlabTodosScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: data.map((item) {
             return Link(
-              screenBuilder: (_) => GitlabIssueScreen(
-                  item.target.projectId, item.target.iid,
-                  isMr: item.targetType == 'MergeRequest'),
+              url:
+                  '/project/${item.target.projectId}/${item.targetType == 'MergeRequest' ? 'merge_requests' : 'issue'}/${item.target.iid}',
               child: Container(
                 padding: CommonStyle.padding,
                 child: Row(

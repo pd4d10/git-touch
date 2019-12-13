@@ -5,6 +5,7 @@ import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/screens/commits.dart';
 import 'package:git_touch/screens/credits.dart';
+import 'package:git_touch/screens/gitlab_issue.dart';
 import 'package:git_touch/screens/gitlab_todos.dart';
 import 'package:git_touch/screens/gitlab_user.dart';
 import 'package:git_touch/screens/issue_form.dart';
@@ -229,7 +230,7 @@ void main() async {
     codeModel.init(),
   ]);
 
-  // TODO: gitlab
+  // github
   themeModel.router.define('/login', handler: Handler(
     handlerFunc: (context, params) {
       return LoginScreen();
@@ -306,6 +307,14 @@ void main() async {
   themeModel.router.define('/:owner/:name/issues/new', handler: Handler(
     handlerFunc: (context, params) {
       return IssueFormScreen(params['owner'].first, params['name'].first);
+    },
+  ));
+
+  // gitlab
+  themeModel.router.define('/project/:id/issue/:iid', handler: Handler(
+    handlerFunc: (context, params) {
+      return GitlabIssueScreen(
+          int.parse(['id'].first), int.parse(params['iid'].first));
     },
   ));
 
