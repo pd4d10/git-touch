@@ -24,7 +24,7 @@ final userRouter = RouterScreen(
   '/:login',
   (context, parameters) {
     final login = parameters['login'].first;
-    final tab = parameters['tab'].first;
+    final tab = parameters['tab']?.first;
     switch (tab) {
       case 'followers':
         return UsersScreen(login, UsersScreenType.follower);
@@ -37,7 +37,7 @@ final userRouter = RouterScreen(
       case 'repositories':
         return RepositoriesScreen(login);
       default:
-        return UserScreen(parameters['login'].first);
+        return UserScreen(login);
     }
   },
 );
