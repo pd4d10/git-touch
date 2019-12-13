@@ -9,7 +9,9 @@ import 'package:provider/provider.dart';
 import '../widgets/link.dart';
 import '../widgets/loading.dart';
 import '../widgets/avatar.dart';
-// import 'login_gitlab.dart';
+
+final loginRouter =
+    RouterScreen('/login', (context, parameters) => LoginScreen());
 
 class LoginScreen extends StatefulWidget {
   @override

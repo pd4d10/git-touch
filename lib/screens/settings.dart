@@ -7,7 +7,11 @@ import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:provider/provider.dart';
 import 'package:launch_review/launch_review.dart';
 import '../widgets/table_view.dart';
-import '../screens/login.dart';
+
+final settingsRouter = RouterScreen(
+  '/settings',
+  (context, parameters) => SettingsScreen(),
+);
 
 class SettingsScreen extends StatelessWidget {
   Widget _buildRightWidget(bool checked) {

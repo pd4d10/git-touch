@@ -9,6 +9,11 @@ import 'package:timeago/timeago.dart' as timeago;
 import 'package:git_touch/widgets/avatar.dart';
 import 'package:primer/primer.dart';
 
+final commitsRouter = RouterScreen(
+    '/:owner/:name/commits',
+    (context, params) =>
+        CommitsScreen(params['owner'].first, params['name'].first));
+
 class CommitsScreen extends StatelessWidget {
   final String owner;
   final String name;

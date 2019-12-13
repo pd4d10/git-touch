@@ -12,6 +12,8 @@ import 'package:git_touch/screens/issue_form.dart';
 import 'package:git_touch/screens/issues.dart';
 import 'package:git_touch/screens/notification.dart';
 import 'package:git_touch/screens/object.dart';
+import 'package:git_touch/screens/pull.dart';
+import 'package:git_touch/screens/pulls.dart';
 import 'package:git_touch/screens/repository.dart';
 import 'package:git_touch/screens/repositories.dart';
 import 'package:git_touch/screens/settings.dart';
@@ -230,93 +232,26 @@ void main() async {
     codeModel.init(),
   ]);
 
-  // github
-  themeModel.router.define('/login', handler: Handler(
-    handlerFunc: (context, params) {
-      return LoginScreen();
-    },
-  ));
-  themeModel.router.define('/settings', handler: Handler(
-    handlerFunc: (context, params) {
-      return SettingsScreen();
-    },
-  ));
-  themeModel.router.define('/help/credits', handler: Handler(
-    handlerFunc: (context, params) {
-      return CreditsScreen();
-    },
-  ));
-  themeModel.router.define('/:login', handler: Handler(
-    handlerFunc: (context, params) {
-      return UserScreen(params['login'].first);
-    },
-  ));
-  themeModel.router.define('/:owner/:name', handler: Handler(
-    handlerFunc: (context, params) {
-      if (params['ref'] == null) {
-        return RepositoryScreen(params['owner'].first, params['name'].first);
-      } else {
-        return RepositoryScreen(params['owner'].first, params['name'].first,
-            branch: params['ref'].first);
-      }
-    },
-  ));
-  themeModel.router.define('/:owner/:name/issues', handler: Handler(
-    handlerFunc: (context, params) {
-      return IssuesScreen(params['owner'].first, params['name'].first);
-    },
-  ));
-  themeModel.router.define('/:owner/:name/pulls', handler: Handler(
-    handlerFunc: (context, params) {
-      return IssuesScreen(params['owner'].first, params['name'].first,
-          isPullRequest: true);
-    },
-  ));
-  themeModel.router.define('/:owner/:name/issues/:number', handler: Handler(
-    handlerFunc: (context, params) {
-      return IssueScreen(params['owner'].first, params['name'].first,
-          int.parse(params['number'].first));
-    },
-  ));
-  themeModel.router.define('/:owner/:name/pulls/:number', handler: Handler(
-    handlerFunc: (context, params) {
-      return IssueScreen(
-        params['owner'].first,
-        params['name'].first,
-        int.parse(params['number'].first),
-        isPullRequest: true,
-      );
-    },
-  ));
-  themeModel.router.define('/:owner/:name/commits', handler: Handler(
-    handlerFunc: (context, params) {
-      return CommitsScreen(params['owner'].first, params['name'].first);
-    },
-  ));
-  themeModel.router.define('/:owner/:name/blob/:ref', handler: Handler(
-    handlerFunc: (context, params) {
-      final pathParam = params['path'];
-      return ObjectScreen(
-        params['owner'].first,
-        params['name'].first,
-        params['ref'].first,
-        paths: pathParam?.first?.urldecode?.split('/') ?? [],
-      );
-    },
-  ));
-  themeModel.router.define('/:owner/:name/issues/new', handler: Handler(
-    handlerFunc: (context, params) {
-      return IssueFormScreen(params['owner'].first, params['name'].first);
-    },
-  ));
+  final routers = [
+    loginRouter,
+    settingsRouter,
+    creditsRouter,
+    userRouter,
+    repositoryRouter,
+    issuesRouter,
+    pullsRouter,
+    issueRouter,
+    pullRouter,
+    commitsRouter,
+    objectRouter,
+    issueAddRouter,
+    gitlabIssueRouter
+  ];
 
-  // gitlab
-  themeModel.router.define('/project/:id/issue/:iid', handler: Handler(
-    handlerFunc: (context, params) {
-      return GitlabIssueScreen(
-          int.parse(['id'].first), int.parse(params['iid'].first));
-    },
-  ));
+  routers.forEach((screen) {
+    themeModel.router
+        .define(screen.path, handler: Handler(handlerFunc: screen.handler));
+  });
 
   runApp(MultiProvider(
     providers: [

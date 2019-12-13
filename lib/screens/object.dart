@@ -9,7 +9,7 @@ import 'package:git_touch/widgets/action_entry.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/markdown_view.dart';
 import 'package:git_touch/widgets/table_view.dart';
-import 'package:path/path.dart' as path;
+import 'package:path/path.dart' as p;
 import 'package:flutter/material.dart';
 import 'package:flutter_highlight/flutter_highlight.dart';
 import 'package:git_touch/models/auth.dart';
@@ -18,6 +18,16 @@ import 'package:provider/provider.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:primer/primer.dart';
 import 'package:seti/seti.dart';
+
+final objectRouter = RouterScreen(
+  '/:owner/:name/blob/:ref',
+  (context, params) => ObjectScreen(
+    params['owner'].first,
+    params['name'].first,
+    params['ref'].first,
+    paths: params['path']?.first?.urldecode?.split('/') ?? [],
+  ),
+);
 
 class ObjectScreen extends StatelessWidget {
   final String owner;
@@ -30,7 +40,7 @@ class ObjectScreen extends StatelessWidget {
   String get _expression => '$branch:$_path';
   String get _extname {
     if (paths.isEmpty) return '';
-    var dotext = path.extension(paths.last);
+    var dotext = p.extension(paths.last);
     if (dotext.isEmpty) return '';
     return dotext.substring(1);
   }

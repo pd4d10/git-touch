@@ -4,6 +4,9 @@ import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/table_view.dart';
 import 'package:tuple/tuple.dart';
 
+final creditsRouter =
+    RouterScreen('/help/credits', (context, parameters) => CreditsScreen());
+
 class CreditsScreen extends StatelessWidget {
   static const projects = [
     Tuple2('flutter', 'flutter/flutter'),

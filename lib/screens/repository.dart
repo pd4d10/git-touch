@@ -17,6 +17,15 @@ import 'package:tuple/tuple.dart';
 import '../widgets/entry_item.dart';
 import 'package:git_touch/widgets/action_button.dart';
 
+final repositoryRouter = RouterScreen('/:owner/:name', (context, params) {
+  if (params['ref'] == null) {
+    return RepositoryScreen(params['owner'].first, params['name'].first);
+  } else {
+    return RepositoryScreen(params['owner'].first, params['name'].first,
+        branch: params['ref'].first);
+  }
+});
+
 class RepositoryScreen extends StatelessWidget {
   final String owner;
   final String name;

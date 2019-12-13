@@ -9,6 +9,11 @@ import 'package:git_touch/scaffolds/common.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:provider/provider.dart';
 
+final issueAddRouter = RouterScreen(
+    '/:owner/:name/issues/new',
+    (context, params) =>
+        IssueFormScreen(params['owner'].first, params['name'].first));
+
 class IssueFormScreen extends StatefulWidget {
   final String owner;
   final String name;

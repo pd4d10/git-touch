@@ -20,6 +20,9 @@ import 'package:provider/provider.dart';
 import 'package:git_touch/widgets/action_button.dart';
 import 'package:tuple/tuple.dart';
 
+final userRouter = RouterScreen(
+    '/:login', (context, parameters) => UserScreen(parameters['login'].first));
+
 class UserScreen extends StatelessWidget {
   final String login;
 
