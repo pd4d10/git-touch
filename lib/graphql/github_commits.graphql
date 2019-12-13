@@ -1,0 +1,60 @@
+fragment T on Ref {
+  target {
+    ... on Commit {
+      oid
+      url
+      messageHeadline
+      committedDate
+      author {
+        name
+        avatarUrl
+        user {
+          login
+        }
+      }
+      # status {
+      #   state
+      # }
+      __typename
+      history(first: 30, after: $after) {
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+        nodes {
+          oid
+          url
+          messageHeadline
+          committedDate
+          author {
+            name
+            avatarUrl
+            user {
+              login
+            }
+          }
+          # status {
+          #   state
+          # }
+        }
+      }
+    }
+  }
+}
+
+query(
+  $owner: String!
+  $name: String!
+  $ref: String!
+  $hasRef: Boolean!
+  $after: String
+) {
+  repository(owner: $owner, name: $name) {
+    defaultBranchRef @skip(if: $hasRef) {
+      ...T
+    }
+    ref(qualifiedName: $ref) @include(if: $hasRef) {
+      ...T
+    }
+  }
+}
