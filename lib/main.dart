@@ -5,8 +5,11 @@ import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/screens/commits.dart';
 import 'package:git_touch/screens/credits.dart';
+import 'package:git_touch/screens/gitlab_blob.dart';
 import 'package:git_touch/screens/gitlab_issue.dart';
+import 'package:git_touch/screens/gitlab_project.dart';
 import 'package:git_touch/screens/gitlab_todos.dart';
+import 'package:git_touch/screens/gitlab_tree.dart';
 import 'package:git_touch/screens/gitlab_user.dart';
 import 'package:git_touch/screens/issue_form.dart';
 import 'package:git_touch/screens/issues.dart';
@@ -101,6 +104,7 @@ class _HomeState extends State<Home> {
   }
 
   _buildScreen(int index) {
+    // return GitlabProjectScreen(32221);
     // return IssuesScreen(owner: 'flutter', name: 'flutter', isPullRequest: true);
     // return IssueScreen(number: 29, owner: 'reactjs', name: 'rfcs');
     // return IssueScreen(
@@ -232,6 +236,10 @@ void main() async {
   ]);
 
   final routers = [
+    gitlabBlobRouter,
+    gitlabTreeRouter,
+    gitlabProjectRouter,
+    gitlabIssueRouter,
     loginRouter,
     settingsRouter,
     creditsRouter,
@@ -246,7 +254,6 @@ void main() async {
     issueAddRouter,
     stargazersRouter,
     watchersRouter,
-    gitlabIssueRouter
   ];
 
   routers.forEach((screen) {

@@ -10,7 +10,7 @@ import 'package:timeago/timeago.dart' as timeago;
 import 'package:tuple/tuple.dart';
 
 final gitlabIssueRouter = RouterScreen(
-    '/project/:id/issue/:iid',
+    '/projects/:id/issues/:iid',
     (context, params) => GitlabIssueScreen(
         int.parse(['id'].first), int.parse(params['iid'].first)));
 

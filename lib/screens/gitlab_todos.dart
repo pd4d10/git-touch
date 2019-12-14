@@ -25,7 +25,7 @@ class GitlabTodosScreen extends StatelessWidget {
           children: data.map((item) {
             return Link(
               url:
-                  '/project/${item.target.projectId}/${item.targetType == 'MergeRequest' ? 'merge_requests' : 'issue'}/${item.target.iid}',
+                  '/projects/${item.target.projectId}/${item.targetType == 'MergeRequest' ? 'merge_requests' : 'issue'}/${item.target.iid}',
               child: Container(
                 padding: CommonStyle.padding,
                 child: Row(

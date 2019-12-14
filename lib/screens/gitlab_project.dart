@@ -13,11 +13,13 @@ import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/widgets/repository_item.dart';
 import 'package:git_touch/widgets/action_button.dart';
 
+final gitlabProjectRouter = RouterScreen('/projects/:id',
+    (context, params) => GitlabProjectScreen(int.parse(['id'].first)));
+
 class GitlabProjectScreen extends StatelessWidget {
   final int id;
-  final String branch;
 
-  GitlabProjectScreen(this.id, {this.branch});
+  GitlabProjectScreen(this.id);
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +116,7 @@ class GitlabProjectScreen extends StatelessWidget {
                 TableViewItem(
                   leftIconData: Octicons.code,
                   text: Text('Code'),
-                  url: '/tree/$id',
+                  url: '/projects/$id/tree',
                 ),
                 if (data.issuesEnabled)
                   TableViewItem(

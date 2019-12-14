@@ -10,6 +10,11 @@ import 'package:git_touch/utils/utils.dart';
 import 'package:primer/primer.dart';
 import 'package:seti/seti.dart';
 
+final gitlabTreeRouter = RouterScreen(
+    '/projects/:id/tree',
+    (context, params) => GitlabTreeScreen(params['id'].first.toInt,
+        path: params['path']?.first?.urldecode));
+
 class GitlabTreeScreen extends StatelessWidget {
   final int id;
   final String path;
@@ -39,7 +44,7 @@ class GitlabTreeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold<Iterable<GitlabTreeItem>>(
-      title: AppBarTitle(path == null ? 'Files' : path),
+      title: AppBarTitle(path ?? 'Files'),
       fetchData: () async {
         var url = '/projects/$id/repository/tree';
         if (path != null) {
@@ -58,9 +63,9 @@ class GitlabTreeScreen extends StatelessWidget {
               url: (() {
                 switch (item.type) {
                   case 'tree':
-                    return '/tree/$id?path=${item.path}';
+                    return '/projects/$id/tree?path=${item.path.urlencode}';
                   case 'blob':
-                    return '/blob/$id?path=${item.path}';
+                    return '/projects/$id/blob?path=${item.path.urlencode}';
                   default:
                     return null;
                 }
