@@ -143,3 +143,28 @@ class GitlabBlob {
   factory GitlabBlob.fromJson(Map<String, dynamic> json) =>
       _$GitlabBlobFromJson(json);
 }
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GitlabEvent {
+  GitlabUser author;
+  String actionName;
+  String targetType;
+  GitlabEventNote note;
+
+  GitlabEvent();
+
+  factory GitlabEvent.fromJson(Map<String, dynamic> json) =>
+      _$GitlabEventFromJson(json);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GitlabEventNote {
+  String body;
+  String noteableType;
+  int noteableIid;
+
+  GitlabEventNote();
+
+  factory GitlabEventNote.fromJson(Map<String, dynamic> json) =>
+      _$GitlabEventNoteFromJson(json);
+}

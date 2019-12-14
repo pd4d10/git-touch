@@ -189,3 +189,37 @@ Map<String, dynamic> _$GitlabBlobToJson(GitlabBlob instance) =>
     <String, dynamic>{
       'content': instance.content,
     };
+
+GitlabEvent _$GitlabEventFromJson(Map<String, dynamic> json) {
+  return GitlabEvent()
+    ..author = json['author'] == null
+        ? null
+        : GitlabUser.fromJson(json['author'] as Map<String, dynamic>)
+    ..actionName = json['action_name'] as String
+    ..targetType = json['target_type'] as String
+    ..note = json['note'] == null
+        ? null
+        : GitlabEventNote.fromJson(json['note'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$GitlabEventToJson(GitlabEvent instance) =>
+    <String, dynamic>{
+      'author': instance.author,
+      'action_name': instance.actionName,
+      'target_type': instance.targetType,
+      'note': instance.note,
+    };
+
+GitlabEventNote _$GitlabEventNoteFromJson(Map<String, dynamic> json) {
+  return GitlabEventNote()
+    ..body = json['body'] as String
+    ..noteableType = json['noteable_type'] as String
+    ..noteableIid = json['noteable_iid'] as int;
+}
+
+Map<String, dynamic> _$GitlabEventNoteToJson(GitlabEventNote instance) =>
+    <String, dynamic>{
+      'body': instance.body,
+      'noteable_type': instance.noteableType,
+      'noteable_iid': instance.noteableIid,
+    };
