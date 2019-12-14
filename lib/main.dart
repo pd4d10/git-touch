@@ -12,8 +12,6 @@ import 'package:git_touch/screens/issue_form.dart';
 import 'package:git_touch/screens/issues.dart';
 import 'package:git_touch/screens/notification.dart';
 import 'package:git_touch/screens/object.dart';
-import 'package:git_touch/screens/pull.dart';
-import 'package:git_touch/screens/pulls.dart';
 import 'package:git_touch/screens/repository.dart';
 import 'package:git_touch/screens/settings.dart';
 import 'package:git_touch/screens/stargazers.dart';

@@ -13,6 +13,12 @@ final issuesRouter = RouterScreen(
     (context, params) =>
         IssuesScreen(params['owner'].first, params['name'].first));
 
+final pullsRouter = RouterScreen(
+    '/:owner/:name/pulls',
+    (context, params) => IssuesScreen(
+        params['owner'].first, params['name'].first,
+        isPullRequest: true));
+
 class IssuesScreen extends StatelessWidget {
   final String owner;
   final String name;
