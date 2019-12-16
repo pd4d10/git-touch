@@ -144,7 +144,7 @@ $key: pullRequest(number: ${item.number}) {
   Widget build(context) {
     return TabStatefulScaffold(
       title: AppBarTitle('Notifications'),
-      tabs: ['Unread', 'Paticipating', 'All'],
+      tabs: ['Unread', 'Participating', 'All'],
       fetchData: fetchNotifications,
       bodyBuilder: (groupMap, activeTab) {
         if (groupMap.isEmpty) return EmptyWidget();
