@@ -5,7 +5,6 @@ import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/screens/users.dart';
 import 'package:git_touch/utils/utils.dart';
-import 'package:git_touch/widgets/action_entry.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/screens/repositories.dart';
 import 'package:git_touch/widgets/entry_item.dart';
@@ -285,40 +284,30 @@ class UserScreen extends StatelessWidget {
         switch (payload.resolveType) {
           case 'User':
             final user = payload as GithubUserUser;
-            if (login == null) {
-              return ActionEntry(
-                iconData: Icons.settings,
-                onTap: () {
-                  Provider.of<ThemeModel>(context).push(context, '/settings');
-                },
-              );
-            } else {
-              return ActionButton(
-                title: 'User Actions',
-                items: [
-                  if (user.viewerCanFollow)
-                    ActionItem(
-                      text: user.viewerIsFollowing ? 'Unfollow' : 'Follow',
-                      onPress: (_) async {
-                        if (user.viewerIsFollowing) {
-                          await Provider.of<AuthModel>(context)
-                              .deleteWithCredentials('/user/following/$login');
-                          user.viewerIsFollowing = false;
-                        } else {
-                          Provider.of<AuthModel>(context)
-                              .putWithCredentials('/user/following/$login');
-                          user.viewerIsFollowing = true;
-                        }
-                      },
-                    ),
-                  if (data != null) ...[
-                    ActionItem.share(user.url),
-                    ActionItem.launch(user.url),
-                  ],
+            return ActionButton(
+              title: 'User Actions',
+              items: [
+                if (user.viewerCanFollow)
+                  ActionItem(
+                    text: user.viewerIsFollowing ? 'Unfollow' : 'Follow',
+                    onPress: (_) async {
+                      if (user.viewerIsFollowing) {
+                        await Provider.of<AuthModel>(context)
+                            .deleteWithCredentials('/user/following/$login');
+                        user.viewerIsFollowing = false;
+                      } else {
+                        Provider.of<AuthModel>(context)
+                            .putWithCredentials('/user/following/$login');
+                        user.viewerIsFollowing = true;
+                      }
+                    },
+                  ),
+                if (data != null) ...[
+                  ActionItem.share(user.url),
+                  ActionItem.launch(user.url),
                 ],
-              );
-            }
-            break;
+              ],
+            );
           case 'Organization':
             final organization = payload as GithubUserOrganization;
             return ActionButton(

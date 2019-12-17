@@ -13,6 +13,7 @@ import 'package:git_touch/screens/gitlab_tree.dart';
 import 'package:git_touch/screens/gitlab_user.dart';
 import 'package:git_touch/screens/issue_form.dart';
 import 'package:git_touch/screens/issues.dart';
+import 'package:git_touch/screens/me.dart';
 import 'package:git_touch/screens/notification.dart';
 import 'package:git_touch/screens/object.dart';
 import 'package:git_touch/screens/repository.dart';
@@ -128,7 +129,7 @@ class _HomeState extends State<Home> {
           case 3:
             return SearchScreen();
           case 4:
-            return UserScreen(auth.activeAccount.login);
+            return MeScreen();
         }
         break;
       case PlatformType.gitlab:

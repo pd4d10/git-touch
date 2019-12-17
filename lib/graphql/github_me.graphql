@@ -1,0 +1,25 @@
+{
+  viewer {
+    login
+    avatarUrl
+    url
+    name
+    bio
+    company
+    location
+    email
+    websiteUrl
+    starredRepositories {
+      totalCount
+    }
+    followers {
+      totalCount
+    }
+    following {
+      totalCount
+    }
+    repositories {
+      totalCount
+    }
+  }
+}
