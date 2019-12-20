@@ -6,11 +6,11 @@ part 'github.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GithubEvent {
-  GithubEventActor actor;
+  GithubEventUser actor;
   String type;
   GithubEventRepo repo;
-  String createdAt;
-  Map<String, dynamic> payload;
+  DateTime createdAt;
+  GithubEventPayload payload;
 
   Tuple2<String, String> _repo;
   String get repoOwner {
@@ -34,14 +34,14 @@ class GithubEvent {
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class GithubEventActor {
+class GithubEventUser {
   String login;
   String avatarUrl;
 
-  GithubEventActor();
+  GithubEventUser();
 
-  factory GithubEventActor.fromJson(Map<String, dynamic> json) =>
-      _$GithubEventActorFromJson(json);
+  factory GithubEventUser.fromJson(Map<String, dynamic> json) =>
+      _$GithubEventUserFromJson(json);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
@@ -52,6 +52,60 @@ class GithubEventRepo {
 
   factory GithubEventRepo.fromJson(Map<String, dynamic> json) =>
       _$GithubEventRepoFromJson(json);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GithubEventPayload {
+  GithubEventIssue issue;
+  GithubEventIssue pullRequest;
+  GithubEventComment comment;
+  String action;
+  String ref;
+  String before;
+  String after;
+  List<GithubEventCommit> commits;
+  Map<String, dynamic> forkee;
+
+  GithubEventPayload();
+
+  factory GithubEventPayload.fromJson(Map<String, dynamic> json) =>
+      _$GithubEventPayloadFromJson(json);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GithubEventIssue {
+  String title;
+  GithubEventUser user;
+  int number;
+  String body;
+  dynamic pullRequest;
+
+  GithubEventIssue();
+
+  factory GithubEventIssue.fromJson(Map<String, dynamic> json) =>
+      _$GithubEventIssueFromJson(json);
+}
+
+@JsonSerializable()
+class GithubEventComment {
+  String body;
+  GithubEventUser user;
+
+  GithubEventComment();
+
+  factory GithubEventComment.fromJson(Map<String, dynamic> json) =>
+      _$GithubEventCommentFromJson(json);
+}
+
+@JsonSerializable()
+class GithubEventCommit {
+  String sha;
+  String message;
+
+  GithubEventCommit();
+
+  factory GithubEventCommit.fromJson(Map<String, dynamic> json) =>
+      _$GithubEventCommitFromJson(json);
 }
 
 @JsonSerializable()

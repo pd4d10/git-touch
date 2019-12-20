@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:git_touch/models/github.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/widgets/action_button.dart';
+import 'package:primer/primer.dart';
 import 'package:provider/provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'avatar.dart';
@@ -19,7 +20,6 @@ class EventItem extends StatelessWidget {
       text: text,
       style: TextStyle(
         color: theme.palette.primary,
-        fontWeight: FontWeight.w600,
       ),
     );
   }
@@ -50,71 +50,73 @@ class EventItem extends StatelessWidget {
           Text(detail.trim(), overflow: TextOverflow.ellipsis, maxLines: 5);
     }
 
-    return Link(
-      url: url,
-      child: Container(
-        padding: CommonStyle.padding,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Link(
-                  url: '/' + event.actor.login,
-                  child: Avatar.medium(url: event.actor.avatarUrl),
-                ),
-                SizedBox(width: 10),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: join(SizedBox(height: 8), [
-                      RichText(
-                        text: TextSpan(
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: theme.palette.text,
-                            fontWeight: FontWeight.w500,
-                          ),
-                          children: [
-                            _buildLinkSpan(theme, event.actor.login),
-                            ...spans,
-                          ],
+    return Container(
+      padding: CommonStyle.padding,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Link(
+                url: '/' + event.actor.login,
+                child: Avatar.small(url: event.actor.avatarUrl),
+              ),
+              SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: join(SizedBox(height: 8), [
+                    RichText(
+                      text: TextSpan(
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: theme.palette.text,
                         ),
+                        children: [
+                          _buildLinkSpan(theme, event.actor.login),
+                          ...spans,
+                        ],
                       ),
-                      if (detailWidget != null)
-                        DefaultTextStyle(
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Icon(iconData,
+                            color: theme.palette.tertiaryText, size: 14),
+                        SizedBox(width: 4),
+                        Text(timeago.format(event.createdAt),
+                            style: TextStyle(
+                              fontSize: 13,
+                              color: theme.palette.tertiaryText,
+                            )),
+                        // Expanded(child: Container()),
+                        // GestureDetector(
+                        //   child: Icon(Icons.more_horiz),
+                        //   onTap: () {
+                        //     theme.showActions(context, actionItems);
+                        //   },
+                        // ),
+                      ],
+                    ),
+                    if (detailWidget != null)
+                      Container(
+                        padding: EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                            color: PrimerColors.gray100,
+                            borderRadius: BorderRadius.all(Radius.circular(4))),
+                        child: DefaultTextStyle(
                           style: TextStyle(
                               color: theme.palette.text, fontSize: 14),
                           child: detailWidget,
                         ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Icon(iconData,
-                              color: theme.palette.tertiaryText, size: 14),
-                          SizedBox(width: 4),
-                          Text(timeago.format(DateTime.parse(event.createdAt)),
-                              style: TextStyle(
-                                fontSize: 13,
-                                color: theme.palette.tertiaryText,
-                              )),
-                          Expanded(child: Container()),
-                          GestureDetector(
-                            child: Icon(Icons.more_horiz),
-                            onTap: () {
-                              theme.showActions(context, actionItems);
-                            },
-                          ),
-                        ],
                       ),
-                    ]),
-                  ),
+                  ]),
                 ),
-              ],
-            ),
-          ],
-        ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -131,6 +133,22 @@ class EventItem extends StatelessWidget {
       ],
       iconData: Octicons.octoface,
       detail: 'Woops, ${event.type} not implemented yet',
+    );
+  }
+
+  Widget _buildIssueCard(GithubEventIssue issue, String body) {
+    return Column(
+      children: <Widget>[
+        Row(
+          children: <Widget>[
+            Icon(Octicons.issue_opened),
+            Text('#' + issue.number.toString()),
+            Text(issue.title),
+          ],
+        ),
+        SizedBox(height: 4),
+        if (body != null) Text(body),
+      ],
     );
   }
 
@@ -154,8 +172,8 @@ class EventItem extends StatelessWidget {
         // TODO:
         return _buildDefaultItem(context);
       case 'ForkEvent':
-        final forkeeOwner = event.payload['forkee']['owner']['login'] as String;
-        final forkeeName = event.payload['forkee']['name'] as String;
+        final forkeeOwner = event.payload.forkee['owner']['login'] as String;
+        final forkeeName = event.payload.forkee['name'] as String;
         return _buildItem(
           context: context,
           spans: [
@@ -181,47 +199,46 @@ class EventItem extends StatelessWidget {
         // TODO:
         return _buildDefaultItem(context);
       case 'IssueCommentEvent':
-        final isPullRequest = event.payload['issue']['pull_request'] != null;
-        final resource = isPullRequest ? 'pull request' : 'issue';
-        final number = event.payload['issue']['number'] as int;
+        final isPullRequest = event.payload.issue.pullRequest != null;
 
         return _buildItem(
           context: context,
           spans: [
-            TextSpan(text: ' commented on $resource '),
-            _buildLinkSpan(theme, '#$number'),
+            TextSpan(
+                text:
+                    ' commented on ${isPullRequest ? 'pull request' : 'issue'} '),
+            _buildLinkSpan(theme, '#${event.payload.issue.number}'),
             TextSpan(text: ' at '),
             _buildRepo(theme),
-            // TextSpan(text: event.payload['comment']['body'])
           ],
-          detail: event.payload['comment']['body'],
+          detailWidget:
+              _buildIssueCard(event.payload.issue, event.payload.comment.body),
           iconData: Octicons.comment_discussion,
           url:
-              '/${event.repoOwner}/${event.repoName}/${isPullRequest ? 'pulls' : 'issues'}/$number',
+              '/${event.repoOwner}/${event.repoName}/${isPullRequest ? 'pulls' : 'issues'}/${event.payload.issue.number}',
           actionItems: [
             ..._getUserActions([event.actor.login, event.repoOwner]),
-            ActionItem.pullRequest(event.repoOwner, event.repoName, number),
+            ActionItem.pullRequest(
+                event.repoOwner, event.repoName, event.payload.issue.number),
           ],
         );
       case 'IssuesEvent':
-        final action = event.payload['action'];
-        final number = event.payload['issue']['number'] as int;
-
+        final issue = event.payload.issue;
         return _buildItem(
           context: context,
           spans: [
-            TextSpan(text: ' $action issue '),
-            _buildLinkSpan(theme, '#$number'),
+            TextSpan(text: ' ${event.payload.action} issue '),
+            _buildLinkSpan(theme, '#${issue.number}'),
             TextSpan(text: ' at '),
             _buildRepo(theme),
           ],
           iconData: Octicons.issue_opened,
-          detail: event.payload['issue']['title'],
-          url: '/${event.repoOwner}/${event.repoName}/issues/$number',
+          detailWidget: _buildIssueCard(issue, issue.body),
+          url: '/${event.repoOwner}/${event.repoName}/issues/${issue.number}',
           actionItems: [
             ..._getUserActions([event.actor.login, event.repoOwner]),
             ActionItem.repository(event.repoOwner, event.repoName),
-            ActionItem.issue(event.repoOwner, event.repoName, number),
+            ActionItem.issue(event.repoOwner, event.repoName, issue.number),
           ],
         );
       case 'LabelEvent':
@@ -239,89 +256,93 @@ class EventItem extends StatelessWidget {
         // TODO:
         return _buildDefaultItem(context);
       case 'PullRequestEvent':
-        final action = event.payload['action'];
-        final number = event.payload['pull_request']['number'] as int;
-
+        final pr = event.payload.pullRequest;
         return _buildItem(
           context: context,
           spans: [
-            TextSpan(text: ' $action pull request '),
-            _buildLinkSpan(theme, '#$number'),
+            TextSpan(text: ' ${event.payload.action} pull request '),
+            _buildLinkSpan(theme, '#${pr.number}'),
             TextSpan(text: ' at '),
             _buildRepo(theme),
           ],
           iconData: Octicons.git_pull_request,
-          detail: event.payload['pull_request']['title'],
-          url: '/${event.repoOwner}/${event.repoName}/pulls/$number',
+          detailWidget: _buildIssueCard(pr, pr.body),
+          url: '/${event.repoOwner}/${event.repoName}/pulls/${pr.number}',
           actionItems: [
             ..._getUserActions([event.actor.login, event.repoOwner]),
             ActionItem.repository(event.repoOwner, event.repoName),
-            ActionItem.pullRequest(event.repoOwner, event.repoName, number),
+            ActionItem.pullRequest(event.repoOwner, event.repoName, pr.number),
           ],
         );
       case 'PullRequestReviewEvent':
         // TODO:
         return _buildDefaultItem(context);
       case 'PullRequestReviewCommentEvent':
-        final number = event.payload['pull_request']['number'] as int;
-
+        final pr = event.payload.pullRequest;
         return _buildItem(
           context: context,
           spans: [
             TextSpan(text: ' reviewed pull request '),
-            _buildLinkSpan(theme, '#$number'),
+            _buildLinkSpan(theme, '#${pr.number}'),
             TextSpan(text: ' at '),
             _buildRepo(theme),
           ],
-          detail: event.payload['comment']['body'],
-          url: '/${event.repoOwner}/${event.repoName}/pulls/$number',
+          detailWidget: _buildIssueCard(pr, pr.body),
+          url: '/${event.repoOwner}/${event.repoName}/pulls/${pr.number}',
           actionItems: [
             ..._getUserActions([event.actor.login, event.repoOwner]),
             ActionItem.repository(event.repoOwner, event.repoName),
-            ActionItem.pullRequest(event.repoOwner, event.repoName, number),
+            ActionItem.pullRequest(event.repoOwner, event.repoName, pr.number),
           ],
         );
       case 'PushEvent':
-        final ref = event.payload['ref'] as String;
-        final commits = event.payload['commits'] as List;
-
         return _buildItem(
           context: context,
-          spans: [
-            TextSpan(text: ' pushed to '),
-            WidgetSpan(
-              child: PrimerBranchName(ref.replaceFirst('refs/heads/', '')),
-            ),
-            TextSpan(text: ' at '),
-            _buildRepo(theme)
-          ],
+          spans: [TextSpan(text: ' pushed to '), _buildRepo(theme)],
           iconData: Octicons.repo_push,
           detailWidget: Column(
-            children: commits.map((commit) {
-              return Row(
-                children: <Widget>[
-                  Text(
-                    (commit['sha'] as String).substring(0, 7),
-                    style: TextStyle(
-                      color: theme.palette.primary,
-                      fontSize: 13,
-                      fontFamily: CommonStyle.monospace,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              RichText(
+                text: TextSpan(
+                  style: TextStyle(color: theme.palette.primary),
+                  children: [
+                    TextSpan(
+                        text: event.payload.commits.length.toString() +
+                            ' commits to '),
+                    WidgetSpan(
+                      child: PrimerBranchName(
+                          event.payload.ref.replaceFirst('refs/heads/', '')),
                     ),
-                  ),
-                  SizedBox(width: 6),
-                  Expanded(
-                    child: Text(
-                      commit['message'],
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
+                  ],
+                ),
+              ),
+              ...event.payload.commits.map((commit) {
+                return Row(
+                  children: <Widget>[
+                    Text(
+                      commit.sha.substring(0, 7),
+                      style: TextStyle(
+                        color: theme.palette.primary,
+                        fontSize: 13,
+                        fontFamily: CommonStyle.monospace,
+                      ),
                     ),
-                  )
-                ],
-              );
-            }).toList(),
+                    SizedBox(width: 6),
+                    Expanded(
+                      child: Text(
+                        commit.message,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      ),
+                    )
+                  ],
+                );
+              }).toList()
+            ],
           ),
           url:
-              'https://github.com/${event.repoOwner}/${event.repoName}/compare/${event.payload['before']}...${event.payload['head']}',
+              'https://github.com/${event.repoOwner}/${event.repoName}/compare/${event.payload.before}...${event.payload.after}',
           actionItems: [
             ..._getUserActions([event.actor.login, event.repoOwner]),
             ActionItem.repository(event.repoOwner, event.repoName),
