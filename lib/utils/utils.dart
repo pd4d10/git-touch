@@ -160,7 +160,7 @@ class PrimerBranchName extends StatelessWidget {
         name,
         style: TextStyle(
           color: PrimerColors.blue500,
-          fontSize: 12,
+          fontSize: 14,
           height: 1,
           fontFamily: CommonStyle.monospace,
         ),

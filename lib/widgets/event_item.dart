@@ -38,7 +38,6 @@ class EventItem extends StatelessWidget {
     @required List<InlineSpan> spans,
     String detail,
     Widget card,
-    IconData iconData = Octicons.octoface,
     String url,
     List<ActionItem> actionItems,
   }) {
@@ -58,7 +57,7 @@ class EventItem extends StatelessWidget {
             children: <Widget>[
               Link(
                 url: '/' + e.actor.login,
-                child: Avatar.small(url: e.actor.avatarUrl),
+                child: Avatar.medium(url: e.actor.avatarUrl),
               ),
               SizedBox(width: 10),
               Expanded(
@@ -68,7 +67,7 @@ class EventItem extends StatelessWidget {
                     RichText(
                       text: TextSpan(
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: 17,
                           color: theme.palette.text,
                         ),
                         children: [
@@ -80,12 +79,9 @@ class EventItem extends StatelessWidget {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Icon(iconData,
-                            color: theme.palette.tertiaryText, size: 14),
-                        SizedBox(width: 4),
                         Text(timeago.format(e.createdAt),
                             style: TextStyle(
-                              fontSize: 13,
+                              fontSize: 14,
                               color: theme.palette.tertiaryText,
                             )),
                         // Expanded(child: Container()),
@@ -118,7 +114,6 @@ class EventItem extends StatelessWidget {
           style: TextStyle(color: theme.palette.primary),
         )
       ],
-      iconData: Octicons.octoface,
       detail: 'Woops, ${e.type} not implemented yet',
     );
   }
@@ -138,7 +133,7 @@ class EventItem extends StatelessWidget {
           children: [
             RichText(
               text: TextSpan(
-                style: TextStyle(color: theme.palette.text),
+                style: TextStyle(color: theme.palette.text, fontSize: 15),
                 children: [
                   TextSpan(
                       text:
@@ -150,7 +145,7 @@ class EventItem extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 4),
+            SizedBox(height: 8),
             ...e.payload.commits.map((commit) {
               return Row(
                 children: <Widget>[
@@ -158,7 +153,7 @@ class EventItem extends StatelessWidget {
                     commit.sha.substring(0, 7),
                     style: TextStyle(
                       color: theme.palette.primary,
-                      fontSize: 13,
+                      fontSize: 15,
                       fontFamily: CommonStyle.monospace,
                     ),
                   ),
@@ -168,7 +163,7 @@ class EventItem extends StatelessWidget {
                       commit.message,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
-                      style: TextStyle(color: theme.palette.text),
+                      style: TextStyle(color: theme.palette.text, fontSize: 15),
                     ),
                   )
                 ],
@@ -211,7 +206,7 @@ class EventItem extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(4))),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
+          children: join(SizedBox(height: 8), [
             Row(
               children: <Widget>[
                 IssueIcon(state, size: 20),
@@ -221,7 +216,7 @@ class EventItem extends StatelessWidget {
                     '#' + issue.number.toString() + ' ' + issue.title,
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
-                      fontSize: 16,
+                      fontSize: 17,
                       color: theme.palette.text,
                     ),
                     overflow: TextOverflow.ellipsis,
@@ -229,16 +224,38 @@ class EventItem extends StatelessWidget {
                 ),
               ],
             ),
-            if (body != null) ...[
-              SizedBox(height: 6),
+            if (body != null && body.isNotEmpty)
               Text(
                 body,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 3,
-                style: TextStyle(color: theme.palette.text),
+                style:
+                    TextStyle(color: theme.palette.secondaryText, fontSize: 15),
               ),
-            ]
-          ],
+            Row(
+              children: <Widget>[
+                Avatar.extraSmall(url: issue.user.avatarUrl),
+                SizedBox(width: 8),
+                Text(issue.user.login,
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: theme.palette.tertiaryText,
+                    )),
+                Expanded(child: Container()),
+                Icon(
+                  Octicons.comment,
+                  size: 14,
+                  color: theme.palette.tertiaryText,
+                ),
+                SizedBox(width: 4),
+                Text(issue.comments.toString(),
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: theme.palette.tertiaryText,
+                    )),
+              ],
+            )
+          ]),
         ),
       ),
     );
@@ -274,7 +291,6 @@ class EventItem extends StatelessWidget {
             TextSpan(text: ' from '),
             _buildRepo(theme),
           ],
-          iconData: Octicons.repo_forked,
           url: '/$forkeeOwner/$forkeeName',
           actionItems: [
             ..._getUserActions([e.actor.login, forkeeOwner]),
@@ -307,7 +323,6 @@ class EventItem extends StatelessWidget {
             e.payload.comment.body,
             isPullRequest: e.payload.issue.isPullRequestComment,
           ),
-          iconData: Octicons.comment_discussion,
           actionItems: [
             ..._getUserActions([e.actor.login, e.repoOwner]),
             ActionItem.pullRequest(
@@ -324,7 +339,6 @@ class EventItem extends StatelessWidget {
             TextSpan(text: ' at '),
             _buildRepo(theme),
           ],
-          iconData: Octicons.issue_opened,
           card: _buildIssueCard(context, issue, issue.body),
           url: '/${e.repoOwner}/${e.repoName}/issues/${issue.number}',
           actionItems: [
@@ -357,7 +371,6 @@ class EventItem extends StatelessWidget {
             TextSpan(text: ' at '),
             _buildRepo(theme),
           ],
-          iconData: Octicons.git_pull_request,
           card: _buildIssueCard(context, pr, pr.body, isPullRequest: true),
           url: '/${e.repoOwner}/${e.repoName}/pulls/${pr.number}',
           actionItems: [
@@ -391,7 +404,6 @@ class EventItem extends StatelessWidget {
         return _buildItem(
           context: context,
           spans: [TextSpan(text: ' pushed to '), _buildRepo(theme)],
-          iconData: Octicons.repo_push,
           card: _buildCommitsCard(context),
           actionItems: [
             ..._getUserActions([e.actor.login, e.repoOwner]),
@@ -412,7 +424,6 @@ class EventItem extends StatelessWidget {
         return _buildItem(
           context: context,
           spans: [TextSpan(text: ' starred '), _buildRepo(theme)],
-          iconData: Octicons.star,
           url: '/${e.repoOwner}/${e.repoName}',
           actionItems: [
             ..._getUserActions([e.actor.login, e.repoOwner]),

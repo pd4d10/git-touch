@@ -82,6 +82,7 @@ class GithubEventIssue {
   String state;
   int comments;
   bool merged;
+  DateTime createdAt;
 
   bool get isPullRequestComment => pullRequest != null;
 

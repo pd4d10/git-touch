@@ -101,7 +101,10 @@ GithubEventIssue _$GithubEventIssueFromJson(Map<String, dynamic> json) {
     ..pullRequest = json['pull_request']
     ..state = json['state'] as String
     ..comments = json['comments'] as int
-    ..merged = json['merged'] as bool;
+    ..merged = json['merged'] as bool
+    ..createdAt = json['created_at'] == null
+        ? null
+        : DateTime.parse(json['created_at'] as String);
 }
 
 Map<String, dynamic> _$GithubEventIssueToJson(GithubEventIssue instance) =>
@@ -114,6 +117,7 @@ Map<String, dynamic> _$GithubEventIssueToJson(GithubEventIssue instance) =>
       'state': instance.state,
       'comments': instance.comments,
       'merged': instance.merged,
+      'created_at': instance.createdAt?.toIso8601String(),
     };
 
 GithubEventComment _$GithubEventCommentFromJson(Map<String, dynamic> json) {
