@@ -71,6 +71,7 @@ class Palette {
   Color secondaryText;
   Color tertiaryText;
   Color background;
+  Color grayBackground;
   Color border;
 
   Palette({
@@ -79,6 +80,7 @@ class Palette {
     this.secondaryText,
     this.tertiaryText,
     this.background,
+    this.grayBackground,
     this.border,
   });
 }
@@ -110,6 +112,7 @@ class ThemeModel with ChangeNotifier {
           secondaryText: PrimerColors.gray700,
           tertiaryText: PrimerColors.gray500,
           background: PrimerColors.white,
+          grayBackground: PrimerColors.gray100,
           border: PrimerColors.gray100,
         );
       case Brightness.dark:
@@ -119,6 +122,7 @@ class ThemeModel with ChangeNotifier {
           secondaryText: PrimerColors.gray400,
           tertiaryText: PrimerColors.gray500,
           background: PrimerColors.black,
+          grayBackground: PrimerColors.gray800,
           border: PrimerColors.gray900,
         );
       default:

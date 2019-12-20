@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:git_touch/models/github.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/widgets/action_button.dart';
-import 'package:primer/primer.dart';
+import 'package:git_touch/widgets/issue_icon.dart';
 import 'package:provider/provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'avatar.dart';
@@ -11,9 +11,9 @@ import '../widgets/link.dart';
 import '../utils/utils.dart';
 
 class EventItem extends StatelessWidget {
-  final GithubEvent event;
+  final GithubEvent e;
 
-  EventItem(this.event);
+  EventItem(this.e);
 
   TextSpan _buildLinkSpan(ThemeModel theme, String text) {
     return TextSpan(
@@ -24,8 +24,7 @@ class EventItem extends StatelessWidget {
     );
   }
 
-  TextSpan _buildRepo(ThemeModel theme) =>
-      _buildLinkSpan(theme, event.repo.name);
+  TextSpan _buildRepo(ThemeModel theme) => _buildLinkSpan(theme, e.repo.name);
 
   Iterable<ActionItem> _getUserActions(List<String> users) {
     // Remove duplicates
@@ -38,16 +37,15 @@ class EventItem extends StatelessWidget {
     @required BuildContext context,
     @required List<InlineSpan> spans,
     String detail,
-    Widget detailWidget,
+    Widget card,
     IconData iconData = Octicons.octoface,
     String url,
     List<ActionItem> actionItems,
   }) {
     final theme = Provider.of<ThemeModel>(context);
 
-    if (detailWidget == null && detail != null) {
-      detailWidget =
-          Text(detail.trim(), overflow: TextOverflow.ellipsis, maxLines: 5);
+    if (card == null && detail != null) {
+      card = Text(detail.trim(), overflow: TextOverflow.ellipsis, maxLines: 5);
     }
 
     return Container(
@@ -59,8 +57,8 @@ class EventItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Link(
-                url: '/' + event.actor.login,
-                child: Avatar.small(url: event.actor.avatarUrl),
+                url: '/' + e.actor.login,
+                child: Avatar.small(url: e.actor.avatarUrl),
               ),
               SizedBox(width: 10),
               Expanded(
@@ -74,7 +72,7 @@ class EventItem extends StatelessWidget {
                           color: theme.palette.text,
                         ),
                         children: [
-                          _buildLinkSpan(theme, event.actor.login),
+                          _buildLinkSpan(theme, e.actor.login),
                           ...spans,
                         ],
                       ),
@@ -85,7 +83,7 @@ class EventItem extends StatelessWidget {
                         Icon(iconData,
                             color: theme.palette.tertiaryText, size: 14),
                         SizedBox(width: 4),
-                        Text(timeago.format(event.createdAt),
+                        Text(timeago.format(e.createdAt),
                             style: TextStyle(
                               fontSize: 13,
                               color: theme.palette.tertiaryText,
@@ -99,18 +97,7 @@ class EventItem extends StatelessWidget {
                         // ),
                       ],
                     ),
-                    if (detailWidget != null)
-                      Container(
-                        padding: EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                            color: PrimerColors.gray100,
-                            borderRadius: BorderRadius.all(Radius.circular(4))),
-                        child: DefaultTextStyle(
-                          style: TextStyle(
-                              color: theme.palette.text, fontSize: 14),
-                          child: detailWidget,
-                        ),
-                      ),
+                    if (card != null) card
                   ]),
                 ),
               ),
@@ -127,28 +114,133 @@ class EventItem extends StatelessWidget {
       context: context,
       spans: [
         TextSpan(
-          text: ' ' + event.type,
+          text: ' ' + e.type,
           style: TextStyle(color: theme.palette.primary),
         )
       ],
       iconData: Octicons.octoface,
-      detail: 'Woops, ${event.type} not implemented yet',
+      detail: 'Woops, ${e.type} not implemented yet',
     );
   }
 
-  Widget _buildIssueCard(GithubEventIssue issue, String body) {
-    return Column(
-      children: <Widget>[
-        Row(
-          children: <Widget>[
-            Icon(Octicons.issue_opened),
-            Text('#' + issue.number.toString()),
-            Text(issue.title),
+  Widget _buildCommitsCard(BuildContext context) {
+    final theme = Provider.of<ThemeModel>(context);
+    return Link(
+      url:
+          'https://github.com/${e.repoOwner}/${e.repoName}/compare/${e.payload.before}...${e.payload.head}',
+      child: Container(
+        padding: EdgeInsets.all(12),
+        decoration: BoxDecoration(
+            color: theme.palette.grayBackground,
+            borderRadius: BorderRadius.all(Radius.circular(4))),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            RichText(
+              text: TextSpan(
+                style: TextStyle(color: theme.palette.text),
+                children: [
+                  TextSpan(
+                      text:
+                          e.payload.commits.length.toString() + ' commits to '),
+                  WidgetSpan(
+                    child: PrimerBranchName(
+                        e.payload.ref.replaceFirst('refs/heads/', '')),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 4),
+            ...e.payload.commits.map((commit) {
+              return Row(
+                children: <Widget>[
+                  Text(
+                    commit.sha.substring(0, 7),
+                    style: TextStyle(
+                      color: theme.palette.primary,
+                      fontSize: 13,
+                      fontFamily: CommonStyle.monospace,
+                    ),
+                  ),
+                  SizedBox(width: 6),
+                  Expanded(
+                    child: Text(
+                      commit.message,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: TextStyle(color: theme.palette.text),
+                    ),
+                  )
+                ],
+              );
+            }).toList()
           ],
         ),
-        SizedBox(height: 4),
-        if (body != null) Text(body),
-      ],
+      ),
+    );
+  }
+
+  Widget _buildIssueCard(
+      BuildContext context, GithubEventIssue issue, String body,
+      {isPullRequest = false}) {
+    final theme = Provider.of<ThemeModel>(context);
+    IssueIconState state;
+    if (isPullRequest) {
+      if (issue.merged == true) {
+        state = IssueIconState.prMerged;
+      } else if (issue.state == 'open') {
+        state = IssueIconState.prOpen;
+      } else {
+        state = IssueIconState.prClosed;
+      }
+    } else {
+      if (issue.state == 'open') {
+        state = IssueIconState.open;
+      } else {
+        state = IssueIconState.closed;
+      }
+    }
+
+    return Link(
+      url:
+          '/${e.repoOwner}/${e.repoName}/${isPullRequest ? 'pulls' : 'issues'}/${issue.number}',
+      child: Container(
+        padding: EdgeInsets.all(12),
+        decoration: BoxDecoration(
+            color: theme.palette.grayBackground,
+            borderRadius: BorderRadius.all(Radius.circular(4))),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                IssueIcon(state, size: 20),
+                SizedBox(width: 4),
+                Expanded(
+                  child: Text(
+                    '#' + issue.number.toString() + ' ' + issue.title,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                      color: theme.palette.text,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ],
+            ),
+            if (body != null) ...[
+              SizedBox(height: 6),
+              Text(
+                body,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 3,
+                style: TextStyle(color: theme.palette.text),
+              ),
+            ]
+          ],
+        ),
+      ),
     );
   }
 
@@ -158,7 +250,7 @@ class EventItem extends StatelessWidget {
 
     // all events types here:
     // https://developer.github.com/v3/activity/events/types/#event-types--payloads
-    switch (event.type) {
+    switch (e.type) {
       case 'CheckRunEvent':
       case 'CheckSuiteEvent':
       case 'CommitCommentEvent':
@@ -172,8 +264,8 @@ class EventItem extends StatelessWidget {
         // TODO:
         return _buildDefaultItem(context);
       case 'ForkEvent':
-        final forkeeOwner = event.payload.forkee['owner']['login'] as String;
-        final forkeeName = event.payload.forkee['name'] as String;
+        final forkeeOwner = e.payload.forkee['owner']['login'] as String;
+        final forkeeName = e.payload.forkee['name'] as String;
         return _buildItem(
           context: context,
           spans: [
@@ -185,9 +277,9 @@ class EventItem extends StatelessWidget {
           iconData: Octicons.repo_forked,
           url: '/$forkeeOwner/$forkeeName',
           actionItems: [
-            ..._getUserActions([event.actor.login, forkeeOwner]),
+            ..._getUserActions([e.actor.login, forkeeOwner]),
             ActionItem.repository(forkeeOwner, forkeeName),
-            ActionItem.repository(event.repoOwner, event.repoName),
+            ActionItem.repository(e.repoOwner, e.repoName),
           ],
         );
       case 'ForkApplyEvent':
@@ -199,46 +291,46 @@ class EventItem extends StatelessWidget {
         // TODO:
         return _buildDefaultItem(context);
       case 'IssueCommentEvent':
-        final isPullRequest = event.payload.issue.pullRequest != null;
-
         return _buildItem(
           context: context,
           spans: [
             TextSpan(
                 text:
-                    ' commented on ${isPullRequest ? 'pull request' : 'issue'} '),
-            _buildLinkSpan(theme, '#${event.payload.issue.number}'),
+                    ' commented on ${e.payload.issue.isPullRequestComment ? 'pull request' : 'issue'} '),
+            _buildLinkSpan(theme, '#${e.payload.issue.number}'),
             TextSpan(text: ' at '),
             _buildRepo(theme),
           ],
-          detailWidget:
-              _buildIssueCard(event.payload.issue, event.payload.comment.body),
+          card: _buildIssueCard(
+            context,
+            e.payload.issue,
+            e.payload.comment.body,
+            isPullRequest: e.payload.issue.isPullRequestComment,
+          ),
           iconData: Octicons.comment_discussion,
-          url:
-              '/${event.repoOwner}/${event.repoName}/${isPullRequest ? 'pulls' : 'issues'}/${event.payload.issue.number}',
           actionItems: [
-            ..._getUserActions([event.actor.login, event.repoOwner]),
+            ..._getUserActions([e.actor.login, e.repoOwner]),
             ActionItem.pullRequest(
-                event.repoOwner, event.repoName, event.payload.issue.number),
+                e.repoOwner, e.repoName, e.payload.issue.number),
           ],
         );
       case 'IssuesEvent':
-        final issue = event.payload.issue;
+        final issue = e.payload.issue;
         return _buildItem(
           context: context,
           spans: [
-            TextSpan(text: ' ${event.payload.action} issue '),
+            TextSpan(text: ' ${e.payload.action} issue '),
             _buildLinkSpan(theme, '#${issue.number}'),
             TextSpan(text: ' at '),
             _buildRepo(theme),
           ],
           iconData: Octicons.issue_opened,
-          detailWidget: _buildIssueCard(issue, issue.body),
-          url: '/${event.repoOwner}/${event.repoName}/issues/${issue.number}',
+          card: _buildIssueCard(context, issue, issue.body),
+          url: '/${e.repoOwner}/${e.repoName}/issues/${issue.number}',
           actionItems: [
-            ..._getUserActions([event.actor.login, event.repoOwner]),
-            ActionItem.repository(event.repoOwner, event.repoName),
-            ActionItem.issue(event.repoOwner, event.repoName, issue.number),
+            ..._getUserActions([e.actor.login, e.repoOwner]),
+            ActionItem.repository(e.repoOwner, e.repoName),
+            ActionItem.issue(e.repoOwner, e.repoName, issue.number),
           ],
         );
       case 'LabelEvent':
@@ -256,29 +348,29 @@ class EventItem extends StatelessWidget {
         // TODO:
         return _buildDefaultItem(context);
       case 'PullRequestEvent':
-        final pr = event.payload.pullRequest;
+        final pr = e.payload.pullRequest;
         return _buildItem(
           context: context,
           spans: [
-            TextSpan(text: ' ${event.payload.action} pull request '),
+            TextSpan(text: ' ${e.payload.action} pull request '),
             _buildLinkSpan(theme, '#${pr.number}'),
             TextSpan(text: ' at '),
             _buildRepo(theme),
           ],
           iconData: Octicons.git_pull_request,
-          detailWidget: _buildIssueCard(pr, pr.body),
-          url: '/${event.repoOwner}/${event.repoName}/pulls/${pr.number}',
+          card: _buildIssueCard(context, pr, pr.body, isPullRequest: true),
+          url: '/${e.repoOwner}/${e.repoName}/pulls/${pr.number}',
           actionItems: [
-            ..._getUserActions([event.actor.login, event.repoOwner]),
-            ActionItem.repository(event.repoOwner, event.repoName),
-            ActionItem.pullRequest(event.repoOwner, event.repoName, pr.number),
+            ..._getUserActions([e.actor.login, e.repoOwner]),
+            ActionItem.repository(e.repoOwner, e.repoName),
+            ActionItem.pullRequest(e.repoOwner, e.repoName, pr.number),
           ],
         );
       case 'PullRequestReviewEvent':
         // TODO:
         return _buildDefaultItem(context);
       case 'PullRequestReviewCommentEvent':
-        final pr = event.payload.pullRequest;
+        final pr = e.payload.pullRequest;
         return _buildItem(
           context: context,
           spans: [
@@ -287,12 +379,12 @@ class EventItem extends StatelessWidget {
             TextSpan(text: ' at '),
             _buildRepo(theme),
           ],
-          detailWidget: _buildIssueCard(pr, pr.body),
-          url: '/${event.repoOwner}/${event.repoName}/pulls/${pr.number}',
+          card: _buildIssueCard(context, pr, pr.body),
+          url: '/${e.repoOwner}/${e.repoName}/pulls/${pr.number}',
           actionItems: [
-            ..._getUserActions([event.actor.login, event.repoOwner]),
-            ActionItem.repository(event.repoOwner, event.repoName),
-            ActionItem.pullRequest(event.repoOwner, event.repoName, pr.number),
+            ..._getUserActions([e.actor.login, e.repoOwner]),
+            ActionItem.repository(e.repoOwner, e.repoName),
+            ActionItem.pullRequest(e.repoOwner, e.repoName, pr.number),
           ],
         );
       case 'PushEvent':
@@ -300,52 +392,10 @@ class EventItem extends StatelessWidget {
           context: context,
           spans: [TextSpan(text: ' pushed to '), _buildRepo(theme)],
           iconData: Octicons.repo_push,
-          detailWidget: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              RichText(
-                text: TextSpan(
-                  style: TextStyle(color: theme.palette.primary),
-                  children: [
-                    TextSpan(
-                        text: event.payload.commits.length.toString() +
-                            ' commits to '),
-                    WidgetSpan(
-                      child: PrimerBranchName(
-                          event.payload.ref.replaceFirst('refs/heads/', '')),
-                    ),
-                  ],
-                ),
-              ),
-              ...event.payload.commits.map((commit) {
-                return Row(
-                  children: <Widget>[
-                    Text(
-                      commit.sha.substring(0, 7),
-                      style: TextStyle(
-                        color: theme.palette.primary,
-                        fontSize: 13,
-                        fontFamily: CommonStyle.monospace,
-                      ),
-                    ),
-                    SizedBox(width: 6),
-                    Expanded(
-                      child: Text(
-                        commit.message,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
-                      ),
-                    )
-                  ],
-                );
-              }).toList()
-            ],
-          ),
-          url:
-              'https://github.com/${event.repoOwner}/${event.repoName}/compare/${event.payload.before}...${event.payload.after}',
+          card: _buildCommitsCard(context),
           actionItems: [
-            ..._getUserActions([event.actor.login, event.repoOwner]),
-            ActionItem.repository(event.repoOwner, event.repoName),
+            ..._getUserActions([e.actor.login, e.repoOwner]),
+            ActionItem.repository(e.repoOwner, e.repoName),
           ],
         );
       case 'ReleaseEvent':
@@ -363,10 +413,10 @@ class EventItem extends StatelessWidget {
           context: context,
           spans: [TextSpan(text: ' starred '), _buildRepo(theme)],
           iconData: Octicons.star,
-          url: '/${event.repoOwner}/${event.repoName}',
+          url: '/${e.repoOwner}/${e.repoName}',
           actionItems: [
-            ..._getUserActions([event.actor.login, event.repoOwner]),
-            ActionItem.repository(event.repoOwner, event.repoName),
+            ..._getUserActions([e.actor.login, e.repoOwner]),
+            ActionItem.repository(e.repoOwner, e.repoName),
           ],
         );
       default:

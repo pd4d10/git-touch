@@ -68,7 +68,7 @@ GithubEventPayload _$GithubEventPayloadFromJson(Map<String, dynamic> json) {
     ..action = json['action'] as String
     ..ref = json['ref'] as String
     ..before = json['before'] as String
-    ..after = json['after'] as String
+    ..head = json['head'] as String
     ..commits = (json['commits'] as List)
         ?.map((e) => e == null
             ? null
@@ -85,7 +85,7 @@ Map<String, dynamic> _$GithubEventPayloadToJson(GithubEventPayload instance) =>
       'action': instance.action,
       'ref': instance.ref,
       'before': instance.before,
-      'after': instance.after,
+      'head': instance.head,
       'commits': instance.commits,
       'forkee': instance.forkee,
     };
@@ -98,7 +98,10 @@ GithubEventIssue _$GithubEventIssueFromJson(Map<String, dynamic> json) {
         : GithubEventUser.fromJson(json['user'] as Map<String, dynamic>)
     ..number = json['number'] as int
     ..body = json['body'] as String
-    ..pullRequest = json['pull_request'];
+    ..pullRequest = json['pull_request']
+    ..state = json['state'] as String
+    ..comments = json['comments'] as int
+    ..merged = json['merged'] as bool;
 }
 
 Map<String, dynamic> _$GithubEventIssueToJson(GithubEventIssue instance) =>
@@ -108,6 +111,9 @@ Map<String, dynamic> _$GithubEventIssueToJson(GithubEventIssue instance) =>
       'number': instance.number,
       'body': instance.body,
       'pull_request': instance.pullRequest,
+      'state': instance.state,
+      'comments': instance.comments,
+      'merged': instance.merged,
     };
 
 GithubEventComment _$GithubEventCommentFromJson(Map<String, dynamic> json) {

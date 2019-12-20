@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:git_touch/models/notification.dart';
 import 'package:git_touch/models/theme.dart';
+import 'package:git_touch/widgets/issue_icon.dart';
 import '../utils/utils.dart';
-import '../screens/issue.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:provider/provider.dart';
 import 'link.dart';
@@ -36,9 +36,9 @@ class _NotificationItemState extends State<NotificationItem> {
       case 'Issue':
         switch (payload.state) {
           case 'OPEN':
-            return _buildIcon(Octicons.issue_opened, GithubPalette.open);
+            return IssueIcon(IssueIconState.open, size: 20);
           case 'CLOSED':
-            return _buildIcon(Octicons.issue_closed, GithubPalette.closed);
+            return IssueIcon(IssueIconState.closed, size: 20);
           default:
             return _buildIcon(Octicons.person);
         }
@@ -46,11 +46,11 @@ class _NotificationItemState extends State<NotificationItem> {
       case 'PullRequest':
         switch (payload.state) {
           case 'OPEN':
-            return _buildIcon(Octicons.git_pull_request, GithubPalette.open);
+            return IssueIcon(IssueIconState.prOpen, size: 20);
           case 'CLOSED':
-            return _buildIcon(Octicons.git_pull_request, GithubPalette.closed);
+            return IssueIcon(IssueIconState.prClosed, size: 20);
           case 'MERGED':
-            return _buildIcon(Octicons.git_merge, GithubPalette.merged);
+            return IssueIcon(IssueIconState.prMerged, size: 20);
           default:
             return _buildIcon(Octicons.person);
         }

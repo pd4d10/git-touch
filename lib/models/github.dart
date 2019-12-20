@@ -62,7 +62,7 @@ class GithubEventPayload {
   String action;
   String ref;
   String before;
-  String after;
+  String head;
   List<GithubEventCommit> commits;
   Map<String, dynamic> forkee;
 
@@ -79,6 +79,11 @@ class GithubEventIssue {
   int number;
   String body;
   dynamic pullRequest;
+  String state;
+  int comments;
+  bool merged;
+
+  bool get isPullRequestComment => pullRequest != null;
 
   GithubEventIssue();
 
