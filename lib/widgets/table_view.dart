@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/border_view.dart';
-import 'package:primer/primer.dart';
 import 'package:provider/provider.dart';
 import 'link.dart';
 
@@ -14,11 +13,12 @@ class TableViewHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Provider.of<ThemeModel>(context);
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       child: Text(
         title.toUpperCase(),
-        style: TextStyle(color: PrimerColors.gray600, fontSize: 13),
+        style: TextStyle(color: theme.palette.secondaryText, fontSize: 13),
       ),
     );
   }
@@ -55,7 +55,7 @@ class TableView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final themeModel = Provider.of<ThemeModel>(context);
+    final theme = Provider.of<ThemeModel>(context);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -74,18 +74,18 @@ class TableView extends StatelessWidget {
                   height: 24,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12),
-                    color: PrimerColors.blue500,
+                    color: theme.palette.primary,
                   ),
                   child: Icon(
                     item.leftIconData,
-                    color: themeModel.palette.background,
+                    color: theme.palette.background,
                     size: 14,
                   ),
                 );
               }
 
               final widget = DefaultTextStyle(
-                style: TextStyle(fontSize: 17, color: themeModel.palette.text),
+                style: TextStyle(fontSize: 17, color: theme.palette.text),
                 overflow: TextOverflow.ellipsis,
                 child: Container(
                   height: 44,
@@ -100,7 +100,7 @@ class TableView extends StatelessWidget {
                         DefaultTextStyle(
                           style: TextStyle(
                             fontSize: 16,
-                            color: themeModel.palette.tertiaryText,
+                            color: theme.palette.tertiaryText,
                           ),
                           child: item.rightWidget,
                         ),
@@ -109,7 +109,7 @@ class TableView extends StatelessWidget {
                       if ((item.onTap != null || item.url != null) &&
                           !item.hideRightChevron)
                         Icon(CupertinoIcons.right_chevron,
-                            size: 20, color: themeModel.palette.tertiaryText)
+                            size: 20, color: theme.palette.tertiaryText)
                       else
                         SizedBox(width: 2),
                       SizedBox(width: 8),

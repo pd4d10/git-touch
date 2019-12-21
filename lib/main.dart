@@ -21,7 +21,6 @@ import 'package:git_touch/screens/settings.dart';
 import 'package:git_touch/screens/stargazers.dart';
 import 'package:git_touch/screens/user.dart';
 import 'package:git_touch/screens/watchers.dart';
-import 'package:primer/primer.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/models/notification.dart';
 import 'package:fluro/fluro.dart';
@@ -43,6 +42,7 @@ class _HomeState extends State<Home> {
   // String login;
 
   Widget _buildNotificationIcon(BuildContext context, bool isActive) {
+    final theme = Provider.of<ThemeModel>(context);
     final iconData = isActive ? Icons.notifications : Icons.notifications_none;
     int count = Provider.of<NotificationModel>(context).count;
     if (count == 0) {
@@ -57,7 +57,7 @@ class _HomeState extends State<Home> {
             right: -2,
             top: -2,
             child: Icon(Octicons.primitive_dot,
-                color: PrimerColors.red500, size: 14))
+                color: theme.palette.primary, size: 14))
       ],
     );
   }
@@ -150,8 +150,7 @@ class _HomeState extends State<Home> {
 
     final themData = ThemeData(
       brightness: theme.brightness,
-      primaryColor: PrimerColors.white,
-      accentColor: PrimerColors.blue500,
+      primaryColor: Colors.white,
     );
 
     // TODO:
@@ -169,7 +168,7 @@ class _HomeState extends State<Home> {
         return CupertinoApp(
           theme: CupertinoThemeData(
             brightness: theme.brightness,
-            primaryColor: PrimerColors.blue500,
+            primaryColor: theme.palette.primary,
           ),
           home: CupertinoTabScaffold(
             tabBar: CupertinoTabBar(items: _navigationItems),
@@ -189,7 +188,7 @@ class _HomeState extends State<Home> {
             body: _buildScreen(active),
             bottomNavigationBar: BottomNavigationBar(
               backgroundColor: Colors.white,
-              selectedItemColor: PrimerColors.blue500,
+              selectedItemColor: theme.palette.primary,
               items: _navigationItems,
               currentIndex: active,
               type: BottomNavigationBarType.fixed,

@@ -63,15 +63,16 @@ TextSpan createLinkSpan(
   String text,
   String url,
 ) {
+  final theme = Provider.of<ThemeModel>(context);
   return TextSpan(
     text: text,
     style: TextStyle(
-      color: PrimerColors.blue500,
+      color: theme.palette.primary,
       fontWeight: FontWeight.w600,
     ),
     recognizer: TapGestureRecognizer()
       ..onTap = () {
-        Provider.of<ThemeModel>(context).push(context, url);
+        theme.push(context, url);
       },
   );
 }
@@ -149,6 +150,7 @@ class PrimerBranchName extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Provider.of<ThemeModel>(context);
     return Container(
       padding: EdgeInsets.symmetric(vertical: 2, horizontal: 4),
       height: 16,
@@ -159,7 +161,7 @@ class PrimerBranchName extends StatelessWidget {
       child: Text(
         name,
         style: TextStyle(
-          color: PrimerColors.blue500,
+          color: theme.palette.primary,
           fontSize: 14,
           height: 1,
           fontFamily: CommonStyle.monospace,
