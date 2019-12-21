@@ -113,7 +113,7 @@ class ThemeModel with ChangeNotifier {
           tertiaryText: PrimerColors.gray500,
           background: PrimerColors.white,
           grayBackground: PrimerColors.gray100,
-          border: PrimerColors.gray100,
+          border: Colors.grey.shade400,
         );
       case Brightness.dark:
         return Palette(
@@ -123,7 +123,7 @@ class ThemeModel with ChangeNotifier {
           tertiaryText: PrimerColors.gray500,
           background: PrimerColors.black,
           grayBackground: PrimerColors.gray800,
-          border: PrimerColors.gray900,
+          border: Colors.grey.shade600,
         );
       default:
         return null;
