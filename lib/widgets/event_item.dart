@@ -18,9 +18,7 @@ class EventItem extends StatelessWidget {
   TextSpan _buildLinkSpan(ThemeModel theme, String text) {
     return TextSpan(
       text: text,
-      style: TextStyle(
-        color: theme.palette.primary,
-      ),
+      style: TextStyle(color: theme.palette.primary),
     );
   }
 

@@ -5,7 +5,6 @@ import 'package:git_touch/graphql/github_user.dart';
 import 'package:git_touch/models/gitea.dart';
 import 'package:git_touch/models/gitlab.dart';
 import 'package:git_touch/models/theme.dart';
-import 'package:git_touch/widgets/action_button.dart';
 import 'package:git_touch/widgets/avatar.dart';
 import 'package:primer/primer.dart';
 import 'package:provider/provider.dart';
@@ -144,131 +143,127 @@ class RepositoryItem extends StatelessWidget {
     final theme = Provider.of<ThemeModel>(context);
 
     // TODO: text style inRepoScreen
-    return Link(
-      url: '/$owner/$name',
-      onLongPress: () async {
-        await Provider.of<ThemeModel>(context).showActions(context, [
-          ActionItem.user(owner),
-          ActionItem.repository(owner, name),
-        ]);
-      },
-      child: Container(
-        padding: CommonStyle.padding,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Avatar.small(url: avatarUrl),
-            SizedBox(width: 8),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: join(SizedBox(height: 8), <Widget>[
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        owner + ' / ',
-                        style: TextStyle(
-                          fontSize: inRepoScreen ? 18 : 16,
-                          color: theme.palette.primary,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      Text(
-                        name,
-                        style: TextStyle(
-                          fontSize: inRepoScreen ? 18 : 16,
-                          color: theme.palette.primary,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      Expanded(child: Container()),
-                      Icon(iconData,
-                          size: 18, color: theme.palette.tertiaryText),
-                    ],
-                  ),
-                  if (description != null && description.isNotEmpty)
+    final widget = Container(
+      padding: CommonStyle.padding,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Avatar.small(url: avatarUrl),
+          SizedBox(width: 8),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: join(SizedBox(height: 8), <Widget>[
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
                     Text(
-                      description,
+                      owner + ' / ',
                       style: TextStyle(
-                          color: theme.palette.secondaryText,
-                          fontSize: inRepoScreen ? 15 : 14),
-                    ),
-                  if (inRepoScreen)
-                    // TODO: link
-                    Wrap(
-                      spacing: 4,
-                      runSpacing: 4,
-                      children: topics.map((node) {
-                        return Container(
-                          padding:
-                              EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-                          decoration: BoxDecoration(
-                            color: PrimerColors.blue000,
-                            borderRadius: BorderRadius.all(Radius.circular(4)),
-                          ),
-                          child: Text(
-                            node.topic.name,
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: theme.palette.primary,
-                            ),
-                          ),
-                        );
-                      }).toList(),
-                    )
-                  else
-                    DefaultTextStyle(
-                      style: TextStyle(
-                        color: theme.palette.text,
-                        fontSize: 13,
-                        fontWeight: FontWeight.w500,
+                        fontSize: 17,
+                        color: theme.palette.primary,
                       ),
-                      child: Row(
-                        children: <Widget>[
-                          Expanded(
-                            child: Row(children: <Widget>[
-                              Container(
-                                width: 10,
-                                height: 10,
-                                decoration: BoxDecoration(
-                                  color: convertColor(primaryLanguageColor),
-                                  shape: BoxShape.circle,
-                                ),
+                    ),
+                    Text(
+                      name,
+                      style: TextStyle(
+                        fontSize: 17,
+                        color: theme.palette.primary,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    Expanded(child: Container()),
+                    Icon(iconData, size: 17, color: theme.palette.tertiaryText),
+                  ],
+                ),
+                if (description != null && description.isNotEmpty)
+                  Text(
+                    description,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: theme.palette.secondaryText,
+                      fontSize: 15,
+                    ),
+                  ),
+                if (topics != null && topics.isNotEmpty)
+                  // TODO: link
+                  Wrap(
+                    spacing: 4,
+                    runSpacing: 4,
+                    children: topics.map((node) {
+                      return Container(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                        decoration: BoxDecoration(
+                          color: PrimerColors.blue000,
+                          borderRadius: BorderRadius.all(Radius.circular(4)),
+                        ),
+                        child: Text(
+                          node.topic.name,
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: theme.palette.primary,
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                if (!inRepoScreen)
+                  DefaultTextStyle(
+                    style: TextStyle(color: theme.palette.text, fontSize: 13),
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: Row(children: <Widget>[
+                            Container(
+                              width: 10,
+                              height: 10,
+                              decoration: BoxDecoration(
+                                color: convertColor(primaryLanguageColor),
+                                shape: BoxShape.circle,
                               ),
-                              SizedBox(width: 4),
-                              Text(primaryLanguageName ?? 'Unknown'),
-                            ]),
-                          ),
-                          Expanded(
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Icon(Octicons.star,
-                                    size: 14, color: theme.palette.text),
-                                Text(numberFormat.format(starCount)),
-                              ],
                             ),
+                            SizedBox(width: 4),
+                            Text(primaryLanguageName ?? 'Unknown'),
+                          ]),
+                        ),
+                        Expanded(
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Icon(Octicons.star,
+                                  size: 14, color: theme.palette.text),
+                              Text(numberFormat.format(starCount)),
+                            ],
                           ),
-                          Expanded(
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Icon(Octicons.repo_forked,
-                                    size: 14, color: theme.palette.text),
-                                Text(numberFormat.format(forkCount)),
-                              ],
-                            ),
+                        ),
+                        Expanded(
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Icon(Octicons.repo_forked,
+                                  size: 14, color: theme.palette.text),
+                              Text(numberFormat.format(forkCount)),
+                            ],
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                ]),
-              ),
+                  ),
+              ]),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
+    if (inRepoScreen) {
+      // return Material(child: InkWell(child: widget));
+      return widget;
+    } else {
+      return Link(
+        url: '/$owner/$name',
+        child: widget,
+      );
+    }
   }
 }

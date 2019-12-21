@@ -108,7 +108,7 @@ class ThemeModel with ChangeNotifier {
       case Brightness.light:
         return Palette(
           primary: PrimerColors.blue500,
-          text: PrimerColors.gray900,
+          text: PrimerColors.black,
           secondaryText: PrimerColors.gray700,
           tertiaryText: PrimerColors.gray500,
           background: PrimerColors.white,

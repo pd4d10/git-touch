@@ -125,6 +125,7 @@ class RepositoryScreen extends StatelessWidget {
             1;
 
         final theme = Provider.of<ThemeModel>(context);
+        final license = repo.licenseInfo?.spdxId ?? repo.licenseInfo?.name;
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -193,7 +194,8 @@ class RepositoryScreen extends StatelessWidget {
                   TableViewItem(
                     leftIconData: Octicons.code,
                     text: Text('Code'),
-                    rightWidget: Text(filesize(repo.diskUsage * 1000)),
+                    rightWidget: Text((license == null ? '' : license + ' / ') +
+                        filesize(repo.diskUsage * 1000)),
                     url: '/$owner/$name/blob/${ref.name}',
                   ),
                 if (repo.hasIssuesEnabled)
@@ -272,13 +274,6 @@ class RepositoryScreen extends StatelessWidget {
                   text: Text('Releases'),
                   rightWidget: Text(repo.releases.totalCount.toString()),
                   url: repo.url + '/releases',
-                ),
-                TableViewItem(
-                  leftIconData: Octicons.law,
-                  text: Text('License'),
-                  rightWidget: Text(repo.licenseInfo == null
-                      ? 'Unknown'
-                      : (repo.licenseInfo.spdxId ?? repo.licenseInfo.name)),
                 ),
               ],
             ),

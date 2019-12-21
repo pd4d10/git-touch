@@ -69,28 +69,32 @@ class TableView extends StatelessWidget {
 
               var leftWidget = item.leftWidget;
               if (leftWidget == null && hasIcon) {
-                leftWidget = Icon(
-                  item.leftIconData,
-                  color: themeModel.palette.primary,
-                  size: 18,
+                leftWidget = Container(
+                  width: 24,
+                  height: 24,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    color: PrimerColors.blue500,
+                  ),
+                  child: Icon(
+                    item.leftIconData,
+                    color: themeModel.palette.background,
+                    size: 14,
+                  ),
                 );
               }
-              // Container(
-              //   width: 24,
-              //   height: 24,
-              //   // decoration: BoxDecoration(
-              //   //     borderRadius: BorderRadius.circular(4), color: PrimerColors.blue400),
-              //   child: Icon(iconData, size: 24, color: PrimerColors.gray600),
-              // )
 
-              var widget = DefaultTextStyle(
-                style: TextStyle(fontSize: 16, color: themeModel.palette.text),
+              final widget = DefaultTextStyle(
+                style: TextStyle(fontSize: 17, color: themeModel.palette.text),
                 overflow: TextOverflow.ellipsis,
                 child: Container(
                   height: 44,
                   child: Row(
                     children: [
-                      SizedBox(width: _leftPadding, child: leftWidget),
+                      SizedBox(
+                        width: _leftPadding,
+                        child: Center(child: leftWidget),
+                      ),
                       Expanded(child: item.text),
                       if (item.rightWidget != null) ...[
                         DefaultTextStyle(

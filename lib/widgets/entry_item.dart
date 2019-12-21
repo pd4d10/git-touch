@@ -37,7 +37,7 @@ class EntryItem extends StatelessWidget {
               Text(
                 text,
                 style: TextStyle(
-                  fontSize: 12,
+                  fontSize: 14,
                   color: theme.palette.secondaryText,
                   fontWeight: FontWeight.w500,
                 ),

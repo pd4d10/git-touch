@@ -39,53 +39,59 @@ class UserItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
 
-    return Link(
-      url: '/$login',
-      child: Container(
-        padding: CommonStyle.padding,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Avatar.large(url: avatarUrl),
-            SizedBox(width: 10),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: <Widget>[
-                      Text(
-                        name ?? login,
-                        style: TextStyle(
-                          color: theme.palette.primary,
-                          fontSize: inUserScreen ? 18 : 16,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      SizedBox(width: 8),
-                      Text(
-                        login,
-                        style: TextStyle(
-                            color: theme.palette.secondaryText,
-                            fontSize: inUserScreen ? 16 : 14),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 6),
-                  if (bio != null && bio.isNotEmpty)
-                    TextContainsOrganization(
-                      bio,
+    final widget = Container(
+      padding: CommonStyle.padding,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Avatar.large(url: avatarUrl),
+          SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Text(
+                      name ?? login,
                       style: TextStyle(
-                          color: theme.palette.secondaryText,
-                          fontSize: inUserScreen ? 15 : 14),
+                        color: theme.palette.primary,
+                        fontSize: 17,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
-                ],
-              ),
-            )
-          ],
-        ),
+                    SizedBox(width: 4),
+                    Text(
+                      '($login)',
+                      style: TextStyle(
+                          color: theme.palette.secondaryText, fontSize: 16),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 6),
+                if (bio != null && bio.isNotEmpty)
+                  TextContainsOrganization(
+                    bio,
+                    style: TextStyle(
+                      color: theme.palette.secondaryText,
+                      fontSize: 15,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+              ],
+            ),
+          )
+        ],
       ),
     );
+
+    if (inUserScreen) {
+      return widget;
+    } else {
+      return Link(
+        url: '/$login',
+        child: widget,
+      );
+    }
   }
 }

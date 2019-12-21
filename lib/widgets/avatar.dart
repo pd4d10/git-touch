@@ -7,13 +7,9 @@ class Avatar extends StatelessWidget {
   final String url;
   final double size;
 
-  Avatar({
-    @required this.url,
-    @required this.size,
-  });
   Avatar.extraSmall({
     @required this.url,
-  }) : size = 16;
+  }) : size = 20;
   Avatar.small({@required this.url}) : size = 24;
   Avatar.medium({
     @required this.url,
