@@ -41,6 +41,7 @@ dependencies:
   artemis: ^2.1.2
   gql_link: ^0.2.0
   fluro: ^1.5.1
+  charts_flutter: ^0.8.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

@@ -15,6 +15,7 @@ import 'package:git_touch/widgets/repository_item.dart';
 import 'package:tuple/tuple.dart';
 import '../widgets/entry_item.dart';
 import 'package:git_touch/widgets/action_button.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
 
 final repositoryRouter = RouterScreen('/:owner/:name', (context, params) {
   if (params['ref'] == null) {
@@ -165,23 +166,64 @@ class RepositoryScreen extends StatelessWidget {
             ),
             CommonStyle.verticalGap,
             if (repo.languages.edges.isNotEmpty)
-              Container(
-                color: theme.palette.background,
-                padding: CommonStyle.padding.copyWith(top: 8, bottom: 8),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(2),
-                  child: SizedBox(
-                    height: 10,
-                    child: Row(
-                      children: join(
-                        SizedBox(width: 1),
-                        repo.languages.edges
-                            .map((lang) => Container(
-                                color: convertColor(lang.node.color),
-                                width: langWidth *
-                                    lang.size /
-                                    repo.languages.totalSize))
-                            .toList(),
+              GestureDetector(
+                onTap: () {
+                  showCupertinoModalPopup(
+                    context: context,
+                    builder: (context) {
+                      return Container(
+                        color: theme.palette.background,
+                        padding: EdgeInsets.all(40),
+                        height: 400,
+                        child: charts.PieChart(
+                          [
+                            charts.Series<GithubRepositoryLanguageEdge, String>(
+                              id: 'languages',
+                              domainFn: (v, _) => v.node.name,
+                              measureFn: (v, _) => v.size,
+                              colorFn: (v, _) =>
+                                  charts.Color.fromHex(code: v.node.color),
+                              data: repo.languages.edges,
+                              labelAccessorFn: (v, _) => v.node.name,
+                            )
+                          ],
+                          defaultRenderer: charts.ArcRendererConfig(
+                            arcRendererDecorators: [
+                              charts.ArcLabelDecorator(
+                                insideLabelStyleSpec: charts.TextStyleSpec(
+                                  fontSize: 20,
+                                  color: charts.Color.white,
+                                ),
+                                outsideLabelStyleSpec: charts.TextStyleSpec(
+                                  fontSize: 20,
+                                  color: charts.Color.black,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                },
+                child: Container(
+                  // color: theme.palette.background,
+                  padding: CommonStyle.padding.copyWith(top: 8, bottom: 8),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(2),
+                    child: SizedBox(
+                      height: 10,
+                      child: Row(
+                        children: join(
+                          SizedBox(width: 1),
+                          repo.languages.edges
+                              .map((lang) => Container(
+                                  color: convertColor(lang.node.color),
+                                  width: langWidth *
+                                      lang.size /
+                                      repo.languages.totalSize))
+                              .toList(),
+                        ),
                       ),
                     ),
                   ),
