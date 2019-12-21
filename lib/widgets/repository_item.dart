@@ -157,22 +157,30 @@ class RepositoryItem extends StatelessWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(
-                      owner + ' / ',
-                      style: TextStyle(
-                        fontSize: 17,
-                        color: theme.palette.primary,
+                    Expanded(
+                      child: Row(
+                        children: <Widget>[
+                          Text(
+                            owner + ' / ',
+                            style: TextStyle(
+                              fontSize: 17,
+                              color: theme.palette.primary,
+                            ),
+                          ),
+                          Expanded(
+                            child: Text(
+                              name,
+                              style: TextStyle(
+                                fontSize: 17,
+                                color: theme.palette.primary,
+                                fontWeight: FontWeight.w600,
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    Text(
-                      name,
-                      style: TextStyle(
-                        fontSize: 17,
-                        color: theme.palette.primary,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    Expanded(child: Container()),
                     Icon(iconData, size: 17, color: theme.palette.tertiaryText),
                   ],
                 ),
@@ -224,7 +232,12 @@ class RepositoryItem extends StatelessWidget {
                               ),
                             ),
                             SizedBox(width: 4),
-                            Text(primaryLanguageName ?? 'Unknown'),
+                            Expanded(
+                              child: Text(
+                                primaryLanguageName ?? 'Unknown',
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
                           ]),
                         ),
                         Expanded(
