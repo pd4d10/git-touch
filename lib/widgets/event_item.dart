@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:git_touch/models/github.dart';
@@ -15,14 +16,28 @@ class EventItem extends StatelessWidget {
 
   EventItem(this.e);
 
-  TextSpan _buildLinkSpan(ThemeModel theme, String text) {
+  InlineSpan _buildLinkSpan(BuildContext context, String text, String url) {
+    final theme = Provider.of<ThemeModel>(context);
     return TextSpan(
       text: text,
       style: TextStyle(color: theme.palette.primary),
+      recognizer: TapGestureRecognizer()
+        ..onTap = () {
+          theme.push(context, url);
+        },
     );
   }
 
-  TextSpan _buildRepo(ThemeModel theme) => _buildLinkSpan(theme, e.repo.name);
+  InlineSpan _buildRepo(BuildContext context, [String fullName]) {
+    final name = fullName ?? e.repo.name;
+    return _buildLinkSpan(context, name, '/$name');
+  }
+
+  InlineSpan _buildIssue(BuildContext context, int number,
+      {bool isPullRequest = false}) {
+    return _buildLinkSpan(context, '#$number',
+        '/${e.repoOwner}/${e.repoName}/${isPullRequest ? 'pulls' : 'issues'}/$number');
+  }
 
   Iterable<ActionItem> _getUserActions(List<String> users) {
     // Remove duplicates
@@ -34,17 +49,11 @@ class EventItem extends StatelessWidget {
   Widget _buildItem({
     @required BuildContext context,
     @required List<InlineSpan> spans,
-    String detail,
     Widget card,
     String url,
     List<ActionItem> actionItems,
   }) {
     final theme = Provider.of<ThemeModel>(context);
-
-    if (card == null && detail != null) {
-      card = Text(detail.trim(), overflow: TextOverflow.ellipsis, maxLines: 5);
-    }
-
     return Container(
       padding: CommonStyle.padding,
       child: Column(
@@ -69,7 +78,8 @@ class EventItem extends StatelessWidget {
                           color: theme.palette.text,
                         ),
                         children: [
-                          _buildLinkSpan(theme, e.actor.login),
+                          _buildLinkSpan(
+                              context, e.actor.login, '/${e.actor.login}'),
                           ...spans,
                         ],
                       ),
@@ -112,7 +122,7 @@ class EventItem extends StatelessWidget {
           style: TextStyle(color: theme.palette.primary),
         )
       ],
-      detail: 'Woops, ${e.type} not implemented yet',
+      card: Text('Woops, ${e.type} not implemented yet'),
     );
   }
 
@@ -285,9 +295,9 @@ class EventItem extends StatelessWidget {
           context: context,
           spans: [
             TextSpan(text: ' forked '),
-            _buildLinkSpan(theme, '$forkeeOwner/$forkeeName'),
+            _buildRepo(context, '$forkeeOwner/$forkeeName'),
             TextSpan(text: ' from '),
-            _buildRepo(theme),
+            _buildRepo(context),
           ],
           url: '/$forkeeOwner/$forkeeName',
           actionItems: [
@@ -311,9 +321,9 @@ class EventItem extends StatelessWidget {
             TextSpan(
                 text:
                     ' commented on ${e.payload.issue.isPullRequestComment ? 'pull request' : 'issue'} '),
-            _buildLinkSpan(theme, '#${e.payload.issue.number}'),
+            _buildIssue(context, e.payload.issue.number),
             TextSpan(text: ' at '),
-            _buildRepo(theme),
+            _buildRepo(context),
           ],
           card: _buildIssueCard(
             context,
@@ -333,9 +343,9 @@ class EventItem extends StatelessWidget {
           context: context,
           spans: [
             TextSpan(text: ' ${e.payload.action} issue '),
-            _buildLinkSpan(theme, '#${issue.number}'),
+            _buildIssue(context, issue.number),
             TextSpan(text: ' at '),
-            _buildRepo(theme),
+            _buildRepo(context),
           ],
           card: _buildIssueCard(context, issue, issue.body),
           url: '/${e.repoOwner}/${e.repoName}/issues/${issue.number}',
@@ -365,9 +375,9 @@ class EventItem extends StatelessWidget {
           context: context,
           spans: [
             TextSpan(text: ' ${e.payload.action} pull request '),
-            _buildLinkSpan(theme, '#${pr.number}'),
+            _buildIssue(context, pr.number, isPullRequest: true),
             TextSpan(text: ' at '),
-            _buildRepo(theme),
+            _buildRepo(context),
           ],
           card: _buildIssueCard(context, pr, pr.body, isPullRequest: true),
           url: '/${e.repoOwner}/${e.repoName}/pulls/${pr.number}',
@@ -386,9 +396,9 @@ class EventItem extends StatelessWidget {
           context: context,
           spans: [
             TextSpan(text: ' reviewed pull request '),
-            _buildLinkSpan(theme, '#${pr.number}'),
+            _buildIssue(context, pr.number, isPullRequest: true),
             TextSpan(text: ' at '),
-            _buildRepo(theme),
+            _buildRepo(context),
           ],
           card: _buildIssueCard(context, pr, pr.body),
           url: '/${e.repoOwner}/${e.repoName}/pulls/${pr.number}',
@@ -401,7 +411,7 @@ class EventItem extends StatelessWidget {
       case 'PushEvent':
         return _buildItem(
           context: context,
-          spans: [TextSpan(text: ' pushed to '), _buildRepo(theme)],
+          spans: [TextSpan(text: ' pushed to '), _buildRepo(context)],
           card: _buildCommitsCard(context),
           actionItems: [
             ..._getUserActions([e.actor.login, e.repoOwner]),
@@ -421,7 +431,7 @@ class EventItem extends StatelessWidget {
       case 'WatchEvent':
         return _buildItem(
           context: context,
-          spans: [TextSpan(text: ' starred '), _buildRepo(theme)],
+          spans: [TextSpan(text: ' starred '), _buildRepo(context)],
           url: '/${e.repoOwner}/${e.repoName}',
           actionItems: [
             ..._getUserActions([e.actor.login, e.repoOwner]),
