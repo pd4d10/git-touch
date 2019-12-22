@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/theme.dart';
-import 'package:git_touch/screens/image_view.dart';
 import 'package:provider/provider.dart';
 
 class Avatar extends StatelessWidget {
@@ -24,8 +23,8 @@ class Avatar extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(4),
         child: FadeInImage.assetNetwork(
-          placeholder: 'images/octoface.png',
-          image: url ?? 'images/octoface.png',
+          placeholder: 'images/avatar.png',
+          image: url ?? 'images/avatar.png',
           width: size,
           height: size,
           fadeInDuration: Duration(milliseconds: 200),
@@ -33,10 +32,8 @@ class Avatar extends StatelessWidget {
         ),
       ),
       onTap: () {
-        // TODO:
-        // Provider.of<ThemeModel>(context).pushRoute(
-        //     context, (_) => ImageViewScreen(url),
-        //     fullscreenDialog: true);
+        // Provider.of<ThemeModel>(context).push(
+        //     context, '/$login');
       },
     );
   }
