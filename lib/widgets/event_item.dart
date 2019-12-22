@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:git_touch/models/github.dart';
 import 'package:git_touch/models/theme.dart';
-import 'package:git_touch/widgets/action_button.dart';
 import 'package:git_touch/widgets/issue_icon.dart';
 import 'package:provider/provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -39,19 +38,10 @@ class EventItem extends StatelessWidget {
         '/${e.repoOwner}/${e.repoName}/${isPullRequest ? 'pulls' : 'issues'}/$number');
   }
 
-  Iterable<ActionItem> _getUserActions(List<String> users) {
-    // Remove duplicates
-    return users.toSet().map((user) {
-      return ActionItem.user(user);
-    });
-  }
-
   Widget _buildItem({
     @required BuildContext context,
     @required List<InlineSpan> spans,
     Widget card,
-    String url,
-    List<ActionItem> actionItems,
   }) {
     final theme = Provider.of<ThemeModel>(context);
     return Container(
@@ -92,13 +82,6 @@ class EventItem extends StatelessWidget {
                               fontSize: 14,
                               color: theme.palette.tertiaryText,
                             )),
-                        // Expanded(child: Container()),
-                        // GestureDetector(
-                        //   child: Icon(Icons.more_horiz),
-                        //   onTap: () {
-                        //     theme.showActions(context, actionItems);
-                        //   },
-                        // ),
                       ],
                     ),
                     if (card != null) card
@@ -271,8 +254,6 @@ class EventItem extends StatelessWidget {
 
   @override
   build(BuildContext context) {
-    final theme = Provider.of<ThemeModel>(context);
-
     // all events types here:
     // https://developer.github.com/v3/activity/events/types/#event-types--payloads
     switch (e.type) {
@@ -298,12 +279,6 @@ class EventItem extends StatelessWidget {
             _buildRepo(context, '$forkeeOwner/$forkeeName'),
             TextSpan(text: ' from '),
             _buildRepo(context),
-          ],
-          url: '/$forkeeOwner/$forkeeName',
-          actionItems: [
-            ..._getUserActions([e.actor.login, forkeeOwner]),
-            ActionItem.repository(forkeeOwner, forkeeName),
-            ActionItem.repository(e.repoOwner, e.repoName),
           ],
         );
       case 'ForkApplyEvent':
@@ -331,11 +306,6 @@ class EventItem extends StatelessWidget {
             e.payload.comment.body,
             isPullRequest: e.payload.issue.isPullRequestComment,
           ),
-          actionItems: [
-            ..._getUserActions([e.actor.login, e.repoOwner]),
-            ActionItem.pullRequest(
-                e.repoOwner, e.repoName, e.payload.issue.number),
-          ],
         );
       case 'IssuesEvent':
         final issue = e.payload.issue;
@@ -348,12 +318,6 @@ class EventItem extends StatelessWidget {
             _buildRepo(context),
           ],
           card: _buildIssueCard(context, issue, issue.body),
-          url: '/${e.repoOwner}/${e.repoName}/issues/${issue.number}',
-          actionItems: [
-            ..._getUserActions([e.actor.login, e.repoOwner]),
-            ActionItem.repository(e.repoOwner, e.repoName),
-            ActionItem.issue(e.repoOwner, e.repoName, issue.number),
-          ],
         );
       case 'LabelEvent':
       case 'MarketplacePurchaseEvent':
@@ -380,12 +344,6 @@ class EventItem extends StatelessWidget {
             _buildRepo(context),
           ],
           card: _buildIssueCard(context, pr, pr.body, isPullRequest: true),
-          url: '/${e.repoOwner}/${e.repoName}/pulls/${pr.number}',
-          actionItems: [
-            ..._getUserActions([e.actor.login, e.repoOwner]),
-            ActionItem.repository(e.repoOwner, e.repoName),
-            ActionItem.pullRequest(e.repoOwner, e.repoName, pr.number),
-          ],
         );
       case 'PullRequestReviewEvent':
         // TODO:
@@ -401,22 +359,12 @@ class EventItem extends StatelessWidget {
             _buildRepo(context),
           ],
           card: _buildIssueCard(context, pr, pr.body),
-          url: '/${e.repoOwner}/${e.repoName}/pulls/${pr.number}',
-          actionItems: [
-            ..._getUserActions([e.actor.login, e.repoOwner]),
-            ActionItem.repository(e.repoOwner, e.repoName),
-            ActionItem.pullRequest(e.repoOwner, e.repoName, pr.number),
-          ],
         );
       case 'PushEvent':
         return _buildItem(
           context: context,
           spans: [TextSpan(text: ' pushed to '), _buildRepo(context)],
           card: _buildCommitsCard(context),
-          actionItems: [
-            ..._getUserActions([e.actor.login, e.repoOwner]),
-            ActionItem.repository(e.repoOwner, e.repoName),
-          ],
         );
       case 'ReleaseEvent':
       case 'RepositoryEvent':
@@ -432,11 +380,6 @@ class EventItem extends StatelessWidget {
         return _buildItem(
           context: context,
           spans: [TextSpan(text: ' starred '), _buildRepo(context)],
-          url: '/${e.repoOwner}/${e.repoName}',
-          actionItems: [
-            ..._getUserActions([e.actor.login, e.repoOwner]),
-            ActionItem.repository(e.repoOwner, e.repoName),
-          ],
         );
       default:
         return _buildDefaultItem(context);
