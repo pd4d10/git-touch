@@ -36,7 +36,7 @@ class GitlabProjectActivity extends StatelessWidget {
             padding: CommonStyle.padding,
             child: Row(
               children: <Widget>[
-                Avatar.medium(url: data.author.avatarUrl),
+                Avatar(url: data.author.avatarUrl),
                 SizedBox(width: 12),
                 Expanded(
                   child: Column(

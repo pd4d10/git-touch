@@ -30,7 +30,7 @@ class GitlabTodosScreen extends StatelessWidget {
                 padding: CommonStyle.padding,
                 child: Row(
                   children: <Widget>[
-                    Avatar.medium(url: item.author.avatarUrl),
+                    Avatar(url: item.author.avatarUrl),
                     SizedBox(width: 12),
                     Expanded(
                       child: Text.rich(

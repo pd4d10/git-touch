@@ -47,7 +47,7 @@ class CommentItem extends StatelessWidget {
         Row(children: <Widget>[
           Link(
             url: '/' + payload['author']['login'],
-            child: Avatar.medium(url: payload['author']['avatarUrl']),
+            child: Avatar(url: payload['author']['avatarUrl']),
           ),
           SizedBox(width: 8),
           Expanded(

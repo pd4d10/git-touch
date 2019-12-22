@@ -55,13 +55,13 @@ class EventItem extends StatelessWidget {
             children: <Widget>[
               Link(
                 url: '/' + e.actor.login,
-                child: Avatar.medium(url: e.actor.avatarUrl),
+                child: Avatar(url: e.actor.avatarUrl),
               ),
               SizedBox(width: 10),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: join(SizedBox(height: 8), [
+                  children: join(SizedBox(height: 4), [
                     RichText(
                       text: TextSpan(
                         style: TextStyle(
@@ -232,7 +232,7 @@ class EventItem extends StatelessWidget {
               ),
             Row(
               children: <Widget>[
-                Avatar.extraSmall(url: issue.user.avatarUrl),
+                Avatar(url: issue.user.avatarUrl, size: AvatarSize.extraSmall),
                 SizedBox(width: 8),
                 Text(issue.user.login,
                     style: TextStyle(

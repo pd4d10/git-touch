@@ -67,7 +67,7 @@ class CommitsScreen extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Avatar.medium(url: payload.author.avatarUrl),
+                Avatar(url: payload.author.avatarUrl),
                 SizedBox(width: 8),
                 Expanded(
                   child: Column(

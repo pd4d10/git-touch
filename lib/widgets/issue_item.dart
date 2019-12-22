@@ -116,8 +116,10 @@ class IssueItem extends StatelessWidget {
                               if (payload['author'] != null) ...[
                                 Link(
                                   url: '/' + payload['author']['login'],
-                                  child: Avatar.extraSmall(
-                                      url: payload['author']['avatarUrl']),
+                                  child: Avatar(
+                                    size: AvatarSize.extraSmall,
+                                    url: payload['author']['avatarUrl'],
+                                  ),
                                 ),
                                 SizedBox(width: 4),
                                 Text(

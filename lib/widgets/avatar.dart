@@ -2,20 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:provider/provider.dart';
 
+class AvatarSize {
+  static const double extraSmall = 20;
+  static const double small = 24;
+  static const double medium = 36;
+  static const double large = 48;
+}
+
 class Avatar extends StatelessWidget {
   final String url;
   final double size;
 
-  Avatar.extraSmall({
-    @required this.url,
-  }) : size = 20;
-  Avatar.small({@required this.url}) : size = 24;
-  Avatar.medium({
-    @required this.url,
-  }) : size = 36;
   Avatar.large({
     @required this.url,
   }) : size = 48;
+
+  Avatar({this.url, this.size = AvatarSize.medium});
 
   @override
   Widget build(BuildContext context) {
