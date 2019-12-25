@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:git_touch/models/auth.dart';
+import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/action_button.dart';
 import 'package:primer/primer.dart';
 import 'package:provider/provider.dart';
-import '../utils/utils.dart';
 import '../scaffolds/long_list.dart';
 import '../widgets/timeline_item.dart';
 import '../widgets/comment_item.dart';

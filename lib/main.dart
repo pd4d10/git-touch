@@ -21,6 +21,7 @@ import 'package:git_touch/screens/settings.dart';
 import 'package:git_touch/screens/stargazers.dart';
 import 'package:git_touch/screens/user.dart';
 import 'package:git_touch/screens/watchers.dart';
+import 'package:git_touch/utils/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/models/notification.dart';
 import 'package:fluro/fluro.dart';
@@ -29,7 +30,6 @@ import 'screens/search.dart';
 import 'screens/login.dart';
 import 'screens/issue.dart';
 import 'screens/trending.dart';
-import 'utils/utils.dart';
 import 'package:fimber/fimber.dart';
 
 class Home extends StatefulWidget {
@@ -235,7 +235,7 @@ void main() async {
     codeModel.init(),
   ]);
 
-  final routers = [
+  final List<RouterScreen> routers = [
     gitlabBlobRouter,
     gitlabTreeRouter,
     gitlabProjectRouter,
