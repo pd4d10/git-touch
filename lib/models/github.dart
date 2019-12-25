@@ -62,6 +62,7 @@ class GithubEventPayload {
   GithubEventRelease release;
   String action;
   String ref;
+  String refType;
   String before;
   String head;
   List<GithubEventCommit> commits;

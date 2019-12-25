@@ -262,6 +262,14 @@ class EventItem extends StatelessWidget {
       case 'CommitCommentEvent':
       case 'ContentReferenceEvent':
       case 'CreateEvent':
+        return _buildItem(
+          context: context,
+          spans: <InlineSpan>[
+            TextSpan(
+                text: ' created ${e.payload.refType} ${e.payload.ref} at '),
+            _buildRepo(context),
+          ],
+        );
       case 'DeleteEvent':
       case 'DeploymentEvent':
       case 'DeploymentStatusEvent':

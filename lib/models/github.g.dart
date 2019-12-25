@@ -70,6 +70,7 @@ GithubEventPayload _$GithubEventPayloadFromJson(Map<String, dynamic> json) {
         : GithubEventRelease.fromJson(json['release'] as Map<String, dynamic>)
     ..action = json['action'] as String
     ..ref = json['ref'] as String
+    ..refType = json['ref_type'] as String
     ..before = json['before'] as String
     ..head = json['head'] as String
     ..commits = (json['commits'] as List)
@@ -88,6 +89,7 @@ Map<String, dynamic> _$GithubEventPayloadToJson(GithubEventPayload instance) =>
       'release': instance.release,
       'action': instance.action,
       'ref': instance.ref,
+      'ref_type': instance.refType,
       'before': instance.before,
       'head': instance.head,
       'commits': instance.commits,
