@@ -59,6 +59,7 @@ class GithubEventPayload {
   GithubEventIssue issue;
   GithubEventIssue pullRequest;
   GithubEventComment comment;
+  GithubEventRelease release;
   String action;
   String ref;
   String before;
@@ -92,7 +93,7 @@ class GithubEventIssue {
       _$GithubEventIssueFromJson(json);
 }
 
-@JsonSerializable()
+@JsonSerializable(fieldRename: FieldRename.snake)
 class GithubEventComment {
   String body;
   GithubEventUser user;
@@ -103,7 +104,7 @@ class GithubEventComment {
       _$GithubEventCommentFromJson(json);
 }
 
-@JsonSerializable()
+@JsonSerializable(fieldRename: FieldRename.snake)
 class GithubEventCommit {
   String sha;
   String message;
@@ -112,6 +113,17 @@ class GithubEventCommit {
 
   factory GithubEventCommit.fromJson(Map<String, dynamic> json) =>
       _$GithubEventCommitFromJson(json);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GithubEventRelease {
+  String htmlUrl;
+  String tagName;
+
+  GithubEventRelease();
+
+  factory GithubEventRelease.fromJson(Map<String, dynamic> json) =>
+      _$GithubEventReleaseFromJson(json);
 }
 
 @JsonSerializable()

@@ -367,6 +367,16 @@ class EventItem extends StatelessWidget {
           card: _buildCommitsCard(context),
         );
       case 'ReleaseEvent':
+        return _buildItem(
+          context: context,
+          spans: [
+            TextSpan(text: ' released '),
+            _buildLinkSpan(
+                context, e.payload.release.tagName, e.payload.release.htmlUrl),
+            TextSpan(text: ' at '),
+            _buildRepo(context)
+          ],
+        );
       case 'RepositoryEvent':
       case 'RepositoryImportEvent':
       case 'RepositoryVulnerabilityAlertEvent':

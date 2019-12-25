@@ -65,6 +65,9 @@ GithubEventPayload _$GithubEventPayloadFromJson(Map<String, dynamic> json) {
     ..comment = json['comment'] == null
         ? null
         : GithubEventComment.fromJson(json['comment'] as Map<String, dynamic>)
+    ..release = json['release'] == null
+        ? null
+        : GithubEventRelease.fromJson(json['release'] as Map<String, dynamic>)
     ..action = json['action'] as String
     ..ref = json['ref'] as String
     ..before = json['before'] as String
@@ -82,6 +85,7 @@ Map<String, dynamic> _$GithubEventPayloadToJson(GithubEventPayload instance) =>
       'issue': instance.issue,
       'pull_request': instance.pullRequest,
       'comment': instance.comment,
+      'release': instance.release,
       'action': instance.action,
       'ref': instance.ref,
       'before': instance.before,
@@ -144,6 +148,18 @@ Map<String, dynamic> _$GithubEventCommitToJson(GithubEventCommit instance) =>
     <String, dynamic>{
       'sha': instance.sha,
       'message': instance.message,
+    };
+
+GithubEventRelease _$GithubEventReleaseFromJson(Map<String, dynamic> json) {
+  return GithubEventRelease()
+    ..htmlUrl = json['html_url'] as String
+    ..tagName = json['tag_name'] as String;
+}
+
+Map<String, dynamic> _$GithubEventReleaseToJson(GithubEventRelease instance) =>
+    <String, dynamic>{
+      'html_url': instance.htmlUrl,
+      'tag_name': instance.tagName,
     };
 
 GithubTrendingItem _$GithubTrendingItemFromJson(Map<String, dynamic> json) {
