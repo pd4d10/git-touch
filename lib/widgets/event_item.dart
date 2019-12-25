@@ -60,7 +60,7 @@ class EventItem extends StatelessWidget {
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: join(SizedBox(height: 4), [
+                  children: join(SizedBox(height: 6), [
                     RichText(
                       text: TextSpan(
                         style: TextStyle(
@@ -197,7 +197,7 @@ class EventItem extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(4))),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: join(SizedBox(height: 8), [
+          children: join(SizedBox(height: 6), [
             Row(
               children: <Widget>[
                 IssueIcon(state, size: 20),
@@ -233,17 +233,19 @@ class EventItem extends StatelessWidget {
                       color: theme.palette.tertiaryText,
                     )),
                 Expanded(child: Container()),
-                Icon(
-                  Octicons.comment,
-                  size: 14,
-                  color: theme.palette.tertiaryText,
-                ),
-                SizedBox(width: 4),
-                Text(issue.comments.toString(),
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: theme.palette.tertiaryText,
-                    )),
+                if (issue.comments != null) ...[
+                  Icon(
+                    Octicons.comment,
+                    size: 14,
+                    color: theme.palette.tertiaryText,
+                  ),
+                  SizedBox(width: 4),
+                  Text(issue.comments.toString(),
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: theme.palette.tertiaryText,
+                      )),
+                ]
               ],
             )
           ]),
@@ -366,7 +368,8 @@ class EventItem extends StatelessWidget {
             TextSpan(text: ' at '),
             _buildRepo(context),
           ],
-          card: _buildIssueCard(context, pr, pr.body),
+          card: _buildIssueCard(context, pr, e.payload.comment.body,
+              isPullRequest: true),
         );
       case 'PushEvent':
         return _buildItem(
