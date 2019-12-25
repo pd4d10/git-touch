@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:git_touch/utils/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/models/theme.dart';
 
@@ -21,13 +20,7 @@ class Link extends StatelessWidget {
     if (onTap != null) {
       return onTap();
     }
-    if (url != null) {
-      if (url.startsWith('/')) {
-        Provider.of<ThemeModel>(context).push(context, url);
-      } else {
-        launchUrl(url);
-      }
-    }
+    Provider.of<ThemeModel>(context).push(context, url);
   }
 
   @override

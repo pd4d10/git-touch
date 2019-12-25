@@ -4,6 +4,7 @@ import 'package:fimber/fimber.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/action_button.dart';
 import 'package:primer/primer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -156,17 +157,21 @@ class ThemeModel with ChangeNotifier {
     notifyListeners();
   }
 
-  push(BuildContext context, String path, {bool replace = false}) {
-    return router.navigateTo(
-      context,
-      path,
-      transition: replace
-          ? TransitionType.fadeIn
-          : theme == AppThemeType.cupertino
-              ? TransitionType.cupertino
-              : TransitionType.material,
-      replace: replace,
-    );
+  push(BuildContext context, String url, {bool replace = false}) {
+    if (url.startsWith('/')) {
+      return router.navigateTo(
+        context,
+        url,
+        transition: replace
+            ? TransitionType.fadeIn
+            : theme == AppThemeType.cupertino
+                ? TransitionType.cupertino
+                : TransitionType.material,
+        replace: replace,
+      );
+    } else {
+      launchUrl(url);
+    }
   }
 
   Future<bool> showConfirm(BuildContext context, Widget content) {
