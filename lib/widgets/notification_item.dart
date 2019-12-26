@@ -2,7 +2,6 @@ import 'package:fimber/fimber.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:git_touch/models/notification.dart';
-import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/widgets/issue_icon.dart';
 import '../utils/utils.dart';
 import 'package:git_touch/models/auth.dart';
@@ -93,31 +92,26 @@ class _NotificationItemState extends State<NotificationItem> {
     }
   }
 
+  String get _url {
+    switch (payload.type) {
+      case 'Issue':
+      case 'PullRequest':
+        final resource = payload.type == 'PullRequest' ? 'pulls' : 'issues';
+        return '/${payload.owner}/${payload.name}/$resource/${payload.number}';
+      case 'Release':
+        return 'https://github.com/${payload.owner}/${payload.name}/releases/tag/${payload.title}';
+      case 'Commit':
+        return '';
+      default:
+        return null;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Link(
-      onTap: () {
-        _markAsRead();
-
-        switch (payload.type) {
-          case 'Issue':
-          case 'PullRequest':
-            final resource = payload.type == 'PullRequest' ? 'pulls' : 'issues';
-            Provider.of<ThemeModel>(context).push(context,
-                '/${payload.owner}/${payload.name}/$resource/${payload.number}');
-            break;
-          case 'Release':
-            launchUrl(
-                'https://github.com/${payload.owner}/${payload.name}/releases/tag/${payload.title}');
-            break;
-          case 'Commit':
-            // TODO:
-            // onTap = () {
-            // launch('urlString');
-            // };
-            break;
-        }
-      },
+      url: _url,
+      onTap: _markAsRead,
       child: Opacity(
         opacity: payload.unread ? 1 : 0.5,
         child: Container(

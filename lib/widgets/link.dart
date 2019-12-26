@@ -7,25 +7,16 @@ class Link extends StatelessWidget {
   final Widget child;
   final String url;
   final Function onTap;
-  final VoidCallback onLongPress;
 
   Link({
     this.child,
     this.url,
     this.onTap,
-    this.onLongPress,
   });
-
-  void _onTap(BuildContext context) {
-    if (onTap != null) {
-      return onTap();
-    }
-    Provider.of<ThemeModel>(context).push(context, url);
-  }
 
   @override
   Widget build(BuildContext context) {
-    final theme = Provider.of<ThemeModel>(context).theme;
+    final theme = Provider.of<ThemeModel>(context);
 
     return Material(
       child: Ink(
@@ -33,9 +24,13 @@ class Link extends StatelessWidget {
         child: InkWell(
           child: child,
           splashColor:
-              theme == AppThemeType.cupertino ? Colors.transparent : null,
-          onTap: () => _onTap(context),
-          onLongPress: onLongPress,
+              theme.theme == AppThemeType.cupertino ? Colors.transparent : null,
+          onTap: () async {
+            if (onTap != null) {
+              await onTap();
+            }
+            theme.push(context, url);
+          },
         ),
       ),
     );
