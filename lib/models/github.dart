@@ -127,6 +127,73 @@ class GithubEventRelease {
       _$GithubEventReleaseFromJson(json);
 }
 
+// Notification
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GithubNotificationItem {
+  String id;
+  String htmlUrl;
+  GithubNotificationItemSubject subject;
+  DateTime updatedAt;
+  GithubNotificationItemRepo repository;
+  bool unread;
+
+  @JsonKey(ignore: true)
+  String state;
+
+  String get key => '_$hashCode';
+
+  GithubNotificationItem();
+
+  factory GithubNotificationItem.fromJson(Map<String, dynamic> json) =>
+      _$GithubNotificationItemFromJson(json);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GithubNotificationItemSubject {
+  String title;
+  String type;
+  String url;
+
+  int _number;
+  int get number {
+    if (_number == null) {
+      _number = int.parse(url?.split('/')?.last ?? '0');
+    }
+    return _number;
+  }
+
+  GithubNotificationItemSubject();
+
+  factory GithubNotificationItemSubject.fromJson(Map<String, dynamic> json) =>
+      _$GithubNotificationItemSubjectFromJson(json);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GithubNotificationItemRepo {
+  String fullName;
+
+  Tuple2<String, String> _repo;
+  String get owner {
+    if (_repo == null) {
+      _repo = parseRepositoryFullName(fullName);
+    }
+    return _repo.item1;
+  }
+
+  String get name {
+    if (_repo == null) {
+      _repo = parseRepositoryFullName(fullName);
+    }
+    return _repo.item2;
+  }
+
+  GithubNotificationItemRepo();
+
+  factory GithubNotificationItemRepo.fromJson(Map<String, dynamic> json) =>
+      _$GithubNotificationItemRepoFromJson(json);
+}
+
+// Trending
 @JsonSerializable()
 class GithubTrendingItem {
   String author;

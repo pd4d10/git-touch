@@ -164,6 +164,63 @@ Map<String, dynamic> _$GithubEventReleaseToJson(GithubEventRelease instance) =>
       'tag_name': instance.tagName,
     };
 
+GithubNotificationItem _$GithubNotificationItemFromJson(
+    Map<String, dynamic> json) {
+  return GithubNotificationItem()
+    ..id = json['id'] as String
+    ..htmlUrl = json['html_url'] as String
+    ..subject = json['subject'] == null
+        ? null
+        : GithubNotificationItemSubject.fromJson(
+            json['subject'] as Map<String, dynamic>)
+    ..updatedAt = json['updated_at'] == null
+        ? null
+        : DateTime.parse(json['updated_at'] as String)
+    ..repository = json['repository'] == null
+        ? null
+        : GithubNotificationItemRepo.fromJson(
+            json['repository'] as Map<String, dynamic>)
+    ..unread = json['unread'] as bool;
+}
+
+Map<String, dynamic> _$GithubNotificationItemToJson(
+        GithubNotificationItem instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'html_url': instance.htmlUrl,
+      'subject': instance.subject,
+      'updated_at': instance.updatedAt?.toIso8601String(),
+      'repository': instance.repository,
+      'unread': instance.unread,
+    };
+
+GithubNotificationItemSubject _$GithubNotificationItemSubjectFromJson(
+    Map<String, dynamic> json) {
+  return GithubNotificationItemSubject()
+    ..title = json['title'] as String
+    ..type = json['type'] as String
+    ..url = json['url'] as String;
+}
+
+Map<String, dynamic> _$GithubNotificationItemSubjectToJson(
+        GithubNotificationItemSubject instance) =>
+    <String, dynamic>{
+      'title': instance.title,
+      'type': instance.type,
+      'url': instance.url,
+    };
+
+GithubNotificationItemRepo _$GithubNotificationItemRepoFromJson(
+    Map<String, dynamic> json) {
+  return GithubNotificationItemRepo()..fullName = json['full_name'] as String;
+}
+
+Map<String, dynamic> _$GithubNotificationItemRepoToJson(
+        GithubNotificationItemRepo instance) =>
+    <String, dynamic>{
+      'full_name': instance.fullName,
+    };
+
 GithubTrendingItem _$GithubTrendingItemFromJson(Map<String, dynamic> json) {
   return GithubTrendingItem()
     ..author = json['author'] as String

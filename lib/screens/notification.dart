@@ -7,6 +7,7 @@ import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/models/notification.dart';
 import 'package:git_touch/models/auth.dart';
+import 'package:git_touch/models/github.dart';
 import '../widgets/notification_item.dart';
 import '../widgets/list_group.dart';
 import '../widgets/empty.dart';
@@ -21,7 +22,8 @@ class NotificationScreenState extends State<NotificationScreen> {
   Future<Map<String, NotificationGroup>> fetchNotifications(int index) async {
     List items = await Provider.of<AuthModel>(context).getWithCredentials(
         '/notifications?all=${index == 2}&participating=${index == 1}');
-    var ns = items.map((item) => NotificationPayload.fromJson(item)).toList();
+    final ns =
+        items.map((item) => GithubNotificationItem.fromJson(item)).toList();
 
     if (index == 0) {
       Provider.of<NotificationModel>(context).setCount(ns.length);
@@ -30,9 +32,9 @@ class NotificationScreenState extends State<NotificationScreen> {
     Map<String, NotificationGroup> _groupMap = {};
 
     ns.forEach((item) {
-      String repo = item.owner + '/' + item.name;
+      final repo = item.repository.fullName;
       if (_groupMap[repo] == null) {
-        _groupMap[repo] = NotificationGroup(item.owner, item.name);
+        _groupMap[repo] = NotificationGroup(repo);
       }
 
       _groupMap[repo].items.add(item);
@@ -44,7 +46,8 @@ class NotificationScreenState extends State<NotificationScreen> {
       _groupMap.forEach((repo, group) {
         // Check if issue and pull request exist
         if (group.items.where((item) {
-          return item.type == 'Issue' || item.type == 'PullRequest';
+          return item.subject.type == 'Issue' ||
+              item.subject.type == 'PullRequest';
         }).isEmpty) {
           return;
         }
@@ -53,19 +56,17 @@ class NotificationScreenState extends State<NotificationScreen> {
             '${group.key}: repository(owner: "${group.owner}", name: "${group.name}") {';
 
         group.items.forEach((item) {
-          var key = item.key;
-
-          switch (item.type) {
+          switch (item.subject.type) {
             case 'Issue':
               schema += '''
-$key: issue(number: ${item.number}) {
+${item.key}: issue(number: ${item.subject.number}) {
   state
 }
 ''';
               break;
             case 'PullRequest':
               schema += '''
-$key: pullRequest(number: ${item.number}) {
+${item.key}: pullRequest(number: ${item.subject.number}) {
   state
 }
 ''';
@@ -102,20 +103,19 @@ $key: pullRequest(number: ${item.number}) {
       BuildContext context,
       MapEntry<String, NotificationGroup> entry,
       Map<String, NotificationGroup> groupMap) {
-    var group = entry.value;
-    var repo = group.repo;
+    final group = entry.value;
     return ListGroup(
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Text(
-            repo,
+            group.fullName,
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
           ),
           GestureDetector(
             onTap: () async {
               await Provider.of<AuthModel>(context)
-                  .putWithCredentials('/repos/$repo/notifications');
+                  .putWithCredentials('/repos/${group.fullName}/notifications');
               // await _onSwitchTab(); // TODO:
             },
             child: Icon(
