@@ -93,16 +93,17 @@ class _NotificationItemState extends State<NotificationItem> {
   }
 
   String get _url {
+    final fullName = payload.repository.fullName;
     switch (payload.subject.type) {
       case 'Issue':
-        return '/${payload.repository.owner}/${payload.repository.name}/issues/${payload.subject.number}';
+        return '/$fullName/issues/${payload.subject.number}';
       case 'PullRequest':
-        return '/${payload.repository.owner}/${payload.repository.name}/pulls/${payload.subject.number}';
+        return '/$fullName/pulls/${payload.subject.number}';
       case 'Release':
-      // TODO: title
-      // return 'https://github.com/${payload.repository.owner}/${payload.repository.name}/releases/tag/${payload.title}';
+        return 'https://github.com/$fullName/releases';
       case 'Commit':
-        return '';
+      case 'CheckSuite':
+        return '/$fullName';
       default:
         return null;
     }
