@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../models/theme.dart';
 import '../widgets/empty.dart';
-
-var borderColor = Color.fromRGBO(27, 31, 35, .15);
 
 class ListGroup<T> extends StatelessWidget {
   final Widget title;
@@ -16,10 +16,11 @@ class ListGroup<T> extends StatelessWidget {
     this.padding = const EdgeInsets.only(left: 10, right: 10, bottom: 10),
   });
 
-  Widget _buildItem(MapEntry<int, T> entry) {
+  Widget _buildItem(BuildContext context, MapEntry<int, T> entry) {
+    final theme = Provider.of<ThemeModel>(context);
     return Container(
       decoration: BoxDecoration(
-        border: Border(top: BorderSide(color: borderColor)),
+        border: Border(top: BorderSide(color: theme.palette.border)),
       ),
       child: itemBuilder(entry.value, entry.key),
     );
@@ -27,25 +28,26 @@ class ListGroup<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Provider.of<ThemeModel>(context);
     return Container(
       padding: padding,
       child: Container(
         decoration: BoxDecoration(
-          border: Border.all(color: borderColor),
+          border: Border.all(color: theme.palette.border),
           borderRadius: BorderRadius.all(Radius.circular(3)),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Container(
-              color: Color(0xfff6f8fa),
-              padding: EdgeInsets.all(8),
-              child: title,
-            ),
+            Container(padding: EdgeInsets.all(8), child: title),
             items.isEmpty
                 ? EmptyWidget()
                 : Column(
-                    children: items.asMap().entries.map(_buildItem).toList())
+                    children: items
+                        .asMap()
+                        .entries
+                        .map((e) => _buildItem(context, e))
+                        .toList())
           ],
         ),
       ),

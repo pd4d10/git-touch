@@ -103,6 +103,7 @@ ${item.key}: pullRequest(number: ${item.subject.number}) {
       BuildContext context,
       MapEntry<String, NotificationGroup> entry,
       Map<String, NotificationGroup> groupMap) {
+    final theme = Provider.of<ThemeModel>(context);
     final group = entry.value;
     return ListGroup(
       title: Row(
@@ -110,7 +111,11 @@ ${item.key}: pullRequest(number: ${item.subject.number}) {
         children: <Widget>[
           Text(
             group.fullName,
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              color: theme.palette.text,
+            ),
           ),
           GestureDetector(
             onTap: () async {
@@ -120,7 +125,7 @@ ${item.key}: pullRequest(number: ${item.subject.number}) {
             },
             child: Icon(
               Octicons.check,
-              color: Colors.black45,
+              color: theme.palette.tertiaryText,
               size: 24,
             ),
           ),

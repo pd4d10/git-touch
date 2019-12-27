@@ -7,6 +7,8 @@ import 'package:git_touch/models/auth.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/widgets/link.dart';
 
+import '../models/theme.dart';
+
 class NotificationItem extends StatefulWidget {
   final GithubNotificationItem payload;
   final Function markAsRead;
@@ -111,6 +113,7 @@ class _NotificationItemState extends State<NotificationItem> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Provider.of<ThemeModel>(context);
     return Link(
       url: _url,
       onTap: _markAsRead,
@@ -128,7 +131,7 @@ class _NotificationItemState extends State<NotificationItem> {
                 child: Text(
                   payload.subject.title,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(fontSize: 15),
+                  style: TextStyle(fontSize: 15, color: theme.palette.text),
                 ),
               ),
               Link(child: _buildCheckIcon(), onTap: _markAsRead),
