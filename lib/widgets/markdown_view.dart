@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/utils/utils.dart';
-import 'package:primer/primer.dart';
 import 'package:provider/provider.dart';
 import 'package:uri/uri.dart';
 import 'package:path/path.dart' as path;
@@ -105,12 +104,15 @@ class MarkdownView extends StatelessWidget {
         ),
         codeblockPadding: EdgeInsets.all(16),
         codeblockDecoration: BoxDecoration(
-          color: PrimerColors.gray100,
+          color: theme.palette.grayBackground,
           borderRadius: BorderRadius.circular(3),
         ),
         horizontalRuleDecoration: BoxDecoration(
           border: Border(
-            top: BorderSide(width: 4, color: PrimerColors.gray200),
+            top: BorderSide(
+              width: 4,
+              color: theme.palette.grayBackground,
+            ),
           ),
         ),
       ),
