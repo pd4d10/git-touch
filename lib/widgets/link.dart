@@ -26,9 +26,7 @@ class Link extends StatelessWidget {
           splashColor:
               theme.theme == AppThemeType.cupertino ? Colors.transparent : null,
           onTap: () async {
-            if (onTap != null) {
-              await onTap();
-            }
+            if (onTap != null) onTap();
             theme.push(context, url);
           },
         ),
