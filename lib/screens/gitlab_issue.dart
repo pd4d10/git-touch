@@ -56,7 +56,10 @@ class GitlabIssueScreen extends StatelessWidget {
                   Text(issue.title),
                   Row(
                     children: <Widget>[
-                      Avatar(url: issue.author.avatarUrl),
+                      Avatar(
+                        url: issue.author.avatarUrl,
+                        linkUrl: '/user/${issue.author}',
+                      ),
                       Expanded(
                         child: Text(issue.description),
                       ),

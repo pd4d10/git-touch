@@ -45,9 +45,9 @@ class CommentItem extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Row(children: <Widget>[
-          Link(
-            url: '/' + payload['author']['login'],
-            child: Avatar(url: payload['author']['avatarUrl']),
+          Avatar(
+            url: payload['author']['avatarUrl'],
+            linkUrl: '/' + payload['author']['login'],
           ),
           SizedBox(width: 8),
           Expanded(

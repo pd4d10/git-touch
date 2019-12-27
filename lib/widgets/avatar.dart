@@ -12,12 +12,13 @@ class AvatarSize {
 class Avatar extends StatelessWidget {
   final String url;
   final double size;
+  final String linkUrl;
 
-  Avatar.large({
+  Avatar({
     @required this.url,
-  }) : size = 48;
-
-  Avatar({this.url, this.size = AvatarSize.medium});
+    this.size = AvatarSize.medium,
+    this.linkUrl,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +35,43 @@ class Avatar extends StatelessWidget {
         ),
       ),
       onTap: () {
-        // Provider.of<ThemeModel>(context).push(
-        //     context, '/$login');
+        if (linkUrl != null)
+          Provider.of<ThemeModel>(context).push(context, linkUrl);
       },
     );
+  }
+}
+
+class GithubAvatar extends StatelessWidget {
+  final String url;
+  final double size;
+  final String login;
+
+  GithubAvatar({
+    @required this.url,
+    this.size = AvatarSize.medium,
+    this.login,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Avatar(url: url, size: size, linkUrl: '/$login');
+  }
+}
+
+class GitlabAvatar extends StatelessWidget {
+  final String url;
+  final double size;
+  final String login;
+
+  GitlabAvatar({
+    @required this.url,
+    this.size = AvatarSize.medium,
+    this.login,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Avatar(url: url, size: size, linkUrl: '/$login');
   }
 }

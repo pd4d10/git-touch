@@ -88,10 +88,7 @@ class UserItem extends StatelessWidget {
     if (inUserScreen) {
       return widget;
     } else {
-      return Link(
-        url: '/$login',
-        child: widget,
-      );
+      return Link(url: '/$login', child: widget);
     }
   }
 }

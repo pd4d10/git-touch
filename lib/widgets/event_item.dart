@@ -52,10 +52,7 @@ class EventItem extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Link(
-                url: '/' + e.actor.login,
-                child: Avatar(url: e.actor.avatarUrl),
-              ),
+              Avatar(url: e.actor.avatarUrl, linkUrl: '/' + e.actor.login),
               SizedBox(width: 10),
               Expanded(
                 child: Column(
