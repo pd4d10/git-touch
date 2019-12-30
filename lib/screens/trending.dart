@@ -12,7 +12,7 @@ class TrendingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return TabStatefulScaffold<Iterable>(
       title: AppBarTitle('Trending'),
-      tabs: ['Repositories', 'Users'],
+      tabs: ['Repositories', 'Developers'],
       fetchData: (tabIndex) async {
         final uri = Uri.parse('https://github-trending-api.now.sh')
             .resolve(tabIndex == 1 ? '/developers' : '/');
