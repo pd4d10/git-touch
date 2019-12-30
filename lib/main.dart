@@ -25,11 +25,11 @@ import 'package:git_touch/utils/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/models/notification.dart';
 import 'package:fluro/fluro.dart';
-import 'screens/news.dart';
-import 'screens/search.dart';
-import 'screens/login.dart';
-import 'screens/issue.dart';
-import 'screens/trending.dart';
+import 'package:git_touch/screens/news.dart';
+import 'package:git_touch/screens/search.dart';
+import 'package:git_touch/screens/login.dart';
+import 'package:git_touch/screens/issue.dart';
+import 'package:git_touch/screens/trending.dart';
 import 'package:fimber/fimber.dart';
 
 class Home extends StatefulWidget {
@@ -137,7 +137,7 @@ class _HomeState extends State<Home> {
           case 0:
             return GitlabTodosScreen();
           case 1:
-            return GitlabUserScreen(auth.activeAccount.login);
+            return GitlabUserScreen(auth.activeAccount.gitlabId);
         }
         break;
     }
@@ -236,6 +236,7 @@ void main() async {
   ]);
 
   final List<RouterScreen> routers = [
+    gitlabUserRouter,
     gitlabBlobRouter,
     gitlabTreeRouter,
     gitlabProjectRouter,

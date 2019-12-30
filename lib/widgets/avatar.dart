@@ -62,16 +62,16 @@ class GithubAvatar extends StatelessWidget {
 class GitlabAvatar extends StatelessWidget {
   final String url;
   final double size;
-  final String login;
+  final int id;
 
   GitlabAvatar({
     @required this.url,
     this.size = AvatarSize.medium,
-    this.login,
+    this.id,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Avatar(url: url, size: size, linkUrl: '/$login');
+    return Avatar(url: url, size: size, linkUrl: '/user/$id');
   }
 }

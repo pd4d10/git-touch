@@ -7,11 +7,17 @@ import 'package:git_touch/widgets/repository_item.dart';
 import 'package:git_touch/widgets/user_item.dart';
 import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
+import 'package:git_touch/utils/utils.dart';
+
+final gitlabUserRouter = RouterScreen(
+    '/user/:id',
+    (context, parameters) =>
+        GitlabUserScreen(int.parse(parameters['id'].first)));
 
 class GitlabUserScreen extends StatelessWidget {
-  final String username;
+  final int id;
 
-  GitlabUserScreen(this.username);
+  GitlabUserScreen(this.id);
 
   @override
   Widget build(BuildContext context) {
@@ -21,10 +27,9 @@ class GitlabUserScreen extends StatelessWidget {
       fetchData: () async {
         final auth = Provider.of<AuthModel>(context);
 
-        final v0 = await auth.fetchGitlab('/users?username=$username');
-        final user = GitlabUser.fromJson(v0[0]);
-
-        final v1 = await auth.fetchGitlab('/users/${user.id}/projects');
+        final v0 = await auth.fetchGitlab('/users/$id');
+        final user = GitlabUser.fromJson(v0);
+        final v1 = await auth.fetchGitlab('/users/$id/projects');
         final projects =
             (v1 as List).map((v) => GitlabUserProject.fromJson(v)).toList();
 
