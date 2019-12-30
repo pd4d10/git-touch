@@ -15,6 +15,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../utils/constants.dart';
 import '../utils/utils.dart';
 import 'account.dart';
+import 'gitlab.dart';
 
 class PlatformType {
   static const github = 'github';
@@ -111,17 +112,18 @@ class AuthModel with ChangeNotifier {
       final res = await http
           .get('$domain/api/v4/user', headers: {'Private-Token': token});
       final info = json.decode(res.body);
-
       if (info['message'] != null) {
         throw info['message'];
       }
+      final user = GitlabUser.fromJson(info);
 
       await _addAccount(Account(
         platform: PlatformType.gitlab,
         domain: domain,
         token: token,
-        login: info['username'] as String,
-        avatarUrl: info['avatar_url'] as String,
+        login: user.username,
+        avatarUrl: user.avatarUrl,
+        gitlabId: user.id,
       ));
     } catch (err) {
       Fimber.e('loginToGitlab failed', ex: err);

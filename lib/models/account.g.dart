@@ -13,6 +13,7 @@ Account _$AccountFromJson(Map<String, dynamic> json) {
     token: json['token'] as String,
     login: json['login'] as String,
     avatarUrl: json['avatarUrl'] as String,
+    gitlabId: json['gitlabId'] as int,
   );
 }
 
@@ -22,4 +23,5 @@ Map<String, dynamic> _$AccountToJson(Account instance) => <String, dynamic>{
       'token': instance.token,
       'login': instance.login,
       'avatarUrl': instance.avatarUrl,
+      'gitlabId': instance.gitlabId,
     };

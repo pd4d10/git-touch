@@ -10,6 +10,7 @@ class Account {
   String token;
   String login;
   String avatarUrl;
+  int gitlabId;
 
   equals(Account a) {
     final uri = Uri.parse(domain);
@@ -18,6 +19,7 @@ class Account {
     // Treat domains as the same if they have the same hosts and ports
     return a.platform == platform &&
         a.login == login &&
+        a.gitlabId == gitlabId &&
         uri.host == uriA.host &&
         uri.port == uriA.port;
   }
@@ -28,6 +30,7 @@ class Account {
     @required this.token,
     @required this.login,
     @required this.avatarUrl,
+    this.gitlabId,
   });
 
   factory Account.fromJson(Map<String, dynamic> json) =>
