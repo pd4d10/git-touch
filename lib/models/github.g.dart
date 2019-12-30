@@ -246,3 +246,35 @@ Map<String, dynamic> _$GithubTrendingItemToJson(GithubTrendingItem instance) =>
       'forks': instance.forks,
       'currentPeriodStars': instance.currentPeriodStars,
     };
+
+GithubTrendingUser _$GithubTrendingUserFromJson(Map<String, dynamic> json) {
+  return GithubTrendingUser()
+    ..username = json['username'] as String
+    ..name = json['name'] as String
+    ..avatar = json['avatar'] as String
+    ..repo = json['repo'] == null
+        ? null
+        : GithubTrendingUserRepo.fromJson(json['repo'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$GithubTrendingUserToJson(GithubTrendingUser instance) =>
+    <String, dynamic>{
+      'username': instance.username,
+      'name': instance.name,
+      'avatar': instance.avatar,
+      'repo': instance.repo,
+    };
+
+GithubTrendingUserRepo _$GithubTrendingUserRepoFromJson(
+    Map<String, dynamic> json) {
+  return GithubTrendingUserRepo()
+    ..username = json['username'] as String
+    ..description = json['description'] as String;
+}
+
+Map<String, dynamic> _$GithubTrendingUserRepoToJson(
+        GithubTrendingUserRepo instance) =>
+    <String, dynamic>{
+      'username': instance.username,
+      'description': instance.description,
+    };

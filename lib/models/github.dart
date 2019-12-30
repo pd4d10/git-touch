@@ -211,3 +211,27 @@ class GithubTrendingItem {
   factory GithubTrendingItem.fromJson(Map<String, dynamic> json) =>
       _$GithubTrendingItemFromJson(json);
 }
+
+@JsonSerializable()
+class GithubTrendingUser {
+  String username;
+  String name;
+  String avatar;
+  GithubTrendingUserRepo repo;
+
+  GithubTrendingUser();
+
+  factory GithubTrendingUser.fromJson(Map<String, dynamic> json) =>
+      _$GithubTrendingUserFromJson(json);
+}
+
+@JsonSerializable()
+class GithubTrendingUserRepo {
+  String username;
+  String description;
+
+  GithubTrendingUserRepo();
+
+  factory GithubTrendingUserRepo.fromJson(Map<String, dynamic> json) =>
+      _$GithubTrendingUserRepoFromJson(json);
+}

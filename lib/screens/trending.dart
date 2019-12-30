@@ -10,24 +10,24 @@ import 'package:git_touch/widgets/repository_item.dart';
 
 class TrendingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
-    return TabStatefulScaffold<Iterable<GithubTrendingItem>>(
+    return TabStatefulScaffold<Iterable>(
       title: AppBarTitle('Trending'),
       tabs: ['Repositories', 'Users'],
       fetchData: (tabIndex) async {
-        var uri = Uri.parse('https://github-trending-api.now.sh')
+        final uri = Uri.parse('https://github-trending-api.now.sh')
             .resolve(tabIndex == 1 ? '/developers' : '/');
-        var res = await http.get(uri);
-        return (json.decode(res.body) as List)
-            .map((v) => GithubTrendingItem.fromJson(v));
+        final res = await http.get(uri);
+        return json.decode(res.body) as List;
       },
       bodyBuilder: (payload, activeTab) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: join(
             CommonStyle.border,
-            payload.map<Widget>((item) {
+            payload.map<Widget>((v) {
               switch (activeTab) {
                 case 0:
+                  final item = GithubTrendingItem.fromJson(v);
                   return RepositoryItem.raw(
                     item.author,
                     item.avatar,
@@ -41,8 +41,9 @@ class TrendingScreen extends StatelessWidget {
                     [],
                   );
                 case 1:
+                  final item = GithubTrendingUser.fromJson(v);
                   return UserItem(
-                    login: item.author,
+                    login: item.username,
                     name: item.name,
                     avatarUrl: item.avatar,
                     bio: '',
