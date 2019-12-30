@@ -74,3 +74,4 @@
 
 pubspec.lock
 .flutter-plugins-dependencies
+generated_plugin_registrant.dart

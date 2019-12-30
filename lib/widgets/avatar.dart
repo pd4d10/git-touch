@@ -13,18 +13,20 @@ class Avatar extends StatelessWidget {
   final String url;
   final double size;
   final String linkUrl;
+  final BorderRadius borderRadius;
 
   Avatar({
     @required this.url,
     this.size = AvatarSize.medium,
     this.linkUrl,
+    this.borderRadius,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(4),
+        borderRadius: borderRadius ?? BorderRadius.circular(4),
         child: FadeInImage.assetNetwork(
           placeholder: 'images/avatar.png',
           image: url ?? 'images/avatar.png',
@@ -66,12 +68,17 @@ class GitlabAvatar extends StatelessWidget {
 
   GitlabAvatar({
     @required this.url,
+    @required this.id,
     this.size = AvatarSize.medium,
-    this.id,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Avatar(url: url, size: size, linkUrl: '/user/$id');
+    return Avatar(
+      url: url,
+      size: size,
+      linkUrl: '/user/$id',
+      borderRadius: BorderRadius.circular(size / 2),
+    );
   }
 }
