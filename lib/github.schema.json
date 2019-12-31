@@ -6868,6 +6868,16 @@
               "description": "A list of labels associated with the repository.",
               "args": [
                 {
+                  "name": "orderBy",
+                  "description": "Ordering options for labels returned from the connection.",
+                  "type": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "LabelOrder",
+                    "ofType": null
+                  },
+                  "defaultValue": "{field: CREATED_AT, direction: ASC}"
+                },
+                {
                   "name": "after",
                   "description": "Returns the elements in the list that come after the specified cursor.",
                   "type": {
@@ -10652,6 +10662,16 @@
               "description": "A list of labels associated with the object.",
               "args": [
                 {
+                  "name": "orderBy",
+                  "description": "Ordering options for labels returned from the connection.",
+                  "type": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "LabelOrder",
+                    "ofType": null
+                  },
+                  "defaultValue": "{field: CREATED_AT, direction: ASC}"
+                },
+                {
                   "name": "after",
                   "description": "Returns the elements in the list that come after the specified cursor.",
                   "type": {
@@ -13527,6 +13547,16 @@
               "description": "A list of labels associated with the object.",
               "args": [
                 {
+                  "name": "orderBy",
+                  "description": "Ordering options for labels returned from the connection.",
+                  "type": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "LabelOrder",
+                    "ofType": null
+                  },
+                  "defaultValue": "{field: CREATED_AT, direction: ASC}"
+                },
+                {
                   "name": "after",
                   "description": "Returns the elements in the list that come after the specified cursor.",
                   "type": {
@@ -14714,6 +14744,68 @@
             }
           ],
           "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "LabelOrder",
+          "description": "Ways in which lists of labels can be ordered upon return.",
+          "fields": null,
+          "inputFields": [
+            {
+              "name": "field",
+              "description": "The field in which to order labels by.",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "ENUM",
+                  "name": "LabelOrderField",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "direction",
+              "description": "The direction in which to order labels by the specified field.",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "ENUM",
+                  "name": "OrderDirection",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            }
+          ],
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "ENUM",
+          "name": "LabelOrderField",
+          "description": "Properties by which label connections can be ordered.",
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "enumValues": [
+            {
+              "name": "NAME",
+              "description": "Order labels by name ",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "CREATED_AT",
+              "description": "Order labels by creation time",
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
           "possibleTypes": null
         },
         {
@@ -16550,8 +16642,8 @@
                   "ofType": null
                 }
               },
-              "isDeprecated": false,
-              "deprecationReason": null
+              "isDeprecated": true,
+              "deprecationReason": "`Sponsorship.maintainer` will be removed. Use `Sponsorship.sponsorable` instead. Removal on 2020-04-01 UTC."
             },
             {
               "name": "privacyLevel",
@@ -16577,6 +16669,22 @@
                 "kind": "OBJECT",
                 "name": "User",
                 "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "sponsorable",
+              "description": "The entity that is being sponsored",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "INTERFACE",
+                  "name": "Sponsorable",
+                  "ofType": null
+                }
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -70000,6 +70108,16 @@
               "description": "A list of labels associated with the object.",
               "args": [
                 {
+                  "name": "orderBy",
+                  "description": "Ordering options for labels returned from the connection.",
+                  "type": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "LabelOrder",
+                    "ofType": null
+                  },
+                  "defaultValue": "{field: CREATED_AT, direction: ASC}"
+                },
+                {
                   "name": "after",
                   "description": "Returns the elements in the list that come after the specified cursor.",
                   "type": {
@@ -76858,6 +76976,22 @@
               },
               "isDeprecated": true,
               "deprecationReason": "advisory specific fields are being removed from repositoryVulnerabilityAlert objects Use `securityVulnerability.vulnerableVersionRange` instead. Removal on 2019-10-01 UTC."
+            },
+            {
+              "name": "createdAt",
+              "description": "When was the alert created?",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "DateTime",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
             },
             {
               "name": "dismissReason",
@@ -88636,6 +88770,18 @@
           "description": "Autogenerated return type of LockLockable",
           "fields": [
             {
+              "name": "actor",
+              "description": "Identifies the actor who performed the event.",
+              "args": [],
+              "type": {
+                "kind": "INTERFACE",
+                "name": "Actor",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "clientMutationId",
               "description": "A unique identifier for the client performing the mutation.",
               "args": [],
@@ -88715,6 +88861,18 @@
           "name": "UnlockLockablePayload",
           "description": "Autogenerated return type of UnlockLockable",
           "fields": [
+            {
+              "name": "actor",
+              "description": "Identifies the actor who performed the event.",
+              "args": [],
+              "type": {
+                "kind": "INTERFACE",
+                "name": "Actor",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
             {
               "name": "clientMutationId",
               "description": "A unique identifier for the client performing the mutation.",
@@ -89660,6 +89818,18 @@
           "description": "Autogenerated return type of UpdateIssue",
           "fields": [
             {
+              "name": "actor",
+              "description": "Identifies the actor who performed the event.",
+              "args": [],
+              "type": {
+                "kind": "INTERFACE",
+                "name": "Actor",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "clientMutationId",
               "description": "A unique identifier for the client performing the mutation.",
               "args": [],
@@ -90096,6 +90266,18 @@
           "description": "Autogenerated return type of UpdatePullRequest",
           "fields": [
             {
+              "name": "actor",
+              "description": "Identifies the actor who performed the event.",
+              "args": [],
+              "type": {
+                "kind": "INTERFACE",
+                "name": "Actor",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "clientMutationId",
               "description": "A unique identifier for the client performing the mutation.",
               "args": [],
@@ -90442,6 +90624,18 @@
           "name": "MergePullRequestPayload",
           "description": "Autogenerated return type of MergePullRequest",
           "fields": [
+            {
+              "name": "actor",
+              "description": "Identifies the actor who performed the event.",
+              "args": [],
+              "type": {
+                "kind": "INTERFACE",
+                "name": "Actor",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
             {
               "name": "clientMutationId",
               "description": "A unique identifier for the client performing the mutation.",
