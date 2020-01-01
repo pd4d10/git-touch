@@ -72,24 +72,11 @@ class RepositoryScreen extends StatelessWidget {
       },
       actionBuilder: (data, setState) {
         final repo = data.item1;
+        final ref = branch == null ? repo.defaultBranchRef : repo.ref;
+
         return ActionButton(
           title: 'Repository Actions',
           items: [
-            ActionItem(
-              text: repo.viewerHasStarred ? 'Unstar' : 'Star',
-              onPress: (_) async {
-                if (repo.viewerHasStarred) {
-                  await Provider.of<AuthModel>(context)
-                      .deleteWithCredentials('/user/starred/$owner/$name');
-                  repo.viewerHasStarred = false;
-                } else {
-                  await Provider.of<AuthModel>(context)
-                      .putWithCredentials('/user/starred/$owner/$name');
-                  repo.viewerHasStarred = true;
-                }
-                setState(() {});
-              },
-            ),
             // TODO:
             // ActionItem(
             //   text:  data[0]['viewerSubscription'] == 'SUBSCRIBED'
@@ -108,12 +95,25 @@ class RepositoryScreen extends StatelessWidget {
             //     setState(() {});
             //   },
             // ),
+            ActionItem(
+              text:
+                  'Commits (${(ref.target as GithubRepositoryCommit).history?.totalCount})',
+              url: '/$owner/$name/commits',
+            ),
+            ActionItem(
+              text: 'Projects (${repo.projects.totalCount})',
+              url: repo.projectsUrl,
+            ),
+            ActionItem(
+              text: 'Releases (${repo.releases.totalCount})',
+              url: 'https://github.com/$owner/$name/releases',
+            ),
             ActionItem.share(repo.url),
             ActionItem.launch(repo.url),
           ],
         );
       },
-      bodyBuilder: (data, _) {
+      bodyBuilder: (data, setState) {
         final repo = data.item1;
         final readme = data.item2;
         final ref = branch == null ? repo.defaultBranchRef : repo.ref;
@@ -150,6 +150,33 @@ class RepositoryScreen extends StatelessWidget {
                           color: theme.palette.primary,
                         ),
                       ),
+                      Expanded(child: Container()),
+                      CupertinoButton(
+                        onPressed: () async {
+                          if (repo.viewerHasStarred) {
+                            await Provider.of<AuthModel>(context)
+                                .deleteWithCredentials(
+                                    '/user/starred/$owner/$name');
+                            repo.viewerHasStarred = false;
+                          } else {
+                            await Provider.of<AuthModel>(context)
+                                .putWithCredentials(
+                                    '/user/starred/$owner/$name');
+                            repo.viewerHasStarred = true;
+                          }
+                          setState(() {});
+                        },
+                        borderRadius: BorderRadius.circular(10),
+                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        child: Row(
+                          children: <Widget>[
+                            Icon(Octicons.star, size: 15),
+                            SizedBox(width: 2),
+                            Text(repo.viewerHasStarred ? 'Unstar' : 'Star',
+                                style: TextStyle(fontSize: 15)),
+                          ],
+                        ),
+                      )
                     ],
                   ),
                   if (repo.description != null && repo.description.isNotEmpty)
@@ -309,32 +336,7 @@ class RepositoryScreen extends StatelessWidget {
                       Text(numberFormat.format(repo.pullRequests.totalCount)),
                   url: '/$owner/$name/pulls',
                 ),
-                TableViewItem(
-                  leftIconData: Octicons.project,
-                  text: Text('Projects'),
-                  rightWidget:
-                      Text(numberFormat.format(repo.projects.totalCount)),
-                  url: 'https://github.com' + repo.projectsResourcePath,
-                ),
-              ],
-            ),
-            CommonStyle.verticalGap,
-            TableView(
-              hasIcon: true,
-              items: [
                 if (ref != null) ...[
-                  TableViewItem(
-                    leftIconData: Octicons.history,
-                    text: Text('Commits'),
-                    rightWidget: Text(
-                      numberFormat.format(
-                        (ref.target as GithubRepositoryCommit)
-                            .history
-                            ?.totalCount,
-                      ),
-                    ),
-                    url: '/$owner/$name/commits',
-                  ),
                   if (repo.refs != null)
                     TableViewItem(
                       leftIconData: Octicons.git_branch,
@@ -365,12 +367,6 @@ class RepositoryScreen extends StatelessWidget {
                       },
                     ),
                 ],
-                TableViewItem(
-                  leftIconData: Octicons.tag,
-                  text: Text('Releases'),
-                  rightWidget: Text(repo.releases.totalCount.toString()),
-                  url: repo.url + '/releases',
-                ),
               ],
             ),
             CommonStyle.verticalGap,

@@ -31,7 +31,7 @@ query(
     url
     viewerHasStarred
     # viewerSubscription # TODO
-    projectsResourcePath
+    projectsUrl
     watchers {
       totalCount
     }

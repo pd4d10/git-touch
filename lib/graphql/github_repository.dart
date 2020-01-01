@@ -77,7 +77,7 @@ class GithubRepositoryRepository extends GithubRepositoryPinnableItem
   bool viewerHasStarred;
 
   @override
-  String projectsResourcePath;
+  String projectsUrl;
 
   GithubRepositoryUserConnection watchers;
 
@@ -123,7 +123,7 @@ class GithubRepositoryRepository extends GithubRepositoryPinnableItem
         hasIssuesEnabled,
         url,
         viewerHasStarred,
-        projectsResourcePath,
+        projectsUrl,
         watchers,
         issues,
         pullRequests,
@@ -608,7 +608,7 @@ class GithubRepositoryProjectOwner with EquatableMixin {
 
   String id;
 
-  String projectsResourcePath;
+  String projectsUrl;
 
   GithubRepositoryProjectConnection projects;
 
@@ -616,7 +616,7 @@ class GithubRepositoryProjectOwner with EquatableMixin {
   String resolveType;
 
   @override
-  List<Object> get props => [id, projectsResourcePath, projects, resolveType];
+  List<Object> get props => [id, projectsUrl, projects, resolveType];
   Map<String, dynamic> toJson() => _$GithubRepositoryProjectOwnerToJson(this);
 }
 
@@ -904,7 +904,7 @@ class GithubRepositoryQuery
                     directives: [],
                     selectionSet: null),
                 FieldNode(
-                    name: NameNode(value: 'projectsResourcePath'),
+                    name: NameNode(value: 'projectsUrl'),
                     alias: null,
                     arguments: [],
                     directives: [],

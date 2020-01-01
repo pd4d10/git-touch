@@ -7,46 +7,26 @@ import 'package:share/share.dart';
 
 class ActionItem {
   String text;
-  void Function(BuildContext context) onPress;
+  String url;
+  void Function(BuildContext context) onTap;
   IconData iconData;
 
   ActionItem({
     @required this.text,
-    @required this.onPress,
+    this.onTap,
+    this.url,
     this.iconData,
   });
 
   ActionItem.share(String url)
       : text = 'Share',
-        onPress = ((_) {
+        onTap = ((_) {
           Share.share(url);
         });
   ActionItem.launch(String url)
       : text = 'Open in Browser',
-        onPress = ((_) {
+        onTap = ((_) {
           launchUrl(url);
-        });
-  ActionItem.user(String login)
-      : text = '@$login',
-        onPress = ((context) {
-          Provider.of<ThemeModel>(context).push(context, '/$login');
-        });
-  ActionItem.repository(String owner, String name)
-      : text = '$owner/$name',
-        onPress = ((context) {
-          Provider.of<ThemeModel>(context).push(context, '/$owner/$name');
-        });
-  ActionItem.issue(String owner, String name, int number)
-      : text = '$owner/$name #$number',
-        onPress = ((context) {
-          Provider.of<ThemeModel>(context)
-              .push(context, '/$owner/$name/issues/$number');
-        });
-  ActionItem.pullRequest(String owner, String name, int number)
-      : text = '$owner/$name #$number',
-        onPress = ((context) {
-          Provider.of<ThemeModel>(context)
-              .push(context, '/$owner/$name/pulls/$number');
         });
 }
 
@@ -65,7 +45,8 @@ class ActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    switch (Provider.of<ThemeModel>(context).theme) {
+    final theme = Provider.of<ThemeModel>(context);
+    switch (theme.theme) {
       case AppThemeType.cupertino:
         return GestureDetector(
           child: Icon(iconData, size: 22),
@@ -101,7 +82,9 @@ class ActionButton extends StatelessWidget {
             );
 
             if (value != null) {
-              items[value].onPress(context);
+              if (items[value].onTap != null) items[value].onTap(context);
+              if (items[value].url != null)
+                theme.push(context, items[value].url);
             }
           },
         );
@@ -118,7 +101,7 @@ class ActionButton extends StatelessWidget {
             }).toList();
           },
           onSelected: (value) {
-            items[value].onPress(context);
+            items[value].onTap(context);
           },
         );
     }

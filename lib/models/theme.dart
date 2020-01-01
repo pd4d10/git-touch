@@ -382,7 +382,7 @@ class ThemeModel with ChangeNotifier {
     );
 
     if (value != null) {
-      actionItems[value].onPress(context);
+      actionItems[value].onTap(context);
     }
   }
 }

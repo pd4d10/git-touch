@@ -48,7 +48,7 @@ GithubRepositoryRepository _$GithubRepositoryRepositoryFromJson(
     ..hasIssuesEnabled = json['hasIssuesEnabled'] as bool
     ..url = json['url'] as String
     ..viewerHasStarred = json['viewerHasStarred'] as bool
-    ..projectsResourcePath = json['projectsResourcePath'] as String
+    ..projectsUrl = json['projectsUrl'] as String
     ..watchers = json['watchers'] == null
         ? null
         : GithubRepositoryUserConnection.fromJson(
@@ -91,7 +91,7 @@ Map<String, dynamic> _$GithubRepositoryRepositoryToJson(
       'hasIssuesEnabled': instance.hasIssuesEnabled,
       'url': instance.url,
       'viewerHasStarred': instance.viewerHasStarred,
-      'projectsResourcePath': instance.projectsResourcePath,
+      'projectsUrl': instance.projectsUrl,
       'watchers': instance.watchers?.toJson(),
       'issues': instance.issues?.toJson(),
       'pullRequests': instance.pullRequests?.toJson(),
@@ -471,7 +471,7 @@ GithubRepositoryProjectOwner _$GithubRepositoryProjectOwnerFromJson(
     Map<String, dynamic> json) {
   return GithubRepositoryProjectOwner()
     ..id = json['id'] as String
-    ..projectsResourcePath = json['projectsResourcePath'] as String
+    ..projectsUrl = json['projectsUrl'] as String
     ..projects = json['projects'] == null
         ? null
         : GithubRepositoryProjectConnection.fromJson(
@@ -483,7 +483,7 @@ Map<String, dynamic> _$GithubRepositoryProjectOwnerToJson(
         GithubRepositoryProjectOwner instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'projectsResourcePath': instance.projectsResourcePath,
+      'projectsUrl': instance.projectsUrl,
       'projects': instance.projects?.toJson(),
       '__typename': instance.resolveType,
     };
