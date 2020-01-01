@@ -34,7 +34,7 @@ class MeScreen extends StatelessWidget {
               login: user.login,
               name: user.name,
               avatarUrl: user.avatarUrl,
-              bio: user.bio,
+              bio: Text(user.bio ?? ''),
               inUserScreen: true,
             ),
             CommonStyle.border,

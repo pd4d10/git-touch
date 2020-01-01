@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:git_touch/graphql/github_users.dart';
+import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/list_stateful.dart';
+import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/user_item.dart';
 import 'package:git_touch/models/auth.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 enum UsersScreenType {
@@ -93,6 +96,50 @@ class UsersScreen extends StatelessWidget {
     }
   }
 
+  static final _dateFormat = DateFormat.yMMMMd();
+
+  Widget _buildBio(BuildContext context, String company, String location,
+      DateTime createdAt) {
+    final theme = Provider.of<ThemeModel>(context);
+    if (company != null && company.isNotEmpty) {
+      return Row(
+        children: <Widget>[
+          Icon(
+            Octicons.organization,
+            size: 15,
+            color: theme.palette.secondaryText,
+          ),
+          SizedBox(width: 4),
+          Text(company),
+        ],
+      );
+    }
+    if (location != null && location.isNotEmpty) {
+      return Row(
+        children: <Widget>[
+          Icon(
+            Octicons.location,
+            size: 15,
+            color: theme.palette.secondaryText,
+          ),
+          SizedBox(width: 4),
+          Text(location),
+        ],
+      );
+    }
+    return Row(
+      children: <Widget>[
+        Icon(
+          Octicons.clock,
+          size: 15,
+          color: theme.palette.secondaryText,
+        ),
+        SizedBox(width: 4),
+        Text('Joined on ${_dateFormat.format(createdAt)}'),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GithubUsersUser, String>(
@@ -104,7 +151,8 @@ class UsersScreen extends StatelessWidget {
           login: payload.login,
           name: payload.name,
           avatarUrl: payload.avatarUrl,
-          bio: payload.bio,
+          bio: _buildBio(
+              context, payload.company, payload.location, payload.createdAt),
         );
       },
     );

@@ -12,7 +12,9 @@ query(
     login
     name
     avatarUrl
-    bio
+    company
+    location
+    createdAt
     followers(first: 30, after: $after) @include(if: $isFollowers) {
       pageInfo {
         hasNextPage
@@ -22,7 +24,9 @@ query(
         login
         name
         avatarUrl
-        bio
+        company
+        location
+        createdAt
       }
     }
     following(first: 30, after: $after) @include(if: $isFollowing) {
@@ -34,7 +38,9 @@ query(
         login
         name
         avatarUrl
-        bio
+        company
+        location
+        createdAt
       }
     }
   }
@@ -42,6 +48,7 @@ query(
     login
     name
     avatarUrl
+    location
     membersWithRole(first: 30, after: $after) @include(if: $isFollowing) {
       pageInfo {
         hasNextPage
@@ -51,7 +58,9 @@ query(
         login
         name
         avatarUrl
-        bio
+        company
+        location
+        createdAt
       }
     }
   }
@@ -65,7 +74,9 @@ query(
         login
         name
         avatarUrl
-        bio
+        company
+        location
+        createdAt
       }
     }
     stargazers(first: 30, after: $after) @include(if: $isStar) {
@@ -77,7 +88,9 @@ query(
         login
         name
         avatarUrl
-        bio
+        company
+        location
+        createdAt
       }
     }
   }

@@ -46,7 +46,6 @@ class TrendingScreen extends StatelessWidget {
                     login: item.username,
                     name: item.name,
                     avatarUrl: item.avatar,
-                    bio: '',
                   );
                 default:
                   throw '';

@@ -51,7 +51,12 @@ class GithubUsersUser extends GithubUsersAuditEntryActor
   @override
   String avatarUrl;
 
-  String bio;
+  String company;
+
+  @override
+  String location;
+
+  DateTime createdAt;
 
   GithubUsersFollowerConnection followers;
 
@@ -62,8 +67,17 @@ class GithubUsersUser extends GithubUsersAuditEntryActor
   String resolveType;
 
   @override
-  List<Object> get props =>
-      [login, name, avatarUrl, bio, followers, following, resolveType];
+  List<Object> get props => [
+        login,
+        name,
+        avatarUrl,
+        company,
+        location,
+        createdAt,
+        followers,
+        following,
+        resolveType
+      ];
   Map<String, dynamic> toJson() => _$GithubUsersUserToJson(this);
 }
 
@@ -240,11 +254,13 @@ class GithubUsersProfileOwner with EquatableMixin {
 
   String name;
 
+  String location;
+
   @JsonKey(name: '__typename')
   String resolveType;
 
   @override
-  List<Object> get props => [login, name, resolveType];
+  List<Object> get props => [login, name, location, resolveType];
   Map<String, dynamic> toJson() => _$GithubUsersProfileOwnerToJson(this);
 }
 
@@ -307,6 +323,9 @@ class GithubUsersOrganization extends GithubUsersAuditEntryActor
   @override
   String avatarUrl;
 
+  @override
+  String location;
+
   GithubUsersOrganizationMemberConnection membersWithRole;
 
   @override
@@ -315,7 +334,7 @@ class GithubUsersOrganization extends GithubUsersAuditEntryActor
 
   @override
   List<Object> get props =>
-      [login, name, avatarUrl, membersWithRole, resolveType];
+      [login, name, avatarUrl, location, membersWithRole, resolveType];
   Map<String, dynamic> toJson() => _$GithubUsersOrganizationToJson(this);
 }
 
@@ -608,7 +627,19 @@ class GithubUsersQuery extends GraphQLQuery<GithubUsers, GithubUsersArguments> {
                     directives: [],
                     selectionSet: null),
                 FieldNode(
-                    name: NameNode(value: 'bio'),
+                    name: NameNode(value: 'company'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'location'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'createdAt'),
                     alias: null,
                     arguments: [],
                     directives: [],
@@ -679,7 +710,19 @@ class GithubUsersQuery extends GraphQLQuery<GithubUsers, GithubUsersArguments> {
                                 directives: [],
                                 selectionSet: null),
                             FieldNode(
-                                name: NameNode(value: 'bio'),
+                                name: NameNode(value: 'company'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'location'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'createdAt'),
                                 alias: null,
                                 arguments: [],
                                 directives: [],
@@ -752,7 +795,19 @@ class GithubUsersQuery extends GraphQLQuery<GithubUsers, GithubUsersArguments> {
                                 directives: [],
                                 selectionSet: null),
                             FieldNode(
-                                name: NameNode(value: 'bio'),
+                                name: NameNode(value: 'company'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'location'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'createdAt'),
                                 alias: null,
                                 arguments: [],
                                 directives: [],
@@ -790,6 +845,12 @@ class GithubUsersQuery extends GraphQLQuery<GithubUsers, GithubUsersArguments> {
                     selectionSet: null),
                 FieldNode(
                     name: NameNode(value: 'avatarUrl'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'location'),
                     alias: null,
                     arguments: [],
                     directives: [],
@@ -860,7 +921,19 @@ class GithubUsersQuery extends GraphQLQuery<GithubUsers, GithubUsersArguments> {
                                 directives: [],
                                 selectionSet: null),
                             FieldNode(
-                                name: NameNode(value: 'bio'),
+                                name: NameNode(value: 'company'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'location'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'createdAt'),
                                 alias: null,
                                 arguments: [],
                                 directives: [],
@@ -947,7 +1020,19 @@ class GithubUsersQuery extends GraphQLQuery<GithubUsers, GithubUsersArguments> {
                                 directives: [],
                                 selectionSet: null),
                             FieldNode(
-                                name: NameNode(value: 'bio'),
+                                name: NameNode(value: 'company'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'location'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'createdAt'),
                                 alias: null,
                                 arguments: [],
                                 directives: [],
@@ -1020,7 +1105,19 @@ class GithubUsersQuery extends GraphQLQuery<GithubUsers, GithubUsersArguments> {
                                 directives: [],
                                 selectionSet: null),
                             FieldNode(
-                                name: NameNode(value: 'bio'),
+                                name: NameNode(value: 'company'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'location'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'createdAt'),
                                 alias: null,
                                 arguments: [],
                                 directives: [],

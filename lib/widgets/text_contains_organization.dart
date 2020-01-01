@@ -29,7 +29,7 @@ class TextContainsOrganization extends StatelessWidget {
 
     return RichText(
       text: TextSpan(children: spans, style: style),
-      overflow: oneLine ? TextOverflow.ellipsis : null,
+      overflow: oneLine ? TextOverflow.ellipsis : TextOverflow.clip,
       maxLines: oneLine ? 1 : null,
     );
   }

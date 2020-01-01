@@ -33,7 +33,11 @@ GithubUsersUser _$GithubUsersUserFromJson(Map<String, dynamic> json) {
     ..login = json['login'] as String
     ..name = json['name'] as String
     ..avatarUrl = json['avatarUrl'] as String
-    ..bio = json['bio'] as String
+    ..company = json['company'] as String
+    ..location = json['location'] as String
+    ..createdAt = json['createdAt'] == null
+        ? null
+        : DateTime.parse(json['createdAt'] as String)
     ..followers = json['followers'] == null
         ? null
         : GithubUsersFollowerConnection.fromJson(
@@ -50,7 +54,9 @@ Map<String, dynamic> _$GithubUsersUserToJson(GithubUsersUser instance) =>
       'login': instance.login,
       'name': instance.name,
       'avatarUrl': instance.avatarUrl,
-      'bio': instance.bio,
+      'company': instance.company,
+      'location': instance.location,
+      'createdAt': instance.createdAt?.toIso8601String(),
       'followers': instance.followers?.toJson(),
       'following': instance.following?.toJson(),
       '__typename': instance.resolveType,
@@ -189,6 +195,7 @@ GithubUsersProfileOwner _$GithubUsersProfileOwnerFromJson(
   return GithubUsersProfileOwner()
     ..login = json['login'] as String
     ..name = json['name'] as String
+    ..location = json['location'] as String
     ..resolveType = json['__typename'] as String;
 }
 
@@ -197,6 +204,7 @@ Map<String, dynamic> _$GithubUsersProfileOwnerToJson(
     <String, dynamic>{
       'login': instance.login,
       'name': instance.name,
+      'location': instance.location,
       '__typename': instance.resolveType,
     };
 
@@ -237,6 +245,7 @@ GithubUsersOrganization _$GithubUsersOrganizationFromJson(
     ..login = json['login'] as String
     ..name = json['name'] as String
     ..avatarUrl = json['avatarUrl'] as String
+    ..location = json['location'] as String
     ..membersWithRole = json['membersWithRole'] == null
         ? null
         : GithubUsersOrganizationMemberConnection.fromJson(
@@ -250,6 +259,7 @@ Map<String, dynamic> _$GithubUsersOrganizationToJson(
       'login': instance.login,
       'name': instance.name,
       'avatarUrl': instance.avatarUrl,
+      'location': instance.location,
       'membersWithRole': instance.membersWithRole?.toJson(),
       '__typename': instance.resolveType,
     };

@@ -3,7 +3,6 @@ import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/avatar.dart';
 import 'package:git_touch/widgets/link.dart';
-import 'package:git_touch/widgets/text_contains_organization.dart';
 import 'package:provider/provider.dart';
 
 const userGqlChunk = '''
@@ -17,7 +16,7 @@ class UserItem extends StatelessWidget {
   final String login;
   final String name;
   final String avatarUrl;
-  final String bio;
+  final Widget bio;
   final bool inUserScreen;
 
   UserItem({
@@ -33,7 +32,7 @@ class UserItem extends StatelessWidget {
   })  : login = data['login'],
         name = data['name'],
         avatarUrl = data['avatarUrl'],
-        bio = data['bio'];
+        bio = Text(data['bio']);
 
   @override
   Widget build(BuildContext context) {
@@ -42,12 +41,12 @@ class UserItem extends StatelessWidget {
     final widget = Container(
       padding: CommonStyle.padding,
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Avatar(url: avatarUrl, size: AvatarSize.large),
           SizedBox(width: 10),
           Expanded(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Row(
@@ -69,14 +68,13 @@ class UserItem extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 6),
-                if (bio != null && bio.isNotEmpty)
-                  TextContainsOrganization(
-                    bio,
+                if (bio != null)
+                  DefaultTextStyle(
                     style: TextStyle(
                       color: theme.palette.secondaryText,
                       fontSize: 15,
                     ),
-                    oneLine: true,
+                    child: bio,
                   ),
               ],
             ),
