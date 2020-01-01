@@ -69,9 +69,6 @@ class RepositoryScreen extends StatelessWidget {
         return Tuple2(rs[0] as GithubRepositoryRepository, rs[1] as String);
       },
       actionBuilder: (data, setState) {
-        if (data == null)
-          return ActionButton(title: 'Repository Actions', items: []);
-
         final repo = data.item1;
         return ActionButton(
           title: 'Repository Actions',

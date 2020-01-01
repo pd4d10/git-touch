@@ -360,12 +360,6 @@ class UserScreen extends StatelessWidget {
       },
       title: AppBarTitle(isViewer ? 'Me' : 'User'), // TODO:
       actionBuilder: (payload, _) {
-        if (payload == null)
-          return ActionButton(
-            title: "Actions",
-            items: [],
-          );
-
         switch (payload.resolveType) {
           case 'User':
             final user = payload as GithubUserUser;

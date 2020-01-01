@@ -104,7 +104,6 @@ class ObjectScreen extends StatelessWidget {
         return data;
       },
       actionBuilder: (data, _) {
-        if (data == null) return null;
         switch (data.resolveType) {
           case 'Blob':
             final blob = data as GithubObjectBlob;

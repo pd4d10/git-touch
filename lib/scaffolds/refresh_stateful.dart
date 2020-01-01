@@ -58,7 +58,7 @@ class _RefreshStatefulScaffoldState<T>
   }
 
   Widget get _action {
-    if (widget.actionBuilder == null) return null;
+    if (widget.actionBuilder == null || _data == null) return null;
     return widget.actionBuilder(_data, setState);
   }
 

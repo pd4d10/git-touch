@@ -38,9 +38,6 @@ class GitlabProjectScreen extends StatelessWidget {
         return project;
       },
       actionBuilder: (data, setState) {
-        if (data == null)
-          return ActionButton(title: 'Project Actions', items: []);
-
         return ActionButton(
           title: 'Project Actions',
           items: [
