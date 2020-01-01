@@ -174,6 +174,14 @@ class ThemeModel with ChangeNotifier {
     }
   }
 
+  pushGitlab(BuildContext context, String url, {bool replace = false}) {
+    if (url.startsWith('/')) {
+      push(context, '/gitlab/$url', replace: replace);
+    } else {
+      launchUrl(url);
+    }
+  }
+
   Future<bool> showConfirm(BuildContext context, Widget content) {
     switch (theme) {
       case AppThemeType.cupertino:

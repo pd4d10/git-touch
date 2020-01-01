@@ -10,7 +10,7 @@ import 'package:tuple/tuple.dart';
 import 'package:git_touch/utils/utils.dart';
 
 final gitlabUserRouter = RouterScreen(
-    '/user/:id',
+    '/gitlab/user/:id',
     (context, parameters) =>
         GitlabUserScreen(int.parse(parameters['id'].first)));
 

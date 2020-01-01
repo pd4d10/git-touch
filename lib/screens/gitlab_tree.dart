@@ -11,7 +11,7 @@ import 'package:primer/primer.dart';
 import 'package:seti/seti.dart';
 
 final gitlabTreeRouter = RouterScreen(
-    '/projects/:id/tree',
+    '/gitlab/projects/:id/tree',
     (context, params) => GitlabTreeScreen(params['id'].first.toInt,
         path: params['path']?.first?.urldecode));
 

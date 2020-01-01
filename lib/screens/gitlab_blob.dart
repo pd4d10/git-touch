@@ -9,7 +9,7 @@ import 'package:git_touch/widgets/blob_view.dart';
 import 'package:provider/provider.dart';
 
 final gitlabBlobRouter = RouterScreen(
-    '/projects/:id/tree',
+    '/gitlab/projects/:id/tree',
     (context, params) => GitlabBlobScreen(params['id'].first.toInt,
         path: params['path']?.first?.urldecode));
 

@@ -13,7 +13,7 @@ import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/widgets/repository_item.dart';
 import 'package:git_touch/widgets/action_button.dart';
 
-final gitlabProjectRouter = RouterScreen('/projects/:id',
+final gitlabProjectRouter = RouterScreen('/gitlab/projects/:id',
     (context, params) => GitlabProjectScreen(int.parse(['id'].first)));
 
 class GitlabProjectScreen extends StatelessWidget {
