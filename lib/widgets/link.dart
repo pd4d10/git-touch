@@ -69,7 +69,7 @@ class Link extends StatelessWidget {
           padding: EdgeInsets.all(0),
           onPressed: () async {
             if (onTap != null) onTap();
-            theme.push(context, url);
+            if (url != null) theme.push(context, url);
           },
         );
       default:
@@ -77,7 +77,7 @@ class Link extends StatelessWidget {
           child: child,
           onTap: () async {
             if (onTap != null) onTap();
-            theme.push(context, url);
+            if (url != null) theme.push(context, url);
           },
         );
     }
