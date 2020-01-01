@@ -8,7 +8,7 @@ query(
   $isStar: Boolean!
   $isWatch: Boolean!
 ) {
-  user(login: $login) {
+  user(login: $login) @skip(if: $isMember) {
     login
     name
     avatarUrl
@@ -49,7 +49,7 @@ query(
     name
     avatarUrl
     location
-    membersWithRole(first: 30, after: $after) @include(if: $isFollowing) {
+    membersWithRole(first: 30, after: $after) {
       pageInfo {
         hasNextPage
         endCursor

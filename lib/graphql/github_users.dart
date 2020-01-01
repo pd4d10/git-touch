@@ -606,7 +606,13 @@ class GithubUsersQuery extends GraphQLQuery<GithubUsers, GithubUsersArguments> {
                     name: NameNode(value: 'login'),
                     value: VariableNode(name: NameNode(value: 'login')))
               ],
-              directives: [],
+              directives: [
+                DirectiveNode(name: NameNode(value: 'skip'), arguments: [
+                  ArgumentNode(
+                      name: NameNode(value: 'if'),
+                      value: VariableNode(name: NameNode(value: 'isMember')))
+                ])
+              ],
               selectionSet: SelectionSetNode(selections: [
                 FieldNode(
                     name: NameNode(value: 'login'),
@@ -866,16 +872,7 @@ class GithubUsersQuery extends GraphQLQuery<GithubUsers, GithubUsersArguments> {
                           name: NameNode(value: 'after'),
                           value: VariableNode(name: NameNode(value: 'after')))
                     ],
-                    directives: [
-                      DirectiveNode(
-                          name: NameNode(value: 'include'),
-                          arguments: [
-                            ArgumentNode(
-                                name: NameNode(value: 'if'),
-                                value: VariableNode(
-                                    name: NameNode(value: 'isFollowing')))
-                          ])
-                    ],
+                    directives: [],
                     selectionSet: SelectionSetNode(selections: [
                       FieldNode(
                           name: NameNode(value: 'pageInfo'),
