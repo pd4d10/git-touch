@@ -47,6 +47,9 @@ class GithubRepositoryRepository extends GithubRepositoryPinnableItem
   String description;
 
   @override
+  String homepageUrl;
+
+  @override
   bool isPrivate;
 
   @override
@@ -109,6 +112,7 @@ class GithubRepositoryRepository extends GithubRepositoryPinnableItem
         owner,
         name,
         description,
+        homepageUrl,
         isPrivate,
         isFork,
         stargazers,
@@ -667,6 +671,8 @@ class GithubRepositoryRepositoryInfo with EquatableMixin {
 
   String description;
 
+  String homepageUrl;
+
   bool isPrivate;
 
   bool isFork;
@@ -685,6 +691,7 @@ class GithubRepositoryRepositoryInfo with EquatableMixin {
         owner,
         name,
         description,
+        homepageUrl,
         isPrivate,
         isFork,
         hasIssuesEnabled,
@@ -799,6 +806,12 @@ class GithubRepositoryQuery
                     selectionSet: null),
                 FieldNode(
                     name: NameNode(value: 'description'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'homepageUrl'),
                     alias: null,
                     arguments: [],
                     directives: [],
@@ -1205,7 +1218,7 @@ class GithubRepositoryQuery
                     arguments: [
                       ArgumentNode(
                           name: NameNode(value: 'first'),
-                          value: IntValueNode(value: '100'))
+                          value: IntValueNode(value: '10'))
                     ],
                     directives: [],
                     selectionSet: SelectionSetNode(selections: [

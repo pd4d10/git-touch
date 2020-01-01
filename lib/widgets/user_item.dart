@@ -26,13 +26,6 @@ class UserItem extends StatelessWidget {
     this.bio,
     this.inUserScreen = false,
   });
-  UserItem.fromData(
-    data, {
-    this.inUserScreen = false,
-  })  : login = data['login'],
-        name = data['name'],
-        avatarUrl = data['avatarUrl'],
-        bio = Text(data['bio']);
 
   @override
   Widget build(BuildContext context) {

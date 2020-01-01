@@ -7,11 +7,13 @@ import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
+import 'package:git_touch/widgets/avatar.dart';
+import 'package:git_touch/widgets/link.dart';
 import 'package:git_touch/widgets/markdown_view.dart';
 import 'package:git_touch/widgets/table_view.dart';
+import 'package:primer/primer.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/models/theme.dart';
-import 'package:git_touch/widgets/repository_item.dart';
 import 'package:tuple/tuple.dart';
 import '../widgets/entry_item.dart';
 import 'package:git_touch/widgets/action_button.dart';
@@ -128,18 +130,73 @@ class RepositoryScreen extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            RepositoryItem.raw(
-                repo.owner.login,
-                repo.owner.avatarUrl,
-                repo.name,
-                repo.description,
-                Octicons.repo, // TODO:
-                repo.stargazers.totalCount,
-                repo.forks.totalCount,
-                repo.primaryLanguage?.name,
-                repo.primaryLanguage?.color,
-                repo.repositoryTopics.nodes,
-                inRepoScreen: true),
+            Container(
+              padding: CommonStyle.padding,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: join(SizedBox(height: 12), [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      GithubAvatar(
+                          url: repo.owner.avatarUrl,
+                          size: AvatarSize.small,
+                          login: owner),
+                      SizedBox(width: 8),
+                      Text(
+                        '$owner / $name',
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: theme.palette.primary,
+                        ),
+                      ),
+                    ],
+                  ),
+                  if (repo.description != null && repo.description.isNotEmpty)
+                    Text(
+                      repo.description,
+                      style: TextStyle(
+                        color: theme.palette.secondaryText,
+                        fontSize: 17,
+                      ),
+                    ),
+                  if (repo.homepageUrl != null && repo.homepageUrl.isNotEmpty)
+                    Link(
+                      url: repo.homepageUrl,
+                      child: Text(
+                        repo.homepageUrl,
+                        style: TextStyle(
+                          color: theme.palette.primary,
+                          fontSize: 17,
+                        ),
+                      ),
+                    ),
+                  if (repo.repositoryTopics.nodes.isNotEmpty)
+                    // TODO: link
+                    Wrap(
+                      spacing: 4,
+                      runSpacing: 4,
+                      children: repo.repositoryTopics.nodes.map((node) {
+                        return Container(
+                          padding:
+                              EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                          decoration: BoxDecoration(
+                            color: PrimerColors.blue000,
+                            borderRadius: BorderRadius.all(Radius.circular(4)),
+                          ),
+                          child: Text(
+                            node.topic.name,
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: theme.palette.primary,
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                    )
+                ]),
+              ),
+            ),
             CommonStyle.border,
             Row(
               children: <Widget>[

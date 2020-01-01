@@ -12,6 +12,7 @@ query(
     }
     name
     description
+    homepageUrl
     isPrivate
     isFork
     stargazers {
@@ -88,7 +89,7 @@ query(
       name
       spdxId
     }
-    repositoryTopics(first: 100) {
+    repositoryTopics(first: 10) {
       nodes {
         url
         topic {

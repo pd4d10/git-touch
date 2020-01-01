@@ -28,6 +28,7 @@ GithubRepositoryRepository _$GithubRepositoryRepositoryFromJson(
             json['owner'] as Map<String, dynamic>)
     ..name = json['name'] as String
     ..description = json['description'] as String
+    ..homepageUrl = json['homepageUrl'] as String
     ..isPrivate = json['isPrivate'] as bool
     ..isFork = json['isFork'] as bool
     ..stargazers = json['stargazers'] == null
@@ -79,6 +80,7 @@ Map<String, dynamic> _$GithubRepositoryRepositoryToJson(
       'owner': instance.owner?.toJson(),
       'name': instance.name,
       'description': instance.description,
+      'homepageUrl': instance.homepageUrl,
       'isPrivate': instance.isPrivate,
       'isFork': instance.isFork,
       'stargazers': instance.stargazers?.toJson(),
@@ -523,6 +525,7 @@ GithubRepositoryRepositoryInfo _$GithubRepositoryRepositoryInfoFromJson(
             json['owner'] as Map<String, dynamic>)
     ..name = json['name'] as String
     ..description = json['description'] as String
+    ..homepageUrl = json['homepageUrl'] as String
     ..isPrivate = json['isPrivate'] as bool
     ..isFork = json['isFork'] as bool
     ..hasIssuesEnabled = json['hasIssuesEnabled'] as bool
@@ -540,6 +543,7 @@ Map<String, dynamic> _$GithubRepositoryRepositoryInfoToJson(
       'owner': instance.owner?.toJson(),
       'name': instance.name,
       'description': instance.description,
+      'homepageUrl': instance.homepageUrl,
       'isPrivate': instance.isPrivate,
       'isFork': instance.isFork,
       'hasIssuesEnabled': instance.hasIssuesEnabled,
