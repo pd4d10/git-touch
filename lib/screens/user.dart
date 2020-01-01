@@ -11,13 +11,10 @@ import 'package:git_touch/widgets/entry_item.dart';
 import 'package:git_touch/widgets/repository_item.dart';
 import 'package:git_touch/widgets/table_view.dart';
 import 'package:git_touch/widgets/text_contains_organization.dart';
-import 'package:git_touch/widgets/user_contributions.dart';
 import 'package:git_touch/widgets/user_item.dart';
-import 'package:github_contributions/github_contributions.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/widgets/action_button.dart';
-import 'package:tuple/tuple.dart';
 
 final userRouter = RouterScreen(
   '/:login',
@@ -46,28 +43,6 @@ class UserScreen extends StatelessWidget {
 
   UserScreen(this.login);
 
-  Future<GithubUserRepositoryOwner> _query(BuildContext context) async {
-    final data = await Provider.of<AuthModel>(context)
-        .gqlClient
-        .execute(GithubUserQuery(variables: GithubUserArguments(login: login)));
-    return data.data.repositoryOwner;
-  }
-
-  Future<List<ContributionsInfo>> _fetchContributions(
-      BuildContext context) async {
-    var _login = login ?? Provider.of<AuthModel>(context).activeAccount.login;
-    switch (Provider.of<AuthModel>(context).activeAccount.platform) {
-      case PlatformType.gitlab:
-        return [];
-      default:
-        try {
-          return await getContributions(_login);
-        } catch (err) {
-          return [];
-        }
-    }
-  }
-
   Iterable<Widget> _buildPinnedItems(Iterable<GithubUserRepository> pinnedItems,
       Iterable<GithubUserRepository> repositories) {
     String title;
@@ -94,8 +69,7 @@ class UserScreen extends StatelessWidget {
     ];
   }
 
-  Widget _buildUser(BuildContext context, GithubUserUser user,
-      List<ContributionsInfo> contributions) {
+  Widget _buildUser(BuildContext context, GithubUserUser user) {
     final theme = Provider.of<ThemeModel>(context);
     final login = user.login;
     return Column(
@@ -132,7 +106,38 @@ class UserScreen extends StatelessWidget {
           ),
         ]),
         CommonStyle.verticalGap,
-        UserContributions(contributions),
+        Container(
+          color: theme.palette.background,
+          padding: CommonStyle.padding,
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            reverse: true,
+            child: Wrap(
+              spacing: 3,
+              children: user.contributionsCollection.contributionCalendar.weeks
+                  .map((week) {
+                return Wrap(
+                  direction: Axis.vertical,
+                  spacing: 3,
+                  children: week.contributionDays.map((day) {
+                    var color = convertColor(day.color);
+                    if (theme.brightness == Brightness.dark) {
+                      color = Color.fromRGBO(0xff - color.red,
+                          0xff - color.green, 0xff - color.blue, 1);
+                    }
+                    return SizedBox(
+                      width: 10,
+                      height: 10,
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(color: color),
+                      ),
+                    );
+                  }).toList(),
+                );
+              }).toList(),
+            ),
+          ),
+        ),
         CommonStyle.verticalGap,
         TableView(
           hasIcon: true,
@@ -262,25 +267,20 @@ class UserScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RefreshStatefulScaffold<
-        Tuple2<GithubUserRepositoryOwner, List<ContributionsInfo>>>(
+    return RefreshStatefulScaffold<GithubUserRepositoryOwner>(
       fetchData: () async {
-        final vs = await Future.wait([
-          _query(context),
-          _fetchContributions(context),
-        ]);
-        return Tuple2(vs[0] as GithubUserRepositoryOwner,
-            vs[1] as List<ContributionsInfo>);
+        final data = await Provider.of<AuthModel>(context).gqlClient.execute(
+            GithubUserQuery(variables: GithubUserArguments(login: login)));
+        return data.data.repositoryOwner;
       },
       title: AppBarTitle('User'), // TODO:
-      actionBuilder: (data, _) {
-        if (data == null)
+      actionBuilder: (payload, _) {
+        if (payload == null)
           return ActionButton(
             title: "Actions",
             items: [],
           );
 
-        final payload = data.item1;
         switch (payload.resolveType) {
           case 'User':
             final user = payload as GithubUserUser;
@@ -302,7 +302,7 @@ class UserScreen extends StatelessWidget {
                       }
                     },
                   ),
-                if (data != null) ...[
+                if (payload != null) ...[
                   ActionItem.share(user.url),
                   ActionItem.launch(user.url),
                 ],
@@ -313,7 +313,7 @@ class UserScreen extends StatelessWidget {
             return ActionButton(
               title: 'Organization Actions',
               items: [
-                if (data != null) ...[
+                if (payload != null) ...[
                   ActionItem.share(organization.url),
                   ActionItem.launch(organization.url),
                 ],
@@ -323,11 +323,10 @@ class UserScreen extends StatelessWidget {
             return null;
         }
       },
-      bodyBuilder: (data, _) {
-        final payload = data.item1;
+      bodyBuilder: (payload, _) {
         switch (payload.resolveType) {
           case 'User':
-            return _buildUser(context, payload as GithubUserUser, data.item2);
+            return _buildUser(context, payload as GithubUserUser);
           case 'Organization':
             return _buildOrganization(
                 context, payload as GithubUserOrganization);

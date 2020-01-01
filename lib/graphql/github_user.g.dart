@@ -57,6 +57,10 @@ GithubUserUser _$GithubUserUserFromJson(Map<String, dynamic> json) {
         ? null
         : GithubUserFollowingConnection.fromJson(
             json['following'] as Map<String, dynamic>)
+    ..contributionsCollection = json['contributionsCollection'] == null
+        ? null
+        : GithubUserContributionsCollection.fromJson(
+            json['contributionsCollection'] as Map<String, dynamic>)
     ..repositories = json['repositories'] == null
         ? null
         : GithubUserRepositoryConnection.fromJson(
@@ -84,6 +88,7 @@ Map<String, dynamic> _$GithubUserUserToJson(GithubUserUser instance) =>
       'starredRepositories': instance.starredRepositories?.toJson(),
       'followers': instance.followers?.toJson(),
       'following': instance.following?.toJson(),
+      'contributionsCollection': instance.contributionsCollection?.toJson(),
       'repositories': instance.repositories?.toJson(),
       'pinnedItems': instance.pinnedItems?.toJson(),
       'viewerCanFollow': instance.viewerCanFollow,
@@ -127,6 +132,67 @@ Map<String, dynamic> _$GithubUserFollowingConnectionToJson(
         GithubUserFollowingConnection instance) =>
     <String, dynamic>{
       'totalCount': instance.totalCount,
+    };
+
+GithubUserContributionsCollection _$GithubUserContributionsCollectionFromJson(
+    Map<String, dynamic> json) {
+  return GithubUserContributionsCollection()
+    ..contributionCalendar = json['contributionCalendar'] == null
+        ? null
+        : GithubUserContributionCalendar.fromJson(
+            json['contributionCalendar'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$GithubUserContributionsCollectionToJson(
+        GithubUserContributionsCollection instance) =>
+    <String, dynamic>{
+      'contributionCalendar': instance.contributionCalendar?.toJson(),
+    };
+
+GithubUserContributionCalendar _$GithubUserContributionCalendarFromJson(
+    Map<String, dynamic> json) {
+  return GithubUserContributionCalendar()
+    ..weeks = (json['weeks'] as List)
+        ?.map((e) => e == null
+            ? null
+            : GithubUserContributionCalendarWeek.fromJson(
+                e as Map<String, dynamic>))
+        ?.toList();
+}
+
+Map<String, dynamic> _$GithubUserContributionCalendarToJson(
+        GithubUserContributionCalendar instance) =>
+    <String, dynamic>{
+      'weeks': instance.weeks?.map((e) => e?.toJson())?.toList(),
+    };
+
+GithubUserContributionCalendarWeek _$GithubUserContributionCalendarWeekFromJson(
+    Map<String, dynamic> json) {
+  return GithubUserContributionCalendarWeek()
+    ..contributionDays = (json['contributionDays'] as List)
+        ?.map((e) => e == null
+            ? null
+            : GithubUserContributionCalendarDay.fromJson(
+                e as Map<String, dynamic>))
+        ?.toList();
+}
+
+Map<String, dynamic> _$GithubUserContributionCalendarWeekToJson(
+        GithubUserContributionCalendarWeek instance) =>
+    <String, dynamic>{
+      'contributionDays':
+          instance.contributionDays?.map((e) => e?.toJson())?.toList(),
+    };
+
+GithubUserContributionCalendarDay _$GithubUserContributionCalendarDayFromJson(
+    Map<String, dynamic> json) {
+  return GithubUserContributionCalendarDay()..color = json['color'] as String;
+}
+
+Map<String, dynamic> _$GithubUserContributionCalendarDayToJson(
+        GithubUserContributionCalendarDay instance) =>
+    <String, dynamic>{
+      'color': instance.color,
     };
 
 GithubUserRepositoryConnection _$GithubUserRepositoryConnectionFromJson(

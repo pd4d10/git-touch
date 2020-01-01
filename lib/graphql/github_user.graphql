@@ -20,6 +20,15 @@ query($login: String!) {
       following {
         totalCount
       }
+      contributionsCollection {
+        contributionCalendar {
+          weeks {
+            contributionDays {
+              color
+            }
+          }
+        }
+      }
       repositories(
         first: 6
         ownerAffiliations: OWNER

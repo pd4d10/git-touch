@@ -19,7 +19,6 @@ dependencies:
   flutter_highlight: ^0.5.0
   primer: ^0.0.2
   nanoid: ^0.0.6
-  github_contributions: ^0.2.0
   seti: ^0.2.0
   http: ^0.12.0
   intl: ^0.16.0

@@ -94,6 +94,8 @@ class GithubUserUser extends GithubUserAuditEntryActor
 
   GithubUserFollowingConnection following;
 
+  GithubUserContributionsCollection contributionsCollection;
+
   GithubUserRepositoryConnection repositories;
 
   GithubUserPinnableItemConnection pinnedItems;
@@ -126,6 +128,7 @@ class GithubUserUser extends GithubUserAuditEntryActor
         starredRepositories,
         followers,
         following,
+        contributionsCollection,
         repositories,
         pinnedItems,
         viewerCanFollow,
@@ -180,6 +183,68 @@ class GithubUserFollowingConnection with EquatableMixin {
   @override
   List<Object> get props => [totalCount];
   Map<String, dynamic> toJson() => _$GithubUserFollowingConnectionToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GithubUserContributionsCollection with EquatableMixin {
+  GithubUserContributionsCollection();
+
+  factory GithubUserContributionsCollection.fromJson(
+          Map<String, dynamic> json) =>
+      _$GithubUserContributionsCollectionFromJson(json);
+
+  GithubUserContributionCalendar contributionCalendar;
+
+  @override
+  List<Object> get props => [contributionCalendar];
+  Map<String, dynamic> toJson() =>
+      _$GithubUserContributionsCollectionToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GithubUserContributionCalendar with EquatableMixin {
+  GithubUserContributionCalendar();
+
+  factory GithubUserContributionCalendar.fromJson(Map<String, dynamic> json) =>
+      _$GithubUserContributionCalendarFromJson(json);
+
+  List<GithubUserContributionCalendarWeek> weeks;
+
+  @override
+  List<Object> get props => [weeks];
+  Map<String, dynamic> toJson() => _$GithubUserContributionCalendarToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GithubUserContributionCalendarWeek with EquatableMixin {
+  GithubUserContributionCalendarWeek();
+
+  factory GithubUserContributionCalendarWeek.fromJson(
+          Map<String, dynamic> json) =>
+      _$GithubUserContributionCalendarWeekFromJson(json);
+
+  List<GithubUserContributionCalendarDay> contributionDays;
+
+  @override
+  List<Object> get props => [contributionDays];
+  Map<String, dynamic> toJson() =>
+      _$GithubUserContributionCalendarWeekToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GithubUserContributionCalendarDay with EquatableMixin {
+  GithubUserContributionCalendarDay();
+
+  factory GithubUserContributionCalendarDay.fromJson(
+          Map<String, dynamic> json) =>
+      _$GithubUserContributionCalendarDayFromJson(json);
+
+  String color;
+
+  @override
+  List<Object> get props => [color];
+  Map<String, dynamic> toJson() =>
+      _$GithubUserContributionCalendarDayToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
@@ -767,6 +832,44 @@ class GithubUserQuery extends GraphQLQuery<GithubUser, GithubUserArguments> {
                                 arguments: [],
                                 directives: [],
                                 selectionSet: null)
+                          ])),
+                      FieldNode(
+                          name: NameNode(value: 'contributionsCollection'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: SelectionSetNode(selections: [
+                            FieldNode(
+                                name: NameNode(value: 'contributionCalendar'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: SelectionSetNode(selections: [
+                                  FieldNode(
+                                      name: NameNode(value: 'weeks'),
+                                      alias: null,
+                                      arguments: [],
+                                      directives: [],
+                                      selectionSet:
+                                          SelectionSetNode(selections: [
+                                        FieldNode(
+                                            name: NameNode(
+                                                value: 'contributionDays'),
+                                            alias: null,
+                                            arguments: [],
+                                            directives: [],
+                                            selectionSet:
+                                                SelectionSetNode(selections: [
+                                              FieldNode(
+                                                  name:
+                                                      NameNode(value: 'color'),
+                                                  alias: null,
+                                                  arguments: [],
+                                                  directives: [],
+                                                  selectionSet: null)
+                                            ]))
+                                      ]))
+                                ]))
                           ])),
                       FieldNode(
                           name: NameNode(value: 'repositories'),

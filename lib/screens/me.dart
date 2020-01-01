@@ -8,45 +8,22 @@ import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/entry_item.dart';
 import 'package:git_touch/widgets/table_view.dart';
 import 'package:git_touch/widgets/text_contains_organization.dart';
-import 'package:git_touch/widgets/user_contributions.dart';
 import 'package:git_touch/widgets/user_item.dart';
-import 'package:github_contributions/github_contributions.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:provider/provider.dart';
-import 'package:tuple/tuple.dart';
 
 class MeScreen extends StatelessWidget {
-  MeScreen();
-
-  Future<GithubMeUser> _query(BuildContext context) async {
-    final data = await Provider.of<AuthModel>(context)
-        .gqlClient
-        .execute(GithubMeQuery());
-    return data.data.viewer;
-  }
-
-  Future<List<ContributionsInfo>> _fetchContributions(
-      BuildContext context) async {
-    final login = Provider.of<AuthModel>(context).activeAccount.login;
-    return getContributions(login);
-  }
-
   @override
   Widget build(BuildContext context) {
-    return RefreshStatefulScaffold<
-        Tuple2<GithubMeUser, List<ContributionsInfo>>>(
+    return RefreshStatefulScaffold<GithubMeUser>(
       fetchData: () async {
-        final vs = await Future.wait([
-          _query(context),
-          _fetchContributions(context),
-        ]);
-        return Tuple2(vs[0] as GithubMeUser, vs[1] as List<ContributionsInfo>);
+        final data = await Provider.of<AuthModel>(context)
+            .gqlClient
+            .execute(GithubMeQuery());
+        return data.data.viewer;
       },
       title: AppBarTitle('Me'),
-      bodyBuilder: (data, _) {
-        final user = data.item1;
-        final contributions = data.item2;
-
+      bodyBuilder: (user, _) {
         final theme = Provider.of<ThemeModel>(context);
         final login = user.login;
 
@@ -84,7 +61,39 @@ class MeScreen extends StatelessWidget {
               ),
             ]),
             CommonStyle.verticalGap,
-            UserContributions(contributions),
+            Container(
+              color: theme.palette.background,
+              padding: CommonStyle.padding,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                reverse: true,
+                child: Wrap(
+                  spacing: 3,
+                  children: user
+                      .contributionsCollection.contributionCalendar.weeks
+                      .map((week) {
+                    return Wrap(
+                      direction: Axis.vertical,
+                      spacing: 3,
+                      children: week.contributionDays.map((day) {
+                        var color = convertColor(day.color);
+                        if (theme.brightness == Brightness.dark) {
+                          color = Color.fromRGBO(0xff - color.red,
+                              0xff - color.green, 0xff - color.blue, 1);
+                        }
+                        return SizedBox(
+                          width: 10,
+                          height: 10,
+                          child: DecoratedBox(
+                            decoration: BoxDecoration(color: color),
+                          ),
+                        );
+                      }).toList(),
+                    );
+                  }).toList(),
+                ),
+              ),
+            ),
             CommonStyle.verticalGap,
             TableView(
               hasIcon: true,

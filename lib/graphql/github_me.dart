@@ -72,6 +72,8 @@ class GithubMeUser extends GithubMeAuditEntryActor
   @override
   GithubMeRepositoryConnection repositories;
 
+  GithubMeContributionsCollection contributionsCollection;
+
   @override
   @JsonKey(name: '__typename')
   String resolveType;
@@ -91,6 +93,7 @@ class GithubMeUser extends GithubMeAuditEntryActor
         followers,
         following,
         repositories,
+        contributionsCollection,
         resolveType
       ];
   Map<String, dynamic> toJson() => _$GithubMeUserToJson(this);
@@ -152,6 +155,66 @@ class GithubMeRepositoryConnection with EquatableMixin {
   @override
   List<Object> get props => [totalCount];
   Map<String, dynamic> toJson() => _$GithubMeRepositoryConnectionToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GithubMeContributionsCollection with EquatableMixin {
+  GithubMeContributionsCollection();
+
+  factory GithubMeContributionsCollection.fromJson(Map<String, dynamic> json) =>
+      _$GithubMeContributionsCollectionFromJson(json);
+
+  GithubMeContributionCalendar contributionCalendar;
+
+  @override
+  List<Object> get props => [contributionCalendar];
+  Map<String, dynamic> toJson() =>
+      _$GithubMeContributionsCollectionToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GithubMeContributionCalendar with EquatableMixin {
+  GithubMeContributionCalendar();
+
+  factory GithubMeContributionCalendar.fromJson(Map<String, dynamic> json) =>
+      _$GithubMeContributionCalendarFromJson(json);
+
+  List<GithubMeContributionCalendarWeek> weeks;
+
+  @override
+  List<Object> get props => [weeks];
+  Map<String, dynamic> toJson() => _$GithubMeContributionCalendarToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GithubMeContributionCalendarWeek with EquatableMixin {
+  GithubMeContributionCalendarWeek();
+
+  factory GithubMeContributionCalendarWeek.fromJson(
+          Map<String, dynamic> json) =>
+      _$GithubMeContributionCalendarWeekFromJson(json);
+
+  List<GithubMeContributionCalendarDay> contributionDays;
+
+  @override
+  List<Object> get props => [contributionDays];
+  Map<String, dynamic> toJson() =>
+      _$GithubMeContributionCalendarWeekToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GithubMeContributionCalendarDay with EquatableMixin {
+  GithubMeContributionCalendarDay();
+
+  factory GithubMeContributionCalendarDay.fromJson(Map<String, dynamic> json) =>
+      _$GithubMeContributionCalendarDayFromJson(json);
+
+  String color;
+
+  @override
+  List<Object> get props => [color];
+  Map<String, dynamic> toJson() =>
+      _$GithubMeContributionCalendarDayToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
@@ -452,6 +515,41 @@ class GithubMeQuery extends GraphQLQuery<GithubMe, JsonSerializable> {
                           arguments: [],
                           directives: [],
                           selectionSet: null)
+                    ])),
+                FieldNode(
+                    name: NameNode(value: 'contributionsCollection'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: SelectionSetNode(selections: [
+                      FieldNode(
+                          name: NameNode(value: 'contributionCalendar'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: SelectionSetNode(selections: [
+                            FieldNode(
+                                name: NameNode(value: 'weeks'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: SelectionSetNode(selections: [
+                                  FieldNode(
+                                      name: NameNode(value: 'contributionDays'),
+                                      alias: null,
+                                      arguments: [],
+                                      directives: [],
+                                      selectionSet:
+                                          SelectionSetNode(selections: [
+                                        FieldNode(
+                                            name: NameNode(value: 'color'),
+                                            alias: null,
+                                            arguments: [],
+                                            directives: [],
+                                            selectionSet: null)
+                                      ]))
+                                ]))
+                          ]))
                     ]))
               ]))
         ]))
