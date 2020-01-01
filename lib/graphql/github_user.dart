@@ -86,6 +86,8 @@ class GithubUserUser extends GithubUserAuditEntryActor
 
   String email;
 
+  DateTime createdAt;
+
   String websiteUrl;
 
   GithubUserStarredRepositoryConnection starredRepositories;
@@ -124,6 +126,7 @@ class GithubUserUser extends GithubUserAuditEntryActor
         company,
         location,
         email,
+        createdAt,
         websiteUrl,
         starredRepositories,
         followers,
@@ -618,6 +621,8 @@ class GithubUserOrganization extends GithubUserAuditEntryActor
 
   String websiteUrl;
 
+  DateTime createdAt;
+
   GithubUserPinnableItemConnection pinnedItems;
 
   GithubUserPinnableItemConnection pinnableItems;
@@ -644,6 +649,7 @@ class GithubUserOrganization extends GithubUserAuditEntryActor
         location,
         email,
         websiteUrl,
+        createdAt,
         pinnedItems,
         pinnableItems,
         membersWithRole,
@@ -784,6 +790,12 @@ class GithubUserQuery extends GraphQLQuery<GithubUser, GithubUserArguments> {
                           selectionSet: null),
                       FieldNode(
                           name: NameNode(value: 'email'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'createdAt'),
                           alias: null,
                           arguments: [],
                           directives: [],
@@ -1188,6 +1200,12 @@ class GithubUserQuery extends GraphQLQuery<GithubUser, GithubUserArguments> {
                           selectionSet: null),
                       FieldNode(
                           name: NameNode(value: 'websiteUrl'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'createdAt'),
                           alias: null,
                           arguments: [],
                           directives: [],

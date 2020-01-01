@@ -7,11 +7,11 @@ import 'package:git_touch/screens/users.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/screens/repositories.dart';
+import 'package:git_touch/widgets/avatar.dart';
 import 'package:git_touch/widgets/entry_item.dart';
 import 'package:git_touch/widgets/repository_item.dart';
 import 'package:git_touch/widgets/table_view.dart';
 import 'package:git_touch/widgets/text_contains_organization.dart';
-import 'package:git_touch/widgets/user_item.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/widgets/action_button.dart';
@@ -69,19 +69,92 @@ class UserScreen extends StatelessWidget {
     ];
   }
 
+  Widget _buildHeader(BuildContext context, String avatarUrl, String name,
+      DateTime createdAt, String bio) {
+    final theme = Provider.of<ThemeModel>(context);
+
+    return Container(
+      padding: CommonStyle.padding,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Avatar(url: avatarUrl, size: AvatarSize.large),
+              SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        if (name != null) ...[
+                          Text(
+                            name,
+                            style: TextStyle(
+                              color: theme.palette.primary,
+                              fontSize: 19,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          SizedBox(width: 4),
+                        ],
+                        Text(
+                          '($login)',
+                          style: TextStyle(
+                            color: theme.palette.secondaryText,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 6),
+                    Row(
+                      children: <Widget>[
+                        Icon(
+                          Octicons.clock,
+                          size: 15,
+                          color: theme.palette.secondaryText,
+                        ),
+                        SizedBox(width: 4),
+                        Text(
+                          'Joined on ${dateFormat.format(createdAt)}',
+                          style: TextStyle(
+                            color: theme.palette.secondaryText,
+                            fontSize: 15,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+          if (bio != null && bio.isNotEmpty) ...[
+            SizedBox(height: 12),
+            Text(
+              bio,
+              style: TextStyle(
+                color: theme.palette.secondaryText,
+                fontSize: 17,
+              ),
+            )
+          ]
+        ],
+      ),
+    );
+  }
+
   Widget _buildUser(BuildContext context, GithubUserUser user) {
     final theme = Provider.of<ThemeModel>(context);
     final login = user.login;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        UserItem(
-          login: user.login,
-          name: user.name,
-          avatarUrl: user.avatarUrl,
-          bio: Text(user.bio ?? ''),
-          inUserScreen: true,
-        ),
+        _buildHeader(
+            context, user.avatarUrl, user.name, user.createdAt, user.bio),
         CommonStyle.border,
         Row(children: [
           EntryItem(
@@ -197,13 +270,8 @@ class UserScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        UserItem(
-          login: payload.login,
-          name: payload.name,
-          avatarUrl: payload.avatarUrl,
-          bio: Text(payload.description ?? ''),
-          inUserScreen: true,
-        ),
+        _buildHeader(context, payload.avatarUrl, payload.name,
+            payload.createdAt, payload.description),
         CommonStyle.border,
         Row(children: [
           EntryItem(

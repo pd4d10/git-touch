@@ -44,6 +44,9 @@ GithubUserUser _$GithubUserUserFromJson(Map<String, dynamic> json) {
     ..company = json['company'] as String
     ..location = json['location'] as String
     ..email = json['email'] as String
+    ..createdAt = json['createdAt'] == null
+        ? null
+        : DateTime.parse(json['createdAt'] as String)
     ..websiteUrl = json['websiteUrl'] as String
     ..starredRepositories = json['starredRepositories'] == null
         ? null
@@ -84,6 +87,7 @@ Map<String, dynamic> _$GithubUserUserToJson(GithubUserUser instance) =>
       'company': instance.company,
       'location': instance.location,
       'email': instance.email,
+      'createdAt': instance.createdAt?.toIso8601String(),
       'websiteUrl': instance.websiteUrl,
       'starredRepositories': instance.starredRepositories?.toJson(),
       'followers': instance.followers?.toJson(),
@@ -475,6 +479,9 @@ GithubUserOrganization _$GithubUserOrganizationFromJson(
     ..location = json['location'] as String
     ..email = json['email'] as String
     ..websiteUrl = json['websiteUrl'] as String
+    ..createdAt = json['createdAt'] == null
+        ? null
+        : DateTime.parse(json['createdAt'] as String)
     ..pinnedItems = json['pinnedItems'] == null
         ? null
         : GithubUserPinnableItemConnection.fromJson(
@@ -501,6 +508,7 @@ Map<String, dynamic> _$GithubUserOrganizationToJson(
       'location': instance.location,
       'email': instance.email,
       'websiteUrl': instance.websiteUrl,
+      'createdAt': instance.createdAt?.toIso8601String(),
       'pinnedItems': instance.pinnedItems?.toJson(),
       'pinnableItems': instance.pinnableItems?.toJson(),
       'membersWithRole': instance.membersWithRole?.toJson(),

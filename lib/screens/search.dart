@@ -136,7 +136,12 @@ class _SearchScreenState extends State<SearchScreen> {
       case 0:
         return RepositoryItem(data);
       case 1:
-        return UserItem.fromData(data);
+        return UserItem(
+          login: data['login'],
+          name: data['name'],
+          avatarUrl: data['avatarUrl'],
+          bio: Text(data['bio'] ?? ''),
+        );
       case 2:
       default:
         return IssueItem(

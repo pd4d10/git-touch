@@ -10,6 +10,7 @@ query($login: String!) {
       company
       location
       email
+      createdAt
       websiteUrl
       starredRepositories {
         totalCount
@@ -91,6 +92,7 @@ query($login: String!) {
       location
       email
       websiteUrl
+      createdAt
       pinnedItems(first: 6) {
         nodes {
           __typename

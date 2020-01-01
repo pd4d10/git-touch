@@ -96,8 +96,6 @@ class UsersScreen extends StatelessWidget {
     }
   }
 
-  static final _dateFormat = DateFormat.yMMMMd();
-
   Widget _buildBio(BuildContext context, String company, String location,
       DateTime createdAt) {
     final theme = Provider.of<ThemeModel>(context);
@@ -135,7 +133,7 @@ class UsersScreen extends StatelessWidget {
           color: theme.palette.secondaryText,
         ),
         SizedBox(width: 4),
-        Text('Joined on ${_dateFormat.format(createdAt)}'),
+        Text('Joined on ${dateFormat.format(createdAt)}'),
       ],
     );
   }

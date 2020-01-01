@@ -186,3 +186,5 @@ class RouterScreen {
   HandlerFunc handler;
   RouterScreen(this.path, this.handler);
 }
+
+final dateFormat = DateFormat.yMMMMd();
