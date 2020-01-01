@@ -4,10 +4,9 @@ import 'package:git_touch/utils/utils.dart';
 class TextContainsOrganization extends StatelessWidget {
   final String text;
   final TextStyle style;
-  final TextOverflow overflow;
+  final bool oneLine;
 
-  TextContainsOrganization(this.text,
-      {this.style, this.overflow = TextOverflow.clip});
+  TextContainsOrganization(this.text, {this.style, this.oneLine = false});
 
   static final _reg = RegExp(r'@[A-Za-z-]+');
 
@@ -29,6 +28,9 @@ class TextContainsOrganization extends StatelessWidget {
     }
 
     return RichText(
-        text: TextSpan(children: spans, style: style), overflow: overflow);
+      text: TextSpan(children: spans, style: style),
+      overflow: oneLine ? TextOverflow.ellipsis : null,
+      maxLines: oneLine ? 1 : null,
+    );
   }
 }

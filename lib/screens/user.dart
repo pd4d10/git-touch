@@ -143,7 +143,7 @@ class UserScreen extends StatelessWidget {
                 text: TextContainsOrganization(
                   user.company,
                   style: TextStyle(fontSize: 16, color: theme.palette.text),
-                  overflow: TextOverflow.ellipsis,
+                  oneLine: true,
                 ),
               ),
             if (isNotNullOrEmpty(user.location))

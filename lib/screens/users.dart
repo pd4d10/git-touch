@@ -105,7 +105,6 @@ class UsersScreen extends StatelessWidget {
           name: payload.name,
           avatarUrl: payload.avatarUrl,
           bio: payload.bio,
-          inUserScreen: true,
         );
       },
     );

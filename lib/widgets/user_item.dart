@@ -76,7 +76,7 @@ class UserItem extends StatelessWidget {
                       color: theme.palette.secondaryText,
                       fontSize: 15,
                     ),
-                    overflow: TextOverflow.ellipsis,
+                    oneLine: true,
                   ),
               ],
             ),
