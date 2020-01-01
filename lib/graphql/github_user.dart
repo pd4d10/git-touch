@@ -15,8 +15,10 @@ class GithubUser with EquatableMixin {
 
   GithubUserRepositoryOwner repositoryOwner;
 
+  GithubUserUser viewer;
+
   @override
-  List<Object> get props => [repositoryOwner];
+  List<Object> get props => [repositoryOwner, viewer];
   Map<String, dynamic> toJson() => _$GithubUserToJson(this);
 }
 
@@ -694,15 +696,17 @@ class GithubUserMemberStatusable with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GithubUserArguments extends JsonSerializable with EquatableMixin {
-  GithubUserArguments({this.login});
+  GithubUserArguments({this.login, this.isViewer});
 
   factory GithubUserArguments.fromJson(Map<String, dynamic> json) =>
       _$GithubUserArgumentsFromJson(json);
 
   final String login;
 
+  final bool isViewer;
+
   @override
-  List<Object> get props => [login];
+  List<Object> get props => [login, isViewer];
   Map<String, dynamic> toJson() => _$GithubUserArgumentsToJson(this);
 }
 
@@ -720,6 +724,12 @@ class GithubUserQuery extends GraphQLQuery<GithubUser, GithubUserArguments> {
               type: NamedTypeNode(
                   name: NameNode(value: 'String'), isNonNull: true),
               defaultValue: DefaultValueNode(value: null),
+              directives: []),
+          VariableDefinitionNode(
+              variable: VariableNode(name: NameNode(value: 'isViewer')),
+              type: NamedTypeNode(
+                  name: NameNode(value: 'Boolean'), isNonNull: true),
+              defaultValue: DefaultValueNode(value: null),
               directives: [])
         ],
         directives: [],
@@ -732,7 +742,13 @@ class GithubUserQuery extends GraphQLQuery<GithubUser, GithubUserArguments> {
                     name: NameNode(value: 'login'),
                     value: VariableNode(name: NameNode(value: 'login')))
               ],
-              directives: [],
+              directives: [
+                DirectiveNode(name: NameNode(value: 'skip'), arguments: [
+                  ArgumentNode(
+                      name: NameNode(value: 'if'),
+                      value: VariableNode(name: NameNode(value: 'isViewer')))
+                ])
+              ],
               selectionSet: SelectionSetNode(selections: [
                 FieldNode(
                     name: NameNode(value: '__typename'),
@@ -1500,6 +1516,166 @@ class GithubUserQuery extends GraphQLQuery<GithubUser, GithubUserArguments> {
                                 arguments: [],
                                 directives: [],
                                 selectionSet: null)
+                          ]))
+                    ]))
+              ])),
+          FieldNode(
+              name: NameNode(value: 'viewer'),
+              alias: null,
+              arguments: [],
+              directives: [
+                DirectiveNode(name: NameNode(value: 'include'), arguments: [
+                  ArgumentNode(
+                      name: NameNode(value: 'if'),
+                      value: VariableNode(name: NameNode(value: 'isViewer')))
+                ])
+              ],
+              selectionSet: SelectionSetNode(selections: [
+                FieldNode(
+                    name: NameNode(value: 'login'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'avatarUrl'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'url'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'name'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'bio'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'company'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'location'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'email'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'websiteUrl'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'createdAt'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'starredRepositories'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: SelectionSetNode(selections: [
+                      FieldNode(
+                          name: NameNode(value: 'totalCount'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null)
+                    ])),
+                FieldNode(
+                    name: NameNode(value: 'followers'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: SelectionSetNode(selections: [
+                      FieldNode(
+                          name: NameNode(value: 'totalCount'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null)
+                    ])),
+                FieldNode(
+                    name: NameNode(value: 'following'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: SelectionSetNode(selections: [
+                      FieldNode(
+                          name: NameNode(value: 'totalCount'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null)
+                    ])),
+                FieldNode(
+                    name: NameNode(value: 'repositories'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: SelectionSetNode(selections: [
+                      FieldNode(
+                          name: NameNode(value: 'totalCount'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null)
+                    ])),
+                FieldNode(
+                    name: NameNode(value: 'contributionsCollection'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: SelectionSetNode(selections: [
+                      FieldNode(
+                          name: NameNode(value: 'contributionCalendar'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: SelectionSetNode(selections: [
+                            FieldNode(
+                                name: NameNode(value: 'weeks'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: SelectionSetNode(selections: [
+                                  FieldNode(
+                                      name: NameNode(value: 'contributionDays'),
+                                      alias: null,
+                                      arguments: [],
+                                      directives: [],
+                                      selectionSet:
+                                          SelectionSetNode(selections: [
+                                        FieldNode(
+                                            name: NameNode(value: 'color'),
+                                            alias: null,
+                                            arguments: [],
+                                            directives: [],
+                                            selectionSet: null)
+                                      ]))
+                                ]))
                           ]))
                     ]))
               ]))

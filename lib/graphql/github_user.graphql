@@ -1,5 +1,5 @@
-query($login: String!) {
-  repositoryOwner(login: $login) {
+query($login: String!, $isViewer: Boolean!) {
+  repositoryOwner(login: $login) @skip(if: $isViewer) {
     __typename
     login
     avatarUrl
@@ -146,6 +146,39 @@ query($login: String!) {
       }
       membersWithRole {
         totalCount
+      }
+    }
+  }
+  viewer @include(if: $isViewer) {
+    login
+    avatarUrl
+    url
+    name
+    bio
+    company
+    location
+    email
+    websiteUrl
+    createdAt
+    starredRepositories {
+      totalCount
+    }
+    followers {
+      totalCount
+    }
+    following {
+      totalCount
+    }
+    repositories {
+      totalCount
+    }
+    contributionsCollection {
+      contributionCalendar {
+        weeks {
+          contributionDays {
+            color
+          }
+        }
       }
     }
   }

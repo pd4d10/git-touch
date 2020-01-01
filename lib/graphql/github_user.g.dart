@@ -11,12 +11,16 @@ GithubUser _$GithubUserFromJson(Map<String, dynamic> json) {
     ..repositoryOwner = json['repositoryOwner'] == null
         ? null
         : GithubUserRepositoryOwner.fromJson(
-            json['repositoryOwner'] as Map<String, dynamic>);
+            json['repositoryOwner'] as Map<String, dynamic>)
+    ..viewer = json['viewer'] == null
+        ? null
+        : GithubUserUser.fromJson(json['viewer'] as Map<String, dynamic>);
 }
 
 Map<String, dynamic> _$GithubUserToJson(GithubUser instance) =>
     <String, dynamic>{
       'repositoryOwner': instance.repositoryOwner?.toJson(),
+      'viewer': instance.viewer?.toJson(),
     };
 
 GithubUserRepositoryOwner _$GithubUserRepositoryOwnerFromJson(
@@ -546,6 +550,7 @@ Map<String, dynamic> _$GithubUserMemberStatusableToJson(
 GithubUserArguments _$GithubUserArgumentsFromJson(Map<String, dynamic> json) {
   return GithubUserArguments(
     login: json['login'] as String,
+    isViewer: json['isViewer'] as bool,
   );
 }
 
@@ -553,4 +558,5 @@ Map<String, dynamic> _$GithubUserArgumentsToJson(
         GithubUserArguments instance) =>
     <String, dynamic>{
       'login': instance.login,
+      'isViewer': instance.isViewer,
     };

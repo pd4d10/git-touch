@@ -43,6 +43,8 @@ class UserScreen extends StatelessWidget {
 
   UserScreen(this.login);
 
+  bool get isViewer => login.isEmpty;
+
   Iterable<Widget> _buildPinnedItems(Iterable<GithubUserRepository> pinnedItems,
       Iterable<GithubUserRepository> repositories) {
     String title;
@@ -58,7 +60,6 @@ class UserScreen extends StatelessWidget {
     if (items.isEmpty) return [];
 
     return [
-      CommonStyle.verticalGap,
       if (title != null) TableViewHeader(title),
       ...join(
         CommonStyle.border,
@@ -70,7 +71,7 @@ class UserScreen extends StatelessWidget {
   }
 
   Widget _buildHeader(BuildContext context, String avatarUrl, String name,
-      DateTime createdAt, String bio) {
+      String login, DateTime createdAt, String bio) {
     final theme = Provider.of<ThemeModel>(context);
 
     return Container(
@@ -153,8 +154,8 @@ class UserScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        _buildHeader(
-            context, user.avatarUrl, user.name, user.createdAt, user.bio),
+        _buildHeader(context, user.avatarUrl, user.name, user.login,
+            user.createdAt, user.bio),
         CommonStyle.border,
         Row(children: [
           EntryItem(
@@ -255,11 +256,24 @@ class UserScreen extends StatelessWidget {
               ),
           ],
         ),
-        ..._buildPinnedItems(
-            user.pinnedItems.nodes
-                .where((n) => n is GithubUserRepository)
-                .cast<GithubUserRepository>(),
-            user.repositories.nodes),
+        CommonStyle.verticalGap,
+        if (isViewer)
+          TableView(
+            hasIcon: true,
+            items: [
+              TableViewItem(
+                leftIconData: Octicons.settings,
+                text: Text('Settings'),
+                url: '/settings',
+              ),
+            ],
+          )
+        else
+          ..._buildPinnedItems(
+              user.pinnedItems.nodes
+                  .where((n) => n is GithubUserRepository)
+                  .cast<GithubUserRepository>(),
+              user.repositories.nodes),
         CommonStyle.verticalGap,
       ],
     );
@@ -270,19 +284,19 @@ class UserScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        _buildHeader(context, payload.avatarUrl, payload.name,
+        _buildHeader(context, payload.avatarUrl, payload.name, payload.login,
             payload.createdAt, payload.description),
         CommonStyle.border,
         Row(children: [
           EntryItem(
             count: payload.pinnableItems.totalCount,
             text: 'Repositories',
-            url: '/$login?tab=repositories',
+            url: '/${payload.login}?tab=repositories',
           ),
           EntryItem(
             count: payload.membersWithRole.totalCount,
             text: 'Members',
-            url: '/$login?tab=people',
+            url: '/${payload.login}?tab=people',
           ),
         ]),
         CommonStyle.verticalGap,
@@ -320,6 +334,7 @@ class UserScreen extends StatelessWidget {
               ),
           ],
         ),
+        CommonStyle.verticalGap,
         ..._buildPinnedItems(
           payload.pinnedItems.nodes
               .where((n) => n is GithubUserRepository)
@@ -338,10 +353,12 @@ class UserScreen extends StatelessWidget {
     return RefreshStatefulScaffold<GithubUserRepositoryOwner>(
       fetchData: () async {
         final data = await Provider.of<AuthModel>(context).gqlClient.execute(
-            GithubUserQuery(variables: GithubUserArguments(login: login)));
-        return data.data.repositoryOwner;
+            GithubUserQuery(
+                variables:
+                    GithubUserArguments(login: login, isViewer: isViewer)));
+        return isViewer ? data.data.viewer : data.data.repositoryOwner;
       },
-      title: AppBarTitle('User'), // TODO:
+      title: AppBarTitle(isViewer ? 'Me' : 'User'), // TODO:
       actionBuilder: (payload, _) {
         if (payload == null)
           return ActionButton(
@@ -361,11 +378,12 @@ class UserScreen extends StatelessWidget {
                     onPress: (_) async {
                       if (user.viewerIsFollowing) {
                         await Provider.of<AuthModel>(context)
-                            .deleteWithCredentials('/user/following/$login');
+                            .deleteWithCredentials(
+                                '/user/following/${user.login}');
                         user.viewerIsFollowing = false;
                       } else {
-                        Provider.of<AuthModel>(context)
-                            .putWithCredentials('/user/following/$login');
+                        Provider.of<AuthModel>(context).putWithCredentials(
+                            '/user/following/${user.login}');
                         user.viewerIsFollowing = true;
                       }
                     },
@@ -392,6 +410,9 @@ class UserScreen extends StatelessWidget {
         }
       },
       bodyBuilder: (payload, _) {
+        if (isViewer) {
+          return _buildUser(context, payload as GithubUserUser);
+        }
         switch (payload.resolveType) {
           case 'User':
             return _buildUser(context, payload as GithubUserUser);
