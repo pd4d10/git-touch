@@ -179,7 +179,9 @@ class UserScreen extends StatelessWidget {
             url: '/$login?tab=following',
           ),
         ]),
+        CommonStyle.border,
         CommonStyle.verticalGap,
+        CommonStyle.border,
         Container(
           color: theme.palette.background,
           padding: CommonStyle.padding,
@@ -212,7 +214,9 @@ class UserScreen extends StatelessWidget {
             ),
           ),
         ),
+        CommonStyle.border,
         CommonStyle.verticalGap,
+        CommonStyle.border,
         TableView(
           hasIcon: true,
           items: [

@@ -268,13 +268,13 @@ Map<String, dynamic> _$GithubTrendingUserToJson(GithubTrendingUser instance) =>
 GithubTrendingUserRepo _$GithubTrendingUserRepoFromJson(
     Map<String, dynamic> json) {
   return GithubTrendingUserRepo()
-    ..username = json['username'] as String
+    ..name = json['name'] as String
     ..description = json['description'] as String;
 }
 
 Map<String, dynamic> _$GithubTrendingUserRepoToJson(
         GithubTrendingUserRepo instance) =>
     <String, dynamic>{
-      'username': instance.username,
+      'name': instance.name,
       'description': instance.description,
     };

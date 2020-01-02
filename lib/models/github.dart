@@ -227,7 +227,7 @@ class GithubTrendingUser {
 
 @JsonSerializable()
 class GithubTrendingUserRepo {
-  String username;
+  String name;
   String description;
 
   GithubTrendingUserRepo();

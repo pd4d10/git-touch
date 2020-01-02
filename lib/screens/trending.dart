@@ -46,6 +46,13 @@ class TrendingScreen extends StatelessWidget {
                     login: item.username,
                     name: item.name,
                     avatarUrl: item.avatar,
+                    bio: Row(
+                      children: <Widget>[
+                        Icon(Octicons.repo, size: 17),
+                        SizedBox(width: 2),
+                        Text(item.repo.name, style: TextStyle(fontSize: 17))
+                      ],
+                    ),
                   );
                 default:
                   throw '';

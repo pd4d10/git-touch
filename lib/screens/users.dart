@@ -6,7 +6,6 @@ import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/user_item.dart';
 import 'package:git_touch/models/auth.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 enum UsersScreenType {
