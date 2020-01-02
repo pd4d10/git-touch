@@ -72,8 +72,6 @@ class RepositoryScreen extends StatelessWidget {
       },
       actionBuilder: (data, setState) {
         final repo = data.item1;
-        final ref = branch == null ? repo.defaultBranchRef : repo.ref;
-
         return ActionButton(
           title: 'Repository Actions',
           items: [
@@ -95,11 +93,6 @@ class RepositoryScreen extends StatelessWidget {
             //     setState(() {});
             //   },
             // ),
-            ActionItem(
-              text:
-                  'Commits (${(ref.target as GithubRepositoryCommit).history?.totalCount})',
-              url: '/$owner/$name/commits',
-            ),
             ActionItem(
               text: 'Projects (${repo.projects.totalCount})',
               url: repo.projectsUrl,
@@ -335,6 +328,15 @@ class RepositoryScreen extends StatelessWidget {
                   rightWidget:
                       Text(numberFormat.format(repo.pullRequests.totalCount)),
                   url: '/$owner/$name/pulls',
+                ),
+                TableViewItem(
+                  leftIconData: Octicons.history,
+                  text: Text('Commits'),
+                  rightWidget: Text((ref.target as GithubRepositoryCommit)
+                      .history
+                      ?.totalCount
+                      .toString()),
+                  url: '/$owner/$name/commits',
                 ),
                 if (ref != null) ...[
                   if (repo.refs != null)

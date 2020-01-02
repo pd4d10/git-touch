@@ -488,6 +488,12 @@ class GithubCommitsQuery
               arguments: [],
               directives: [],
               selectionSet: SelectionSetNode(selections: [
+                FieldNode(
+                    name: NameNode(value: '__typename'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
                 InlineFragmentNode(
                     typeCondition: TypeConditionNode(
                         on: NamedTypeNode(
@@ -550,12 +556,6 @@ class GithubCommitsQuery
                                       selectionSet: null)
                                 ]))
                           ])),
-                      FieldNode(
-                          name: NameNode(value: '__typename'),
-                          alias: null,
-                          arguments: [],
-                          directives: [],
-                          selectionSet: null),
                       FieldNode(
                           name: NameNode(value: 'history'),
                           alias: null,

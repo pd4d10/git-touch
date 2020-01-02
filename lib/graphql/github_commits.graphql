@@ -1,5 +1,6 @@
 fragment T on Ref {
   target {
+    __typename
     ... on Commit {
       oid
       url
@@ -15,7 +16,6 @@ fragment T on Ref {
       # status {
       #   state
       # }
-      __typename
       history(first: 30, after: $after) {
         pageInfo {
           hasNextPage
