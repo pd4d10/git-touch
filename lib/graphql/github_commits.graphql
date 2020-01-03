@@ -13,9 +13,9 @@ fragment T on Ref {
           login
         }
       }
-      # status {
-      #   state
-      # }
+      status {
+        state
+      }
       history(first: 30, after: $after) {
         pageInfo {
           hasNextPage
@@ -33,9 +33,9 @@ fragment T on Ref {
               login
             }
           }
-          # status {
-          #   state
-          # }
+          status {
+            state
+          }
         }
       }
     }

@@ -123,6 +123,8 @@ class GithubCommitsCommit extends GithubCommitsPullRequestTimelineItem
 
   GithubCommitsGitActor author;
 
+  GithubCommitsStatus status;
+
   GithubCommitsCommitHistoryConnection history;
 
   @override
@@ -130,8 +132,16 @@ class GithubCommitsCommit extends GithubCommitsPullRequestTimelineItem
   String resolveType;
 
   @override
-  List<Object> get props =>
-      [oid, url, messageHeadline, committedDate, author, history, resolveType];
+  List<Object> get props => [
+        oid,
+        url,
+        messageHeadline,
+        committedDate,
+        author,
+        status,
+        history,
+        resolveType
+      ];
   Map<String, dynamic> toJson() => _$GithubCommitsCommitToJson(this);
 }
 
@@ -343,6 +353,24 @@ class GithubCommitsSponsorable with EquatableMixin {
 }
 
 @JsonSerializable(explicitToJson: true)
+class GithubCommitsStatus with EquatableMixin implements GithubCommitsNode {
+  GithubCommitsStatus();
+
+  factory GithubCommitsStatus.fromJson(Map<String, dynamic> json) =>
+      _$GithubCommitsStatusFromJson(json);
+
+  GithubCommitsStatusState state;
+
+  @override
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [state, resolveType];
+  Map<String, dynamic> toJson() => _$GithubCommitsStatusToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
 class GithubCommitsCommitHistoryConnection with EquatableMixin {
   GithubCommitsCommitHistoryConnection();
 
@@ -445,6 +473,14 @@ class GithubCommitsRepositoryInfo with EquatableMixin {
   @override
   List<Object> get props => [resolveType];
   Map<String, dynamic> toJson() => _$GithubCommitsRepositoryInfoToJson(this);
+}
+
+enum GithubCommitsStatusState {
+  EXPECTED,
+  ERROR,
+  FAILURE,
+  PENDING,
+  SUCCESS,
 }
 
 @JsonSerializable(explicitToJson: true)
@@ -557,6 +593,19 @@ class GithubCommitsQuery
                                 ]))
                           ])),
                       FieldNode(
+                          name: NameNode(value: 'status'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: SelectionSetNode(selections: [
+                            FieldNode(
+                                name: NameNode(value: 'state'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null)
+                          ])),
+                      FieldNode(
                           name: NameNode(value: 'history'),
                           alias: null,
                           arguments: [
@@ -653,6 +702,20 @@ class GithubCommitsQuery
                                                   directives: [],
                                                   selectionSet: null)
                                             ]))
+                                      ])),
+                                  FieldNode(
+                                      name: NameNode(value: 'status'),
+                                      alias: null,
+                                      arguments: [],
+                                      directives: [],
+                                      selectionSet:
+                                          SelectionSetNode(selections: [
+                                        FieldNode(
+                                            name: NameNode(value: 'state'),
+                                            alias: null,
+                                            arguments: [],
+                                            directives: [],
+                                            selectionSet: null)
                                       ]))
                                 ]))
                           ]))

@@ -41,12 +41,12 @@ class CommitsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildStatus(String state) {
-    var size = 18.0;
+  Widget _buildStatus(GithubCommitsStatusState state) {
+    const size = 18.0;
     switch (state) {
-      case 'SUCCESS':
+      case GithubCommitsStatusState.SUCCESS:
         return Icon(Octicons.check, color: GithubPalette.open, size: size);
-      case 'FAILURE':
+      case GithubCommitsStatusState.FAILURE:
         return Icon(Octicons.x, color: GithubPalette.closed, size: size);
       default:
         return Container();
@@ -97,10 +97,10 @@ class CommitsScreen extends StatelessWidget {
                               fontSize: 15,
                             ),
                           ),
-                          // if (payload['status'] != null) ...[
-                          //   SizedBox(width: 4),
-                          //   _buildStatus(payload['status']['state'])
-                          // ], TODO:
+                          if (payload.status != null) ...[
+                            SizedBox(width: 4),
+                            _buildStatus(payload.status.state),
+                          ],
                         ],
                       )
                     ],

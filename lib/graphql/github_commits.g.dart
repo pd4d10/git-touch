@@ -77,6 +77,9 @@ GithubCommitsCommit _$GithubCommitsCommitFromJson(Map<String, dynamic> json) {
     ..author = json['author'] == null
         ? null
         : GithubCommitsGitActor.fromJson(json['author'] as Map<String, dynamic>)
+    ..status = json['status'] == null
+        ? null
+        : GithubCommitsStatus.fromJson(json['status'] as Map<String, dynamic>)
     ..history = json['history'] == null
         ? null
         : GithubCommitsCommitHistoryConnection.fromJson(
@@ -92,6 +95,7 @@ Map<String, dynamic> _$GithubCommitsCommitToJson(
       'messageHeadline': instance.messageHeadline,
       'committedDate': instance.committedDate?.toIso8601String(),
       'author': instance.author?.toJson(),
+      'status': instance.status?.toJson(),
       'history': instance.history?.toJson(),
       '__typename': instance.resolveType,
     };
@@ -242,6 +246,60 @@ Map<String, dynamic> _$GithubCommitsSponsorableToJson(
     <String, dynamic>{
       '__typename': instance.resolveType,
     };
+
+GithubCommitsStatus _$GithubCommitsStatusFromJson(Map<String, dynamic> json) {
+  return GithubCommitsStatus()
+    ..state =
+        _$enumDecodeNullable(_$GithubCommitsStatusStateEnumMap, json['state'])
+    ..resolveType = json['__typename'] as String;
+}
+
+Map<String, dynamic> _$GithubCommitsStatusToJson(
+        GithubCommitsStatus instance) =>
+    <String, dynamic>{
+      'state': _$GithubCommitsStatusStateEnumMap[instance.state],
+      '__typename': instance.resolveType,
+    };
+
+T _$enumDecode<T>(
+  Map<T, dynamic> enumValues,
+  dynamic source, {
+  T unknownValue,
+}) {
+  if (source == null) {
+    throw ArgumentError('A value must be provided. Supported values: '
+        '${enumValues.values.join(', ')}');
+  }
+
+  final value = enumValues.entries
+      .singleWhere((e) => e.value == source, orElse: () => null)
+      ?.key;
+
+  if (value == null && unknownValue == null) {
+    throw ArgumentError('`$source` is not one of the supported values: '
+        '${enumValues.values.join(', ')}');
+  }
+  return value ?? unknownValue;
+}
+
+T _$enumDecodeNullable<T>(
+  Map<T, dynamic> enumValues,
+  dynamic source, {
+  T unknownValue,
+}) {
+  if (source == null) {
+    return null;
+  }
+  return _$enumDecode<T>(enumValues, source, unknownValue: unknownValue);
+}
+
+const _$GithubCommitsStatusStateEnumMap = {
+  GithubCommitsStatusState.EXPECTED: 'EXPECTED',
+  GithubCommitsStatusState.ERROR: 'ERROR',
+  GithubCommitsStatusState.FAILURE: 'FAILURE',
+  GithubCommitsStatusState.PENDING: 'PENDING',
+  GithubCommitsStatusState.SUCCESS: 'SUCCESS',
+};
 
 GithubCommitsCommitHistoryConnection
     _$GithubCommitsCommitHistoryConnectionFromJson(Map<String, dynamic> json) {
