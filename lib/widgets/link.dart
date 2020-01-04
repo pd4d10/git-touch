@@ -65,8 +65,9 @@ class Link extends StatelessWidget {
     switch (theme.theme) {
       case AppThemeType.cupertino:
         return CupertinoButton(
+          minSize: 0,
           child: child,
-          padding: EdgeInsets.all(0),
+          padding: EdgeInsets.zero,
           onPressed: () async {
             if (onTap != null) onTap();
             if (url != null) theme.push(context, url);

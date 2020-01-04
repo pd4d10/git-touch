@@ -159,15 +159,15 @@ class RepositoryScreen extends StatelessWidget {
                           }
                           setState(() {});
                         },
-                        borderRadius: BorderRadius.circular(10),
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: Row(
-                          children: <Widget>[
-                            Icon(Octicons.star, size: 15),
-                            SizedBox(width: 2),
-                            Text(repo.viewerHasStarred ? 'Unstar' : 'Star',
-                                style: TextStyle(fontSize: 15)),
-                          ],
+                        minSize: 0,
+                        color: theme.palette.primary,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 4,
+                        ),
+                        child: Text(
+                          repo.viewerHasStarred ? 'Unstar' : 'Star',
+                          style: TextStyle(fontSize: 17),
                         ),
                       )
                     ],

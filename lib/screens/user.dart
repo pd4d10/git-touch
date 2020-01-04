@@ -367,7 +367,7 @@ class UserScreen extends StatelessWidget {
                     GithubUserArguments(login: login, isViewer: isViewer)));
         return isViewer ? data.data.viewer : data.data.repositoryOwner;
       },
-      title: AppBarTitle(isViewer ? 'Me' : 'User'), // TODO:
+      title: AppBarTitle(isViewer ? 'Me' : login),
       actionBuilder: (payload, _) {
         switch (payload.resolveType) {
           case 'User':
