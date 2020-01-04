@@ -59,22 +59,6 @@ class SettingsScreen extends StatelessWidget {
               hideRightChevron: true,
             ),
           ]),
-          CommonStyle.verticalGap,
-          TableView(headerText: 'ABOUT', items: [
-            TableViewItem(text: Text('Source Code'), url: '/pd4d10/git-touch'),
-            TableViewItem(
-                text: Text('Feedback'), url: '/pd4d10/git-touch/issues/new'),
-            TableViewItem(text: Text('Credits'), url: '/help/credits'),
-            TableViewItem(
-              text: Text('Rate This App'),
-              onTap: () {
-                LaunchReview.launch(
-                  androidAppId: 'io.github.pd4d10.gittouch',
-                  iOSAppId: '1452042346',
-                );
-              },
-            ),
-          ]),
         ],
       ),
     );

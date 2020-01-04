@@ -270,6 +270,11 @@ class UserScreen extends StatelessWidget {
                 text: Text('Settings'),
                 url: '/settings',
               ),
+              TableViewItem(
+                leftIconData: Icons.info,
+                text: Text('About'),
+                url: '/about',
+              ),
             ],
           )
         else

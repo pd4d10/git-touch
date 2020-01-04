@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:git_touch/models/code.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/theme.dart';
+import 'package:git_touch/screens/about.dart';
 import 'package:git_touch/screens/commits.dart';
 import 'package:git_touch/screens/credits.dart';
 import 'package:git_touch/screens/gitlab_blob.dart';
@@ -235,6 +236,7 @@ void main() async {
   ]);
 
   final List<RouterScreen> routers = [
+    aboutRouter,
     gitlabUserRouter,
     gitlabBlobRouter,
     gitlabTreeRouter,
