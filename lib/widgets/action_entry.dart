@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:provider/provider.dart';
@@ -11,9 +12,11 @@ class ActionEntry extends StatelessWidget {
   Widget build(BuildContext context) {
     switch (Provider.of<ThemeModel>(context).theme) {
       case AppThemeType.cupertino:
-        return GestureDetector(
+        return CupertinoButton(
+          minSize: 0,
           child: Icon(iconData, size: 22),
-          onTap: onTap,
+          padding: EdgeInsets.zero,
+          onPressed: onTap,
         );
       default:
         return IconButton(

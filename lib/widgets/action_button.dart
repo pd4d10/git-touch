@@ -48,9 +48,11 @@ class ActionButton extends StatelessWidget {
     final theme = Provider.of<ThemeModel>(context);
     switch (theme.theme) {
       case AppThemeType.cupertino:
-        return GestureDetector(
+        return CupertinoButton(
+          minSize: 0,
           child: Icon(iconData, size: 22),
-          onTap: () async {
+          padding: EdgeInsets.zero,
+          onPressed: () async {
             var value = await showCupertinoModalPopup<int>(
               context: context,
               builder: (BuildContext context) {
