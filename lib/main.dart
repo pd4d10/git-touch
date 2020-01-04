@@ -5,7 +5,6 @@ import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/screens/about.dart';
 import 'package:git_touch/screens/commits.dart';
-import 'package:git_touch/screens/credits.dart';
 import 'package:git_touch/screens/gitlab_blob.dart';
 import 'package:git_touch/screens/gitlab_issue.dart';
 import 'package:git_touch/screens/gitlab_project.dart';
@@ -244,7 +243,6 @@ void main() async {
     gitlabIssueRouter,
     loginRouter,
     settingsRouter,
-    creditsRouter,
     userRouter,
     repositoryRouter,
     issuesRouter,

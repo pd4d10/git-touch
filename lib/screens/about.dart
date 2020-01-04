@@ -48,7 +48,6 @@ class _AboutScreenState extends State<AboutScreen> {
             TableViewItem(text: Text('Source Code'), url: '/pd4d10/git-touch'),
             TableViewItem(
                 text: Text('Feedback'), url: '/pd4d10/git-touch/issues/new'),
-            TableViewItem(text: Text('Credits'), url: '/help/credits'),
             TableViewItem(
               text: Text('Rate This App'),
               onTap: () {
