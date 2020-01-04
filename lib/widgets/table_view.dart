@@ -63,28 +63,23 @@ class TableView extends StatelessWidget {
         if (headerText != null) TableViewHeader(headerText),
         CommonStyle.border,
         ...join(
-            BorderView(leftPadding: _leftPadding),
-            items.map((item) {
-              if (item == null) return null;
+          BorderView(leftPadding: _leftPadding),
+          items.map((item) {
+            if (item == null) return null;
 
-              var leftWidget = item.leftWidget;
-              if (leftWidget == null && hasIcon) {
-                leftWidget = Container(
-                  width: 24,
-                  height: 24,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    color: theme.palette.primary,
-                  ),
-                  child: Icon(
-                    item.leftIconData,
-                    color: theme.palette.background,
-                    size: 14,
-                  ),
-                );
-              }
+            var leftWidget = item.leftWidget;
+            if (leftWidget == null && hasIcon) {
+              leftWidget = Icon(
+                item.leftIconData,
+                color: theme.palette.primary,
+                size: 20,
+              );
+            }
 
-              final widget = DefaultTextStyle(
+            return Link(
+              onTap: item.onTap,
+              url: item.url,
+              child: DefaultTextStyle(
                 style: TextStyle(fontSize: 17, color: theme.palette.text),
                 overflow: TextOverflow.ellipsis,
                 child: Container(
@@ -116,10 +111,10 @@ class TableView extends StatelessWidget {
                     ],
                   ),
                 ),
-              );
-
-              return Link(onTap: item.onTap, url: item.url, child: widget);
-            }).toList()),
+              ),
+            );
+          }).toList(),
+        ),
         CommonStyle.border,
       ],
     );
