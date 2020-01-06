@@ -303,7 +303,11 @@ class EventItem extends StatelessWidget {
             TextSpan(
                 text:
                     ' commented on ${e.payload.issue.isPullRequestComment ? 'pull request' : 'issue'} '),
-            _buildIssue(context, e.payload.issue.number),
+            _buildIssue(
+              context,
+              e.payload.issue.number,
+              isPullRequest: e.payload.issue.isPullRequestComment,
+            ),
             TextSpan(text: ' at '),
             _buildRepo(context),
           ],
