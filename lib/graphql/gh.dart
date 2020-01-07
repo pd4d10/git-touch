@@ -7959,3 +7959,398 @@ class GhRepoIdQuery extends GraphQLQuery<GhRepoId, GhRepoIdArguments> {
   @override
   GhRepoId parse(Map<String, dynamic> json) => GhRepoId.fromJson(json);
 }
+
+@JsonSerializable(explicitToJson: true)
+class GhOpenIssue with EquatableMixin {
+  GhOpenIssue();
+
+  factory GhOpenIssue.fromJson(Map<String, dynamic> json) =>
+      _$GhOpenIssueFromJson(json);
+
+  GhOpenIssueReopenIssuePayload reopenIssue;
+
+  GhOpenIssueCloseIssuePayload closeIssue;
+
+  @override
+  List<Object> get props => [reopenIssue, closeIssue];
+  Map<String, dynamic> toJson() => _$GhOpenIssueToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhOpenIssueReopenIssuePayload with EquatableMixin {
+  GhOpenIssueReopenIssuePayload();
+
+  factory GhOpenIssueReopenIssuePayload.fromJson(Map<String, dynamic> json) =>
+      _$GhOpenIssueReopenIssuePayloadFromJson(json);
+
+  GhOpenIssueIssue issue;
+
+  @override
+  List<Object> get props => [issue];
+  Map<String, dynamic> toJson() => _$GhOpenIssueReopenIssuePayloadToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhOpenIssueIssue extends GhOpenIssueProjectCardItem
+    with EquatableMixin
+    implements
+        GhOpenIssueNode,
+        GhOpenIssueAssignable,
+        GhOpenIssueClosable,
+        GhOpenIssueComment,
+        GhOpenIssueUpdatable,
+        GhOpenIssueUpdatableComment,
+        GhOpenIssueLabelable,
+        GhOpenIssueLockable,
+        GhOpenIssueReactable,
+        GhOpenIssueRepositoryNode,
+        GhOpenIssueSubscribable,
+        GhOpenIssueUniformResourceLocatable {
+  GhOpenIssueIssue();
+
+  factory GhOpenIssueIssue.fromJson(Map<String, dynamic> json) =>
+      _$GhOpenIssueIssueFromJson(json);
+
+  @override
+  bool closed;
+
+  @override
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [closed, resolveType];
+  Map<String, dynamic> toJson() => _$GhOpenIssueIssueToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhOpenIssueProjectCardItem with EquatableMixin {
+  GhOpenIssueProjectCardItem();
+
+  factory GhOpenIssueProjectCardItem.fromJson(Map<String, dynamic> json) =>
+      _$GhOpenIssueProjectCardItemFromJson(json);
+
+  @override
+  List<Object> get props => [];
+  Map<String, dynamic> toJson() => _$GhOpenIssueProjectCardItemToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhOpenIssueNode with EquatableMixin {
+  GhOpenIssueNode();
+
+  factory GhOpenIssueNode.fromJson(Map<String, dynamic> json) =>
+      _$GhOpenIssueNodeFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhOpenIssueNodeToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhOpenIssueAssignable with EquatableMixin {
+  GhOpenIssueAssignable();
+
+  factory GhOpenIssueAssignable.fromJson(Map<String, dynamic> json) =>
+      _$GhOpenIssueAssignableFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhOpenIssueAssignableToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhOpenIssueClosable with EquatableMixin {
+  GhOpenIssueClosable();
+
+  factory GhOpenIssueClosable.fromJson(Map<String, dynamic> json) =>
+      _$GhOpenIssueClosableFromJson(json);
+
+  bool closed;
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [closed, resolveType];
+  Map<String, dynamic> toJson() => _$GhOpenIssueClosableToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhOpenIssueComment with EquatableMixin {
+  GhOpenIssueComment();
+
+  factory GhOpenIssueComment.fromJson(Map<String, dynamic> json) =>
+      _$GhOpenIssueCommentFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhOpenIssueCommentToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhOpenIssueUpdatable with EquatableMixin {
+  GhOpenIssueUpdatable();
+
+  factory GhOpenIssueUpdatable.fromJson(Map<String, dynamic> json) =>
+      _$GhOpenIssueUpdatableFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhOpenIssueUpdatableToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhOpenIssueUpdatableComment with EquatableMixin {
+  GhOpenIssueUpdatableComment();
+
+  factory GhOpenIssueUpdatableComment.fromJson(Map<String, dynamic> json) =>
+      _$GhOpenIssueUpdatableCommentFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhOpenIssueUpdatableCommentToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhOpenIssueLabelable with EquatableMixin {
+  GhOpenIssueLabelable();
+
+  factory GhOpenIssueLabelable.fromJson(Map<String, dynamic> json) =>
+      _$GhOpenIssueLabelableFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhOpenIssueLabelableToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhOpenIssueLockable with EquatableMixin {
+  GhOpenIssueLockable();
+
+  factory GhOpenIssueLockable.fromJson(Map<String, dynamic> json) =>
+      _$GhOpenIssueLockableFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhOpenIssueLockableToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhOpenIssueReactable with EquatableMixin {
+  GhOpenIssueReactable();
+
+  factory GhOpenIssueReactable.fromJson(Map<String, dynamic> json) =>
+      _$GhOpenIssueReactableFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhOpenIssueReactableToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhOpenIssueRepositoryNode with EquatableMixin {
+  GhOpenIssueRepositoryNode();
+
+  factory GhOpenIssueRepositoryNode.fromJson(Map<String, dynamic> json) =>
+      _$GhOpenIssueRepositoryNodeFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhOpenIssueRepositoryNodeToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhOpenIssueSubscribable with EquatableMixin {
+  GhOpenIssueSubscribable();
+
+  factory GhOpenIssueSubscribable.fromJson(Map<String, dynamic> json) =>
+      _$GhOpenIssueSubscribableFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhOpenIssueSubscribableToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhOpenIssueUniformResourceLocatable with EquatableMixin {
+  GhOpenIssueUniformResourceLocatable();
+
+  factory GhOpenIssueUniformResourceLocatable.fromJson(
+          Map<String, dynamic> json) =>
+      _$GhOpenIssueUniformResourceLocatableFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() =>
+      _$GhOpenIssueUniformResourceLocatableToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhOpenIssueCloseIssuePayload with EquatableMixin {
+  GhOpenIssueCloseIssuePayload();
+
+  factory GhOpenIssueCloseIssuePayload.fromJson(Map<String, dynamic> json) =>
+      _$GhOpenIssueCloseIssuePayloadFromJson(json);
+
+  GhOpenIssueIssue issue;
+
+  @override
+  List<Object> get props => [issue];
+  Map<String, dynamic> toJson() => _$GhOpenIssueCloseIssuePayloadToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhOpenIssueArguments extends JsonSerializable with EquatableMixin {
+  GhOpenIssueArguments({this.id, this.open});
+
+  factory GhOpenIssueArguments.fromJson(Map<String, dynamic> json) =>
+      _$GhOpenIssueArgumentsFromJson(json);
+
+  final String id;
+
+  final bool open;
+
+  @override
+  List<Object> get props => [id, open];
+  Map<String, dynamic> toJson() => _$GhOpenIssueArgumentsToJson(this);
+}
+
+class GhOpenIssueQuery extends GraphQLQuery<GhOpenIssue, GhOpenIssueArguments> {
+  GhOpenIssueQuery({this.variables});
+
+  @override
+  final DocumentNode document = DocumentNode(definitions: [
+    OperationDefinitionNode(
+        type: OperationType.mutation,
+        name: NameNode(value: 'GhOpenIssue'),
+        variableDefinitions: [
+          VariableDefinitionNode(
+              variable: VariableNode(name: NameNode(value: 'id')),
+              type: NamedTypeNode(name: NameNode(value: 'ID'), isNonNull: true),
+              defaultValue: DefaultValueNode(value: null),
+              directives: []),
+          VariableDefinitionNode(
+              variable: VariableNode(name: NameNode(value: 'open')),
+              type: NamedTypeNode(
+                  name: NameNode(value: 'Boolean'), isNonNull: true),
+              defaultValue: DefaultValueNode(value: null),
+              directives: [])
+        ],
+        directives: [],
+        selectionSet: SelectionSetNode(selections: [
+          FieldNode(
+              name: NameNode(value: 'reopenIssue'),
+              alias: null,
+              arguments: [
+                ArgumentNode(
+                    name: NameNode(value: 'input'),
+                    value: ObjectValueNode(fields: [
+                      ObjectFieldNode(
+                          name: NameNode(value: 'issueId'),
+                          value: VariableNode(name: NameNode(value: 'id')))
+                    ]))
+              ],
+              directives: [
+                DirectiveNode(name: NameNode(value: 'include'), arguments: [
+                  ArgumentNode(
+                      name: NameNode(value: 'if'),
+                      value: VariableNode(name: NameNode(value: 'open')))
+                ])
+              ],
+              selectionSet: SelectionSetNode(selections: [
+                FieldNode(
+                    name: NameNode(value: 'issue'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: SelectionSetNode(selections: [
+                      FieldNode(
+                          name: NameNode(value: 'closed'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null)
+                    ]))
+              ])),
+          FieldNode(
+              name: NameNode(value: 'closeIssue'),
+              alias: null,
+              arguments: [
+                ArgumentNode(
+                    name: NameNode(value: 'input'),
+                    value: ObjectValueNode(fields: [
+                      ObjectFieldNode(
+                          name: NameNode(value: 'issueId'),
+                          value: VariableNode(name: NameNode(value: 'id')))
+                    ]))
+              ],
+              directives: [
+                DirectiveNode(name: NameNode(value: 'skip'), arguments: [
+                  ArgumentNode(
+                      name: NameNode(value: 'if'),
+                      value: VariableNode(name: NameNode(value: 'open')))
+                ])
+              ],
+              selectionSet: SelectionSetNode(selections: [
+                FieldNode(
+                    name: NameNode(value: 'issue'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: SelectionSetNode(selections: [
+                      FieldNode(
+                          name: NameNode(value: 'closed'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null)
+                    ]))
+              ]))
+        ]))
+  ]);
+
+  @override
+  final String operationName = 'GhOpenIssue';
+
+  @override
+  final GhOpenIssueArguments variables;
+
+  @override
+  List<Object> get props => [document, operationName, variables];
+  @override
+  GhOpenIssue parse(Map<String, dynamic> json) => GhOpenIssue.fromJson(json);
+}

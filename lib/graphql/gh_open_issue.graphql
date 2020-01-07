@@ -1,0 +1,12 @@
+mutation GhOpenIssue($id: ID!, $open: Boolean!) {
+  reopenIssue(input: { issueId: $id }) @include(if: $open) {
+    issue {
+      closed
+    }
+  }
+  closeIssue(input: { issueId: $id }) @skip(if: $open) {
+    issue {
+      closed
+    }
+  }
+}

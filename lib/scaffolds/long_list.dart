@@ -30,7 +30,8 @@ class LongListPayload<T, K> {
 // e.g. https://github.com/reactjs/rfcs/pull/68
 class LongListStatefulScaffold<T, K> extends StatefulWidget {
   final Widget title;
-  final Widget Function(T headerPayload) trailingBuilder;
+  final Widget Function(
+      T headerPayload, void Function(VoidCallback fn) setState) trailingBuilder;
   final Widget Function(T headerPayload) headerBuilder;
   final Widget Function(K itemPayload) itemBuilder;
   final Future<LongListPayload<T, K>> Function() onRefresh;
@@ -200,8 +201,9 @@ class _LongListStatefulScaffoldState<T, K>
         return CupertinoPageScaffold(
           navigationBar: CupertinoNavigationBar(
             middle: widget.title,
-            trailing:
-                payload == null ? null : widget.trailingBuilder(payload.header),
+            trailing: payload == null
+                ? null
+                : widget.trailingBuilder(payload.header, setState),
           ),
           child: SafeArea(
             child: CupertinoScrollbar(
@@ -215,7 +217,7 @@ class _LongListStatefulScaffoldState<T, K>
             title: widget.title,
             actions: payload == null
                 ? null
-                : [widget.trailingBuilder(payload.header)],
+                : [widget.trailingBuilder(payload.header, setState)],
           ),
           body: RefreshIndicator(
             onRefresh: _refresh,

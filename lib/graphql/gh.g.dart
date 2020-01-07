@@ -3317,3 +3317,213 @@ Map<String, dynamic> _$GhRepoIdArgumentsToJson(GhRepoIdArguments instance) =>
       'owner': instance.owner,
       'name': instance.name,
     };
+
+GhOpenIssue _$GhOpenIssueFromJson(Map<String, dynamic> json) {
+  return GhOpenIssue()
+    ..reopenIssue = json['reopenIssue'] == null
+        ? null
+        : GhOpenIssueReopenIssuePayload.fromJson(
+            json['reopenIssue'] as Map<String, dynamic>)
+    ..closeIssue = json['closeIssue'] == null
+        ? null
+        : GhOpenIssueCloseIssuePayload.fromJson(
+            json['closeIssue'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$GhOpenIssueToJson(GhOpenIssue instance) =>
+    <String, dynamic>{
+      'reopenIssue': instance.reopenIssue?.toJson(),
+      'closeIssue': instance.closeIssue?.toJson(),
+    };
+
+GhOpenIssueReopenIssuePayload _$GhOpenIssueReopenIssuePayloadFromJson(
+    Map<String, dynamic> json) {
+  return GhOpenIssueReopenIssuePayload()
+    ..issue = json['issue'] == null
+        ? null
+        : GhOpenIssueIssue.fromJson(json['issue'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$GhOpenIssueReopenIssuePayloadToJson(
+        GhOpenIssueReopenIssuePayload instance) =>
+    <String, dynamic>{
+      'issue': instance.issue?.toJson(),
+    };
+
+GhOpenIssueIssue _$GhOpenIssueIssueFromJson(Map<String, dynamic> json) {
+  return GhOpenIssueIssue()
+    ..closed = json['closed'] as bool
+    ..resolveType = json['__typename'] as String;
+}
+
+Map<String, dynamic> _$GhOpenIssueIssueToJson(GhOpenIssueIssue instance) =>
+    <String, dynamic>{
+      'closed': instance.closed,
+      '__typename': instance.resolveType,
+    };
+
+GhOpenIssueProjectCardItem _$GhOpenIssueProjectCardItemFromJson(
+    Map<String, dynamic> json) {
+  return GhOpenIssueProjectCardItem();
+}
+
+Map<String, dynamic> _$GhOpenIssueProjectCardItemToJson(
+        GhOpenIssueProjectCardItem instance) =>
+    <String, dynamic>{};
+
+GhOpenIssueNode _$GhOpenIssueNodeFromJson(Map<String, dynamic> json) {
+  return GhOpenIssueNode()..resolveType = json['__typename'] as String;
+}
+
+Map<String, dynamic> _$GhOpenIssueNodeToJson(GhOpenIssueNode instance) =>
+    <String, dynamic>{
+      '__typename': instance.resolveType,
+    };
+
+GhOpenIssueAssignable _$GhOpenIssueAssignableFromJson(
+    Map<String, dynamic> json) {
+  return GhOpenIssueAssignable()..resolveType = json['__typename'] as String;
+}
+
+Map<String, dynamic> _$GhOpenIssueAssignableToJson(
+        GhOpenIssueAssignable instance) =>
+    <String, dynamic>{
+      '__typename': instance.resolveType,
+    };
+
+GhOpenIssueClosable _$GhOpenIssueClosableFromJson(Map<String, dynamic> json) {
+  return GhOpenIssueClosable()
+    ..closed = json['closed'] as bool
+    ..resolveType = json['__typename'] as String;
+}
+
+Map<String, dynamic> _$GhOpenIssueClosableToJson(
+        GhOpenIssueClosable instance) =>
+    <String, dynamic>{
+      'closed': instance.closed,
+      '__typename': instance.resolveType,
+    };
+
+GhOpenIssueComment _$GhOpenIssueCommentFromJson(Map<String, dynamic> json) {
+  return GhOpenIssueComment()..resolveType = json['__typename'] as String;
+}
+
+Map<String, dynamic> _$GhOpenIssueCommentToJson(GhOpenIssueComment instance) =>
+    <String, dynamic>{
+      '__typename': instance.resolveType,
+    };
+
+GhOpenIssueUpdatable _$GhOpenIssueUpdatableFromJson(Map<String, dynamic> json) {
+  return GhOpenIssueUpdatable()..resolveType = json['__typename'] as String;
+}
+
+Map<String, dynamic> _$GhOpenIssueUpdatableToJson(
+        GhOpenIssueUpdatable instance) =>
+    <String, dynamic>{
+      '__typename': instance.resolveType,
+    };
+
+GhOpenIssueUpdatableComment _$GhOpenIssueUpdatableCommentFromJson(
+    Map<String, dynamic> json) {
+  return GhOpenIssueUpdatableComment()
+    ..resolveType = json['__typename'] as String;
+}
+
+Map<String, dynamic> _$GhOpenIssueUpdatableCommentToJson(
+        GhOpenIssueUpdatableComment instance) =>
+    <String, dynamic>{
+      '__typename': instance.resolveType,
+    };
+
+GhOpenIssueLabelable _$GhOpenIssueLabelableFromJson(Map<String, dynamic> json) {
+  return GhOpenIssueLabelable()..resolveType = json['__typename'] as String;
+}
+
+Map<String, dynamic> _$GhOpenIssueLabelableToJson(
+        GhOpenIssueLabelable instance) =>
+    <String, dynamic>{
+      '__typename': instance.resolveType,
+    };
+
+GhOpenIssueLockable _$GhOpenIssueLockableFromJson(Map<String, dynamic> json) {
+  return GhOpenIssueLockable()..resolveType = json['__typename'] as String;
+}
+
+Map<String, dynamic> _$GhOpenIssueLockableToJson(
+        GhOpenIssueLockable instance) =>
+    <String, dynamic>{
+      '__typename': instance.resolveType,
+    };
+
+GhOpenIssueReactable _$GhOpenIssueReactableFromJson(Map<String, dynamic> json) {
+  return GhOpenIssueReactable()..resolveType = json['__typename'] as String;
+}
+
+Map<String, dynamic> _$GhOpenIssueReactableToJson(
+        GhOpenIssueReactable instance) =>
+    <String, dynamic>{
+      '__typename': instance.resolveType,
+    };
+
+GhOpenIssueRepositoryNode _$GhOpenIssueRepositoryNodeFromJson(
+    Map<String, dynamic> json) {
+  return GhOpenIssueRepositoryNode()
+    ..resolveType = json['__typename'] as String;
+}
+
+Map<String, dynamic> _$GhOpenIssueRepositoryNodeToJson(
+        GhOpenIssueRepositoryNode instance) =>
+    <String, dynamic>{
+      '__typename': instance.resolveType,
+    };
+
+GhOpenIssueSubscribable _$GhOpenIssueSubscribableFromJson(
+    Map<String, dynamic> json) {
+  return GhOpenIssueSubscribable()..resolveType = json['__typename'] as String;
+}
+
+Map<String, dynamic> _$GhOpenIssueSubscribableToJson(
+        GhOpenIssueSubscribable instance) =>
+    <String, dynamic>{
+      '__typename': instance.resolveType,
+    };
+
+GhOpenIssueUniformResourceLocatable
+    _$GhOpenIssueUniformResourceLocatableFromJson(Map<String, dynamic> json) {
+  return GhOpenIssueUniformResourceLocatable()
+    ..resolveType = json['__typename'] as String;
+}
+
+Map<String, dynamic> _$GhOpenIssueUniformResourceLocatableToJson(
+        GhOpenIssueUniformResourceLocatable instance) =>
+    <String, dynamic>{
+      '__typename': instance.resolveType,
+    };
+
+GhOpenIssueCloseIssuePayload _$GhOpenIssueCloseIssuePayloadFromJson(
+    Map<String, dynamic> json) {
+  return GhOpenIssueCloseIssuePayload()
+    ..issue = json['issue'] == null
+        ? null
+        : GhOpenIssueIssue.fromJson(json['issue'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$GhOpenIssueCloseIssuePayloadToJson(
+        GhOpenIssueCloseIssuePayload instance) =>
+    <String, dynamic>{
+      'issue': instance.issue?.toJson(),
+    };
+
+GhOpenIssueArguments _$GhOpenIssueArgumentsFromJson(Map<String, dynamic> json) {
+  return GhOpenIssueArguments(
+    id: json['id'] as String,
+    open: json['open'] as bool,
+  );
+}
+
+Map<String, dynamic> _$GhOpenIssueArgumentsToJson(
+        GhOpenIssueArguments instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'open': instance.open,
+    };

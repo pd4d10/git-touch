@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:git_touch/graphql/gh.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/action_button.dart';
@@ -55,6 +56,8 @@ class _IssueScreenState extends State<IssueScreen> {
   title
   closed
   url
+  viewerCanReact
+  viewerCanUpdate
   ...CommentParts
   ...ReactableParts
 ''';
@@ -361,13 +364,32 @@ mutation {
 
   @override
   Widget build(BuildContext context) {
+    final auth = Provider.of<AuthModel>(context);
     return LongListStatefulScaffold(
       title: Text('Issue #$number'),
-      trailingBuilder: (payload) {
+      trailingBuilder: (payload, setState) {
         return ActionButton(
           title: (isPullRequest ? 'Pull Request' : 'Issue') + ' Actions',
           items: [
             if (payload != null) ...[
+              if (!isPullRequest && payload['viewerCanUpdate'])
+                ActionItem(
+                  text: payload['closed'] ? 'Reopen issue' : 'Close issue',
+                  onTap: (_) async {
+                    final res = await auth.gqlClient.execute(
+                      GhOpenIssueQuery(
+                        variables: GhOpenIssueArguments(
+                          id: payload['id'],
+                          open: payload['closed'],
+                        ),
+                      ),
+                    );
+                    setState(() {
+                      payload['closed'] = res.data.reopenIssue?.issue?.closed ??
+                          res.data.closeIssue.issue.closed;
+                    });
+                  },
+                ),
               ActionItem.share(payload['url']),
               ActionItem.launch(payload['url']),
             ],
