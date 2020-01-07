@@ -1,0 +1,7 @@
+mutation GhFollowUser($id: ID!) {
+  followUser(input: { userId: $id }) {
+    user {
+      viewerIsFollowing
+    }
+  }
+}

@@ -118,6 +118,7 @@ class RepositoryScreen extends StatelessWidget {
             1;
 
         final theme = Provider.of<ThemeModel>(context);
+        final auth = Provider.of<AuthModel>(context);
         final license = repo.licenseInfo?.spdxId ?? repo.licenseInfo?.name;
 
         return Column(
@@ -147,15 +148,21 @@ class RepositoryScreen extends StatelessWidget {
                       CupertinoButton(
                         onPressed: () async {
                           if (repo.viewerHasStarred) {
-                            await Provider.of<AuthModel>(context)
-                                .deleteWithCredentials(
-                                    '/user/starred/$owner/$name');
-                            repo.viewerHasStarred = false;
+                            final res = await auth.gqlClient.execute(
+                              GhRemoveStarQuery(
+                                variables: GhRemoveStarArguments(id: repo.id),
+                              ),
+                            );
+                            repo.viewerHasStarred =
+                                res.data.removeStar.starrable.viewerHasStarred;
                           } else {
-                            await Provider.of<AuthModel>(context)
-                                .putWithCredentials(
-                                    '/user/starred/$owner/$name');
-                            repo.viewerHasStarred = true;
+                            final res = await auth.gqlClient.execute(
+                              GhAddStarQuery(
+                                variables: GhAddStarArguments(id: repo.id),
+                              ),
+                            );
+                            repo.viewerHasStarred =
+                                res.data.addStar.starrable.viewerHasStarred;
                           }
                           setState(() {});
                         },

@@ -1,6 +1,7 @@
 query GhUser($login: String!, $isViewer: Boolean!) {
   repositoryOwner(login: $login) @skip(if: $isViewer) {
     __typename
+    id
     login
     avatarUrl
     url

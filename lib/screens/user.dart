@@ -358,15 +358,15 @@ class UserScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final auth = Provider.of<AuthModel>(context);
     return RefreshStatefulScaffold<GhUserRepositoryOwner>(
       fetchData: () async {
-        final data = await Provider.of<AuthModel>(context).gqlClient.execute(
-            GhUserQuery(
-                variables: GhUserArguments(login: login, isViewer: isViewer)));
+        final data = await auth.gqlClient.execute(GhUserQuery(
+            variables: GhUserArguments(login: login, isViewer: isViewer)));
         return isViewer ? data.data.viewer : data.data.repositoryOwner;
       },
       title: AppBarTitle(isViewer ? 'Me' : login),
-      actionBuilder: (payload, _) {
+      actionBuilder: (payload, setState) {
         switch (payload.resolveType) {
           case 'User':
             final user = payload as GhUserUser;
@@ -378,15 +378,20 @@ class UserScreen extends StatelessWidget {
                     text: user.viewerIsFollowing ? 'Unfollow' : 'Follow',
                     onTap: (_) async {
                       if (user.viewerIsFollowing) {
-                        await Provider.of<AuthModel>(context)
-                            .deleteWithCredentials(
-                                '/user/following/${user.login}');
-                        user.viewerIsFollowing = false;
+                        final res = await auth.gqlClient.execute(
+                            GhUnfollowUserQuery(
+                                variables:
+                                    GhUnfollowUserArguments(id: user.id)));
+                        user.viewerIsFollowing =
+                            res.data.unfollowUser.user.viewerIsFollowing;
                       } else {
-                        Provider.of<AuthModel>(context).putWithCredentials(
-                            '/user/following/${user.login}');
-                        user.viewerIsFollowing = true;
+                        final res = await auth.gqlClient.execute(
+                            GhFollowUserQuery(
+                                variables: GhFollowUserArguments(id: user.id)));
+                        user.viewerIsFollowing =
+                            res.data.followUser.user.viewerIsFollowing;
                       }
+                      setState(() {});
                     },
                   ),
                 if (payload != null) ...[

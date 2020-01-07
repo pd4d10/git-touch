@@ -3481,6 +3481,8 @@ class GhUserRepositoryOwner with EquatableMixin {
     return _$GhUserRepositoryOwnerFromJson(json);
   }
 
+  String id;
+
   String login;
 
   String avatarUrl;
@@ -3491,7 +3493,7 @@ class GhUserRepositoryOwner with EquatableMixin {
   String resolveType;
 
   @override
-  List<Object> get props => [login, avatarUrl, url, resolveType];
+  List<Object> get props => [id, login, avatarUrl, url, resolveType];
   Map<String, dynamic> toJson() {
     switch (resolveType) {
       case 'User':
@@ -3557,6 +3559,9 @@ class GhUserUser extends GhUserAuditEntryActor
   String resolveType;
 
   @override
+  String id;
+
+  @override
   String login;
 
   @override
@@ -3583,6 +3588,7 @@ class GhUserUser extends GhUserAuditEntryActor
         viewerCanFollow,
         viewerIsFollowing,
         resolveType,
+        id,
         login,
         avatarUrl,
         url
@@ -4069,6 +4075,9 @@ class GhUserOrganization extends GhUserAuditEntryActor
   String resolveType;
 
   @override
+  String id;
+
+  @override
   String login;
 
   @override
@@ -4089,6 +4098,7 @@ class GhUserOrganization extends GhUserAuditEntryActor
         pinnableItems,
         membersWithRole,
         resolveType,
+        id,
         login,
         avatarUrl,
         url
@@ -4185,6 +4195,12 @@ class GhUserQuery extends GraphQLQuery<GhUser, GhUserArguments> {
               selectionSet: SelectionSetNode(selections: [
                 FieldNode(
                     name: NameNode(value: '__typename'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'id'),
                     alias: null,
                     arguments: [],
                     directives: [],
@@ -6338,4 +6354,816 @@ class GhCommitsQuery extends GraphQLQuery<GhCommits, GhCommitsArguments> {
   List<Object> get props => [document, operationName, variables];
   @override
   GhCommits parse(Map<String, dynamic> json) => GhCommits.fromJson(json);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhAddStar with EquatableMixin {
+  GhAddStar();
+
+  factory GhAddStar.fromJson(Map<String, dynamic> json) =>
+      _$GhAddStarFromJson(json);
+
+  GhAddStarAddStarPayload addStar;
+
+  @override
+  List<Object> get props => [addStar];
+  Map<String, dynamic> toJson() => _$GhAddStarToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhAddStarAddStarPayload with EquatableMixin {
+  GhAddStarAddStarPayload();
+
+  factory GhAddStarAddStarPayload.fromJson(Map<String, dynamic> json) =>
+      _$GhAddStarAddStarPayloadFromJson(json);
+
+  GhAddStarStarrable starrable;
+
+  @override
+  List<Object> get props => [starrable];
+  Map<String, dynamic> toJson() => _$GhAddStarAddStarPayloadToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhAddStarStarrable with EquatableMixin {
+  GhAddStarStarrable();
+
+  factory GhAddStarStarrable.fromJson(Map<String, dynamic> json) =>
+      _$GhAddStarStarrableFromJson(json);
+
+  bool viewerHasStarred;
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [viewerHasStarred, resolveType];
+  Map<String, dynamic> toJson() => _$GhAddStarStarrableToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhAddStarArguments extends JsonSerializable with EquatableMixin {
+  GhAddStarArguments({this.id});
+
+  factory GhAddStarArguments.fromJson(Map<String, dynamic> json) =>
+      _$GhAddStarArgumentsFromJson(json);
+
+  final String id;
+
+  @override
+  List<Object> get props => [id];
+  Map<String, dynamic> toJson() => _$GhAddStarArgumentsToJson(this);
+}
+
+class GhAddStarQuery extends GraphQLQuery<GhAddStar, GhAddStarArguments> {
+  GhAddStarQuery({this.variables});
+
+  @override
+  final DocumentNode document = DocumentNode(definitions: [
+    OperationDefinitionNode(
+        type: OperationType.mutation,
+        name: NameNode(value: 'GhAddStar'),
+        variableDefinitions: [
+          VariableDefinitionNode(
+              variable: VariableNode(name: NameNode(value: 'id')),
+              type: NamedTypeNode(name: NameNode(value: 'ID'), isNonNull: true),
+              defaultValue: DefaultValueNode(value: null),
+              directives: [])
+        ],
+        directives: [],
+        selectionSet: SelectionSetNode(selections: [
+          FieldNode(
+              name: NameNode(value: 'addStar'),
+              alias: null,
+              arguments: [
+                ArgumentNode(
+                    name: NameNode(value: 'input'),
+                    value: ObjectValueNode(fields: [
+                      ObjectFieldNode(
+                          name: NameNode(value: 'starrableId'),
+                          value: VariableNode(name: NameNode(value: 'id')))
+                    ]))
+              ],
+              directives: [],
+              selectionSet: SelectionSetNode(selections: [
+                FieldNode(
+                    name: NameNode(value: 'starrable'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: SelectionSetNode(selections: [
+                      FieldNode(
+                          name: NameNode(value: 'viewerHasStarred'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null)
+                    ]))
+              ]))
+        ]))
+  ]);
+
+  @override
+  final String operationName = 'GhAddStar';
+
+  @override
+  final GhAddStarArguments variables;
+
+  @override
+  List<Object> get props => [document, operationName, variables];
+  @override
+  GhAddStar parse(Map<String, dynamic> json) => GhAddStar.fromJson(json);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhRemoveStar with EquatableMixin {
+  GhRemoveStar();
+
+  factory GhRemoveStar.fromJson(Map<String, dynamic> json) =>
+      _$GhRemoveStarFromJson(json);
+
+  GhRemoveStarRemoveStarPayload removeStar;
+
+  @override
+  List<Object> get props => [removeStar];
+  Map<String, dynamic> toJson() => _$GhRemoveStarToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhRemoveStarRemoveStarPayload with EquatableMixin {
+  GhRemoveStarRemoveStarPayload();
+
+  factory GhRemoveStarRemoveStarPayload.fromJson(Map<String, dynamic> json) =>
+      _$GhRemoveStarRemoveStarPayloadFromJson(json);
+
+  GhRemoveStarStarrable starrable;
+
+  @override
+  List<Object> get props => [starrable];
+  Map<String, dynamic> toJson() => _$GhRemoveStarRemoveStarPayloadToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhRemoveStarStarrable with EquatableMixin {
+  GhRemoveStarStarrable();
+
+  factory GhRemoveStarStarrable.fromJson(Map<String, dynamic> json) =>
+      _$GhRemoveStarStarrableFromJson(json);
+
+  bool viewerHasStarred;
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [viewerHasStarred, resolveType];
+  Map<String, dynamic> toJson() => _$GhRemoveStarStarrableToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhRemoveStarArguments extends JsonSerializable with EquatableMixin {
+  GhRemoveStarArguments({this.id});
+
+  factory GhRemoveStarArguments.fromJson(Map<String, dynamic> json) =>
+      _$GhRemoveStarArgumentsFromJson(json);
+
+  final String id;
+
+  @override
+  List<Object> get props => [id];
+  Map<String, dynamic> toJson() => _$GhRemoveStarArgumentsToJson(this);
+}
+
+class GhRemoveStarQuery
+    extends GraphQLQuery<GhRemoveStar, GhRemoveStarArguments> {
+  GhRemoveStarQuery({this.variables});
+
+  @override
+  final DocumentNode document = DocumentNode(definitions: [
+    OperationDefinitionNode(
+        type: OperationType.mutation,
+        name: NameNode(value: 'GhRemoveStar'),
+        variableDefinitions: [
+          VariableDefinitionNode(
+              variable: VariableNode(name: NameNode(value: 'id')),
+              type: NamedTypeNode(name: NameNode(value: 'ID'), isNonNull: true),
+              defaultValue: DefaultValueNode(value: null),
+              directives: [])
+        ],
+        directives: [],
+        selectionSet: SelectionSetNode(selections: [
+          FieldNode(
+              name: NameNode(value: 'removeStar'),
+              alias: null,
+              arguments: [
+                ArgumentNode(
+                    name: NameNode(value: 'input'),
+                    value: ObjectValueNode(fields: [
+                      ObjectFieldNode(
+                          name: NameNode(value: 'starrableId'),
+                          value: VariableNode(name: NameNode(value: 'id')))
+                    ]))
+              ],
+              directives: [],
+              selectionSet: SelectionSetNode(selections: [
+                FieldNode(
+                    name: NameNode(value: 'starrable'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: SelectionSetNode(selections: [
+                      FieldNode(
+                          name: NameNode(value: 'viewerHasStarred'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null)
+                    ]))
+              ]))
+        ]))
+  ]);
+
+  @override
+  final String operationName = 'GhRemoveStar';
+
+  @override
+  final GhRemoveStarArguments variables;
+
+  @override
+  List<Object> get props => [document, operationName, variables];
+  @override
+  GhRemoveStar parse(Map<String, dynamic> json) => GhRemoveStar.fromJson(json);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhFollowUser with EquatableMixin {
+  GhFollowUser();
+
+  factory GhFollowUser.fromJson(Map<String, dynamic> json) =>
+      _$GhFollowUserFromJson(json);
+
+  GhFollowUserFollowUserPayload followUser;
+
+  @override
+  List<Object> get props => [followUser];
+  Map<String, dynamic> toJson() => _$GhFollowUserToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhFollowUserFollowUserPayload with EquatableMixin {
+  GhFollowUserFollowUserPayload();
+
+  factory GhFollowUserFollowUserPayload.fromJson(Map<String, dynamic> json) =>
+      _$GhFollowUserFollowUserPayloadFromJson(json);
+
+  GhFollowUserUser user;
+
+  @override
+  List<Object> get props => [user];
+  Map<String, dynamic> toJson() => _$GhFollowUserFollowUserPayloadToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhFollowUserUser extends GhFollowUserAuditEntryActor
+    with EquatableMixin
+    implements
+        GhFollowUserNode,
+        GhFollowUserActor,
+        GhFollowUserRegistryPackageOwner,
+        GhFollowUserRegistryPackageSearch,
+        GhFollowUserProjectOwner,
+        GhFollowUserRepositoryOwner,
+        GhFollowUserUniformResourceLocatable,
+        GhFollowUserProfileOwner,
+        GhFollowUserSponsorable {
+  GhFollowUserUser();
+
+  factory GhFollowUserUser.fromJson(Map<String, dynamic> json) =>
+      _$GhFollowUserUserFromJson(json);
+
+  bool viewerIsFollowing;
+
+  @override
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [viewerIsFollowing, resolveType];
+  Map<String, dynamic> toJson() => _$GhFollowUserUserToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhFollowUserAuditEntryActor with EquatableMixin {
+  GhFollowUserAuditEntryActor();
+
+  factory GhFollowUserAuditEntryActor.fromJson(Map<String, dynamic> json) =>
+      _$GhFollowUserAuditEntryActorFromJson(json);
+
+  @override
+  List<Object> get props => [];
+  Map<String, dynamic> toJson() => _$GhFollowUserAuditEntryActorToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhFollowUserNode with EquatableMixin {
+  GhFollowUserNode();
+
+  factory GhFollowUserNode.fromJson(Map<String, dynamic> json) =>
+      _$GhFollowUserNodeFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhFollowUserNodeToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhFollowUserActor with EquatableMixin {
+  GhFollowUserActor();
+
+  factory GhFollowUserActor.fromJson(Map<String, dynamic> json) =>
+      _$GhFollowUserActorFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhFollowUserActorToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhFollowUserRegistryPackageOwner with EquatableMixin {
+  GhFollowUserRegistryPackageOwner();
+
+  factory GhFollowUserRegistryPackageOwner.fromJson(
+          Map<String, dynamic> json) =>
+      _$GhFollowUserRegistryPackageOwnerFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() =>
+      _$GhFollowUserRegistryPackageOwnerToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhFollowUserRegistryPackageSearch with EquatableMixin {
+  GhFollowUserRegistryPackageSearch();
+
+  factory GhFollowUserRegistryPackageSearch.fromJson(
+          Map<String, dynamic> json) =>
+      _$GhFollowUserRegistryPackageSearchFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() =>
+      _$GhFollowUserRegistryPackageSearchToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhFollowUserProjectOwner with EquatableMixin {
+  GhFollowUserProjectOwner();
+
+  factory GhFollowUserProjectOwner.fromJson(Map<String, dynamic> json) =>
+      _$GhFollowUserProjectOwnerFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhFollowUserProjectOwnerToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhFollowUserRepositoryOwner with EquatableMixin {
+  GhFollowUserRepositoryOwner();
+
+  factory GhFollowUserRepositoryOwner.fromJson(Map<String, dynamic> json) =>
+      _$GhFollowUserRepositoryOwnerFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhFollowUserRepositoryOwnerToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhFollowUserUniformResourceLocatable with EquatableMixin {
+  GhFollowUserUniformResourceLocatable();
+
+  factory GhFollowUserUniformResourceLocatable.fromJson(
+          Map<String, dynamic> json) =>
+      _$GhFollowUserUniformResourceLocatableFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() =>
+      _$GhFollowUserUniformResourceLocatableToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhFollowUserProfileOwner with EquatableMixin {
+  GhFollowUserProfileOwner();
+
+  factory GhFollowUserProfileOwner.fromJson(Map<String, dynamic> json) =>
+      _$GhFollowUserProfileOwnerFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhFollowUserProfileOwnerToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhFollowUserSponsorable with EquatableMixin {
+  GhFollowUserSponsorable();
+
+  factory GhFollowUserSponsorable.fromJson(Map<String, dynamic> json) =>
+      _$GhFollowUserSponsorableFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhFollowUserSponsorableToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhFollowUserArguments extends JsonSerializable with EquatableMixin {
+  GhFollowUserArguments({this.id});
+
+  factory GhFollowUserArguments.fromJson(Map<String, dynamic> json) =>
+      _$GhFollowUserArgumentsFromJson(json);
+
+  final String id;
+
+  @override
+  List<Object> get props => [id];
+  Map<String, dynamic> toJson() => _$GhFollowUserArgumentsToJson(this);
+}
+
+class GhFollowUserQuery
+    extends GraphQLQuery<GhFollowUser, GhFollowUserArguments> {
+  GhFollowUserQuery({this.variables});
+
+  @override
+  final DocumentNode document = DocumentNode(definitions: [
+    OperationDefinitionNode(
+        type: OperationType.mutation,
+        name: NameNode(value: 'GhFollowUser'),
+        variableDefinitions: [
+          VariableDefinitionNode(
+              variable: VariableNode(name: NameNode(value: 'id')),
+              type: NamedTypeNode(name: NameNode(value: 'ID'), isNonNull: true),
+              defaultValue: DefaultValueNode(value: null),
+              directives: [])
+        ],
+        directives: [],
+        selectionSet: SelectionSetNode(selections: [
+          FieldNode(
+              name: NameNode(value: 'followUser'),
+              alias: null,
+              arguments: [
+                ArgumentNode(
+                    name: NameNode(value: 'input'),
+                    value: ObjectValueNode(fields: [
+                      ObjectFieldNode(
+                          name: NameNode(value: 'userId'),
+                          value: VariableNode(name: NameNode(value: 'id')))
+                    ]))
+              ],
+              directives: [],
+              selectionSet: SelectionSetNode(selections: [
+                FieldNode(
+                    name: NameNode(value: 'user'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: SelectionSetNode(selections: [
+                      FieldNode(
+                          name: NameNode(value: 'viewerIsFollowing'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null)
+                    ]))
+              ]))
+        ]))
+  ]);
+
+  @override
+  final String operationName = 'GhFollowUser';
+
+  @override
+  final GhFollowUserArguments variables;
+
+  @override
+  List<Object> get props => [document, operationName, variables];
+  @override
+  GhFollowUser parse(Map<String, dynamic> json) => GhFollowUser.fromJson(json);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhUnfollowUser with EquatableMixin {
+  GhUnfollowUser();
+
+  factory GhUnfollowUser.fromJson(Map<String, dynamic> json) =>
+      _$GhUnfollowUserFromJson(json);
+
+  GhUnfollowUserUnfollowUserPayload unfollowUser;
+
+  @override
+  List<Object> get props => [unfollowUser];
+  Map<String, dynamic> toJson() => _$GhUnfollowUserToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhUnfollowUserUnfollowUserPayload with EquatableMixin {
+  GhUnfollowUserUnfollowUserPayload();
+
+  factory GhUnfollowUserUnfollowUserPayload.fromJson(
+          Map<String, dynamic> json) =>
+      _$GhUnfollowUserUnfollowUserPayloadFromJson(json);
+
+  GhUnfollowUserUser user;
+
+  @override
+  List<Object> get props => [user];
+  Map<String, dynamic> toJson() =>
+      _$GhUnfollowUserUnfollowUserPayloadToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhUnfollowUserUser extends GhUnfollowUserAuditEntryActor
+    with EquatableMixin
+    implements
+        GhUnfollowUserNode,
+        GhUnfollowUserActor,
+        GhUnfollowUserRegistryPackageOwner,
+        GhUnfollowUserRegistryPackageSearch,
+        GhUnfollowUserProjectOwner,
+        GhUnfollowUserRepositoryOwner,
+        GhUnfollowUserUniformResourceLocatable,
+        GhUnfollowUserProfileOwner,
+        GhUnfollowUserSponsorable {
+  GhUnfollowUserUser();
+
+  factory GhUnfollowUserUser.fromJson(Map<String, dynamic> json) =>
+      _$GhUnfollowUserUserFromJson(json);
+
+  bool viewerIsFollowing;
+
+  @override
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [viewerIsFollowing, resolveType];
+  Map<String, dynamic> toJson() => _$GhUnfollowUserUserToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhUnfollowUserAuditEntryActor with EquatableMixin {
+  GhUnfollowUserAuditEntryActor();
+
+  factory GhUnfollowUserAuditEntryActor.fromJson(Map<String, dynamic> json) =>
+      _$GhUnfollowUserAuditEntryActorFromJson(json);
+
+  @override
+  List<Object> get props => [];
+  Map<String, dynamic> toJson() => _$GhUnfollowUserAuditEntryActorToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhUnfollowUserNode with EquatableMixin {
+  GhUnfollowUserNode();
+
+  factory GhUnfollowUserNode.fromJson(Map<String, dynamic> json) =>
+      _$GhUnfollowUserNodeFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhUnfollowUserNodeToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhUnfollowUserActor with EquatableMixin {
+  GhUnfollowUserActor();
+
+  factory GhUnfollowUserActor.fromJson(Map<String, dynamic> json) =>
+      _$GhUnfollowUserActorFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhUnfollowUserActorToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhUnfollowUserRegistryPackageOwner with EquatableMixin {
+  GhUnfollowUserRegistryPackageOwner();
+
+  factory GhUnfollowUserRegistryPackageOwner.fromJson(
+          Map<String, dynamic> json) =>
+      _$GhUnfollowUserRegistryPackageOwnerFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() =>
+      _$GhUnfollowUserRegistryPackageOwnerToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhUnfollowUserRegistryPackageSearch with EquatableMixin {
+  GhUnfollowUserRegistryPackageSearch();
+
+  factory GhUnfollowUserRegistryPackageSearch.fromJson(
+          Map<String, dynamic> json) =>
+      _$GhUnfollowUserRegistryPackageSearchFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() =>
+      _$GhUnfollowUserRegistryPackageSearchToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhUnfollowUserProjectOwner with EquatableMixin {
+  GhUnfollowUserProjectOwner();
+
+  factory GhUnfollowUserProjectOwner.fromJson(Map<String, dynamic> json) =>
+      _$GhUnfollowUserProjectOwnerFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhUnfollowUserProjectOwnerToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhUnfollowUserRepositoryOwner with EquatableMixin {
+  GhUnfollowUserRepositoryOwner();
+
+  factory GhUnfollowUserRepositoryOwner.fromJson(Map<String, dynamic> json) =>
+      _$GhUnfollowUserRepositoryOwnerFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhUnfollowUserRepositoryOwnerToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhUnfollowUserUniformResourceLocatable with EquatableMixin {
+  GhUnfollowUserUniformResourceLocatable();
+
+  factory GhUnfollowUserUniformResourceLocatable.fromJson(
+          Map<String, dynamic> json) =>
+      _$GhUnfollowUserUniformResourceLocatableFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() =>
+      _$GhUnfollowUserUniformResourceLocatableToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhUnfollowUserProfileOwner with EquatableMixin {
+  GhUnfollowUserProfileOwner();
+
+  factory GhUnfollowUserProfileOwner.fromJson(Map<String, dynamic> json) =>
+      _$GhUnfollowUserProfileOwnerFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhUnfollowUserProfileOwnerToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhUnfollowUserSponsorable with EquatableMixin {
+  GhUnfollowUserSponsorable();
+
+  factory GhUnfollowUserSponsorable.fromJson(Map<String, dynamic> json) =>
+      _$GhUnfollowUserSponsorableFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhUnfollowUserSponsorableToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhUnfollowUserArguments extends JsonSerializable with EquatableMixin {
+  GhUnfollowUserArguments({this.id});
+
+  factory GhUnfollowUserArguments.fromJson(Map<String, dynamic> json) =>
+      _$GhUnfollowUserArgumentsFromJson(json);
+
+  final String id;
+
+  @override
+  List<Object> get props => [id];
+  Map<String, dynamic> toJson() => _$GhUnfollowUserArgumentsToJson(this);
+}
+
+class GhUnfollowUserQuery
+    extends GraphQLQuery<GhUnfollowUser, GhUnfollowUserArguments> {
+  GhUnfollowUserQuery({this.variables});
+
+  @override
+  final DocumentNode document = DocumentNode(definitions: [
+    OperationDefinitionNode(
+        type: OperationType.mutation,
+        name: NameNode(value: 'GhUnfollowUser'),
+        variableDefinitions: [
+          VariableDefinitionNode(
+              variable: VariableNode(name: NameNode(value: 'id')),
+              type: NamedTypeNode(name: NameNode(value: 'ID'), isNonNull: true),
+              defaultValue: DefaultValueNode(value: null),
+              directives: [])
+        ],
+        directives: [],
+        selectionSet: SelectionSetNode(selections: [
+          FieldNode(
+              name: NameNode(value: 'unfollowUser'),
+              alias: null,
+              arguments: [
+                ArgumentNode(
+                    name: NameNode(value: 'input'),
+                    value: ObjectValueNode(fields: [
+                      ObjectFieldNode(
+                          name: NameNode(value: 'userId'),
+                          value: VariableNode(name: NameNode(value: 'id')))
+                    ]))
+              ],
+              directives: [],
+              selectionSet: SelectionSetNode(selections: [
+                FieldNode(
+                    name: NameNode(value: 'user'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: SelectionSetNode(selections: [
+                      FieldNode(
+                          name: NameNode(value: 'viewerIsFollowing'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null)
+                    ]))
+              ]))
+        ]))
+  ]);
+
+  @override
+  final String operationName = 'GhUnfollowUser';
+
+  @override
+  final GhUnfollowUserArguments variables;
+
+  @override
+  List<Object> get props => [document, operationName, variables];
+  @override
+  GhUnfollowUser parse(Map<String, dynamic> json) =>
+      GhUnfollowUser.fromJson(json);
 }

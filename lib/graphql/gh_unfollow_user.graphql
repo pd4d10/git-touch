@@ -1,0 +1,7 @@
+mutation GhUnfollowUser($id: ID!) {
+  unfollowUser(input: { userId: $id }) {
+    user {
+      viewerIsFollowing
+    }
+  }
+}

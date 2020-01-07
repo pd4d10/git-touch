@@ -1342,6 +1342,7 @@ Map<String, dynamic> _$GhUserToJson(GhUser instance) => <String, dynamic>{
 GhUserRepositoryOwner _$GhUserRepositoryOwnerFromJson(
     Map<String, dynamic> json) {
   return GhUserRepositoryOwner()
+    ..id = json['id'] as String
     ..login = json['login'] as String
     ..avatarUrl = json['avatarUrl'] as String
     ..url = json['url'] as String
@@ -1351,6 +1352,7 @@ GhUserRepositoryOwner _$GhUserRepositoryOwnerFromJson(
 Map<String, dynamic> _$GhUserRepositoryOwnerToJson(
         GhUserRepositoryOwner instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'login': instance.login,
       'avatarUrl': instance.avatarUrl,
       'url': instance.url,
@@ -1395,6 +1397,7 @@ GhUserUser _$GhUserUserFromJson(Map<String, dynamic> json) {
     ..viewerCanFollow = json['viewerCanFollow'] as bool
     ..viewerIsFollowing = json['viewerIsFollowing'] as bool
     ..resolveType = json['__typename'] as String
+    ..id = json['id'] as String
     ..login = json['login'] as String
     ..avatarUrl = json['avatarUrl'] as String
     ..url = json['url'] as String;
@@ -1418,6 +1421,7 @@ Map<String, dynamic> _$GhUserUserToJson(GhUserUser instance) =>
       'viewerCanFollow': instance.viewerCanFollow,
       'viewerIsFollowing': instance.viewerIsFollowing,
       '__typename': instance.resolveType,
+      'id': instance.id,
       'login': instance.login,
       'avatarUrl': instance.avatarUrl,
       'url': instance.url,
@@ -1796,6 +1800,7 @@ GhUserOrganization _$GhUserOrganizationFromJson(Map<String, dynamic> json) {
         : GhUserOrganizationMemberConnection.fromJson(
             json['membersWithRole'] as Map<String, dynamic>)
     ..resolveType = json['__typename'] as String
+    ..id = json['id'] as String
     ..login = json['login'] as String
     ..avatarUrl = json['avatarUrl'] as String
     ..url = json['url'] as String;
@@ -1813,6 +1818,7 @@ Map<String, dynamic> _$GhUserOrganizationToJson(GhUserOrganization instance) =>
       'pinnableItems': instance.pinnableItems?.toJson(),
       'membersWithRole': instance.membersWithRole?.toJson(),
       '__typename': instance.resolveType,
+      'id': instance.id,
       'login': instance.login,
       'avatarUrl': instance.avatarUrl,
       'url': instance.url,
@@ -2418,4 +2424,434 @@ Map<String, dynamic> _$GhCommitsArgumentsToJson(GhCommitsArguments instance) =>
       'ref': instance.ref,
       'hasRef': instance.hasRef,
       'after': instance.after,
+    };
+
+GhAddStar _$GhAddStarFromJson(Map<String, dynamic> json) {
+  return GhAddStar()
+    ..addStar = json['addStar'] == null
+        ? null
+        : GhAddStarAddStarPayload.fromJson(
+            json['addStar'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$GhAddStarToJson(GhAddStar instance) => <String, dynamic>{
+      'addStar': instance.addStar?.toJson(),
+    };
+
+GhAddStarAddStarPayload _$GhAddStarAddStarPayloadFromJson(
+    Map<String, dynamic> json) {
+  return GhAddStarAddStarPayload()
+    ..starrable = json['starrable'] == null
+        ? null
+        : GhAddStarStarrable.fromJson(
+            json['starrable'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$GhAddStarAddStarPayloadToJson(
+        GhAddStarAddStarPayload instance) =>
+    <String, dynamic>{
+      'starrable': instance.starrable?.toJson(),
+    };
+
+GhAddStarStarrable _$GhAddStarStarrableFromJson(Map<String, dynamic> json) {
+  return GhAddStarStarrable()
+    ..viewerHasStarred = json['viewerHasStarred'] as bool
+    ..resolveType = json['__typename'] as String;
+}
+
+Map<String, dynamic> _$GhAddStarStarrableToJson(GhAddStarStarrable instance) =>
+    <String, dynamic>{
+      'viewerHasStarred': instance.viewerHasStarred,
+      '__typename': instance.resolveType,
+    };
+
+GhAddStarArguments _$GhAddStarArgumentsFromJson(Map<String, dynamic> json) {
+  return GhAddStarArguments(
+    id: json['id'] as String,
+  );
+}
+
+Map<String, dynamic> _$GhAddStarArgumentsToJson(GhAddStarArguments instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+    };
+
+GhRemoveStar _$GhRemoveStarFromJson(Map<String, dynamic> json) {
+  return GhRemoveStar()
+    ..removeStar = json['removeStar'] == null
+        ? null
+        : GhRemoveStarRemoveStarPayload.fromJson(
+            json['removeStar'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$GhRemoveStarToJson(GhRemoveStar instance) =>
+    <String, dynamic>{
+      'removeStar': instance.removeStar?.toJson(),
+    };
+
+GhRemoveStarRemoveStarPayload _$GhRemoveStarRemoveStarPayloadFromJson(
+    Map<String, dynamic> json) {
+  return GhRemoveStarRemoveStarPayload()
+    ..starrable = json['starrable'] == null
+        ? null
+        : GhRemoveStarStarrable.fromJson(
+            json['starrable'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$GhRemoveStarRemoveStarPayloadToJson(
+        GhRemoveStarRemoveStarPayload instance) =>
+    <String, dynamic>{
+      'starrable': instance.starrable?.toJson(),
+    };
+
+GhRemoveStarStarrable _$GhRemoveStarStarrableFromJson(
+    Map<String, dynamic> json) {
+  return GhRemoveStarStarrable()
+    ..viewerHasStarred = json['viewerHasStarred'] as bool
+    ..resolveType = json['__typename'] as String;
+}
+
+Map<String, dynamic> _$GhRemoveStarStarrableToJson(
+        GhRemoveStarStarrable instance) =>
+    <String, dynamic>{
+      'viewerHasStarred': instance.viewerHasStarred,
+      '__typename': instance.resolveType,
+    };
+
+GhRemoveStarArguments _$GhRemoveStarArgumentsFromJson(
+    Map<String, dynamic> json) {
+  return GhRemoveStarArguments(
+    id: json['id'] as String,
+  );
+}
+
+Map<String, dynamic> _$GhRemoveStarArgumentsToJson(
+        GhRemoveStarArguments instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+    };
+
+GhFollowUser _$GhFollowUserFromJson(Map<String, dynamic> json) {
+  return GhFollowUser()
+    ..followUser = json['followUser'] == null
+        ? null
+        : GhFollowUserFollowUserPayload.fromJson(
+            json['followUser'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$GhFollowUserToJson(GhFollowUser instance) =>
+    <String, dynamic>{
+      'followUser': instance.followUser?.toJson(),
+    };
+
+GhFollowUserFollowUserPayload _$GhFollowUserFollowUserPayloadFromJson(
+    Map<String, dynamic> json) {
+  return GhFollowUserFollowUserPayload()
+    ..user = json['user'] == null
+        ? null
+        : GhFollowUserUser.fromJson(json['user'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$GhFollowUserFollowUserPayloadToJson(
+        GhFollowUserFollowUserPayload instance) =>
+    <String, dynamic>{
+      'user': instance.user?.toJson(),
+    };
+
+GhFollowUserUser _$GhFollowUserUserFromJson(Map<String, dynamic> json) {
+  return GhFollowUserUser()
+    ..viewerIsFollowing = json['viewerIsFollowing'] as bool
+    ..resolveType = json['__typename'] as String;
+}
+
+Map<String, dynamic> _$GhFollowUserUserToJson(GhFollowUserUser instance) =>
+    <String, dynamic>{
+      'viewerIsFollowing': instance.viewerIsFollowing,
+      '__typename': instance.resolveType,
+    };
+
+GhFollowUserAuditEntryActor _$GhFollowUserAuditEntryActorFromJson(
+    Map<String, dynamic> json) {
+  return GhFollowUserAuditEntryActor();
+}
+
+Map<String, dynamic> _$GhFollowUserAuditEntryActorToJson(
+        GhFollowUserAuditEntryActor instance) =>
+    <String, dynamic>{};
+
+GhFollowUserNode _$GhFollowUserNodeFromJson(Map<String, dynamic> json) {
+  return GhFollowUserNode()..resolveType = json['__typename'] as String;
+}
+
+Map<String, dynamic> _$GhFollowUserNodeToJson(GhFollowUserNode instance) =>
+    <String, dynamic>{
+      '__typename': instance.resolveType,
+    };
+
+GhFollowUserActor _$GhFollowUserActorFromJson(Map<String, dynamic> json) {
+  return GhFollowUserActor()..resolveType = json['__typename'] as String;
+}
+
+Map<String, dynamic> _$GhFollowUserActorToJson(GhFollowUserActor instance) =>
+    <String, dynamic>{
+      '__typename': instance.resolveType,
+    };
+
+GhFollowUserRegistryPackageOwner _$GhFollowUserRegistryPackageOwnerFromJson(
+    Map<String, dynamic> json) {
+  return GhFollowUserRegistryPackageOwner()
+    ..resolveType = json['__typename'] as String;
+}
+
+Map<String, dynamic> _$GhFollowUserRegistryPackageOwnerToJson(
+        GhFollowUserRegistryPackageOwner instance) =>
+    <String, dynamic>{
+      '__typename': instance.resolveType,
+    };
+
+GhFollowUserRegistryPackageSearch _$GhFollowUserRegistryPackageSearchFromJson(
+    Map<String, dynamic> json) {
+  return GhFollowUserRegistryPackageSearch()
+    ..resolveType = json['__typename'] as String;
+}
+
+Map<String, dynamic> _$GhFollowUserRegistryPackageSearchToJson(
+        GhFollowUserRegistryPackageSearch instance) =>
+    <String, dynamic>{
+      '__typename': instance.resolveType,
+    };
+
+GhFollowUserProjectOwner _$GhFollowUserProjectOwnerFromJson(
+    Map<String, dynamic> json) {
+  return GhFollowUserProjectOwner()..resolveType = json['__typename'] as String;
+}
+
+Map<String, dynamic> _$GhFollowUserProjectOwnerToJson(
+        GhFollowUserProjectOwner instance) =>
+    <String, dynamic>{
+      '__typename': instance.resolveType,
+    };
+
+GhFollowUserRepositoryOwner _$GhFollowUserRepositoryOwnerFromJson(
+    Map<String, dynamic> json) {
+  return GhFollowUserRepositoryOwner()
+    ..resolveType = json['__typename'] as String;
+}
+
+Map<String, dynamic> _$GhFollowUserRepositoryOwnerToJson(
+        GhFollowUserRepositoryOwner instance) =>
+    <String, dynamic>{
+      '__typename': instance.resolveType,
+    };
+
+GhFollowUserUniformResourceLocatable
+    _$GhFollowUserUniformResourceLocatableFromJson(Map<String, dynamic> json) {
+  return GhFollowUserUniformResourceLocatable()
+    ..resolveType = json['__typename'] as String;
+}
+
+Map<String, dynamic> _$GhFollowUserUniformResourceLocatableToJson(
+        GhFollowUserUniformResourceLocatable instance) =>
+    <String, dynamic>{
+      '__typename': instance.resolveType,
+    };
+
+GhFollowUserProfileOwner _$GhFollowUserProfileOwnerFromJson(
+    Map<String, dynamic> json) {
+  return GhFollowUserProfileOwner()..resolveType = json['__typename'] as String;
+}
+
+Map<String, dynamic> _$GhFollowUserProfileOwnerToJson(
+        GhFollowUserProfileOwner instance) =>
+    <String, dynamic>{
+      '__typename': instance.resolveType,
+    };
+
+GhFollowUserSponsorable _$GhFollowUserSponsorableFromJson(
+    Map<String, dynamic> json) {
+  return GhFollowUserSponsorable()..resolveType = json['__typename'] as String;
+}
+
+Map<String, dynamic> _$GhFollowUserSponsorableToJson(
+        GhFollowUserSponsorable instance) =>
+    <String, dynamic>{
+      '__typename': instance.resolveType,
+    };
+
+GhFollowUserArguments _$GhFollowUserArgumentsFromJson(
+    Map<String, dynamic> json) {
+  return GhFollowUserArguments(
+    id: json['id'] as String,
+  );
+}
+
+Map<String, dynamic> _$GhFollowUserArgumentsToJson(
+        GhFollowUserArguments instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+    };
+
+GhUnfollowUser _$GhUnfollowUserFromJson(Map<String, dynamic> json) {
+  return GhUnfollowUser()
+    ..unfollowUser = json['unfollowUser'] == null
+        ? null
+        : GhUnfollowUserUnfollowUserPayload.fromJson(
+            json['unfollowUser'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$GhUnfollowUserToJson(GhUnfollowUser instance) =>
+    <String, dynamic>{
+      'unfollowUser': instance.unfollowUser?.toJson(),
+    };
+
+GhUnfollowUserUnfollowUserPayload _$GhUnfollowUserUnfollowUserPayloadFromJson(
+    Map<String, dynamic> json) {
+  return GhUnfollowUserUnfollowUserPayload()
+    ..user = json['user'] == null
+        ? null
+        : GhUnfollowUserUser.fromJson(json['user'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$GhUnfollowUserUnfollowUserPayloadToJson(
+        GhUnfollowUserUnfollowUserPayload instance) =>
+    <String, dynamic>{
+      'user': instance.user?.toJson(),
+    };
+
+GhUnfollowUserUser _$GhUnfollowUserUserFromJson(Map<String, dynamic> json) {
+  return GhUnfollowUserUser()
+    ..viewerIsFollowing = json['viewerIsFollowing'] as bool
+    ..resolveType = json['__typename'] as String;
+}
+
+Map<String, dynamic> _$GhUnfollowUserUserToJson(GhUnfollowUserUser instance) =>
+    <String, dynamic>{
+      'viewerIsFollowing': instance.viewerIsFollowing,
+      '__typename': instance.resolveType,
+    };
+
+GhUnfollowUserAuditEntryActor _$GhUnfollowUserAuditEntryActorFromJson(
+    Map<String, dynamic> json) {
+  return GhUnfollowUserAuditEntryActor();
+}
+
+Map<String, dynamic> _$GhUnfollowUserAuditEntryActorToJson(
+        GhUnfollowUserAuditEntryActor instance) =>
+    <String, dynamic>{};
+
+GhUnfollowUserNode _$GhUnfollowUserNodeFromJson(Map<String, dynamic> json) {
+  return GhUnfollowUserNode()..resolveType = json['__typename'] as String;
+}
+
+Map<String, dynamic> _$GhUnfollowUserNodeToJson(GhUnfollowUserNode instance) =>
+    <String, dynamic>{
+      '__typename': instance.resolveType,
+    };
+
+GhUnfollowUserActor _$GhUnfollowUserActorFromJson(Map<String, dynamic> json) {
+  return GhUnfollowUserActor()..resolveType = json['__typename'] as String;
+}
+
+Map<String, dynamic> _$GhUnfollowUserActorToJson(
+        GhUnfollowUserActor instance) =>
+    <String, dynamic>{
+      '__typename': instance.resolveType,
+    };
+
+GhUnfollowUserRegistryPackageOwner _$GhUnfollowUserRegistryPackageOwnerFromJson(
+    Map<String, dynamic> json) {
+  return GhUnfollowUserRegistryPackageOwner()
+    ..resolveType = json['__typename'] as String;
+}
+
+Map<String, dynamic> _$GhUnfollowUserRegistryPackageOwnerToJson(
+        GhUnfollowUserRegistryPackageOwner instance) =>
+    <String, dynamic>{
+      '__typename': instance.resolveType,
+    };
+
+GhUnfollowUserRegistryPackageSearch
+    _$GhUnfollowUserRegistryPackageSearchFromJson(Map<String, dynamic> json) {
+  return GhUnfollowUserRegistryPackageSearch()
+    ..resolveType = json['__typename'] as String;
+}
+
+Map<String, dynamic> _$GhUnfollowUserRegistryPackageSearchToJson(
+        GhUnfollowUserRegistryPackageSearch instance) =>
+    <String, dynamic>{
+      '__typename': instance.resolveType,
+    };
+
+GhUnfollowUserProjectOwner _$GhUnfollowUserProjectOwnerFromJson(
+    Map<String, dynamic> json) {
+  return GhUnfollowUserProjectOwner()
+    ..resolveType = json['__typename'] as String;
+}
+
+Map<String, dynamic> _$GhUnfollowUserProjectOwnerToJson(
+        GhUnfollowUserProjectOwner instance) =>
+    <String, dynamic>{
+      '__typename': instance.resolveType,
+    };
+
+GhUnfollowUserRepositoryOwner _$GhUnfollowUserRepositoryOwnerFromJson(
+    Map<String, dynamic> json) {
+  return GhUnfollowUserRepositoryOwner()
+    ..resolveType = json['__typename'] as String;
+}
+
+Map<String, dynamic> _$GhUnfollowUserRepositoryOwnerToJson(
+        GhUnfollowUserRepositoryOwner instance) =>
+    <String, dynamic>{
+      '__typename': instance.resolveType,
+    };
+
+GhUnfollowUserUniformResourceLocatable
+    _$GhUnfollowUserUniformResourceLocatableFromJson(
+        Map<String, dynamic> json) {
+  return GhUnfollowUserUniformResourceLocatable()
+    ..resolveType = json['__typename'] as String;
+}
+
+Map<String, dynamic> _$GhUnfollowUserUniformResourceLocatableToJson(
+        GhUnfollowUserUniformResourceLocatable instance) =>
+    <String, dynamic>{
+      '__typename': instance.resolveType,
+    };
+
+GhUnfollowUserProfileOwner _$GhUnfollowUserProfileOwnerFromJson(
+    Map<String, dynamic> json) {
+  return GhUnfollowUserProfileOwner()
+    ..resolveType = json['__typename'] as String;
+}
+
+Map<String, dynamic> _$GhUnfollowUserProfileOwnerToJson(
+        GhUnfollowUserProfileOwner instance) =>
+    <String, dynamic>{
+      '__typename': instance.resolveType,
+    };
+
+GhUnfollowUserSponsorable _$GhUnfollowUserSponsorableFromJson(
+    Map<String, dynamic> json) {
+  return GhUnfollowUserSponsorable()
+    ..resolveType = json['__typename'] as String;
+}
+
+Map<String, dynamic> _$GhUnfollowUserSponsorableToJson(
+        GhUnfollowUserSponsorable instance) =>
+    <String, dynamic>{
+      '__typename': instance.resolveType,
+    };
+
+GhUnfollowUserArguments _$GhUnfollowUserArgumentsFromJson(
+    Map<String, dynamic> json) {
+  return GhUnfollowUserArguments(
+    id: json['id'] as String,
+  );
+}
+
+Map<String, dynamic> _$GhUnfollowUserArgumentsToJson(
+        GhUnfollowUserArguments instance) =>
+    <String, dynamic>{
+      'id': instance.id,
     };
