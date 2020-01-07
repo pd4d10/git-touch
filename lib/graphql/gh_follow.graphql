@@ -1,0 +1,12 @@
+mutation GhFollow($id: ID!, $flag: Boolean!) {
+  followUser(input: { userId: $id }) @include(if: $flag) {
+    user {
+      viewerIsFollowing
+    }
+  }
+  unfollowUser(input: { userId: $id }) @skip(if: $flag) {
+    user {
+      viewerIsFollowing
+    }
+  }
+}

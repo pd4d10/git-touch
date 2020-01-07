@@ -377,21 +377,19 @@ class UserScreen extends StatelessWidget {
                   ActionItem(
                     text: user.viewerIsFollowing ? 'Unfollow' : 'Follow',
                     onTap: (_) async {
-                      if (user.viewerIsFollowing) {
-                        final res = await auth.gqlClient.execute(
-                            GhUnfollowUserQuery(
-                                variables:
-                                    GhUnfollowUserArguments(id: user.id)));
+                      final res = await auth.gqlClient.execute(
+                        GhFollowQuery(
+                          variables: GhFollowArguments(
+                            id: user.id,
+                            flag: !user.viewerIsFollowing,
+                          ),
+                        ),
+                      );
+                      setState(() {
                         user.viewerIsFollowing =
-                            res.data.unfollowUser.user.viewerIsFollowing;
-                      } else {
-                        final res = await auth.gqlClient.execute(
-                            GhFollowUserQuery(
-                                variables: GhFollowUserArguments(id: user.id)));
-                        user.viewerIsFollowing =
-                            res.data.followUser.user.viewerIsFollowing;
-                      }
-                      setState(() {});
+                            res.data.unfollowUser?.user?.viewerIsFollowing ??
+                                res.data.followUser.user.viewerIsFollowing;
+                      });
                     },
                   ),
                 if (payload != null) ...[

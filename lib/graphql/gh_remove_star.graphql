@@ -1,7 +1,0 @@
-mutation GhRemoveStar($id: ID!) {
-  removeStar(input: { starrableId: $id }) {
-    starrable {
-      viewerHasStarred
-    }
-  }
-}

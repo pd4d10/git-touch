@@ -147,24 +147,19 @@ class RepositoryScreen extends StatelessWidget {
                       Expanded(child: Container()),
                       CupertinoButton(
                         onPressed: () async {
-                          if (repo.viewerHasStarred) {
-                            final res = await auth.gqlClient.execute(
-                              GhRemoveStarQuery(
-                                variables: GhRemoveStarArguments(id: repo.id),
+                          final res = await auth.gqlClient.execute(
+                            GhStarQuery(
+                              variables: GhStarArguments(
+                                id: repo.id,
+                                flag: !repo.viewerHasStarred,
                               ),
-                            );
-                            repo.viewerHasStarred =
-                                res.data.removeStar.starrable.viewerHasStarred;
-                          } else {
-                            final res = await auth.gqlClient.execute(
-                              GhAddStarQuery(
-                                variables: GhAddStarArguments(id: repo.id),
-                              ),
-                            );
-                            repo.viewerHasStarred =
+                            ),
+                          );
+                          setState(() {
+                            repo.viewerHasStarred = res.data.removeStar
+                                    ?.starrable?.viewerHasStarred ??
                                 res.data.addStar.starrable.viewerHasStarred;
-                          }
-                          setState(() {});
+                          });
                         },
                         minSize: 0,
                         color: theme.palette.primary,

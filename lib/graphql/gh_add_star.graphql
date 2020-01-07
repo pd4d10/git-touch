@@ -1,7 +1,0 @@
-mutation GhAddStar($id: ID!) {
-  addStar(input: { starrableId: $id }) {
-    starrable {
-      viewerHasStarred
-    }
-  }
-}
