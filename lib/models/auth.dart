@@ -272,26 +272,6 @@ class AuthModel with ChangeNotifier {
         .timeout(_timeoutDuration);
   }
 
-  Future<http.Response> postWithCredentials(
-    String url, {
-    String contentType = 'application/json',
-    Map<String, dynamic> body = const {},
-  }) async {
-    return http
-        .post(
-          _apiPrefix + url,
-          headers: {..._headers, HttpHeaders.contentTypeHeader: contentType},
-          body: json.encode(body),
-        )
-        .timeout(_timeoutDuration);
-  }
-
-  Future<void> deleteWithCredentials(String url) async {
-    await http
-        .delete(_apiPrefix + url, headers: _headers)
-        .timeout(_timeoutDuration);
-  }
-
   String _oauthState;
   void redirectToGithubOauth() {
     _oauthState = nanoid();

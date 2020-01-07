@@ -1,8 +1,6 @@
-import 'dart:io';
-
-import 'package:fimber/fimber.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:git_touch/graphql/gh.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/common.dart';
@@ -27,11 +25,8 @@ class IssueFormScreen extends StatefulWidget {
 }
 
 class _IssueFormScreenState extends State<IssueFormScreen> {
-  String get owner => widget.owner;
-  String get name => widget.name;
-
-  String _title = '';
-  String _body = '';
+  var _title = '';
+  var _body = '';
 
   @override
   Widget build(BuildContext context) {
@@ -65,21 +60,24 @@ class _IssueFormScreenState extends State<IssueFormScreen> {
           CupertinoButton.filled(
             child: Text('Submit'),
             onPressed: () async {
-              try {
-                var res =
-                    await Provider.of<AuthModel>(context).postWithCredentials(
-                  '/repos/$owner/$name/issues',
-                  body: {'title': _title, 'body': _body},
-                );
-                if (res.statusCode != HttpStatus.created) {
-                  throw 'Create fail, response: ${res.body}';
-                }
-                await Provider.of<ThemeModel>(context)
-                    .showConfirm(context, Text('Issue created'));
-                Navigator.of(context).pop();
-              } catch (err) {
-                Fimber.e('postWithCredentials failed', ex: err); // TODO:
-              }
+              final auth = Provider.of<AuthModel>(context);
+              final theme = Provider.of<ThemeModel>(context);
+              final r0 = await auth.gqlClient.execute(
+                GhRepoIdQuery(
+                  variables:
+                      GhRepoIdArguments(owner: widget.owner, name: widget.name),
+                ),
+              );
+              final res = await auth.gqlClient.execute(GhCreateIssueQuery(
+                variables: GhCreateIssueArguments(
+                    repoId: r0.data.repository.id, title: _title, body: _body),
+              ));
+              final issue = res.data.createIssue.issue;
+              await theme.push(
+                context,
+                '/${issue.repository.owner.login}/${issue.repository.name}/issues/${issue.number}',
+                replace: true,
+              );
             },
           ),
         ],

@@ -7167,3 +7167,795 @@ class GhUnfollowUserQuery
   GhUnfollowUser parse(Map<String, dynamic> json) =>
       GhUnfollowUser.fromJson(json);
 }
+
+@JsonSerializable(explicitToJson: true)
+class GhCreateIssue with EquatableMixin {
+  GhCreateIssue();
+
+  factory GhCreateIssue.fromJson(Map<String, dynamic> json) =>
+      _$GhCreateIssueFromJson(json);
+
+  GhCreateIssueCreateIssuePayload createIssue;
+
+  @override
+  List<Object> get props => [createIssue];
+  Map<String, dynamic> toJson() => _$GhCreateIssueToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhCreateIssueCreateIssuePayload with EquatableMixin {
+  GhCreateIssueCreateIssuePayload();
+
+  factory GhCreateIssueCreateIssuePayload.fromJson(Map<String, dynamic> json) =>
+      _$GhCreateIssueCreateIssuePayloadFromJson(json);
+
+  GhCreateIssueIssue issue;
+
+  @override
+  List<Object> get props => [issue];
+  Map<String, dynamic> toJson() =>
+      _$GhCreateIssueCreateIssuePayloadToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhCreateIssueIssue extends GhCreateIssueProjectCardItem
+    with EquatableMixin
+    implements
+        GhCreateIssueNode,
+        GhCreateIssueAssignable,
+        GhCreateIssueClosable,
+        GhCreateIssueComment,
+        GhCreateIssueUpdatable,
+        GhCreateIssueUpdatableComment,
+        GhCreateIssueLabelable,
+        GhCreateIssueLockable,
+        GhCreateIssueReactable,
+        GhCreateIssueRepositoryNode,
+        GhCreateIssueSubscribable,
+        GhCreateIssueUniformResourceLocatable {
+  GhCreateIssueIssue();
+
+  factory GhCreateIssueIssue.fromJson(Map<String, dynamic> json) =>
+      _$GhCreateIssueIssueFromJson(json);
+
+  int number;
+
+  @override
+  GhCreateIssueRepository repository;
+
+  @override
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [number, repository, resolveType];
+  Map<String, dynamic> toJson() => _$GhCreateIssueIssueToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhCreateIssueRepository extends GhCreateIssuePinnableItem
+    with EquatableMixin
+    implements
+        GhCreateIssueNode,
+        GhCreateIssueProjectOwner,
+        GhCreateIssueRegistryPackageOwner,
+        GhCreateIssueRegistryPackageSearch,
+        GhCreateIssueSubscribable,
+        GhCreateIssueStarrable,
+        GhCreateIssueUniformResourceLocatable,
+        GhCreateIssueRepositoryInfo {
+  GhCreateIssueRepository();
+
+  factory GhCreateIssueRepository.fromJson(Map<String, dynamic> json) =>
+      _$GhCreateIssueRepositoryFromJson(json);
+
+  @override
+  GhCreateIssueRepositoryOwner owner;
+
+  @override
+  String name;
+
+  @override
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [owner, name, resolveType];
+  Map<String, dynamic> toJson() => _$GhCreateIssueRepositoryToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhCreateIssueRepositoryOwner with EquatableMixin {
+  GhCreateIssueRepositoryOwner();
+
+  factory GhCreateIssueRepositoryOwner.fromJson(Map<String, dynamic> json) =>
+      _$GhCreateIssueRepositoryOwnerFromJson(json);
+
+  String login;
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [login, resolveType];
+  Map<String, dynamic> toJson() => _$GhCreateIssueRepositoryOwnerToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhCreateIssuePinnableItem with EquatableMixin {
+  GhCreateIssuePinnableItem();
+
+  factory GhCreateIssuePinnableItem.fromJson(Map<String, dynamic> json) =>
+      _$GhCreateIssuePinnableItemFromJson(json);
+
+  @override
+  List<Object> get props => [];
+  Map<String, dynamic> toJson() => _$GhCreateIssuePinnableItemToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhCreateIssueNode with EquatableMixin {
+  GhCreateIssueNode();
+
+  factory GhCreateIssueNode.fromJson(Map<String, dynamic> json) =>
+      _$GhCreateIssueNodeFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhCreateIssueNodeToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhCreateIssueProjectOwner with EquatableMixin {
+  GhCreateIssueProjectOwner();
+
+  factory GhCreateIssueProjectOwner.fromJson(Map<String, dynamic> json) =>
+      _$GhCreateIssueProjectOwnerFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhCreateIssueProjectOwnerToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhCreateIssueRegistryPackageOwner with EquatableMixin {
+  GhCreateIssueRegistryPackageOwner();
+
+  factory GhCreateIssueRegistryPackageOwner.fromJson(
+          Map<String, dynamic> json) =>
+      _$GhCreateIssueRegistryPackageOwnerFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() =>
+      _$GhCreateIssueRegistryPackageOwnerToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhCreateIssueRegistryPackageSearch with EquatableMixin {
+  GhCreateIssueRegistryPackageSearch();
+
+  factory GhCreateIssueRegistryPackageSearch.fromJson(
+          Map<String, dynamic> json) =>
+      _$GhCreateIssueRegistryPackageSearchFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() =>
+      _$GhCreateIssueRegistryPackageSearchToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhCreateIssueSubscribable with EquatableMixin {
+  GhCreateIssueSubscribable();
+
+  factory GhCreateIssueSubscribable.fromJson(Map<String, dynamic> json) =>
+      _$GhCreateIssueSubscribableFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhCreateIssueSubscribableToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhCreateIssueStarrable with EquatableMixin {
+  GhCreateIssueStarrable();
+
+  factory GhCreateIssueStarrable.fromJson(Map<String, dynamic> json) =>
+      _$GhCreateIssueStarrableFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhCreateIssueStarrableToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhCreateIssueUniformResourceLocatable with EquatableMixin {
+  GhCreateIssueUniformResourceLocatable();
+
+  factory GhCreateIssueUniformResourceLocatable.fromJson(
+          Map<String, dynamic> json) =>
+      _$GhCreateIssueUniformResourceLocatableFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() =>
+      _$GhCreateIssueUniformResourceLocatableToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhCreateIssueRepositoryInfo with EquatableMixin {
+  GhCreateIssueRepositoryInfo();
+
+  factory GhCreateIssueRepositoryInfo.fromJson(Map<String, dynamic> json) =>
+      _$GhCreateIssueRepositoryInfoFromJson(json);
+
+  GhCreateIssueRepositoryOwner owner;
+
+  String name;
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [owner, name, resolveType];
+  Map<String, dynamic> toJson() => _$GhCreateIssueRepositoryInfoToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhCreateIssueProjectCardItem with EquatableMixin {
+  GhCreateIssueProjectCardItem();
+
+  factory GhCreateIssueProjectCardItem.fromJson(Map<String, dynamic> json) =>
+      _$GhCreateIssueProjectCardItemFromJson(json);
+
+  @override
+  List<Object> get props => [];
+  Map<String, dynamic> toJson() => _$GhCreateIssueProjectCardItemToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhCreateIssueAssignable with EquatableMixin {
+  GhCreateIssueAssignable();
+
+  factory GhCreateIssueAssignable.fromJson(Map<String, dynamic> json) =>
+      _$GhCreateIssueAssignableFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhCreateIssueAssignableToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhCreateIssueClosable with EquatableMixin {
+  GhCreateIssueClosable();
+
+  factory GhCreateIssueClosable.fromJson(Map<String, dynamic> json) =>
+      _$GhCreateIssueClosableFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhCreateIssueClosableToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhCreateIssueComment with EquatableMixin {
+  GhCreateIssueComment();
+
+  factory GhCreateIssueComment.fromJson(Map<String, dynamic> json) =>
+      _$GhCreateIssueCommentFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhCreateIssueCommentToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhCreateIssueUpdatable with EquatableMixin {
+  GhCreateIssueUpdatable();
+
+  factory GhCreateIssueUpdatable.fromJson(Map<String, dynamic> json) =>
+      _$GhCreateIssueUpdatableFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhCreateIssueUpdatableToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhCreateIssueUpdatableComment with EquatableMixin {
+  GhCreateIssueUpdatableComment();
+
+  factory GhCreateIssueUpdatableComment.fromJson(Map<String, dynamic> json) =>
+      _$GhCreateIssueUpdatableCommentFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhCreateIssueUpdatableCommentToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhCreateIssueLabelable with EquatableMixin {
+  GhCreateIssueLabelable();
+
+  factory GhCreateIssueLabelable.fromJson(Map<String, dynamic> json) =>
+      _$GhCreateIssueLabelableFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhCreateIssueLabelableToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhCreateIssueLockable with EquatableMixin {
+  GhCreateIssueLockable();
+
+  factory GhCreateIssueLockable.fromJson(Map<String, dynamic> json) =>
+      _$GhCreateIssueLockableFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhCreateIssueLockableToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhCreateIssueReactable with EquatableMixin {
+  GhCreateIssueReactable();
+
+  factory GhCreateIssueReactable.fromJson(Map<String, dynamic> json) =>
+      _$GhCreateIssueReactableFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhCreateIssueReactableToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhCreateIssueRepositoryNode with EquatableMixin {
+  GhCreateIssueRepositoryNode();
+
+  factory GhCreateIssueRepositoryNode.fromJson(Map<String, dynamic> json) =>
+      _$GhCreateIssueRepositoryNodeFromJson(json);
+
+  GhCreateIssueRepository repository;
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [repository, resolveType];
+  Map<String, dynamic> toJson() => _$GhCreateIssueRepositoryNodeToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhCreateIssueArguments extends JsonSerializable with EquatableMixin {
+  GhCreateIssueArguments({this.repoId, this.title, this.body});
+
+  factory GhCreateIssueArguments.fromJson(Map<String, dynamic> json) =>
+      _$GhCreateIssueArgumentsFromJson(json);
+
+  final String repoId;
+
+  final String title;
+
+  final String body;
+
+  @override
+  List<Object> get props => [repoId, title, body];
+  Map<String, dynamic> toJson() => _$GhCreateIssueArgumentsToJson(this);
+}
+
+class GhCreateIssueQuery
+    extends GraphQLQuery<GhCreateIssue, GhCreateIssueArguments> {
+  GhCreateIssueQuery({this.variables});
+
+  @override
+  final DocumentNode document = DocumentNode(definitions: [
+    OperationDefinitionNode(
+        type: OperationType.mutation,
+        name: NameNode(value: 'GhCreateIssue'),
+        variableDefinitions: [
+          VariableDefinitionNode(
+              variable: VariableNode(name: NameNode(value: 'repoId')),
+              type: NamedTypeNode(name: NameNode(value: 'ID'), isNonNull: true),
+              defaultValue: DefaultValueNode(value: null),
+              directives: []),
+          VariableDefinitionNode(
+              variable: VariableNode(name: NameNode(value: 'title')),
+              type: NamedTypeNode(
+                  name: NameNode(value: 'String'), isNonNull: true),
+              defaultValue: DefaultValueNode(value: null),
+              directives: []),
+          VariableDefinitionNode(
+              variable: VariableNode(name: NameNode(value: 'body')),
+              type: NamedTypeNode(
+                  name: NameNode(value: 'String'), isNonNull: true),
+              defaultValue: DefaultValueNode(value: null),
+              directives: [])
+        ],
+        directives: [],
+        selectionSet: SelectionSetNode(selections: [
+          FieldNode(
+              name: NameNode(value: 'createIssue'),
+              alias: null,
+              arguments: [
+                ArgumentNode(
+                    name: NameNode(value: 'input'),
+                    value: ObjectValueNode(fields: [
+                      ObjectFieldNode(
+                          name: NameNode(value: 'repositoryId'),
+                          value: VariableNode(name: NameNode(value: 'repoId'))),
+                      ObjectFieldNode(
+                          name: NameNode(value: 'title'),
+                          value: VariableNode(name: NameNode(value: 'title'))),
+                      ObjectFieldNode(
+                          name: NameNode(value: 'body'),
+                          value: VariableNode(name: NameNode(value: 'body')))
+                    ]))
+              ],
+              directives: [],
+              selectionSet: SelectionSetNode(selections: [
+                FieldNode(
+                    name: NameNode(value: 'issue'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: SelectionSetNode(selections: [
+                      FieldNode(
+                          name: NameNode(value: 'number'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'repository'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: SelectionSetNode(selections: [
+                            FieldNode(
+                                name: NameNode(value: 'owner'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: SelectionSetNode(selections: [
+                                  FieldNode(
+                                      name: NameNode(value: 'login'),
+                                      alias: null,
+                                      arguments: [],
+                                      directives: [],
+                                      selectionSet: null)
+                                ])),
+                            FieldNode(
+                                name: NameNode(value: 'name'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null)
+                          ]))
+                    ]))
+              ]))
+        ]))
+  ]);
+
+  @override
+  final String operationName = 'GhCreateIssue';
+
+  @override
+  final GhCreateIssueArguments variables;
+
+  @override
+  List<Object> get props => [document, operationName, variables];
+  @override
+  GhCreateIssue parse(Map<String, dynamic> json) =>
+      GhCreateIssue.fromJson(json);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhRepoId with EquatableMixin {
+  GhRepoId();
+
+  factory GhRepoId.fromJson(Map<String, dynamic> json) =>
+      _$GhRepoIdFromJson(json);
+
+  GhRepoIdRepository repository;
+
+  @override
+  List<Object> get props => [repository];
+  Map<String, dynamic> toJson() => _$GhRepoIdToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhRepoIdRepository extends GhRepoIdPinnableItem
+    with EquatableMixin
+    implements
+        GhRepoIdNode,
+        GhRepoIdProjectOwner,
+        GhRepoIdRegistryPackageOwner,
+        GhRepoIdRegistryPackageSearch,
+        GhRepoIdSubscribable,
+        GhRepoIdStarrable,
+        GhRepoIdUniformResourceLocatable,
+        GhRepoIdRepositoryInfo {
+  GhRepoIdRepository();
+
+  factory GhRepoIdRepository.fromJson(Map<String, dynamic> json) =>
+      _$GhRepoIdRepositoryFromJson(json);
+
+  @override
+  String id;
+
+  @override
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [id, resolveType];
+  Map<String, dynamic> toJson() => _$GhRepoIdRepositoryToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhRepoIdPinnableItem with EquatableMixin {
+  GhRepoIdPinnableItem();
+
+  factory GhRepoIdPinnableItem.fromJson(Map<String, dynamic> json) =>
+      _$GhRepoIdPinnableItemFromJson(json);
+
+  @override
+  List<Object> get props => [];
+  Map<String, dynamic> toJson() => _$GhRepoIdPinnableItemToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhRepoIdNode with EquatableMixin {
+  GhRepoIdNode();
+
+  factory GhRepoIdNode.fromJson(Map<String, dynamic> json) =>
+      _$GhRepoIdNodeFromJson(json);
+
+  String id;
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [id, resolveType];
+  Map<String, dynamic> toJson() => _$GhRepoIdNodeToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhRepoIdProjectOwner with EquatableMixin {
+  GhRepoIdProjectOwner();
+
+  factory GhRepoIdProjectOwner.fromJson(Map<String, dynamic> json) =>
+      _$GhRepoIdProjectOwnerFromJson(json);
+
+  String id;
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [id, resolveType];
+  Map<String, dynamic> toJson() => _$GhRepoIdProjectOwnerToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhRepoIdRegistryPackageOwner with EquatableMixin {
+  GhRepoIdRegistryPackageOwner();
+
+  factory GhRepoIdRegistryPackageOwner.fromJson(Map<String, dynamic> json) =>
+      _$GhRepoIdRegistryPackageOwnerFromJson(json);
+
+  String id;
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [id, resolveType];
+  Map<String, dynamic> toJson() => _$GhRepoIdRegistryPackageOwnerToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhRepoIdRegistryPackageSearch with EquatableMixin {
+  GhRepoIdRegistryPackageSearch();
+
+  factory GhRepoIdRegistryPackageSearch.fromJson(Map<String, dynamic> json) =>
+      _$GhRepoIdRegistryPackageSearchFromJson(json);
+
+  String id;
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [id, resolveType];
+  Map<String, dynamic> toJson() => _$GhRepoIdRegistryPackageSearchToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhRepoIdSubscribable with EquatableMixin {
+  GhRepoIdSubscribable();
+
+  factory GhRepoIdSubscribable.fromJson(Map<String, dynamic> json) =>
+      _$GhRepoIdSubscribableFromJson(json);
+
+  String id;
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [id, resolveType];
+  Map<String, dynamic> toJson() => _$GhRepoIdSubscribableToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhRepoIdStarrable with EquatableMixin {
+  GhRepoIdStarrable();
+
+  factory GhRepoIdStarrable.fromJson(Map<String, dynamic> json) =>
+      _$GhRepoIdStarrableFromJson(json);
+
+  String id;
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [id, resolveType];
+  Map<String, dynamic> toJson() => _$GhRepoIdStarrableToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhRepoIdUniformResourceLocatable with EquatableMixin {
+  GhRepoIdUniformResourceLocatable();
+
+  factory GhRepoIdUniformResourceLocatable.fromJson(
+          Map<String, dynamic> json) =>
+      _$GhRepoIdUniformResourceLocatableFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() =>
+      _$GhRepoIdUniformResourceLocatableToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhRepoIdRepositoryInfo with EquatableMixin {
+  GhRepoIdRepositoryInfo();
+
+  factory GhRepoIdRepositoryInfo.fromJson(Map<String, dynamic> json) =>
+      _$GhRepoIdRepositoryInfoFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhRepoIdRepositoryInfoToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhRepoIdArguments extends JsonSerializable with EquatableMixin {
+  GhRepoIdArguments({this.owner, this.name});
+
+  factory GhRepoIdArguments.fromJson(Map<String, dynamic> json) =>
+      _$GhRepoIdArgumentsFromJson(json);
+
+  final String owner;
+
+  final String name;
+
+  @override
+  List<Object> get props => [owner, name];
+  Map<String, dynamic> toJson() => _$GhRepoIdArgumentsToJson(this);
+}
+
+class GhRepoIdQuery extends GraphQLQuery<GhRepoId, GhRepoIdArguments> {
+  GhRepoIdQuery({this.variables});
+
+  @override
+  final DocumentNode document = DocumentNode(definitions: [
+    OperationDefinitionNode(
+        type: OperationType.query,
+        name: NameNode(value: 'GhRepoId'),
+        variableDefinitions: [
+          VariableDefinitionNode(
+              variable: VariableNode(name: NameNode(value: 'owner')),
+              type: NamedTypeNode(
+                  name: NameNode(value: 'String'), isNonNull: true),
+              defaultValue: DefaultValueNode(value: null),
+              directives: []),
+          VariableDefinitionNode(
+              variable: VariableNode(name: NameNode(value: 'name')),
+              type: NamedTypeNode(
+                  name: NameNode(value: 'String'), isNonNull: true),
+              defaultValue: DefaultValueNode(value: null),
+              directives: [])
+        ],
+        directives: [],
+        selectionSet: SelectionSetNode(selections: [
+          FieldNode(
+              name: NameNode(value: 'repository'),
+              alias: null,
+              arguments: [
+                ArgumentNode(
+                    name: NameNode(value: 'owner'),
+                    value: VariableNode(name: NameNode(value: 'owner'))),
+                ArgumentNode(
+                    name: NameNode(value: 'name'),
+                    value: VariableNode(name: NameNode(value: 'name')))
+              ],
+              directives: [],
+              selectionSet: SelectionSetNode(selections: [
+                FieldNode(
+                    name: NameNode(value: 'id'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null)
+              ]))
+        ]))
+  ]);
+
+  @override
+  final String operationName = 'GhRepoId';
+
+  @override
+  final GhRepoIdArguments variables;
+
+  @override
+  List<Object> get props => [document, operationName, variables];
+  @override
+  GhRepoId parse(Map<String, dynamic> json) => GhRepoId.fromJson(json);
+}

@@ -1,0 +1,13 @@
+mutation GhCreateIssue($repoId: ID!, $title: String!, $body: String!) {
+  createIssue(input: { repositoryId: $repoId, title: $title, body: $body }) {
+    issue {
+      number
+      repository {
+        owner {
+          login
+        }
+        name
+      }
+    }
+  }
+}
