@@ -42,7 +42,7 @@ fragment T on Ref {
   }
 }
 
-query(
+query GhCommits(
   $owner: String!
   $name: String!
   $ref: String!

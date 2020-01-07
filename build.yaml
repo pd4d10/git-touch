@@ -25,33 +25,8 @@ targets:
         options:
           schema_mapping:
             - schema: lib/github.schema.json
-              output: lib/graphql/github_user.dart
-              queries_glob: lib/graphql/github_user.graphql
-              resolve_type_field: __typename
-              add_query_prefix: true
-            - schema: lib/github.schema.json
-              output: lib/graphql/github_repository.dart
-              queries_glob: lib/graphql/github_repository.graphql
-              resolve_type_field: __typename
-              add_query_prefix: true
-            - schema: lib/github.schema.json
-              output: lib/graphql/github_object.dart
-              queries_glob: lib/graphql/github_object.graphql
-              resolve_type_field: __typename
-              add_query_prefix: true
-            - schema: lib/github.schema.json
-              output: lib/graphql/github_repositories.dart
-              queries_glob: lib/graphql/github_repositories.graphql
-              resolve_type_field: __typename
-              add_query_prefix: true
-            - schema: lib/github.schema.json
-              output: lib/graphql/github_users.dart
-              queries_glob: lib/graphql/github_users.graphql
-              resolve_type_field: __typename
-              add_query_prefix: true
-            - schema: lib/github.schema.json
-              output: lib/graphql/github_commits.dart
-              queries_glob: lib/graphql/github_commits.graphql
+              output: lib/graphql/gh.dart
+              queries_glob: lib/graphql/gh_*.graphql
               resolve_type_field: __typename
               add_query_prefix: true
           scalar_mapping:

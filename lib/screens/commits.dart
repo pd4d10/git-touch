@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:git_touch/graphql/github_commits.dart';
+import 'package:git_touch/graphql/gh.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/list_stateful.dart';
@@ -22,18 +22,18 @@ class CommitsScreen extends StatelessWidget {
 
   CommitsScreen(this.owner, this.name, {this.branch});
 
-  Future<ListPayload<GithubCommitsCommit, String>> _query(BuildContext context,
+  Future<ListPayload<GhCommitsCommit, String>> _query(BuildContext context,
       [String cursor]) async {
     final res = await Provider.of<AuthModel>(context).gqlClient.execute(
-        GithubCommitsQuery(
-            variables: GithubCommitsArguments(
+        GhCommitsQuery(
+            variables: GhCommitsArguments(
                 owner: owner,
                 name: name,
                 hasRef: branch != null,
                 ref: branch ?? '',
                 after: cursor)));
     final ref = res.data.repository.defaultBranchRef ?? res.data.repository.ref;
-    final history = (ref.target as GithubCommitsCommit).history;
+    final history = (ref.target as GhCommitsCommit).history;
     return ListPayload(
       cursor: history.pageInfo.endCursor,
       hasMore: history.pageInfo.hasNextPage,
@@ -41,12 +41,12 @@ class CommitsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildStatus(GithubCommitsStatusState state) {
+  Widget _buildStatus(GhCommitsStatusState state) {
     const size = 18.0;
     switch (state) {
-      case GithubCommitsStatusState.SUCCESS:
+      case GhCommitsStatusState.SUCCESS:
         return Icon(Octicons.check, color: GithubPalette.open, size: size);
-      case GithubCommitsStatusState.FAILURE:
+      case GhCommitsStatusState.FAILURE:
         return Icon(Octicons.x, color: GithubPalette.closed, size: size);
       default:
         return Container();
@@ -57,7 +57,7 @@ class CommitsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
 
-    return ListStatefulScaffold<GithubCommitsCommit, String>(
+    return ListStatefulScaffold<GhCommitsCommit, String>(
       title: AppBarTitle('Commits'),
       onRefresh: () => _query(context),
       onLoadMore: (cursor) => _query(context, cursor),

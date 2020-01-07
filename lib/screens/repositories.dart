@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:git_touch/graphql/github_repositories.dart';
+import 'package:git_touch/graphql/gh.dart';
 import 'package:git_touch/scaffolds/list_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
@@ -19,17 +19,16 @@ class RepositoriesScreen extends StatelessWidget {
       : title = 'Stars',
         isStar = true;
 
-  Future<ListPayload<GithubRepositoriesRepository, String>> _query(
-      BuildContext context,
+  Future<ListPayload<GhReposRepository, String>> _query(BuildContext context,
       [String cursor]) async {
     final res = await Provider.of<AuthModel>(context).gqlClient.execute(
-        GithubRepositoriesQuery(
-            variables: GithubRepositoriesArguments(
-                owner: owner, isStar: isStar, after: cursor)));
+        GhReposQuery(
+            variables:
+                GhReposArguments(owner: owner, isStar: isStar, after: cursor)));
     final data = res.data.repositoryOwner;
     switch (data.resolveType) {
       case 'User':
-        final user = data as GithubRepositoriesUser;
+        final user = data as GhReposUser;
         if (isStar) {
           return ListPayload(
             cursor: user.starredRepositories.pageInfo.endCursor,
@@ -45,7 +44,7 @@ class RepositoriesScreen extends StatelessWidget {
         }
         break;
       case 'Organization':
-        final org = data as GithubRepositoriesOrganization;
+        final org = data as GhReposOrganization;
         return ListPayload(
           cursor: org.pinnableItems.pageInfo.endCursor,
           items: org.pinnableItems.nodes,
@@ -58,7 +57,7 @@ class RepositoriesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListStatefulScaffold<GithubRepositoriesRepository, String>(
+    return ListStatefulScaffold<GhReposRepository, String>(
         title: AppBarTitle(title),
         onRefresh: () => _query(context),
         onLoadMore: (cursor) => _query(context, cursor),

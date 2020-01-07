@@ -1,4 +1,4 @@
-query($owner: String!, $after: String, $isStar: Boolean!) {
+query GhRepos($owner: String!, $after: String, $isStar: Boolean!) {
   repositoryOwner(login: $owner) {
     __typename
     login

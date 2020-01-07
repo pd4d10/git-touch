@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:filesize/filesize.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:git_touch/graphql/github_repository.dart';
+import 'package:git_touch/graphql/gh.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
@@ -35,10 +35,10 @@ class RepositoryScreen extends StatelessWidget {
 
   RepositoryScreen(this.owner, this.name, {this.branch});
 
-  Future<GithubRepositoryRepository> _query(BuildContext context) async {
+  Future<GhRepoRepository> _query(BuildContext context) async {
     var res = await Provider.of<AuthModel>(context).gqlClient.execute(
-        GithubRepositoryQuery(
-            variables: GithubRepositoryArguments(
+        GhRepoQuery(
+            variables: GhRepoArguments(
                 owner: owner,
                 name: name,
                 branchSpecified: branch != null,
@@ -61,14 +61,14 @@ class RepositoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RefreshStatefulScaffold<Tuple2<GithubRepositoryRepository, String>>(
+    return RefreshStatefulScaffold<Tuple2<GhRepoRepository, String>>(
       title: AppBarTitle('Repository'),
       fetchData: () async {
         final rs = await Future.wait([
           _query(context),
           _fetchReadme(context),
         ]);
-        return Tuple2(rs[0] as GithubRepositoryRepository, rs[1] as String);
+        return Tuple2(rs[0] as GhRepoRepository, rs[1] as String);
       },
       actionBuilder: (data, setState) {
         final repo = data.item1;
@@ -251,7 +251,7 @@ class RepositoryScreen extends StatelessWidget {
                         height: 400,
                         child: charts.PieChart(
                           [
-                            charts.Series<GithubRepositoryLanguageEdge, String>(
+                            charts.Series<GhRepoLanguageEdge, String>(
                               id: 'languages',
                               domainFn: (v, _) => v.node.name,
                               measureFn: (v, _) => v.size,
@@ -332,7 +332,7 @@ class RepositoryScreen extends StatelessWidget {
                 TableViewItem(
                   leftIconData: Octicons.history,
                   text: Text('Commits'),
-                  rightWidget: Text((ref.target as GithubRepositoryCommit)
+                  rightWidget: Text((ref.target as GhRepoCommit)
                       .history
                       ?.totalCount
                       .toString()),

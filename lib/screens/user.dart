@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:git_touch/graphql/github_user.dart';
+import 'package:git_touch/graphql/gh.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/screens/users.dart';
@@ -45,10 +45,10 @@ class UserScreen extends StatelessWidget {
 
   bool get isViewer => login.isEmpty;
 
-  Iterable<Widget> _buildPinnedItems(Iterable<GithubUserRepository> pinnedItems,
-      Iterable<GithubUserRepository> repositories) {
+  Iterable<Widget> _buildPinnedItems(Iterable<GhUserRepository> pinnedItems,
+      Iterable<GhUserRepository> repositories) {
     String title;
-    Iterable<GithubUserRepository> items = [];
+    Iterable<GhUserRepository> items = [];
 
     if (pinnedItems.isNotEmpty) {
       title = 'pinned repositories';
@@ -148,7 +148,7 @@ class UserScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildUser(BuildContext context, GithubUserUser user) {
+  Widget _buildUser(BuildContext context, GhUserUser user) {
     final theme = Provider.of<ThemeModel>(context);
     final login = user.login;
     return Column(
@@ -280,16 +280,15 @@ class UserScreen extends StatelessWidget {
         else
           ..._buildPinnedItems(
               user.pinnedItems.nodes
-                  .where((n) => n is GithubUserRepository)
-                  .cast<GithubUserRepository>(),
+                  .where((n) => n is GhUserRepository)
+                  .cast<GhUserRepository>(),
               user.repositories.nodes),
         CommonStyle.verticalGap,
       ],
     );
   }
 
-  Widget _buildOrganization(
-      BuildContext context, GithubUserOrganization payload) {
+  Widget _buildOrganization(BuildContext context, GhUserOrganization payload) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
@@ -346,11 +345,11 @@ class UserScreen extends StatelessWidget {
         CommonStyle.verticalGap,
         ..._buildPinnedItems(
           payload.pinnedItems.nodes
-              .where((n) => n is GithubUserRepository)
-              .cast<GithubUserRepository>(),
+              .where((n) => n is GhUserRepository)
+              .cast<GhUserRepository>(),
           payload.pinnableItems.nodes
-              .where((n) => n is GithubUserRepository)
-              .cast<GithubUserRepository>(),
+              .where((n) => n is GhUserRepository)
+              .cast<GhUserRepository>(),
         ),
         CommonStyle.verticalGap,
       ],
@@ -359,19 +358,18 @@ class UserScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RefreshStatefulScaffold<GithubUserRepositoryOwner>(
+    return RefreshStatefulScaffold<GhUserRepositoryOwner>(
       fetchData: () async {
         final data = await Provider.of<AuthModel>(context).gqlClient.execute(
-            GithubUserQuery(
-                variables:
-                    GithubUserArguments(login: login, isViewer: isViewer)));
+            GhUserQuery(
+                variables: GhUserArguments(login: login, isViewer: isViewer)));
         return isViewer ? data.data.viewer : data.data.repositoryOwner;
       },
       title: AppBarTitle(isViewer ? 'Me' : login),
       actionBuilder: (payload, _) {
         switch (payload.resolveType) {
           case 'User':
-            final user = payload as GithubUserUser;
+            final user = payload as GhUserUser;
             return ActionButton(
               title: 'User Actions',
               items: [
@@ -398,7 +396,7 @@ class UserScreen extends StatelessWidget {
               ],
             );
           case 'Organization':
-            final organization = payload as GithubUserOrganization;
+            final organization = payload as GhUserOrganization;
             return ActionButton(
               title: 'Organization Actions',
               items: [
@@ -414,14 +412,13 @@ class UserScreen extends StatelessWidget {
       },
       bodyBuilder: (payload, _) {
         if (isViewer) {
-          return _buildUser(context, payload as GithubUserUser);
+          return _buildUser(context, payload as GhUserUser);
         }
         switch (payload.resolveType) {
           case 'User':
-            return _buildUser(context, payload as GithubUserUser);
+            return _buildUser(context, payload as GhUserUser);
           case 'Organization':
-            return _buildOrganization(
-                context, payload as GithubUserOrganization);
+            return _buildOrganization(context, payload as GhUserOrganization);
           default:
             return null;
         }

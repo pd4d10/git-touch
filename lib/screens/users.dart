@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:git_touch/graphql/github_users.dart';
+import 'package:git_touch/graphql/gh.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/list_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
@@ -40,11 +40,11 @@ class UsersScreen extends StatelessWidget {
     }
   }
 
-  Future<ListPayload<GithubUsersUser, String>> _queryUsers(BuildContext context,
+  Future<ListPayload<GhUsersUser, String>> _queryUsers(BuildContext context,
       [String cursor]) async {
     final res = await Provider.of<AuthModel>(context).gqlClient.execute(
-        GithubUsersQuery(
-            variables: GithubUsersArguments(
+        GhUsersQuery(
+            variables: GhUsersArguments(
                 login: login,
                 repoName: repoName,
                 isFollowers: type == UsersScreenType.follower,
@@ -139,7 +139,7 @@ class UsersScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListStatefulScaffold<GithubUsersUser, String>(
+    return ListStatefulScaffold<GhUsersUser, String>(
       title: AppBarTitle(_title),
       onRefresh: () => _queryUsers(context),
       onLoadMore: (cursor) => _queryUsers(context, cursor),

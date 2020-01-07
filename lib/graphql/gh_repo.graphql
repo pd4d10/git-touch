@@ -1,4 +1,4 @@
-query(
+query GhRepo(
   $owner: String!
   $name: String!
   $branchSpecified: Boolean!

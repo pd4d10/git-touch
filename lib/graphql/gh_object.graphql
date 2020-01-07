@@ -1,4 +1,4 @@
-query($owner: String!, $name: String!, $expression: String!) {
+query GhObject($owner: String!, $name: String!, $expression: String!) {
   repository(owner: $owner, name: $name) {
     object(expression: $expression) {
       __typename

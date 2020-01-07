@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_highlight/theme_map.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:git_touch/graphql/github_object.dart';
+import 'package:git_touch/graphql/gh.dart';
 import 'package:git_touch/models/code.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
@@ -54,7 +54,7 @@ class ObjectScreen extends StatelessWidget {
 
   static const _iconDefaultColor = PrimerColors.blue300;
 
-  Widget _buildIcon(GithubObjectTreeEntry item) {
+  Widget _buildIcon(GhObjectTreeEntry item) {
     switch (item.type) {
       case 'blob':
         return SetiIcon(item.name, size: 36);
@@ -74,14 +74,14 @@ class ObjectScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RefreshStatefulScaffold<GithubObjectGitObject>(
+    return RefreshStatefulScaffold<GhObjectGitObject>(
       canRefresh: !_isImage,
       title: AppBarTitle(_path.isEmpty ? 'Files' : _path),
       fetchData: () async {
         final res = await Provider.of<AuthModel>(context)
             .gqlClient
-            .execute(GithubObjectQuery(
-              variables: GithubObjectArguments(
+            .execute(GhObjectQuery(
+              variables: GhObjectArguments(
                 owner: owner,
                 name: name,
                 expression: _expression,
@@ -90,7 +90,7 @@ class ObjectScreen extends StatelessWidget {
         final data = res.data.repository.object;
 
         if (data.resolveType == 'Tree') {
-          (data as GithubObjectTree).entries.sort((a, b) {
+          (data as GhObjectTree).entries.sort((a, b) {
             if (a.type == 'tree' && b.type == 'blob') {
               return -1;
             }
@@ -106,7 +106,7 @@ class ObjectScreen extends StatelessWidget {
       actionBuilder: (data, _) {
         switch (data.resolveType) {
           case 'Blob':
-            final blob = data as GithubObjectBlob;
+            final blob = data as GhObjectBlob;
             return ActionEntry(
               iconData: Octicons.settings,
               onTap: () {
@@ -124,7 +124,7 @@ class ObjectScreen extends StatelessWidget {
       bodyBuilder: (data, _) {
         switch (data.resolveType) {
           case 'Tree':
-            final tree = data as GithubObjectTree;
+            final tree = data as GhObjectTree;
 
             return TableView(
               hasIcon: true,
@@ -143,7 +143,7 @@ class ObjectScreen extends StatelessWidget {
           case 'Blob':
             final codeProvider = Provider.of<CodeModel>(context);
             final theme = Provider.of<ThemeModel>(context);
-            final text = (data as GithubObjectBlob).text;
+            final text = (data as GhObjectBlob).text;
 
             switch (_extname) {
               // TODO: All image types

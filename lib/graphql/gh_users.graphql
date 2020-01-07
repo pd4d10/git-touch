@@ -1,4 +1,4 @@
-query(
+query GhUsers(
   $login: String!
   $repoName: String!
   $after: String
