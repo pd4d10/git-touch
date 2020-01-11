@@ -240,10 +240,12 @@ class RepositoryScreen extends StatelessWidget {
                 ),
               ],
             ),
-            CommonStyle.verticalGap,
-            if (repo.languages.edges.isNotEmpty)
-              GestureDetector(
-                onTap: () {
+            if (repo.languages.edges.isNotEmpty) ...[
+              CommonStyle.border,
+              CupertinoButton(
+                padding: EdgeInsets.zero,
+                minSize: 0,
+                onPressed: () {
                   showCupertinoModalPopup(
                     context: context,
                     builder: (context) {
@@ -305,6 +307,7 @@ class RepositoryScreen extends StatelessWidget {
                   ),
                 ),
               ),
+            ],
             TableView(
               hasIcon: true,
               items: [
@@ -373,7 +376,6 @@ class RepositoryScreen extends StatelessWidget {
                 ],
               ],
             ),
-            CommonStyle.verticalGap,
             if (readme != null)
               Container(
                 padding: CommonStyle.padding,

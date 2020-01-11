@@ -15,7 +15,6 @@ import 'package:git_touch/widgets/text_contains_organization.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/widgets/action_button.dart';
-import 'package:timeago/timeago.dart' as t;
 
 final userRouter = RouterScreen(
   '/:login',
@@ -84,7 +83,8 @@ class UserScreen extends StatelessWidget {
   }
 
   Widget _buildHeader(BuildContext context, String avatarUrl, String name,
-      String login, DateTime createdAt, String bio) {
+      String login, DateTime createdAt, String bio,
+      {Widget followWidget}) {
     final theme = Provider.of<ThemeModel>(context);
 
     return Container(
@@ -95,59 +95,51 @@ class UserScreen extends StatelessWidget {
           Row(
             children: <Widget>[
               Avatar(url: avatarUrl, size: AvatarSize.large),
-              SizedBox(width: 10),
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        if (name != null) ...[
-                          Text(
-                            name,
-                            style: TextStyle(
-                              color: theme.palette.primary,
-                              fontSize: 19,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          SizedBox(width: 4),
-                        ],
-                        Text(
-                          '($login)',
-                          style: TextStyle(
-                            color: theme.palette.secondaryText,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 6),
-                    Row(
-                      children: <Widget>[
-                        Icon(
-                          Octicons.clock,
-                          size: 15,
-                          color: theme.palette.secondaryText,
-                        ),
-                        SizedBox(width: 4),
-                        Text(
-                          'Joined on ${dateFormat.format(createdAt)}',
-                          style: TextStyle(
-                            color: theme.palette.secondaryText,
-                            fontSize: 15,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+              if (followWidget != null) ...[
+                Expanded(child: Container()),
+                followWidget,
+              ]
+            ],
+          ),
+          SizedBox(height: 8),
+          if (name != null) ...[
+            Text(
+              name,
+              style: TextStyle(
+                color: theme.palette.primary,
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            SizedBox(height: 4),
+          ],
+          Text(
+            login,
+            style: TextStyle(
+              color: theme.palette.secondaryText,
+              fontSize: 18,
+            ),
+          ),
+          SizedBox(height: 8),
+          Row(
+            children: <Widget>[
+              Icon(
+                Octicons.clock,
+                size: 16,
+                color: theme.palette.tertiaryText,
+              ),
+              SizedBox(width: 4),
+              Text(
+                'Joined on ${dateFormat.format(createdAt)}',
+                style: TextStyle(
+                  color: theme.palette.tertiaryText,
+                  fontSize: 16,
                 ),
-              )
+              ),
             ],
           ),
           if (bio != null && bio.isNotEmpty) ...[
-            SizedBox(height: 12),
+            SizedBox(height: 10),
             Text(
               bio,
               style: TextStyle(
@@ -161,14 +153,52 @@ class UserScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildUser(BuildContext context, GhUserUser user) {
+  Widget _buildUser(BuildContext context, GhUserUser user,
+      void Function(void Function()) setState) {
     final theme = Provider.of<ThemeModel>(context);
+    final auth = Provider.of<AuthModel>(context);
     final login = user.login;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        _buildHeader(context, user.avatarUrl, user.name, user.login,
-            user.createdAt, user.bio),
+        _buildHeader(
+          context,
+          user.avatarUrl,
+          user.name,
+          user.login,
+          user.createdAt,
+          user.bio,
+          followWidget: user.viewerCanFollow == true
+              ? CupertinoButton(
+                  onPressed: () async {
+                    final res = await auth.gqlClient.execute(
+                      GhFollowQuery(
+                        variables: GhFollowArguments(
+                          id: user.id,
+                          flag: !user.viewerIsFollowing,
+                        ),
+                      ),
+                    );
+                    setState(() {
+                      user.viewerIsFollowing =
+                          res.data.unfollowUser?.user?.viewerIsFollowing ??
+                              res.data.followUser.user.viewerIsFollowing;
+                    });
+                  },
+                  minSize: 0,
+                  color: theme.palette.primary,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 4,
+                  ),
+                  child: Text(
+                    user.viewerIsFollowing ? 'Unfollow' : 'Follow',
+                    style: TextStyle(fontSize: 17),
+                  ),
+                )
+              : null,
+        ),
         CommonStyle.border,
         Row(children: [
           EntryItem(
@@ -192,8 +222,6 @@ class UserScreen extends StatelessWidget {
             url: '/$login?tab=following',
           ),
         ]),
-        CommonStyle.border,
-        CommonStyle.verticalGap,
         CommonStyle.border,
         Container(
           color: theme.palette.background,
@@ -227,8 +255,6 @@ class UserScreen extends StatelessWidget {
             ),
           ),
         ),
-        CommonStyle.border,
-        CommonStyle.verticalGap,
         CommonStyle.border,
         TableView(
           hasIcon: true,
@@ -320,7 +346,6 @@ class UserScreen extends StatelessWidget {
             url: '/${payload.login}?tab=people',
           ),
         ]),
-        CommonStyle.verticalGap,
         TableView(
           hasIcon: true,
           items: [
@@ -386,29 +411,8 @@ class UserScreen extends StatelessWidget {
             return ActionButton(
               title: 'User Actions',
               items: [
-                if (user.viewerCanFollow)
-                  ActionItem(
-                    text: user.viewerIsFollowing ? 'Unfollow' : 'Follow',
-                    onTap: (_) async {
-                      final res = await auth.gqlClient.execute(
-                        GhFollowQuery(
-                          variables: GhFollowArguments(
-                            id: user.id,
-                            flag: !user.viewerIsFollowing,
-                          ),
-                        ),
-                      );
-                      setState(() {
-                        user.viewerIsFollowing =
-                            res.data.unfollowUser?.user?.viewerIsFollowing ??
-                                res.data.followUser.user.viewerIsFollowing;
-                      });
-                    },
-                  ),
-                if (payload != null) ...[
-                  ActionItem.share(user.url),
-                  ActionItem.launch(user.url),
-                ],
+                ActionItem.share(user.url),
+                ActionItem.launch(user.url),
               ],
             );
           case 'Organization':
@@ -426,13 +430,13 @@ class UserScreen extends StatelessWidget {
             return null;
         }
       },
-      bodyBuilder: (payload, _) {
+      bodyBuilder: (payload, setState) {
         if (isViewer) {
-          return _buildUser(context, payload as GhUserUser);
+          return _buildUser(context, payload as GhUserUser, setState);
         }
         switch (payload.resolveType) {
           case 'User':
-            return _buildUser(context, payload as GhUserUser);
+            return _buildUser(context, payload as GhUserUser, setState);
           case 'Organization':
             return _buildOrganization(context, payload as GhUserOrganization);
           default:
