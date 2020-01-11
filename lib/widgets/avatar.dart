@@ -26,7 +26,7 @@ class Avatar extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       child: ClipRRect(
-        borderRadius: borderRadius ?? BorderRadius.circular(4),
+        borderRadius: borderRadius ?? BorderRadius.circular(size / 2),
         child: FadeInImage.assetNetwork(
           placeholder: 'images/avatar.png',
           image: url ?? 'images/avatar.png',

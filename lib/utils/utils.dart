@@ -23,7 +23,7 @@ class StorageKeys {
 }
 
 class CommonStyle {
-  static const padding = EdgeInsets.all(12);
+  static const padding = EdgeInsets.symmetric(horizontal: 16, vertical: 12);
   static final border = BorderView();
   static const verticalGap = SizedBox(height: 18);
   static final monospace = Platform.isIOS ? 'Menlo' : 'monospace'; // FIXME:
