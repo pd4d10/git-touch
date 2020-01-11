@@ -28,12 +28,11 @@ class TrendingScreen extends StatelessWidget {
               switch (activeTab) {
                 case 0:
                   final item = GithubTrendingItem.fromJson(v);
-                  return RepositoryItem(
+                  return RepositoryItem.gh(
                     item.author,
                     item.avatar,
                     item.name,
                     item.description,
-                    Octicons.repo,
                     item.stars ?? 0,
                     item.forks ?? 0,
                     item.language,

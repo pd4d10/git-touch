@@ -63,11 +63,11 @@ class GitlabProjectScreen extends StatelessWidget {
               data.avatarUrl,
               data.name,
               data.description,
-              Octicons.repo, // TODO:
               data.starCount,
               data.forksCount,
               data.languages.keys.first,
-              null, null,
+              null,
+              null,
             ),
             CommonStyle.border,
             Row(

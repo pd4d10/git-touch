@@ -67,7 +67,6 @@ class GitlabUserScreen extends StatelessWidget {
                   v.owner.avatarUrl,
                   v.name,
                   v.description,
-                  _getGitlabIcon(v.visibility),
                   v.starCount,
                   v.forksCount,
                   null,

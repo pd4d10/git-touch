@@ -165,17 +165,18 @@ class _SearchScreenState extends State<SearchScreen> {
     switch (_activeTab) {
       case 0:
         final updatedAt = timeago.format(DateTime.parse(p['updatedAt']));
-        return RepositoryItem(
+        return RepositoryItem.gh(
           p['owner']['login'],
           p['owner']['avatarUrl'],
           p['name'],
           p['description'],
-          _buildIconData(p),
           p['stargazers']['totalCount'],
           p['forks']['totalCount'],
           p['primaryLanguage'] == null ? null : p['primaryLanguage']['name'],
           p['primaryLanguage'] == null ? null : p['primaryLanguage']['color'],
           'Updated $updatedAt',
+          isPrivate: p['isPrivate'],
+          isFork: p['isFork'],
         );
       case 1:
         return UserItem(

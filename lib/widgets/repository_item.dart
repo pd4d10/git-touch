@@ -23,13 +23,33 @@ class RepositoryItem extends StatelessWidget {
     this.avatarUrl,
     this.name,
     this.description,
-    this.iconData,
     this.starCount,
     this.forkCount,
     this.primaryLanguageName,
     this.primaryLanguageColor,
-    this.note,
-  );
+    this.note, {
+    this.iconData,
+  });
+
+  RepositoryItem.gh(
+    this.owner,
+    this.avatarUrl,
+    this.name,
+    this.description,
+    this.starCount,
+    this.forkCount,
+    this.primaryLanguageName,
+    this.primaryLanguageColor,
+    this.note, {
+    bool isPrivate,
+    bool isFork,
+  }) : this.iconData = _buildIconData(isPrivate, isFork);
+
+  static IconData _buildIconData(bool isPrivate, bool isFork) {
+    if (isPrivate == true) return Octicons.lock;
+    if (isFork == true) return Octicons.repo_forked;
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,32 +73,34 @@ class RepositoryItem extends StatelessWidget {
                         linkUrl: '/$owner',
                       ),
                       SizedBox(width: 8),
-                      Expanded(
-                        child: Row(
-                          children: <Widget>[
-                            Text(
-                              owner + ' / ',
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: theme.palette.primary,
-                              ),
+                      Row(
+                        children: <Widget>[
+                          Text(
+                            owner + ' / ',
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: theme.palette.primary,
                             ),
-                            Expanded(
-                              child: Text(
-                                name,
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  color: theme.palette.primary,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                                overflow: TextOverflow.ellipsis,
-                              ),
+                          ),
+                          Text(
+                            name,
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: theme.palette.primary,
+                              fontWeight: FontWeight.w600,
                             ),
-                          ],
-                        ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
                       ),
-                      // Icon(iconData,
-                      //     size: 17, color: theme.palette.tertiaryText),
+                      if (iconData != null) ...[
+                        SizedBox(width: 6),
+                        DefaultTextStyle(
+                          child: Icon(iconData,
+                              size: 16, color: theme.palette.secondaryText),
+                          style: TextStyle(color: theme.palette.secondaryText),
+                        ),
+                      ]
                     ],
                   ),
                   SizedBox(height: 8),

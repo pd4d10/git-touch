@@ -62,18 +62,19 @@ class RepositoriesScreen extends StatelessWidget {
         title: AppBarTitle(title),
         onRefresh: () => _query(context),
         onLoadMore: (cursor) => _query(context, cursor),
-        itemBuilder: (item) {
-          return RepositoryItem(
-            item.owner.login,
-            item.owner.avatarUrl,
-            item.name,
-            item.description,
-            Octicons.repo,
-            item.stargazers.totalCount,
-            item.forks.totalCount,
-            item.primaryLanguage?.name,
-            item.primaryLanguage?.color,
-            'Updated ${timeago.format(item.updatedAt)}',
+        itemBuilder: (v) {
+          return RepositoryItem.gh(
+            v.owner.login,
+            v.owner.avatarUrl,
+            v.name,
+            v.description,
+            v.stargazers.totalCount,
+            v.forks.totalCount,
+            v.primaryLanguage?.name,
+            v.primaryLanguage?.color,
+            'Updated ${timeago.format(v.updatedAt)}',
+            isPrivate: v.isPrivate,
+            isFork: v.isFork,
           );
         });
   }

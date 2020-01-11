@@ -65,17 +65,18 @@ class UserScreen extends StatelessWidget {
       ...join(
         CommonStyle.border,
         items.map((v) {
-          return RepositoryItem(
+          return RepositoryItem.gh(
             v.owner.login,
             v.owner.avatarUrl,
             v.name,
             v.description,
-            Octicons.repo, // TODO:
             v.stargazers.totalCount,
             v.forks.totalCount,
             v.primaryLanguage?.name,
             v.primaryLanguage?.color,
             null,
+            isPrivate: v.isPrivate,
+            isFork: v.isFork,
           );
         }).toList(),
       ),

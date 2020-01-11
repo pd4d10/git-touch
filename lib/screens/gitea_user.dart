@@ -47,7 +47,6 @@ class GiteaUserScreen extends StatelessWidget {
                   v.owner.avatarUrl,
                   v.name,
                   v.description,
-                  Octicons.repo,
                   v.starsCount,
                   v.forksCount,
                   null,
