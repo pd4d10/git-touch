@@ -50,7 +50,25 @@ class _SearchScreenState extends State<SearchScreen> {
   repository: search(first: $pageSize, type: REPOSITORY, query: "$keyword") {
     nodes {
       ... on Repository {
-        $repoChunk
+        owner {
+          __typename
+          login
+          avatarUrl
+        }
+        name
+        description
+        isPrivate
+        isFork
+        stargazers {
+          totalCount
+        }
+        forks {
+          totalCount
+        }
+        primaryLanguage {
+          color
+          name
+        }
       }
     }
   }
@@ -131,21 +149,41 @@ class _SearchScreenState extends State<SearchScreen> {
 
   static const tabs = ['Repositories', 'Users', 'Issues'];
 
-  Widget _buildItem(data) {
+  static IconData _buildIconData(p) {
+    if (p['isPrivate']) {
+      return Octicons.lock;
+    }
+    if (p['isFork']) {
+      return Octicons.repo_forked;
+    }
+    return Octicons.repo;
+  }
+
+  Widget _buildItem(p) {
     switch (_activeTab) {
       case 0:
-        return RepositoryItem(data);
+        return RepositoryItem(
+          p['owner']['login'],
+          p['owner']['avatarUrl'],
+          p['name'],
+          p['description'],
+          _buildIconData(p),
+          p['stargazers']['totalCount'],
+          p['forks']['totalCount'],
+          p['primaryLanguage'] == null ? null : p['primaryLanguage']['name'],
+          p['primaryLanguage'] == null ? null : p['primaryLanguage']['color'],
+        );
       case 1:
         return UserItem(
-          login: data['login'],
-          name: data['name'],
-          avatarUrl: data['avatarUrl'],
-          bio: Text(data['bio'] ?? ''),
+          login: p['login'],
+          name: p['name'],
+          avatarUrl: p['avatarUrl'],
+          bio: Text(p['bio'] ?? ''),
         );
       case 2:
       default:
         return IssueItem(
-            payload: data, isPullRequest: data['__typename'] == 'PullRequest');
+            payload: p, isPullRequest: p['__typename'] == 'PullRequest');
     }
   }
 

@@ -19,6 +19,19 @@ class GitlabUserScreen extends StatelessWidget {
 
   GitlabUserScreen(this.id);
 
+  static _getGitlabIcon(String visibility) {
+    switch (visibility) {
+      case 'internal':
+        return FontAwesome.shield;
+      case 'public':
+        return FontAwesome.globe;
+      case 'private':
+        return FontAwesome.lock;
+      default:
+        return Octicons.repo;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold<
@@ -48,7 +61,19 @@ class GitlabUserScreen extends StatelessWidget {
             ),
             BorderView(height: 10),
             Column(
-              children: projects.map((v) => RepositoryItem.gitlab(v)).toList(),
+              children: projects.map((v) {
+                return RepositoryItem(
+                  v.owner.name,
+                  v.owner.avatarUrl,
+                  v.name,
+                  v.description,
+                  _getGitlabIcon(v.visibility),
+                  v.starCount,
+                  v.forksCount,
+                  null,
+                  null,
+                );
+              }).toList(),
             )
           ],
         );

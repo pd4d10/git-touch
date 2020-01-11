@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/gitea.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
+import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/border_view.dart';
 import 'package:git_touch/widgets/repository_item.dart';
 import 'package:git_touch/widgets/user_item.dart';
@@ -41,7 +42,17 @@ class GiteaUserScreen extends StatelessWidget {
             BorderView(height: 10),
             Column(
               children: repos.map((v) {
-                return RepositoryItem.gitea(v);
+                return RepositoryItem(
+                  v.owner.login,
+                  v.owner.avatarUrl,
+                  v.name,
+                  v.description,
+                  Octicons.repo,
+                  v.starsCount,
+                  v.forksCount,
+                  null,
+                  null,
+                );
               }).toList(),
             )
           ],

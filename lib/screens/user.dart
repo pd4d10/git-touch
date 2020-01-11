@@ -63,8 +63,18 @@ class UserScreen extends StatelessWidget {
       if (title != null) TableViewHeader(title),
       ...join(
         CommonStyle.border,
-        items.map((item) {
-          return RepositoryItem.github(item);
+        items.map((v) {
+          return RepositoryItem(
+            v.owner.login,
+            v.owner.avatarUrl,
+            v.name,
+            v.description,
+            Octicons.repo, // TODO:
+            v.stargazers.totalCount,
+            v.forks.totalCount,
+            v.primaryLanguage?.name,
+            v.primaryLanguage?.color,
+          );
         }).toList(),
       ),
     ];

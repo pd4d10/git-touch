@@ -62,7 +62,7 @@ class RepositoriesScreen extends StatelessWidget {
         onRefresh: () => _query(context),
         onLoadMore: (cursor) => _query(context, cursor),
         itemBuilder: (item) {
-          return RepositoryItem.raw(
+          return RepositoryItem(
             item.owner.login,
             item.owner.avatarUrl,
             item.name,
@@ -72,7 +72,6 @@ class RepositoriesScreen extends StatelessWidget {
             item.forks.totalCount,
             item.primaryLanguage?.name,
             item.primaryLanguage?.color,
-            [],
           );
         });
   }

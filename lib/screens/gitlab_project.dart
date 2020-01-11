@@ -58,18 +58,17 @@ class GitlabProjectScreen extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            RepositoryItem.raw(
-                data.namespace.name,
-                data.avatarUrl,
-                data.name,
-                data.description,
-                Octicons.repo, // TODO:
-                data.starCount,
-                data.forksCount,
-                data.languages.keys.first,
-                null,
-                [],
-                inRepoScreen: true),
+            RepositoryItem(
+              data.namespace.name,
+              data.avatarUrl,
+              data.name,
+              data.description,
+              Octicons.repo, // TODO:
+              data.starCount,
+              data.forksCount,
+              data.languages.keys.first,
+              null,
+            ),
             CommonStyle.border,
             Row(
               children: <Widget>[
