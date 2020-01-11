@@ -6,7 +6,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/action_button.dart';
-import 'package:primer/primer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DialogOption<T> {
@@ -108,23 +107,23 @@ class ThemeModel with ChangeNotifier {
     switch (brightness) {
       case Brightness.light:
         return Palette(
-          primary: PrimerColors.blue500,
-          text: PrimerColors.black,
-          secondaryText: PrimerColors.gray700,
-          tertiaryText: PrimerColors.gray500,
-          background: PrimerColors.white,
-          grayBackground: PrimerColors.gray100,
+          primary: Colors.blueAccent.shade700,
+          text: Colors.black,
+          secondaryText: Colors.grey.shade900,
+          tertiaryText: Colors.grey.shade800,
+          background: Colors.white,
+          grayBackground: Colors.grey.shade100,
           border: Colors.grey.shade400,
         );
       case Brightness.dark:
         return Palette(
-          primary: PrimerColors.blue500,
-          text: PrimerColors.gray300,
-          secondaryText: PrimerColors.gray400,
-          tertiaryText: PrimerColors.gray500,
-          background: PrimerColors.black,
-          grayBackground: PrimerColors.gray800,
-          border: Colors.grey.shade600,
+          primary: Colors.blueAccent.shade400,
+          text: Colors.grey.shade300,
+          secondaryText: Colors.grey.shade400,
+          tertiaryText: Colors.grey.shade500,
+          background: Colors.black,
+          grayBackground: Colors.grey.shade900,
+          border: Colors.grey.shade700,
         );
       default:
         return null;
