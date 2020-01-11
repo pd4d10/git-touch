@@ -23,6 +23,7 @@ query GhRepos($owner: String!, $after: String, $isStar: Boolean!) {
           description
           isPrivate
           isFork
+          updatedAt
           stargazers {
             totalCount
           }
@@ -53,6 +54,7 @@ query GhRepos($owner: String!, $after: String, $isStar: Boolean!) {
           description
           isPrivate
           isFork
+          updatedAt
           stargazers {
             totalCount
           }
@@ -84,6 +86,7 @@ query GhRepos($owner: String!, $after: String, $isStar: Boolean!) {
             description
             isPrivate
             isFork
+            updatedAt
             stargazers {
               totalCount
             }

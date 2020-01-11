@@ -16,6 +16,7 @@ class RepositoryItem extends StatelessWidget {
   final int forkCount;
   final String primaryLanguageName;
   final String primaryLanguageColor;
+  final String note;
 
   RepositoryItem(
     this.owner,
@@ -27,6 +28,7 @@ class RepositoryItem extends StatelessWidget {
     this.forkCount,
     this.primaryLanguageName,
     this.primaryLanguageColor,
+    this.note,
   );
 
   @override
@@ -44,7 +46,6 @@ class RepositoryItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Avatar(
                         url: avatarUrl,
@@ -80,13 +81,23 @@ class RepositoryItem extends StatelessWidget {
                       //     size: 17, color: theme.palette.tertiaryText),
                     ],
                   ),
-                  SizedBox(height: 6),
+                  SizedBox(height: 8),
                   if (description != null && description.isNotEmpty) ...[
                     Text(
                       description,
                       style: TextStyle(
                         color: theme.palette.secondaryText,
                         fontSize: 16,
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                  ],
+                  if (note != null) ...[
+                    Text(
+                      note,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: theme.palette.tertiaryText,
                       ),
                     ),
                     SizedBox(height: 10),

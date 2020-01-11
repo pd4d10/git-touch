@@ -38,6 +38,7 @@ class TrendingScreen extends StatelessWidget {
                     item.forks ?? 0,
                     item.language,
                     item.languageColor,
+                    '${item.currentPeriodStars} stars today',
                   );
                 case 1:
                   final item = GithubTrendingUser.fromJson(v);

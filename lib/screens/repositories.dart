@@ -6,6 +6,7 @@ import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/widgets/repository_item.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class RepositoriesScreen extends StatelessWidget {
   final String owner;
@@ -72,6 +73,7 @@ class RepositoriesScreen extends StatelessWidget {
             item.forks.totalCount,
             item.primaryLanguage?.name,
             item.primaryLanguage?.color,
+            'Updated ${timeago.format(item.updatedAt)}',
           );
         });
   }

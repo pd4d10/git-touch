@@ -67,7 +67,7 @@ class GitlabProjectScreen extends StatelessWidget {
               data.starCount,
               data.forksCount,
               data.languages.keys.first,
-              null,
+              null, null,
             ),
             CommonStyle.border,
             Row(

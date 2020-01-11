@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/common.dart';
+import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/issue_item.dart';
 import 'package:git_touch/widgets/loading.dart';
 import 'package:git_touch/widgets/user_item.dart';
 import 'package:primer/primer.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/models/auth.dart';
-import '../utils/utils.dart';
 import 'package:git_touch/widgets/repository_item.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class SearchScreen extends StatefulWidget {
   @override
@@ -59,6 +60,7 @@ class _SearchScreenState extends State<SearchScreen> {
         description
         isPrivate
         isFork
+        updatedAt
         stargazers {
           totalCount
         }
@@ -162,6 +164,7 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget _buildItem(p) {
     switch (_activeTab) {
       case 0:
+        final updatedAt = timeago.format(DateTime.parse(p['updatedAt']));
         return RepositoryItem(
           p['owner']['login'],
           p['owner']['avatarUrl'],
@@ -172,6 +175,7 @@ class _SearchScreenState extends State<SearchScreen> {
           p['forks']['totalCount'],
           p['primaryLanguage'] == null ? null : p['primaryLanguage']['name'],
           p['primaryLanguage'] == null ? null : p['primaryLanguage']['color'],
+          'Updated $updatedAt',
         );
       case 1:
         return UserItem(

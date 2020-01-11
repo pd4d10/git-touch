@@ -1035,6 +1035,9 @@ GhReposRepository _$GhReposRepositoryFromJson(Map<String, dynamic> json) {
     ..description = json['description'] as String
     ..isPrivate = json['isPrivate'] as bool
     ..isFork = json['isFork'] as bool
+    ..updatedAt = json['updatedAt'] == null
+        ? null
+        : DateTime.parse(json['updatedAt'] as String)
     ..stargazers = json['stargazers'] == null
         ? null
         : GhReposStargazerConnection.fromJson(
@@ -1057,6 +1060,7 @@ Map<String, dynamic> _$GhReposRepositoryToJson(GhReposRepository instance) =>
       'description': instance.description,
       'isPrivate': instance.isPrivate,
       'isFork': instance.isFork,
+      'updatedAt': instance.updatedAt?.toIso8601String(),
       'stargazers': instance.stargazers?.toJson(),
       'forks': instance.forks?.toJson(),
       'primaryLanguage': instance.primaryLanguage?.toJson(),
@@ -1186,6 +1190,9 @@ GhReposRepositoryInfo _$GhReposRepositoryInfoFromJson(
     ..description = json['description'] as String
     ..isPrivate = json['isPrivate'] as bool
     ..isFork = json['isFork'] as bool
+    ..updatedAt = json['updatedAt'] == null
+        ? null
+        : DateTime.parse(json['updatedAt'] as String)
     ..resolveType = json['__typename'] as String;
 }
 
@@ -1197,6 +1204,7 @@ Map<String, dynamic> _$GhReposRepositoryInfoToJson(
       'description': instance.description,
       'isPrivate': instance.isPrivate,
       'isFork': instance.isFork,
+      'updatedAt': instance.updatedAt?.toIso8601String(),
       '__typename': instance.resolveType,
     };
 

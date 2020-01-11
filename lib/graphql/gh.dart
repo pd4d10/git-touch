@@ -2512,6 +2512,9 @@ class GhReposRepository extends GhReposPinnableItem
   bool isFork;
 
   @override
+  DateTime updatedAt;
+
+  @override
   GhReposStargazerConnection stargazers;
 
   GhReposRepositoryConnection forks;
@@ -2529,6 +2532,7 @@ class GhReposRepository extends GhReposPinnableItem
         description,
         isPrivate,
         isFork,
+        updatedAt,
         stargazers,
         forks,
         primaryLanguage,
@@ -2708,12 +2712,14 @@ class GhReposRepositoryInfo with EquatableMixin {
 
   bool isFork;
 
+  DateTime updatedAt;
+
   @JsonKey(name: '__typename')
   String resolveType;
 
   @override
   List<Object> get props =>
-      [owner, name, description, isPrivate, isFork, resolveType];
+      [owner, name, description, isPrivate, isFork, updatedAt, resolveType];
   Map<String, dynamic> toJson() => _$GhReposRepositoryInfoToJson(this);
 }
 
@@ -3052,6 +3058,12 @@ class GhReposQuery extends GraphQLQuery<GhRepos, GhReposArguments> {
                                       directives: [],
                                       selectionSet: null),
                                   FieldNode(
+                                      name: NameNode(value: 'updatedAt'),
+                                      alias: null,
+                                      arguments: [],
+                                      directives: [],
+                                      selectionSet: null),
+                                  FieldNode(
                                       name: NameNode(value: 'stargazers'),
                                       alias: null,
                                       arguments: [],
@@ -3201,6 +3213,12 @@ class GhReposQuery extends GraphQLQuery<GhRepos, GhReposArguments> {
                                       selectionSet: null),
                                   FieldNode(
                                       name: NameNode(value: 'isFork'),
+                                      alias: null,
+                                      arguments: [],
+                                      directives: [],
+                                      selectionSet: null),
+                                  FieldNode(
+                                      name: NameNode(value: 'updatedAt'),
                                       alias: null,
                                       arguments: [],
                                       directives: [],
@@ -3375,6 +3393,12 @@ class GhReposQuery extends GraphQLQuery<GhRepos, GhReposArguments> {
                                             selectionSet: null),
                                         FieldNode(
                                             name: NameNode(value: 'isFork'),
+                                            alias: null,
+                                            arguments: [],
+                                            directives: [],
+                                            selectionSet: null),
+                                        FieldNode(
+                                            name: NameNode(value: 'updatedAt'),
                                             alias: null,
                                             arguments: [],
                                             directives: [],
