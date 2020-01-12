@@ -107,14 +107,11 @@ class ObjectScreen extends StatelessWidget {
         switch (data.resolveType) {
           case 'Blob':
             final blob = data as GhObjectBlob;
+            final theme = Provider.of<ThemeModel>(context);
             return ActionEntry(
-              iconData: Octicons.settings,
+              iconData: Icons.settings,
               onTap: () {
-                // TODO:
-                // if (data != null) {
-                //   Provider.of<ThemeModel>(context).pushRoute(
-                //       context, (_) => CodeThemeScreen(blob.text, _language));
-                // }
+                theme.push(context, '/choose-code-theme');
               },
             );
           default:
@@ -172,7 +169,9 @@ class ObjectScreen extends StatelessWidget {
                   child: HighlightView(
                     text,
                     language: _language,
-                    theme: themeMap[codeProvider.theme],
+                    theme: themeMap[theme.brightness == Brightness.dark
+                        ? codeProvider.themeDark
+                        : codeProvider.theme],
                     padding: CommonStyle.padding,
                     textStyle: TextStyle(
                         fontSize: codeProvider.fontSize.toDouble(),

@@ -297,12 +297,12 @@ class UserScreen extends StatelessWidget {
             hasIcon: true,
             items: [
               TableViewItem(
-                leftIconData: Octicons.settings,
+                leftIconData: Icons.settings,
                 text: Text('Settings'),
                 url: '/settings',
               ),
               TableViewItem(
-                leftIconData: Icons.info,
+                leftIconData: Icons.info_outline,
                 text: Text('About'),
                 url: '/about',
               ),

@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class CodeModel with ChangeNotifier {
   static const _kTheme = 'code-theme';
+  static const _kThemeDark = 'code-theme-dark';
   static const _kFontSize = 'code-font-size';
   static const _kFontFamily = 'code-font-family';
 
@@ -20,11 +21,13 @@ class CodeModel with ChangeNotifier {
     'Ubuntu Mono'
   ];
 
-  String _theme = 'github';
-  int _fontSize = 16;
+  String _theme = 'github-gist';
+  String _themeDark = 'vs2015';
+  int _fontSize = 14;
   String _fontFamily = 'System';
 
   String get theme => _theme;
+  String get themeDark => _themeDark;
   int get fontSize => _fontSize;
   String get fontFamily => _fontFamily;
   String get fontFamilyUsed =>
@@ -33,12 +36,16 @@ class CodeModel with ChangeNotifier {
   Future<void> init() async {
     var prefs = await SharedPreferences.getInstance();
     var vh = prefs.getString(_kTheme);
+    var vdh = prefs.getString(_kThemeDark);
     var vs = prefs.getInt(_kFontSize);
     var vf = prefs.getString(_kFontFamily);
 
     Fimber.d('read code: $vh, $vs, $vf');
     if (themeMap.keys.contains(vh)) {
       _theme = vh;
+    }
+    if (themeMap.keys.contains(vdh)) {
+      _themeDark = vdh;
     }
     if (fontSizes.contains(vs)) {
       _fontSize = vs;
@@ -57,6 +64,16 @@ class CodeModel with ChangeNotifier {
     Fimber.d('write code theme: $v');
 
     _theme = v;
+    notifyListeners();
+  }
+
+  setThemeDark(String v) async {
+    var prefs = await SharedPreferences.getInstance();
+
+    await prefs.setString(_kThemeDark, v);
+    Fimber.d('write code theme dark: $v');
+
+    _themeDark = v;
     notifyListeners();
   }
 
