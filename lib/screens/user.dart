@@ -8,6 +8,7 @@ import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/screens/repositories.dart';
 import 'package:git_touch/widgets/avatar.dart';
+import 'package:git_touch/widgets/mutation_button.dart';
 import 'package:git_touch/widgets/entry_item.dart';
 import 'package:git_touch/widgets/repository_item.dart';
 import 'package:git_touch/widgets/table_view.dart';
@@ -94,7 +95,7 @@ class UserScreen extends StatelessWidget {
         children: <Widget>[
           Row(
             children: <Widget>[
-              Avatar(url: avatarUrl, size: AvatarSize.large),
+              Avatar(url: avatarUrl, size: AvatarSize.extraLarge),
               if (followWidget != null) ...[
                 Expanded(child: Container()),
                 followWidget,
@@ -153,71 +154,62 @@ class UserScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildUser(BuildContext context, GhUserUser user,
+  Widget _buildUser(BuildContext context, GhUserUser p,
       void Function(void Function()) setState) {
     final theme = Provider.of<ThemeModel>(context);
     final auth = Provider.of<AuthModel>(context);
-    final login = user.login;
+    final login = p.login;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         _buildHeader(
           context,
-          user.avatarUrl,
-          user.name,
-          user.login,
-          user.createdAt,
-          user.bio,
-          followWidget: user.viewerCanFollow == true
-              ? CupertinoButton(
+          p.avatarUrl,
+          p.name,
+          p.login,
+          p.createdAt,
+          p.bio,
+          followWidget: p.viewerCanFollow == true
+              ? MutationButton(
+                  text: p.viewerIsFollowing ? 'Unfollow' : 'Follow',
                   onPressed: () async {
                     final res = await auth.gqlClient.execute(
                       GhFollowQuery(
                         variables: GhFollowArguments(
-                          id: user.id,
-                          flag: !user.viewerIsFollowing,
+                          id: p.id,
+                          flag: !p.viewerIsFollowing,
                         ),
                       ),
                     );
                     setState(() {
-                      user.viewerIsFollowing =
+                      p.viewerIsFollowing =
                           res.data.unfollowUser?.user?.viewerIsFollowing ??
                               res.data.followUser.user.viewerIsFollowing;
                     });
                   },
-                  minSize: 0,
-                  color: theme.palette.primary,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 4,
-                  ),
-                  child: Text(
-                    user.viewerIsFollowing ? 'Unfollow' : 'Follow',
-                    style: TextStyle(fontSize: 17),
-                  ),
                 )
               : null,
         ),
         CommonStyle.border,
         Row(children: [
           EntryItem(
-            count: user.repositories.totalCount,
+            count: p.repositories.totalCount,
             text: 'Repositories',
             url: '/$login?tab=repositories',
           ),
           EntryItem(
-            count: user.starredRepositories.totalCount,
+            count: p.starredRepositories.totalCount,
             text: 'Stars',
             url: '/$login?tab=stars',
           ),
           EntryItem(
-            count: user.followers.totalCount,
+            count: p.followers.totalCount,
             text: 'Followers',
             url: '/$login?tab=followers',
           ),
           EntryItem(
-            count: user.following.totalCount,
+            count: p.following.totalCount,
             text: 'Following',
             url: '/$login?tab=following',
           ),
@@ -231,7 +223,7 @@ class UserScreen extends StatelessWidget {
             reverse: true,
             child: Wrap(
               spacing: 3,
-              children: user.contributionsCollection.contributionCalendar.weeks
+              children: p.contributionsCollection.contributionCalendar.weeks
                   .map((week) {
                 return Wrap(
                   direction: Axis.vertical,
@@ -259,38 +251,38 @@ class UserScreen extends StatelessWidget {
         TableView(
           hasIcon: true,
           items: [
-            if (isNotNullOrEmpty(user.company))
+            if (isNotNullOrEmpty(p.company))
               TableViewItem(
                 leftIconData: Octicons.organization,
                 text: TextContainsOrganization(
-                  user.company,
+                  p.company,
                   style: TextStyle(fontSize: 16, color: theme.palette.text),
                   oneLine: true,
                 ),
               ),
-            if (isNotNullOrEmpty(user.location))
+            if (isNotNullOrEmpty(p.location))
               TableViewItem(
                 leftIconData: Octicons.location,
-                text: Text(user.location),
+                text: Text(p.location),
                 onTap: () {
                   launchUrl('https://www.google.com/maps/place/' +
-                      user.location.replaceAll(RegExp(r'\s+'), ''));
+                      p.location.replaceAll(RegExp(r'\s+'), ''));
                 },
               ),
-            if (isNotNullOrEmpty(user.email))
+            if (isNotNullOrEmpty(p.email))
               TableViewItem(
                 leftIconData: Octicons.mail,
-                text: Text(user.email),
+                text: Text(p.email),
                 onTap: () {
-                  launchUrl('mailto:' + user.email);
+                  launchUrl('mailto:' + p.email);
                 },
               ),
-            if (isNotNullOrEmpty(user.websiteUrl))
+            if (isNotNullOrEmpty(p.websiteUrl))
               TableViewItem(
                 leftIconData: Octicons.link,
-                text: Text(user.websiteUrl),
+                text: Text(p.websiteUrl),
                 onTap: () {
-                  var url = user.websiteUrl;
+                  var url = p.websiteUrl;
                   if (!url.startsWith('http')) {
                     url = 'http://$url';
                   }
@@ -318,60 +310,60 @@ class UserScreen extends StatelessWidget {
           )
         else
           ..._buildPinnedItems(
-              user.pinnedItems.nodes
+              p.pinnedItems.nodes
                   .where((n) => n is GhUserRepository)
                   .cast<GhUserRepository>(),
-              user.repositories.nodes),
+              p.repositories.nodes),
         CommonStyle.verticalGap,
       ],
     );
   }
 
-  Widget _buildOrganization(BuildContext context, GhUserOrganization payload) {
+  Widget _buildOrganization(BuildContext context, GhUserOrganization p) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        _buildHeader(context, payload.avatarUrl, payload.name, payload.login,
-            payload.createdAt, payload.description),
+        _buildHeader(
+            context, p.avatarUrl, p.name, p.login, p.createdAt, p.description),
         CommonStyle.border,
         Row(children: [
           EntryItem(
-            count: payload.pinnableItems.totalCount,
+            count: p.pinnableItems.totalCount,
             text: 'Repositories',
-            url: '/${payload.login}?tab=repositories',
+            url: '/${p.login}?tab=repositories',
           ),
           EntryItem(
-            count: payload.membersWithRole.totalCount,
+            count: p.membersWithRole.totalCount,
             text: 'Members',
-            url: '/${payload.login}?tab=people',
+            url: '/${p.login}?tab=people',
           ),
         ]),
         TableView(
           hasIcon: true,
           items: [
-            if (isNotNullOrEmpty(payload.location))
+            if (isNotNullOrEmpty(p.location))
               TableViewItem(
                 leftIconData: Octicons.location,
-                text: Text(payload.location),
+                text: Text(p.location),
                 onTap: () {
                   launchUrl('https://www.google.com/maps/place/' +
-                      payload.location.replaceAll(RegExp(r'\s+'), ''));
+                      p.location.replaceAll(RegExp(r'\s+'), ''));
                 },
               ),
-            if (isNotNullOrEmpty(payload.email))
+            if (isNotNullOrEmpty(p.email))
               TableViewItem(
                 leftIconData: Octicons.mail,
-                text: Text(payload.email),
+                text: Text(p.email),
                 onTap: () {
-                  launchUrl('mailto:' + payload.email);
+                  launchUrl('mailto:' + p.email);
                 },
               ),
-            if (isNotNullOrEmpty(payload.websiteUrl))
+            if (isNotNullOrEmpty(p.websiteUrl))
               TableViewItem(
                 leftIconData: Octicons.link,
-                text: Text(payload.websiteUrl),
+                text: Text(p.websiteUrl),
                 onTap: () {
-                  var url = payload.websiteUrl;
+                  var url = p.websiteUrl;
                   if (!url.startsWith('http')) {
                     url = 'http://$url';
                   }
@@ -382,10 +374,10 @@ class UserScreen extends StatelessWidget {
         ),
         CommonStyle.verticalGap,
         ..._buildPinnedItems(
-          payload.pinnedItems.nodes
+          p.pinnedItems.nodes
               .where((n) => n is GhUserRepository)
               .cast<GhUserRepository>(),
-          payload.pinnableItems.nodes
+          p.pinnableItems.nodes
               .where((n) => n is GhUserRepository)
               .cast<GhUserRepository>(),
         ),

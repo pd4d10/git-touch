@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/single.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/table_view.dart';
 import 'package:launch_review/launch_review.dart';
 import 'package:package_info/package_info.dart';
+import 'package:provider/provider.dart';
 
 final aboutRouter = RouterScreen(
   '/about',
@@ -33,16 +35,25 @@ class _AboutScreenState extends State<AboutScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Provider.of<ThemeModel>(context);
     return SingleScaffold(
       title: AppBarTitle('About'),
       body: Column(
         children: <Widget>[
           SizedBox(height: 32),
-          Image.asset(
-            'images/icon.png',
-            width: 96,
+          ClipRRect(
+            borderRadius: BorderRadius.circular(24),
+            child: Image.asset(
+              'images/icon.png',
+              width: 96,
+            ),
           ),
-          SizedBox(height: 64),
+          SizedBox(height: 12),
+          Text(
+            'GitTouch',
+            style: TextStyle(fontSize: 20, color: theme.palette.text),
+          ),
+          SizedBox(height: 48),
           TableView(items: [
             TableViewItem(text: Text('Version'), rightWidget: Text(_version)),
             TableViewItem(text: Text('Source Code'), url: '/pd4d10/git-touch'),

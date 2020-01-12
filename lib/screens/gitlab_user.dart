@@ -2,7 +2,6 @@ import 'package:flutter/widgets.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/gitlab.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
-import 'package:git_touch/widgets/border_view.dart';
 import 'package:git_touch/widgets/repository_item.dart';
 import 'package:git_touch/widgets/user_item.dart';
 import 'package:provider/provider.dart';
@@ -59,7 +58,7 @@ class GitlabUserScreen extends StatelessWidget {
               avatarUrl: user.avatarUrl,
               name: user.name,
             ),
-            BorderView(height: 10),
+            CommonStyle.border,
             Column(
               children: projects.map((v) {
                 return RepositoryItem(

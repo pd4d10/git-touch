@@ -7,6 +7,7 @@ class AvatarSize {
   static const double small = 24;
   static const double medium = 36;
   static const double large = 48;
+  static const double extraLarge = 64;
 }
 
 class Avatar extends StatelessWidget {

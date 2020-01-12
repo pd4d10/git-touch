@@ -3,7 +3,6 @@ import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/gitea.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
-import 'package:git_touch/widgets/border_view.dart';
 import 'package:git_touch/widgets/repository_item.dart';
 import 'package:git_touch/widgets/user_item.dart';
 import 'package:provider/provider.dart';
@@ -39,7 +38,7 @@ class GiteaUserScreen extends StatelessWidget {
               avatarUrl: user.avatarUrl,
               name: user.fullName,
             ),
-            BorderView(height: 10),
+            CommonStyle.border,
             Column(
               children: repos.map((v) {
                 return RepositoryItem(

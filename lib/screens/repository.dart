@@ -8,6 +8,7 @@ import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/avatar.dart';
+import 'package:git_touch/widgets/mutation_button.dart';
 import 'package:git_touch/widgets/link.dart';
 import 'package:git_touch/widgets/markdown_view.dart';
 import 'package:git_touch/widgets/table_view.dart';
@@ -94,11 +95,11 @@ class RepositoryScreen extends StatelessWidget {
             //   },
             // ),
             ActionItem(
-              text: 'Projects (${repo.projects.totalCount})',
+              text: 'Projects(${repo.projects.totalCount})',
               url: repo.projectsUrl,
             ),
             ActionItem(
-              text: 'Releases (${repo.releases.totalCount})',
+              text: 'Releases(${repo.releases.totalCount})',
               url: 'https://github.com/$owner/$name/releases',
             ),
             ActionItem.share(repo.url),
@@ -144,35 +145,25 @@ class RepositoryScreen extends StatelessWidget {
                           color: theme.palette.primary,
                         ),
                       ),
-                      Expanded(child: Container()),
-                      CupertinoButton(
-                        onPressed: () async {
-                          final res = await auth.gqlClient.execute(
-                            GhStarQuery(
-                              variables: GhStarArguments(
-                                id: repo.id,
-                                flag: !repo.viewerHasStarred,
-                              ),
-                            ),
-                          );
-                          setState(() {
-                            repo.viewerHasStarred = res.data.removeStar
-                                    ?.starrable?.viewerHasStarred ??
-                                res.data.addStar.starrable.viewerHasStarred;
-                          });
-                        },
-                        minSize: 0,
-                        color: theme.palette.primary,
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 12,
-                          vertical: 4,
-                        ),
-                        child: Text(
-                          repo.viewerHasStarred ? 'Unstar' : 'Star',
-                          style: TextStyle(fontSize: 17),
-                        ),
-                      )
                     ],
+                  ),
+                  MutationButton(
+                    text: repo.viewerHasStarred ? 'Unstar' : 'Star',
+                    onPressed: () async {
+                      final res = await auth.gqlClient.execute(
+                        GhStarQuery(
+                          variables: GhStarArguments(
+                            id: repo.id,
+                            flag: !repo.viewerHasStarred,
+                          ),
+                        ),
+                      );
+                      setState(() {
+                        repo.viewerHasStarred =
+                            res.data.removeStar?.starrable?.viewerHasStarred ??
+                                res.data.addStar.starrable.viewerHasStarred;
+                      });
+                    },
                   ),
                   if (repo.description != null && repo.description.isNotEmpty)
                     Text(
