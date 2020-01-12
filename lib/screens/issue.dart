@@ -291,7 +291,7 @@ __typename
     } else {
       timelineParams = 'first: $pageSize';
       if (cursor != null) {
-        timelineParams += ', after: $cursor';
+        timelineParams += ', after: "$cursor"';
       }
     }
 
