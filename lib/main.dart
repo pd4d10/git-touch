@@ -105,14 +105,9 @@ class _HomeState extends State<Home> {
 
   _buildScreen(int index) {
     // return GitlabProjectScreen(32221);
-    // return IssuesScreen(owner: 'flutter', name: 'flutter', isPullRequest: true);
-    // return IssueScreen(number: 29, owner: 'reactjs', name: 'rfcs');
-    // return IssueScreen(
-    //     number: 68, owner: 'reactjs', name: 'rfcs', isPullRequest: true);
-    // return ReposScreen('pd4d10');
-    // return OrganizationScreen('flutter');
-    // return TrendingScreen();
-    // return RepoScreen('flutter', 'flutter');
+    // return IssuesScreen('flutter', 'flutter', isPullRequest: true);
+    // return IssueScreen('reactjs', 'rfcs', 29);
+    // return IssueScreen('reactjs', 'rfcs', 68, isPullRequest: true);
     // return Image.asset('images/spinner.webp', width: 32, height: 32);
     final auth = Provider.of<AuthModel>(context);
 
