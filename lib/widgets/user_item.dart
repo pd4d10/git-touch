@@ -28,7 +28,6 @@ class UserItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
-
     return Link(
       url: '/$login',
       child: Container(
@@ -44,19 +43,23 @@ class UserItem extends StatelessWidget {
                 children: <Widget>[
                   Row(
                     children: <Widget>[
-                      Text(
-                        name ?? login,
-                        style: TextStyle(
-                          color: theme.palette.primary,
-                          fontSize: 17,
-                          fontWeight: FontWeight.w500,
+                      if (name != null) ...[
+                        Text(
+                          name,
+                          style: TextStyle(
+                            color: theme.palette.primary,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
-                      ),
-                      SizedBox(width: 4),
+                        SizedBox(width: 8),
+                      ],
                       Text(
-                        '($login)',
+                        login,
                         style: TextStyle(
-                            color: theme.palette.secondaryText, fontSize: 16),
+                          color: theme.palette.secondaryText,
+                          fontSize: 16,
+                        ),
                       ),
                     ],
                   ),

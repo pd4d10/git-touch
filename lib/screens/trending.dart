@@ -1,12 +1,14 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/github.dart';
+import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/tab_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/user_item.dart';
 import 'package:http/http.dart' as http;
 import 'package:git_touch/widgets/repository_item.dart';
+import 'package:provider/provider.dart';
 
 class TrendingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
@@ -20,6 +22,7 @@ class TrendingScreen extends StatelessWidget {
         return json.decode(res.body) as List;
       },
       bodyBuilder: (payload, activeTab) {
+        final theme = Provider.of<ThemeModel>(context);
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: join(
@@ -47,7 +50,11 @@ class TrendingScreen extends StatelessWidget {
                     avatarUrl: item.avatar,
                     bio: Row(
                       children: <Widget>[
-                        Icon(Octicons.repo, size: 17),
+                        Icon(
+                          Octicons.repo,
+                          size: 17,
+                          color: theme.palette.secondaryText,
+                        ),
                         SizedBox(width: 2),
                         Text(item.repo.name, style: TextStyle(fontSize: 17))
                       ],
