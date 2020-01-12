@@ -133,10 +133,11 @@ class RepositoryScreen extends StatelessWidget {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      GithubAvatar(
-                          url: repo.owner.avatarUrl,
-                          size: AvatarSize.small,
-                          login: owner),
+                      Avatar(
+                        url: repo.owner.avatarUrl,
+                        size: AvatarSize.small,
+                        linkUrl: '/$owner',
+                      ),
                       SizedBox(width: 8),
                       Text(
                         '$owner / $name',

@@ -25,21 +25,22 @@ class Avatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      child: ClipRRect(
-        borderRadius: borderRadius ?? BorderRadius.circular(size / 2),
-        child: FadeInImage.assetNetwork(
-          placeholder: 'images/avatar.png',
-          image: url ?? 'images/avatar.png',
-          width: size,
-          height: size,
-          fadeInDuration: Duration(milliseconds: 200),
-          fadeOutDuration: Duration(milliseconds: 100),
-        ),
+    final widget = ClipRRect(
+      borderRadius: borderRadius ?? BorderRadius.circular(size / 2),
+      child: FadeInImage.assetNetwork(
+        placeholder: 'images/avatar.png',
+        image: url ?? 'images/avatar.png',
+        width: size,
+        height: size,
+        fadeInDuration: Duration(milliseconds: 200),
+        fadeOutDuration: Duration(milliseconds: 100),
       ),
+    );
+    if (linkUrl == null) return widget;
+    return GestureDetector(
+      child: widget,
       onTap: () {
-        if (linkUrl != null)
-          Provider.of<ThemeModel>(context).push(context, linkUrl);
+        Provider.of<ThemeModel>(context).push(context, linkUrl);
       },
     );
   }
@@ -79,7 +80,6 @@ class GitlabAvatar extends StatelessWidget {
       url: url,
       size: size,
       linkUrl: '/user/$id',
-      borderRadius: BorderRadius.circular(size / 2),
     );
   }
 }

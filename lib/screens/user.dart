@@ -256,7 +256,7 @@ class UserScreen extends StatelessWidget {
                 leftIconData: Octicons.organization,
                 text: TextContainsOrganization(
                   p.company,
-                  style: TextStyle(fontSize: 16, color: theme.palette.text),
+                  style: TextStyle(fontSize: 17, color: theme.palette.text),
                   oneLine: true,
                 ),
               ),
