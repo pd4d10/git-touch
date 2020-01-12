@@ -66,7 +66,7 @@ class CommentItem extends StatelessWidget {
           ),
         ]),
         SizedBox(height: 12),
-        MarkdownView(payload['body'] as String),
+        MarkdownView(payload['body'] as String), // TODO: link
         SizedBox(height: 12),
         Wrap(
           crossAxisAlignment: WrapCrossAlignment.center,

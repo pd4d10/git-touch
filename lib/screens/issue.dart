@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:git_touch/graphql/gh.dart';
 import 'package:git_touch/models/auth.dart';
+import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/action_button.dart';
+import 'package:git_touch/widgets/avatar.dart';
+import 'package:git_touch/widgets/link.dart';
 import 'package:primer/primer.dart';
 import 'package:provider/provider.dart';
 import '../scaffolds/long_list.dart';
@@ -53,6 +56,11 @@ class _IssueScreenState extends State<IssueScreen> {
 
   String get issueChunk {
     var base = '''
+  repository {
+    owner {
+      avatarUrl
+    }
+  }
   title
   closed
   url
@@ -67,6 +75,7 @@ class _IssueScreenState extends State<IssueScreen> {
 merged
 additions
 deletions
+changedFiles
 commits {
   totalCount
 }
@@ -366,7 +375,7 @@ mutation {
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthModel>(context);
     return LongListStatefulScaffold(
-      title: Text('Issue #$number'),
+      title: Text(isPullRequest ? 'Pull Request' : 'Issue'),
       trailingBuilder: (payload, setState) {
         return ActionButton(
           title: (isPullRequest ? 'Pull Request' : 'Issue') + ' Actions',
@@ -396,7 +405,8 @@ mutation {
           ],
         );
       },
-      headerBuilder: (payload) {
+      headerBuilder: (p) {
+        final theme = Provider.of<ThemeModel>(context);
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
@@ -406,25 +416,89 @@ mutation {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
-                      Expanded(
-                        child: Text(
-                          payload['title'],
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
+                      Avatar(
+                        url: p['repository']['owner']['avatarUrl'],
+                        size: AvatarSize.extraSmall,
+                      ),
+                      SizedBox(width: 4),
+                      Text(
+                        '$owner / $name',
+                        style: TextStyle(
+                          fontSize: 17,
+                          color: theme.palette.secondaryText,
                         ),
                       ),
-                      Padding(padding: EdgeInsets.only(right: 8)),
-                      StateLabel(_getLabelStatus(payload))
+                      SizedBox(width: 4),
+                      Text(
+                        '#$number',
+                        style: TextStyle(
+                          fontSize: 17,
+                          color: theme.palette.tertiaryText,
+                        ),
+                      ),
                     ],
                   ),
-                  Padding(padding: EdgeInsets.only(bottom: 16)),
+                  SizedBox(height: 8),
+                  Text(
+                    p['title'],
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  StateLabel(_getLabelStatus(p), small: true),
+                  SizedBox(height: 8),
+                  CommonStyle.border,
+                  if (isPullRequest) ...[
+                    Link(
+                      child: Container(
+                        padding: EdgeInsets.symmetric(vertical: 8),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text(
+                              '${p['changedFiles']} files changed',
+                              style: TextStyle(
+                                color: theme.palette.secondaryText,
+                                fontSize: 17,
+                              ),
+                            ),
+                            Row(
+                              children: <Widget>[
+                                Text(
+                                  '+${p['additions']}',
+                                  style: TextStyle(
+                                    color: Colors.green,
+                                    fontSize: 15,
+                                  ),
+                                ),
+                                SizedBox(width: 2),
+                                Text(
+                                  '-${p['deletions']}',
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                    fontSize: 15,
+                                  ),
+                                ),
+                                Icon(
+                                  Icons.chevron_right,
+                                  color: theme.palette.border,
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                      url: 'https://github.com/$owner/$name/pull/$number/files',
+                    ),
+                    CommonStyle.border,
+                  ],
+                  SizedBox(height: 8),
                   CommentItem(
-                    payload,
-                    onReaction: _handleReaction(payload),
+                    p,
+                    onReaction: _handleReaction(p),
                   ),
                 ],
               ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/widgets/avatar.dart';
+import 'package:git_touch/widgets/label.dart';
 import 'package:provider/provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import '../utils/utils.dart';
@@ -58,7 +59,7 @@ class IssueItem extends StatelessWidget {
                         ? Octicons.git_pull_request
                         : Octicons.issue_opened,
                     color: GithubPalette.open,
-                    size: 18),
+                    size: 20),
                 SizedBox(width: 6),
                 Expanded(
                   child: Container(
@@ -66,49 +67,41 @@ class IssueItem extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: join(SizedBox(height: 8), [
                         Text.rich(
-                          TextSpan(children: [
-                            TextSpan(text: payload['title'] + ' '),
-                            TextSpan(
-                              text: '#${payload['number']}',
-                              style:
-                                  TextStyle(color: theme.palette.tertiaryText),
-                            ),
-                          ]),
+                          TextSpan(
+                            children: [
+                              TextSpan(text: payload['title'] + ' '),
+                              TextSpan(
+                                text: '#${payload['number']}',
+                                style: TextStyle(
+                                  color: theme.palette.tertiaryText,
+                                  fontSize: 15,
+                                ),
+                              ),
+                            ],
+                          ),
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: 17,
                             color: theme.palette.primary,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
                         if ((payload['labels']['nodes'] as List).isNotEmpty)
                           Wrap(
-                            spacing: 2,
-                            runSpacing: 2,
+                            spacing: 4,
+                            runSpacing: 4,
                             children: (payload['labels']['nodes'] as List)
                                 .map((label) {
-                              final color = convertColor(label['color']);
-                              return Container(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 1, horizontal: 3),
-                                decoration: BoxDecoration(
-                                  color: color,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(2)),
-                                ),
-                                child: Text(
-                                  label['name'],
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    color: getFontColorByBrightness(color),
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
+                              return Label(
+                                name: label['name'],
+                                cssColor: label['color'],
                               );
                             }).toList(),
                           ),
                         DefaultTextStyle(
                           style: TextStyle(
-                              fontSize: 13, color: theme.palette.secondaryText),
+                            fontSize: 14,
+                            color: theme.palette.secondaryText,
+                          ),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
@@ -124,7 +117,7 @@ class IssueItem extends StatelessWidget {
                                 SizedBox(width: 4),
                                 Text(
                                   payload['author']['login'],
-                                  style: TextStyle(fontWeight: FontWeight.w500),
+                                  style: TextStyle(fontWeight: FontWeight.w600),
                                 ),
                               ],
                               Text(' opened ' +
@@ -133,9 +126,9 @@ class IssueItem extends StatelessWidget {
                               if (payload['comments']['totalCount'] > 0) ...[
                                 Expanded(child: SizedBox()),
                                 Icon(Octicons.comment,
-                                    size: 13,
+                                    size: 14,
                                     color: theme.palette.secondaryText),
-                                SizedBox(width: 4),
+                                SizedBox(width: 3),
                                 Text(numberFormat
                                     .format(payload['comments']['totalCount']))
                               ],

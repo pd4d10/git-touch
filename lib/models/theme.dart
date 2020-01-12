@@ -109,8 +109,8 @@ class ThemeModel with ChangeNotifier {
         return Palette(
           primary: Colors.blueAccent.shade700,
           text: Colors.black,
-          secondaryText: Colors.grey.shade900,
-          tertiaryText: Colors.grey.shade800,
+          secondaryText: Colors.grey.shade800,
+          tertiaryText: Colors.grey.shade600,
           background: Colors.white,
           grayBackground: Colors.grey.shade100,
           border: Colors.grey.shade400,

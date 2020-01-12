@@ -2,7 +2,7 @@ import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:git_touch/models/theme.dart';
-import 'package:primer/primer.dart';
+import 'package:git_touch/widgets/label.dart';
 import 'package:provider/provider.dart';
 import '../utils/utils.dart';
 import 'comment_item.dart';
@@ -17,7 +17,7 @@ class TimelineEventItem extends StatelessWidget {
   TimelineEventItem({
     this.actor,
     this.iconData = Octicons.octoface,
-    this.iconColor = PrimerColors.gray400,
+    this.iconColor = Colors.grey,
     this.textSpan,
     this.item,
   });
@@ -34,7 +34,7 @@ class TimelineEventItem extends StatelessWidget {
         Expanded(
           child: RichText(
             text: TextSpan(
-              style: TextStyle(color: theme.palette.text),
+              style: TextStyle(color: theme.palette.text, fontSize: 16),
               children: [
                 // TODO: actor is null
                 createUserSpan(context, actor),
@@ -66,17 +66,11 @@ class TimelineItem extends StatelessWidget {
     }
   }
 
-  TextSpan _buildLabel(item) {
-    // FIXME:
-    var color = convertColor(item['label']['color']);
-    return TextSpan(
-      text: item['label']['name'],
-      style: TextStyle(
-        color: getFontColorByBrightness(color),
-        backgroundColor: color,
-        // https://stackoverflow.com/a/52592679
-        // ..strokeWidth = 16.5
-        // ..style = PaintingStyle.stroke
+  InlineSpan _buildLabel(p) {
+    return WidgetSpan(
+      child: Label(
+        name: p['label']['name'],
+        cssColor: p['label']['color'],
       ),
     );
   }
