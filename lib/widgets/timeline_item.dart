@@ -12,14 +12,14 @@ class TimelineEventItem extends StatelessWidget {
   final IconData iconData;
   final Color iconColor;
   final TextSpan textSpan;
-  final item;
+  final p;
 
   TimelineEventItem({
     this.actor,
     this.iconData = Octicons.octoface,
     this.iconColor = Colors.grey,
     this.textSpan,
-    this.item,
+    this.p,
   });
 
   @override
@@ -50,10 +50,10 @@ class TimelineEventItem extends StatelessWidget {
 }
 
 class TimelineItem extends StatelessWidget {
-  final Map<String, dynamic> payload;
+  final Map<String, dynamic> p;
   final Function(String emojiKey, bool isRemove) onReaction;
 
-  TimelineItem(this.payload, {@required this.onReaction});
+  TimelineItem(this.p, {@required this.onReaction});
 
   TextSpan _buildReviewText(BuildContext context, item) {
     switch (item['state']) {
@@ -84,150 +84,149 @@ class TimelineItem extends StatelessWidget {
       textSpan: TextSpan(children: [
         TextSpan(text: 'Woops, $type type not implemented yet'),
       ]),
-      item: payload,
+      p: p,
     );
 
     switch (type) {
       // common types
-      case 'Commit':
+      case 'PullRequestCommit':
         return TimelineEventItem(
-          actor: payload['author']['user'] == null
+          actor: p['prCommit']['author']['user'] == null
               ? null
-              : payload['author']['user']['login'],
+              : p['prCommit']['author']['user']['login'],
           iconData: Octicons.git_commit,
           textSpan: TextSpan(children: [
             TextSpan(text: ' added commit '),
-            TextSpan(text: payload['oid'].substring(0, 8))
+            TextSpan(text: p['prCommit']['oid'].substring(0, 8))
           ]),
-          item: payload,
+          p: p,
         );
       case 'IssueComment':
-        return CommentItem(payload, onReaction: onReaction);
+        return CommentItem(p, onReaction: onReaction);
       case 'CrossReferencedEvent':
         return TimelineEventItem(
-          actor: payload['actor']['login'],
+          actor: p['actor']['login'],
           iconData: Octicons.primitive_dot,
           iconColor: GithubPalette.open,
           textSpan: TextSpan(
-              text: ' referenced this on #' +
-                  payload['source']['number'].toString()),
-          item: payload,
+              text: ' referenced this on #' + p['source']['number'].toString()),
+          p: p,
         );
       case 'ClosedEvent':
         return TimelineEventItem(
-          actor: payload['actor']['login'],
+          actor: p['actor']['login'],
           iconData: Octicons.circle_slash,
           iconColor: GithubPalette.closed,
           textSpan: TextSpan(text: ' closed this '),
-          item: payload,
+          p: p,
         );
 
       case 'ReopenedEvent':
         return TimelineEventItem(
-          actor: payload['actor']['login'],
+          actor: p['actor']['login'],
           iconData: Octicons.primitive_dot,
           iconColor: GithubPalette.open,
           textSpan: TextSpan(text: ' reopened this '),
-          item: payload,
+          p: p,
         );
       case 'SubscribedEvent':
       case 'UnsubscribedEvent':
         return defaultItem; // TODO:
       case 'ReferencedEvent':
         // TODO: isCrossRepository
-        if (payload['commit'] == null) {
+        if (p['commit'] == null) {
           return Container();
         }
 
         return TimelineEventItem(
-          actor: payload['actor']['login'],
+          actor: p['actor']['login'],
           iconData: Octicons.bookmark,
           textSpan: TextSpan(children: [
             TextSpan(text: ' referenced this pull request from commit '),
-            TextSpan(text: payload['commit']['oid'].substring(0, 8)),
+            TextSpan(text: p['commit']['oid'].substring(0, 8)),
           ]),
-          item: payload,
+          p: p,
         );
       case 'AssignedEvent':
         return TimelineEventItem(
-          actor: payload['actor']['login'],
+          actor: p['actor']['login'],
           iconData: Octicons.key,
           textSpan: TextSpan(children: [
             TextSpan(text: ' assigned this to '),
-            TextSpan(text: payload['user']['login'])
+            TextSpan(text: p['user']['login'])
           ]),
-          item: payload,
+          p: p,
         );
       case 'UnassignedEvent':
         return defaultItem; // TODO:
       case 'LabeledEvent':
         return TimelineEventItem(
-          actor: payload['actor']['login'],
+          actor: p['actor']['login'],
           iconData: Octicons.tag,
           textSpan: TextSpan(children: [
             TextSpan(text: ' added '),
-            _buildLabel(payload),
+            _buildLabel(p),
             TextSpan(text: ' label'),
           ]),
-          item: payload,
+          p: p,
         );
       case 'UnlabeledEvent':
         return TimelineEventItem(
-          actor: payload['actor']['login'],
+          actor: p['actor']['login'],
           iconData: Octicons.tag,
           textSpan: TextSpan(children: [
             TextSpan(text: ' removed '),
-            _buildLabel(payload),
+            _buildLabel(p),
             TextSpan(text: ' label'),
           ]),
-          item: payload,
+          p: p,
         );
 
       case 'MilestonedEvent':
         return TimelineEventItem(
-          actor: payload['actor']['login'],
+          actor: p['actor']['login'],
           iconData: Octicons.milestone,
           textSpan: TextSpan(children: [
             TextSpan(text: ' added this to '),
-            TextSpan(text: payload['milestoneTitle']),
+            TextSpan(text: p['milestoneTitle']),
             TextSpan(text: ' milestone'),
           ]),
-          item: payload,
+          p: p,
         );
       case 'DemilestonedEvent':
         return defaultItem; // TODO:
       case 'RenamedTitleEvent':
         return TimelineEventItem(
-          actor: payload['actor']['login'],
+          actor: p['actor']['login'],
           iconData: Octicons.pencil,
           textSpan: TextSpan(children: [
             TextSpan(text: ' changed the title '),
             TextSpan(
-              text: payload['previousTitle'],
+              text: p['previousTitle'],
               style: TextStyle(decoration: TextDecoration.lineThrough),
             ),
             TextSpan(text: ' to '),
-            TextSpan(text: payload['currentTitle'])
+            TextSpan(text: p['currentTitle'])
           ]),
-          item: payload,
+          p: p,
         );
       case 'LockedEvent':
         return TimelineEventItem(
-          actor: payload['actor']['login'],
+          actor: p['actor']['login'],
           iconData: Octicons.lock,
           textSpan: TextSpan(children: [
             TextSpan(text: ' locked this conversation '),
           ]),
-          item: payload,
+          p: p,
         );
       case 'UnlockedEvent':
         return TimelineEventItem(
-          actor: payload['actor']['login'],
+          actor: p['actor']['login'],
           iconData: Octicons.key,
           textSpan: TextSpan(children: [
             TextSpan(text: ' unlocked this conversation '),
           ]),
-          item: payload,
+          p: p,
         );
 
       // issue only types
@@ -239,79 +238,77 @@ class TimelineItem extends StatelessWidget {
         return defaultItem; // TODO:
       case 'PullRequestReview':
         return TimelineEventItem(
-          actor: payload['author']['login'],
+          actor: p['author']['login'],
           iconColor: GithubPalette.open,
           iconData: Octicons.check,
-          textSpan: _buildReviewText(context, payload),
-          item: payload,
+          textSpan: _buildReviewText(context, p),
+          p: p,
         );
       case 'PullRequestReviewThread':
       case 'PullRequestReviewComment':
         return defaultItem; // TODO:
       case 'MergedEvent':
         return TimelineEventItem(
-          actor: payload['actor']['login'],
+          actor: p['actor']['login'],
           iconData: Octicons.git_merge,
           iconColor: GithubPalette.merged,
           textSpan: TextSpan(children: [
             TextSpan(text: ' merged commit '),
-            TextSpan(text: payload['commit']['oid'].substring(0, 8)),
+            TextSpan(text: p['commit']['oid'].substring(0, 8)),
             TextSpan(text: ' into '),
-            TextSpan(text: payload['mergeRefName']),
+            TextSpan(text: p['mergeRefName']),
           ]),
-          item: payload,
+          p: p,
         );
       case 'DeployedEvent':
       case 'DeploymentEnvironmentChangedEvent':
         return defaultItem; // TODO:
       case 'HeadRefDeletedEvent':
         return TimelineEventItem(
-          actor: payload['actor']['login'],
+          actor: p['actor']['login'],
           iconData: Octicons.git_branch,
           textSpan: TextSpan(children: [
             TextSpan(text: ' deleted the '),
-            TextSpan(text: payload['headRefName']),
+            TextSpan(text: p['headRefName']),
             TextSpan(text: ' branch'),
           ]),
-          item: payload,
+          p: p,
         );
       case 'HeadRefRestoredEvent':
       case 'HeadRefForcePushedEvent':
         return TimelineEventItem(
           iconData: Octicons.repo_force_push,
-          actor: payload['actor']['login'],
+          actor: p['actor']['login'],
           textSpan: TextSpan(
             children: [
               TextSpan(text: ' force-pushed the '),
               WidgetSpan(
-                  child: PrimerBranchName(
-                      payload['pullRequest']['headRef']['name'])),
+                  child: PrimerBranchName(p['pullRequest']['headRef']['name'])),
               TextSpan(text: ' branch from '),
               TextSpan(
-                text:
-                    (payload['beforeCommit']['oid'] as String).substring(0, 7),
+                text: (p['beforeCommit']['oid'] as String).substring(0, 7),
                 style: TextStyle(color: theme.palette.primary),
               ),
               TextSpan(text: ' to '),
               TextSpan(
-                text: (payload['afterCommit']['oid'] as String).substring(0, 7),
+                text: (p['afterCommit']['oid'] as String).substring(0, 7),
                 style: TextStyle(color: theme.palette.primary),
               ),
             ],
           ),
-          item: payload,
+          p: p,
         );
       case 'BaseRefForcePushedEvent':
         return defaultItem; // TODO:
       case 'ReviewRequestedEvent':
         return TimelineEventItem(
           iconData: Octicons.eye,
-          actor: payload['actor']['login'],
+          actor: p['actor']['login'],
           textSpan: TextSpan(children: [
             TextSpan(text: ' requested a review from '),
-            createUserSpan(context, payload['requestedReviewer']['login']),
+            createUserSpan(context, p['requestedReviewer']['login']),
           ]),
-          item: payload,
+          p: p,
         );
       case 'ReviewRequestRemovedEvent':
       case 'ReviewDismissedEvent':
@@ -323,7 +320,7 @@ class TimelineItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final type = payload['__typename'] as String;
+    final type = p['__typename'] as String;
 
     Widget widget = Container(
       padding: CommonStyle.padding,
@@ -331,7 +328,7 @@ class TimelineItem extends StatelessWidget {
     );
 
     if (type == 'PullRequestReview') {
-      final comments = payload['comments']['nodes'] as List;
+      final comments = p['comments']['nodes'] as List;
       if (comments.isNotEmpty) {
         widget = Column(
           children: <Widget>[

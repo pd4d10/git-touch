@@ -91,15 +91,6 @@ __typename
   ...CommentParts
   ...ReactableParts
 }
-... on Commit {
-  committedDate
-  oid
-  author {
-    user {
-      login
-    }
-  }
-}
 ... on ReferencedEvent {
   createdAt
   isCrossRepository
@@ -217,6 +208,17 @@ __typename
 
     if (isPullRequest) {
       base += '''
+... on PullRequestCommit {
+  prCommit: commit {
+    committedDate
+    oid
+    author {
+      user {
+        login
+      }
+    }
+  }
+}
 ... on HeadRefForcePushedEvent {
   createdAt
   actor {
@@ -312,7 +314,7 @@ fragment ReactableParts on Reactable {
   repository(owner: "$owner", name: "$name") {
     $resource(number: $number) {
       $issueChunk
-      timeline($timelineParams) {
+      timelineItems($timelineParams) {
         totalCount
         pageInfo {
           hasNextPage
@@ -511,9 +513,9 @@ mutation {
           TimelineItem(itemPayload, onReaction: _handleReaction(itemPayload)),
       onRefresh: () async {
         var res = await _queryIssue();
-        int totalCount = res['timeline']['totalCount'];
-        String cursor = res['timeline']['pageInfo']['endCursor'];
-        List leadingItems = res['timeline']['nodes'];
+        int totalCount = res['timelineItems']['totalCount'];
+        String cursor = res['timelineItems']['pageInfo']['endCursor'];
+        List leadingItems = res['timelineItems']['nodes'];
 
         var payload = LongListPayload(
           header: res,
@@ -525,16 +527,16 @@ mutation {
 
         if (totalCount > 2 * pageSize) {
           var res = await _queryIssue(trailing: true);
-          payload.trailingItems = res['timeline']['nodes'];
+          payload.trailingItems = res['timelineItems']['nodes'];
         }
 
         return payload;
       },
       onLoadMore: (String _cursor) async {
         var res = await _queryIssue(cursor: _cursor);
-        int totalCount = res['timeline']['totalCount'];
-        String cursor = res['timeline']['pageInfo']['endCursor'];
-        List leadingItems = res['timeline']['nodes'];
+        int totalCount = res['timelineItems']['totalCount'];
+        String cursor = res['timelineItems']['pageInfo']['endCursor'];
+        List leadingItems = res['timelineItems']['nodes'];
 
         var payload = LongListPayload(
           totalCount: totalCount,
