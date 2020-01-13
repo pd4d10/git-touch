@@ -144,7 +144,7 @@ class _HomeState extends State<Home> {
     final theme = Provider.of<ThemeModel>(context);
 
     final themData = ThemeData(
-      brightness: theme.brightness,
+      brightness: theme.brightnessEnum,
       primaryColor: Colors.white,
     );
 
@@ -162,7 +162,7 @@ class _HomeState extends State<Home> {
       case AppThemeType.cupertino:
         return CupertinoApp(
           theme: CupertinoThemeData(
-            brightness: theme.brightness,
+            brightness: theme.brightnessEnum,
             primaryColor: theme.palette.primary,
           ),
           home: CupertinoTabScaffold(

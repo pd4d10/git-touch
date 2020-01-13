@@ -230,7 +230,7 @@ class UserScreen extends StatelessWidget {
                   spacing: 3,
                   children: week.contributionDays.map((day) {
                     var color = convertColor(day.color);
-                    if (theme.brightness == Brightness.dark) {
+                    if (theme.brightnessEnum == Brightness.dark) {
                       color = Color.fromRGBO(0xff - color.red,
                           0xff - color.green, 0xff - color.blue, 1);
                     }

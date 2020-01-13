@@ -4,8 +4,9 @@ import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/single.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
+import 'package:git_touch/widgets/table_view.dart';
 import 'package:provider/provider.dart';
-import '../widgets/table_view.dart';
+import 'package:tuple/tuple.dart';
 
 final settingsRouter = RouterScreen(
   '/settings',
@@ -13,15 +14,15 @@ final settingsRouter = RouterScreen(
 );
 
 class SettingsScreen extends StatelessWidget {
-  Widget _buildRightWidget(bool checked) {
+  Widget _buildRightWidget(BuildContext context, bool checked) {
+    final theme = Provider.of<ThemeModel>(context);
     if (!checked) return null;
-    return Icon(Octicons.check, color: CupertinoColors.activeBlue, size: 24);
+    return Icon(Icons.check, color: theme.palette.primary, size: 24);
   }
 
   @override
   Widget build(BuildContext context) {
-    var themeProvider = Provider.of<ThemeModel>(context);
-
+    final theme = Provider.of<ThemeModel>(context);
     return SingleScaffold(
       title: AppBarTitle('Settings'),
       body: Column(
@@ -40,29 +41,45 @@ class SettingsScreen extends StatelessWidget {
           TableView(
             headerText: 'APP THEME',
             items: [
-              TableViewItem(
+              Tuple2('Material', AppThemeType.material),
+              Tuple2('Cupertino', AppThemeType.cupertino),
+            ].map((t) {
+              return TableViewItem(
                 text: Text('Material'),
                 rightWidget: _buildRightWidget(
-                    themeProvider.theme == AppThemeType.material),
+                  context,
+                  theme.theme == AppThemeType.material,
+                ),
                 onTap: () {
-                  if (themeProvider.theme != AppThemeType.material) {
-                    themeProvider.setTheme(AppThemeType.material);
+                  if (theme.theme != AppThemeType.material) {
+                    theme.setTheme(AppThemeType.material);
                   }
                 },
                 hideRightChevron: true,
-              ),
-              TableViewItem(
-                text: Text('Cupertino'),
+              );
+            }).toList(),
+          ),
+          CommonStyle.verticalGap,
+          TableView(
+            headerText: 'BRIGHTNESS',
+            items: [
+              // Tuple2('Follow System', AppBrightnessType.followSystem),
+              Tuple2('Light', AppBrightnessType.light),
+              Tuple2('Dark', AppBrightnessType.dark),
+            ].map((t) {
+              return TableViewItem(
+                text: Text(t.item1),
                 rightWidget: _buildRightWidget(
-                    themeProvider.theme == AppThemeType.cupertino),
+                  context,
+                  theme.brighnessValue == t.item2,
+                ),
                 onTap: () {
-                  if (themeProvider.theme != AppThemeType.cupertino) {
-                    themeProvider.setTheme(AppThemeType.cupertino);
-                  }
+                  if (theme.brighnessValue != t.item2)
+                    theme.setBrightness(t.item2);
                 },
                 hideRightChevron: true,
-              ),
-            ],
+              );
+            }).toList(),
           ),
           CommonStyle.verticalGap,
           TableView(

@@ -20,6 +20,17 @@ class AppThemeType {
   static const values = [AppThemeType.material, AppThemeType.cupertino];
 }
 
+class AppBrightnessType {
+  // static const followSystem = 0;
+  static const light = 1;
+  static const dark = 2;
+  static const values = [
+    // AppBrightnessType.followSystem,
+    AppBrightnessType.light,
+    AppBrightnessType.dark
+  ];
+}
+
 class PickerItem<T> {
   final T value;
   final String text;
@@ -86,25 +97,38 @@ class Palette {
 }
 
 class ThemeModel with ChangeNotifier {
-  static const storageKey = 'theme';
+  static const kTheme = 'theme';
+  static const kBrightness = 'brightness';
 
   int _theme;
   int get theme => _theme;
   bool get ready => _theme != null;
 
-  Brightness _brightness = Brightness.light;
-  Brightness get brightness => _brightness;
-  Future<void> toggleBrightness() async {
-    // TODO: Save
-    _brightness =
-        _brightness == Brightness.dark ? Brightness.light : Brightness.dark;
+  int _brightnessValue = AppBrightnessType.light;
+  int get brighnessValue => _brightnessValue;
+  Brightness get brightnessEnum {
+    switch (_brightnessValue) {
+      case AppBrightnessType.light:
+        return Brightness.light;
+      case AppBrightnessType.dark:
+        return Brightness.dark;
+      default:
+        return null;
+    }
+  }
+
+  Future<void> setBrightness(int v) async {
+    _brightnessValue = v;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt(kBrightness, v);
+    Fimber.d('write brightness: $v');
     notifyListeners();
   }
 
   final router = Router();
 
   Palette get palette {
-    switch (brightness) {
+    switch (brightnessEnum) {
       case Brightness.light:
         return Palette(
           primary: Colors.blueAccent.shade700,
@@ -131,9 +155,8 @@ class ThemeModel with ChangeNotifier {
   }
 
   Future<void> init() async {
-    var prefs = await SharedPreferences.getInstance();
-
-    int v = prefs.getInt(storageKey);
+    final prefs = await SharedPreferences.getInstance();
+    final v = prefs.getInt(kTheme);
     Fimber.d('read theme: $v');
     if (AppThemeType.values.contains(v)) {
       _theme = v;
@@ -142,17 +165,20 @@ class ThemeModel with ChangeNotifier {
     } else {
       _theme = AppThemeType.material;
     }
+    final b = prefs.getInt(kBrightness);
+    Fimber.d('read brightness: $b');
+    if (AppBrightnessType.values.contains(b)) {
+      _brightnessValue = b;
+    }
 
     notifyListeners();
   }
 
   Future<void> setTheme(int v) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-
     _theme = v;
-    await prefs.setInt(storageKey, v);
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt(kTheme, v);
     Fimber.d('write theme: $v');
-
     notifyListeners();
   }
 

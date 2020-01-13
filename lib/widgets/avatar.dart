@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/theme.dart';
+import 'package:git_touch/widgets/link.dart';
 import 'package:provider/provider.dart';
 
 class AvatarSize {
@@ -37,7 +38,7 @@ class Avatar extends StatelessWidget {
       ),
     );
     if (linkUrl == null) return widget;
-    return GestureDetector(
+    return Link(
       child: widget,
       onTap: () {
         Provider.of<ThemeModel>(context).push(context, linkUrl);

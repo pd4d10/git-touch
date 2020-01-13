@@ -169,7 +169,7 @@ class ObjectScreen extends StatelessWidget {
                   child: HighlightView(
                     text,
                     language: _language,
-                    theme: themeMap[theme.brightness == Brightness.dark
+                    theme: themeMap[theme.brightnessEnum == Brightness.dark
                         ? codeProvider.themeDark
                         : codeProvider.theme],
                     padding: CommonStyle.padding,
