@@ -45,14 +45,14 @@ class SettingsScreen extends StatelessWidget {
               Tuple2('Cupertino', AppThemeType.cupertino),
             ].map((t) {
               return TableViewItem(
-                text: Text('Material'),
+                text: Text(t.item1),
                 rightWidget: _buildRightWidget(
                   context,
-                  theme.theme == AppThemeType.material,
+                  theme.theme == t.item2,
                 ),
                 onTap: () {
-                  if (theme.theme != AppThemeType.material) {
-                    theme.setTheme(AppThemeType.material);
+                  if (theme.theme != t.item2) {
+                    theme.setTheme(t.item2);
                   }
                 },
                 hideRightChevron: true,
