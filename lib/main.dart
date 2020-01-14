@@ -43,7 +43,7 @@ class _HomeState extends State<Home> {
 
   Widget _buildNotificationIcon(BuildContext context, bool isActive) {
     final theme = Provider.of<ThemeModel>(context);
-    final iconData = isActive ? Icons.notifications : Icons.notifications_none;
+    final iconData = Icons.notifications;
     int count = Provider.of<NotificationModel>(context).count;
     if (count == 0) {
       return Icon(iconData);
@@ -76,7 +76,7 @@ class _HomeState extends State<Home> {
             title: Text('Notification'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.trending_up),
+            icon: Icon(Icons.whatshot),
             title: Text('Trending'),
           ),
           BottomNavigationBarItem(
@@ -84,7 +84,7 @@ class _HomeState extends State<Home> {
             title: Text('Search'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline),
+            icon: Icon(Icons.person),
             activeIcon: Icon(Icons.person),
             title: Text('Me'),
           ),
