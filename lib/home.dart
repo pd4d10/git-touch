@@ -5,6 +5,7 @@ import 'package:git_touch/models/notification.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/screens/gitlab_todos.dart';
 import 'package:git_touch/screens/gitlab_user.dart';
+import 'package:git_touch/screens/login.dart';
 import 'package:git_touch/screens/notification.dart';
 import 'package:git_touch/screens/user.dart';
 import 'package:git_touch/utils/utils.dart';
@@ -121,6 +122,10 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
+    final auth = Provider.of<AuthModel>(context);
+    if (auth.activeAccount == null) {
+      return LoginScreen();
+    }
 
     switch (theme.theme) {
       case AppThemeType.cupertino:

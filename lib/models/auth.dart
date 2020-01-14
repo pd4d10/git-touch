@@ -31,7 +31,6 @@ class AuthModel with ChangeNotifier {
   bool loading = false;
 
   List<Account> get accounts => _accounts;
-  bool get ready => _accounts != null;
   Account get activeAccount {
     if (activeAccountIndex == null || _accounts == null) return null;
     return _accounts[activeAccountIndex];
