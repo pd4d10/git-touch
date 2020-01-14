@@ -280,7 +280,7 @@ class RepositoryScreen extends StatelessWidget {
                   // color: theme.palette.background,
                   padding: CommonStyle.padding.copyWith(top: 8, bottom: 8),
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(2),
+                    borderRadius: BorderRadius.circular(5),
                     child: SizedBox(
                       height: 10,
                       child: Row(
@@ -307,8 +307,10 @@ class RepositoryScreen extends StatelessWidget {
                   TableViewItem(
                     leftIconData: Octicons.code,
                     text: Text('Code'),
-                    rightWidget: Text((license == null ? '' : license + ' / ') +
-                        filesize(repo.diskUsage * 1000)),
+                    rightWidget: Text(
+                      (license == null ? '' : '$license • ') +
+                          filesize(repo.diskUsage * 1000),
+                    ),
                     url: '/$owner/$name/blob/${ref.name}',
                   ),
                 if (repo.hasIssuesEnabled)

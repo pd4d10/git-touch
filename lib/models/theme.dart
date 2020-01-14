@@ -141,7 +141,7 @@ class ThemeModel with ChangeNotifier {
         );
       case Brightness.dark:
         return Palette(
-          primary: Colors.blueAccent.shade400,
+          primary: Colors.blueAccent.shade200,
           text: Colors.grey.shade300,
           secondaryText: Colors.grey.shade400,
           tertiaryText: Colors.grey.shade500,

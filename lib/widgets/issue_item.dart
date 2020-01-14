@@ -74,14 +74,14 @@ class IssueItem extends StatelessWidget {
                                 text: '#${payload['number']}',
                                 style: TextStyle(
                                   color: theme.palette.tertiaryText,
-                                  fontSize: 15,
+                                  fontWeight: FontWeight.normal,
                                 ),
                               ),
                             ],
                           ),
                           style: TextStyle(
                             fontSize: 17,
-                            color: theme.palette.primary,
+                            color: theme.palette.text,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -107,12 +107,10 @@ class IssueItem extends StatelessWidget {
                             children: <Widget>[
                               // FIXME: Deleted user
                               if (payload['author'] != null) ...[
-                                Link(
-                                  url: '/' + payload['author']['login'],
-                                  child: Avatar(
-                                    size: AvatarSize.extraSmall,
-                                    url: payload['author']['avatarUrl'],
-                                  ),
+                                Avatar(
+                                  size: AvatarSize.extraSmall,
+                                  url: payload['author']['avatarUrl'],
+                                  linkUrl: '/' + payload['author']['login'],
                                 ),
                                 SizedBox(width: 4),
                                 Text(

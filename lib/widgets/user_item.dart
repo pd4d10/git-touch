@@ -43,22 +43,20 @@ class UserItem extends StatelessWidget {
                 children: <Widget>[
                   Row(
                     children: <Widget>[
-                      if (name != null) ...[
-                        Text(
-                          name,
-                          style: TextStyle(
-                            color: theme.palette.primary,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        SizedBox(width: 8),
-                      ],
+                      // Text(
+                      //   name ?? login,
+                      //   style: TextStyle(
+                      //     color: theme.palette.text,
+                      //     fontSize: 18,
+                      //   ),
+                      // ),
+                      // SizedBox(width: 8),
                       Text(
                         login,
                         style: TextStyle(
-                          color: theme.palette.secondaryText,
-                          fontSize: 16,
+                          color: theme.palette.primary,
+                          fontSize: 18,
+                          // fontWeight: FontWeight.w600,
                         ),
                       ),
                     ],

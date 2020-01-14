@@ -107,7 +107,7 @@ class UserScreen extends StatelessWidget {
             Text(
               name,
               style: TextStyle(
-                color: theme.palette.primary,
+                color: theme.palette.text,
                 fontSize: 20,
                 fontWeight: FontWeight.w600,
               ),
@@ -117,7 +117,7 @@ class UserScreen extends StatelessWidget {
           Text(
             login,
             style: TextStyle(
-              color: theme.palette.secondaryText,
+              color: theme.palette.primary,
               fontSize: 18,
             ),
           ),

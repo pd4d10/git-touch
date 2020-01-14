@@ -19,13 +19,16 @@ class MutationButton extends StatelessWidget {
       minSize: 0,
       color: theme.palette.primary,
       padding: EdgeInsets.symmetric(
-        horizontal: 12,
-        vertical: 4,
+        horizontal: 14,
+        vertical: 5,
       ),
       borderRadius: BorderRadius.all(Radius.circular(20)),
       child: Text(
         text,
-        style: TextStyle(fontSize: 16, color: theme.palette.background),
+        style: TextStyle(
+          fontSize: 18,
+          color: theme.palette.background,
+        ),
       ),
     );
   }
