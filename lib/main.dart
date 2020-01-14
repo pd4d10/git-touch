@@ -145,7 +145,7 @@ class _HomeState extends State<Home> {
 
     final themData = ThemeData(
       brightness: theme.brightnessEnum,
-      primaryColor: Colors.white,
+      primaryColor: theme.palette.background,
     );
 
     // TODO:
@@ -182,7 +182,6 @@ class _HomeState extends State<Home> {
           home: Scaffold(
             body: _buildScreen(active),
             bottomNavigationBar: BottomNavigationBar(
-              backgroundColor: Colors.white,
               selectedItemColor: theme.palette.primary,
               items: _navigationItems,
               currentIndex: active,
