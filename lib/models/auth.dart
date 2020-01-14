@@ -184,6 +184,7 @@ class AuthModel with ChangeNotifier {
 
   void setActiveAccountIndex(int index) {
     activeAccountIndex = index;
+    _gqlClient = null;
     notifyListeners();
   }
 
