@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:git_touch/utils/utils.dart';
 
-class Label extends StatelessWidget {
+class MyLabel extends StatelessWidget {
   final String name;
   final Color color;
   final String cssColor;
+  final Color textColor;
 
-  Label({
+  MyLabel({
     @required this.name,
     this.color,
     this.cssColor,
+    this.textColor,
   });
 
   @override
@@ -25,8 +27,8 @@ class Label extends StatelessWidget {
         name,
         style: TextStyle(
           fontSize: 13,
-          color: getFontColorByBrightness(_color),
-          fontWeight: FontWeight.w600,
+          color: textColor ?? getFontColorByBrightness(_color),
+          // fontWeight: FontWeight.w600,
         ),
       ),
     );

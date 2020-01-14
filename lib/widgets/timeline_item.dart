@@ -68,7 +68,7 @@ class TimelineItem extends StatelessWidget {
 
   InlineSpan _buildLabel(p) {
     return WidgetSpan(
-      child: Label(
+      child: MyLabel(
         name: p['label']['name'],
         cssColor: p['label']['color'],
       ),

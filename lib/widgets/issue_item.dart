@@ -91,7 +91,7 @@ class IssueItem extends StatelessWidget {
                             runSpacing: 4,
                             children: (payload['labels']['nodes'] as List)
                                 .map((label) {
-                              return Label(
+                              return MyLabel(
                                 name: label['name'],
                                 cssColor: label['color'],
                               );

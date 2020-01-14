@@ -350,7 +350,7 @@ class ThemeModel with ChangeNotifier {
             return Container(
               height: 216,
               child: CupertinoPicker(
-                backgroundColor: CupertinoColors.white,
+                backgroundColor: palette.background,
                 children: groupItem.items.map((v) => Text(v.text)).toList(),
                 itemExtent: 40,
                 scrollController: FixedExtentScrollController(

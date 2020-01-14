@@ -68,9 +68,11 @@ class _NotificationItemState extends State<NotificationItem> {
   }
 
   Widget _buildCheckIcon() {
+    final theme = Provider.of<ThemeModel>(context);
     return Icon(
       payload.unread ? Octicons.check : Octicons.primitive_dot,
-      color: loading ? Colors.black12 : Colors.black45,
+      color:
+          loading ? theme.palette.grayBackground : theme.palette.tertiaryText,
       size: 24,
     );
   }

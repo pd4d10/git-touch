@@ -8,11 +8,11 @@ import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/avatar.dart';
+import 'package:git_touch/widgets/label.dart';
 import 'package:git_touch/widgets/mutation_button.dart';
 import 'package:git_touch/widgets/link.dart';
 import 'package:git_touch/widgets/markdown_view.dart';
 import 'package:git_touch/widgets/table_view.dart';
-import 'package:primer/primer.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:tuple/tuple.dart';
@@ -191,20 +191,11 @@ class RepositoryScreen extends StatelessWidget {
                       spacing: 4,
                       runSpacing: 4,
                       children: repo.repositoryTopics.nodes.map((node) {
-                        return Container(
-                          padding:
-                              EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-                          decoration: BoxDecoration(
-                            color: PrimerColors.blue000,
-                            borderRadius: BorderRadius.all(Radius.circular(4)),
-                          ),
-                          child: Text(
-                            node.topic.name,
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: theme.palette.primary,
-                            ),
-                          ),
+                        return MyLabel(
+                          name: node.topic.name,
+                          // color: Colors.blue.shade50,
+                          color: theme.palette.grayBackground,
+                          textColor: theme.palette.primary,
                         );
                       }).toList(),
                     )
