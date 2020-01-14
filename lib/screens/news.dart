@@ -20,8 +20,7 @@ class NewsScreenState extends State<NewsScreen> {
   @override
   initState() {
     super.initState();
-    // FIXME:
-    nextTick(() async {
+    Future.microtask(() async {
       // Check if there are unread notification items.
       // 1 item is enough since count is not displayed for now.
       var items = await Provider.of<AuthModel>(context)

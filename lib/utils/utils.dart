@@ -51,13 +51,6 @@ Color getFontColorByBrightness(Color color) {
   return showWhite ? Colors.white : Colors.black;
 }
 
-void nextTick(Function callback, [int milliseconds = 0]) {
-  // FIXME:
-  Future.delayed(Duration(milliseconds: 0)).then((_) {
-    callback();
-  });
-}
-
 TextSpan createLinkSpan(
   BuildContext context,
   String text,
