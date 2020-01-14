@@ -46,7 +46,7 @@ class UserItem extends StatelessWidget {
                       // Text(
                       //   name ?? login,
                       //   style: TextStyle(
-                      //     color: theme.palette.text,
+                      //     color: theme.paletteOf(context).text,
                       //     fontSize: 18,
                       //   ),
                       // ),
@@ -54,7 +54,7 @@ class UserItem extends StatelessWidget {
                       Text(
                         login,
                         style: TextStyle(
-                          color: theme.palette.primary,
+                          color: theme.paletteOf(context).primary,
                           fontSize: 18,
                           // fontWeight: FontWeight.w600,
                         ),
@@ -65,7 +65,7 @@ class UserItem extends StatelessWidget {
                   if (bio != null)
                     DefaultTextStyle(
                       style: TextStyle(
-                        color: theme.palette.secondaryText,
+                        color: theme.paletteOf(context).secondaryText,
                         fontSize: 15,
                       ),
                       child: bio,

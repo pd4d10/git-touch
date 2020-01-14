@@ -59,7 +59,8 @@ class CommentItem extends StatelessWidget {
                 Text(
                   timeago.format(DateTime.parse(payload['createdAt'])),
                   style: TextStyle(
-                      color: theme.palette.tertiaryText, fontSize: 13),
+                      color: theme.paletteOf(context).tertiaryText,
+                      fontSize: 13),
                 ),
               ],
             ),
@@ -92,7 +93,8 @@ class CommentItem extends StatelessWidget {
                       SizedBox(width: 4),
                       Text(numberFormat.format(count),
                           style: TextStyle(
-                              color: theme.palette.primary, fontSize: 14))
+                              color: theme.paletteOf(context).primary,
+                              fontSize: 14))
                     ],
                   ),
                 ),
@@ -120,9 +122,11 @@ class CommentItem extends StatelessWidget {
                 child: Wrap(
                   crossAxisAlignment: WrapCrossAlignment.center,
                   children: <Widget>[
-                    Text('+', style: TextStyle(color: theme.palette.primary)),
+                    Text('+',
+                        style:
+                            TextStyle(color: theme.paletteOf(context).primary)),
                     Icon(Octicons.smiley,
-                        color: theme.palette.primary, size: 18),
+                        color: theme.paletteOf(context).primary, size: 18),
                   ],
                 ),
               ),

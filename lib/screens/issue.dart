@@ -428,7 +428,7 @@ mutation {
                         '$owner / $name',
                         style: TextStyle(
                           fontSize: 17,
-                          color: theme.palette.secondaryText,
+                          color: theme.paletteOf(context).secondaryText,
                         ),
                       ),
                       SizedBox(width: 4),
@@ -436,7 +436,7 @@ mutation {
                         '#$number',
                         style: TextStyle(
                           fontSize: 17,
-                          color: theme.palette.tertiaryText,
+                          color: theme.paletteOf(context).tertiaryText,
                         ),
                       ),
                     ],
@@ -463,7 +463,7 @@ mutation {
                             Text(
                               '${p['changedFiles']} files changed',
                               style: TextStyle(
-                                color: theme.palette.secondaryText,
+                                color: theme.paletteOf(context).secondaryText,
                                 fontSize: 17,
                               ),
                             ),
@@ -486,7 +486,7 @@ mutation {
                                 ),
                                 Icon(
                                   Icons.chevron_right,
-                                  color: theme.palette.border,
+                                  color: theme.paletteOf(context).border,
                                 ),
                               ],
                             )

@@ -60,7 +60,7 @@ TextSpan createLinkSpan(
   return TextSpan(
     text: text,
     style: TextStyle(
-      color: theme.palette.primary,
+      color: theme.paletteOf(context).primary,
       fontWeight: FontWeight.w600,
     ),
     recognizer: TapGestureRecognizer()
@@ -154,7 +154,7 @@ class PrimerBranchName extends StatelessWidget {
       child: Text(
         name,
         style: TextStyle(
-          color: theme.palette.primary,
+          color: theme.paletteOf(context).primary,
           fontSize: 14,
           height: 1,
           fontFamily: CommonStyle.monospace,

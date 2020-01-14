@@ -73,7 +73,7 @@ class IssueItem extends StatelessWidget {
                               TextSpan(
                                 text: '#${payload['number']}',
                                 style: TextStyle(
-                                  color: theme.palette.tertiaryText,
+                                  color: theme.paletteOf(context).tertiaryText,
                                   fontWeight: FontWeight.normal,
                                 ),
                               ),
@@ -81,7 +81,7 @@ class IssueItem extends StatelessWidget {
                           ),
                           style: TextStyle(
                             fontSize: 17,
-                            color: theme.palette.text,
+                            color: theme.paletteOf(context).text,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -100,7 +100,7 @@ class IssueItem extends StatelessWidget {
                         DefaultTextStyle(
                           style: TextStyle(
                             fontSize: 14,
-                            color: theme.palette.secondaryText,
+                            color: theme.paletteOf(context).secondaryText,
                           ),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -125,7 +125,8 @@ class IssueItem extends StatelessWidget {
                                 Expanded(child: SizedBox()),
                                 Icon(Octicons.comment,
                                     size: 14,
-                                    color: theme.palette.secondaryText),
+                                    color:
+                                        theme.paletteOf(context).secondaryText),
                                 SizedBox(width: 3),
                                 Text(numberFormat
                                     .format(payload['comments']['totalCount']))

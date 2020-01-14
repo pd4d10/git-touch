@@ -143,7 +143,7 @@ class RepositoryScreen extends StatelessWidget {
                         '$owner / $name',
                         style: TextStyle(
                           fontSize: 20,
-                          color: theme.palette.primary,
+                          color: theme.paletteOf(context).primary,
                         ),
                       ),
                     ],
@@ -170,7 +170,7 @@ class RepositoryScreen extends StatelessWidget {
                     Text(
                       repo.description,
                       style: TextStyle(
-                        color: theme.palette.secondaryText,
+                        color: theme.paletteOf(context).secondaryText,
                         fontSize: 17,
                       ),
                     ),
@@ -180,7 +180,7 @@ class RepositoryScreen extends StatelessWidget {
                       child: Text(
                         repo.homepageUrl,
                         style: TextStyle(
-                          color: theme.palette.primary,
+                          color: theme.paletteOf(context).primary,
                           fontSize: 17,
                         ),
                       ),
@@ -194,8 +194,8 @@ class RepositoryScreen extends StatelessWidget {
                         return MyLabel(
                           name: node.topic.name,
                           // color: Colors.blue.shade50,
-                          color: theme.palette.grayBackground,
-                          textColor: theme.palette.primary,
+                          color: theme.paletteOf(context).grayBackground,
+                          textColor: theme.paletteOf(context).primary,
                         );
                       }).toList(),
                     )
@@ -233,7 +233,7 @@ class RepositoryScreen extends StatelessWidget {
                     context: context,
                     builder: (context) {
                       return Container(
-                        color: theme.palette.background,
+                        color: theme.paletteOf(context).background,
                         padding: EdgeInsets.all(40),
                         height: 400,
                         child: charts.PieChart(
@@ -268,7 +268,7 @@ class RepositoryScreen extends StatelessWidget {
                   );
                 },
                 child: Container(
-                  // color: theme.palette.background,
+                  // color: theme.paletteOf(context).background,
                   padding: CommonStyle.padding.copyWith(top: 8, bottom: 8),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(5),
@@ -364,7 +364,7 @@ class RepositoryScreen extends StatelessWidget {
             if (readme != null)
               Container(
                 padding: CommonStyle.padding,
-                color: theme.palette.background,
+                color: theme.paletteOf(context).background,
                 child: MarkdownView(
                   readme,
                   basePaths: [owner, name, branch ?? 'master'], // TODO:

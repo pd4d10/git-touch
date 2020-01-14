@@ -107,7 +107,7 @@ class UserScreen extends StatelessWidget {
             Text(
               name,
               style: TextStyle(
-                color: theme.palette.text,
+                color: theme.paletteOf(context).text,
                 fontSize: 20,
                 fontWeight: FontWeight.w600,
               ),
@@ -117,7 +117,7 @@ class UserScreen extends StatelessWidget {
           Text(
             login,
             style: TextStyle(
-              color: theme.palette.primary,
+              color: theme.paletteOf(context).primary,
               fontSize: 18,
             ),
           ),
@@ -127,13 +127,13 @@ class UserScreen extends StatelessWidget {
               Icon(
                 Octicons.clock,
                 size: 16,
-                color: theme.palette.tertiaryText,
+                color: theme.paletteOf(context).tertiaryText,
               ),
               SizedBox(width: 4),
               Text(
                 'Joined on ${dateFormat.format(createdAt)}',
                 style: TextStyle(
-                  color: theme.palette.tertiaryText,
+                  color: theme.paletteOf(context).tertiaryText,
                   fontSize: 16,
                 ),
               ),
@@ -144,7 +144,7 @@ class UserScreen extends StatelessWidget {
             Text(
               bio,
               style: TextStyle(
-                color: theme.palette.secondaryText,
+                color: theme.paletteOf(context).secondaryText,
                 fontSize: 17,
               ),
             )
@@ -216,7 +216,7 @@ class UserScreen extends StatelessWidget {
         ]),
         CommonStyle.border,
         Container(
-          color: theme.palette.background,
+          color: theme.paletteOf(context).background,
           padding: CommonStyle.padding,
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
@@ -230,7 +230,7 @@ class UserScreen extends StatelessWidget {
                   spacing: 3,
                   children: week.contributionDays.map((day) {
                     var color = convertColor(day.color);
-                    if (theme.brightnessEnum == Brightness.dark) {
+                    if (theme.brightnessOf(context) == Brightness.dark) {
                       color = Color.fromRGBO(0xff - color.red,
                           0xff - color.green, 0xff - color.blue, 1);
                     }
@@ -256,7 +256,8 @@ class UserScreen extends StatelessWidget {
                 leftIconData: Octicons.organization,
                 text: TextContainsOrganization(
                   p.company,
-                  style: TextStyle(fontSize: 17, color: theme.palette.text),
+                  style: TextStyle(
+                      fontSize: 17, color: theme.paletteOf(context).text),
                   oneLine: true,
                 ),
               ),

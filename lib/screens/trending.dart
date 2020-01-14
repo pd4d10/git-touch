@@ -53,7 +53,7 @@ class TrendingScreen extends StatelessWidget {
                         Icon(
                           Octicons.repo,
                           size: 15,
-                          color: theme.palette.secondaryText,
+                          color: theme.paletteOf(context).secondaryText,
                         ),
                         SizedBox(width: 2),
                         Text(item.repo.name)

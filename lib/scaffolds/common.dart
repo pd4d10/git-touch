@@ -32,7 +32,7 @@ class CommonScaffold extends StatelessWidget {
       default:
         return Scaffold(
           appBar: AppBar(
-            brightness: theme.brightnessEnum,
+            brightness: theme.brightnessOf(context),
             title: title,
             actions: [
               if (action != null) action,

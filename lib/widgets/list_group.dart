@@ -20,7 +20,7 @@ class ListGroup<T> extends StatelessWidget {
     final theme = Provider.of<ThemeModel>(context);
     return Container(
       decoration: BoxDecoration(
-        border: Border(top: BorderSide(color: theme.palette.border)),
+        border: Border(top: BorderSide(color: theme.paletteOf(context).border)),
       ),
       child: itemBuilder(entry.value, entry.key),
     );
@@ -33,7 +33,7 @@ class ListGroup<T> extends StatelessWidget {
       padding: padding,
       child: Container(
         decoration: BoxDecoration(
-          border: Border.all(color: theme.palette.border),
+          border: Border.all(color: theme.paletteOf(context).border),
           borderRadius: BorderRadius.all(Radius.circular(3)),
         ),
         child: Column(

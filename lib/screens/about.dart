@@ -51,7 +51,8 @@ class _AboutScreenState extends State<AboutScreen> {
           SizedBox(height: 12),
           Text(
             'GitTouch',
-            style: TextStyle(fontSize: 20, color: theme.palette.text),
+            style:
+                TextStyle(fontSize: 20, color: theme.paletteOf(context).text),
           ),
           SizedBox(height: 48),
           TableView(items: [

@@ -18,7 +18,8 @@ class ImageViewScreen extends StatelessWidget {
       title: title,
       body: PhotoView(
         imageProvider: NetworkImage(url),
-        backgroundDecoration: BoxDecoration(color: theme.palette.background),
+        backgroundDecoration:
+            BoxDecoration(color: theme.paletteOf(context).background),
       ),
     );
   }

@@ -47,7 +47,7 @@ class GitlabProjectActivity extends StatelessWidget {
                             TextSpan(
                               text: data.author.name,
                               style: TextStyle(
-                                color: theme.palette.primary,
+                                color: theme.paletteOf(context).primary,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),

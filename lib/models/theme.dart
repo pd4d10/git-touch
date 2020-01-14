@@ -21,11 +21,11 @@ class AppThemeType {
 }
 
 class AppBrightnessType {
-  // static const followSystem = 0;
+  static const followSystem = 0;
   static const light = 1;
   static const dark = 2;
   static const values = [
-    // AppBrightnessType.followSystem,
+    AppBrightnessType.followSystem,
     AppBrightnessType.light,
     AppBrightnessType.dark
   ];
@@ -77,15 +77,15 @@ class StaticRoute extends PageRouteBuilder {
 }
 
 class Palette {
-  Color primary;
-  Color text;
-  Color secondaryText;
-  Color tertiaryText;
-  Color background;
-  Color grayBackground;
-  Color border;
+  final Color primary;
+  final Color text;
+  final Color secondaryText;
+  final Color tertiaryText;
+  final Color background;
+  final Color grayBackground;
+  final Color border;
 
-  Palette({
+  const Palette({
     this.primary,
     this.text,
     this.secondaryText,
@@ -104,9 +104,23 @@ class ThemeModel with ChangeNotifier {
   int get theme => _theme;
   bool get ready => _theme != null;
 
-  int _brightnessValue = AppBrightnessType.light;
+  int _brightnessValue = AppBrightnessType.followSystem;
   int get brighnessValue => _brightnessValue;
-  Brightness get brightnessEnum {
+
+  /// not null
+  Brightness brightnessOf(BuildContext context) {
+    switch (_brightnessValue) {
+      case AppBrightnessType.light:
+        return Brightness.light;
+      case AppBrightnessType.dark:
+        return Brightness.dark;
+      default:
+        return MediaQuery.of(context).platformBrightness;
+    }
+  }
+
+  // could be null
+  Brightness get brightness {
     switch (_brightnessValue) {
       case AppBrightnessType.light:
         return Brightness.light;
@@ -127,30 +141,33 @@ class ThemeModel with ChangeNotifier {
 
   final router = Router();
 
-  Palette get palette {
-    switch (brightnessEnum) {
+  final paletteLight = Palette(
+    primary: Colors.blueAccent.shade700,
+    text: Colors.black,
+    secondaryText: Colors.grey.shade800,
+    tertiaryText: Colors.grey.shade600,
+    background: Colors.white,
+    grayBackground: Colors.grey.shade100,
+    border: Colors.grey.shade400,
+  );
+  final paletteDark = Palette(
+    primary: Colors.blueAccent.shade200,
+    text: Colors.grey.shade300,
+    secondaryText: Colors.grey.shade400,
+    tertiaryText: Colors.grey.shade500,
+    background: Colors.black,
+    grayBackground: Colors.grey.shade900,
+    border: Colors.grey.shade700,
+  );
+
+  Palette paletteOf(BuildContext context) {
+    switch (brightnessOf(context)) {
       case Brightness.light:
-        return Palette(
-          primary: Colors.blueAccent.shade700,
-          text: Colors.black,
-          secondaryText: Colors.grey.shade800,
-          tertiaryText: Colors.grey.shade600,
-          background: Colors.white,
-          grayBackground: Colors.grey.shade100,
-          border: Colors.grey.shade400,
-        );
+        return paletteLight;
       case Brightness.dark:
-        return Palette(
-          primary: Colors.blueAccent.shade200,
-          text: Colors.grey.shade300,
-          secondaryText: Colors.grey.shade400,
-          tertiaryText: Colors.grey.shade500,
-          background: Colors.black,
-          grayBackground: Colors.grey.shade900,
-          border: Colors.grey.shade700,
-        );
+        return paletteDark;
       default:
-        return null;
+        throw 'brightnessOf should not return null';
     }
   }
 
@@ -350,7 +367,7 @@ class ThemeModel with ChangeNotifier {
             return Container(
               height: 216,
               child: CupertinoPicker(
-                backgroundColor: palette.background,
+                backgroundColor: paletteOf(context).background,
                 children: groupItem.items.map((v) => Text(v.text)).toList(),
                 itemExtent: 40,
                 scrollController: FixedExtentScrollController(

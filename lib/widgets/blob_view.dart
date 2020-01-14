@@ -39,7 +39,8 @@ class BlobView extends StatelessWidget {
       case 'webp':
         return PhotoView(
           imageProvider: NetworkImage(payload),
-          backgroundDecoration: BoxDecoration(color: theme.palette.background),
+          backgroundDecoration:
+              BoxDecoration(color: theme.paletteOf(context).background),
         );
       case 'md':
       case 'markdown':

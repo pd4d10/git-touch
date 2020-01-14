@@ -13,7 +13,7 @@ class GitlabTodosScreen extends StatelessWidget {
     final theme = Provider.of<ThemeModel>(context);
     return TextSpan(
       text: p.author.name,
-      style: TextStyle(color: theme.palette.primary),
+      style: TextStyle(color: theme.paletteOf(context).primary),
     );
   }
 
@@ -21,7 +21,7 @@ class GitlabTodosScreen extends StatelessWidget {
     final theme = Provider.of<ThemeModel>(context);
     return TextSpan(
       text: '${p.project.pathWithNamespace}!${p.target.iid}',
-      style: TextStyle(color: theme.palette.primary),
+      style: TextStyle(color: theme.paletteOf(context).primary),
     );
   }
 
@@ -85,7 +85,8 @@ class GitlabTodosScreen extends StatelessWidget {
                       child: Text.rich(
                         TextSpan(
                           style: TextStyle(
-                              color: theme.palette.text, fontSize: 17),
+                              color: theme.paletteOf(context).text,
+                              fontSize: 17),
                           children: [
                             ..._buildItem(context, item),
                           ],

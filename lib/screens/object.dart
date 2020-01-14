@@ -152,7 +152,7 @@ class ObjectScreen extends StatelessWidget {
                 return PhotoView(
                   imageProvider: NetworkImage(rawUrl),
                   backgroundDecoration:
-                      BoxDecoration(color: theme.palette.background),
+                      BoxDecoration(color: theme.paletteOf(context).background),
                 );
               case 'md':
               case 'markdown':
@@ -169,9 +169,10 @@ class ObjectScreen extends StatelessWidget {
                   child: HighlightView(
                     text,
                     language: _language,
-                    theme: themeMap[theme.brightnessEnum == Brightness.dark
-                        ? codeProvider.themeDark
-                        : codeProvider.theme],
+                    theme: themeMap[
+                        theme.brightnessOf(context) == Brightness.dark
+                            ? codeProvider.themeDark
+                            : codeProvider.theme],
                     padding: CommonStyle.padding,
                     textStyle: TextStyle(
                         fontSize: codeProvider.fontSize.toDouble(),

@@ -20,8 +20,8 @@ class MarkdownView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
-    final _basicStyle =
-        TextStyle(fontSize: 16, color: theme.palette.text, height: 1.5);
+    final _basicStyle = TextStyle(
+        fontSize: 16, color: theme.paletteOf(context).text, height: 1.5);
     final _hStyle =
         _basicStyle.copyWith(fontWeight: FontWeight.w600, height: 1.25);
 
@@ -69,7 +69,7 @@ class MarkdownView extends StatelessWidget {
       },
       data: text,
       styleSheet: MarkdownStyleSheet(
-        a: _basicStyle.copyWith(color: theme.palette.primary),
+        a: _basicStyle.copyWith(color: theme.paletteOf(context).primary),
         p: _basicStyle,
         code: _basicStyle.copyWith(
           fontSize: 16 * 0.85,
@@ -82,11 +82,12 @@ class MarkdownView extends StatelessWidget {
         h4: _hStyle,
         h5: _hStyle.copyWith(fontSize: 14),
         h6: _hStyle.copyWith(
-            fontSize: 16 * 0.85, color: theme.palette.tertiaryText),
+            fontSize: 16 * 0.85, color: theme.paletteOf(context).tertiaryText),
         em: _basicStyle.copyWith(fontStyle: FontStyle.italic),
         strong: _basicStyle.copyWith(fontWeight: FontWeight.w600),
         del: const TextStyle(decoration: TextDecoration.lineThrough),
-        blockquote: _basicStyle.copyWith(color: theme.palette.tertiaryText),
+        blockquote:
+            _basicStyle.copyWith(color: theme.paletteOf(context).tertiaryText),
         img: _basicStyle,
         checkbox: _basicStyle,
         blockSpacing: 16,
@@ -104,14 +105,14 @@ class MarkdownView extends StatelessWidget {
         ),
         codeblockPadding: EdgeInsets.all(16),
         codeblockDecoration: BoxDecoration(
-          color: theme.palette.grayBackground,
+          color: theme.paletteOf(context).grayBackground,
           borderRadius: BorderRadius.circular(3),
         ),
         horizontalRuleDecoration: BoxDecoration(
           border: Border(
             top: BorderSide(
               width: 4,
-              color: theme.palette.grayBackground,
+              color: theme.paletteOf(context).grayBackground,
             ),
           ),
         ),
