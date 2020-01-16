@@ -16,7 +16,13 @@ class MyApp extends StatelessWidget {
         );
       default:
         return MaterialApp(
-          theme: ThemeData(brightness: theme.brightness),
+          theme: ThemeData(
+            brightness: theme.brightness,
+            primaryColor:
+                theme.brightness == Brightness.dark ? null : Colors.white,
+            accentColor: theme.paletteOf(context).primary,
+            scaffoldBackgroundColor: theme.paletteOf(context).background,
+          ),
           home: Home(),
         );
     }

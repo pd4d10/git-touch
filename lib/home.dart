@@ -141,7 +141,7 @@ class _HomeState extends State<Home> {
         return Scaffold(
           body: _buildScreen(active),
           bottomNavigationBar: BottomNavigationBar(
-            // selectedItemColor: theme.paletteOf(context).primary,
+            selectedItemColor: theme.paletteOf(context).primary,
             items: _navigationItems,
             currentIndex: active,
             type: BottomNavigationBarType.fixed,
