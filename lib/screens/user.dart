@@ -216,7 +216,6 @@ class UserScreen extends StatelessWidget {
         ]),
         CommonStyle.border,
         Container(
-          color: theme.paletteOf(context).background,
           padding: CommonStyle.padding,
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
