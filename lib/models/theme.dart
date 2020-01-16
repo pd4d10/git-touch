@@ -97,8 +97,6 @@ class Palette {
 }
 
 class ThemeModel with ChangeNotifier {
-  static const kBrightness = 'brightness';
-
   int _theme;
   int get theme => _theme;
   bool get ready => _theme != null;
@@ -132,7 +130,7 @@ class ThemeModel with ChangeNotifier {
   Future<void> setBrightness(int v) async {
     _brightnessValue = v;
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setInt(kBrightness, v);
+    await prefs.setInt(StorageKeys.iBrightness, v);
     Fimber.d('write brightness: $v');
     notifyListeners();
   }
@@ -171,7 +169,7 @@ class ThemeModel with ChangeNotifier {
 
   Future<void> init() async {
     final prefs = await SharedPreferences.getInstance();
-    final v = prefs.getInt(StorageKeys.theme);
+    final v = prefs.getInt(StorageKeys.iTheme);
     Fimber.d('read theme: $v');
     if (AppThemeType.values.contains(v)) {
       _theme = v;
@@ -180,7 +178,7 @@ class ThemeModel with ChangeNotifier {
     } else {
       _theme = AppThemeType.material;
     }
-    final b = prefs.getInt(kBrightness);
+    final b = prefs.getInt(StorageKeys.iBrightness);
     Fimber.d('read brightness: $b');
     if (AppBrightnessType.values.contains(b)) {
       _brightnessValue = b;
@@ -192,7 +190,7 @@ class ThemeModel with ChangeNotifier {
   Future<void> setTheme(int v) async {
     _theme = v;
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setInt(StorageKeys.theme, v);
+    await prefs.setInt(StorageKeys.iTheme, v);
     Fimber.d('write theme: $v');
     notifyListeners();
   }

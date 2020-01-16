@@ -11,7 +11,6 @@ import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
 import 'package:url_launcher/url_launcher.dart';
 export 'extensions.dart';
-
 export 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
 class StorageKeys {
@@ -21,7 +20,12 @@ class StorageKeys {
   static const github = 'github';
 
   static const accounts = 'accounts';
-  static const theme = 'theme';
+  static const iTheme = 'theme';
+  static const iBrightness = 'brightness';
+  static const codeTheme = 'code-theme';
+  static const codeThemeDark = 'code-theme-dark';
+  static const iCodeFontSize = 'code-font-size';
+  static const codeFontFamily = 'code-font-family';
 }
 
 class CommonStyle {
