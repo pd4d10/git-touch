@@ -16,12 +16,7 @@ class MyApp extends StatelessWidget {
         );
       default:
         return MaterialApp(
-          theme: ThemeData(
-            brightness: theme.brightness,
-            // primaryColorBrightness: theme.brightness,
-            primaryColorLight: theme.paletteLight.background,
-            primaryColorDark: theme.paletteDark.background,
-          ),
+          theme: ThemeData(brightness: theme.brightness),
           home: Home(),
         );
     }

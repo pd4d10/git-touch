@@ -97,27 +97,25 @@ class Palette {
 }
 
 class ThemeModel with ChangeNotifier {
-  static const kTheme = 'theme';
   static const kBrightness = 'brightness';
 
   int _theme;
   int get theme => _theme;
   bool get ready => _theme != null;
 
-  int _brightnessValue = AppBrightnessType.followSystem;
-  int get brighnessValue => _brightnessValue;
-
-  /// not null
-  Brightness brightnessOf(BuildContext context) {
-    switch (_brightnessValue) {
-      case AppBrightnessType.light:
-        return Brightness.light;
-      case AppBrightnessType.dark:
-        return Brightness.dark;
-      default:
-        return MediaQuery.of(context).platformBrightness;
+  Brightness systemBrightness = Brightness.light;
+  void setSystemBrightness(Brightness v) {
+    // print('systemBrightness: $v');
+    if (v != systemBrightness) {
+      Future.microtask(() {
+        systemBrightness = v;
+        notifyListeners();
+      });
     }
   }
+
+  int _brightnessValue = AppBrightnessType.followSystem;
+  int get brighnessValue => _brightnessValue;
 
   // could be null
   Brightness get brightness {
@@ -127,7 +125,7 @@ class ThemeModel with ChangeNotifier {
       case AppBrightnessType.dark:
         return Brightness.dark;
       default:
-        return null;
+        return systemBrightness;
     }
   }
 
@@ -161,7 +159,7 @@ class ThemeModel with ChangeNotifier {
   );
 
   Palette paletteOf(BuildContext context) {
-    switch (brightnessOf(context)) {
+    switch (brightness) {
       case Brightness.light:
         return paletteLight;
       case Brightness.dark:
@@ -173,7 +171,7 @@ class ThemeModel with ChangeNotifier {
 
   Future<void> init() async {
     final prefs = await SharedPreferences.getInstance();
-    final v = prefs.getInt(kTheme);
+    final v = prefs.getInt(StorageKeys.theme);
     Fimber.d('read theme: $v');
     if (AppThemeType.values.contains(v)) {
       _theme = v;
@@ -194,7 +192,7 @@ class ThemeModel with ChangeNotifier {
   Future<void> setTheme(int v) async {
     _theme = v;
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setInt(kTheme, v);
+    await prefs.setInt(StorageKeys.theme, v);
     Fimber.d('write theme: $v');
     notifyListeners();
   }

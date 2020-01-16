@@ -137,7 +137,6 @@ class _HomeState extends State<Home> {
             });
           },
         );
-
       default:
         return Scaffold(
           body: _buildScreen(active),

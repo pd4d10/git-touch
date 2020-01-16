@@ -15,11 +15,13 @@ export 'extensions.dart';
 export 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
 class StorageKeys {
-  static const accounts = 'accounts';
+  @deprecated
   static const account = 'account';
+  @deprecated
   static const github = 'github';
+
+  static const accounts = 'accounts';
   static const theme = 'theme';
-  static const newsFilter = 'news.filter';
 }
 
 class CommonStyle {

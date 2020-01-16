@@ -19,6 +19,8 @@ class CommonScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
+    // FIXME: A hack to get brightness before MaterialApp been built
+    theme.setSystemBrightness(MediaQuery.of(context).platformBrightness);
 
     switch (theme.theme) {
       case AppThemeType.cupertino:
@@ -32,7 +34,6 @@ class CommonScaffold extends StatelessWidget {
       default:
         return Scaffold(
           appBar: AppBar(
-            brightness: theme.brightnessOf(context),
             title: title,
             actions: [
               if (action != null) action,

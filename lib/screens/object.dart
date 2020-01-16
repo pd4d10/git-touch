@@ -170,7 +170,7 @@ class ObjectScreen extends StatelessWidget {
                     text,
                     language: _language,
                     theme: themeMap[
-                        theme.brightnessOf(context) == Brightness.dark
+                        theme.brightness == Brightness.dark
                             ? codeProvider.themeDark
                             : codeProvider.theme],
                     padding: CommonStyle.padding,
