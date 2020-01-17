@@ -218,8 +218,7 @@ class RepositoryScreen extends StatelessWidget {
                 EntryItem(
                   count: repo.forks.totalCount,
                   text: 'Forks',
-                  // screenBuilder: (context) =>
-                  //     RepositoriesScreen.forks(owner, name), TODO:
+                  url: 'https://github.com/$owner/$name/network/members',
                 ),
               ],
             ),
