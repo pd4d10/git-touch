@@ -13,7 +13,9 @@ class CodeModel with ChangeNotifier {
     'Inconsolata',
     'PT Mono',
     'Source Code Pro',
-    'Ubuntu Mono'
+    'Ubuntu Mono',
+    'Cascadia Code',
+    'JetBrains Mono',
   ];
 
   String _theme = 'github-gist';

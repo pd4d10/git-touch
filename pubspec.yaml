@@ -102,3 +102,16 @@ flutter:
         - asset: fonts/UbuntuMono-BoldItalic.ttf
           style: italic
           weight: 700
+    - family: Cascadia Code
+      fonts:
+        - asset: fonts/Cascadia.ttf
+    - family: JetBrains Mono
+      fonts:
+        - asset: fonts/JetBrainsMono-Regular.ttf
+        - asset: fonts/JetBrainsMono-Italic.ttf
+          style: italic
+        - asset: fonts/JetBrainsMono-Bold.ttf
+          weight: 700
+        - asset: fonts/JetBrainsMono-Bold-Italic.ttf
+          style: italic
+          weight: 700
