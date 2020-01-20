@@ -125,7 +125,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             SizedBox(height: 8),
                             Text(
-                              'user, repo, read:org',
+                              'user, repo, read:org, notifications',
                               style: TextStyle(
                                   fontSize: 16,
                                   color: theme.paletteOf(context).primary),
