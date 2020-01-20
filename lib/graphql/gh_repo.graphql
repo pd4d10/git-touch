@@ -30,7 +30,7 @@ query GhRepo(
     hasIssuesEnabled
     url
     viewerHasStarred
-    # viewerSubscription # TODO
+    viewerSubscription
     projectsUrl
     watchers {
       totalCount

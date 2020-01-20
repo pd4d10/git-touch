@@ -8,6 +8,7 @@ import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/avatar.dart';
+import 'package:git_touch/widgets/entry_item.dart';
 import 'package:git_touch/widgets/label.dart';
 import 'package:git_touch/widgets/mutation_button.dart';
 import 'package:git_touch/widgets/link.dart';
@@ -16,7 +17,6 @@ import 'package:git_touch/widgets/table_view.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:tuple/tuple.dart';
-import '../widgets/entry_item.dart';
 import 'package:git_touch/widgets/action_button.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
@@ -76,24 +76,6 @@ class RepositoryScreen extends StatelessWidget {
         return ActionButton(
           title: 'Repository Actions',
           items: [
-            // TODO:
-            // ActionItem(
-            //   text:  data[0]['viewerSubscription'] == 'SUBSCRIBED'
-            //       ? 'Unwatch'
-            //       : 'Watch',
-            //   onPress: (_) async {
-            //     if (data[0]['viewerSubscription'] == 'SUBSCRIBED') {
-            //       await Provider.of<AuthModel>(context).deleteWithCredentials(
-            //           '/repos/$owner/$name/subscription');
-            //       data[0]['viewerSubscription'] = 'UNSUBSCRIBED';
-            //     } else {
-            //       await Provider.of<AuthModel>(context)
-            //           .putWithCredentials('/repos/$owner/$name/subscription');
-            //       data[0]['viewerSubscription'] = 'SUBSCRIBED';
-            //     }
-            //     setState(() {});
-            //   },
-            // ),
             ActionItem(
               text: 'Projects(${repo.projects.totalCount})',
               url: repo.projectsUrl,
@@ -148,23 +130,76 @@ class RepositoryScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  MutationButton(
-                    text: repo.viewerHasStarred ? 'Unstar' : 'Star',
-                    onPressed: () async {
-                      final res = await auth.gqlClient.execute(
-                        GhStarQuery(
-                          variables: GhStarArguments(
-                            id: repo.id,
-                            flag: !repo.viewerHasStarred,
-                          ),
-                        ),
-                      );
-                      setState(() {
-                        repo.viewerHasStarred =
-                            res.data.removeStar?.starrable?.viewerHasStarred ??
+                  Row(
+                    children: <Widget>[
+                      MutationButton(
+                        text: repo.viewerHasStarred ? 'Unstar' : 'Star',
+                        onPressed: () async {
+                          final res = await auth.gqlClient.execute(
+                            GhStarQuery(
+                              variables: GhStarArguments(
+                                id: repo.id,
+                                flag: !repo.viewerHasStarred,
+                              ),
+                            ),
+                          );
+                          setState(() {
+                            repo.viewerHasStarred = res.data.removeStar
+                                    ?.starrable?.viewerHasStarred ??
                                 res.data.addStar.starrable.viewerHasStarred;
-                      });
-                    },
+                          });
+                        },
+                      ),
+                      // TODO:
+                      // SizedBox(width: 4),
+                      // MutationButton(
+                      //   text: repo.viewerSubscription ==
+                      //           GhRepoSubscriptionState.SUBSCRIBED
+                      //       ? 'Unwatch'
+                      //       : 'Watch',
+                      //   onPressed: () async {
+                      //     theme.showActions(
+                      //       context,
+                      //       GhWatchSubscriptionState.values.map((v) {
+                      //         return ActionItem(
+                      //           text: v.toString(),
+                      //           onTap: (_) async {
+                      //             final res = await auth.gqlClient.execute(
+                      //               GhWatchQuery(
+                      //                 variables: GhWatchArguments(
+                      //                   id: repo.id,
+                      //                   state:
+                      //                       GhWatchSubscriptionState.SUBSCRIBED,
+                      //                 ),
+                      //               ),
+                      //             );
+                      //             setState(() {
+                      //               final r = res.data.updateSubscription
+                      //                   .subscribable as GhWatchRepository;
+                      //               switch (r.viewerSubscription) {
+                      //                 case GhWatchSubscriptionState.IGNORED:
+                      //                   repo.viewerSubscription =
+                      //                       GhRepoSubscriptionState.IGNORED;
+                      //                   break;
+                      //                 case GhWatchSubscriptionState.SUBSCRIBED:
+                      //                   repo.viewerSubscription =
+                      //                       GhRepoSubscriptionState.SUBSCRIBED;
+                      //                   break;
+                      //                 case GhWatchSubscriptionState
+                      //                     .UNSUBSCRIBED:
+                      //                   repo.viewerSubscription =
+                      //                       GhRepoSubscriptionState
+                      //                           .UNSUBSCRIBED;
+                      //                   break;
+                      //               }
+                      //             });
+                      //           },
+                      //         );
+                      //       }).toList(),
+                      //     );
+                      //   },
+                      // ),
+                    ],
                   ),
                   if (repo.description != null && repo.description.isNotEmpty)
                     Text(

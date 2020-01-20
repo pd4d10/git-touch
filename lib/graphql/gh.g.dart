@@ -44,6 +44,8 @@ GhRepoRepository _$GhRepoRepositoryFromJson(Map<String, dynamic> json) {
     ..hasIssuesEnabled = json['hasIssuesEnabled'] as bool
     ..url = json['url'] as String
     ..viewerHasStarred = json['viewerHasStarred'] as bool
+    ..viewerSubscription = _$enumDecodeNullable(
+        _$GhRepoSubscriptionStateEnumMap, json['viewerSubscription'])
     ..projectsUrl = json['projectsUrl'] as String
     ..watchers = json['watchers'] == null
         ? null
@@ -71,18 +73,11 @@ GhRepoRepository _$GhRepoRepositoryFromJson(Map<String, dynamic> json) {
     ..defaultBranchRef = json['defaultBranchRef'] == null
         ? null
         : GhRepoRef.fromJson(json['defaultBranchRef'] as Map<String, dynamic>)
-    ..ref = json['ref'] == null
-        ? null
-        : GhRepoRef.fromJson(json['ref'] as Map<String, dynamic>)
-    ..refs = json['refs'] == null
-        ? null
-        : GhRepoRefConnection.fromJson(json['refs'] as Map<String, dynamic>)
-    ..licenseInfo = json['licenseInfo'] == null
-        ? null
-        : GhRepoLicense.fromJson(json['licenseInfo'] as Map<String, dynamic>)
-    ..repositoryTopics = json['repositoryTopics'] == null
-        ? null
-        : GhRepoRepositoryTopicConnection.fromJson(json['repositoryTopics'] as Map<String, dynamic>)
+    ..ref =
+        json['ref'] == null ? null : GhRepoRef.fromJson(json['ref'] as Map<String, dynamic>)
+    ..refs = json['refs'] == null ? null : GhRepoRefConnection.fromJson(json['refs'] as Map<String, dynamic>)
+    ..licenseInfo = json['licenseInfo'] == null ? null : GhRepoLicense.fromJson(json['licenseInfo'] as Map<String, dynamic>)
+    ..repositoryTopics = json['repositoryTopics'] == null ? null : GhRepoRepositoryTopicConnection.fromJson(json['repositoryTopics'] as Map<String, dynamic>)
     ..resolveType = json['__typename'] as String;
 }
 
@@ -102,6 +97,8 @@ Map<String, dynamic> _$GhRepoRepositoryToJson(GhRepoRepository instance) =>
       'hasIssuesEnabled': instance.hasIssuesEnabled,
       'url': instance.url,
       'viewerHasStarred': instance.viewerHasStarred,
+      'viewerSubscription':
+          _$GhRepoSubscriptionStateEnumMap[instance.viewerSubscription],
       'projectsUrl': instance.projectsUrl,
       'watchers': instance.watchers?.toJson(),
       'issues': instance.issues?.toJson(),
@@ -116,6 +113,44 @@ Map<String, dynamic> _$GhRepoRepositoryToJson(GhRepoRepository instance) =>
       'repositoryTopics': instance.repositoryTopics?.toJson(),
       '__typename': instance.resolveType,
     };
+
+T _$enumDecode<T>(
+  Map<T, dynamic> enumValues,
+  dynamic source, {
+  T unknownValue,
+}) {
+  if (source == null) {
+    throw ArgumentError('A value must be provided. Supported values: '
+        '${enumValues.values.join(', ')}');
+  }
+
+  final value = enumValues.entries
+      .singleWhere((e) => e.value == source, orElse: () => null)
+      ?.key;
+
+  if (value == null && unknownValue == null) {
+    throw ArgumentError('`$source` is not one of the supported values: '
+        '${enumValues.values.join(', ')}');
+  }
+  return value ?? unknownValue;
+}
+
+T _$enumDecodeNullable<T>(
+  Map<T, dynamic> enumValues,
+  dynamic source, {
+  T unknownValue,
+}) {
+  if (source == null) {
+    return null;
+  }
+  return _$enumDecode<T>(enumValues, source, unknownValue: unknownValue);
+}
+
+const _$GhRepoSubscriptionStateEnumMap = {
+  GhRepoSubscriptionState.UNSUBSCRIBED: 'UNSUBSCRIBED',
+  GhRepoSubscriptionState.SUBSCRIBED: 'SUBSCRIBED',
+  GhRepoSubscriptionState.IGNORED: 'IGNORED',
+};
 
 GhRepoRepositoryOwner _$GhRepoRepositoryOwnerFromJson(
     Map<String, dynamic> json) {
@@ -3062,38 +3097,6 @@ Map<String, dynamic> _$GhCommitsStatusToJson(GhCommitsStatus instance) =>
       '__typename': instance.resolveType,
     };
 
-T _$enumDecode<T>(
-  Map<T, dynamic> enumValues,
-  dynamic source, {
-  T unknownValue,
-}) {
-  if (source == null) {
-    throw ArgumentError('A value must be provided. Supported values: '
-        '${enumValues.values.join(', ')}');
-  }
-
-  final value = enumValues.entries
-      .singleWhere((e) => e.value == source, orElse: () => null)
-      ?.key;
-
-  if (value == null && unknownValue == null) {
-    throw ArgumentError('`$source` is not one of the supported values: '
-        '${enumValues.values.join(', ')}');
-  }
-  return value ?? unknownValue;
-}
-
-T _$enumDecodeNullable<T>(
-  Map<T, dynamic> enumValues,
-  dynamic source, {
-  T unknownValue,
-}) {
-  if (source == null) {
-    return null;
-  }
-  return _$enumDecode<T>(enumValues, source, unknownValue: unknownValue);
-}
-
 const _$GhCommitsStatusStateEnumMap = {
   GhCommitsStatusState.EXPECTED: 'EXPECTED',
   GhCommitsStatusState.ERROR: 'ERROR',
@@ -3346,4 +3349,158 @@ Map<String, dynamic> _$GhRepoIdArgumentsToJson(GhRepoIdArguments instance) =>
     <String, dynamic>{
       'owner': instance.owner,
       'name': instance.name,
+    };
+
+GhWatch _$GhWatchFromJson(Map<String, dynamic> json) {
+  return GhWatch()
+    ..updateSubscription = json['updateSubscription'] == null
+        ? null
+        : GhWatchUpdateSubscriptionPayload.fromJson(
+            json['updateSubscription'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$GhWatchToJson(GhWatch instance) => <String, dynamic>{
+      'updateSubscription': instance.updateSubscription?.toJson(),
+    };
+
+GhWatchUpdateSubscriptionPayload _$GhWatchUpdateSubscriptionPayloadFromJson(
+    Map<String, dynamic> json) {
+  return GhWatchUpdateSubscriptionPayload()
+    ..subscribable = json['subscribable'] == null
+        ? null
+        : GhWatchSubscribable.fromJson(
+            json['subscribable'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$GhWatchUpdateSubscriptionPayloadToJson(
+        GhWatchUpdateSubscriptionPayload instance) =>
+    <String, dynamic>{
+      'subscribable': instance.subscribable?.toJson(),
+    };
+
+GhWatchSubscribable _$GhWatchSubscribableFromJson(Map<String, dynamic> json) {
+  return GhWatchSubscribable()..resolveType = json['__typename'] as String;
+}
+
+Map<String, dynamic> _$GhWatchSubscribableToJson(
+        GhWatchSubscribable instance) =>
+    <String, dynamic>{
+      '__typename': instance.resolveType,
+    };
+
+GhWatchRepository _$GhWatchRepositoryFromJson(Map<String, dynamic> json) {
+  return GhWatchRepository()
+    ..viewerSubscription = _$enumDecodeNullable(
+        _$GhWatchSubscriptionStateEnumMap, json['viewerSubscription'])
+    ..resolveType = json['__typename'] as String;
+}
+
+Map<String, dynamic> _$GhWatchRepositoryToJson(GhWatchRepository instance) =>
+    <String, dynamic>{
+      'viewerSubscription':
+          _$GhWatchSubscriptionStateEnumMap[instance.viewerSubscription],
+      '__typename': instance.resolveType,
+    };
+
+const _$GhWatchSubscriptionStateEnumMap = {
+  GhWatchSubscriptionState.UNSUBSCRIBED: 'UNSUBSCRIBED',
+  GhWatchSubscriptionState.SUBSCRIBED: 'SUBSCRIBED',
+  GhWatchSubscriptionState.IGNORED: 'IGNORED',
+};
+
+GhWatchPinnableItem _$GhWatchPinnableItemFromJson(Map<String, dynamic> json) {
+  return GhWatchPinnableItem();
+}
+
+Map<String, dynamic> _$GhWatchPinnableItemToJson(
+        GhWatchPinnableItem instance) =>
+    <String, dynamic>{};
+
+GhWatchNode _$GhWatchNodeFromJson(Map<String, dynamic> json) {
+  return GhWatchNode()..resolveType = json['__typename'] as String;
+}
+
+Map<String, dynamic> _$GhWatchNodeToJson(GhWatchNode instance) =>
+    <String, dynamic>{
+      '__typename': instance.resolveType,
+    };
+
+GhWatchProjectOwner _$GhWatchProjectOwnerFromJson(Map<String, dynamic> json) {
+  return GhWatchProjectOwner()..resolveType = json['__typename'] as String;
+}
+
+Map<String, dynamic> _$GhWatchProjectOwnerToJson(
+        GhWatchProjectOwner instance) =>
+    <String, dynamic>{
+      '__typename': instance.resolveType,
+    };
+
+GhWatchRegistryPackageOwner _$GhWatchRegistryPackageOwnerFromJson(
+    Map<String, dynamic> json) {
+  return GhWatchRegistryPackageOwner()
+    ..resolveType = json['__typename'] as String;
+}
+
+Map<String, dynamic> _$GhWatchRegistryPackageOwnerToJson(
+        GhWatchRegistryPackageOwner instance) =>
+    <String, dynamic>{
+      '__typename': instance.resolveType,
+    };
+
+GhWatchRegistryPackageSearch _$GhWatchRegistryPackageSearchFromJson(
+    Map<String, dynamic> json) {
+  return GhWatchRegistryPackageSearch()
+    ..resolveType = json['__typename'] as String;
+}
+
+Map<String, dynamic> _$GhWatchRegistryPackageSearchToJson(
+        GhWatchRegistryPackageSearch instance) =>
+    <String, dynamic>{
+      '__typename': instance.resolveType,
+    };
+
+GhWatchStarrable _$GhWatchStarrableFromJson(Map<String, dynamic> json) {
+  return GhWatchStarrable()..resolveType = json['__typename'] as String;
+}
+
+Map<String, dynamic> _$GhWatchStarrableToJson(GhWatchStarrable instance) =>
+    <String, dynamic>{
+      '__typename': instance.resolveType,
+    };
+
+GhWatchUniformResourceLocatable _$GhWatchUniformResourceLocatableFromJson(
+    Map<String, dynamic> json) {
+  return GhWatchUniformResourceLocatable()
+    ..resolveType = json['__typename'] as String;
+}
+
+Map<String, dynamic> _$GhWatchUniformResourceLocatableToJson(
+        GhWatchUniformResourceLocatable instance) =>
+    <String, dynamic>{
+      '__typename': instance.resolveType,
+    };
+
+GhWatchRepositoryInfo _$GhWatchRepositoryInfoFromJson(
+    Map<String, dynamic> json) {
+  return GhWatchRepositoryInfo()..resolveType = json['__typename'] as String;
+}
+
+Map<String, dynamic> _$GhWatchRepositoryInfoToJson(
+        GhWatchRepositoryInfo instance) =>
+    <String, dynamic>{
+      '__typename': instance.resolveType,
+    };
+
+GhWatchArguments _$GhWatchArgumentsFromJson(Map<String, dynamic> json) {
+  return GhWatchArguments(
+    id: json['id'] as String,
+    state:
+        _$enumDecodeNullable(_$GhWatchSubscriptionStateEnumMap, json['state']),
+  );
+}
+
+Map<String, dynamic> _$GhWatchArgumentsToJson(GhWatchArguments instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'state': _$GhWatchSubscriptionStateEnumMap[instance.state],
     };
