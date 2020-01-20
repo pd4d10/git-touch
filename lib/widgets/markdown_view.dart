@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:git_touch/models/code.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:provider/provider.dart';
@@ -20,6 +21,7 @@ class MarkdownView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
+    final code = Provider.of<CodeModel>(context);
     final _basicStyle = TextStyle(
         fontSize: 16, color: theme.paletteOf(context).text, height: 1.5);
     final _hStyle =
@@ -74,7 +76,7 @@ class MarkdownView extends StatelessWidget {
         code: _basicStyle.copyWith(
           fontSize: 16 * 0.85,
           height: 1.45,
-          fontFamily: CommonStyle.monospace,
+          fontFamily: code.fontFamilyUsed,
         ),
         h1: _hStyle.copyWith(fontSize: 32),
         h2: _hStyle.copyWith(fontSize: 24),
