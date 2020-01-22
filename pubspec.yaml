@@ -43,7 +43,6 @@ dependencies:
   #   ref: patch-1
   gql_link: ^0.2.0
   fluro: ^1.5.1
-  charts_flutter: ^0.8.1
   package_info: ^0.4.0
 
   # The following adds the Cupertino Icons font to your application.

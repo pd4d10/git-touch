@@ -18,7 +18,6 @@ import 'package:provider/provider.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:tuple/tuple.dart';
 import 'package:git_touch/widgets/action_button.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
 
 final repositoryRouter = RouterScreen('/:owner/:name', (context, params) {
   if (params['ref'] == null) {
@@ -58,6 +57,53 @@ class RepositoryScreen extends StatelessWidget {
     var bits = base64.decode((data['content'] as String).replaceAll('\n', ''));
     var str = utf8.decode(bits);
     return str;
+  }
+
+  Widget _buildLanguages(BuildContext context, GhRepoRepository repo) {
+    final theme = Provider.of<ThemeModel>(context);
+    return Container(
+      color: theme.paletteOf(context).background,
+      padding: CommonStyle.padding,
+      height: 300,
+      child: SingleChildScrollView(
+        child: Table(children: [
+          for (final edge in repo.languages.edges)
+            TableRow(children: [
+              Container(
+                padding: CommonStyle.padding,
+                child: Row(children: <Widget>[
+                  Container(
+                    width: 18,
+                    height: 18,
+                    decoration: BoxDecoration(
+                      color: convertColor(edge.node.color),
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                  SizedBox(width: 8),
+                  Text(
+                    edge.node.name,
+                    style: TextStyle(
+                      color: theme.paletteOf(context).text,
+                      fontSize: 18,
+                    ),
+                  ),
+                ]),
+              ),
+              Container(
+                padding: CommonStyle.padding,
+                child: Text(
+                  '${(edge.size / repo.languages.totalSize * 100).toStringAsFixed(1)}%',
+                  style: TextStyle(
+                    color: theme.paletteOf(context).secondaryText,
+                    fontSize: 18,
+                  ),
+                ),
+              ),
+            ])
+        ]),
+      ),
+    );
   }
 
   @override
@@ -265,40 +311,7 @@ class RepositoryScreen extends StatelessWidget {
                 onPressed: () {
                   showCupertinoModalPopup(
                     context: context,
-                    builder: (context) {
-                      return Container(
-                        color: theme.paletteOf(context).background,
-                        padding: EdgeInsets.all(40),
-                        height: 400,
-                        child: charts.PieChart(
-                          [
-                            charts.Series<GhRepoLanguageEdge, String>(
-                              id: 'languages',
-                              domainFn: (v, _) => v.node.name,
-                              measureFn: (v, _) => v.size,
-                              colorFn: (v, _) =>
-                                  charts.Color.fromHex(code: v.node.color),
-                              data: repo.languages.edges,
-                              labelAccessorFn: (v, _) => v.node.name,
-                            )
-                          ],
-                          defaultRenderer: charts.ArcRendererConfig(
-                            arcRendererDecorators: [
-                              charts.ArcLabelDecorator(
-                                insideLabelStyleSpec: charts.TextStyleSpec(
-                                  fontSize: 20,
-                                  color: charts.Color.white,
-                                ),
-                                outsideLabelStyleSpec: charts.TextStyleSpec(
-                                  fontSize: 20,
-                                  color: charts.Color.black,
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      );
-                    },
+                    builder: (context) => _buildLanguages(context, repo),
                   );
                 },
                 child: Container(
