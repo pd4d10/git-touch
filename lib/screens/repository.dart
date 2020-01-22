@@ -344,7 +344,7 @@ class RepositoryScreen extends StatelessWidget {
                 if (ref != null)
                   TableViewItem(
                     leftIconData: Octicons.code,
-                    text: Text('Code'),
+                    text: Text(repo.primaryLanguage?.name ?? 'Code'),
                     rightWidget: Text(
                       (license == null ? '' : '$license • ') +
                           filesize(repo.diskUsage * 1000),
