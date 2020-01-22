@@ -4415,6 +4415,309 @@ class GhReposQuery extends GraphQLQuery<GhRepos, GhReposArguments> {
 }
 
 @JsonSerializable(explicitToJson: true)
+class GhWatch with EquatableMixin {
+  GhWatch();
+
+  factory GhWatch.fromJson(Map<String, dynamic> json) =>
+      _$GhWatchFromJson(json);
+
+  GhWatchUpdateSubscriptionPayload updateSubscription;
+
+  @override
+  List<Object> get props => [updateSubscription];
+  Map<String, dynamic> toJson() => _$GhWatchToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhWatchUpdateSubscriptionPayload with EquatableMixin {
+  GhWatchUpdateSubscriptionPayload();
+
+  factory GhWatchUpdateSubscriptionPayload.fromJson(
+          Map<String, dynamic> json) =>
+      _$GhWatchUpdateSubscriptionPayloadFromJson(json);
+
+  GhWatchSubscribable subscribable;
+
+  @override
+  List<Object> get props => [subscribable];
+  Map<String, dynamic> toJson() =>
+      _$GhWatchUpdateSubscriptionPayloadToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhWatchSubscribable with EquatableMixin {
+  GhWatchSubscribable();
+
+  factory GhWatchSubscribable.fromJson(Map<String, dynamic> json) {
+    switch (json['__typename'].toString()) {
+      case 'Repository':
+        return GhWatchRepository.fromJson(json);
+      default:
+    }
+    return _$GhWatchSubscribableFromJson(json);
+  }
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() {
+    switch (resolveType) {
+      case 'Repository':
+        return (this as GhWatchRepository).toJson();
+      default:
+    }
+    return _$GhWatchSubscribableToJson(this);
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhWatchRepository extends GhWatchPinnableItem
+    with EquatableMixin
+    implements
+        GhWatchNode,
+        GhWatchProjectOwner,
+        GhWatchRegistryPackageOwner,
+        GhWatchRegistryPackageSearch,
+        GhWatchSubscribable,
+        GhWatchStarrable,
+        GhWatchUniformResourceLocatable,
+        GhWatchRepositoryInfo {
+  GhWatchRepository();
+
+  factory GhWatchRepository.fromJson(Map<String, dynamic> json) =>
+      _$GhWatchRepositoryFromJson(json);
+
+  GhWatchSubscriptionState viewerSubscription;
+
+  @override
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [viewerSubscription, resolveType];
+  Map<String, dynamic> toJson() => _$GhWatchRepositoryToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhWatchPinnableItem with EquatableMixin {
+  GhWatchPinnableItem();
+
+  factory GhWatchPinnableItem.fromJson(Map<String, dynamic> json) =>
+      _$GhWatchPinnableItemFromJson(json);
+
+  @override
+  List<Object> get props => [];
+  Map<String, dynamic> toJson() => _$GhWatchPinnableItemToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhWatchNode with EquatableMixin {
+  GhWatchNode();
+
+  factory GhWatchNode.fromJson(Map<String, dynamic> json) =>
+      _$GhWatchNodeFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhWatchNodeToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhWatchProjectOwner with EquatableMixin {
+  GhWatchProjectOwner();
+
+  factory GhWatchProjectOwner.fromJson(Map<String, dynamic> json) =>
+      _$GhWatchProjectOwnerFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhWatchProjectOwnerToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhWatchRegistryPackageOwner with EquatableMixin {
+  GhWatchRegistryPackageOwner();
+
+  factory GhWatchRegistryPackageOwner.fromJson(Map<String, dynamic> json) =>
+      _$GhWatchRegistryPackageOwnerFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhWatchRegistryPackageOwnerToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhWatchRegistryPackageSearch with EquatableMixin {
+  GhWatchRegistryPackageSearch();
+
+  factory GhWatchRegistryPackageSearch.fromJson(Map<String, dynamic> json) =>
+      _$GhWatchRegistryPackageSearchFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhWatchRegistryPackageSearchToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhWatchStarrable with EquatableMixin {
+  GhWatchStarrable();
+
+  factory GhWatchStarrable.fromJson(Map<String, dynamic> json) =>
+      _$GhWatchStarrableFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhWatchStarrableToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhWatchUniformResourceLocatable with EquatableMixin {
+  GhWatchUniformResourceLocatable();
+
+  factory GhWatchUniformResourceLocatable.fromJson(Map<String, dynamic> json) =>
+      _$GhWatchUniformResourceLocatableFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() =>
+      _$GhWatchUniformResourceLocatableToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhWatchRepositoryInfo with EquatableMixin {
+  GhWatchRepositoryInfo();
+
+  factory GhWatchRepositoryInfo.fromJson(Map<String, dynamic> json) =>
+      _$GhWatchRepositoryInfoFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhWatchRepositoryInfoToJson(this);
+}
+
+enum GhWatchSubscriptionState {
+  UNSUBSCRIBED,
+  SUBSCRIBED,
+  IGNORED,
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhWatchArguments extends JsonSerializable with EquatableMixin {
+  GhWatchArguments({this.id, this.state});
+
+  factory GhWatchArguments.fromJson(Map<String, dynamic> json) =>
+      _$GhWatchArgumentsFromJson(json);
+
+  final String id;
+
+  final GhWatchSubscriptionState state;
+
+  @override
+  List<Object> get props => [id, state];
+  Map<String, dynamic> toJson() => _$GhWatchArgumentsToJson(this);
+}
+
+class GhWatchQuery extends GraphQLQuery<GhWatch, GhWatchArguments> {
+  GhWatchQuery({this.variables});
+
+  @override
+  final DocumentNode document = DocumentNode(definitions: [
+    OperationDefinitionNode(
+        type: OperationType.mutation,
+        name: NameNode(value: 'GhWatch'),
+        variableDefinitions: [
+          VariableDefinitionNode(
+              variable: VariableNode(name: NameNode(value: 'id')),
+              type: NamedTypeNode(name: NameNode(value: 'ID'), isNonNull: true),
+              defaultValue: DefaultValueNode(value: null),
+              directives: []),
+          VariableDefinitionNode(
+              variable: VariableNode(name: NameNode(value: 'state')),
+              type: NamedTypeNode(
+                  name: NameNode(value: 'SubscriptionState'), isNonNull: true),
+              defaultValue: DefaultValueNode(value: null),
+              directives: [])
+        ],
+        directives: [],
+        selectionSet: SelectionSetNode(selections: [
+          FieldNode(
+              name: NameNode(value: 'updateSubscription'),
+              alias: null,
+              arguments: [
+                ArgumentNode(
+                    name: NameNode(value: 'input'),
+                    value: ObjectValueNode(fields: [
+                      ObjectFieldNode(
+                          name: NameNode(value: 'subscribableId'),
+                          value: VariableNode(name: NameNode(value: 'id'))),
+                      ObjectFieldNode(
+                          name: NameNode(value: 'state'),
+                          value: VariableNode(name: NameNode(value: 'state')))
+                    ]))
+              ],
+              directives: [],
+              selectionSet: SelectionSetNode(selections: [
+                FieldNode(
+                    name: NameNode(value: 'subscribable'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: SelectionSetNode(selections: [
+                      InlineFragmentNode(
+                          typeCondition: TypeConditionNode(
+                              on: NamedTypeNode(
+                                  name: NameNode(value: 'Repository'),
+                                  isNonNull: false)),
+                          directives: [],
+                          selectionSet: SelectionSetNode(selections: [
+                            FieldNode(
+                                name: NameNode(value: 'viewerSubscription'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null)
+                          ]))
+                    ]))
+              ]))
+        ]))
+  ]);
+
+  @override
+  final String operationName = 'GhWatch';
+
+  @override
+  final GhWatchArguments variables;
+
+  @override
+  List<Object> get props => [document, operationName, variables];
+  @override
+  GhWatch parse(Map<String, dynamic> json) => GhWatch.fromJson(json);
+}
+
+@JsonSerializable(explicitToJson: true)
 class GhUser with EquatableMixin {
   GhUser();
 
@@ -8107,307 +8410,4 @@ class GhRepoIdQuery extends GraphQLQuery<GhRepoId, GhRepoIdArguments> {
   List<Object> get props => [document, operationName, variables];
   @override
   GhRepoId parse(Map<String, dynamic> json) => GhRepoId.fromJson(json);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhWatch with EquatableMixin {
-  GhWatch();
-
-  factory GhWatch.fromJson(Map<String, dynamic> json) =>
-      _$GhWatchFromJson(json);
-
-  GhWatchUpdateSubscriptionPayload updateSubscription;
-
-  @override
-  List<Object> get props => [updateSubscription];
-  Map<String, dynamic> toJson() => _$GhWatchToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhWatchUpdateSubscriptionPayload with EquatableMixin {
-  GhWatchUpdateSubscriptionPayload();
-
-  factory GhWatchUpdateSubscriptionPayload.fromJson(
-          Map<String, dynamic> json) =>
-      _$GhWatchUpdateSubscriptionPayloadFromJson(json);
-
-  GhWatchSubscribable subscribable;
-
-  @override
-  List<Object> get props => [subscribable];
-  Map<String, dynamic> toJson() =>
-      _$GhWatchUpdateSubscriptionPayloadToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhWatchSubscribable with EquatableMixin {
-  GhWatchSubscribable();
-
-  factory GhWatchSubscribable.fromJson(Map<String, dynamic> json) {
-    switch (json['__typename'].toString()) {
-      case 'Repository':
-        return GhWatchRepository.fromJson(json);
-      default:
-    }
-    return _$GhWatchSubscribableFromJson(json);
-  }
-
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [resolveType];
-  Map<String, dynamic> toJson() {
-    switch (resolveType) {
-      case 'Repository':
-        return (this as GhWatchRepository).toJson();
-      default:
-    }
-    return _$GhWatchSubscribableToJson(this);
-  }
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhWatchRepository extends GhWatchPinnableItem
-    with EquatableMixin
-    implements
-        GhWatchNode,
-        GhWatchProjectOwner,
-        GhWatchRegistryPackageOwner,
-        GhWatchRegistryPackageSearch,
-        GhWatchSubscribable,
-        GhWatchStarrable,
-        GhWatchUniformResourceLocatable,
-        GhWatchRepositoryInfo {
-  GhWatchRepository();
-
-  factory GhWatchRepository.fromJson(Map<String, dynamic> json) =>
-      _$GhWatchRepositoryFromJson(json);
-
-  GhWatchSubscriptionState viewerSubscription;
-
-  @override
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [viewerSubscription, resolveType];
-  Map<String, dynamic> toJson() => _$GhWatchRepositoryToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhWatchPinnableItem with EquatableMixin {
-  GhWatchPinnableItem();
-
-  factory GhWatchPinnableItem.fromJson(Map<String, dynamic> json) =>
-      _$GhWatchPinnableItemFromJson(json);
-
-  @override
-  List<Object> get props => [];
-  Map<String, dynamic> toJson() => _$GhWatchPinnableItemToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhWatchNode with EquatableMixin {
-  GhWatchNode();
-
-  factory GhWatchNode.fromJson(Map<String, dynamic> json) =>
-      _$GhWatchNodeFromJson(json);
-
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [resolveType];
-  Map<String, dynamic> toJson() => _$GhWatchNodeToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhWatchProjectOwner with EquatableMixin {
-  GhWatchProjectOwner();
-
-  factory GhWatchProjectOwner.fromJson(Map<String, dynamic> json) =>
-      _$GhWatchProjectOwnerFromJson(json);
-
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [resolveType];
-  Map<String, dynamic> toJson() => _$GhWatchProjectOwnerToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhWatchRegistryPackageOwner with EquatableMixin {
-  GhWatchRegistryPackageOwner();
-
-  factory GhWatchRegistryPackageOwner.fromJson(Map<String, dynamic> json) =>
-      _$GhWatchRegistryPackageOwnerFromJson(json);
-
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [resolveType];
-  Map<String, dynamic> toJson() => _$GhWatchRegistryPackageOwnerToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhWatchRegistryPackageSearch with EquatableMixin {
-  GhWatchRegistryPackageSearch();
-
-  factory GhWatchRegistryPackageSearch.fromJson(Map<String, dynamic> json) =>
-      _$GhWatchRegistryPackageSearchFromJson(json);
-
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [resolveType];
-  Map<String, dynamic> toJson() => _$GhWatchRegistryPackageSearchToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhWatchStarrable with EquatableMixin {
-  GhWatchStarrable();
-
-  factory GhWatchStarrable.fromJson(Map<String, dynamic> json) =>
-      _$GhWatchStarrableFromJson(json);
-
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [resolveType];
-  Map<String, dynamic> toJson() => _$GhWatchStarrableToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhWatchUniformResourceLocatable with EquatableMixin {
-  GhWatchUniformResourceLocatable();
-
-  factory GhWatchUniformResourceLocatable.fromJson(Map<String, dynamic> json) =>
-      _$GhWatchUniformResourceLocatableFromJson(json);
-
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [resolveType];
-  Map<String, dynamic> toJson() =>
-      _$GhWatchUniformResourceLocatableToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhWatchRepositoryInfo with EquatableMixin {
-  GhWatchRepositoryInfo();
-
-  factory GhWatchRepositoryInfo.fromJson(Map<String, dynamic> json) =>
-      _$GhWatchRepositoryInfoFromJson(json);
-
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [resolveType];
-  Map<String, dynamic> toJson() => _$GhWatchRepositoryInfoToJson(this);
-}
-
-enum GhWatchSubscriptionState {
-  UNSUBSCRIBED,
-  SUBSCRIBED,
-  IGNORED,
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhWatchArguments extends JsonSerializable with EquatableMixin {
-  GhWatchArguments({this.id, this.state});
-
-  factory GhWatchArguments.fromJson(Map<String, dynamic> json) =>
-      _$GhWatchArgumentsFromJson(json);
-
-  final String id;
-
-  final GhWatchSubscriptionState state;
-
-  @override
-  List<Object> get props => [id, state];
-  Map<String, dynamic> toJson() => _$GhWatchArgumentsToJson(this);
-}
-
-class GhWatchQuery extends GraphQLQuery<GhWatch, GhWatchArguments> {
-  GhWatchQuery({this.variables});
-
-  @override
-  final DocumentNode document = DocumentNode(definitions: [
-    OperationDefinitionNode(
-        type: OperationType.mutation,
-        name: NameNode(value: 'GhWatch'),
-        variableDefinitions: [
-          VariableDefinitionNode(
-              variable: VariableNode(name: NameNode(value: 'id')),
-              type: NamedTypeNode(name: NameNode(value: 'ID'), isNonNull: true),
-              defaultValue: DefaultValueNode(value: null),
-              directives: []),
-          VariableDefinitionNode(
-              variable: VariableNode(name: NameNode(value: 'state')),
-              type: NamedTypeNode(
-                  name: NameNode(value: 'SubscriptionState'), isNonNull: true),
-              defaultValue: DefaultValueNode(value: null),
-              directives: [])
-        ],
-        directives: [],
-        selectionSet: SelectionSetNode(selections: [
-          FieldNode(
-              name: NameNode(value: 'updateSubscription'),
-              alias: null,
-              arguments: [
-                ArgumentNode(
-                    name: NameNode(value: 'input'),
-                    value: ObjectValueNode(fields: [
-                      ObjectFieldNode(
-                          name: NameNode(value: 'subscribableId'),
-                          value: VariableNode(name: NameNode(value: 'id'))),
-                      ObjectFieldNode(
-                          name: NameNode(value: 'state'),
-                          value: VariableNode(name: NameNode(value: 'state')))
-                    ]))
-              ],
-              directives: [],
-              selectionSet: SelectionSetNode(selections: [
-                FieldNode(
-                    name: NameNode(value: 'subscribable'),
-                    alias: null,
-                    arguments: [],
-                    directives: [],
-                    selectionSet: SelectionSetNode(selections: [
-                      InlineFragmentNode(
-                          typeCondition: TypeConditionNode(
-                              on: NamedTypeNode(
-                                  name: NameNode(value: 'Repository'),
-                                  isNonNull: false)),
-                          directives: [],
-                          selectionSet: SelectionSetNode(selections: [
-                            FieldNode(
-                                name: NameNode(value: 'viewerSubscription'),
-                                alias: null,
-                                arguments: [],
-                                directives: [],
-                                selectionSet: null)
-                          ]))
-                    ]))
-              ]))
-        ]))
-  ]);
-
-  @override
-  final String operationName = 'GhWatch';
-
-  @override
-  final GhWatchArguments variables;
-
-  @override
-  List<Object> get props => [document, operationName, variables];
-  @override
-  GhWatch parse(Map<String, dynamic> json) => GhWatch.fromJson(json);
 }
