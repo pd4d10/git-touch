@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/single.dart';
 import 'package:git_touch/utils/utils.dart';
+import 'package:git_touch/widgets/action_button.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/table_view.dart';
 import 'package:provider/provider.dart';
@@ -38,49 +39,54 @@ class SettingsScreen extends StatelessWidget {
             ],
           ),
           CommonStyle.verticalGap,
-          TableView(
-            headerText: 'APP THEME',
-            items: [
-              Tuple2('Material', AppThemeType.material),
-              Tuple2('Cupertino', AppThemeType.cupertino),
-            ].map((t) {
-              return TableViewItem(
-                text: Text(t.item1),
-                rightWidget: _buildRightWidget(
-                  context,
-                  theme.theme == t.item2,
-                ),
-                onTap: () {
-                  if (theme.theme != t.item2) {
-                    theme.setTheme(t.item2);
-                  }
-                },
-                hideRightChevron: true,
-              );
-            }).toList(),
-          ),
-          CommonStyle.verticalGap,
-          TableView(
-            headerText: 'BRIGHTNESS',
-            items: [
-              Tuple2('Follow System', AppBrightnessType.followSystem),
-              Tuple2('Light', AppBrightnessType.light),
-              Tuple2('Dark', AppBrightnessType.dark),
-            ].map((t) {
-              return TableViewItem(
-                text: Text(t.item1),
-                rightWidget: _buildRightWidget(
-                  context,
-                  theme.brighnessValue == t.item2,
-                ),
-                onTap: () {
-                  if (theme.brighnessValue != t.item2)
-                    theme.setBrightness(t.item2);
-                },
-                hideRightChevron: true,
-              );
-            }).toList(),
-          ),
+          TableView(headerText: 'THEME', items: [
+            TableViewItem(
+              text: Text('Scaffold'),
+              rightWidget: Text(theme.theme == AppThemeType.cupertino
+                  ? 'Cupertino'
+                  : 'Material'),
+              onTap: () {
+                theme.showActions(context, [
+                  for (var t in [
+                    Tuple2('Material', AppThemeType.material),
+                    Tuple2('Cupertino', AppThemeType.cupertino),
+                  ])
+                    ActionItem(
+                      text: t.item1,
+                      onTap: (_) {
+                        if (theme.theme != t.item2) {
+                          theme.setTheme(t.item2);
+                        }
+                      },
+                    )
+                ]);
+              },
+            ),
+            TableViewItem(
+              text: Text('Brightness'),
+              rightWidget: Text(theme.brighnessValue == AppBrightnessType.light
+                  ? 'Light'
+                  : theme.brighnessValue == AppBrightnessType.dark
+                      ? 'Dark'
+                      : 'Follow system'),
+              onTap: () {
+                theme.showActions(context, [
+                  for (var t in [
+                    Tuple2('Follow System', AppBrightnessType.followSystem),
+                    Tuple2('Light', AppBrightnessType.light),
+                    Tuple2('Dark', AppBrightnessType.dark),
+                  ])
+                    ActionItem(
+                      text: t.item1,
+                      onTap: (_) {
+                        if (theme.brighnessValue != t.item2)
+                          theme.setBrightness(t.item2);
+                      },
+                    )
+                ]);
+              },
+            ),
+          ]),
           CommonStyle.verticalGap,
           TableView(
             headerText: 'CODE VIEW',
