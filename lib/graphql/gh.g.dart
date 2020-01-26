@@ -7,10 +7,11 @@ part of 'gh.dart';
 // **************************************************************************
 
 GhRepo _$GhRepoFromJson(Map<String, dynamic> json) {
-  return GhRepo()
-    ..repository = json['repository'] == null
+  return GhRepo(
+    repository: json['repository'] == null
         ? null
-        : GhRepoRepository.fromJson(json['repository'] as Map<String, dynamic>);
+        : GhRepoRepository.fromJson(json['repository'] as Map<String, dynamic>),
+  );
 }
 
 Map<String, dynamic> _$GhRepoToJson(GhRepo instance) => <String, dynamic>{
@@ -18,7 +19,50 @@ Map<String, dynamic> _$GhRepoToJson(GhRepo instance) => <String, dynamic>{
     };
 
 GhRepoRepository _$GhRepoRepositoryFromJson(Map<String, dynamic> json) {
-  return GhRepoRepository()
+  return GhRepoRepository(
+    forks: json['forks'] == null
+        ? null
+        : GhRepoRepositoryConnection.fromJson(
+            json['forks'] as Map<String, dynamic>),
+    primaryLanguage: json['primaryLanguage'] == null
+        ? null
+        : GhRepoLanguage.fromJson(
+            json['primaryLanguage'] as Map<String, dynamic>),
+    diskUsage: json['diskUsage'] as int,
+    watchers: json['watchers'] == null
+        ? null
+        : GhRepoUserConnection.fromJson(
+            json['watchers'] as Map<String, dynamic>),
+    issues: json['issues'] == null
+        ? null
+        : GhRepoIssueConnection.fromJson(
+            json['issues'] as Map<String, dynamic>),
+    pullRequests: json['pullRequests'] == null
+        ? null
+        : GhRepoPullRequestConnection.fromJson(
+            json['pullRequests'] as Map<String, dynamic>),
+    releases: json['releases'] == null
+        ? null
+        : GhRepoReleaseConnection.fromJson(
+            json['releases'] as Map<String, dynamic>),
+    languages: json['languages'] == null
+        ? null
+        : GhRepoLanguageConnection.fromJson(
+            json['languages'] as Map<String, dynamic>),
+    defaultBranchRef: json['defaultBranchRef'] == null
+        ? null
+        : GhRepoRef.fromJson(json['defaultBranchRef'] as Map<String, dynamic>),
+    ref: json['ref'] == null
+        ? null
+        : GhRepoRef.fromJson(json['ref'] as Map<String, dynamic>),
+    refs: json['refs'] == null
+        ? null
+        : GhRepoRefConnection.fromJson(json['refs'] as Map<String, dynamic>),
+    repositoryTopics: json['repositoryTopics'] == null
+        ? null
+        : GhRepoRepositoryTopicConnection.fromJson(
+            json['repositoryTopics'] as Map<String, dynamic>),
+  )
     ..owner = json['owner'] == null
         ? null
         : GhRepoRepositoryOwner.fromJson(json['owner'] as Map<String, dynamic>)
@@ -31,53 +75,20 @@ GhRepoRepository _$GhRepoRepositoryFromJson(Map<String, dynamic> json) {
         ? null
         : GhRepoStargazerConnection.fromJson(
             json['stargazers'] as Map<String, dynamic>)
-    ..forks = json['forks'] == null
-        ? null
-        : GhRepoRepositoryConnection.fromJson(
-            json['forks'] as Map<String, dynamic>)
-    ..primaryLanguage = json['primaryLanguage'] == null
-        ? null
-        : GhRepoLanguage.fromJson(
-            json['primaryLanguage'] as Map<String, dynamic>)
     ..id = json['id'] as String
-    ..diskUsage = json['diskUsage'] as int
     ..hasIssuesEnabled = json['hasIssuesEnabled'] as bool
     ..url = json['url'] as String
     ..viewerHasStarred = json['viewerHasStarred'] as bool
     ..viewerSubscription = _$enumDecodeNullable(
         _$GhRepoSubscriptionStateEnumMap, json['viewerSubscription'])
     ..projectsUrl = json['projectsUrl'] as String
-    ..watchers = json['watchers'] == null
-        ? null
-        : GhRepoUserConnection.fromJson(
-            json['watchers'] as Map<String, dynamic>)
-    ..issues = json['issues'] == null
-        ? null
-        : GhRepoIssueConnection.fromJson(json['issues'] as Map<String, dynamic>)
-    ..pullRequests = json['pullRequests'] == null
-        ? null
-        : GhRepoPullRequestConnection.fromJson(
-            json['pullRequests'] as Map<String, dynamic>)
     ..projects = json['projects'] == null
         ? null
         : GhRepoProjectConnection.fromJson(
             json['projects'] as Map<String, dynamic>)
-    ..releases = json['releases'] == null
+    ..licenseInfo = json['licenseInfo'] == null
         ? null
-        : GhRepoReleaseConnection.fromJson(
-            json['releases'] as Map<String, dynamic>)
-    ..languages = json['languages'] == null
-        ? null
-        : GhRepoLanguageConnection.fromJson(
-            json['languages'] as Map<String, dynamic>)
-    ..defaultBranchRef = json['defaultBranchRef'] == null
-        ? null
-        : GhRepoRef.fromJson(json['defaultBranchRef'] as Map<String, dynamic>)
-    ..ref =
-        json['ref'] == null ? null : GhRepoRef.fromJson(json['ref'] as Map<String, dynamic>)
-    ..refs = json['refs'] == null ? null : GhRepoRefConnection.fromJson(json['refs'] as Map<String, dynamic>)
-    ..licenseInfo = json['licenseInfo'] == null ? null : GhRepoLicense.fromJson(json['licenseInfo'] as Map<String, dynamic>)
-    ..repositoryTopics = json['repositoryTopics'] == null ? null : GhRepoRepositoryTopicConnection.fromJson(json['repositoryTopics'] as Map<String, dynamic>)
+        : GhRepoLicense.fromJson(json['licenseInfo'] as Map<String, dynamic>)
     ..resolveType = json['__typename'] as String;
 }
 
@@ -154,10 +165,10 @@ const _$GhRepoSubscriptionStateEnumMap = {
 
 GhRepoRepositoryOwner _$GhRepoRepositoryOwnerFromJson(
     Map<String, dynamic> json) {
-  return GhRepoRepositoryOwner()
-    ..login = json['login'] as String
-    ..avatarUrl = json['avatarUrl'] as String
-    ..resolveType = json['__typename'] as String;
+  return GhRepoRepositoryOwner(
+    login: json['login'] as String,
+    avatarUrl: json['avatarUrl'] as String,
+  )..resolveType = json['__typename'] as String;
 }
 
 Map<String, dynamic> _$GhRepoRepositoryOwnerToJson(
@@ -170,7 +181,9 @@ Map<String, dynamic> _$GhRepoRepositoryOwnerToJson(
 
 GhRepoStargazerConnection _$GhRepoStargazerConnectionFromJson(
     Map<String, dynamic> json) {
-  return GhRepoStargazerConnection()..totalCount = json['totalCount'] as int;
+  return GhRepoStargazerConnection(
+    totalCount: json['totalCount'] as int,
+  );
 }
 
 Map<String, dynamic> _$GhRepoStargazerConnectionToJson(
@@ -181,7 +194,9 @@ Map<String, dynamic> _$GhRepoStargazerConnectionToJson(
 
 GhRepoRepositoryConnection _$GhRepoRepositoryConnectionFromJson(
     Map<String, dynamic> json) {
-  return GhRepoRepositoryConnection()..totalCount = json['totalCount'] as int;
+  return GhRepoRepositoryConnection(
+    totalCount: json['totalCount'] as int,
+  );
 }
 
 Map<String, dynamic> _$GhRepoRepositoryConnectionToJson(
@@ -191,10 +206,10 @@ Map<String, dynamic> _$GhRepoRepositoryConnectionToJson(
     };
 
 GhRepoLanguage _$GhRepoLanguageFromJson(Map<String, dynamic> json) {
-  return GhRepoLanguage()
-    ..color = json['color'] as String
-    ..name = json['name'] as String
-    ..resolveType = json['__typename'] as String;
+  return GhRepoLanguage(
+    color: json['color'] as String,
+    name: json['name'] as String,
+  )..resolveType = json['__typename'] as String;
 }
 
 Map<String, dynamic> _$GhRepoLanguageToJson(GhRepoLanguage instance) =>
@@ -214,7 +229,9 @@ Map<String, dynamic> _$GhRepoNodeToJson(GhRepoNode instance) =>
     };
 
 GhRepoUserConnection _$GhRepoUserConnectionFromJson(Map<String, dynamic> json) {
-  return GhRepoUserConnection()..totalCount = json['totalCount'] as int;
+  return GhRepoUserConnection(
+    totalCount: json['totalCount'] as int,
+  );
 }
 
 Map<String, dynamic> _$GhRepoUserConnectionToJson(
@@ -225,7 +242,9 @@ Map<String, dynamic> _$GhRepoUserConnectionToJson(
 
 GhRepoIssueConnection _$GhRepoIssueConnectionFromJson(
     Map<String, dynamic> json) {
-  return GhRepoIssueConnection()..totalCount = json['totalCount'] as int;
+  return GhRepoIssueConnection(
+    totalCount: json['totalCount'] as int,
+  );
 }
 
 Map<String, dynamic> _$GhRepoIssueConnectionToJson(
@@ -236,7 +255,9 @@ Map<String, dynamic> _$GhRepoIssueConnectionToJson(
 
 GhRepoPullRequestConnection _$GhRepoPullRequestConnectionFromJson(
     Map<String, dynamic> json) {
-  return GhRepoPullRequestConnection()..totalCount = json['totalCount'] as int;
+  return GhRepoPullRequestConnection(
+    totalCount: json['totalCount'] as int,
+  );
 }
 
 Map<String, dynamic> _$GhRepoPullRequestConnectionToJson(
@@ -247,7 +268,9 @@ Map<String, dynamic> _$GhRepoPullRequestConnectionToJson(
 
 GhRepoProjectConnection _$GhRepoProjectConnectionFromJson(
     Map<String, dynamic> json) {
-  return GhRepoProjectConnection()..totalCount = json['totalCount'] as int;
+  return GhRepoProjectConnection(
+    totalCount: json['totalCount'] as int,
+  );
 }
 
 Map<String, dynamic> _$GhRepoProjectConnectionToJson(
@@ -258,7 +281,9 @@ Map<String, dynamic> _$GhRepoProjectConnectionToJson(
 
 GhRepoReleaseConnection _$GhRepoReleaseConnectionFromJson(
     Map<String, dynamic> json) {
-  return GhRepoReleaseConnection()..totalCount = json['totalCount'] as int;
+  return GhRepoReleaseConnection(
+    totalCount: json['totalCount'] as int,
+  );
 }
 
 Map<String, dynamic> _$GhRepoReleaseConnectionToJson(
@@ -269,13 +294,14 @@ Map<String, dynamic> _$GhRepoReleaseConnectionToJson(
 
 GhRepoLanguageConnection _$GhRepoLanguageConnectionFromJson(
     Map<String, dynamic> json) {
-  return GhRepoLanguageConnection()
-    ..totalSize = json['totalSize'] as int
-    ..edges = (json['edges'] as List)
+  return GhRepoLanguageConnection(
+    totalSize: json['totalSize'] as int,
+    edges: (json['edges'] as List)
         ?.map((e) => e == null
             ? null
             : GhRepoLanguageEdge.fromJson(e as Map<String, dynamic>))
-        ?.toList();
+        ?.toList(),
+  );
 }
 
 Map<String, dynamic> _$GhRepoLanguageConnectionToJson(
@@ -286,11 +312,12 @@ Map<String, dynamic> _$GhRepoLanguageConnectionToJson(
     };
 
 GhRepoLanguageEdge _$GhRepoLanguageEdgeFromJson(Map<String, dynamic> json) {
-  return GhRepoLanguageEdge()
-    ..size = json['size'] as int
-    ..node = json['node'] == null
+  return GhRepoLanguageEdge(
+    size: json['size'] as int,
+    node: json['node'] == null
         ? null
-        : GhRepoLanguage.fromJson(json['node'] as Map<String, dynamic>);
+        : GhRepoLanguage.fromJson(json['node'] as Map<String, dynamic>),
+  );
 }
 
 Map<String, dynamic> _$GhRepoLanguageEdgeToJson(GhRepoLanguageEdge instance) =>
@@ -300,12 +327,12 @@ Map<String, dynamic> _$GhRepoLanguageEdgeToJson(GhRepoLanguageEdge instance) =>
     };
 
 GhRepoRef _$GhRepoRefFromJson(Map<String, dynamic> json) {
-  return GhRepoRef()
-    ..name = json['name'] as String
-    ..target = json['target'] == null
+  return GhRepoRef(
+    name: json['name'] as String,
+    target: json['target'] == null
         ? null
-        : GhRepoGitObject.fromJson(json['target'] as Map<String, dynamic>)
-    ..resolveType = json['__typename'] as String;
+        : GhRepoGitObject.fromJson(json['target'] as Map<String, dynamic>),
+  )..resolveType = json['__typename'] as String;
 }
 
 Map<String, dynamic> _$GhRepoRefToJson(GhRepoRef instance) => <String, dynamic>{
@@ -324,12 +351,12 @@ Map<String, dynamic> _$GhRepoGitObjectToJson(GhRepoGitObject instance) =>
     };
 
 GhRepoCommit _$GhRepoCommitFromJson(Map<String, dynamic> json) {
-  return GhRepoCommit()
-    ..history = json['history'] == null
+  return GhRepoCommit(
+    history: json['history'] == null
         ? null
         : GhRepoCommitHistoryConnection.fromJson(
-            json['history'] as Map<String, dynamic>)
-    ..resolveType = json['__typename'] as String;
+            json['history'] as Map<String, dynamic>),
+  )..resolveType = json['__typename'] as String;
 }
 
 Map<String, dynamic> _$GhRepoCommitToJson(GhRepoCommit instance) =>
@@ -340,8 +367,9 @@ Map<String, dynamic> _$GhRepoCommitToJson(GhRepoCommit instance) =>
 
 GhRepoCommitHistoryConnection _$GhRepoCommitHistoryConnectionFromJson(
     Map<String, dynamic> json) {
-  return GhRepoCommitHistoryConnection()
-    ..totalCount = json['totalCount'] as int;
+  return GhRepoCommitHistoryConnection(
+    totalCount: json['totalCount'] as int,
+  );
 }
 
 Map<String, dynamic> _$GhRepoCommitHistoryConnectionToJson(
@@ -381,12 +409,13 @@ Map<String, dynamic> _$GhRepoUniformResourceLocatableToJson(
     };
 
 GhRepoRefConnection _$GhRepoRefConnectionFromJson(Map<String, dynamic> json) {
-  return GhRepoRefConnection()
-    ..totalCount = json['totalCount'] as int
-    ..nodes = (json['nodes'] as List)
+  return GhRepoRefConnection(
+    totalCount: json['totalCount'] as int,
+    nodes: (json['nodes'] as List)
         ?.map((e) =>
             e == null ? null : GhRepoRef.fromJson(e as Map<String, dynamic>))
-        ?.toList();
+        ?.toList(),
+  );
 }
 
 Map<String, dynamic> _$GhRepoRefConnectionToJson(
@@ -397,10 +426,10 @@ Map<String, dynamic> _$GhRepoRefConnectionToJson(
     };
 
 GhRepoLicense _$GhRepoLicenseFromJson(Map<String, dynamic> json) {
-  return GhRepoLicense()
-    ..name = json['name'] as String
-    ..spdxId = json['spdxId'] as String
-    ..resolveType = json['__typename'] as String;
+  return GhRepoLicense(
+    name: json['name'] as String,
+    spdxId: json['spdxId'] as String,
+  )..resolveType = json['__typename'] as String;
 }
 
 Map<String, dynamic> _$GhRepoLicenseToJson(GhRepoLicense instance) =>
@@ -412,12 +441,13 @@ Map<String, dynamic> _$GhRepoLicenseToJson(GhRepoLicense instance) =>
 
 GhRepoRepositoryTopicConnection _$GhRepoRepositoryTopicConnectionFromJson(
     Map<String, dynamic> json) {
-  return GhRepoRepositoryTopicConnection()
-    ..nodes = (json['nodes'] as List)
+  return GhRepoRepositoryTopicConnection(
+    nodes: (json['nodes'] as List)
         ?.map((e) => e == null
             ? null
             : GhRepoRepositoryTopic.fromJson(e as Map<String, dynamic>))
-        ?.toList();
+        ?.toList(),
+  );
 }
 
 Map<String, dynamic> _$GhRepoRepositoryTopicConnectionToJson(
@@ -428,11 +458,12 @@ Map<String, dynamic> _$GhRepoRepositoryTopicConnectionToJson(
 
 GhRepoRepositoryTopic _$GhRepoRepositoryTopicFromJson(
     Map<String, dynamic> json) {
-  return GhRepoRepositoryTopic()
-    ..url = json['url'] as String
-    ..topic = json['topic'] == null
+  return GhRepoRepositoryTopic(
+    topic: json['topic'] == null
         ? null
-        : GhRepoTopic.fromJson(json['topic'] as Map<String, dynamic>)
+        : GhRepoTopic.fromJson(json['topic'] as Map<String, dynamic>),
+  )
+    ..url = json['url'] as String
     ..resolveType = json['__typename'] as String;
 }
 
@@ -445,9 +476,9 @@ Map<String, dynamic> _$GhRepoRepositoryTopicToJson(
     };
 
 GhRepoTopic _$GhRepoTopicFromJson(Map<String, dynamic> json) {
-  return GhRepoTopic()
-    ..name = json['name'] as String
-    ..resolveType = json['__typename'] as String;
+  return GhRepoTopic(
+    name: json['name'] as String,
+  )..resolveType = json['__typename'] as String;
 }
 
 Map<String, dynamic> _$GhRepoTopicToJson(GhRepoTopic instance) =>
@@ -473,14 +504,14 @@ Map<String, dynamic> _$GhRepoPinnableItemToJson(GhRepoPinnableItem instance) =>
     <String, dynamic>{};
 
 GhRepoProjectOwner _$GhRepoProjectOwnerFromJson(Map<String, dynamic> json) {
-  return GhRepoProjectOwner()
-    ..id = json['id'] as String
-    ..projectsUrl = json['projectsUrl'] as String
-    ..projects = json['projects'] == null
+  return GhRepoProjectOwner(
+    id: json['id'] as String,
+    projectsUrl: json['projectsUrl'] as String,
+    projects: json['projects'] == null
         ? null
         : GhRepoProjectConnection.fromJson(
-            json['projects'] as Map<String, dynamic>)
-    ..resolveType = json['__typename'] as String;
+            json['projects'] as Map<String, dynamic>),
+  )..resolveType = json['__typename'] as String;
 }
 
 Map<String, dynamic> _$GhRepoProjectOwnerToJson(GhRepoProjectOwner instance) =>
@@ -493,9 +524,9 @@ Map<String, dynamic> _$GhRepoProjectOwnerToJson(GhRepoProjectOwner instance) =>
 
 GhRepoRegistryPackageOwner _$GhRepoRegistryPackageOwnerFromJson(
     Map<String, dynamic> json) {
-  return GhRepoRegistryPackageOwner()
-    ..id = json['id'] as String
-    ..resolveType = json['__typename'] as String;
+  return GhRepoRegistryPackageOwner(
+    id: json['id'] as String,
+  )..resolveType = json['__typename'] as String;
 }
 
 Map<String, dynamic> _$GhRepoRegistryPackageOwnerToJson(
@@ -507,9 +538,9 @@ Map<String, dynamic> _$GhRepoRegistryPackageOwnerToJson(
 
 GhRepoRegistryPackageSearch _$GhRepoRegistryPackageSearchFromJson(
     Map<String, dynamic> json) {
-  return GhRepoRegistryPackageSearch()
-    ..id = json['id'] as String
-    ..resolveType = json['__typename'] as String;
+  return GhRepoRegistryPackageSearch(
+    id: json['id'] as String,
+  )..resolveType = json['__typename'] as String;
 }
 
 Map<String, dynamic> _$GhRepoRegistryPackageSearchToJson(
@@ -520,21 +551,21 @@ Map<String, dynamic> _$GhRepoRegistryPackageSearchToJson(
     };
 
 GhRepoRepositoryInfo _$GhRepoRepositoryInfoFromJson(Map<String, dynamic> json) {
-  return GhRepoRepositoryInfo()
-    ..owner = json['owner'] == null
+  return GhRepoRepositoryInfo(
+    owner: json['owner'] == null
         ? null
-        : GhRepoRepositoryOwner.fromJson(json['owner'] as Map<String, dynamic>)
-    ..name = json['name'] as String
-    ..description = json['description'] as String
-    ..homepageUrl = json['homepageUrl'] as String
-    ..isPrivate = json['isPrivate'] as bool
-    ..isFork = json['isFork'] as bool
-    ..hasIssuesEnabled = json['hasIssuesEnabled'] as bool
-    ..url = json['url'] as String
-    ..licenseInfo = json['licenseInfo'] == null
+        : GhRepoRepositoryOwner.fromJson(json['owner'] as Map<String, dynamic>),
+    name: json['name'] as String,
+    description: json['description'] as String,
+    homepageUrl: json['homepageUrl'] as String,
+    isPrivate: json['isPrivate'] as bool,
+    isFork: json['isFork'] as bool,
+    hasIssuesEnabled: json['hasIssuesEnabled'] as bool,
+    url: json['url'] as String,
+    licenseInfo: json['licenseInfo'] == null
         ? null
-        : GhRepoLicense.fromJson(json['licenseInfo'] as Map<String, dynamic>)
-    ..resolveType = json['__typename'] as String;
+        : GhRepoLicense.fromJson(json['licenseInfo'] as Map<String, dynamic>),
+  )..resolveType = json['__typename'] as String;
 }
 
 Map<String, dynamic> _$GhRepoRepositoryInfoToJson(
@@ -570,18 +601,19 @@ Map<String, dynamic> _$GhRepoArgumentsToJson(GhRepoArguments instance) =>
     };
 
 GhUsers _$GhUsersFromJson(Map<String, dynamic> json) {
-  return GhUsers()
-    ..user = json['user'] == null
+  return GhUsers(
+    user: json['user'] == null
         ? null
-        : GhUsersUser.fromJson(json['user'] as Map<String, dynamic>)
-    ..organization = json['organization'] == null
+        : GhUsersUser.fromJson(json['user'] as Map<String, dynamic>),
+    organization: json['organization'] == null
         ? null
         : GhUsersOrganization.fromJson(
-            json['organization'] as Map<String, dynamic>)
-    ..repository = json['repository'] == null
+            json['organization'] as Map<String, dynamic>),
+    repository: json['repository'] == null
         ? null
         : GhUsersRepository.fromJson(
-            json['repository'] as Map<String, dynamic>);
+            json['repository'] as Map<String, dynamic>),
+  );
 }
 
 Map<String, dynamic> _$GhUsersToJson(GhUsers instance) => <String, dynamic>{
@@ -591,23 +623,24 @@ Map<String, dynamic> _$GhUsersToJson(GhUsers instance) => <String, dynamic>{
     };
 
 GhUsersUser _$GhUsersUserFromJson(Map<String, dynamic> json) {
-  return GhUsersUser()
+  return GhUsersUser(
+    company: json['company'] as String,
+    createdAt: json['createdAt'] == null
+        ? null
+        : DateTime.parse(json['createdAt'] as String),
+    followers: json['followers'] == null
+        ? null
+        : GhUsersFollowerConnection.fromJson(
+            json['followers'] as Map<String, dynamic>),
+    following: json['following'] == null
+        ? null
+        : GhUsersFollowingConnection.fromJson(
+            json['following'] as Map<String, dynamic>),
+  )
     ..login = json['login'] as String
     ..name = json['name'] as String
     ..avatarUrl = json['avatarUrl'] as String
-    ..company = json['company'] as String
     ..location = json['location'] as String
-    ..createdAt = json['createdAt'] == null
-        ? null
-        : DateTime.parse(json['createdAt'] as String)
-    ..followers = json['followers'] == null
-        ? null
-        : GhUsersFollowerConnection.fromJson(
-            json['followers'] as Map<String, dynamic>)
-    ..following = json['following'] == null
-        ? null
-        : GhUsersFollowingConnection.fromJson(
-            json['following'] as Map<String, dynamic>)
     ..resolveType = json['__typename'] as String;
 }
 
@@ -626,14 +659,15 @@ Map<String, dynamic> _$GhUsersUserToJson(GhUsersUser instance) =>
 
 GhUsersFollowerConnection _$GhUsersFollowerConnectionFromJson(
     Map<String, dynamic> json) {
-  return GhUsersFollowerConnection()
-    ..pageInfo = json['pageInfo'] == null
+  return GhUsersFollowerConnection(
+    pageInfo: json['pageInfo'] == null
         ? null
-        : GhUsersPageInfo.fromJson(json['pageInfo'] as Map<String, dynamic>)
-    ..nodes = (json['nodes'] as List)
+        : GhUsersPageInfo.fromJson(json['pageInfo'] as Map<String, dynamic>),
+    nodes: (json['nodes'] as List)
         ?.map((e) =>
             e == null ? null : GhUsersUser.fromJson(e as Map<String, dynamic>))
-        ?.toList();
+        ?.toList(),
+  );
 }
 
 Map<String, dynamic> _$GhUsersFollowerConnectionToJson(
@@ -644,9 +678,10 @@ Map<String, dynamic> _$GhUsersFollowerConnectionToJson(
     };
 
 GhUsersPageInfo _$GhUsersPageInfoFromJson(Map<String, dynamic> json) {
-  return GhUsersPageInfo()
-    ..hasNextPage = json['hasNextPage'] as bool
-    ..endCursor = json['endCursor'] as String;
+  return GhUsersPageInfo(
+    hasNextPage: json['hasNextPage'] as bool,
+    endCursor: json['endCursor'] as String,
+  );
 }
 
 Map<String, dynamic> _$GhUsersPageInfoToJson(GhUsersPageInfo instance) =>
@@ -674,10 +709,10 @@ Map<String, dynamic> _$GhUsersNodeToJson(GhUsersNode instance) =>
     };
 
 GhUsersActor _$GhUsersActorFromJson(Map<String, dynamic> json) {
-  return GhUsersActor()
-    ..login = json['login'] as String
-    ..avatarUrl = json['avatarUrl'] as String
-    ..resolveType = json['__typename'] as String;
+  return GhUsersActor(
+    login: json['login'] as String,
+    avatarUrl: json['avatarUrl'] as String,
+  )..resolveType = json['__typename'] as String;
 }
 
 Map<String, dynamic> _$GhUsersActorToJson(GhUsersActor instance) =>
@@ -723,10 +758,10 @@ Map<String, dynamic> _$GhUsersProjectOwnerToJson(
 
 GhUsersRepositoryOwner _$GhUsersRepositoryOwnerFromJson(
     Map<String, dynamic> json) {
-  return GhUsersRepositoryOwner()
-    ..login = json['login'] as String
-    ..avatarUrl = json['avatarUrl'] as String
-    ..resolveType = json['__typename'] as String;
+  return GhUsersRepositoryOwner(
+    login: json['login'] as String,
+    avatarUrl: json['avatarUrl'] as String,
+  )..resolveType = json['__typename'] as String;
 }
 
 Map<String, dynamic> _$GhUsersRepositoryOwnerToJson(
@@ -750,11 +785,11 @@ Map<String, dynamic> _$GhUsersUniformResourceLocatableToJson(
     };
 
 GhUsersProfileOwner _$GhUsersProfileOwnerFromJson(Map<String, dynamic> json) {
-  return GhUsersProfileOwner()
-    ..login = json['login'] as String
-    ..name = json['name'] as String
-    ..location = json['location'] as String
-    ..resolveType = json['__typename'] as String;
+  return GhUsersProfileOwner(
+    login: json['login'] as String,
+    name: json['name'] as String,
+    location: json['location'] as String,
+  )..resolveType = json['__typename'] as String;
 }
 
 Map<String, dynamic> _$GhUsersProfileOwnerToJson(
@@ -777,14 +812,15 @@ Map<String, dynamic> _$GhUsersSponsorableToJson(GhUsersSponsorable instance) =>
 
 GhUsersFollowingConnection _$GhUsersFollowingConnectionFromJson(
     Map<String, dynamic> json) {
-  return GhUsersFollowingConnection()
-    ..pageInfo = json['pageInfo'] == null
+  return GhUsersFollowingConnection(
+    pageInfo: json['pageInfo'] == null
         ? null
-        : GhUsersPageInfo.fromJson(json['pageInfo'] as Map<String, dynamic>)
-    ..nodes = (json['nodes'] as List)
+        : GhUsersPageInfo.fromJson(json['pageInfo'] as Map<String, dynamic>),
+    nodes: (json['nodes'] as List)
         ?.map((e) =>
             e == null ? null : GhUsersUser.fromJson(e as Map<String, dynamic>))
-        ?.toList();
+        ?.toList(),
+  );
 }
 
 Map<String, dynamic> _$GhUsersFollowingConnectionToJson(
@@ -795,15 +831,16 @@ Map<String, dynamic> _$GhUsersFollowingConnectionToJson(
     };
 
 GhUsersOrganization _$GhUsersOrganizationFromJson(Map<String, dynamic> json) {
-  return GhUsersOrganization()
+  return GhUsersOrganization(
+    membersWithRole: json['membersWithRole'] == null
+        ? null
+        : GhUsersOrganizationMemberConnection.fromJson(
+            json['membersWithRole'] as Map<String, dynamic>),
+  )
     ..login = json['login'] as String
     ..name = json['name'] as String
     ..avatarUrl = json['avatarUrl'] as String
     ..location = json['location'] as String
-    ..membersWithRole = json['membersWithRole'] == null
-        ? null
-        : GhUsersOrganizationMemberConnection.fromJson(
-            json['membersWithRole'] as Map<String, dynamic>)
     ..resolveType = json['__typename'] as String;
 }
 
@@ -820,14 +857,15 @@ Map<String, dynamic> _$GhUsersOrganizationToJson(
 
 GhUsersOrganizationMemberConnection
     _$GhUsersOrganizationMemberConnectionFromJson(Map<String, dynamic> json) {
-  return GhUsersOrganizationMemberConnection()
-    ..pageInfo = json['pageInfo'] == null
+  return GhUsersOrganizationMemberConnection(
+    pageInfo: json['pageInfo'] == null
         ? null
-        : GhUsersPageInfo.fromJson(json['pageInfo'] as Map<String, dynamic>)
-    ..nodes = (json['nodes'] as List)
+        : GhUsersPageInfo.fromJson(json['pageInfo'] as Map<String, dynamic>),
+    nodes: (json['nodes'] as List)
         ?.map((e) =>
             e == null ? null : GhUsersUser.fromJson(e as Map<String, dynamic>))
-        ?.toList();
+        ?.toList(),
+  );
 }
 
 Map<String, dynamic> _$GhUsersOrganizationMemberConnectionToJson(
@@ -849,11 +887,12 @@ Map<String, dynamic> _$GhUsersMemberStatusableToJson(
     };
 
 GhUsersRepository _$GhUsersRepositoryFromJson(Map<String, dynamic> json) {
-  return GhUsersRepository()
-    ..watchers = json['watchers'] == null
+  return GhUsersRepository(
+    watchers: json['watchers'] == null
         ? null
         : GhUsersUserConnection.fromJson(
-            json['watchers'] as Map<String, dynamic>)
+            json['watchers'] as Map<String, dynamic>),
+  )
     ..stargazers = json['stargazers'] == null
         ? null
         : GhUsersStargazerConnection.fromJson(
@@ -870,14 +909,15 @@ Map<String, dynamic> _$GhUsersRepositoryToJson(GhUsersRepository instance) =>
 
 GhUsersUserConnection _$GhUsersUserConnectionFromJson(
     Map<String, dynamic> json) {
-  return GhUsersUserConnection()
-    ..pageInfo = json['pageInfo'] == null
+  return GhUsersUserConnection(
+    pageInfo: json['pageInfo'] == null
         ? null
-        : GhUsersPageInfo.fromJson(json['pageInfo'] as Map<String, dynamic>)
-    ..nodes = (json['nodes'] as List)
+        : GhUsersPageInfo.fromJson(json['pageInfo'] as Map<String, dynamic>),
+    nodes: (json['nodes'] as List)
         ?.map((e) =>
             e == null ? null : GhUsersUser.fromJson(e as Map<String, dynamic>))
-        ?.toList();
+        ?.toList(),
+  );
 }
 
 Map<String, dynamic> _$GhUsersUserConnectionToJson(
@@ -889,14 +929,15 @@ Map<String, dynamic> _$GhUsersUserConnectionToJson(
 
 GhUsersStargazerConnection _$GhUsersStargazerConnectionFromJson(
     Map<String, dynamic> json) {
-  return GhUsersStargazerConnection()
-    ..pageInfo = json['pageInfo'] == null
+  return GhUsersStargazerConnection(
+    pageInfo: json['pageInfo'] == null
         ? null
-        : GhUsersPageInfo.fromJson(json['pageInfo'] as Map<String, dynamic>)
-    ..nodes = (json['nodes'] as List)
+        : GhUsersPageInfo.fromJson(json['pageInfo'] as Map<String, dynamic>),
+    nodes: (json['nodes'] as List)
         ?.map((e) =>
             e == null ? null : GhUsersUser.fromJson(e as Map<String, dynamic>))
-        ?.toList();
+        ?.toList(),
+  );
 }
 
 Map<String, dynamic> _$GhUsersStargazerConnectionToJson(
@@ -925,12 +966,12 @@ Map<String, dynamic> _$GhUsersSubscribableToJson(
     };
 
 GhUsersStarrable _$GhUsersStarrableFromJson(Map<String, dynamic> json) {
-  return GhUsersStarrable()
-    ..stargazers = json['stargazers'] == null
+  return GhUsersStarrable(
+    stargazers: json['stargazers'] == null
         ? null
         : GhUsersStargazerConnection.fromJson(
-            json['stargazers'] as Map<String, dynamic>)
-    ..resolveType = json['__typename'] as String;
+            json['stargazers'] as Map<String, dynamic>),
+  )..resolveType = json['__typename'] as String;
 }
 
 Map<String, dynamic> _$GhUsersStarrableToJson(GhUsersStarrable instance) =>
@@ -976,11 +1017,12 @@ Map<String, dynamic> _$GhUsersArgumentsToJson(GhUsersArguments instance) =>
     };
 
 GhCreateIssue _$GhCreateIssueFromJson(Map<String, dynamic> json) {
-  return GhCreateIssue()
-    ..createIssue = json['createIssue'] == null
+  return GhCreateIssue(
+    createIssue: json['createIssue'] == null
         ? null
         : GhCreateIssueCreateIssuePayload.fromJson(
-            json['createIssue'] as Map<String, dynamic>);
+            json['createIssue'] as Map<String, dynamic>),
+  );
 }
 
 Map<String, dynamic> _$GhCreateIssueToJson(GhCreateIssue instance) =>
@@ -990,10 +1032,11 @@ Map<String, dynamic> _$GhCreateIssueToJson(GhCreateIssue instance) =>
 
 GhCreateIssueCreateIssuePayload _$GhCreateIssueCreateIssuePayloadFromJson(
     Map<String, dynamic> json) {
-  return GhCreateIssueCreateIssuePayload()
-    ..issue = json['issue'] == null
+  return GhCreateIssueCreateIssuePayload(
+    issue: json['issue'] == null
         ? null
-        : GhCreateIssueIssue.fromJson(json['issue'] as Map<String, dynamic>);
+        : GhCreateIssueIssue.fromJson(json['issue'] as Map<String, dynamic>),
+  );
 }
 
 Map<String, dynamic> _$GhCreateIssueCreateIssuePayloadToJson(
@@ -1003,8 +1046,9 @@ Map<String, dynamic> _$GhCreateIssueCreateIssuePayloadToJson(
     };
 
 GhCreateIssueIssue _$GhCreateIssueIssueFromJson(Map<String, dynamic> json) {
-  return GhCreateIssueIssue()
-    ..number = json['number'] as int
+  return GhCreateIssueIssue(
+    number: json['number'] as int,
+  )
     ..repository = json['repository'] == null
         ? null
         : GhCreateIssueRepository.fromJson(
@@ -1040,9 +1084,9 @@ Map<String, dynamic> _$GhCreateIssueRepositoryToJson(
 
 GhCreateIssueRepositoryOwner _$GhCreateIssueRepositoryOwnerFromJson(
     Map<String, dynamic> json) {
-  return GhCreateIssueRepositoryOwner()
-    ..login = json['login'] as String
-    ..resolveType = json['__typename'] as String;
+  return GhCreateIssueRepositoryOwner(
+    login: json['login'] as String,
+  )..resolveType = json['__typename'] as String;
 }
 
 Map<String, dynamic> _$GhCreateIssueRepositoryOwnerToJson(
@@ -1143,13 +1187,13 @@ Map<String, dynamic> _$GhCreateIssueUniformResourceLocatableToJson(
 
 GhCreateIssueRepositoryInfo _$GhCreateIssueRepositoryInfoFromJson(
     Map<String, dynamic> json) {
-  return GhCreateIssueRepositoryInfo()
-    ..owner = json['owner'] == null
+  return GhCreateIssueRepositoryInfo(
+    owner: json['owner'] == null
         ? null
         : GhCreateIssueRepositoryOwner.fromJson(
-            json['owner'] as Map<String, dynamic>)
-    ..name = json['name'] as String
-    ..resolveType = json['__typename'] as String;
+            json['owner'] as Map<String, dynamic>),
+    name: json['name'] as String,
+  )..resolveType = json['__typename'] as String;
 }
 
 Map<String, dynamic> _$GhCreateIssueRepositoryInfoToJson(
@@ -1259,12 +1303,12 @@ Map<String, dynamic> _$GhCreateIssueReactableToJson(
 
 GhCreateIssueRepositoryNode _$GhCreateIssueRepositoryNodeFromJson(
     Map<String, dynamic> json) {
-  return GhCreateIssueRepositoryNode()
-    ..repository = json['repository'] == null
+  return GhCreateIssueRepositoryNode(
+    repository: json['repository'] == null
         ? null
         : GhCreateIssueRepository.fromJson(
-            json['repository'] as Map<String, dynamic>)
-    ..resolveType = json['__typename'] as String;
+            json['repository'] as Map<String, dynamic>),
+  )..resolveType = json['__typename'] as String;
 }
 
 Map<String, dynamic> _$GhCreateIssueRepositoryNodeToJson(
@@ -1292,15 +1336,16 @@ Map<String, dynamic> _$GhCreateIssueArgumentsToJson(
     };
 
 GhOpenIssue _$GhOpenIssueFromJson(Map<String, dynamic> json) {
-  return GhOpenIssue()
-    ..reopenIssue = json['reopenIssue'] == null
+  return GhOpenIssue(
+    reopenIssue: json['reopenIssue'] == null
         ? null
         : GhOpenIssueReopenIssuePayload.fromJson(
-            json['reopenIssue'] as Map<String, dynamic>)
-    ..closeIssue = json['closeIssue'] == null
+            json['reopenIssue'] as Map<String, dynamic>),
+    closeIssue: json['closeIssue'] == null
         ? null
         : GhOpenIssueCloseIssuePayload.fromJson(
-            json['closeIssue'] as Map<String, dynamic>);
+            json['closeIssue'] as Map<String, dynamic>),
+  );
 }
 
 Map<String, dynamic> _$GhOpenIssueToJson(GhOpenIssue instance) =>
@@ -1311,10 +1356,11 @@ Map<String, dynamic> _$GhOpenIssueToJson(GhOpenIssue instance) =>
 
 GhOpenIssueReopenIssuePayload _$GhOpenIssueReopenIssuePayloadFromJson(
     Map<String, dynamic> json) {
-  return GhOpenIssueReopenIssuePayload()
-    ..issue = json['issue'] == null
+  return GhOpenIssueReopenIssuePayload(
+    issue: json['issue'] == null
         ? null
-        : GhOpenIssueIssue.fromJson(json['issue'] as Map<String, dynamic>);
+        : GhOpenIssueIssue.fromJson(json['issue'] as Map<String, dynamic>),
+  );
 }
 
 Map<String, dynamic> _$GhOpenIssueReopenIssuePayloadToJson(
@@ -1365,9 +1411,9 @@ Map<String, dynamic> _$GhOpenIssueAssignableToJson(
     };
 
 GhOpenIssueClosable _$GhOpenIssueClosableFromJson(Map<String, dynamic> json) {
-  return GhOpenIssueClosable()
-    ..closed = json['closed'] as bool
-    ..resolveType = json['__typename'] as String;
+  return GhOpenIssueClosable(
+    closed: json['closed'] as bool,
+  )..resolveType = json['__typename'] as String;
 }
 
 Map<String, dynamic> _$GhOpenIssueClosableToJson(
@@ -1475,10 +1521,11 @@ Map<String, dynamic> _$GhOpenIssueUniformResourceLocatableToJson(
 
 GhOpenIssueCloseIssuePayload _$GhOpenIssueCloseIssuePayloadFromJson(
     Map<String, dynamic> json) {
-  return GhOpenIssueCloseIssuePayload()
-    ..issue = json['issue'] == null
+  return GhOpenIssueCloseIssuePayload(
+    issue: json['issue'] == null
         ? null
-        : GhOpenIssueIssue.fromJson(json['issue'] as Map<String, dynamic>);
+        : GhOpenIssueIssue.fromJson(json['issue'] as Map<String, dynamic>),
+  );
 }
 
 Map<String, dynamic> _$GhOpenIssueCloseIssuePayloadToJson(
@@ -1502,11 +1549,12 @@ Map<String, dynamic> _$GhOpenIssueArgumentsToJson(
     };
 
 GhRepos _$GhReposFromJson(Map<String, dynamic> json) {
-  return GhRepos()
-    ..repositoryOwner = json['repositoryOwner'] == null
+  return GhRepos(
+    repositoryOwner: json['repositoryOwner'] == null
         ? null
         : GhReposRepositoryOwner.fromJson(
-            json['repositoryOwner'] as Map<String, dynamic>);
+            json['repositoryOwner'] as Map<String, dynamic>),
+  );
 }
 
 Map<String, dynamic> _$GhReposToJson(GhRepos instance) => <String, dynamic>{
@@ -1515,10 +1563,10 @@ Map<String, dynamic> _$GhReposToJson(GhRepos instance) => <String, dynamic>{
 
 GhReposRepositoryOwner _$GhReposRepositoryOwnerFromJson(
     Map<String, dynamic> json) {
-  return GhReposRepositoryOwner()
-    ..login = json['login'] as String
-    ..avatarUrl = json['avatarUrl'] as String
-    ..resolveType = json['__typename'] as String;
+  return GhReposRepositoryOwner(
+    login: json['login'] as String,
+    avatarUrl: json['avatarUrl'] as String,
+  )..resolveType = json['__typename'] as String;
 }
 
 Map<String, dynamic> _$GhReposRepositoryOwnerToJson(
@@ -1530,15 +1578,16 @@ Map<String, dynamic> _$GhReposRepositoryOwnerToJson(
     };
 
 GhReposUser _$GhReposUserFromJson(Map<String, dynamic> json) {
-  return GhReposUser()
-    ..repositories = json['repositories'] == null
+  return GhReposUser(
+    repositories: json['repositories'] == null
         ? null
         : GhReposRepositoryConnection.fromJson(
-            json['repositories'] as Map<String, dynamic>)
-    ..starredRepositories = json['starredRepositories'] == null
+            json['repositories'] as Map<String, dynamic>),
+    starredRepositories: json['starredRepositories'] == null
         ? null
         : GhReposStarredRepositoryConnection.fromJson(
-            json['starredRepositories'] as Map<String, dynamic>)
+            json['starredRepositories'] as Map<String, dynamic>),
+  )
     ..resolveType = json['__typename'] as String
     ..login = json['login'] as String
     ..avatarUrl = json['avatarUrl'] as String;
@@ -1555,16 +1604,17 @@ Map<String, dynamic> _$GhReposUserToJson(GhReposUser instance) =>
 
 GhReposRepositoryConnection _$GhReposRepositoryConnectionFromJson(
     Map<String, dynamic> json) {
-  return GhReposRepositoryConnection()
-    ..totalCount = json['totalCount'] as int
-    ..pageInfo = json['pageInfo'] == null
+  return GhReposRepositoryConnection(
+    totalCount: json['totalCount'] as int,
+    pageInfo: json['pageInfo'] == null
         ? null
-        : GhReposPageInfo.fromJson(json['pageInfo'] as Map<String, dynamic>)
-    ..nodes = (json['nodes'] as List)
+        : GhReposPageInfo.fromJson(json['pageInfo'] as Map<String, dynamic>),
+    nodes: (json['nodes'] as List)
         ?.map((e) => e == null
             ? null
             : GhReposRepository.fromJson(e as Map<String, dynamic>))
-        ?.toList();
+        ?.toList(),
+  );
 }
 
 Map<String, dynamic> _$GhReposRepositoryConnectionToJson(
@@ -1576,9 +1626,10 @@ Map<String, dynamic> _$GhReposRepositoryConnectionToJson(
     };
 
 GhReposPageInfo _$GhReposPageInfoFromJson(Map<String, dynamic> json) {
-  return GhReposPageInfo()
-    ..hasNextPage = json['hasNextPage'] as bool
-    ..endCursor = json['endCursor'] as String;
+  return GhReposPageInfo(
+    hasNextPage: json['hasNextPage'] as bool,
+    endCursor: json['endCursor'] as String,
+  );
 }
 
 Map<String, dynamic> _$GhReposPageInfoToJson(GhReposPageInfo instance) =>
@@ -1588,7 +1639,16 @@ Map<String, dynamic> _$GhReposPageInfoToJson(GhReposPageInfo instance) =>
     };
 
 GhReposRepository _$GhReposRepositoryFromJson(Map<String, dynamic> json) {
-  return GhReposRepository()
+  return GhReposRepository(
+    forks: json['forks'] == null
+        ? null
+        : GhReposRepositoryConnection.fromJson(
+            json['forks'] as Map<String, dynamic>),
+    primaryLanguage: json['primaryLanguage'] == null
+        ? null
+        : GhReposLanguage.fromJson(
+            json['primaryLanguage'] as Map<String, dynamic>),
+  )
     ..owner = json['owner'] == null
         ? null
         : GhReposRepositoryOwner.fromJson(json['owner'] as Map<String, dynamic>)
@@ -1603,14 +1663,6 @@ GhReposRepository _$GhReposRepositoryFromJson(Map<String, dynamic> json) {
         ? null
         : GhReposStargazerConnection.fromJson(
             json['stargazers'] as Map<String, dynamic>)
-    ..forks = json['forks'] == null
-        ? null
-        : GhReposRepositoryConnection.fromJson(
-            json['forks'] as Map<String, dynamic>)
-    ..primaryLanguage = json['primaryLanguage'] == null
-        ? null
-        : GhReposLanguage.fromJson(
-            json['primaryLanguage'] as Map<String, dynamic>)
     ..resolveType = json['__typename'] as String;
 }
 
@@ -1630,7 +1682,9 @@ Map<String, dynamic> _$GhReposRepositoryToJson(GhReposRepository instance) =>
 
 GhReposStargazerConnection _$GhReposStargazerConnectionFromJson(
     Map<String, dynamic> json) {
-  return GhReposStargazerConnection()..totalCount = json['totalCount'] as int;
+  return GhReposStargazerConnection(
+    totalCount: json['totalCount'] as int,
+  );
 }
 
 Map<String, dynamic> _$GhReposStargazerConnectionToJson(
@@ -1640,10 +1694,10 @@ Map<String, dynamic> _$GhReposStargazerConnectionToJson(
     };
 
 GhReposLanguage _$GhReposLanguageFromJson(Map<String, dynamic> json) {
-  return GhReposLanguage()
-    ..color = json['color'] as String
-    ..name = json['name'] as String
-    ..resolveType = json['__typename'] as String;
+  return GhReposLanguage(
+    color: json['color'] as String,
+    name: json['name'] as String,
+  )..resolveType = json['__typename'] as String;
 }
 
 Map<String, dynamic> _$GhReposLanguageToJson(GhReposLanguage instance) =>
@@ -1715,12 +1769,12 @@ Map<String, dynamic> _$GhReposSubscribableToJson(
     };
 
 GhReposStarrable _$GhReposStarrableFromJson(Map<String, dynamic> json) {
-  return GhReposStarrable()
-    ..stargazers = json['stargazers'] == null
+  return GhReposStarrable(
+    stargazers: json['stargazers'] == null
         ? null
         : GhReposStargazerConnection.fromJson(
-            json['stargazers'] as Map<String, dynamic>)
-    ..resolveType = json['__typename'] as String;
+            json['stargazers'] as Map<String, dynamic>),
+  )..resolveType = json['__typename'] as String;
 }
 
 Map<String, dynamic> _$GhReposStarrableToJson(GhReposStarrable instance) =>
@@ -1743,18 +1797,19 @@ Map<String, dynamic> _$GhReposUniformResourceLocatableToJson(
 
 GhReposRepositoryInfo _$GhReposRepositoryInfoFromJson(
     Map<String, dynamic> json) {
-  return GhReposRepositoryInfo()
-    ..owner = json['owner'] == null
+  return GhReposRepositoryInfo(
+    owner: json['owner'] == null
         ? null
-        : GhReposRepositoryOwner.fromJson(json['owner'] as Map<String, dynamic>)
-    ..name = json['name'] as String
-    ..description = json['description'] as String
-    ..isPrivate = json['isPrivate'] as bool
-    ..isFork = json['isFork'] as bool
-    ..updatedAt = json['updatedAt'] == null
+        : GhReposRepositoryOwner.fromJson(
+            json['owner'] as Map<String, dynamic>),
+    name: json['name'] as String,
+    description: json['description'] as String,
+    isPrivate: json['isPrivate'] as bool,
+    isFork: json['isFork'] as bool,
+    updatedAt: json['updatedAt'] == null
         ? null
-        : DateTime.parse(json['updatedAt'] as String)
-    ..resolveType = json['__typename'] as String;
+        : DateTime.parse(json['updatedAt'] as String),
+  )..resolveType = json['__typename'] as String;
 }
 
 Map<String, dynamic> _$GhReposRepositoryInfoToJson(
@@ -1771,15 +1826,16 @@ Map<String, dynamic> _$GhReposRepositoryInfoToJson(
 
 GhReposStarredRepositoryConnection _$GhReposStarredRepositoryConnectionFromJson(
     Map<String, dynamic> json) {
-  return GhReposStarredRepositoryConnection()
-    ..pageInfo = json['pageInfo'] == null
+  return GhReposStarredRepositoryConnection(
+    pageInfo: json['pageInfo'] == null
         ? null
-        : GhReposPageInfo.fromJson(json['pageInfo'] as Map<String, dynamic>)
-    ..nodes = (json['nodes'] as List)
+        : GhReposPageInfo.fromJson(json['pageInfo'] as Map<String, dynamic>),
+    nodes: (json['nodes'] as List)
         ?.map((e) => e == null
             ? null
             : GhReposRepository.fromJson(e as Map<String, dynamic>))
-        ?.toList();
+        ?.toList(),
+  );
 }
 
 Map<String, dynamic> _$GhReposStarredRepositoryConnectionToJson(
@@ -1827,11 +1883,12 @@ Map<String, dynamic> _$GhReposSponsorableToJson(GhReposSponsorable instance) =>
     };
 
 GhReposOrganization _$GhReposOrganizationFromJson(Map<String, dynamic> json) {
-  return GhReposOrganization()
-    ..pinnableItems = json['pinnableItems'] == null
+  return GhReposOrganization(
+    pinnableItems: json['pinnableItems'] == null
         ? null
         : GhReposPinnableItemConnection.fromJson(
-            json['pinnableItems'] as Map<String, dynamic>)
+            json['pinnableItems'] as Map<String, dynamic>),
+  )
     ..resolveType = json['__typename'] as String
     ..login = json['login'] as String
     ..avatarUrl = json['avatarUrl'] as String;
@@ -1848,15 +1905,16 @@ Map<String, dynamic> _$GhReposOrganizationToJson(
 
 GhReposPinnableItemConnection _$GhReposPinnableItemConnectionFromJson(
     Map<String, dynamic> json) {
-  return GhReposPinnableItemConnection()
-    ..pageInfo = json['pageInfo'] == null
+  return GhReposPinnableItemConnection(
+    pageInfo: json['pageInfo'] == null
         ? null
-        : GhReposPageInfo.fromJson(json['pageInfo'] as Map<String, dynamic>)
-    ..nodes = (json['nodes'] as List)
+        : GhReposPageInfo.fromJson(json['pageInfo'] as Map<String, dynamic>),
+    nodes: (json['nodes'] as List)
         ?.map((e) => e == null
             ? null
             : GhReposPinnableItem.fromJson(e as Map<String, dynamic>))
-        ?.toList();
+        ?.toList(),
+  );
 }
 
 Map<String, dynamic> _$GhReposPinnableItemConnectionToJson(
@@ -1893,11 +1951,12 @@ Map<String, dynamic> _$GhReposArgumentsToJson(GhReposArguments instance) =>
     };
 
 GhWatch _$GhWatchFromJson(Map<String, dynamic> json) {
-  return GhWatch()
-    ..updateSubscription = json['updateSubscription'] == null
+  return GhWatch(
+    updateSubscription: json['updateSubscription'] == null
         ? null
         : GhWatchUpdateSubscriptionPayload.fromJson(
-            json['updateSubscription'] as Map<String, dynamic>);
+            json['updateSubscription'] as Map<String, dynamic>),
+  );
 }
 
 Map<String, dynamic> _$GhWatchToJson(GhWatch instance) => <String, dynamic>{
@@ -1906,11 +1965,12 @@ Map<String, dynamic> _$GhWatchToJson(GhWatch instance) => <String, dynamic>{
 
 GhWatchUpdateSubscriptionPayload _$GhWatchUpdateSubscriptionPayloadFromJson(
     Map<String, dynamic> json) {
-  return GhWatchUpdateSubscriptionPayload()
-    ..subscribable = json['subscribable'] == null
+  return GhWatchUpdateSubscriptionPayload(
+    subscribable: json['subscribable'] == null
         ? null
         : GhWatchSubscribable.fromJson(
-            json['subscribable'] as Map<String, dynamic>);
+            json['subscribable'] as Map<String, dynamic>),
+  );
 }
 
 Map<String, dynamic> _$GhWatchUpdateSubscriptionPayloadToJson(
@@ -1930,10 +1990,10 @@ Map<String, dynamic> _$GhWatchSubscribableToJson(
     };
 
 GhWatchRepository _$GhWatchRepositoryFromJson(Map<String, dynamic> json) {
-  return GhWatchRepository()
-    ..viewerSubscription = _$enumDecodeNullable(
-        _$GhWatchSubscriptionStateEnumMap, json['viewerSubscription'])
-    ..resolveType = json['__typename'] as String;
+  return GhWatchRepository(
+    viewerSubscription: _$enumDecodeNullable(
+        _$GhWatchSubscriptionStateEnumMap, json['viewerSubscription']),
+  )..resolveType = json['__typename'] as String;
 }
 
 Map<String, dynamic> _$GhWatchRepositoryToJson(GhWatchRepository instance) =>
@@ -2047,14 +2107,15 @@ Map<String, dynamic> _$GhWatchArgumentsToJson(GhWatchArguments instance) =>
     };
 
 GhUser _$GhUserFromJson(Map<String, dynamic> json) {
-  return GhUser()
-    ..repositoryOwner = json['repositoryOwner'] == null
+  return GhUser(
+    repositoryOwner: json['repositoryOwner'] == null
         ? null
         : GhUserRepositoryOwner.fromJson(
-            json['repositoryOwner'] as Map<String, dynamic>)
-    ..viewer = json['viewer'] == null
+            json['repositoryOwner'] as Map<String, dynamic>),
+    viewer: json['viewer'] == null
         ? null
-        : GhUserUser.fromJson(json['viewer'] as Map<String, dynamic>);
+        : GhUserUser.fromJson(json['viewer'] as Map<String, dynamic>),
+  );
 }
 
 Map<String, dynamic> _$GhUserToJson(GhUser instance) => <String, dynamic>{
@@ -2064,12 +2125,12 @@ Map<String, dynamic> _$GhUserToJson(GhUser instance) => <String, dynamic>{
 
 GhUserRepositoryOwner _$GhUserRepositoryOwnerFromJson(
     Map<String, dynamic> json) {
-  return GhUserRepositoryOwner()
-    ..id = json['id'] as String
-    ..login = json['login'] as String
-    ..avatarUrl = json['avatarUrl'] as String
-    ..url = json['url'] as String
-    ..resolveType = json['__typename'] as String;
+  return GhUserRepositoryOwner(
+    id: json['id'] as String,
+    login: json['login'] as String,
+    avatarUrl: json['avatarUrl'] as String,
+    url: json['url'] as String,
+  )..resolveType = json['__typename'] as String;
 }
 
 Map<String, dynamic> _$GhUserRepositoryOwnerToJson(
@@ -2083,42 +2144,43 @@ Map<String, dynamic> _$GhUserRepositoryOwnerToJson(
     };
 
 GhUserUser _$GhUserUserFromJson(Map<String, dynamic> json) {
-  return GhUserUser()
-    ..name = json['name'] as String
-    ..bio = json['bio'] as String
-    ..company = json['company'] as String
-    ..location = json['location'] as String
-    ..email = json['email'] as String
-    ..createdAt = json['createdAt'] == null
+  return GhUserUser(
+    name: json['name'] as String,
+    bio: json['bio'] as String,
+    company: json['company'] as String,
+    location: json['location'] as String,
+    email: json['email'] as String,
+    createdAt: json['createdAt'] == null
         ? null
-        : DateTime.parse(json['createdAt'] as String)
-    ..websiteUrl = json['websiteUrl'] as String
-    ..starredRepositories = json['starredRepositories'] == null
+        : DateTime.parse(json['createdAt'] as String),
+    websiteUrl: json['websiteUrl'] as String,
+    starredRepositories: json['starredRepositories'] == null
         ? null
         : GhUserStarredRepositoryConnection.fromJson(
-            json['starredRepositories'] as Map<String, dynamic>)
-    ..followers = json['followers'] == null
+            json['starredRepositories'] as Map<String, dynamic>),
+    followers: json['followers'] == null
         ? null
         : GhUserFollowerConnection.fromJson(
-            json['followers'] as Map<String, dynamic>)
-    ..following = json['following'] == null
+            json['followers'] as Map<String, dynamic>),
+    following: json['following'] == null
         ? null
         : GhUserFollowingConnection.fromJson(
-            json['following'] as Map<String, dynamic>)
-    ..contributionsCollection = json['contributionsCollection'] == null
+            json['following'] as Map<String, dynamic>),
+    contributionsCollection: json['contributionsCollection'] == null
         ? null
         : GhUserContributionsCollection.fromJson(
-            json['contributionsCollection'] as Map<String, dynamic>)
-    ..repositories = json['repositories'] == null
+            json['contributionsCollection'] as Map<String, dynamic>),
+    repositories: json['repositories'] == null
         ? null
         : GhUserRepositoryConnection.fromJson(
-            json['repositories'] as Map<String, dynamic>)
-    ..pinnedItems = json['pinnedItems'] == null
+            json['repositories'] as Map<String, dynamic>),
+    pinnedItems: json['pinnedItems'] == null
         ? null
         : GhUserPinnableItemConnection.fromJson(
-            json['pinnedItems'] as Map<String, dynamic>)
-    ..viewerCanFollow = json['viewerCanFollow'] as bool
-    ..viewerIsFollowing = json['viewerIsFollowing'] as bool
+            json['pinnedItems'] as Map<String, dynamic>),
+    viewerCanFollow: json['viewerCanFollow'] as bool,
+    viewerIsFollowing: json['viewerIsFollowing'] as bool,
+  )
     ..resolveType = json['__typename'] as String
     ..id = json['id'] as String
     ..login = json['login'] as String
@@ -2152,8 +2214,9 @@ Map<String, dynamic> _$GhUserUserToJson(GhUserUser instance) =>
 
 GhUserStarredRepositoryConnection _$GhUserStarredRepositoryConnectionFromJson(
     Map<String, dynamic> json) {
-  return GhUserStarredRepositoryConnection()
-    ..totalCount = json['totalCount'] as int;
+  return GhUserStarredRepositoryConnection(
+    totalCount: json['totalCount'] as int,
+  );
 }
 
 Map<String, dynamic> _$GhUserStarredRepositoryConnectionToJson(
@@ -2164,7 +2227,9 @@ Map<String, dynamic> _$GhUserStarredRepositoryConnectionToJson(
 
 GhUserFollowerConnection _$GhUserFollowerConnectionFromJson(
     Map<String, dynamic> json) {
-  return GhUserFollowerConnection()..totalCount = json['totalCount'] as int;
+  return GhUserFollowerConnection(
+    totalCount: json['totalCount'] as int,
+  );
 }
 
 Map<String, dynamic> _$GhUserFollowerConnectionToJson(
@@ -2175,7 +2240,9 @@ Map<String, dynamic> _$GhUserFollowerConnectionToJson(
 
 GhUserFollowingConnection _$GhUserFollowingConnectionFromJson(
     Map<String, dynamic> json) {
-  return GhUserFollowingConnection()..totalCount = json['totalCount'] as int;
+  return GhUserFollowingConnection(
+    totalCount: json['totalCount'] as int,
+  );
 }
 
 Map<String, dynamic> _$GhUserFollowingConnectionToJson(
@@ -2186,11 +2253,12 @@ Map<String, dynamic> _$GhUserFollowingConnectionToJson(
 
 GhUserContributionsCollection _$GhUserContributionsCollectionFromJson(
     Map<String, dynamic> json) {
-  return GhUserContributionsCollection()
-    ..contributionCalendar = json['contributionCalendar'] == null
+  return GhUserContributionsCollection(
+    contributionCalendar: json['contributionCalendar'] == null
         ? null
         : GhUserContributionCalendar.fromJson(
-            json['contributionCalendar'] as Map<String, dynamic>);
+            json['contributionCalendar'] as Map<String, dynamic>),
+  );
 }
 
 Map<String, dynamic> _$GhUserContributionsCollectionToJson(
@@ -2201,13 +2269,14 @@ Map<String, dynamic> _$GhUserContributionsCollectionToJson(
 
 GhUserContributionCalendar _$GhUserContributionCalendarFromJson(
     Map<String, dynamic> json) {
-  return GhUserContributionCalendar()
-    ..weeks = (json['weeks'] as List)
+  return GhUserContributionCalendar(
+    weeks: (json['weeks'] as List)
         ?.map((e) => e == null
             ? null
             : GhUserContributionCalendarWeek.fromJson(
                 e as Map<String, dynamic>))
-        ?.toList();
+        ?.toList(),
+  );
 }
 
 Map<String, dynamic> _$GhUserContributionCalendarToJson(
@@ -2218,12 +2287,13 @@ Map<String, dynamic> _$GhUserContributionCalendarToJson(
 
 GhUserContributionCalendarWeek _$GhUserContributionCalendarWeekFromJson(
     Map<String, dynamic> json) {
-  return GhUserContributionCalendarWeek()
-    ..contributionDays = (json['contributionDays'] as List)
+  return GhUserContributionCalendarWeek(
+    contributionDays: (json['contributionDays'] as List)
         ?.map((e) => e == null
             ? null
             : GhUserContributionCalendarDay.fromJson(e as Map<String, dynamic>))
-        ?.toList();
+        ?.toList(),
+  );
 }
 
 Map<String, dynamic> _$GhUserContributionCalendarWeekToJson(
@@ -2235,7 +2305,9 @@ Map<String, dynamic> _$GhUserContributionCalendarWeekToJson(
 
 GhUserContributionCalendarDay _$GhUserContributionCalendarDayFromJson(
     Map<String, dynamic> json) {
-  return GhUserContributionCalendarDay()..color = json['color'] as String;
+  return GhUserContributionCalendarDay(
+    color: json['color'] as String,
+  );
 }
 
 Map<String, dynamic> _$GhUserContributionCalendarDayToJson(
@@ -2246,13 +2318,14 @@ Map<String, dynamic> _$GhUserContributionCalendarDayToJson(
 
 GhUserRepositoryConnection _$GhUserRepositoryConnectionFromJson(
     Map<String, dynamic> json) {
-  return GhUserRepositoryConnection()
-    ..totalCount = json['totalCount'] as int
-    ..nodes = (json['nodes'] as List)
+  return GhUserRepositoryConnection(
+    totalCount: json['totalCount'] as int,
+    nodes: (json['nodes'] as List)
         ?.map((e) => e == null
             ? null
             : GhUserRepository.fromJson(e as Map<String, dynamic>))
-        ?.toList();
+        ?.toList(),
+  );
 }
 
 Map<String, dynamic> _$GhUserRepositoryConnectionToJson(
@@ -2263,7 +2336,16 @@ Map<String, dynamic> _$GhUserRepositoryConnectionToJson(
     };
 
 GhUserRepository _$GhUserRepositoryFromJson(Map<String, dynamic> json) {
-  return GhUserRepository()
+  return GhUserRepository(
+    forks: json['forks'] == null
+        ? null
+        : GhUserRepositoryConnection.fromJson(
+            json['forks'] as Map<String, dynamic>),
+    primaryLanguage: json['primaryLanguage'] == null
+        ? null
+        : GhUserLanguage.fromJson(
+            json['primaryLanguage'] as Map<String, dynamic>),
+  )
     ..owner = json['owner'] == null
         ? null
         : GhUserRepositoryOwner.fromJson(json['owner'] as Map<String, dynamic>)
@@ -2275,14 +2357,6 @@ GhUserRepository _$GhUserRepositoryFromJson(Map<String, dynamic> json) {
         ? null
         : GhUserStargazerConnection.fromJson(
             json['stargazers'] as Map<String, dynamic>)
-    ..forks = json['forks'] == null
-        ? null
-        : GhUserRepositoryConnection.fromJson(
-            json['forks'] as Map<String, dynamic>)
-    ..primaryLanguage = json['primaryLanguage'] == null
-        ? null
-        : GhUserLanguage.fromJson(
-            json['primaryLanguage'] as Map<String, dynamic>)
     ..resolveType = json['__typename'] as String;
 }
 
@@ -2301,7 +2375,9 @@ Map<String, dynamic> _$GhUserRepositoryToJson(GhUserRepository instance) =>
 
 GhUserStargazerConnection _$GhUserStargazerConnectionFromJson(
     Map<String, dynamic> json) {
-  return GhUserStargazerConnection()..totalCount = json['totalCount'] as int;
+  return GhUserStargazerConnection(
+    totalCount: json['totalCount'] as int,
+  );
 }
 
 Map<String, dynamic> _$GhUserStargazerConnectionToJson(
@@ -2311,10 +2387,10 @@ Map<String, dynamic> _$GhUserStargazerConnectionToJson(
     };
 
 GhUserLanguage _$GhUserLanguageFromJson(Map<String, dynamic> json) {
-  return GhUserLanguage()
-    ..color = json['color'] as String
-    ..name = json['name'] as String
-    ..resolveType = json['__typename'] as String;
+  return GhUserLanguage(
+    color: json['color'] as String,
+    name: json['name'] as String,
+  )..resolveType = json['__typename'] as String;
 }
 
 Map<String, dynamic> _$GhUserLanguageToJson(GhUserLanguage instance) =>
@@ -2383,12 +2459,12 @@ Map<String, dynamic> _$GhUserSubscribableToJson(GhUserSubscribable instance) =>
     };
 
 GhUserStarrable _$GhUserStarrableFromJson(Map<String, dynamic> json) {
-  return GhUserStarrable()
-    ..stargazers = json['stargazers'] == null
+  return GhUserStarrable(
+    stargazers: json['stargazers'] == null
         ? null
         : GhUserStargazerConnection.fromJson(
-            json['stargazers'] as Map<String, dynamic>)
-    ..resolveType = json['__typename'] as String;
+            json['stargazers'] as Map<String, dynamic>),
+  )..resolveType = json['__typename'] as String;
 }
 
 Map<String, dynamic> _$GhUserStarrableToJson(GhUserStarrable instance) =>
@@ -2410,15 +2486,15 @@ Map<String, dynamic> _$GhUserUniformResourceLocatableToJson(
     };
 
 GhUserRepositoryInfo _$GhUserRepositoryInfoFromJson(Map<String, dynamic> json) {
-  return GhUserRepositoryInfo()
-    ..owner = json['owner'] == null
+  return GhUserRepositoryInfo(
+    owner: json['owner'] == null
         ? null
-        : GhUserRepositoryOwner.fromJson(json['owner'] as Map<String, dynamic>)
-    ..name = json['name'] as String
-    ..description = json['description'] as String
-    ..isPrivate = json['isPrivate'] as bool
-    ..isFork = json['isFork'] as bool
-    ..resolveType = json['__typename'] as String;
+        : GhUserRepositoryOwner.fromJson(json['owner'] as Map<String, dynamic>),
+    name: json['name'] as String,
+    description: json['description'] as String,
+    isPrivate: json['isPrivate'] as bool,
+    isFork: json['isFork'] as bool,
+  )..resolveType = json['__typename'] as String;
 }
 
 Map<String, dynamic> _$GhUserRepositoryInfoToJson(
@@ -2434,13 +2510,14 @@ Map<String, dynamic> _$GhUserRepositoryInfoToJson(
 
 GhUserPinnableItemConnection _$GhUserPinnableItemConnectionFromJson(
     Map<String, dynamic> json) {
-  return GhUserPinnableItemConnection()
-    ..totalCount = json['totalCount'] as int
-    ..nodes = (json['nodes'] as List)
+  return GhUserPinnableItemConnection(
+    totalCount: json['totalCount'] as int,
+    nodes: (json['nodes'] as List)
         ?.map((e) => e == null
             ? null
             : GhUserPinnableItem.fromJson(e as Map<String, dynamic>))
-        ?.toList();
+        ?.toList(),
+  );
 }
 
 Map<String, dynamic> _$GhUserPinnableItemConnectionToJson(
@@ -2469,16 +2546,16 @@ Map<String, dynamic> _$GhUserActorToJson(GhUserActor instance) =>
     };
 
 GhUserProfileOwner _$GhUserProfileOwnerFromJson(Map<String, dynamic> json) {
-  return GhUserProfileOwner()
-    ..name = json['name'] as String
-    ..location = json['location'] as String
-    ..email = json['email'] as String
-    ..websiteUrl = json['websiteUrl'] as String
-    ..pinnedItems = json['pinnedItems'] == null
+  return GhUserProfileOwner(
+    name: json['name'] as String,
+    location: json['location'] as String,
+    email: json['email'] as String,
+    websiteUrl: json['websiteUrl'] as String,
+    pinnedItems: json['pinnedItems'] == null
         ? null
         : GhUserPinnableItemConnection.fromJson(
-            json['pinnedItems'] as Map<String, dynamic>)
-    ..resolveType = json['__typename'] as String;
+            json['pinnedItems'] as Map<String, dynamic>),
+  )..resolveType = json['__typename'] as String;
 }
 
 Map<String, dynamic> _$GhUserProfileOwnerToJson(GhUserProfileOwner instance) =>
@@ -2501,27 +2578,28 @@ Map<String, dynamic> _$GhUserSponsorableToJson(GhUserSponsorable instance) =>
     };
 
 GhUserOrganization _$GhUserOrganizationFromJson(Map<String, dynamic> json) {
-  return GhUserOrganization()
-    ..name = json['name'] as String
-    ..description = json['description'] as String
-    ..location = json['location'] as String
-    ..email = json['email'] as String
-    ..websiteUrl = json['websiteUrl'] as String
-    ..createdAt = json['createdAt'] == null
+  return GhUserOrganization(
+    name: json['name'] as String,
+    description: json['description'] as String,
+    location: json['location'] as String,
+    email: json['email'] as String,
+    websiteUrl: json['websiteUrl'] as String,
+    createdAt: json['createdAt'] == null
         ? null
-        : DateTime.parse(json['createdAt'] as String)
-    ..pinnedItems = json['pinnedItems'] == null
-        ? null
-        : GhUserPinnableItemConnection.fromJson(
-            json['pinnedItems'] as Map<String, dynamic>)
-    ..pinnableItems = json['pinnableItems'] == null
+        : DateTime.parse(json['createdAt'] as String),
+    pinnedItems: json['pinnedItems'] == null
         ? null
         : GhUserPinnableItemConnection.fromJson(
-            json['pinnableItems'] as Map<String, dynamic>)
-    ..membersWithRole = json['membersWithRole'] == null
+            json['pinnedItems'] as Map<String, dynamic>),
+    pinnableItems: json['pinnableItems'] == null
+        ? null
+        : GhUserPinnableItemConnection.fromJson(
+            json['pinnableItems'] as Map<String, dynamic>),
+    membersWithRole: json['membersWithRole'] == null
         ? null
         : GhUserOrganizationMemberConnection.fromJson(
-            json['membersWithRole'] as Map<String, dynamic>)
+            json['membersWithRole'] as Map<String, dynamic>),
+  )
     ..resolveType = json['__typename'] as String
     ..id = json['id'] as String
     ..login = json['login'] as String
@@ -2549,8 +2627,9 @@ Map<String, dynamic> _$GhUserOrganizationToJson(GhUserOrganization instance) =>
 
 GhUserOrganizationMemberConnection _$GhUserOrganizationMemberConnectionFromJson(
     Map<String, dynamic> json) {
-  return GhUserOrganizationMemberConnection()
-    ..totalCount = json['totalCount'] as int;
+  return GhUserOrganizationMemberConnection(
+    totalCount: json['totalCount'] as int,
+  );
 }
 
 Map<String, dynamic> _$GhUserOrganizationMemberConnectionToJson(
@@ -2584,15 +2663,16 @@ Map<String, dynamic> _$GhUserArgumentsToJson(GhUserArguments instance) =>
     };
 
 GhFollow _$GhFollowFromJson(Map<String, dynamic> json) {
-  return GhFollow()
-    ..followUser = json['followUser'] == null
+  return GhFollow(
+    followUser: json['followUser'] == null
         ? null
         : GhFollowFollowUserPayload.fromJson(
-            json['followUser'] as Map<String, dynamic>)
-    ..unfollowUser = json['unfollowUser'] == null
+            json['followUser'] as Map<String, dynamic>),
+    unfollowUser: json['unfollowUser'] == null
         ? null
         : GhFollowUnfollowUserPayload.fromJson(
-            json['unfollowUser'] as Map<String, dynamic>);
+            json['unfollowUser'] as Map<String, dynamic>),
+  );
 }
 
 Map<String, dynamic> _$GhFollowToJson(GhFollow instance) => <String, dynamic>{
@@ -2602,10 +2682,11 @@ Map<String, dynamic> _$GhFollowToJson(GhFollow instance) => <String, dynamic>{
 
 GhFollowFollowUserPayload _$GhFollowFollowUserPayloadFromJson(
     Map<String, dynamic> json) {
-  return GhFollowFollowUserPayload()
-    ..user = json['user'] == null
+  return GhFollowFollowUserPayload(
+    user: json['user'] == null
         ? null
-        : GhFollowUser.fromJson(json['user'] as Map<String, dynamic>);
+        : GhFollowUser.fromJson(json['user'] as Map<String, dynamic>),
+  );
 }
 
 Map<String, dynamic> _$GhFollowFollowUserPayloadToJson(
@@ -2615,9 +2696,9 @@ Map<String, dynamic> _$GhFollowFollowUserPayloadToJson(
     };
 
 GhFollowUser _$GhFollowUserFromJson(Map<String, dynamic> json) {
-  return GhFollowUser()
-    ..viewerIsFollowing = json['viewerIsFollowing'] as bool
-    ..resolveType = json['__typename'] as String;
+  return GhFollowUser(
+    viewerIsFollowing: json['viewerIsFollowing'] as bool,
+  )..resolveType = json['__typename'] as String;
 }
 
 Map<String, dynamic> _$GhFollowUserToJson(GhFollowUser instance) =>
@@ -2732,10 +2813,11 @@ Map<String, dynamic> _$GhFollowSponsorableToJson(
 
 GhFollowUnfollowUserPayload _$GhFollowUnfollowUserPayloadFromJson(
     Map<String, dynamic> json) {
-  return GhFollowUnfollowUserPayload()
-    ..user = json['user'] == null
+  return GhFollowUnfollowUserPayload(
+    user: json['user'] == null
         ? null
-        : GhFollowUser.fromJson(json['user'] as Map<String, dynamic>);
+        : GhFollowUser.fromJson(json['user'] as Map<String, dynamic>),
+  );
 }
 
 Map<String, dynamic> _$GhFollowUnfollowUserPayloadToJson(
@@ -2758,14 +2840,16 @@ Map<String, dynamic> _$GhFollowArgumentsToJson(GhFollowArguments instance) =>
     };
 
 GhStar _$GhStarFromJson(Map<String, dynamic> json) {
-  return GhStar()
-    ..addStar = json['addStar'] == null
+  return GhStar(
+    addStar: json['addStar'] == null
         ? null
-        : GhStarAddStarPayload.fromJson(json['addStar'] as Map<String, dynamic>)
-    ..removeStar = json['removeStar'] == null
+        : GhStarAddStarPayload.fromJson(
+            json['addStar'] as Map<String, dynamic>),
+    removeStar: json['removeStar'] == null
         ? null
         : GhStarRemoveStarPayload.fromJson(
-            json['removeStar'] as Map<String, dynamic>);
+            json['removeStar'] as Map<String, dynamic>),
+  );
 }
 
 Map<String, dynamic> _$GhStarToJson(GhStar instance) => <String, dynamic>{
@@ -2774,10 +2858,11 @@ Map<String, dynamic> _$GhStarToJson(GhStar instance) => <String, dynamic>{
     };
 
 GhStarAddStarPayload _$GhStarAddStarPayloadFromJson(Map<String, dynamic> json) {
-  return GhStarAddStarPayload()
-    ..starrable = json['starrable'] == null
+  return GhStarAddStarPayload(
+    starrable: json['starrable'] == null
         ? null
-        : GhStarStarrable.fromJson(json['starrable'] as Map<String, dynamic>);
+        : GhStarStarrable.fromJson(json['starrable'] as Map<String, dynamic>),
+  );
 }
 
 Map<String, dynamic> _$GhStarAddStarPayloadToJson(
@@ -2787,9 +2872,9 @@ Map<String, dynamic> _$GhStarAddStarPayloadToJson(
     };
 
 GhStarStarrable _$GhStarStarrableFromJson(Map<String, dynamic> json) {
-  return GhStarStarrable()
-    ..viewerHasStarred = json['viewerHasStarred'] as bool
-    ..resolveType = json['__typename'] as String;
+  return GhStarStarrable(
+    viewerHasStarred: json['viewerHasStarred'] as bool,
+  )..resolveType = json['__typename'] as String;
 }
 
 Map<String, dynamic> _$GhStarStarrableToJson(GhStarStarrable instance) =>
@@ -2800,10 +2885,11 @@ Map<String, dynamic> _$GhStarStarrableToJson(GhStarStarrable instance) =>
 
 GhStarRemoveStarPayload _$GhStarRemoveStarPayloadFromJson(
     Map<String, dynamic> json) {
-  return GhStarRemoveStarPayload()
-    ..starrable = json['starrable'] == null
+  return GhStarRemoveStarPayload(
+    starrable: json['starrable'] == null
         ? null
-        : GhStarStarrable.fromJson(json['starrable'] as Map<String, dynamic>);
+        : GhStarStarrable.fromJson(json['starrable'] as Map<String, dynamic>),
+  );
 }
 
 Map<String, dynamic> _$GhStarRemoveStarPayloadToJson(
@@ -2826,11 +2912,12 @@ Map<String, dynamic> _$GhStarArgumentsToJson(GhStarArguments instance) =>
     };
 
 GhObject _$GhObjectFromJson(Map<String, dynamic> json) {
-  return GhObject()
-    ..repository = json['repository'] == null
+  return GhObject(
+    repository: json['repository'] == null
         ? null
         : GhObjectRepository.fromJson(
-            json['repository'] as Map<String, dynamic>);
+            json['repository'] as Map<String, dynamic>),
+  );
 }
 
 Map<String, dynamic> _$GhObjectToJson(GhObject instance) => <String, dynamic>{
@@ -2838,11 +2925,11 @@ Map<String, dynamic> _$GhObjectToJson(GhObject instance) => <String, dynamic>{
     };
 
 GhObjectRepository _$GhObjectRepositoryFromJson(Map<String, dynamic> json) {
-  return GhObjectRepository()
-    ..object = json['object'] == null
+  return GhObjectRepository(
+    object: json['object'] == null
         ? null
-        : GhObjectGitObject.fromJson(json['object'] as Map<String, dynamic>)
-    ..resolveType = json['__typename'] as String;
+        : GhObjectGitObject.fromJson(json['object'] as Map<String, dynamic>),
+  )..resolveType = json['__typename'] as String;
 }
 
 Map<String, dynamic> _$GhObjectRepositoryToJson(GhObjectRepository instance) =>
@@ -2861,13 +2948,13 @@ Map<String, dynamic> _$GhObjectGitObjectToJson(GhObjectGitObject instance) =>
     };
 
 GhObjectTree _$GhObjectTreeFromJson(Map<String, dynamic> json) {
-  return GhObjectTree()
-    ..entries = (json['entries'] as List)
+  return GhObjectTree(
+    entries: (json['entries'] as List)
         ?.map((e) => e == null
             ? null
             : GhObjectTreeEntry.fromJson(e as Map<String, dynamic>))
-        ?.toList()
-    ..resolveType = json['__typename'] as String;
+        ?.toList(),
+  )..resolveType = json['__typename'] as String;
 }
 
 Map<String, dynamic> _$GhObjectTreeToJson(GhObjectTree instance) =>
@@ -2877,9 +2964,10 @@ Map<String, dynamic> _$GhObjectTreeToJson(GhObjectTree instance) =>
     };
 
 GhObjectTreeEntry _$GhObjectTreeEntryFromJson(Map<String, dynamic> json) {
-  return GhObjectTreeEntry()
-    ..type = json['type'] as String
-    ..name = json['name'] as String;
+  return GhObjectTreeEntry(
+    type: json['type'] as String,
+    name: json['name'] as String,
+  );
 }
 
 Map<String, dynamic> _$GhObjectTreeEntryToJson(GhObjectTreeEntry instance) =>
@@ -2898,9 +2986,9 @@ Map<String, dynamic> _$GhObjectNodeToJson(GhObjectNode instance) =>
     };
 
 GhObjectBlob _$GhObjectBlobFromJson(Map<String, dynamic> json) {
-  return GhObjectBlob()
-    ..text = json['text'] as String
-    ..resolveType = json['__typename'] as String;
+  return GhObjectBlob(
+    text: json['text'] as String,
+  )..resolveType = json['__typename'] as String;
 }
 
 Map<String, dynamic> _$GhObjectBlobToJson(GhObjectBlob instance) =>
@@ -3009,11 +3097,12 @@ Map<String, dynamic> _$GhObjectArgumentsToJson(GhObjectArguments instance) =>
     };
 
 GhCommits _$GhCommitsFromJson(Map<String, dynamic> json) {
-  return GhCommits()
-    ..repository = json['repository'] == null
+  return GhCommits(
+    repository: json['repository'] == null
         ? null
         : GhCommitsRepository.fromJson(
-            json['repository'] as Map<String, dynamic>);
+            json['repository'] as Map<String, dynamic>),
+  );
 }
 
 Map<String, dynamic> _$GhCommitsToJson(GhCommits instance) => <String, dynamic>{
@@ -3021,15 +3110,15 @@ Map<String, dynamic> _$GhCommitsToJson(GhCommits instance) => <String, dynamic>{
     };
 
 GhCommitsRepository _$GhCommitsRepositoryFromJson(Map<String, dynamic> json) {
-  return GhCommitsRepository()
-    ..defaultBranchRef = json['defaultBranchRef'] == null
+  return GhCommitsRepository(
+    defaultBranchRef: json['defaultBranchRef'] == null
         ? null
         : GhCommitsRef.fromJson(
-            json['defaultBranchRef'] as Map<String, dynamic>)
-    ..ref = json['ref'] == null
+            json['defaultBranchRef'] as Map<String, dynamic>),
+    ref: json['ref'] == null
         ? null
-        : GhCommitsRef.fromJson(json['ref'] as Map<String, dynamic>)
-    ..resolveType = json['__typename'] as String;
+        : GhCommitsRef.fromJson(json['ref'] as Map<String, dynamic>),
+  )..resolveType = json['__typename'] as String;
 }
 
 Map<String, dynamic> _$GhCommitsRepositoryToJson(
@@ -3064,24 +3153,24 @@ Map<String, dynamic> _$GhCommitsGitObjectToJson(GhCommitsGitObject instance) =>
     };
 
 GhCommitsCommit _$GhCommitsCommitFromJson(Map<String, dynamic> json) {
-  return GhCommitsCommit()
-    ..oid = json['oid'] as String
-    ..url = json['url'] as String
-    ..messageHeadline = json['messageHeadline'] as String
-    ..committedDate = json['committedDate'] == null
+  return GhCommitsCommit(
+    oid: json['oid'] as String,
+    url: json['url'] as String,
+    messageHeadline: json['messageHeadline'] as String,
+    committedDate: json['committedDate'] == null
         ? null
-        : DateTime.parse(json['committedDate'] as String)
-    ..author = json['author'] == null
+        : DateTime.parse(json['committedDate'] as String),
+    author: json['author'] == null
         ? null
-        : GhCommitsGitActor.fromJson(json['author'] as Map<String, dynamic>)
-    ..status = json['status'] == null
+        : GhCommitsGitActor.fromJson(json['author'] as Map<String, dynamic>),
+    status: json['status'] == null
         ? null
-        : GhCommitsStatus.fromJson(json['status'] as Map<String, dynamic>)
-    ..history = json['history'] == null
+        : GhCommitsStatus.fromJson(json['status'] as Map<String, dynamic>),
+    history: json['history'] == null
         ? null
         : GhCommitsCommitHistoryConnection.fromJson(
-            json['history'] as Map<String, dynamic>)
-    ..resolveType = json['__typename'] as String;
+            json['history'] as Map<String, dynamic>),
+  )..resolveType = json['__typename'] as String;
 }
 
 Map<String, dynamic> _$GhCommitsCommitToJson(GhCommitsCommit instance) =>
@@ -3097,12 +3186,13 @@ Map<String, dynamic> _$GhCommitsCommitToJson(GhCommitsCommit instance) =>
     };
 
 GhCommitsGitActor _$GhCommitsGitActorFromJson(Map<String, dynamic> json) {
-  return GhCommitsGitActor()
-    ..name = json['name'] as String
-    ..avatarUrl = json['avatarUrl'] as String
-    ..user = json['user'] == null
+  return GhCommitsGitActor(
+    name: json['name'] as String,
+    avatarUrl: json['avatarUrl'] as String,
+    user: json['user'] == null
         ? null
-        : GhCommitsUser.fromJson(json['user'] as Map<String, dynamic>);
+        : GhCommitsUser.fromJson(json['user'] as Map<String, dynamic>),
+  );
 }
 
 Map<String, dynamic> _$GhCommitsGitActorToJson(GhCommitsGitActor instance) =>
@@ -3143,9 +3233,9 @@ Map<String, dynamic> _$GhCommitsNodeToJson(GhCommitsNode instance) =>
     };
 
 GhCommitsActor _$GhCommitsActorFromJson(Map<String, dynamic> json) {
-  return GhCommitsActor()
-    ..login = json['login'] as String
-    ..resolveType = json['__typename'] as String;
+  return GhCommitsActor(
+    login: json['login'] as String,
+  )..resolveType = json['__typename'] as String;
 }
 
 Map<String, dynamic> _$GhCommitsActorToJson(GhCommitsActor instance) =>
@@ -3191,9 +3281,9 @@ Map<String, dynamic> _$GhCommitsProjectOwnerToJson(
 
 GhCommitsRepositoryOwner _$GhCommitsRepositoryOwnerFromJson(
     Map<String, dynamic> json) {
-  return GhCommitsRepositoryOwner()
-    ..login = json['login'] as String
-    ..resolveType = json['__typename'] as String;
+  return GhCommitsRepositoryOwner(
+    login: json['login'] as String,
+  )..resolveType = json['__typename'] as String;
 }
 
 Map<String, dynamic> _$GhCommitsRepositoryOwnerToJson(
@@ -3217,9 +3307,9 @@ Map<String, dynamic> _$GhCommitsUniformResourceLocatableToJson(
 
 GhCommitsProfileOwner _$GhCommitsProfileOwnerFromJson(
     Map<String, dynamic> json) {
-  return GhCommitsProfileOwner()
-    ..login = json['login'] as String
-    ..resolveType = json['__typename'] as String;
+  return GhCommitsProfileOwner(
+    login: json['login'] as String,
+  )..resolveType = json['__typename'] as String;
 }
 
 Map<String, dynamic> _$GhCommitsProfileOwnerToJson(
@@ -3240,9 +3330,9 @@ Map<String, dynamic> _$GhCommitsSponsorableToJson(
     };
 
 GhCommitsStatus _$GhCommitsStatusFromJson(Map<String, dynamic> json) {
-  return GhCommitsStatus()
-    ..state = _$enumDecodeNullable(_$GhCommitsStatusStateEnumMap, json['state'])
-    ..resolveType = json['__typename'] as String;
+  return GhCommitsStatus(
+    state: _$enumDecodeNullable(_$GhCommitsStatusStateEnumMap, json['state']),
+  )..resolveType = json['__typename'] as String;
 }
 
 Map<String, dynamic> _$GhCommitsStatusToJson(GhCommitsStatus instance) =>
@@ -3261,15 +3351,16 @@ const _$GhCommitsStatusStateEnumMap = {
 
 GhCommitsCommitHistoryConnection _$GhCommitsCommitHistoryConnectionFromJson(
     Map<String, dynamic> json) {
-  return GhCommitsCommitHistoryConnection()
-    ..pageInfo = json['pageInfo'] == null
+  return GhCommitsCommitHistoryConnection(
+    pageInfo: json['pageInfo'] == null
         ? null
-        : GhCommitsPageInfo.fromJson(json['pageInfo'] as Map<String, dynamic>)
-    ..nodes = (json['nodes'] as List)
+        : GhCommitsPageInfo.fromJson(json['pageInfo'] as Map<String, dynamic>),
+    nodes: (json['nodes'] as List)
         ?.map((e) => e == null
             ? null
             : GhCommitsCommit.fromJson(e as Map<String, dynamic>))
-        ?.toList();
+        ?.toList(),
+  );
 }
 
 Map<String, dynamic> _$GhCommitsCommitHistoryConnectionToJson(
@@ -3280,9 +3371,10 @@ Map<String, dynamic> _$GhCommitsCommitHistoryConnectionToJson(
     };
 
 GhCommitsPageInfo _$GhCommitsPageInfoFromJson(Map<String, dynamic> json) {
-  return GhCommitsPageInfo()
-    ..hasNextPage = json['hasNextPage'] as bool
-    ..endCursor = json['endCursor'] as String;
+  return GhCommitsPageInfo(
+    hasNextPage: json['hasNextPage'] as bool,
+    endCursor: json['endCursor'] as String,
+  );
 }
 
 Map<String, dynamic> _$GhCommitsPageInfoToJson(GhCommitsPageInfo instance) =>
@@ -3360,11 +3452,12 @@ Map<String, dynamic> _$GhCommitsArgumentsToJson(GhCommitsArguments instance) =>
     };
 
 GhRepoId _$GhRepoIdFromJson(Map<String, dynamic> json) {
-  return GhRepoId()
-    ..repository = json['repository'] == null
+  return GhRepoId(
+    repository: json['repository'] == null
         ? null
         : GhRepoIdRepository.fromJson(
-            json['repository'] as Map<String, dynamic>);
+            json['repository'] as Map<String, dynamic>),
+  );
 }
 
 Map<String, dynamic> _$GhRepoIdToJson(GhRepoId instance) => <String, dynamic>{
@@ -3392,9 +3485,9 @@ Map<String, dynamic> _$GhRepoIdPinnableItemToJson(
     <String, dynamic>{};
 
 GhRepoIdNode _$GhRepoIdNodeFromJson(Map<String, dynamic> json) {
-  return GhRepoIdNode()
-    ..id = json['id'] as String
-    ..resolveType = json['__typename'] as String;
+  return GhRepoIdNode(
+    id: json['id'] as String,
+  )..resolveType = json['__typename'] as String;
 }
 
 Map<String, dynamic> _$GhRepoIdNodeToJson(GhRepoIdNode instance) =>
@@ -3404,9 +3497,9 @@ Map<String, dynamic> _$GhRepoIdNodeToJson(GhRepoIdNode instance) =>
     };
 
 GhRepoIdProjectOwner _$GhRepoIdProjectOwnerFromJson(Map<String, dynamic> json) {
-  return GhRepoIdProjectOwner()
-    ..id = json['id'] as String
-    ..resolveType = json['__typename'] as String;
+  return GhRepoIdProjectOwner(
+    id: json['id'] as String,
+  )..resolveType = json['__typename'] as String;
 }
 
 Map<String, dynamic> _$GhRepoIdProjectOwnerToJson(
@@ -3418,9 +3511,9 @@ Map<String, dynamic> _$GhRepoIdProjectOwnerToJson(
 
 GhRepoIdRegistryPackageOwner _$GhRepoIdRegistryPackageOwnerFromJson(
     Map<String, dynamic> json) {
-  return GhRepoIdRegistryPackageOwner()
-    ..id = json['id'] as String
-    ..resolveType = json['__typename'] as String;
+  return GhRepoIdRegistryPackageOwner(
+    id: json['id'] as String,
+  )..resolveType = json['__typename'] as String;
 }
 
 Map<String, dynamic> _$GhRepoIdRegistryPackageOwnerToJson(
@@ -3432,9 +3525,9 @@ Map<String, dynamic> _$GhRepoIdRegistryPackageOwnerToJson(
 
 GhRepoIdRegistryPackageSearch _$GhRepoIdRegistryPackageSearchFromJson(
     Map<String, dynamic> json) {
-  return GhRepoIdRegistryPackageSearch()
-    ..id = json['id'] as String
-    ..resolveType = json['__typename'] as String;
+  return GhRepoIdRegistryPackageSearch(
+    id: json['id'] as String,
+  )..resolveType = json['__typename'] as String;
 }
 
 Map<String, dynamic> _$GhRepoIdRegistryPackageSearchToJson(
@@ -3445,9 +3538,9 @@ Map<String, dynamic> _$GhRepoIdRegistryPackageSearchToJson(
     };
 
 GhRepoIdSubscribable _$GhRepoIdSubscribableFromJson(Map<String, dynamic> json) {
-  return GhRepoIdSubscribable()
-    ..id = json['id'] as String
-    ..resolveType = json['__typename'] as String;
+  return GhRepoIdSubscribable(
+    id: json['id'] as String,
+  )..resolveType = json['__typename'] as String;
 }
 
 Map<String, dynamic> _$GhRepoIdSubscribableToJson(
@@ -3458,9 +3551,9 @@ Map<String, dynamic> _$GhRepoIdSubscribableToJson(
     };
 
 GhRepoIdStarrable _$GhRepoIdStarrableFromJson(Map<String, dynamic> json) {
-  return GhRepoIdStarrable()
-    ..id = json['id'] as String
-    ..resolveType = json['__typename'] as String;
+  return GhRepoIdStarrable(
+    id: json['id'] as String,
+  )..resolveType = json['__typename'] as String;
 }
 
 Map<String, dynamic> _$GhRepoIdStarrableToJson(GhRepoIdStarrable instance) =>

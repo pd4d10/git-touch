@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+import 'package:meta/meta.dart';
 import 'package:artemis/artemis.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:equatable/equatable.dart';
@@ -8,7 +9,7 @@ part 'gh.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class GhRepo with EquatableMixin {
-  GhRepo();
+  GhRepo({this.repository});
 
   factory GhRepo.fromJson(Map<String, dynamic> json) => _$GhRepoFromJson(json);
 
@@ -31,7 +32,19 @@ class GhRepoRepository extends GhRepoPinnableItem
         GhRepoStarrable,
         GhRepoUniformResourceLocatable,
         GhRepoRepositoryInfo {
-  GhRepoRepository();
+  GhRepoRepository(
+      {this.forks,
+      this.primaryLanguage,
+      this.diskUsage,
+      this.watchers,
+      this.issues,
+      this.pullRequests,
+      this.releases,
+      this.languages,
+      this.defaultBranchRef,
+      this.ref,
+      this.refs,
+      this.repositoryTopics});
 
   factory GhRepoRepository.fromJson(Map<String, dynamic> json) =>
       _$GhRepoRepositoryFromJson(json);
@@ -145,7 +158,7 @@ class GhRepoRepository extends GhRepoPinnableItem
 
 @JsonSerializable(explicitToJson: true)
 class GhRepoRepositoryOwner with EquatableMixin {
-  GhRepoRepositoryOwner();
+  GhRepoRepositoryOwner({this.login, this.avatarUrl});
 
   factory GhRepoRepositoryOwner.fromJson(Map<String, dynamic> json) =>
       _$GhRepoRepositoryOwnerFromJson(json);
@@ -164,7 +177,7 @@ class GhRepoRepositoryOwner with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhRepoStargazerConnection with EquatableMixin {
-  GhRepoStargazerConnection();
+  GhRepoStargazerConnection({this.totalCount});
 
   factory GhRepoStargazerConnection.fromJson(Map<String, dynamic> json) =>
       _$GhRepoStargazerConnectionFromJson(json);
@@ -178,7 +191,7 @@ class GhRepoStargazerConnection with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhRepoRepositoryConnection with EquatableMixin {
-  GhRepoRepositoryConnection();
+  GhRepoRepositoryConnection({this.totalCount});
 
   factory GhRepoRepositoryConnection.fromJson(Map<String, dynamic> json) =>
       _$GhRepoRepositoryConnectionFromJson(json);
@@ -192,7 +205,7 @@ class GhRepoRepositoryConnection with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhRepoLanguage with EquatableMixin implements GhRepoNode {
-  GhRepoLanguage();
+  GhRepoLanguage({this.color, this.name});
 
   factory GhRepoLanguage.fromJson(Map<String, dynamic> json) =>
       _$GhRepoLanguageFromJson(json);
@@ -227,7 +240,7 @@ class GhRepoNode with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhRepoUserConnection with EquatableMixin {
-  GhRepoUserConnection();
+  GhRepoUserConnection({this.totalCount});
 
   factory GhRepoUserConnection.fromJson(Map<String, dynamic> json) =>
       _$GhRepoUserConnectionFromJson(json);
@@ -241,7 +254,7 @@ class GhRepoUserConnection with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhRepoIssueConnection with EquatableMixin {
-  GhRepoIssueConnection();
+  GhRepoIssueConnection({this.totalCount});
 
   factory GhRepoIssueConnection.fromJson(Map<String, dynamic> json) =>
       _$GhRepoIssueConnectionFromJson(json);
@@ -255,7 +268,7 @@ class GhRepoIssueConnection with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhRepoPullRequestConnection with EquatableMixin {
-  GhRepoPullRequestConnection();
+  GhRepoPullRequestConnection({this.totalCount});
 
   factory GhRepoPullRequestConnection.fromJson(Map<String, dynamic> json) =>
       _$GhRepoPullRequestConnectionFromJson(json);
@@ -269,7 +282,7 @@ class GhRepoPullRequestConnection with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhRepoProjectConnection with EquatableMixin {
-  GhRepoProjectConnection();
+  GhRepoProjectConnection({this.totalCount});
 
   factory GhRepoProjectConnection.fromJson(Map<String, dynamic> json) =>
       _$GhRepoProjectConnectionFromJson(json);
@@ -283,7 +296,7 @@ class GhRepoProjectConnection with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhRepoReleaseConnection with EquatableMixin {
-  GhRepoReleaseConnection();
+  GhRepoReleaseConnection({this.totalCount});
 
   factory GhRepoReleaseConnection.fromJson(Map<String, dynamic> json) =>
       _$GhRepoReleaseConnectionFromJson(json);
@@ -297,7 +310,7 @@ class GhRepoReleaseConnection with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhRepoLanguageConnection with EquatableMixin {
-  GhRepoLanguageConnection();
+  GhRepoLanguageConnection({this.totalSize, this.edges});
 
   factory GhRepoLanguageConnection.fromJson(Map<String, dynamic> json) =>
       _$GhRepoLanguageConnectionFromJson(json);
@@ -313,7 +326,7 @@ class GhRepoLanguageConnection with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhRepoLanguageEdge with EquatableMixin {
-  GhRepoLanguageEdge();
+  GhRepoLanguageEdge({this.size, this.node});
 
   factory GhRepoLanguageEdge.fromJson(Map<String, dynamic> json) =>
       _$GhRepoLanguageEdgeFromJson(json);
@@ -329,7 +342,7 @@ class GhRepoLanguageEdge with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhRepoRef with EquatableMixin implements GhRepoNode {
-  GhRepoRef();
+  GhRepoRef({this.name, this.target});
 
   factory GhRepoRef.fromJson(Map<String, dynamic> json) =>
       _$GhRepoRefFromJson(json);
@@ -383,7 +396,7 @@ class GhRepoCommit extends GhRepoPullRequestTimelineItem
         GhRepoGitObject,
         GhRepoSubscribable,
         GhRepoUniformResourceLocatable {
-  GhRepoCommit();
+  GhRepoCommit({this.history});
 
   factory GhRepoCommit.fromJson(Map<String, dynamic> json) =>
       _$GhRepoCommitFromJson(json);
@@ -401,7 +414,7 @@ class GhRepoCommit extends GhRepoPullRequestTimelineItem
 
 @JsonSerializable(explicitToJson: true)
 class GhRepoCommitHistoryConnection with EquatableMixin {
-  GhRepoCommitHistoryConnection();
+  GhRepoCommitHistoryConnection({this.totalCount});
 
   factory GhRepoCommitHistoryConnection.fromJson(Map<String, dynamic> json) =>
       _$GhRepoCommitHistoryConnectionFromJson(json);
@@ -457,7 +470,7 @@ class GhRepoUniformResourceLocatable with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhRepoRefConnection with EquatableMixin {
-  GhRepoRefConnection();
+  GhRepoRefConnection({this.totalCount, this.nodes});
 
   factory GhRepoRefConnection.fromJson(Map<String, dynamic> json) =>
       _$GhRepoRefConnectionFromJson(json);
@@ -473,7 +486,7 @@ class GhRepoRefConnection with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhRepoLicense with EquatableMixin implements GhRepoNode {
-  GhRepoLicense();
+  GhRepoLicense({this.name, this.spdxId});
 
   factory GhRepoLicense.fromJson(Map<String, dynamic> json) =>
       _$GhRepoLicenseFromJson(json);
@@ -493,7 +506,7 @@ class GhRepoLicense with EquatableMixin implements GhRepoNode {
 
 @JsonSerializable(explicitToJson: true)
 class GhRepoRepositoryTopicConnection with EquatableMixin {
-  GhRepoRepositoryTopicConnection();
+  GhRepoRepositoryTopicConnection({this.nodes});
 
   factory GhRepoRepositoryTopicConnection.fromJson(Map<String, dynamic> json) =>
       _$GhRepoRepositoryTopicConnectionFromJson(json);
@@ -510,7 +523,7 @@ class GhRepoRepositoryTopicConnection with EquatableMixin {
 class GhRepoRepositoryTopic
     with EquatableMixin
     implements GhRepoNode, GhRepoUniformResourceLocatable {
-  GhRepoRepositoryTopic();
+  GhRepoRepositoryTopic({this.topic});
 
   factory GhRepoRepositoryTopic.fromJson(Map<String, dynamic> json) =>
       _$GhRepoRepositoryTopicFromJson(json);
@@ -531,7 +544,7 @@ class GhRepoRepositoryTopic
 
 @JsonSerializable(explicitToJson: true)
 class GhRepoTopic with EquatableMixin implements GhRepoNode, GhRepoStarrable {
-  GhRepoTopic();
+  GhRepoTopic({this.name});
 
   factory GhRepoTopic.fromJson(Map<String, dynamic> json) =>
       _$GhRepoTopicFromJson(json);
@@ -576,7 +589,7 @@ class GhRepoPinnableItem with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhRepoProjectOwner with EquatableMixin {
-  GhRepoProjectOwner();
+  GhRepoProjectOwner({this.id, this.projectsUrl, this.projects});
 
   factory GhRepoProjectOwner.fromJson(Map<String, dynamic> json) =>
       _$GhRepoProjectOwnerFromJson(json);
@@ -597,7 +610,7 @@ class GhRepoProjectOwner with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhRepoRegistryPackageOwner with EquatableMixin {
-  GhRepoRegistryPackageOwner();
+  GhRepoRegistryPackageOwner({this.id});
 
   factory GhRepoRegistryPackageOwner.fromJson(Map<String, dynamic> json) =>
       _$GhRepoRegistryPackageOwnerFromJson(json);
@@ -614,7 +627,7 @@ class GhRepoRegistryPackageOwner with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhRepoRegistryPackageSearch with EquatableMixin {
-  GhRepoRegistryPackageSearch();
+  GhRepoRegistryPackageSearch({this.id});
 
   factory GhRepoRegistryPackageSearch.fromJson(Map<String, dynamic> json) =>
       _$GhRepoRegistryPackageSearchFromJson(json);
@@ -631,7 +644,16 @@ class GhRepoRegistryPackageSearch with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhRepoRepositoryInfo with EquatableMixin {
-  GhRepoRepositoryInfo();
+  GhRepoRepositoryInfo(
+      {this.owner,
+      this.name,
+      this.description,
+      this.homepageUrl,
+      this.isPrivate,
+      this.isFork,
+      this.hasIssuesEnabled,
+      this.url,
+      this.licenseInfo});
 
   factory GhRepoRepositoryInfo.fromJson(Map<String, dynamic> json) =>
       _$GhRepoRepositoryInfoFromJson(json);
@@ -681,7 +703,11 @@ enum GhRepoSubscriptionState {
 
 @JsonSerializable(explicitToJson: true)
 class GhRepoArguments extends JsonSerializable with EquatableMixin {
-  GhRepoArguments({this.owner, this.name, this.branchSpecified, this.branch});
+  GhRepoArguments(
+      {@required this.owner,
+      @required this.name,
+      @required this.branchSpecified,
+      @required this.branch});
 
   factory GhRepoArguments.fromJson(Map<String, dynamic> json) =>
       _$GhRepoArgumentsFromJson(json);
@@ -1248,7 +1274,7 @@ class GhRepoQuery extends GraphQLQuery<GhRepo, GhRepoArguments> {
 
 @JsonSerializable(explicitToJson: true)
 class GhUsers with EquatableMixin {
-  GhUsers();
+  GhUsers({this.user, this.organization, this.repository});
 
   factory GhUsers.fromJson(Map<String, dynamic> json) =>
       _$GhUsersFromJson(json);
@@ -1277,7 +1303,7 @@ class GhUsersUser extends GhUsersAuditEntryActor
         GhUsersUniformResourceLocatable,
         GhUsersProfileOwner,
         GhUsersSponsorable {
-  GhUsersUser();
+  GhUsersUser({this.company, this.createdAt, this.followers, this.following});
 
   factory GhUsersUser.fromJson(Map<String, dynamic> json) =>
       _$GhUsersUserFromJson(json);
@@ -1323,7 +1349,7 @@ class GhUsersUser extends GhUsersAuditEntryActor
 
 @JsonSerializable(explicitToJson: true)
 class GhUsersFollowerConnection with EquatableMixin {
-  GhUsersFollowerConnection();
+  GhUsersFollowerConnection({this.pageInfo, this.nodes});
 
   factory GhUsersFollowerConnection.fromJson(Map<String, dynamic> json) =>
       _$GhUsersFollowerConnectionFromJson(json);
@@ -1339,7 +1365,7 @@ class GhUsersFollowerConnection with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhUsersPageInfo with EquatableMixin {
-  GhUsersPageInfo();
+  GhUsersPageInfo({this.hasNextPage, this.endCursor});
 
   factory GhUsersPageInfo.fromJson(Map<String, dynamic> json) =>
       _$GhUsersPageInfoFromJson(json);
@@ -1382,7 +1408,7 @@ class GhUsersNode with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhUsersActor with EquatableMixin {
-  GhUsersActor();
+  GhUsersActor({this.login, this.avatarUrl});
 
   factory GhUsersActor.fromJson(Map<String, dynamic> json) =>
       _$GhUsersActorFromJson(json);
@@ -1446,7 +1472,7 @@ class GhUsersProjectOwner with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhUsersRepositoryOwner with EquatableMixin {
-  GhUsersRepositoryOwner();
+  GhUsersRepositoryOwner({this.login, this.avatarUrl});
 
   factory GhUsersRepositoryOwner.fromJson(Map<String, dynamic> json) =>
       _$GhUsersRepositoryOwnerFromJson(json);
@@ -1481,7 +1507,7 @@ class GhUsersUniformResourceLocatable with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhUsersProfileOwner with EquatableMixin {
-  GhUsersProfileOwner();
+  GhUsersProfileOwner({this.login, this.name, this.location});
 
   factory GhUsersProfileOwner.fromJson(Map<String, dynamic> json) =>
       _$GhUsersProfileOwnerFromJson(json);
@@ -1517,7 +1543,7 @@ class GhUsersSponsorable with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhUsersFollowingConnection with EquatableMixin {
-  GhUsersFollowingConnection();
+  GhUsersFollowingConnection({this.pageInfo, this.nodes});
 
   factory GhUsersFollowingConnection.fromJson(Map<String, dynamic> json) =>
       _$GhUsersFollowingConnectionFromJson(json);
@@ -1545,7 +1571,7 @@ class GhUsersOrganization extends GhUsersAuditEntryActor
         GhUsersMemberStatusable,
         GhUsersProfileOwner,
         GhUsersSponsorable {
-  GhUsersOrganization();
+  GhUsersOrganization({this.membersWithRole});
 
   factory GhUsersOrganization.fromJson(Map<String, dynamic> json) =>
       _$GhUsersOrganizationFromJson(json);
@@ -1576,7 +1602,7 @@ class GhUsersOrganization extends GhUsersAuditEntryActor
 
 @JsonSerializable(explicitToJson: true)
 class GhUsersOrganizationMemberConnection with EquatableMixin {
-  GhUsersOrganizationMemberConnection();
+  GhUsersOrganizationMemberConnection({this.pageInfo, this.nodes});
 
   factory GhUsersOrganizationMemberConnection.fromJson(
           Map<String, dynamic> json) =>
@@ -1619,7 +1645,7 @@ class GhUsersRepository extends GhUsersPinnableItem
         GhUsersStarrable,
         GhUsersUniformResourceLocatable,
         GhUsersRepositoryInfo {
-  GhUsersRepository();
+  GhUsersRepository({this.watchers});
 
   factory GhUsersRepository.fromJson(Map<String, dynamic> json) =>
       _$GhUsersRepositoryFromJson(json);
@@ -1640,7 +1666,7 @@ class GhUsersRepository extends GhUsersPinnableItem
 
 @JsonSerializable(explicitToJson: true)
 class GhUsersUserConnection with EquatableMixin {
-  GhUsersUserConnection();
+  GhUsersUserConnection({this.pageInfo, this.nodes});
 
   factory GhUsersUserConnection.fromJson(Map<String, dynamic> json) =>
       _$GhUsersUserConnectionFromJson(json);
@@ -1656,7 +1682,7 @@ class GhUsersUserConnection with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhUsersStargazerConnection with EquatableMixin {
-  GhUsersStargazerConnection();
+  GhUsersStargazerConnection({this.pageInfo, this.nodes});
 
   factory GhUsersStargazerConnection.fromJson(Map<String, dynamic> json) =>
       _$GhUsersStargazerConnectionFromJson(json);
@@ -1699,7 +1725,7 @@ class GhUsersSubscribable with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhUsersStarrable with EquatableMixin {
-  GhUsersStarrable();
+  GhUsersStarrable({this.stargazers});
 
   factory GhUsersStarrable.fromJson(Map<String, dynamic> json) =>
       _$GhUsersStarrableFromJson(json);
@@ -1732,14 +1758,14 @@ class GhUsersRepositoryInfo with EquatableMixin {
 @JsonSerializable(explicitToJson: true)
 class GhUsersArguments extends JsonSerializable with EquatableMixin {
   GhUsersArguments(
-      {this.login,
-      this.repoName,
+      {@required this.login,
+      @required this.repoName,
       this.after,
-      this.isFollowers,
-      this.isFollowing,
-      this.isMember,
-      this.isStar,
-      this.isWatch});
+      @required this.isFollowers,
+      @required this.isFollowing,
+      @required this.isMember,
+      @required this.isStar,
+      @required this.isWatch});
 
   factory GhUsersArguments.fromJson(Map<String, dynamic> json) =>
       _$GhUsersArgumentsFromJson(json);
@@ -2375,7 +2401,7 @@ class GhUsersQuery extends GraphQLQuery<GhUsers, GhUsersArguments> {
 
 @JsonSerializable(explicitToJson: true)
 class GhCreateIssue with EquatableMixin {
-  GhCreateIssue();
+  GhCreateIssue({this.createIssue});
 
   factory GhCreateIssue.fromJson(Map<String, dynamic> json) =>
       _$GhCreateIssueFromJson(json);
@@ -2389,7 +2415,7 @@ class GhCreateIssue with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhCreateIssueCreateIssuePayload with EquatableMixin {
-  GhCreateIssueCreateIssuePayload();
+  GhCreateIssueCreateIssuePayload({this.issue});
 
   factory GhCreateIssueCreateIssuePayload.fromJson(Map<String, dynamic> json) =>
       _$GhCreateIssueCreateIssuePayloadFromJson(json);
@@ -2418,7 +2444,7 @@ class GhCreateIssueIssue extends GhCreateIssueProjectCardItem
         GhCreateIssueRepositoryNode,
         GhCreateIssueSubscribable,
         GhCreateIssueUniformResourceLocatable {
-  GhCreateIssueIssue();
+  GhCreateIssueIssue({this.number});
 
   factory GhCreateIssueIssue.fromJson(Map<String, dynamic> json) =>
       _$GhCreateIssueIssueFromJson(json);
@@ -2471,7 +2497,7 @@ class GhCreateIssueRepository extends GhCreateIssuePinnableItem
 
 @JsonSerializable(explicitToJson: true)
 class GhCreateIssueRepositoryOwner with EquatableMixin {
-  GhCreateIssueRepositoryOwner();
+  GhCreateIssueRepositoryOwner({this.login});
 
   factory GhCreateIssueRepositoryOwner.fromJson(Map<String, dynamic> json) =>
       _$GhCreateIssueRepositoryOwnerFromJson(json);
@@ -2611,7 +2637,7 @@ class GhCreateIssueUniformResourceLocatable with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhCreateIssueRepositoryInfo with EquatableMixin {
-  GhCreateIssueRepositoryInfo();
+  GhCreateIssueRepositoryInfo({this.owner, this.name});
 
   factory GhCreateIssueRepositoryInfo.fromJson(Map<String, dynamic> json) =>
       _$GhCreateIssueRepositoryInfoFromJson(json);
@@ -2762,7 +2788,7 @@ class GhCreateIssueReactable with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhCreateIssueRepositoryNode with EquatableMixin {
-  GhCreateIssueRepositoryNode();
+  GhCreateIssueRepositoryNode({this.repository});
 
   factory GhCreateIssueRepositoryNode.fromJson(Map<String, dynamic> json) =>
       _$GhCreateIssueRepositoryNodeFromJson(json);
@@ -2779,7 +2805,8 @@ class GhCreateIssueRepositoryNode with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhCreateIssueArguments extends JsonSerializable with EquatableMixin {
-  GhCreateIssueArguments({this.repoId, this.title, this.body});
+  GhCreateIssueArguments(
+      {@required this.repoId, @required this.title, @required this.body});
 
   factory GhCreateIssueArguments.fromJson(Map<String, dynamic> json) =>
       _$GhCreateIssueArgumentsFromJson(json);
@@ -2903,7 +2930,7 @@ class GhCreateIssueQuery
 
 @JsonSerializable(explicitToJson: true)
 class GhOpenIssue with EquatableMixin {
-  GhOpenIssue();
+  GhOpenIssue({this.reopenIssue, this.closeIssue});
 
   factory GhOpenIssue.fromJson(Map<String, dynamic> json) =>
       _$GhOpenIssueFromJson(json);
@@ -2919,7 +2946,7 @@ class GhOpenIssue with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhOpenIssueReopenIssuePayload with EquatableMixin {
-  GhOpenIssueReopenIssuePayload();
+  GhOpenIssueReopenIssuePayload({this.issue});
 
   factory GhOpenIssueReopenIssuePayload.fromJson(Map<String, dynamic> json) =>
       _$GhOpenIssueReopenIssuePayloadFromJson(json);
@@ -3008,7 +3035,7 @@ class GhOpenIssueAssignable with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhOpenIssueClosable with EquatableMixin {
-  GhOpenIssueClosable();
+  GhOpenIssueClosable({this.closed});
 
   factory GhOpenIssueClosable.fromJson(Map<String, dynamic> json) =>
       _$GhOpenIssueClosableFromJson(json);
@@ -3162,7 +3189,7 @@ class GhOpenIssueUniformResourceLocatable with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhOpenIssueCloseIssuePayload with EquatableMixin {
-  GhOpenIssueCloseIssuePayload();
+  GhOpenIssueCloseIssuePayload({this.issue});
 
   factory GhOpenIssueCloseIssuePayload.fromJson(Map<String, dynamic> json) =>
       _$GhOpenIssueCloseIssuePayloadFromJson(json);
@@ -3176,7 +3203,7 @@ class GhOpenIssueCloseIssuePayload with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhOpenIssueArguments extends JsonSerializable with EquatableMixin {
-  GhOpenIssueArguments({this.id, this.open});
+  GhOpenIssueArguments({@required this.id, @required this.open});
 
   factory GhOpenIssueArguments.fromJson(Map<String, dynamic> json) =>
       _$GhOpenIssueArgumentsFromJson(json);
@@ -3298,7 +3325,7 @@ class GhOpenIssueQuery extends GraphQLQuery<GhOpenIssue, GhOpenIssueArguments> {
 
 @JsonSerializable(explicitToJson: true)
 class GhRepos with EquatableMixin {
-  GhRepos();
+  GhRepos({this.repositoryOwner});
 
   factory GhRepos.fromJson(Map<String, dynamic> json) =>
       _$GhReposFromJson(json);
@@ -3312,7 +3339,7 @@ class GhRepos with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhReposRepositoryOwner with EquatableMixin {
-  GhReposRepositoryOwner();
+  GhReposRepositoryOwner({this.login, this.avatarUrl});
 
   factory GhReposRepositoryOwner.fromJson(Map<String, dynamic> json) {
     switch (json['__typename'].toString()) {
@@ -3359,7 +3386,7 @@ class GhReposUser extends GhReposAuditEntryActor
         GhReposUniformResourceLocatable,
         GhReposProfileOwner,
         GhReposSponsorable {
-  GhReposUser();
+  GhReposUser({this.repositories, this.starredRepositories});
 
   factory GhReposUser.fromJson(Map<String, dynamic> json) =>
       _$GhReposUserFromJson(json);
@@ -3386,7 +3413,7 @@ class GhReposUser extends GhReposAuditEntryActor
 
 @JsonSerializable(explicitToJson: true)
 class GhReposRepositoryConnection with EquatableMixin {
-  GhReposRepositoryConnection();
+  GhReposRepositoryConnection({this.totalCount, this.pageInfo, this.nodes});
 
   factory GhReposRepositoryConnection.fromJson(Map<String, dynamic> json) =>
       _$GhReposRepositoryConnectionFromJson(json);
@@ -3404,7 +3431,7 @@ class GhReposRepositoryConnection with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhReposPageInfo with EquatableMixin {
-  GhReposPageInfo();
+  GhReposPageInfo({this.hasNextPage, this.endCursor});
 
   factory GhReposPageInfo.fromJson(Map<String, dynamic> json) =>
       _$GhReposPageInfoFromJson(json);
@@ -3430,7 +3457,7 @@ class GhReposRepository extends GhReposPinnableItem
         GhReposStarrable,
         GhReposUniformResourceLocatable,
         GhReposRepositoryInfo {
-  GhReposRepository();
+  GhReposRepository({this.forks, this.primaryLanguage});
 
   factory GhReposRepository.fromJson(Map<String, dynamic> json) =>
       _$GhReposRepositoryFromJson(json);
@@ -3482,7 +3509,7 @@ class GhReposRepository extends GhReposPinnableItem
 
 @JsonSerializable(explicitToJson: true)
 class GhReposStargazerConnection with EquatableMixin {
-  GhReposStargazerConnection();
+  GhReposStargazerConnection({this.totalCount});
 
   factory GhReposStargazerConnection.fromJson(Map<String, dynamic> json) =>
       _$GhReposStargazerConnectionFromJson(json);
@@ -3496,7 +3523,7 @@ class GhReposStargazerConnection with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhReposLanguage with EquatableMixin implements GhReposNode {
-  GhReposLanguage();
+  GhReposLanguage({this.color, this.name});
 
   factory GhReposLanguage.fromJson(Map<String, dynamic> json) =>
       _$GhReposLanguageFromJson(json);
@@ -3603,7 +3630,7 @@ class GhReposSubscribable with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhReposStarrable with EquatableMixin {
-  GhReposStarrable();
+  GhReposStarrable({this.stargazers});
 
   factory GhReposStarrable.fromJson(Map<String, dynamic> json) =>
       _$GhReposStarrableFromJson(json);
@@ -3636,7 +3663,13 @@ class GhReposUniformResourceLocatable with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhReposRepositoryInfo with EquatableMixin {
-  GhReposRepositoryInfo();
+  GhReposRepositoryInfo(
+      {this.owner,
+      this.name,
+      this.description,
+      this.isPrivate,
+      this.isFork,
+      this.updatedAt});
 
   factory GhReposRepositoryInfo.fromJson(Map<String, dynamic> json) =>
       _$GhReposRepositoryInfoFromJson(json);
@@ -3664,7 +3697,7 @@ class GhReposRepositoryInfo with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhReposStarredRepositoryConnection with EquatableMixin {
-  GhReposStarredRepositoryConnection();
+  GhReposStarredRepositoryConnection({this.pageInfo, this.nodes});
 
   factory GhReposStarredRepositoryConnection.fromJson(
           Map<String, dynamic> json) =>
@@ -3751,7 +3784,7 @@ class GhReposOrganization extends GhReposAuditEntryActor
         GhReposMemberStatusable,
         GhReposProfileOwner,
         GhReposSponsorable {
-  GhReposOrganization();
+  GhReposOrganization({this.pinnableItems});
 
   factory GhReposOrganization.fromJson(Map<String, dynamic> json) =>
       _$GhReposOrganizationFromJson(json);
@@ -3775,7 +3808,7 @@ class GhReposOrganization extends GhReposAuditEntryActor
 
 @JsonSerializable(explicitToJson: true)
 class GhReposPinnableItemConnection with EquatableMixin {
-  GhReposPinnableItemConnection();
+  GhReposPinnableItemConnection({this.pageInfo, this.nodes});
 
   factory GhReposPinnableItemConnection.fromJson(Map<String, dynamic> json) =>
       _$GhReposPinnableItemConnectionFromJson(json);
@@ -3806,7 +3839,7 @@ class GhReposMemberStatusable with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhReposArguments extends JsonSerializable with EquatableMixin {
-  GhReposArguments({this.owner, this.after, this.isStar});
+  GhReposArguments({@required this.owner, this.after, @required this.isStar});
 
   factory GhReposArguments.fromJson(Map<String, dynamic> json) =>
       _$GhReposArgumentsFromJson(json);
@@ -4416,7 +4449,7 @@ class GhReposQuery extends GraphQLQuery<GhRepos, GhReposArguments> {
 
 @JsonSerializable(explicitToJson: true)
 class GhWatch with EquatableMixin {
-  GhWatch();
+  GhWatch({this.updateSubscription});
 
   factory GhWatch.fromJson(Map<String, dynamic> json) =>
       _$GhWatchFromJson(json);
@@ -4430,7 +4463,7 @@ class GhWatch with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhWatchUpdateSubscriptionPayload with EquatableMixin {
-  GhWatchUpdateSubscriptionPayload();
+  GhWatchUpdateSubscriptionPayload({this.subscribable});
 
   factory GhWatchUpdateSubscriptionPayload.fromJson(
           Map<String, dynamic> json) =>
@@ -4484,7 +4517,7 @@ class GhWatchRepository extends GhWatchPinnableItem
         GhWatchStarrable,
         GhWatchUniformResourceLocatable,
         GhWatchRepositoryInfo {
-  GhWatchRepository();
+  GhWatchRepository({this.viewerSubscription});
 
   factory GhWatchRepository.fromJson(Map<String, dynamic> json) =>
       _$GhWatchRepositoryFromJson(json);
@@ -4626,7 +4659,7 @@ enum GhWatchSubscriptionState {
 
 @JsonSerializable(explicitToJson: true)
 class GhWatchArguments extends JsonSerializable with EquatableMixin {
-  GhWatchArguments({this.id, this.state});
+  GhWatchArguments({@required this.id, @required this.state});
 
   factory GhWatchArguments.fromJson(Map<String, dynamic> json) =>
       _$GhWatchArgumentsFromJson(json);
@@ -4719,7 +4752,7 @@ class GhWatchQuery extends GraphQLQuery<GhWatch, GhWatchArguments> {
 
 @JsonSerializable(explicitToJson: true)
 class GhUser with EquatableMixin {
-  GhUser();
+  GhUser({this.repositoryOwner, this.viewer});
 
   factory GhUser.fromJson(Map<String, dynamic> json) => _$GhUserFromJson(json);
 
@@ -4734,7 +4767,7 @@ class GhUser with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhUserRepositoryOwner with EquatableMixin {
-  GhUserRepositoryOwner();
+  GhUserRepositoryOwner({this.id, this.login, this.avatarUrl, this.url});
 
   factory GhUserRepositoryOwner.fromJson(Map<String, dynamic> json) {
     switch (json['__typename'].toString()) {
@@ -4785,7 +4818,22 @@ class GhUserUser extends GhUserAuditEntryActor
         GhUserUniformResourceLocatable,
         GhUserProfileOwner,
         GhUserSponsorable {
-  GhUserUser();
+  GhUserUser(
+      {this.name,
+      this.bio,
+      this.company,
+      this.location,
+      this.email,
+      this.createdAt,
+      this.websiteUrl,
+      this.starredRepositories,
+      this.followers,
+      this.following,
+      this.contributionsCollection,
+      this.repositories,
+      this.pinnedItems,
+      this.viewerCanFollow,
+      this.viewerIsFollowing});
 
   factory GhUserUser.fromJson(Map<String, dynamic> json) =>
       _$GhUserUserFromJson(json);
@@ -4864,7 +4912,7 @@ class GhUserUser extends GhUserAuditEntryActor
 
 @JsonSerializable(explicitToJson: true)
 class GhUserStarredRepositoryConnection with EquatableMixin {
-  GhUserStarredRepositoryConnection();
+  GhUserStarredRepositoryConnection({this.totalCount});
 
   factory GhUserStarredRepositoryConnection.fromJson(
           Map<String, dynamic> json) =>
@@ -4880,7 +4928,7 @@ class GhUserStarredRepositoryConnection with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhUserFollowerConnection with EquatableMixin {
-  GhUserFollowerConnection();
+  GhUserFollowerConnection({this.totalCount});
 
   factory GhUserFollowerConnection.fromJson(Map<String, dynamic> json) =>
       _$GhUserFollowerConnectionFromJson(json);
@@ -4894,7 +4942,7 @@ class GhUserFollowerConnection with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhUserFollowingConnection with EquatableMixin {
-  GhUserFollowingConnection();
+  GhUserFollowingConnection({this.totalCount});
 
   factory GhUserFollowingConnection.fromJson(Map<String, dynamic> json) =>
       _$GhUserFollowingConnectionFromJson(json);
@@ -4908,7 +4956,7 @@ class GhUserFollowingConnection with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhUserContributionsCollection with EquatableMixin {
-  GhUserContributionsCollection();
+  GhUserContributionsCollection({this.contributionCalendar});
 
   factory GhUserContributionsCollection.fromJson(Map<String, dynamic> json) =>
       _$GhUserContributionsCollectionFromJson(json);
@@ -4922,7 +4970,7 @@ class GhUserContributionsCollection with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhUserContributionCalendar with EquatableMixin {
-  GhUserContributionCalendar();
+  GhUserContributionCalendar({this.weeks});
 
   factory GhUserContributionCalendar.fromJson(Map<String, dynamic> json) =>
       _$GhUserContributionCalendarFromJson(json);
@@ -4936,7 +4984,7 @@ class GhUserContributionCalendar with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhUserContributionCalendarWeek with EquatableMixin {
-  GhUserContributionCalendarWeek();
+  GhUserContributionCalendarWeek({this.contributionDays});
 
   factory GhUserContributionCalendarWeek.fromJson(Map<String, dynamic> json) =>
       _$GhUserContributionCalendarWeekFromJson(json);
@@ -4950,7 +4998,7 @@ class GhUserContributionCalendarWeek with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhUserContributionCalendarDay with EquatableMixin {
-  GhUserContributionCalendarDay();
+  GhUserContributionCalendarDay({this.color});
 
   factory GhUserContributionCalendarDay.fromJson(Map<String, dynamic> json) =>
       _$GhUserContributionCalendarDayFromJson(json);
@@ -4964,7 +5012,7 @@ class GhUserContributionCalendarDay with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhUserRepositoryConnection with EquatableMixin {
-  GhUserRepositoryConnection();
+  GhUserRepositoryConnection({this.totalCount, this.nodes});
 
   factory GhUserRepositoryConnection.fromJson(Map<String, dynamic> json) =>
       _$GhUserRepositoryConnectionFromJson(json);
@@ -4990,7 +5038,7 @@ class GhUserRepository extends GhUserPinnableItem
         GhUserStarrable,
         GhUserUniformResourceLocatable,
         GhUserRepositoryInfo {
-  GhUserRepository();
+  GhUserRepository({this.forks, this.primaryLanguage});
 
   factory GhUserRepository.fromJson(Map<String, dynamic> json) =>
       _$GhUserRepositoryFromJson(json);
@@ -5038,7 +5086,7 @@ class GhUserRepository extends GhUserPinnableItem
 
 @JsonSerializable(explicitToJson: true)
 class GhUserStargazerConnection with EquatableMixin {
-  GhUserStargazerConnection();
+  GhUserStargazerConnection({this.totalCount});
 
   factory GhUserStargazerConnection.fromJson(Map<String, dynamic> json) =>
       _$GhUserStargazerConnectionFromJson(json);
@@ -5052,7 +5100,7 @@ class GhUserStargazerConnection with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhUserLanguage with EquatableMixin implements GhUserNode {
-  GhUserLanguage();
+  GhUserLanguage({this.color, this.name});
 
   factory GhUserLanguage.fromJson(Map<String, dynamic> json) =>
       _$GhUserLanguageFromJson(json);
@@ -5159,7 +5207,7 @@ class GhUserSubscribable with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhUserStarrable with EquatableMixin {
-  GhUserStarrable();
+  GhUserStarrable({this.stargazers});
 
   factory GhUserStarrable.fromJson(Map<String, dynamic> json) =>
       _$GhUserStarrableFromJson(json);
@@ -5191,7 +5239,8 @@ class GhUserUniformResourceLocatable with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhUserRepositoryInfo with EquatableMixin {
-  GhUserRepositoryInfo();
+  GhUserRepositoryInfo(
+      {this.owner, this.name, this.description, this.isPrivate, this.isFork});
 
   factory GhUserRepositoryInfo.fromJson(Map<String, dynamic> json) =>
       _$GhUserRepositoryInfoFromJson(json);
@@ -5217,7 +5266,7 @@ class GhUserRepositoryInfo with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhUserPinnableItemConnection with EquatableMixin {
-  GhUserPinnableItemConnection();
+  GhUserPinnableItemConnection({this.totalCount, this.nodes});
 
   factory GhUserPinnableItemConnection.fromJson(Map<String, dynamic> json) =>
       _$GhUserPinnableItemConnectionFromJson(json);
@@ -5260,7 +5309,12 @@ class GhUserActor with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhUserProfileOwner with EquatableMixin {
-  GhUserProfileOwner();
+  GhUserProfileOwner(
+      {this.name,
+      this.location,
+      this.email,
+      this.websiteUrl,
+      this.pinnedItems});
 
   factory GhUserProfileOwner.fromJson(Map<String, dynamic> json) =>
       _$GhUserProfileOwnerFromJson(json);
@@ -5313,7 +5367,16 @@ class GhUserOrganization extends GhUserAuditEntryActor
         GhUserMemberStatusable,
         GhUserProfileOwner,
         GhUserSponsorable {
-  GhUserOrganization();
+  GhUserOrganization(
+      {this.name,
+      this.description,
+      this.location,
+      this.email,
+      this.websiteUrl,
+      this.createdAt,
+      this.pinnedItems,
+      this.pinnableItems,
+      this.membersWithRole});
 
   factory GhUserOrganization.fromJson(Map<String, dynamic> json) =>
       _$GhUserOrganizationFromJson(json);
@@ -5374,7 +5437,7 @@ class GhUserOrganization extends GhUserAuditEntryActor
 
 @JsonSerializable(explicitToJson: true)
 class GhUserOrganizationMemberConnection with EquatableMixin {
-  GhUserOrganizationMemberConnection();
+  GhUserOrganizationMemberConnection({this.totalCount});
 
   factory GhUserOrganizationMemberConnection.fromJson(
           Map<String, dynamic> json) =>
@@ -5405,7 +5468,7 @@ class GhUserMemberStatusable with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhUserArguments extends JsonSerializable with EquatableMixin {
-  GhUserArguments({this.login, this.isViewer});
+  GhUserArguments({@required this.login, @required this.isViewer});
 
   factory GhUserArguments.fromJson(Map<String, dynamic> json) =>
       _$GhUserArgumentsFromJson(json);
@@ -6411,7 +6474,7 @@ class GhUserQuery extends GraphQLQuery<GhUser, GhUserArguments> {
 
 @JsonSerializable(explicitToJson: true)
 class GhFollow with EquatableMixin {
-  GhFollow();
+  GhFollow({this.followUser, this.unfollowUser});
 
   factory GhFollow.fromJson(Map<String, dynamic> json) =>
       _$GhFollowFromJson(json);
@@ -6427,7 +6490,7 @@ class GhFollow with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhFollowFollowUserPayload with EquatableMixin {
-  GhFollowFollowUserPayload();
+  GhFollowFollowUserPayload({this.user});
 
   factory GhFollowFollowUserPayload.fromJson(Map<String, dynamic> json) =>
       _$GhFollowFollowUserPayloadFromJson(json);
@@ -6452,7 +6515,7 @@ class GhFollowUser extends GhFollowAuditEntryActor
         GhFollowUniformResourceLocatable,
         GhFollowProfileOwner,
         GhFollowSponsorable {
-  GhFollowUser();
+  GhFollowUser({this.viewerIsFollowing});
 
   factory GhFollowUser.fromJson(Map<String, dynamic> json) =>
       _$GhFollowUserFromJson(json);
@@ -6619,7 +6682,7 @@ class GhFollowSponsorable with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhFollowUnfollowUserPayload with EquatableMixin {
-  GhFollowUnfollowUserPayload();
+  GhFollowUnfollowUserPayload({this.user});
 
   factory GhFollowUnfollowUserPayload.fromJson(Map<String, dynamic> json) =>
       _$GhFollowUnfollowUserPayloadFromJson(json);
@@ -6633,7 +6696,7 @@ class GhFollowUnfollowUserPayload with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhFollowArguments extends JsonSerializable with EquatableMixin {
-  GhFollowArguments({this.id, this.flag});
+  GhFollowArguments({@required this.id, @required this.flag});
 
   factory GhFollowArguments.fromJson(Map<String, dynamic> json) =>
       _$GhFollowArgumentsFromJson(json);
@@ -6755,7 +6818,7 @@ class GhFollowQuery extends GraphQLQuery<GhFollow, GhFollowArguments> {
 
 @JsonSerializable(explicitToJson: true)
 class GhStar with EquatableMixin {
-  GhStar();
+  GhStar({this.addStar, this.removeStar});
 
   factory GhStar.fromJson(Map<String, dynamic> json) => _$GhStarFromJson(json);
 
@@ -6770,7 +6833,7 @@ class GhStar with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhStarAddStarPayload with EquatableMixin {
-  GhStarAddStarPayload();
+  GhStarAddStarPayload({this.starrable});
 
   factory GhStarAddStarPayload.fromJson(Map<String, dynamic> json) =>
       _$GhStarAddStarPayloadFromJson(json);
@@ -6784,7 +6847,7 @@ class GhStarAddStarPayload with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhStarStarrable with EquatableMixin {
-  GhStarStarrable();
+  GhStarStarrable({this.viewerHasStarred});
 
   factory GhStarStarrable.fromJson(Map<String, dynamic> json) =>
       _$GhStarStarrableFromJson(json);
@@ -6801,7 +6864,7 @@ class GhStarStarrable with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhStarRemoveStarPayload with EquatableMixin {
-  GhStarRemoveStarPayload();
+  GhStarRemoveStarPayload({this.starrable});
 
   factory GhStarRemoveStarPayload.fromJson(Map<String, dynamic> json) =>
       _$GhStarRemoveStarPayloadFromJson(json);
@@ -6815,7 +6878,7 @@ class GhStarRemoveStarPayload with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhStarArguments extends JsonSerializable with EquatableMixin {
-  GhStarArguments({this.id, this.flag});
+  GhStarArguments({@required this.id, @required this.flag});
 
   factory GhStarArguments.fromJson(Map<String, dynamic> json) =>
       _$GhStarArgumentsFromJson(json);
@@ -6937,7 +7000,7 @@ class GhStarQuery extends GraphQLQuery<GhStar, GhStarArguments> {
 
 @JsonSerializable(explicitToJson: true)
 class GhObject with EquatableMixin {
-  GhObject();
+  GhObject({this.repository});
 
   factory GhObject.fromJson(Map<String, dynamic> json) =>
       _$GhObjectFromJson(json);
@@ -6961,7 +7024,7 @@ class GhObjectRepository extends GhObjectPinnableItem
         GhObjectStarrable,
         GhObjectUniformResourceLocatable,
         GhObjectRepositoryInfo {
-  GhObjectRepository();
+  GhObjectRepository({this.object});
 
   factory GhObjectRepository.fromJson(Map<String, dynamic> json) =>
       _$GhObjectRepositoryFromJson(json);
@@ -7013,7 +7076,7 @@ class GhObjectGitObject with EquatableMixin {
 class GhObjectTree
     with EquatableMixin
     implements GhObjectNode, GhObjectGitObject {
-  GhObjectTree();
+  GhObjectTree({this.entries});
 
   factory GhObjectTree.fromJson(Map<String, dynamic> json) =>
       _$GhObjectTreeFromJson(json);
@@ -7031,7 +7094,7 @@ class GhObjectTree
 
 @JsonSerializable(explicitToJson: true)
 class GhObjectTreeEntry with EquatableMixin {
-  GhObjectTreeEntry();
+  GhObjectTreeEntry({this.type, this.name});
 
   factory GhObjectTreeEntry.fromJson(Map<String, dynamic> json) =>
       _$GhObjectTreeEntryFromJson(json);
@@ -7064,7 +7127,7 @@ class GhObjectNode with EquatableMixin {
 class GhObjectBlob
     with EquatableMixin
     implements GhObjectNode, GhObjectGitObject {
-  GhObjectBlob();
+  GhObjectBlob({this.text});
 
   factory GhObjectBlob.fromJson(Map<String, dynamic> json) =>
       _$GhObjectBlobFromJson(json);
@@ -7201,7 +7264,8 @@ class GhObjectRepositoryInfo with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhObjectArguments extends JsonSerializable with EquatableMixin {
-  GhObjectArguments({this.owner, this.name, this.expression});
+  GhObjectArguments(
+      {@required this.owner, @required this.name, @required this.expression});
 
   factory GhObjectArguments.fromJson(Map<String, dynamic> json) =>
       _$GhObjectArgumentsFromJson(json);
@@ -7341,7 +7405,7 @@ mixin TMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhCommits with EquatableMixin {
-  GhCommits();
+  GhCommits({this.repository});
 
   factory GhCommits.fromJson(Map<String, dynamic> json) =>
       _$GhCommitsFromJson(json);
@@ -7365,7 +7429,7 @@ class GhCommitsRepository extends GhCommitsPinnableItem
         GhCommitsStarrable,
         GhCommitsUniformResourceLocatable,
         GhCommitsRepositoryInfo {
-  GhCommitsRepository();
+  GhCommitsRepository({this.defaultBranchRef, this.ref});
 
   factory GhCommitsRepository.fromJson(Map<String, dynamic> json) =>
       _$GhCommitsRepositoryFromJson(json);
@@ -7435,7 +7499,14 @@ class GhCommitsCommit extends GhCommitsPullRequestTimelineItem
         GhCommitsGitObject,
         GhCommitsSubscribable,
         GhCommitsUniformResourceLocatable {
-  GhCommitsCommit();
+  GhCommitsCommit(
+      {this.oid,
+      this.url,
+      this.messageHeadline,
+      this.committedDate,
+      this.author,
+      this.status,
+      this.history});
 
   factory GhCommitsCommit.fromJson(Map<String, dynamic> json) =>
       _$GhCommitsCommitFromJson(json);
@@ -7474,7 +7545,7 @@ class GhCommitsCommit extends GhCommitsPullRequestTimelineItem
 
 @JsonSerializable(explicitToJson: true)
 class GhCommitsGitActor with EquatableMixin {
-  GhCommitsGitActor();
+  GhCommitsGitActor({this.name, this.avatarUrl, this.user});
 
   factory GhCommitsGitActor.fromJson(Map<String, dynamic> json) =>
       _$GhCommitsGitActorFromJson(json);
@@ -7549,7 +7620,7 @@ class GhCommitsNode with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhCommitsActor with EquatableMixin {
-  GhCommitsActor();
+  GhCommitsActor({this.login});
 
   factory GhCommitsActor.fromJson(Map<String, dynamic> json) =>
       _$GhCommitsActorFromJson(json);
@@ -7611,7 +7682,7 @@ class GhCommitsProjectOwner with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhCommitsRepositoryOwner with EquatableMixin {
-  GhCommitsRepositoryOwner();
+  GhCommitsRepositoryOwner({this.login});
 
   factory GhCommitsRepositoryOwner.fromJson(Map<String, dynamic> json) =>
       _$GhCommitsRepositoryOwnerFromJson(json);
@@ -7645,7 +7716,7 @@ class GhCommitsUniformResourceLocatable with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhCommitsProfileOwner with EquatableMixin {
-  GhCommitsProfileOwner();
+  GhCommitsProfileOwner({this.login});
 
   factory GhCommitsProfileOwner.fromJson(Map<String, dynamic> json) =>
       _$GhCommitsProfileOwnerFromJson(json);
@@ -7677,7 +7748,7 @@ class GhCommitsSponsorable with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhCommitsStatus with EquatableMixin implements GhCommitsNode {
-  GhCommitsStatus();
+  GhCommitsStatus({this.state});
 
   factory GhCommitsStatus.fromJson(Map<String, dynamic> json) =>
       _$GhCommitsStatusFromJson(json);
@@ -7695,7 +7766,7 @@ class GhCommitsStatus with EquatableMixin implements GhCommitsNode {
 
 @JsonSerializable(explicitToJson: true)
 class GhCommitsCommitHistoryConnection with EquatableMixin {
-  GhCommitsCommitHistoryConnection();
+  GhCommitsCommitHistoryConnection({this.pageInfo, this.nodes});
 
   factory GhCommitsCommitHistoryConnection.fromJson(
           Map<String, dynamic> json) =>
@@ -7713,7 +7784,7 @@ class GhCommitsCommitHistoryConnection with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhCommitsPageInfo with EquatableMixin {
-  GhCommitsPageInfo();
+  GhCommitsPageInfo({this.hasNextPage, this.endCursor});
 
   factory GhCommitsPageInfo.fromJson(Map<String, dynamic> json) =>
       _$GhCommitsPageInfoFromJson(json);
@@ -7809,7 +7880,11 @@ enum GhCommitsStatusState {
 @JsonSerializable(explicitToJson: true)
 class GhCommitsArguments extends JsonSerializable with EquatableMixin {
   GhCommitsArguments(
-      {this.owner, this.name, this.ref, this.hasRef, this.after});
+      {@required this.owner,
+      @required this.name,
+      @required this.ref,
+      @required this.hasRef,
+      this.after});
 
   factory GhCommitsArguments.fromJson(Map<String, dynamic> json) =>
       _$GhCommitsArgumentsFromJson(json);
@@ -8150,7 +8225,7 @@ class GhCommitsQuery extends GraphQLQuery<GhCommits, GhCommitsArguments> {
 
 @JsonSerializable(explicitToJson: true)
 class GhRepoId with EquatableMixin {
-  GhRepoId();
+  GhRepoId({this.repository});
 
   factory GhRepoId.fromJson(Map<String, dynamic> json) =>
       _$GhRepoIdFromJson(json);
@@ -8205,7 +8280,7 @@ class GhRepoIdPinnableItem with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhRepoIdNode with EquatableMixin {
-  GhRepoIdNode();
+  GhRepoIdNode({this.id});
 
   factory GhRepoIdNode.fromJson(Map<String, dynamic> json) =>
       _$GhRepoIdNodeFromJson(json);
@@ -8222,7 +8297,7 @@ class GhRepoIdNode with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhRepoIdProjectOwner with EquatableMixin {
-  GhRepoIdProjectOwner();
+  GhRepoIdProjectOwner({this.id});
 
   factory GhRepoIdProjectOwner.fromJson(Map<String, dynamic> json) =>
       _$GhRepoIdProjectOwnerFromJson(json);
@@ -8239,7 +8314,7 @@ class GhRepoIdProjectOwner with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhRepoIdRegistryPackageOwner with EquatableMixin {
-  GhRepoIdRegistryPackageOwner();
+  GhRepoIdRegistryPackageOwner({this.id});
 
   factory GhRepoIdRegistryPackageOwner.fromJson(Map<String, dynamic> json) =>
       _$GhRepoIdRegistryPackageOwnerFromJson(json);
@@ -8256,7 +8331,7 @@ class GhRepoIdRegistryPackageOwner with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhRepoIdRegistryPackageSearch with EquatableMixin {
-  GhRepoIdRegistryPackageSearch();
+  GhRepoIdRegistryPackageSearch({this.id});
 
   factory GhRepoIdRegistryPackageSearch.fromJson(Map<String, dynamic> json) =>
       _$GhRepoIdRegistryPackageSearchFromJson(json);
@@ -8273,7 +8348,7 @@ class GhRepoIdRegistryPackageSearch with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhRepoIdSubscribable with EquatableMixin {
-  GhRepoIdSubscribable();
+  GhRepoIdSubscribable({this.id});
 
   factory GhRepoIdSubscribable.fromJson(Map<String, dynamic> json) =>
       _$GhRepoIdSubscribableFromJson(json);
@@ -8290,7 +8365,7 @@ class GhRepoIdSubscribable with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhRepoIdStarrable with EquatableMixin {
-  GhRepoIdStarrable();
+  GhRepoIdStarrable({this.id});
 
   factory GhRepoIdStarrable.fromJson(Map<String, dynamic> json) =>
       _$GhRepoIdStarrableFromJson(json);
@@ -8339,7 +8414,7 @@ class GhRepoIdRepositoryInfo with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhRepoIdArguments extends JsonSerializable with EquatableMixin {
-  GhRepoIdArguments({this.owner, this.name});
+  GhRepoIdArguments({@required this.owner, @required this.name});
 
   factory GhRepoIdArguments.fromJson(Map<String, dynamic> json) =>
       _$GhRepoIdArgumentsFromJson(json);
