@@ -32,8 +32,8 @@ class TimelineEventItem extends StatelessWidget {
         Icon(iconData, color: iconColor, size: 20),
         SizedBox(width: 12),
         Expanded(
-          child: RichText(
-            text: TextSpan(
+          child: Text.rich(
+            TextSpan(
               style:
                   TextStyle(color: theme.paletteOf(context).text, fontSize: 16),
               children: [

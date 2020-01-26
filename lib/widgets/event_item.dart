@@ -58,8 +58,8 @@ class EventItem extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: join(SizedBox(height: 6), [
-                    RichText(
-                      text: TextSpan(
+                    Text.rich(
+                      TextSpan(
                         style: TextStyle(
                           fontSize: 17,
                           color: theme.paletteOf(context).text,
@@ -119,8 +119,8 @@ class EventItem extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            RichText(
-              text: TextSpan(
+            Text.rich(
+              TextSpan(
                 style: TextStyle(
                     color: theme.paletteOf(context).text, fontSize: 15),
                 children: [

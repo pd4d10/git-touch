@@ -27,8 +27,8 @@ class TextContainsOrganization extends StatelessWidget {
       spans.add(TextSpan(text: chunks.last));
     }
 
-    return RichText(
-      text: TextSpan(children: spans, style: style),
+    return Text.rich(
+      TextSpan(children: spans, style: style),
       overflow: oneLine ? TextOverflow.ellipsis : TextOverflow.clip,
       maxLines: oneLine ? 1 : null,
     );
