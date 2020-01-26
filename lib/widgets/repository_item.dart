@@ -73,31 +73,34 @@ class RepositoryItem extends StatelessWidget {
                         linkUrl: '/$owner',
                       ),
                       SizedBox(width: 8),
-                      Row(
-                        children: <Widget>[
-                          Text(
-                            owner + ' / ',
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: theme.paletteOf(context).primary,
+                      Expanded(
+                        child: Text.rich(
+                          TextSpan(children: [
+                            TextSpan(
+                              text: '$owner / ',
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: theme.paletteOf(context).primary,
+                              ),
                             ),
-                          ),
-                          Text(
-                            name,
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: theme.paletteOf(context).primary,
-                              fontWeight: FontWeight.w600,
+                            TextSpan(
+                              text: name,
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: theme.paletteOf(context).primary,
+                                fontWeight: FontWeight.w600,
+                              ),
+                              // overflow: TextOverflow.ellipsis,
                             ),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ],
+                          ]),
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                       if (iconData != null) ...[
                         SizedBox(width: 6),
                         DefaultTextStyle(
                           child: Icon(iconData,
-                              size: 16,
+                              size: 18,
                               color: theme.paletteOf(context).secondaryText),
                           style: TextStyle(
                               color: theme.paletteOf(context).secondaryText),
