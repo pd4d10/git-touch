@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/widgets/link.dart';
-
-final style = TextStyle(fontWeight: FontWeight.w600);
+import 'package:provider/provider.dart';
 
 class UserName extends StatelessWidget {
   final String login;
@@ -10,6 +10,7 @@ class UserName extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Provider.of<ThemeModel>(context);
     return Link(
       url: '/$login',
       child: Container(
@@ -17,7 +18,13 @@ class UserName extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(4)),
         ),
-        child: Text(login, style: style),
+        child: Text(
+          login,
+          style: TextStyle(
+            fontWeight: FontWeight.w600,
+            color: theme.paletteOf(context).primary,
+          ),
+        ),
       ),
     );
   }
