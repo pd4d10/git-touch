@@ -5,6 +5,7 @@ import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/screens/users.dart';
 import 'package:git_touch/utils/utils.dart';
+import 'package:git_touch/widgets/action_entry.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/screens/repositories.dart';
 import 'package:git_touch/widgets/avatar.dart';
@@ -292,28 +293,28 @@ class UserScreen extends StatelessWidget {
           ],
         ),
         CommonStyle.verticalGap,
-        if (isViewer)
-          TableView(
-            hasIcon: true,
-            items: [
-              TableViewItem(
-                leftIconData: Icons.settings,
-                text: Text('Settings'),
-                url: '/settings',
-              ),
-              TableViewItem(
-                leftIconData: Icons.info_outline,
-                text: Text('About'),
-                url: '/about',
-              ),
-            ],
-          )
-        else
-          ..._buildPinnedItems(
-              p.pinnedItems.nodes
-                  .where((n) => n is GhUserRepository)
-                  .cast<GhUserRepository>(),
-              p.repositories.nodes),
+        // if (isViewer)
+        //   TableView(
+        //     hasIcon: true,
+        //     items: [
+        //       TableViewItem(
+        //         leftIconData: Icons.settings,
+        //         text: Text('Settings'),
+        //         url: '/settings',
+        //       ),
+        //       TableViewItem(
+        //         leftIconData: Icons.info_outline,
+        //         text: Text('About'),
+        //         url: '/about',
+        //       ),
+        //     ],
+        //   )
+        // else
+        ..._buildPinnedItems(
+            p.pinnedItems.nodes
+                .where((n) => n is GhUserRepository)
+                .cast<GhUserRepository>(),
+            p.repositories.nodes),
         CommonStyle.verticalGap,
       ],
     );
@@ -389,6 +390,7 @@ class UserScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthModel>(context);
+    final theme = Provider.of<ThemeModel>(context);
     return RefreshStatefulScaffold<GhUserRepositoryOwner>(
       fetchData: () async {
         final data = await auth.gqlClient.execute(GhUserQuery(
@@ -396,26 +398,36 @@ class UserScreen extends StatelessWidget {
         return isViewer ? data.data.viewer : data.data.repositoryOwner;
       },
       title: AppBarTitle(isViewer ? 'Me' : login),
-      actionBuilder: (payload, setState) {
-        switch (payload.resolveType) {
-          case 'User':
-            final user = payload as GhUserUser;
-            return ActionButton(
-              title: 'User Actions',
-              items: [...ActionItem.getUrlActions(user.url)],
-            );
-          case 'Organization':
-            final organization = payload as GhUserOrganization;
-            return ActionButton(
-              title: 'Organization Actions',
-              items: [
-                ...ActionItem.getUrlActions(organization.url),
-              ],
-            );
-          default:
-            return null;
-        }
-      },
+      action: isViewer
+          ? ActionEntry(
+              iconData: Icons.settings,
+              onTap: () {
+                theme.push(context, '/settings');
+              },
+            )
+          : null,
+      actionBuilder: isViewer
+          ? null
+          : (payload, setState) {
+              switch (payload.resolveType) {
+                case 'User':
+                  final user = payload as GhUserUser;
+                  return ActionButton(
+                    title: 'User Actions',
+                    items: [...ActionItem.getUrlActions(user.url)],
+                  );
+                case 'Organization':
+                  final organization = payload as GhUserOrganization;
+                  return ActionButton(
+                    title: 'Organization Actions',
+                    items: [
+                      ...ActionItem.getUrlActions(organization.url),
+                    ],
+                  );
+                default:
+                  return null;
+              }
+            },
       bodyBuilder: (payload, setState) {
         if (isViewer) {
           return _buildUser(context, payload as GhUserUser, setState);

@@ -151,6 +151,7 @@ query GhUser($login: String!, $isViewer: Boolean!) {
     }
   }
   viewer @include(if: $isViewer) {
+    id
     login
     avatarUrl
     url
@@ -159,8 +160,8 @@ query GhUser($login: String!, $isViewer: Boolean!) {
     company
     location
     email
-    websiteUrl
     createdAt
+    websiteUrl
     starredRepositories {
       totalCount
     }
@@ -168,9 +169,6 @@ query GhUser($login: String!, $isViewer: Boolean!) {
       totalCount
     }
     following {
-      totalCount
-    }
-    repositories {
       totalCount
     }
     contributionsCollection {
@@ -182,5 +180,60 @@ query GhUser($login: String!, $isViewer: Boolean!) {
         }
       }
     }
+    repositories(
+      first: 6
+      ownerAffiliations: OWNER
+      orderBy: { field: STARGAZERS, direction: DESC }
+    ) {
+      totalCount
+      nodes {
+        owner {
+          login
+          avatarUrl
+        }
+        name
+        description
+        isPrivate
+        isFork
+        stargazers {
+          totalCount
+        }
+        forks {
+          totalCount
+        }
+        primaryLanguage {
+          color
+          name
+        }
+      }
+    }
+    pinnedItems(first: 6) {
+      totalCount # TODO: Add this for correct generated code
+      nodes {
+        __typename
+        ... on Repository {
+          owner {
+            login
+            avatarUrl
+          }
+          name
+          description
+          isPrivate
+          isFork
+          stargazers {
+            totalCount
+          }
+          forks {
+            totalCount
+          }
+          primaryLanguage {
+            color
+            name
+          }
+        }
+      }
+    }
+    viewerCanFollow
+    viewerIsFollowing
   }
 }

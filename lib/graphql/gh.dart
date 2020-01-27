@@ -6310,6 +6310,12 @@ class GhUserQuery extends GraphQLQuery<GhUser, GhUserArguments> {
               ],
               selectionSet: SelectionSetNode(selections: [
                 FieldNode(
+                    name: NameNode(value: 'id'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
                     name: NameNode(value: 'login'),
                     alias: null,
                     arguments: [],
@@ -6358,13 +6364,13 @@ class GhUserQuery extends GraphQLQuery<GhUser, GhUserArguments> {
                     directives: [],
                     selectionSet: null),
                 FieldNode(
-                    name: NameNode(value: 'websiteUrl'),
+                    name: NameNode(value: 'createdAt'),
                     alias: null,
                     arguments: [],
                     directives: [],
                     selectionSet: null),
                 FieldNode(
-                    name: NameNode(value: 'createdAt'),
+                    name: NameNode(value: 'websiteUrl'),
                     alias: null,
                     arguments: [],
                     directives: [],
@@ -6397,19 +6403,6 @@ class GhUserQuery extends GraphQLQuery<GhUser, GhUserArguments> {
                     ])),
                 FieldNode(
                     name: NameNode(value: 'following'),
-                    alias: null,
-                    arguments: [],
-                    directives: [],
-                    selectionSet: SelectionSetNode(selections: [
-                      FieldNode(
-                          name: NameNode(value: 'totalCount'),
-                          alias: null,
-                          arguments: [],
-                          directives: [],
-                          selectionSet: null)
-                    ])),
-                FieldNode(
-                    name: NameNode(value: 'repositories'),
                     alias: null,
                     arguments: [],
                     directives: [],
@@ -6455,7 +6448,276 @@ class GhUserQuery extends GraphQLQuery<GhUser, GhUserArguments> {
                                       ]))
                                 ]))
                           ]))
-                    ]))
+                    ])),
+                FieldNode(
+                    name: NameNode(value: 'repositories'),
+                    alias: null,
+                    arguments: [
+                      ArgumentNode(
+                          name: NameNode(value: 'first'),
+                          value: IntValueNode(value: '6')),
+                      ArgumentNode(
+                          name: NameNode(value: 'ownerAffiliations'),
+                          value: EnumValueNode(name: NameNode(value: 'OWNER'))),
+                      ArgumentNode(
+                          name: NameNode(value: 'orderBy'),
+                          value: ObjectValueNode(fields: [
+                            ObjectFieldNode(
+                                name: NameNode(value: 'field'),
+                                value: EnumValueNode(
+                                    name: NameNode(value: 'STARGAZERS'))),
+                            ObjectFieldNode(
+                                name: NameNode(value: 'direction'),
+                                value: EnumValueNode(
+                                    name: NameNode(value: 'DESC')))
+                          ]))
+                    ],
+                    directives: [],
+                    selectionSet: SelectionSetNode(selections: [
+                      FieldNode(
+                          name: NameNode(value: 'totalCount'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'nodes'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: SelectionSetNode(selections: [
+                            FieldNode(
+                                name: NameNode(value: 'owner'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: SelectionSetNode(selections: [
+                                  FieldNode(
+                                      name: NameNode(value: 'login'),
+                                      alias: null,
+                                      arguments: [],
+                                      directives: [],
+                                      selectionSet: null),
+                                  FieldNode(
+                                      name: NameNode(value: 'avatarUrl'),
+                                      alias: null,
+                                      arguments: [],
+                                      directives: [],
+                                      selectionSet: null)
+                                ])),
+                            FieldNode(
+                                name: NameNode(value: 'name'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'description'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'isPrivate'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'isFork'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'stargazers'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: SelectionSetNode(selections: [
+                                  FieldNode(
+                                      name: NameNode(value: 'totalCount'),
+                                      alias: null,
+                                      arguments: [],
+                                      directives: [],
+                                      selectionSet: null)
+                                ])),
+                            FieldNode(
+                                name: NameNode(value: 'forks'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: SelectionSetNode(selections: [
+                                  FieldNode(
+                                      name: NameNode(value: 'totalCount'),
+                                      alias: null,
+                                      arguments: [],
+                                      directives: [],
+                                      selectionSet: null)
+                                ])),
+                            FieldNode(
+                                name: NameNode(value: 'primaryLanguage'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: SelectionSetNode(selections: [
+                                  FieldNode(
+                                      name: NameNode(value: 'color'),
+                                      alias: null,
+                                      arguments: [],
+                                      directives: [],
+                                      selectionSet: null),
+                                  FieldNode(
+                                      name: NameNode(value: 'name'),
+                                      alias: null,
+                                      arguments: [],
+                                      directives: [],
+                                      selectionSet: null)
+                                ]))
+                          ]))
+                    ])),
+                FieldNode(
+                    name: NameNode(value: 'pinnedItems'),
+                    alias: null,
+                    arguments: [
+                      ArgumentNode(
+                          name: NameNode(value: 'first'),
+                          value: IntValueNode(value: '6'))
+                    ],
+                    directives: [],
+                    selectionSet: SelectionSetNode(selections: [
+                      FieldNode(
+                          name: NameNode(value: 'totalCount'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'nodes'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: SelectionSetNode(selections: [
+                            FieldNode(
+                                name: NameNode(value: '__typename'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            InlineFragmentNode(
+                                typeCondition: TypeConditionNode(
+                                    on: NamedTypeNode(
+                                        name: NameNode(value: 'Repository'),
+                                        isNonNull: false)),
+                                directives: [],
+                                selectionSet: SelectionSetNode(selections: [
+                                  FieldNode(
+                                      name: NameNode(value: 'owner'),
+                                      alias: null,
+                                      arguments: [],
+                                      directives: [],
+                                      selectionSet:
+                                          SelectionSetNode(selections: [
+                                        FieldNode(
+                                            name: NameNode(value: 'login'),
+                                            alias: null,
+                                            arguments: [],
+                                            directives: [],
+                                            selectionSet: null),
+                                        FieldNode(
+                                            name: NameNode(value: 'avatarUrl'),
+                                            alias: null,
+                                            arguments: [],
+                                            directives: [],
+                                            selectionSet: null)
+                                      ])),
+                                  FieldNode(
+                                      name: NameNode(value: 'name'),
+                                      alias: null,
+                                      arguments: [],
+                                      directives: [],
+                                      selectionSet: null),
+                                  FieldNode(
+                                      name: NameNode(value: 'description'),
+                                      alias: null,
+                                      arguments: [],
+                                      directives: [],
+                                      selectionSet: null),
+                                  FieldNode(
+                                      name: NameNode(value: 'isPrivate'),
+                                      alias: null,
+                                      arguments: [],
+                                      directives: [],
+                                      selectionSet: null),
+                                  FieldNode(
+                                      name: NameNode(value: 'isFork'),
+                                      alias: null,
+                                      arguments: [],
+                                      directives: [],
+                                      selectionSet: null),
+                                  FieldNode(
+                                      name: NameNode(value: 'stargazers'),
+                                      alias: null,
+                                      arguments: [],
+                                      directives: [],
+                                      selectionSet:
+                                          SelectionSetNode(selections: [
+                                        FieldNode(
+                                            name: NameNode(value: 'totalCount'),
+                                            alias: null,
+                                            arguments: [],
+                                            directives: [],
+                                            selectionSet: null)
+                                      ])),
+                                  FieldNode(
+                                      name: NameNode(value: 'forks'),
+                                      alias: null,
+                                      arguments: [],
+                                      directives: [],
+                                      selectionSet:
+                                          SelectionSetNode(selections: [
+                                        FieldNode(
+                                            name: NameNode(value: 'totalCount'),
+                                            alias: null,
+                                            arguments: [],
+                                            directives: [],
+                                            selectionSet: null)
+                                      ])),
+                                  FieldNode(
+                                      name: NameNode(value: 'primaryLanguage'),
+                                      alias: null,
+                                      arguments: [],
+                                      directives: [],
+                                      selectionSet:
+                                          SelectionSetNode(selections: [
+                                        FieldNode(
+                                            name: NameNode(value: 'color'),
+                                            alias: null,
+                                            arguments: [],
+                                            directives: [],
+                                            selectionSet: null),
+                                        FieldNode(
+                                            name: NameNode(value: 'name'),
+                                            alias: null,
+                                            arguments: [],
+                                            directives: [],
+                                            selectionSet: null)
+                                      ]))
+                                ]))
+                          ]))
+                    ])),
+                FieldNode(
+                    name: NameNode(value: 'viewerCanFollow'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'viewerIsFollowing'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null)
               ]))
         ]))
   ]);
