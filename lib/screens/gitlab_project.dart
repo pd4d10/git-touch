@@ -41,8 +41,7 @@ class GitlabProjectScreen extends StatelessWidget {
         return ActionButton(
           title: 'Project Actions',
           items: [
-            ActionItem.share(data.webUrl),
-            ActionItem.launch(data.webUrl),
+            ...ActionItem.getUrlActions(data.webUrl),
           ],
         );
       },

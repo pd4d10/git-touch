@@ -130,8 +130,7 @@ class RepositoryScreen extends StatelessWidget {
               text: 'Releases(${repo.releases.totalCount})',
               url: 'https://github.com/$owner/$name/releases',
             ),
-            ActionItem.share(repo.url),
-            ActionItem.launch(repo.url),
+            ...ActionItem.getUrlActions(repo.url),
           ],
         );
       },

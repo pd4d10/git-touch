@@ -18,16 +18,22 @@ class ActionItem {
     this.iconData,
   });
 
-  ActionItem.share(String url)
-      : text = 'Share',
-        onTap = ((_) {
+  static List<ActionItem> getUrlActions(String url) {
+    return [
+      ActionItem(
+        text: 'Share',
+        onTap: (_) {
           Share.share(url);
-        });
-  ActionItem.launch(String url)
-      : text = 'Open in Browser',
-        onTap = ((_) {
+        },
+      ),
+      ActionItem(
+        text: 'Open in Browser',
+        onTap: (_) {
           launchUrl(url);
-        });
+        },
+      ),
+    ];
+  }
 }
 
 class ActionButton extends StatelessWidget {

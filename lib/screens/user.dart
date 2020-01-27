@@ -402,20 +402,14 @@ class UserScreen extends StatelessWidget {
             final user = payload as GhUserUser;
             return ActionButton(
               title: 'User Actions',
-              items: [
-                ActionItem.share(user.url),
-                ActionItem.launch(user.url),
-              ],
+              items: [...ActionItem.getUrlActions(user.url)],
             );
           case 'Organization':
             final organization = payload as GhUserOrganization;
             return ActionButton(
               title: 'Organization Actions',
               items: [
-                if (payload != null) ...[
-                  ActionItem.share(organization.url),
-                  ActionItem.launch(organization.url),
-                ],
+                ...ActionItem.getUrlActions(organization.url),
               ],
             );
           default:

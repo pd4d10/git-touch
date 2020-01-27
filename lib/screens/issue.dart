@@ -401,8 +401,7 @@ mutation {
                     });
                   },
                 ),
-              ActionItem.share(payload['url']),
-              ActionItem.launch(payload['url']),
+              ...ActionItem.getUrlActions(payload['url'] as String),
             ],
           ],
         );
