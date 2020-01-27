@@ -393,7 +393,7 @@ class RepositoryScreen extends StatelessWidget {
                             items: refs
                                 .map((b) => PickerItem(b.name, text: b.name))
                                 .toList(),
-                            onClose: (ref) {
+                            onChange: (ref) {
                               if (ref != branch) {
                                 Provider.of<ThemeModel>(context).push(
                                     context, '/$owner/$name?ref=$ref',
