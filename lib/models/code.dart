@@ -9,19 +9,19 @@ class CodeModel with ChangeNotifier {
   static const fontSizes = [12, 13, 14, 15, 16, 17, 18, 19, 20];
   static const fontFamilies = [
     'System',
+    'JetBrains Mono',
     'Fira Code',
     'Inconsolata',
     'PT Mono',
     'Source Code Pro',
     'Ubuntu Mono',
     'Cascadia Code',
-    'JetBrains Mono',
   ];
 
   String _theme = 'tomorrow';
   String _themeDark = 'tomorrow-night';
   int _fontSize = 14;
-  String _fontFamily = 'System';
+  String _fontFamily = 'JetBrains Mono';
 
   String get theme => _theme;
   String get themeDark => _themeDark;
