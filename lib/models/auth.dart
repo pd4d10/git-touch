@@ -12,10 +12,11 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../utils/constants.dart';
 import '../utils/utils.dart';
 import 'account.dart';
 import 'gitlab.dart';
+
+const clientId = 'df930d7d2e219f26142a';
 
 class PlatformType {
   static const github = 'github';
@@ -64,14 +65,13 @@ class AuthModel with ChangeNotifier {
 
     // Get token by code
     final res = await http.post(
-      'https://github.com/login/oauth/access_token',
+      'https://git-touch-oauth.now.sh/api/token',
       headers: {
         HttpHeaders.acceptHeader: 'application/json',
         HttpHeaders.contentTypeHeader: 'application/json',
       },
       body: json.encode({
         'client_id': clientId,
-        'client_secret': clientSecret,
         'code': uri.queryParameters['code'],
         'state': _oauthState,
       }),
