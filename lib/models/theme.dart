@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/action_button.dart';
+import 'package:primer/primer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DialogOption<T> {
@@ -138,16 +139,16 @@ class ThemeModel with ChangeNotifier {
   final router = Router();
 
   final paletteLight = Palette(
-    primary: Colors.blueAccent.shade700,
+    primary: PrimerColors.blue500,
     text: Colors.black,
     secondaryText: Colors.grey.shade800,
     tertiaryText: Colors.grey.shade600,
     background: Colors.white,
     grayBackground: Colors.grey.shade100,
-    border: Colors.grey.shade400,
+    border: Colors.grey.shade300,
   );
   final paletteDark = Palette(
-    primary: Colors.blueAccent.shade200,
+    primary: PrimerColors.blue500,
     text: Colors.grey.shade300,
     secondaryText: Colors.grey.shade400,
     tertiaryText: Colors.grey.shade500,

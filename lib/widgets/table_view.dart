@@ -96,7 +96,7 @@ class TableView extends StatelessWidget {
                       if (item.rightWidget != null) ...[
                         DefaultTextStyle(
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: 17,
                             color: theme.paletteOf(context).tertiaryText,
                           ),
                           child: item.rightWidget,

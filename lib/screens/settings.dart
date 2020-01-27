@@ -86,17 +86,11 @@ class SettingsScreen extends StatelessWidget {
                 ]);
               },
             ),
+            TableViewItem(
+              text: Text('Code Theme'),
+              url: '/choose-code-theme',
+            ),
           ]),
-          CommonStyle.verticalGap,
-          TableView(
-            headerText: 'CODE VIEW',
-            items: [
-              TableViewItem(
-                text: Text('Code settings'),
-                url: '/choose-code-theme',
-              ),
-            ],
-          ),
         ],
       ),
     );

@@ -56,7 +56,7 @@ class UserItem extends StatelessWidget {
                         style: TextStyle(
                           color: theme.paletteOf(context).primary,
                           fontSize: 18,
-                          // fontWeight: FontWeight.w600,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                     ],
@@ -66,7 +66,7 @@ class UserItem extends StatelessWidget {
                     DefaultTextStyle(
                       style: TextStyle(
                         color: theme.paletteOf(context).secondaryText,
-                        fontSize: 15,
+                        fontSize: 16,
                       ),
                       child: bio,
                     ),
