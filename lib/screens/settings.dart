@@ -58,6 +58,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
               url: '/login',
               rightWidget: Text(auth.activeAccount.login),
             ),
+            TableViewItem(
+              text: Text('Review Permissions'),
+              url:
+                  'https://github.com/settings/connections/applications/$clientId',
+              rightWidget: Text(auth.activeAccount.login),
+            ),
           ]),
           CommonStyle.verticalGap,
           TableView(headerText: 'theme', items: [
