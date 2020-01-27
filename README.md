@@ -20,8 +20,8 @@ Android users can also download APK file from [release page](https://github.com/
 ## Screenshots
 
 <p>
-  <img src="assets/screenshot-ios.png" alt="iOS screenshot" width="400" />
-  <img src="assets/screenshot-android.png" alt="Android screenshot" width="400" />
+  <img src="assets/screenshot-dark.png" alt="Dark screenshot" width="400" />
+  <img src="assets/screenshot-light.png" alt="Light screenshot" width="400" />
 </p>
 
 ## Contributing
@@ -55,6 +55,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
