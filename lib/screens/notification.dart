@@ -114,7 +114,7 @@ ${item.key}: pullRequest(number: ${item.subject.number}) {
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,
-              color: theme.paletteOf(context).text,
+              color: theme.palette.text,
             ),
           ),
           GestureDetector(
@@ -125,7 +125,7 @@ ${item.key}: pullRequest(number: ${item.subject.number}) {
             },
             child: Icon(
               Octicons.check,
-              color: theme.paletteOf(context).tertiaryText,
+              color: theme.palette.tertiaryText,
               size: 24,
             ),
           ),

@@ -19,7 +19,7 @@ class EventItem extends StatelessWidget {
     final theme = Provider.of<ThemeModel>(context);
     return TextSpan(
       text: text,
-      style: TextStyle(color: theme.paletteOf(context).primary),
+      style: TextStyle(color: theme.palette.primary),
       recognizer: TapGestureRecognizer()
         ..onTap = () {
           theme.push(context, url);
@@ -62,7 +62,7 @@ class EventItem extends StatelessWidget {
                       TextSpan(
                         style: TextStyle(
                           fontSize: 17,
-                          color: theme.paletteOf(context).text,
+                          color: theme.palette.text,
                         ),
                         children: [
                           _buildLinkSpan(
@@ -77,7 +77,7 @@ class EventItem extends StatelessWidget {
                         Text(timeago.format(e.createdAt),
                             style: TextStyle(
                               fontSize: 14,
-                              color: theme.paletteOf(context).tertiaryText,
+                              color: theme.palette.tertiaryText,
                             )),
                       ],
                     ),
@@ -99,7 +99,7 @@ class EventItem extends StatelessWidget {
       spans: [
         TextSpan(
           text: ' ' + e.type,
-          style: TextStyle(color: theme.paletteOf(context).primary),
+          style: TextStyle(color: theme.palette.primary),
         )
       ],
       card: Text('Woops, ${e.type} not implemented yet'),
@@ -114,15 +114,14 @@ class EventItem extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(12),
         decoration: BoxDecoration(
-            color: theme.paletteOf(context).grayBackground,
+            color: theme.palette.grayBackground,
             borderRadius: BorderRadius.all(Radius.circular(4))),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text.rich(
               TextSpan(
-                style: TextStyle(
-                    color: theme.paletteOf(context).text, fontSize: 15),
+                style: TextStyle(color: theme.palette.text, fontSize: 15),
                 children: [
                   TextSpan(
                       text:
@@ -141,7 +140,7 @@ class EventItem extends StatelessWidget {
                   Text(
                     commit.sha.substring(0, 7),
                     style: TextStyle(
-                      color: theme.paletteOf(context).primary,
+                      color: theme.palette.primary,
                       fontSize: 15,
                       fontFamily: CommonStyle.monospace,
                     ),
@@ -152,8 +151,7 @@ class EventItem extends StatelessWidget {
                       commit.message,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
-                      style: TextStyle(
-                          color: theme.paletteOf(context).text, fontSize: 15),
+                      style: TextStyle(color: theme.palette.text, fontSize: 15),
                     ),
                   )
                 ],
@@ -192,7 +190,7 @@ class EventItem extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(12),
         decoration: BoxDecoration(
-            color: theme.paletteOf(context).grayBackground,
+            color: theme.palette.grayBackground,
             borderRadius: BorderRadius.all(Radius.circular(4))),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -207,7 +205,7 @@ class EventItem extends StatelessWidget {
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 17,
-                      color: theme.paletteOf(context).text,
+                      color: theme.palette.text,
                     ),
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -219,9 +217,8 @@ class EventItem extends StatelessWidget {
                 body,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 3,
-                style: TextStyle(
-                    color: theme.paletteOf(context).secondaryText,
-                    fontSize: 15),
+                style:
+                    TextStyle(color: theme.palette.secondaryText, fontSize: 15),
               ),
             Row(
               children: <Widget>[
@@ -230,20 +227,20 @@ class EventItem extends StatelessWidget {
                 Text(issue.user.login,
                     style: TextStyle(
                       fontSize: 14,
-                      color: theme.paletteOf(context).tertiaryText,
+                      color: theme.palette.tertiaryText,
                     )),
                 Expanded(child: Container()),
                 if (issue.comments != null) ...[
                   Icon(
                     Octicons.comment,
                     size: 14,
-                    color: theme.paletteOf(context).tertiaryText,
+                    color: theme.palette.tertiaryText,
                   ),
                   SizedBox(width: 4),
                   Text(issue.comments.toString(),
                       style: TextStyle(
                         fontSize: 14,
-                        color: theme.paletteOf(context).tertiaryText,
+                        color: theme.palette.tertiaryText,
                       )),
                 ]
               ],

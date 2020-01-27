@@ -22,7 +22,7 @@ class UserName extends StatelessWidget {
           login,
           style: TextStyle(
             fontWeight: FontWeight.w600,
-            color: theme.paletteOf(context).primary,
+            color: theme.palette.primary,
           ),
         ),
       ),

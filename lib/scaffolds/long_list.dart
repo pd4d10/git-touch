@@ -134,21 +134,20 @@ class _LongListStatefulScaffoldState<T, K>
             child: Container(
               padding: CommonStyle.padding,
               decoration: BoxDecoration(
-                border: Border.all(color: theme.paletteOf(context).text),
+                border: Border.all(color: theme.palette.text),
               ),
               child: Column(
                 children: <Widget>[
                   Text('$count hidden items',
-                      style: TextStyle(
-                          color: theme.paletteOf(context).text, fontSize: 15)),
+                      style:
+                          TextStyle(color: theme.palette.text, fontSize: 15)),
                   Padding(padding: EdgeInsets.only(top: 4)),
                   loadingMore
                       ? CupertinoActivityIndicator()
                       : Text(
                           'Load more...',
                           style: TextStyle(
-                              color: theme.paletteOf(context).primary,
-                              fontSize: 16),
+                              color: theme.palette.primary, fontSize: 16),
                         ),
                 ],
               ),

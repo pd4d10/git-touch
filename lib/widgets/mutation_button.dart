@@ -17,7 +17,7 @@ class MutationButton extends StatelessWidget {
     return CupertinoButton(
       onPressed: onPressed,
       minSize: 0,
-      color: theme.paletteOf(context).primary,
+      color: theme.palette.primary,
       padding: EdgeInsets.symmetric(
         horizontal: 12,
         vertical: 4,
@@ -27,7 +27,7 @@ class MutationButton extends StatelessWidget {
         text,
         style: TextStyle(
           fontSize: 17,
-          color: theme.paletteOf(context).background,
+          color: theme.palette.background,
         ),
       ),
     );

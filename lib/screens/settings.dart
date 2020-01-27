@@ -39,7 +39,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget _buildRightWidget(BuildContext context, bool checked) {
     final theme = Provider.of<ThemeModel>(context);
     if (!checked) return null;
-    return Icon(Icons.check, color: theme.paletteOf(context).primary, size: 24);
+    return Icon(Icons.check, color: theme.palette.primary, size: 24);
   }
 
   @override

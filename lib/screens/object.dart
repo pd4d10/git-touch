@@ -152,7 +152,7 @@ class ObjectScreen extends StatelessWidget {
                 return PhotoView(
                   imageProvider: NetworkImage(rawUrl),
                   backgroundDecoration:
-                      BoxDecoration(color: theme.paletteOf(context).background),
+                      BoxDecoration(color: theme.palette.background),
                 );
               case 'md':
               case 'markdown':

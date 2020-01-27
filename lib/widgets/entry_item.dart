@@ -31,14 +31,14 @@ class EntryItem extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 17,
                   fontWeight: FontWeight.w600,
-                  color: theme.paletteOf(context).text,
+                  color: theme.palette.text,
                 ),
               ),
               Text(
                 text,
                 style: TextStyle(
                   fontSize: 14,
-                  color: theme.paletteOf(context).secondaryText,
+                  color: theme.palette.secondaryText,
                   fontWeight: FontWeight.w500,
                 ),
               )

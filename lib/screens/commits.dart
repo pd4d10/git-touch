@@ -79,7 +79,7 @@ class CommitsScreen extends StatelessWidget {
                         payload.messageHeadline,
                         style: TextStyle(
                           fontSize: 17,
-                          color: theme.paletteOf(context).text,
+                          color: theme.palette.text,
                         ),
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -93,7 +93,7 @@ class CommitsScreen extends StatelessWidget {
                           Text(
                             ' committed ${timeago.format(payload.committedDate)}',
                             style: TextStyle(
-                              color: theme.paletteOf(context).secondaryText,
+                              color: theme.palette.secondaryText,
                               fontSize: 15,
                             ),
                           ),

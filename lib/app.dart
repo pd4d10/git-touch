@@ -20,8 +20,8 @@ class MyApp extends StatelessWidget {
             brightness: theme.brightness,
             primaryColor:
                 theme.brightness == Brightness.dark ? null : Colors.white,
-            accentColor: theme.paletteOf(context).primary,
-            scaffoldBackgroundColor: theme.paletteOf(context).background,
+            accentColor: theme.palette.primary,
+            scaffoldBackgroundColor: theme.palette.background,
           ),
           home: Home(),
         );

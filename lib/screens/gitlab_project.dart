@@ -84,7 +84,7 @@ class GitlabProjectScreen extends StatelessWidget {
             CommonStyle.verticalGap,
             if (data.languages.isNotEmpty)
               Container(
-                color: theme.paletteOf(context).background,
+                color: theme.palette.background,
                 padding: CommonStyle.padding.copyWith(top: 8, bottom: 8),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(2),
@@ -131,7 +131,7 @@ class GitlabProjectScreen extends StatelessWidget {
             if (data.readme != null)
               Container(
                 padding: CommonStyle.padding,
-                color: theme.paletteOf(context).background,
+                color: theme.palette.background,
                 child: MarkdownView(data.readme),
               ),
             CommonStyle.verticalGap,

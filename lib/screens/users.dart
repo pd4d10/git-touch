@@ -104,7 +104,7 @@ class UsersScreen extends StatelessWidget {
           Icon(
             Octicons.organization,
             size: 15,
-            color: theme.paletteOf(context).secondaryText,
+            color: theme.palette.secondaryText,
           ),
           SizedBox(width: 4),
           Text(company),
@@ -117,7 +117,7 @@ class UsersScreen extends StatelessWidget {
           Icon(
             Octicons.location,
             size: 15,
-            color: theme.paletteOf(context).secondaryText,
+            color: theme.palette.secondaryText,
           ),
           SizedBox(width: 4),
           Text(location),
@@ -129,7 +129,7 @@ class UsersScreen extends StatelessWidget {
         Icon(
           Octicons.clock,
           size: 15,
-          color: theme.paletteOf(context).secondaryText,
+          color: theme.palette.secondaryText,
         ),
         SizedBox(width: 4),
         Text('Joined on ${dateFormat.format(createdAt)}'),

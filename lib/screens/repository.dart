@@ -62,7 +62,7 @@ class RepositoryScreen extends StatelessWidget {
   Widget _buildLanguages(BuildContext context, GhRepoRepository repo) {
     final theme = Provider.of<ThemeModel>(context);
     return Container(
-      color: theme.paletteOf(context).background,
+      color: theme.palette.background,
       padding: CommonStyle.padding,
       height: 300,
       child: SingleChildScrollView(
@@ -84,7 +84,7 @@ class RepositoryScreen extends StatelessWidget {
                   Text(
                     edge.node.name,
                     style: TextStyle(
-                      color: theme.paletteOf(context).text,
+                      color: theme.palette.text,
                       fontSize: 18,
                     ),
                   ),
@@ -95,7 +95,7 @@ class RepositoryScreen extends StatelessWidget {
                 child: Text(
                   '${(edge.size / repo.languages.totalSize * 100).toStringAsFixed(1)}%',
                   style: TextStyle(
-                    color: theme.paletteOf(context).secondaryText,
+                    color: theme.palette.secondaryText,
                     fontSize: 18,
                   ),
                 ),
@@ -170,7 +170,7 @@ class RepositoryScreen extends StatelessWidget {
                         '$owner / $name',
                         style: TextStyle(
                           fontSize: 20,
-                          color: theme.paletteOf(context).primary,
+                          color: theme.palette.primary,
                         ),
                       ),
                     ],
@@ -250,7 +250,7 @@ class RepositoryScreen extends StatelessWidget {
                     Text(
                       repo.description,
                       style: TextStyle(
-                        color: theme.paletteOf(context).secondaryText,
+                        color: theme.palette.secondaryText,
                         fontSize: 17,
                       ),
                     ),
@@ -260,7 +260,7 @@ class RepositoryScreen extends StatelessWidget {
                       child: Text(
                         repo.homepageUrl,
                         style: TextStyle(
-                          color: theme.paletteOf(context).primary,
+                          color: theme.palette.primary,
                           fontSize: 17,
                         ),
                       ),
@@ -274,8 +274,8 @@ class RepositoryScreen extends StatelessWidget {
                         return MyLabel(
                           name: node.topic.name,
                           // color: Colors.blue.shade50,
-                          color: theme.paletteOf(context).grayBackground,
-                          textColor: theme.paletteOf(context).primary,
+                          color: theme.palette.grayBackground,
+                          textColor: theme.palette.primary,
                         );
                       }).toList(),
                     )
@@ -314,7 +314,7 @@ class RepositoryScreen extends StatelessWidget {
                   );
                 },
                 child: Container(
-                  // color: theme.paletteOf(context).background,
+                  // color: theme.palette.background,
                   padding: CommonStyle.padding.copyWith(top: 8, bottom: 8),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(5),
@@ -410,7 +410,7 @@ class RepositoryScreen extends StatelessWidget {
             if (readme != null)
               Container(
                 padding: CommonStyle.padding,
-                color: theme.paletteOf(context).background,
+                color: theme.palette.background,
                 child: MarkdownView(
                   readme,
                   basePaths: [owner, name, branch ?? 'master'], // TODO:

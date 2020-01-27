@@ -108,7 +108,7 @@ class UserScreen extends StatelessWidget {
             Text(
               name,
               style: TextStyle(
-                color: theme.paletteOf(context).text,
+                color: theme.palette.text,
                 fontSize: 20,
                 fontWeight: FontWeight.w600,
               ),
@@ -118,7 +118,7 @@ class UserScreen extends StatelessWidget {
           Text(
             login,
             style: TextStyle(
-              color: theme.paletteOf(context).primary,
+              color: theme.palette.primary,
               fontSize: 18,
             ),
           ),
@@ -128,13 +128,13 @@ class UserScreen extends StatelessWidget {
               Icon(
                 Octicons.clock,
                 size: 16,
-                color: theme.paletteOf(context).tertiaryText,
+                color: theme.palette.tertiaryText,
               ),
               SizedBox(width: 4),
               Text(
                 'Joined on ${dateFormat.format(createdAt)}',
                 style: TextStyle(
-                  color: theme.paletteOf(context).tertiaryText,
+                  color: theme.palette.tertiaryText,
                   fontSize: 16,
                 ),
               ),
@@ -145,7 +145,7 @@ class UserScreen extends StatelessWidget {
             Text(
               bio,
               style: TextStyle(
-                color: theme.paletteOf(context).secondaryText,
+                color: theme.palette.secondaryText,
                 fontSize: 17,
               ),
             )
@@ -256,8 +256,7 @@ class UserScreen extends StatelessWidget {
                 leftIconData: Octicons.organization,
                 text: TextContainsOrganization(
                   p.company,
-                  style: TextStyle(
-                      fontSize: 17, color: theme.paletteOf(context).text),
+                  style: TextStyle(fontSize: 17, color: theme.palette.text),
                   oneLine: true,
                 ),
               ),

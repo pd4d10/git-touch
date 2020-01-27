@@ -39,8 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
       child: Container(
         padding: CommonStyle.padding,
         decoration: BoxDecoration(
-          border: Border(
-              bottom: BorderSide(color: theme.paletteOf(context).border)),
+          border: Border(bottom: BorderSide(color: theme.palette.border)),
         ),
         child: Row(
           children: <Widget>[
@@ -72,8 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 20),
         decoration: BoxDecoration(
-          border: Border(
-              bottom: BorderSide(color: theme.paletteOf(context).border)),
+          border: Border(bottom: BorderSide(color: theme.palette.border)),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -130,8 +128,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             Text(
                               'user, repo, read:org, notifications',
                               style: TextStyle(
-                                  fontSize: 16,
-                                  color: theme.paletteOf(context).primary),
+                                  fontSize: 16, color: theme.palette.primary),
                             )
                           ],
                         ),
@@ -181,7 +178,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   //           Text(
                   //             'api, read_user, read_repository',
                   //             style: TextStyle(
-                  //                 fontSize: 16, color: theme.paletteOf(context).primary),
+                  //                 fontSize: 16, color: theme.palette.primary),
                   //           )
                   //         ],
                   //       ),

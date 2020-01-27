@@ -72,7 +72,7 @@ class _HomeState extends State<Home> {
             right: -2,
             top: -2,
             child: Icon(Octicons.primitive_dot,
-                color: theme.paletteOf(context).primary, size: 14))
+                color: theme.palette.primary, size: 14))
       ],
     );
   }
@@ -141,7 +141,7 @@ class _HomeState extends State<Home> {
         return Scaffold(
           body: _buildScreen(active),
           bottomNavigationBar: BottomNavigationBar(
-            selectedItemColor: theme.paletteOf(context).primary,
+            selectedItemColor: theme.palette.primary,
             items: _navigationItems,
             currentIndex: active,
             type: BottomNavigationBarType.fixed,

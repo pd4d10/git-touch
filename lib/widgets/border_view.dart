@@ -21,7 +21,7 @@ class BorderView extends StatelessWidget {
         margin: EdgeInsets.only(left: leftPadding),
         decoration: BoxDecoration(
           border: Border(
-            top: BorderSide(color: theme.paletteOf(context).border, width: 0),
+            top: BorderSide(color: theme.palette.border, width: 0),
           ),
         ),
       );
@@ -33,15 +33,14 @@ class BorderView extends StatelessWidget {
           width: leftPadding,
           height: height,
           child: DecoratedBox(
-            decoration:
-                BoxDecoration(color: theme.paletteOf(context).background),
+            decoration: BoxDecoration(color: theme.palette.background),
           ),
         ),
         Expanded(
           child: SizedBox(
             height: height,
             child: DecoratedBox(
-              decoration: BoxDecoration(color: theme.paletteOf(context).border),
+              decoration: BoxDecoration(color: theme.palette.border),
             ),
           ),
         ),

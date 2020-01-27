@@ -157,14 +157,13 @@ class ThemeModel with ChangeNotifier {
     border: Colors.grey.shade700,
   );
 
-  Palette paletteOf(BuildContext context) {
+  Palette get palette {
     switch (brightness) {
-      case Brightness.light:
-        return paletteLight;
       case Brightness.dark:
         return paletteDark;
+      case Brightness.light:
       default:
-        throw 'brightnessOf should not return null';
+        return paletteLight;
     }
   }
 
@@ -364,7 +363,7 @@ class ThemeModel with ChangeNotifier {
             return Container(
               height: 216,
               child: CupertinoPicker(
-                backgroundColor: paletteOf(context).background,
+                backgroundColor: palette.background,
                 children: groupItem.items.map((v) => Text(v.text)).toList(),
                 itemExtent: 40,
                 scrollController: FixedExtentScrollController(

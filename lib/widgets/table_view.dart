@@ -18,8 +18,7 @@ class TableViewHeader extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       child: Text(
         title.toUpperCase(),
-        style: TextStyle(
-            color: theme.paletteOf(context).secondaryText, fontSize: 13),
+        style: TextStyle(color: theme.palette.secondaryText, fontSize: 13),
       ),
     );
   }
@@ -72,7 +71,7 @@ class TableView extends StatelessWidget {
             if (leftWidget == null && hasIcon) {
               leftWidget = Icon(
                 item.leftIconData,
-                color: theme.paletteOf(context).primary,
+                color: theme.palette.primary,
                 size: 20,
               );
             }
@@ -81,8 +80,7 @@ class TableView extends StatelessWidget {
               onTap: item.onTap,
               url: item.url,
               child: DefaultTextStyle(
-                style: TextStyle(
-                    fontSize: 17, color: theme.paletteOf(context).text),
+                style: TextStyle(fontSize: 17, color: theme.palette.text),
                 overflow: TextOverflow.ellipsis,
                 child: Container(
                   height: 44,
@@ -97,7 +95,7 @@ class TableView extends StatelessWidget {
                         DefaultTextStyle(
                           style: TextStyle(
                             fontSize: 17,
-                            color: theme.paletteOf(context).tertiaryText,
+                            color: theme.palette.tertiaryText,
                           ),
                           child: item.rightWidget,
                         ),
@@ -106,8 +104,7 @@ class TableView extends StatelessWidget {
                       if ((item.onTap != null || item.url != null) &&
                           !item.hideRightChevron)
                         Icon(CupertinoIcons.right_chevron,
-                            size: 20,
-                            color: theme.paletteOf(context).tertiaryText)
+                            size: 20, color: theme.palette.tertiaryText)
                       else
                         SizedBox(width: 2),
                       SizedBox(width: 8),

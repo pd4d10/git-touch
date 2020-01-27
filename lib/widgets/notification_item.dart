@@ -71,9 +71,8 @@ class _NotificationItemState extends State<NotificationItem> {
     final theme = Provider.of<ThemeModel>(context);
     return Icon(
       payload.unread ? Octicons.check : Octicons.primitive_dot,
-      color: loading
-          ? theme.paletteOf(context).grayBackground
-          : theme.paletteOf(context).tertiaryText,
+      color:
+          loading ? theme.palette.grayBackground : theme.palette.tertiaryText,
       size: 24,
     );
   }
@@ -134,8 +133,7 @@ class _NotificationItemState extends State<NotificationItem> {
                 child: Text(
                   payload.subject.title,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                      fontSize: 15, color: theme.paletteOf(context).text),
+                  style: TextStyle(fontSize: 15, color: theme.palette.text),
                 ),
               ),
               Link(child: _buildCheckIcon(), onTap: _markAsRead),

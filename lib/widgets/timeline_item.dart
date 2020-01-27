@@ -34,8 +34,7 @@ class TimelineEventItem extends StatelessWidget {
         Expanded(
           child: Text.rich(
             TextSpan(
-              style:
-                  TextStyle(color: theme.paletteOf(context).text, fontSize: 16),
+              style: TextStyle(color: theme.palette.text, fontSize: 16),
               children: [
                 // TODO: actor is null
                 createUserSpan(context, actor),
@@ -288,12 +287,12 @@ class TimelineItem extends StatelessWidget {
               TextSpan(text: ' branch from '),
               TextSpan(
                 text: (p['beforeCommit']['oid'] as String).substring(0, 7),
-                style: TextStyle(color: theme.paletteOf(context).primary),
+                style: TextStyle(color: theme.palette.primary),
               ),
               TextSpan(text: ' to '),
               TextSpan(
                 text: (p['afterCommit']['oid'] as String).substring(0, 7),
-                style: TextStyle(color: theme.paletteOf(context).primary),
+                style: TextStyle(color: theme.palette.primary),
               ),
             ],
           ),
