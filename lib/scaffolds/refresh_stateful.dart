@@ -47,9 +47,9 @@ class _RefreshStatefulScaffoldState<T>
         _loading = true;
       });
       _data = await widget.fetchData();
-      // } catch (err) {
-      //   _error = err.toString();
-      //   throw err;
+    } catch (err) {
+      _error = err.toString();
+      throw err;
     } finally {
       if (mounted) {
         setState(() {
