@@ -11,6 +11,7 @@ import 'package:git_touch/screens/gitlab_blob.dart';
 import 'package:git_touch/screens/gitlab_commits.dart';
 import 'package:git_touch/screens/gitlab_issue.dart';
 import 'package:git_touch/screens/gitlab_issues.dart';
+import 'package:git_touch/screens/gitlab_merge_requests.dart';
 import 'package:git_touch/screens/gitlab_project.dart';
 import 'package:git_touch/screens/gitlab_tree.dart';
 import 'package:git_touch/screens/gitlab_user.dart';
@@ -71,6 +72,7 @@ void main() async {
     gitlabProjectRouter,
     gitlabIssueRouter,
     gitlabIssuesRouter,
+    gitlabMergeRequestsRouter,
     gitlabCommitsRouter,
     loginRouter,
     settingsRouter,
