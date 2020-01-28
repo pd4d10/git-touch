@@ -188,7 +188,15 @@ class _SearchScreenState extends State<SearchScreen> {
       case 2:
       default:
         return IssueItem(
-            payload: p, isPullRequest: p['__typename'] == 'PullRequest');
+          author: p['author']['login'],
+          avatarUrl: p['author']['avatarUrl'],
+          commentCount: p['comments']['totalCount'],
+          number: p['number'],
+          title: p['title'],
+          updatedAt: DateTime.parse(p['updatedAt']),
+          url: Uri.parse(p['url']).path,
+          isPr: p['__typename'] == 'PullRequest',
+        );
     }
   }
 

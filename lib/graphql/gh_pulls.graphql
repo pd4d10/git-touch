@@ -1,0 +1,43 @@
+query GhPulls($owner: String!, $name: String!, $cursor: String) {
+  repository(owner: $owner, name: $name) {
+    owner {
+      login
+    }
+    name
+    pullRequests(
+      states: OPEN
+      orderBy: { field: CREATED_AT, direction: DESC }
+      first: 30
+      after: $cursor
+    ) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      nodes {
+        repository {
+          owner {
+            login
+          }
+          name
+        }
+        number
+        title
+        updatedAt
+        author {
+          login
+          avatarUrl
+        }
+        labels(first: 10) {
+          nodes {
+            name
+            color
+          }
+        }
+        comments {
+          totalCount
+        }
+      }
+    }
+  }
+}

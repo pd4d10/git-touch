@@ -8,6 +8,7 @@ import '../utils/utils.dart';
 import '../widgets/link.dart';
 
 const issueGqlChunk = '''
+url
 number
 title
 updatedAt
@@ -33,18 +34,34 @@ comments {
 ''';
 
 class IssueItem extends StatelessWidget {
-  final payload;
-  final bool isPullRequest;
+  final String url;
+  final int number;
+  final String title;
+  final int commentCount;
+  final DateTime updatedAt;
+  final String avatarUrl;
+  final String author;
+  final Widget labels;
+  final bool isPr;
 
-  IssueItem({this.payload, this.isPullRequest = false});
+  IssueItem({
+    @required this.url,
+    @required this.number,
+    @required this.title,
+    @required this.commentCount,
+    @required this.updatedAt,
+    @required this.avatarUrl,
+    @required this.author,
+    this.labels,
+    this.isPr = false,
+  });
 
   @override
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
 
     return Link(
-      url:
-          '/${payload['repository']['owner']['login']}/${payload['repository']['name']}/${isPullRequest ? 'pulls' : 'issues'}/${payload['number']}',
+      url: url,
       child: Container(
         padding: CommonStyle.padding,
         // color: payload.unread ? Colors.white : Colors.black12,
@@ -54,12 +71,8 @@ class IssueItem extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Icon(
-                    isPullRequest
-                        ? Octicons.git_pull_request
-                        : Octicons.issue_opened,
-                    color: GithubPalette.open,
-                    size: 20),
+                Icon(isPr ? Octicons.git_pull_request : Octicons.issue_opened,
+                    color: GithubPalette.open, size: 20),
                 SizedBox(width: 6),
                 Expanded(
                   child: Container(
@@ -69,9 +82,9 @@ class IssueItem extends StatelessWidget {
                         Text.rich(
                           TextSpan(
                             children: [
-                              TextSpan(text: payload['title'] + ' '),
+                              TextSpan(text: '$title '),
                               TextSpan(
-                                text: '#${payload['number']}',
+                                text: '#$number',
                                 style: TextStyle(
                                   color: theme.palette.tertiaryText,
                                   fontWeight: FontWeight.normal,
@@ -85,18 +98,7 @@ class IssueItem extends StatelessWidget {
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        if ((payload['labels']['nodes'] as List).isNotEmpty)
-                          Wrap(
-                            spacing: 4,
-                            runSpacing: 4,
-                            children: (payload['labels']['nodes'] as List)
-                                .map((label) {
-                              return MyLabel(
-                                name: label['name'],
-                                cssColor: label['color'],
-                              );
-                            }).toList(),
-                          ),
+                        if (labels != null) labels,
                         DefaultTextStyle(
                           style: TextStyle(
                             fontSize: 14,
@@ -106,29 +108,25 @@ class IssueItem extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
                               // FIXME: Deleted user
-                              if (payload['author'] != null) ...[
+                              if (avatarUrl != null) ...[
                                 Avatar(
                                   size: AvatarSize.extraSmall,
-                                  url: payload['author']['avatarUrl'],
-                                  linkUrl: '/' + payload['author']['login'],
+                                  url: avatarUrl,
                                 ),
                                 SizedBox(width: 4),
                                 Text(
-                                  payload['author']['login'],
+                                  author,
                                   style: TextStyle(fontWeight: FontWeight.w600),
                                 ),
                               ],
-                              Text(' opened ' +
-                                  timeago.format(
-                                      DateTime.parse(payload['updatedAt']))),
-                              if (payload['comments']['totalCount'] > 0) ...[
+                              Text(' opened ' + timeago.format(updatedAt)),
+                              if (commentCount > 0) ...[
                                 Expanded(child: SizedBox()),
                                 Icon(Octicons.comment,
                                     size: 14,
                                     color: theme.palette.secondaryText),
                                 SizedBox(width: 3),
-                                Text(numberFormat
-                                    .format(payload['comments']['totalCount']))
+                                Text(numberFormat.format(commentCount))
                               ],
                             ],
                           ),

@@ -19,7 +19,7 @@ final issueRouter = RouterScreen(
         params['name'].first, int.parse(params['number'].first)));
 
 final pullRouter = RouterScreen(
-    '/:owner/:name/pulls/:number',
+    '/:owner/:name/pull/:number',
     (context, params) => IssueScreen(params['owner'].first,
         params['name'].first, int.parse(params['number'].first),
         isPullRequest: true));

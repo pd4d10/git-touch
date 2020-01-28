@@ -1,56 +1,49 @@
 import 'package:flutter/material.dart';
 import 'package:git_touch/graphql/gh.dart';
 import 'package:git_touch/models/auth.dart';
-import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/list_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
-import 'package:git_touch/widgets/action_entry.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/issue_item.dart';
 import 'package:git_touch/widgets/label.dart';
 import 'package:provider/provider.dart';
 
-final issuesRouter = RouterScreen(
-    '/:owner/:name/issues',
+final pullsRouter = RouterScreen(
+    '/:owner/:name/pulls',
     (context, params) =>
-        IssuesScreen(params['owner'].first, params['name'].first));
+        PullsScreen(params['owner'].first, params['name'].first));
 
-class IssuesScreen extends StatelessWidget {
+class PullsScreen extends StatelessWidget {
   final String owner;
   final String name;
 
-  IssuesScreen(this.owner, this.name);
+  PullsScreen(this.owner, this.name);
 
-  Future<ListPayload<GhIssuesIssue, String>> _query(BuildContext context,
+  Future<ListPayload<GhPullsPullRequest, String>> _query(BuildContext context,
       [String cursor]) async {
     final res =
-        await Provider.of<AuthModel>(context).gqlClient.execute(GhIssuesQuery(
-                variables: GhIssuesArguments(
+        await Provider.of<AuthModel>(context).gqlClient.execute(GhPullsQuery(
+                variables: GhPullsArguments(
               owner: owner,
               name: name,
               cursor: cursor,
             )));
-    final issues = res.data.repository.issues;
+    final pulls = res.data.repository.pullRequests;
     return ListPayload(
-      cursor: issues.pageInfo.endCursor,
-      hasMore: issues.pageInfo.hasNextPage,
-      items: issues.nodes,
+      cursor: pulls.pageInfo.endCursor,
+      hasMore: pulls.pageInfo.hasNextPage,
+      items: pulls.nodes,
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return ListStatefulScaffold<GhIssuesIssue, String>(
-      title: AppBarTitle('Issues'),
-      actionBuilder: () => ActionEntry(
-          iconData: Octicons.plus,
-          onTap: () {
-            Provider.of<ThemeModel>(context)
-                .push(context, '/$owner/$name/issues/new');
-          }),
+    return ListStatefulScaffold<GhPullsPullRequest, String>(
+      title: AppBarTitle('Pull requests'),
       onRefresh: () => _query(context),
       onLoadMore: (cursor) => _query(context, cursor),
       itemBuilder: (p) => IssueItem(
+        isPr: true,
         author: p.author?.login,
         avatarUrl: p.author?.avatarUrl,
         commentCount: p.comments.totalCount,
@@ -64,7 +57,7 @@ class IssuesScreen extends StatelessWidget {
                   MyLabel(name: label.name, cssColor: label.color)
               ]),
         url:
-            '/${p.repository.owner.login}/${p.repository.name}/issues/${p.number}',
+            '/${p.repository.owner.login}/${p.repository.name}/pulls/${p.number}',
       ),
     );
   }
