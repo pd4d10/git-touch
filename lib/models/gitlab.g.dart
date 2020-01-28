@@ -116,6 +116,15 @@ Map<String, dynamic> _$GitlabIssueNoteToJson(GitlabIssueNote instance) =>
       'body': instance.body,
     };
 
+GitlabLabel _$GitlabLabelFromJson(Map<String, dynamic> json) {
+  return GitlabLabel()..renderedImageUrl = json['rendered_image_url'] as String;
+}
+
+Map<String, dynamic> _$GitlabLabelToJson(GitlabLabel instance) =>
+    <String, dynamic>{
+      'rendered_image_url': instance.renderedImageUrl,
+    };
+
 GitlabProject _$GitlabProjectFromJson(Map<String, dynamic> json) {
   return GitlabProject()
     ..id = json['id'] as int

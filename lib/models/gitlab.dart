@@ -82,6 +82,14 @@ class GitlabIssueNote {
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
+class GitlabLabel {
+  String renderedImageUrl;
+  GitlabLabel();
+  factory GitlabLabel.fromJson(Map<String, dynamic> json) =>
+      _$GitlabLabelFromJson(json);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
 class GitlabProject {
   int id;
   String name;
@@ -96,18 +104,7 @@ class GitlabProject {
   bool issuesEnabled;
   int openIssuesCount;
   bool mergeRequestsEnabled;
-
-  @JsonKey(ignore: true)
-  String readme;
-
-  @JsonKey(ignore: true)
-  Map<String, double> languages;
-
-  @JsonKey(ignore: true)
-  String primaryLanguage;
-
   GitlabProject();
-
   factory GitlabProject.fromJson(Map<String, dynamic> json) =>
       _$GitlabProjectFromJson(json);
 }
