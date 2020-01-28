@@ -116,30 +116,6 @@ Map<String, dynamic> _$GitlabIssueNoteToJson(GitlabIssueNote instance) =>
       'body': instance.body,
     };
 
-GitlabProjectBadge _$GitlabProjectBadgeFromJson(Map<String, dynamic> json) {
-  return GitlabProjectBadge()
-    ..renderedImageUrl = json['rendered_image_url'] as String;
-}
-
-Map<String, dynamic> _$GitlabProjectBadgeToJson(GitlabProjectBadge instance) =>
-    <String, dynamic>{
-      'rendered_image_url': instance.renderedImageUrl,
-    };
-
-GitlabProjectStatistics _$GitlabProjectStatisticsFromJson(
-    Map<String, dynamic> json) {
-  return GitlabProjectStatistics()
-    ..commitCount = json['commit_count'] as int
-    ..repositorySize = json['repository_size'] as int;
-}
-
-Map<String, dynamic> _$GitlabProjectStatisticsToJson(
-        GitlabProjectStatistics instance) =>
-    <String, dynamic>{
-      'commit_count': instance.commitCount,
-      'repository_size': instance.repositorySize,
-    };
-
 GitlabProject _$GitlabProjectFromJson(Map<String, dynamic> json) {
   return GitlabProject()
     ..id = json['id'] as int
@@ -180,6 +156,30 @@ Map<String, dynamic> _$GitlabProjectToJson(GitlabProject instance) =>
       'open_issues_count': instance.openIssuesCount,
       'merge_requests_enabled': instance.mergeRequestsEnabled,
       'statistics': instance.statistics,
+    };
+
+GitlabProjectBadge _$GitlabProjectBadgeFromJson(Map<String, dynamic> json) {
+  return GitlabProjectBadge()
+    ..renderedImageUrl = json['rendered_image_url'] as String;
+}
+
+Map<String, dynamic> _$GitlabProjectBadgeToJson(GitlabProjectBadge instance) =>
+    <String, dynamic>{
+      'rendered_image_url': instance.renderedImageUrl,
+    };
+
+GitlabProjectStatistics _$GitlabProjectStatisticsFromJson(
+    Map<String, dynamic> json) {
+  return GitlabProjectStatistics()
+    ..commitCount = json['commit_count'] as int
+    ..repositorySize = json['repository_size'] as int;
+}
+
+Map<String, dynamic> _$GitlabProjectStatisticsToJson(
+        GitlabProjectStatistics instance) =>
+    <String, dynamic>{
+      'commit_count': instance.commitCount,
+      'repository_size': instance.repositorySize,
     };
 
 GitlabProjectNamespace _$GitlabProjectNamespaceFromJson(
@@ -251,4 +251,26 @@ Map<String, dynamic> _$GitlabEventNoteToJson(GitlabEventNote instance) =>
       'body': instance.body,
       'noteable_type': instance.noteableType,
       'noteable_iid': instance.noteableIid,
+    };
+
+GitlabCommit _$GitlabCommitFromJson(Map<String, dynamic> json) {
+  return GitlabCommit()
+    ..id = json['id'] as String
+    ..shortId = json['short_id'] as String
+    ..title = json['title'] as String
+    ..createdAt = json['created_at'] == null
+        ? null
+        : DateTime.parse(json['created_at'] as String)
+    ..authorName = json['author_name'] as String
+    ..message = json['message'] as String;
+}
+
+Map<String, dynamic> _$GitlabCommitToJson(GitlabCommit instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'short_id': instance.shortId,
+      'title': instance.title,
+      'created_at': instance.createdAt?.toIso8601String(),
+      'author_name': instance.authorName,
+      'message': instance.message,
     };

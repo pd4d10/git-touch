@@ -8,6 +8,7 @@ import 'package:git_touch/screens/about.dart';
 import 'package:git_touch/screens/code_theme.dart';
 import 'package:git_touch/screens/commits.dart';
 import 'package:git_touch/screens/gitlab_blob.dart';
+import 'package:git_touch/screens/gitlab_commits.dart';
 import 'package:git_touch/screens/gitlab_issue.dart';
 import 'package:git_touch/screens/gitlab_project.dart';
 import 'package:git_touch/screens/gitlab_tree.dart';
@@ -67,6 +68,7 @@ void main() async {
     gitlabTreeRouter,
     gitlabProjectRouter,
     gitlabIssueRouter,
+    gitlabCommitsRouter,
     loginRouter,
     settingsRouter,
     userRouter,

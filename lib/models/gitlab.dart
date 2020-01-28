@@ -82,23 +82,6 @@ class GitlabIssueNote {
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class GitlabProjectBadge {
-  String renderedImageUrl;
-  GitlabProjectBadge();
-  factory GitlabProjectBadge.fromJson(Map<String, dynamic> json) =>
-      _$GitlabProjectBadgeFromJson(json);
-}
-
-@JsonSerializable(fieldRename: FieldRename.snake)
-class GitlabProjectStatistics {
-  int commitCount;
-  int repositorySize;
-  GitlabProjectStatistics();
-  factory GitlabProjectStatistics.fromJson(Map<String, dynamic> json) =>
-      _$GitlabProjectStatisticsFromJson(json);
-}
-
-@JsonSerializable(fieldRename: FieldRename.snake)
 class GitlabProject {
   int id;
   String name;
@@ -117,6 +100,23 @@ class GitlabProject {
   GitlabProject();
   factory GitlabProject.fromJson(Map<String, dynamic> json) =>
       _$GitlabProjectFromJson(json);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GitlabProjectBadge {
+  String renderedImageUrl;
+  GitlabProjectBadge();
+  factory GitlabProjectBadge.fromJson(Map<String, dynamic> json) =>
+      _$GitlabProjectBadgeFromJson(json);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GitlabProjectStatistics {
+  int commitCount;
+  int repositorySize;
+  GitlabProjectStatistics();
+  factory GitlabProjectStatistics.fromJson(Map<String, dynamic> json) =>
+      _$GitlabProjectStatisticsFromJson(json);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
@@ -174,4 +174,17 @@ class GitlabEventNote {
 
   factory GitlabEventNote.fromJson(Map<String, dynamic> json) =>
       _$GitlabEventNoteFromJson(json);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GitlabCommit {
+  String id;
+  String shortId;
+  String title;
+  DateTime createdAt;
+  String authorName;
+  String message;
+  GitlabCommit();
+  factory GitlabCommit.fromJson(Map<String, dynamic> json) =>
+      _$GitlabCommitFromJson(json);
 }
