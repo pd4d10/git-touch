@@ -47,7 +47,7 @@ class GitlabTodo {
   GitlabTodoProject project;
   String actionName;
   String targetType;
-  GitlabIssue target;
+  GitlabTodoTarget target;
 
   GitlabTodo();
 
@@ -56,7 +56,7 @@ class GitlabTodo {
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class GitlabIssue {
+class GitlabTodoTarget {
   int iid;
   int projectId;
   String title;
@@ -64,10 +64,10 @@ class GitlabIssue {
   String description;
   String createdAt;
 
-  GitlabIssue();
+  GitlabTodoTarget();
 
-  factory GitlabIssue.fromJson(Map<String, dynamic> json) =>
-      _$GitlabIssueFromJson(json);
+  factory GitlabTodoTarget.fromJson(Map<String, dynamic> json) =>
+      _$GitlabTodoTargetFromJson(json);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
@@ -187,4 +187,18 @@ class GitlabCommit {
   GitlabCommit();
   factory GitlabCommit.fromJson(Map<String, dynamic> json) =>
       _$GitlabCommitFromJson(json);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GitlabIssue {
+  String title;
+  int iid;
+  int projectId;
+  GitlabUser author;
+  int userNotesCount;
+  DateTime updatedAt;
+  List<String> labels;
+  GitlabIssue();
+  factory GitlabIssue.fromJson(Map<String, dynamic> json) =>
+      _$GitlabIssueFromJson(json);
 }

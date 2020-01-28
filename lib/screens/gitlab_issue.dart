@@ -24,7 +24,7 @@ class GitlabIssueScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold<
-        Tuple3<GitlabIssue, Iterable<GitlabIssueNote>, List>>(
+        Tuple3<GitlabTodoTarget, Iterable<GitlabIssueNote>, List>>(
       title: Text('Issue #$iid'),
       fetchData: () async {
         final type = isMr ? 'merge_requests' : 'issues';
@@ -37,7 +37,7 @@ class GitlabIssueScreen extends StatelessWidget {
               .fetchGitlab('/projects/$projectId/$type/$iid/award_emoji'),
         ]);
         return Tuple3(
-          GitlabIssue.fromJson(items[0]),
+          GitlabTodoTarget.fromJson(items[0]),
           (items[1] as List).map((v) => GitlabIssueNote.fromJson(v)),
           items[2] as List,
         );

@@ -68,7 +68,7 @@ GitlabTodo _$GitlabTodoFromJson(Map<String, dynamic> json) {
     ..targetType = json['target_type'] as String
     ..target = json['target'] == null
         ? null
-        : GitlabIssue.fromJson(json['target'] as Map<String, dynamic>);
+        : GitlabTodoTarget.fromJson(json['target'] as Map<String, dynamic>);
 }
 
 Map<String, dynamic> _$GitlabTodoToJson(GitlabTodo instance) =>
@@ -80,8 +80,8 @@ Map<String, dynamic> _$GitlabTodoToJson(GitlabTodo instance) =>
       'target': instance.target,
     };
 
-GitlabIssue _$GitlabIssueFromJson(Map<String, dynamic> json) {
-  return GitlabIssue()
+GitlabTodoTarget _$GitlabTodoTargetFromJson(Map<String, dynamic> json) {
+  return GitlabTodoTarget()
     ..iid = json['iid'] as int
     ..projectId = json['project_id'] as int
     ..title = json['title'] as String
@@ -92,7 +92,7 @@ GitlabIssue _$GitlabIssueFromJson(Map<String, dynamic> json) {
     ..createdAt = json['created_at'] as String;
 }
 
-Map<String, dynamic> _$GitlabIssueToJson(GitlabIssue instance) =>
+Map<String, dynamic> _$GitlabTodoTargetToJson(GitlabTodoTarget instance) =>
     <String, dynamic>{
       'iid': instance.iid,
       'project_id': instance.projectId,
@@ -273,4 +273,30 @@ Map<String, dynamic> _$GitlabCommitToJson(GitlabCommit instance) =>
       'created_at': instance.createdAt?.toIso8601String(),
       'author_name': instance.authorName,
       'message': instance.message,
+    };
+
+GitlabIssue _$GitlabIssueFromJson(Map<String, dynamic> json) {
+  return GitlabIssue()
+    ..title = json['title'] as String
+    ..iid = json['iid'] as int
+    ..projectId = json['project_id'] as int
+    ..author = json['author'] == null
+        ? null
+        : GitlabUser.fromJson(json['author'] as Map<String, dynamic>)
+    ..userNotesCount = json['user_notes_count'] as int
+    ..updatedAt = json['updated_at'] == null
+        ? null
+        : DateTime.parse(json['updated_at'] as String)
+    ..labels = (json['labels'] as List)?.map((e) => e as String)?.toList();
+}
+
+Map<String, dynamic> _$GitlabIssueToJson(GitlabIssue instance) =>
+    <String, dynamic>{
+      'title': instance.title,
+      'iid': instance.iid,
+      'project_id': instance.projectId,
+      'author': instance.author,
+      'user_notes_count': instance.userNotesCount,
+      'updated_at': instance.updatedAt?.toIso8601String(),
+      'labels': instance.labels,
     };
