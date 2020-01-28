@@ -44,9 +44,10 @@ class CommitItem extends StatelessWidget {
                       color: theme.palette.text,
                     ),
                     overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
                   ),
                   SizedBox(height: 4),
-                  Wrap(
+                  Row(
                     children: <Widget>[
                       Text(author, style: TextStyle(fontSize: 15)),
                       Text(
