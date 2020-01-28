@@ -116,13 +116,28 @@ Map<String, dynamic> _$GitlabIssueNoteToJson(GitlabIssueNote instance) =>
       'body': instance.body,
     };
 
-GitlabLabel _$GitlabLabelFromJson(Map<String, dynamic> json) {
-  return GitlabLabel()..renderedImageUrl = json['rendered_image_url'] as String;
+GitlabProjectBadge _$GitlabProjectBadgeFromJson(Map<String, dynamic> json) {
+  return GitlabProjectBadge()
+    ..renderedImageUrl = json['rendered_image_url'] as String;
 }
 
-Map<String, dynamic> _$GitlabLabelToJson(GitlabLabel instance) =>
+Map<String, dynamic> _$GitlabProjectBadgeToJson(GitlabProjectBadge instance) =>
     <String, dynamic>{
       'rendered_image_url': instance.renderedImageUrl,
+    };
+
+GitlabProjectStatistics _$GitlabProjectStatisticsFromJson(
+    Map<String, dynamic> json) {
+  return GitlabProjectStatistics()
+    ..commitCount = json['commit_count'] as int
+    ..repositorySize = json['repository_size'] as int;
+}
+
+Map<String, dynamic> _$GitlabProjectStatisticsToJson(
+        GitlabProjectStatistics instance) =>
+    <String, dynamic>{
+      'commit_count': instance.commitCount,
+      'repository_size': instance.repositorySize,
     };
 
 GitlabProject _$GitlabProjectFromJson(Map<String, dynamic> json) {
@@ -142,7 +157,11 @@ GitlabProject _$GitlabProjectFromJson(Map<String, dynamic> json) {
             json['namespace'] as Map<String, dynamic>)
     ..issuesEnabled = json['issues_enabled'] as bool
     ..openIssuesCount = json['open_issues_count'] as int
-    ..mergeRequestsEnabled = json['merge_requests_enabled'] as bool;
+    ..mergeRequestsEnabled = json['merge_requests_enabled'] as bool
+    ..statistics = json['statistics'] == null
+        ? null
+        : GitlabProjectStatistics.fromJson(
+            json['statistics'] as Map<String, dynamic>);
 }
 
 Map<String, dynamic> _$GitlabProjectToJson(GitlabProject instance) =>
@@ -160,6 +179,7 @@ Map<String, dynamic> _$GitlabProjectToJson(GitlabProject instance) =>
       'issues_enabled': instance.issuesEnabled,
       'open_issues_count': instance.openIssuesCount,
       'merge_requests_enabled': instance.mergeRequestsEnabled,
+      'statistics': instance.statistics,
     };
 
 GitlabProjectNamespace _$GitlabProjectNamespaceFromJson(

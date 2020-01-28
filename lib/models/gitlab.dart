@@ -82,11 +82,20 @@ class GitlabIssueNote {
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class GitlabLabel {
+class GitlabProjectBadge {
   String renderedImageUrl;
-  GitlabLabel();
-  factory GitlabLabel.fromJson(Map<String, dynamic> json) =>
-      _$GitlabLabelFromJson(json);
+  GitlabProjectBadge();
+  factory GitlabProjectBadge.fromJson(Map<String, dynamic> json) =>
+      _$GitlabProjectBadgeFromJson(json);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GitlabProjectStatistics {
+  int commitCount;
+  int repositorySize;
+  GitlabProjectStatistics();
+  factory GitlabProjectStatistics.fromJson(Map<String, dynamic> json) =>
+      _$GitlabProjectStatisticsFromJson(json);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
@@ -104,6 +113,7 @@ class GitlabProject {
   bool issuesEnabled;
   int openIssuesCount;
   bool mergeRequestsEnabled;
+  GitlabProjectStatistics statistics;
   GitlabProject();
   factory GitlabProject.fromJson(Map<String, dynamic> json) =>
       _$GitlabProjectFromJson(json);

@@ -1,3 +1,4 @@
+import 'package:filesize/filesize.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/svg.dart';
@@ -26,12 +27,13 @@ class GitlabProjectScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold<
-        Tuple4<GitlabProject, Map<String, double>, List<GitlabLabel>, String>>(
+        Tuple4<GitlabProject, Map<String, double>, List<GitlabProjectBadge>,
+            String>>(
       title: AppBarTitle('Project'),
       fetchData: () async {
         final auth = Provider.of<AuthModel>(context);
         final res = await Future.wait([
-          auth.fetchGitlab('/projects/$id'),
+          auth.fetchGitlab('/projects/$id?statistics=1'),
           auth.fetchGitlab('/projects/$id/languages'),
           auth.fetchGitlab('/projects/$id/badges'),
         ]);
@@ -44,7 +46,7 @@ class GitlabProjectScreen extends StatelessWidget {
         return Tuple4(
           p,
           Map<String, double>.from(res[1]),
-          (res[2] as List).map((v) => GitlabLabel.fromJson(v)).toList(),
+          (res[2] as List).map((v) => GitlabProjectBadge.fromJson(v)).toList(),
           readme,
         );
       },
@@ -128,6 +130,7 @@ class GitlabProjectScreen extends StatelessWidget {
                 TableViewItem(
                   leftIconData: Octicons.code,
                   text: Text(langs.keys.isEmpty ? 'Code' : langs.keys.first),
+                  rightWidget: Text(filesize(p.statistics.repositorySize)),
                   url: '/gitlab/projects/$id/tree',
                 ),
                 if (p.issuesEnabled)
@@ -143,6 +146,12 @@ class GitlabProjectScreen extends StatelessWidget {
                     text: Text('Merge requests'),
                     url: '/gitlab/projects/$id/merge_requests',
                   ),
+                TableViewItem(
+                  leftIconData: Octicons.history,
+                  text: Text('Commits'),
+                  rightWidget: Text(p.statistics.commitCount.toString()),
+                  url: '/gitlab/projects/$id/commits',
+                ),
               ],
             ),
             CommonStyle.verticalGap,
