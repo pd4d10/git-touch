@@ -37,7 +37,11 @@ GiteaRepository _$GiteaRepositoryFromJson(Map<String, dynamic> json) {
     ..forksCount = json['forks_count'] as int
     ..updatedAt = json['updated_at'] == null
         ? null
-        : DateTime.parse(json['updated_at'] as String);
+        : DateTime.parse(json['updated_at'] as String)
+    ..website = json['website'] as String
+    ..size = json['size'] as int
+    ..openIssuesCount = json['open_issues_count'] as int
+    ..openPrCounter = json['open_pr_counter'] as int;
 }
 
 Map<String, dynamic> _$GiteaRepositoryToJson(GiteaRepository instance) =>
@@ -49,4 +53,8 @@ Map<String, dynamic> _$GiteaRepositoryToJson(GiteaRepository instance) =>
       'stars_count': instance.starsCount,
       'forks_count': instance.forksCount,
       'updated_at': instance.updatedAt?.toIso8601String(),
+      'website': instance.website,
+      'size': instance.size,
+      'open_issues_count': instance.openIssuesCount,
+      'open_pr_counter': instance.openPrCounter,
     };

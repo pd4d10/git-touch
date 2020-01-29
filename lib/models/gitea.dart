@@ -23,6 +23,10 @@ class GiteaRepository {
   int starsCount;
   int forksCount;
   DateTime updatedAt;
+  String website;
+  int size;
+  int openIssuesCount;
+  int openPrCounter;
   GiteaRepository();
   factory GiteaRepository.fromJson(Map<String, dynamic> json) =>
       _$GiteaRepositoryFromJson(json);

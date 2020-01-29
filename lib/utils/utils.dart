@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
@@ -187,3 +188,9 @@ class RouterScreen {
 }
 
 final dateFormat = DateFormat.yMMMMd();
+
+String convertBase64ToString(String input) {
+  if (input == null) return null;
+  final bits = base64.decode(input.replaceAll('\n', ''));
+  return utf8.decode(bits);
+}
