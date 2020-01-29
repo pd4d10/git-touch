@@ -63,9 +63,9 @@ class GitlabTreeScreen extends StatelessWidget {
               url: (() {
                 switch (item.type) {
                   case 'tree':
-                    return '/projects/$id/tree?path=${item.path.urlencode}';
+                    return '/gitlab/projects/$id/tree?path=${item.path.urlencode}';
                   case 'blob':
-                    return '/projects/$id/blob?path=${item.path.urlencode}';
+                    return '/gitlab/projects/$id/blob?path=${item.path.urlencode}';
                   default:
                     return null;
                 }

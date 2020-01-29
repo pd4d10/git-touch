@@ -9,7 +9,7 @@ import 'package:git_touch/widgets/blob_view.dart';
 import 'package:provider/provider.dart';
 
 final gitlabBlobRouter = RouterScreen(
-    '/gitlab/projects/:id/tree',
+    '/gitlab/projects/:id/blob',
     (context, params) => GitlabBlobScreen(params['id'].first.toInt,
         path: params['path']?.first?.urldecode));
 
@@ -22,7 +22,7 @@ class GitlabBlobScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold<GitlabBlob>(
-      title: AppBarTitle(path),
+      title: AppBarTitle(path ?? ''),
       fetchData: () async {
         final encodedPath = Uri.encodeComponent(path);
         final res = await Provider.of<AuthModel>(context).fetchGitlab(

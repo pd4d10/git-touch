@@ -68,6 +68,7 @@ class GitlabProjectScreen extends StatelessWidget {
         final langs = t.item2;
         final badges = t.item3;
         final theme = Provider.of<ThemeModel>(context);
+        // final auth = Provider.of<AuthModel>(context);
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
@@ -105,7 +106,7 @@ class GitlabProjectScreen extends StatelessWidget {
                   if (badges.isNotEmpty)
                     Wrap(spacing: 4, runSpacing: 4, children: [
                       for (var label in badges)
-                        SvgPicture.network(label.renderedImageUrl, height: 20)
+                        SvgPicture.network(label.renderedImageUrl, height: 20),
                     ])
                 ]),
               ),
