@@ -17,7 +17,7 @@ import 'package:git_touch/widgets/action_button.dart';
 import 'package:tuple/tuple.dart';
 
 final gitlabProjectRouter = RouterScreen('/gitlab/projects/:id',
-    (context, params) => GitlabProjectScreen(int.parse(['id'].first)));
+    (context, params) => GitlabProjectScreen(int.parse(params['id'].first)));
 
 class GitlabProjectScreen extends StatelessWidget {
   final int id;
