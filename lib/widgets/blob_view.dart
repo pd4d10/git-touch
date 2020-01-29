@@ -55,7 +55,9 @@ class BlobView extends StatelessWidget {
           child: HighlightView(
             payload,
             language: _language,
-            theme: themeMap[codeProvider.theme],
+            theme: themeMap[theme.brightness == Brightness.dark
+                ? codeProvider.themeDark
+                : codeProvider.theme],
             padding: CommonStyle.padding,
             textStyle: TextStyle(
                 fontSize: codeProvider.fontSize.toDouble(),
