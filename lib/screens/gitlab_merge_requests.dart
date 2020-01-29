@@ -19,11 +19,11 @@ class GitlabMergeRequestsScreen extends StatelessWidget {
 
   Future<ListPayload<GitlabIssue, int>> _query(BuildContext context,
       [int page = 1]) async {
-    final res = await Provider.of<AuthModel>(context)
-        .fetchGitlab('/projects/$id/merge_requests?page=$page');
+    final res = await Provider.of<AuthModel>(context).fetchGitlabWithPage(
+        '/projects/$id/merge_requests?state=opened&page=$page');
     return ListPayload(
-      cursor: page + 1,
-      hasMore: true, // TODO:
+      cursor: res.cursor,
+      hasMore: res.hasMore,
       items: (res as List).map((v) => GitlabIssue.fromJson(v)).toList(),
     );
   }

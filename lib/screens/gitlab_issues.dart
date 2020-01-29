@@ -19,11 +19,11 @@ class GitlabIssuesScreen extends StatelessWidget {
   Future<ListPayload<GitlabIssue, int>> _query(BuildContext context,
       [int page = 1]) async {
     final res = await Provider.of<AuthModel>(context)
-        .fetchGitlab('/projects/$id/issues?page=$page');
+        .fetchGitlabWithPage('/projects/$id/issues?state=opened&page=$page');
     return ListPayload(
-      cursor: page + 1,
-      hasMore: true, // TODO:
-      items: (res as List).map((v) => GitlabIssue.fromJson(v)).toList(),
+      cursor: res.cursor,
+      hasMore: res.hasMore,
+      items: (res.data as List).map((v) => GitlabIssue.fromJson(v)).toList(),
     );
   }
 

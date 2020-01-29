@@ -23,6 +23,13 @@ class PlatformType {
   static const gitlab = 'gitlab';
 }
 
+class DataWithPage<T> {
+  T data;
+  int cursor;
+  bool hasMore;
+  DataWithPage(this.data, this.cursor, this.hasMore);
+}
+
 class AuthModel with ChangeNotifier {
   static const _apiPrefix = 'https://api.github.com';
 
@@ -139,10 +146,19 @@ class AuthModel with ChangeNotifier {
   }
 
   Future fetchGitlab(String p) async {
-    final res = await http.get(activeAccount.domain + '/api/v4' + p,
+    final res = await http.get('${activeAccount.domain}/api/v4$p',
         headers: {'Private-Token': token});
     final info = json.decode(utf8.decode(res.bodyBytes));
     return info;
+  }
+
+  Future<DataWithPage> fetchGitlabWithPage(String p) async {
+    final res = await http.get('${activeAccount.domain}/api/v4$p',
+        headers: {'Private-Token': token});
+    final next = int.tryParse(
+        res.headers['X-Next-Pages'] ?? res.headers['x-next-page'] ?? '');
+    final info = json.decode(utf8.decode(res.bodyBytes));
+    return DataWithPage(info, next, next != null);
   }
 
   Future fetchGitea(String p) async {

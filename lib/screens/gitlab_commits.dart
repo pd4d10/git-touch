@@ -20,12 +20,12 @@ class GitlabCommitsScreen extends StatelessWidget {
   Future<ListPayload<GitlabCommit, int>> _query(BuildContext context,
       [int page = 1]) async {
     final auth = Provider.of<AuthModel>(context);
-    final res =
-        await auth.fetchGitlab('/projects/$id/repository/commits?page=$page');
+    final res = await auth
+        .fetchGitlabWithPage('/projects/$id/repository/commits?page=$page');
     return ListPayload(
-      cursor: page + 1,
-      hasMore: true, // TODO:
-      items: (res as List).map((v) => GitlabCommit.fromJson(v)).toList(),
+      cursor: res.cursor,
+      hasMore: res.hasMore,
+      items: (res.data as List).map((v) => GitlabCommit.fromJson(v)).toList(),
     );
   }
 
