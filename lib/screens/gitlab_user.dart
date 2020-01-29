@@ -60,19 +60,17 @@ class GitlabUserScreen extends StatelessWidget {
             ),
             CommonStyle.border,
             Column(
-              children: projects.map((v) {
-                return RepositoryItem(
-                  v.owner.name,
-                  v.owner.avatarUrl,
-                  v.name,
-                  v.description,
-                  v.starCount,
-                  v.forksCount,
-                  null,
-                  null,
-                  null,
-                );
-              }).toList(),
+              children: <Widget>[
+                for (var v in projects)
+                  RepositoryItem(
+                    owner: v.owner.username,
+                    avatarUrl: v.owner.avatarUrl,
+                    name: v.name,
+                    description: v.description,
+                    starCount: v.starCount,
+                    forkCount: v.forksCount,
+                  )
+              ],
             )
           ],
         );

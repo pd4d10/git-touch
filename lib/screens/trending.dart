@@ -32,15 +32,17 @@ class TrendingScreen extends StatelessWidget {
                 case 0:
                   final item = GithubTrendingItem.fromJson(v);
                   return RepositoryItem.gh(
-                    item.author,
-                    item.avatar,
-                    item.name,
-                    item.description,
-                    item.stars ?? 0,
-                    item.forks ?? 0,
-                    item.language,
-                    item.languageColor,
-                    '${item.currentPeriodStars} stars today',
+                    owner: item.author,
+                    avatarUrl: item.avatar,
+                    name: item.name,
+                    description: item.description,
+                    starCount: item.stars ?? 0,
+                    forkCount: item.forks ?? 0,
+                    primaryLanguageName: item.language,
+                    primaryLanguageColor: item.languageColor,
+                    note: '${item.currentPeriodStars} stars today',
+                    isPrivate: false,
+                    isFork: false, // TODO:
                   );
                 case 1:
                   final item = GithubTrendingUser.fromJson(v);

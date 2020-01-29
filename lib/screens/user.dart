@@ -67,15 +67,14 @@ class UserScreen extends StatelessWidget {
         CommonStyle.border,
         items.map((v) {
           return RepositoryItem.gh(
-            v.owner.login,
-            v.owner.avatarUrl,
-            v.name,
-            v.description,
-            v.stargazers.totalCount,
-            v.forks.totalCount,
-            v.primaryLanguage?.name,
-            v.primaryLanguage?.color,
-            null,
+            owner: v.owner.login,
+            avatarUrl: v.owner.avatarUrl,
+            name: v.name,
+            description: v.description,
+            starCount: v.stargazers.totalCount,
+            forkCount: v.forks.totalCount,
+            primaryLanguageName: v.primaryLanguage?.name,
+            primaryLanguageColor: v.primaryLanguage?.color,
             isPrivate: v.isPrivate,
             isFork: v.isFork,
           );

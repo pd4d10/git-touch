@@ -40,19 +40,17 @@ class GiteaUserScreen extends StatelessWidget {
             ),
             CommonStyle.border,
             Column(
-              children: repos.map((v) {
-                return RepositoryItem(
-                  v.owner.login,
-                  v.owner.avatarUrl,
-                  v.name,
-                  v.description,
-                  v.starsCount,
-                  v.forksCount,
-                  null,
-                  null,
-                  null,
-                );
-              }).toList(),
+              children: <Widget>[
+                for (var v in repos)
+                  RepositoryItem(
+                    owner: v.owner.login,
+                    avatarUrl: v.owner.avatarUrl,
+                    name: v.name,
+                    description: v.description,
+                    starCount: v.starsCount,
+                    forkCount: v.forksCount,
+                  )
+              ],
             )
           ],
         );

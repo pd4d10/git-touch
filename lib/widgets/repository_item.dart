@@ -18,31 +18,31 @@ class RepositoryItem extends StatelessWidget {
   final String primaryLanguageColor;
   final String note;
 
-  RepositoryItem(
-    this.owner,
-    this.avatarUrl,
-    this.name,
-    this.description,
-    this.starCount,
-    this.forkCount,
+  RepositoryItem({
+    @required this.owner,
+    @required this.avatarUrl,
+    @required this.name,
+    @required this.description,
+    @required this.starCount,
+    @required this.forkCount,
     this.primaryLanguageName,
     this.primaryLanguageColor,
-    this.note, {
+    this.note,
     this.iconData,
   });
 
-  RepositoryItem.gh(
-    this.owner,
-    this.avatarUrl,
-    this.name,
-    this.description,
-    this.starCount,
-    this.forkCount,
+  RepositoryItem.gh({
+    @required this.owner,
+    @required this.avatarUrl,
+    @required this.name,
+    @required this.description,
+    @required this.starCount,
+    @required this.forkCount,
     this.primaryLanguageName,
     this.primaryLanguageColor,
-    this.note, {
-    bool isPrivate,
-    bool isFork,
+    this.note,
+    @required bool isPrivate,
+    @required bool isFork,
   }) : this.iconData = _buildIconData(isPrivate, isFork);
 
   static IconData _buildIconData(bool isPrivate, bool isFork) {
