@@ -49,6 +49,7 @@ class GiteaUserScreen extends StatelessWidget {
                     description: v.description,
                     starCount: v.starsCount,
                     forkCount: v.forksCount,
+                    url: '', // TODO:
                   )
               ],
             )

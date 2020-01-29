@@ -1,7 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/gitlab.dart';
+import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
+import 'package:git_touch/widgets/action_entry.dart';
 import 'package:git_touch/widgets/repository_item.dart';
 import 'package:git_touch/widgets/user_item.dart';
 import 'package:provider/provider.dart';
@@ -15,8 +18,8 @@ final gitlabUserRouter = RouterScreen(
 
 class GitlabUserScreen extends StatelessWidget {
   final int id;
-
   GitlabUserScreen(this.id);
+  bool get isViewer => id == null;
 
   static _getGitlabIcon(String visibility) {
     switch (visibility) {
@@ -35,18 +38,27 @@ class GitlabUserScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold<
         Tuple2<GitlabUser, Iterable<GitlabUserProject>>>(
-      title: Text('User'),
+      title: Text(isViewer ? 'Me' : 'User'),
       fetchData: () async {
         final auth = Provider.of<AuthModel>(context);
-
-        final v0 = await auth.fetchGitlab('/users/$id');
+        final _id = id ?? auth.activeAccount.gitlabId;
+        final v0 = await auth.fetchGitlab('/users/$_id');
         final user = GitlabUser.fromJson(v0);
-        final v1 = await auth.fetchGitlab('/users/$id/projects');
+        final v1 = await auth.fetchGitlab('/users/$_id/projects');
         final projects =
             (v1 as List).map((v) => GitlabUserProject.fromJson(v)).toList();
 
         return Tuple2(user, projects);
       },
+      action: isViewer
+          ? ActionEntry(
+              iconData: Icons.settings,
+              onTap: () {
+                final theme = Provider.of<ThemeModel>(context);
+                theme.push(context, '/settings');
+              },
+            )
+          : null,
       bodyBuilder: (data, _) {
         final user = data.item1;
         final projects = data.item2;
@@ -69,6 +81,7 @@ class GitlabUserScreen extends StatelessWidget {
                     description: v.description,
                     starCount: v.starCount,
                     forkCount: v.forksCount,
+                    url: '/gitlab/projects/${v.id}',
                   )
               ],
             )

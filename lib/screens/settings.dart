@@ -58,12 +58,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
               url: '/login',
               rightWidget: Text(auth.activeAccount.login),
             ),
-            TableViewItem(
-              text: Text('Review Permissions'),
-              url:
-                  'https://github.com/settings/connections/applications/$clientId',
-              rightWidget: Text(auth.activeAccount.login),
-            ),
+            if (auth.activeAccount.platform == PlatformType.github)
+              TableViewItem(
+                text: Text('Review Permissions'),
+                url:
+                    'https://github.com/settings/connections/applications/$clientId',
+                rightWidget: Text(auth.activeAccount.login),
+              ),
           ]),
           CommonStyle.verticalGap,
           TableView(headerText: 'theme', items: [
@@ -124,7 +125,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
             TableViewItem(
               text: Text('Submit an issue'),
               rightWidget: Text('pd4d10/git-touch'),
-              url: '/pd4d10/git-touch/issues/new',
+              url: (auth.activeAccount.platform == PlatformType.github
+                      ? ''
+                      : 'https://github.com') +
+                  '/pd4d10/git-touch/issues/new',
             ),
             TableViewItem(
               text: Text('Rate This App'),
@@ -148,7 +152,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
             TableViewItem(
               text: Text('Source Code'),
               rightWidget: Text('pd4d10/git-touch'),
-              url: '/pd4d10/git-touch',
+              url: (auth.activeAccount.platform == PlatformType.github
+                      ? ''
+                      : 'https://github.com') +
+                  '/pd4d10/git-touch',
             ),
           ])
         ],

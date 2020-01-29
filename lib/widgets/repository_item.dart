@@ -17,6 +17,7 @@ class RepositoryItem extends StatelessWidget {
   final String primaryLanguageName;
   final String primaryLanguageColor;
   final String note;
+  final String url;
 
   RepositoryItem({
     @required this.owner,
@@ -29,6 +30,7 @@ class RepositoryItem extends StatelessWidget {
     this.primaryLanguageColor,
     this.note,
     this.iconData,
+    @required this.url,
   });
 
   RepositoryItem.gh({
@@ -43,7 +45,8 @@ class RepositoryItem extends StatelessWidget {
     this.note,
     @required bool isPrivate,
     @required bool isFork,
-  }) : this.iconData = _buildIconData(isPrivate, isFork);
+  })  : this.iconData = _buildIconData(isPrivate, isFork),
+        this.url = '$owner/$name';
 
   static IconData _buildIconData(bool isPrivate, bool isFork) {
     if (isPrivate == true) return Octicons.lock;
@@ -55,7 +58,7 @@ class RepositoryItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
     return Link(
-      url: '/$owner/$name',
+      url: url,
       child: Container(
         padding: CommonStyle.padding,
         child: Row(
