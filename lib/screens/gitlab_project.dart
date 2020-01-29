@@ -7,9 +7,9 @@ import 'package:git_touch/models/gitlab.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
-import 'package:git_touch/widgets/avatar.dart';
 import 'package:git_touch/widgets/entry_item.dart';
 import 'package:git_touch/widgets/markdown_view.dart';
+import 'package:git_touch/widgets/repo_header.dart';
 import 'package:git_touch/widgets/table_view.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/models/theme.dart';
@@ -72,44 +72,19 @@ class GitlabProjectScreen extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Container(
-              padding: CommonStyle.padding,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: join(SizedBox(height: 12), [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Avatar(
-                        url: p.avatarUrl,
-                        size: AvatarSize.small,
-                        linkUrl: '/${p.namespace.name}',
-                      ),
-                      SizedBox(width: 8),
-                      Text(
-                        '${p.namespace.name} / ${p.name}',
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: theme.palette.primary,
-                        ),
-                      ),
-                    ],
-                  ),
-                  if (p.description != null && p.description.isNotEmpty)
-                    Text(
-                      p.description,
-                      style: TextStyle(
-                        color: theme.palette.secondaryText,
-                        fontSize: 17,
-                      ),
-                    ),
-                  if (badges.isNotEmpty)
-                    Wrap(spacing: 4, runSpacing: 4, children: [
-                      for (var label in badges)
-                        SvgPicture.network(label.renderedImageUrl, height: 20),
-                    ])
-                ]),
-              ),
+            RepoHeader(
+              avatarUrl: p.avatarUrl,
+              avatarLink: '/${p.namespace.name}',
+              owner: p.namespace.name,
+              name: p.name,
+              description: p.description,
+              trailings: <Widget>[
+                if (badges.isNotEmpty)
+                  Wrap(spacing: 4, runSpacing: 4, children: [
+                    for (var label in badges)
+                      SvgPicture.network(label.renderedImageUrl, height: 20),
+                  ])
+              ],
             ),
             CommonStyle.border,
             Row(

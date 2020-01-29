@@ -7,12 +7,12 @@ import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
-import 'package:git_touch/widgets/avatar.dart';
 import 'package:git_touch/widgets/entry_item.dart';
 import 'package:git_touch/widgets/label.dart';
 import 'package:git_touch/widgets/mutation_button.dart';
-import 'package:git_touch/widgets/link.dart';
+
 import 'package:git_touch/widgets/markdown_view.dart';
+import 'package:git_touch/widgets/repo_header.dart';
 import 'package:git_touch/widgets/table_view.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/models/theme.dart';
@@ -152,135 +152,98 @@ class RepositoryScreen extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Container(
-              padding: CommonStyle.padding,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: join(SizedBox(height: 12), [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Avatar(
-                        url: repo.owner.avatarUrl,
-                        size: AvatarSize.small,
-                        linkUrl: '/$owner',
-                      ),
-                      SizedBox(width: 8),
-                      Text(
-                        '$owner / $name',
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: theme.palette.primary,
+            RepoHeader(
+              avatarUrl: repo.owner.avatarUrl,
+              avatarLink: '/${repo.owner.login}',
+              name: repo.name,
+              owner: repo.owner.login,
+              description: repo.description,
+              homepageUrl: repo.homepageUrl,
+              actions: [
+                MutationButton(
+                  text: repo.viewerHasStarred ? 'Unstar' : 'Star',
+                  onPressed: () async {
+                    final res = await auth.gqlClient.execute(
+                      GhStarQuery(
+                        variables: GhStarArguments(
+                          id: repo.id,
+                          flag: !repo.viewerHasStarred,
                         ),
                       ),
-                    ],
-                  ),
-                  Row(
-                    children: <Widget>[
-                      MutationButton(
-                        text: repo.viewerHasStarred ? 'Unstar' : 'Star',
-                        onPressed: () async {
-                          final res = await auth.gqlClient.execute(
-                            GhStarQuery(
-                              variables: GhStarArguments(
-                                id: repo.id,
-                                flag: !repo.viewerHasStarred,
-                              ),
-                            ),
-                          );
-                          setState(() {
-                            repo.viewerHasStarred = res.data.removeStar
-                                    ?.starrable?.viewerHasStarred ??
-                                res.data.addStar.starrable.viewerHasStarred;
-                          });
-                        },
-                      ),
-                      // TODO:
-                      // SizedBox(width: 4),
-                      // MutationButton(
-                      //   text: repo.viewerSubscription ==
-                      //           GhRepoSubscriptionState.SUBSCRIBED
-                      //       ? 'Unwatch'
-                      //       : 'Watch',
-                      //   onPressed: () async {
-                      //     theme.showActions(
-                      //       context,
-                      //       GhWatchSubscriptionState.values.map((v) {
-                      //         return ActionItem(
-                      //           text: v.toString(),
-                      //           onTap: (_) async {
-                      //             final res = await auth.gqlClient.execute(
-                      //               GhWatchQuery(
-                      //                 variables: GhWatchArguments(
-                      //                   id: repo.id,
-                      //                   state:
-                      //                       GhWatchSubscriptionState.SUBSCRIBED,
-                      //                 ),
-                      //               ),
-                      //             );
-                      //             setState(() {
-                      //               final r = res.data.updateSubscription
-                      //                   .subscribable as GhWatchRepository;
-                      //               switch (r.viewerSubscription) {
-                      //                 case GhWatchSubscriptionState.IGNORED:
-                      //                   repo.viewerSubscription =
-                      //                       GhRepoSubscriptionState.IGNORED;
-                      //                   break;
-                      //                 case GhWatchSubscriptionState.SUBSCRIBED:
-                      //                   repo.viewerSubscription =
-                      //                       GhRepoSubscriptionState.SUBSCRIBED;
-                      //                   break;
-                      //                 case GhWatchSubscriptionState
-                      //                     .UNSUBSCRIBED:
-                      //                   repo.viewerSubscription =
-                      //                       GhRepoSubscriptionState
-                      //                           .UNSUBSCRIBED;
-                      //                   break;
-                      //               }
-                      //             });
-                      //           },
-                      //         );
-                      //       }).toList(),
-                      //     );
-                      //   },
-                      // ),
-                    ],
-                  ),
-                  if (repo.description != null && repo.description.isNotEmpty)
-                    Text(
-                      repo.description,
-                      style: TextStyle(
-                        color: theme.palette.secondaryText,
-                        fontSize: 17,
-                      ),
-                    ),
-                  if (repo.homepageUrl != null && repo.homepageUrl.isNotEmpty)
-                    Link(
-                      url: repo.homepageUrl,
-                      child: Text(
-                        repo.homepageUrl,
-                        style: TextStyle(
-                          color: theme.palette.primary,
-                          fontSize: 17,
-                        ),
-                      ),
-                    ),
-                  if (repo.repositoryTopics.nodes.isNotEmpty)
-                    // TODO: link
-                    Wrap(
-                      spacing: 4,
-                      runSpacing: 4,
-                      children: repo.repositoryTopics.nodes.map((node) {
-                        return MyLabel(
-                          name: node.topic.name,
-                          // color: Colors.blue.shade50,
-                          color: theme.palette.grayBackground,
-                          textColor: theme.palette.primary,
-                        );
-                      }).toList(),
-                    )
-                ]),
-              ),
+                    );
+                    setState(() {
+                      repo.viewerHasStarred =
+                          res.data.removeStar?.starrable?.viewerHasStarred ??
+                              res.data.addStar.starrable.viewerHasStarred;
+                    });
+                  },
+                ),
+                // TODO:
+                // SizedBox(width: 4),
+                // MutationButton(
+                //   text: repo.viewerSubscription ==
+                //           GhRepoSubscriptionState.SUBSCRIBED
+                //       ? 'Unwatch'
+                //       : 'Watch',
+                //   onPressed: () async {
+                //     theme.showActions(
+                //       context,
+                //       GhWatchSubscriptionState.values.map((v) {
+                //         return ActionItem(
+                //           text: v.toString(),
+                //           onTap: (_) async {
+                //             final res = await auth.gqlClient.execute(
+                //               GhWatchQuery(
+                //                 variables: GhWatchArguments(
+                //                   id: repo.id,
+                //                   state:
+                //                       GhWatchSubscriptionState.SUBSCRIBED,
+                //                 ),
+                //               ),
+                //             );
+                //             setState(() {
+                //               final r = res.data.updateSubscription
+                //                   .subscribable as GhWatchRepository;
+                //               switch (r.viewerSubscription) {
+                //                 case GhWatchSubscriptionState.IGNORED:
+                //                   repo.viewerSubscription =
+                //                       GhRepoSubscriptionState.IGNORED;
+                //                   break;
+                //                 case GhWatchSubscriptionState.SUBSCRIBED:
+                //                   repo.viewerSubscription =
+                //                       GhRepoSubscriptionState.SUBSCRIBED;
+                //                   break;
+                //                 case GhWatchSubscriptionState
+                //                     .UNSUBSCRIBED:
+                //                   repo.viewerSubscription =
+                //                       GhRepoSubscriptionState
+                //                           .UNSUBSCRIBED;
+                //                   break;
+                //               }
+                //             });
+                //           },
+                //         );
+                //       }).toList(),
+                //     );
+                //   },
+                // ),
+              ],
+              trailings: <Widget>[
+                if (repo.repositoryTopics.nodes.isNotEmpty)
+                  // TODO: link
+                  Wrap(
+                    spacing: 4,
+                    runSpacing: 4,
+                    children: repo.repositoryTopics.nodes.map((node) {
+                      return MyLabel(
+                        name: node.topic.name,
+                        // color: Colors.blue.shade50,
+                        color: theme.palette.grayBackground,
+                        textColor: theme.palette.primary,
+                      );
+                    }).toList(),
+                  )
+              ],
             ),
             CommonStyle.border,
             Row(
