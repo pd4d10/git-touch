@@ -8,14 +8,13 @@ class GiteaUser {
   String login;
   String fullName;
   String avatarUrl;
-
+  DateTime created;
   GiteaUser();
-
   factory GiteaUser.fromJson(Map<String, dynamic> json) =>
       _$GiteaUserFromJson(json);
 }
 
-@JsonSerializable()
+@JsonSerializable(fieldRename: FieldRename.snake)
 class GiteaRepository {
   int id;
   GiteaUser owner;
@@ -23,9 +22,8 @@ class GiteaRepository {
   String description;
   int starsCount;
   int forksCount;
-
+  DateTime updatedAt;
   GiteaRepository();
-
   factory GiteaRepository.fromJson(Map<String, dynamic> json) =>
       _$GiteaRepositoryFromJson(json);
 }

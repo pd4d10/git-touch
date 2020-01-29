@@ -193,8 +193,8 @@ class AuthModel with ChangeNotifier {
   }
 
   Future fetchGitea(String p) async {
-    final res = await http.get('https://try.gitea.io' + '/api/v1' + p,
-        headers: {'Authorization': ''});
+    final res = await http.get('${activeAccount.domain}/api/v1$p',
+        headers: {'Authorization': 'token $token'});
     final info = json.decode(utf8.decode(res.bodyBytes));
     return info;
   }

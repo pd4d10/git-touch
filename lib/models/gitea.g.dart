@@ -11,7 +11,10 @@ GiteaUser _$GiteaUserFromJson(Map<String, dynamic> json) {
     ..id = json['id'] as int
     ..login = json['login'] as String
     ..fullName = json['full_name'] as String
-    ..avatarUrl = json['avatar_url'] as String;
+    ..avatarUrl = json['avatar_url'] as String
+    ..created = json['created'] == null
+        ? null
+        : DateTime.parse(json['created'] as String);
 }
 
 Map<String, dynamic> _$GiteaUserToJson(GiteaUser instance) => <String, dynamic>{
@@ -19,6 +22,7 @@ Map<String, dynamic> _$GiteaUserToJson(GiteaUser instance) => <String, dynamic>{
       'login': instance.login,
       'full_name': instance.fullName,
       'avatar_url': instance.avatarUrl,
+      'created': instance.created?.toIso8601String(),
     };
 
 GiteaRepository _$GiteaRepositoryFromJson(Map<String, dynamic> json) {
@@ -29,8 +33,11 @@ GiteaRepository _$GiteaRepositoryFromJson(Map<String, dynamic> json) {
         : GiteaUser.fromJson(json['owner'] as Map<String, dynamic>)
     ..name = json['name'] as String
     ..description = json['description'] as String
-    ..starsCount = json['starsCount'] as int
-    ..forksCount = json['forksCount'] as int;
+    ..starsCount = json['stars_count'] as int
+    ..forksCount = json['forks_count'] as int
+    ..updatedAt = json['updated_at'] == null
+        ? null
+        : DateTime.parse(json['updated_at'] as String);
 }
 
 Map<String, dynamic> _$GiteaRepositoryToJson(GiteaRepository instance) =>
@@ -39,6 +46,7 @@ Map<String, dynamic> _$GiteaRepositoryToJson(GiteaRepository instance) =>
       'owner': instance.owner,
       'name': instance.name,
       'description': instance.description,
-      'starsCount': instance.starsCount,
-      'forksCount': instance.forksCount,
+      'stars_count': instance.starsCount,
+      'forks_count': instance.forksCount,
+      'updated_at': instance.updatedAt?.toIso8601String(),
     };

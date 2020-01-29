@@ -43,10 +43,8 @@ final userRouter = RouterScreen(
 
 class UserScreen extends StatelessWidget {
   final String login;
-
   UserScreen(this.login);
-
-  bool get isViewer => login.isEmpty;
+  bool get isViewer => login == null;
 
   Iterable<Widget> _buildPinnedItems(Iterable<GhUserRepository> pinnedItems,
       Iterable<GhUserRepository> repositories) {
@@ -326,7 +324,8 @@ class UserScreen extends StatelessWidget {
     return RefreshStatefulScaffold<GhUserRepositoryOwner>(
       fetchData: () async {
         final data = await auth.gqlClient.execute(GhUserQuery(
-            variables: GhUserArguments(login: login, isViewer: isViewer)));
+            variables:
+                GhUserArguments(login: login ?? '', isViewer: isViewer)));
         return isViewer ? data.data.viewer : data.data.repositoryOwner;
       },
       title: AppBarTitle(isViewer ? 'Me' : login),

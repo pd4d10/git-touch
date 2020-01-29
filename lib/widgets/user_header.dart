@@ -39,7 +39,7 @@ class UserHeader extends StatelessWidget {
             ],
           ),
           SizedBox(height: 8),
-          if (name != null) ...[
+          if (name != null && name.isNotEmpty) ...[
             Text(
               name,
               style: TextStyle(

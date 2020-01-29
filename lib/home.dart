@@ -45,7 +45,7 @@ class _HomeState extends State<Home> {
           case 3:
             return SearchScreen();
           case 4:
-            return UserScreen('');
+            return UserScreen(null);
         }
         break;
       case PlatformType.gitlab:
