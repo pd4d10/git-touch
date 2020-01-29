@@ -24,7 +24,7 @@ class GitlabMergeRequestsScreen extends StatelessWidget {
     return ListPayload(
       cursor: res.cursor,
       hasMore: res.hasMore,
-      items: (res as List).map((v) => GitlabIssue.fromJson(v)).toList(),
+      items: (res.data as List).map((v) => GitlabIssue.fromJson(v)).toList(),
     );
   }
 
