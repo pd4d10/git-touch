@@ -9,23 +9,25 @@ import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
 
 class GiteaUserScreen extends StatelessWidget {
-  final String username;
-
-  GiteaUserScreen(this.username);
+  final String login;
+  GiteaUserScreen(this.login);
 
   @override
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold<
         Tuple2<GiteaUser, Iterable<GiteaRepository>>>(
-      title: Text('User'),
+      title: Text(login == null ? 'Me' : 'User'),
       fetchData: () async {
         final auth = Provider.of<AuthModel>(context);
+        final u = login ?? auth.activeAccount.login;
         final items = await Future.wait([
-          auth.fetchGitea('/users/$username'),
-          auth.fetchGitea('/users/$username/repos'),
+          auth.fetchGitea('/users/$u'),
+          auth.fetchGitea('/users/$u/repos'),
         ]);
-        return Tuple2(GiteaUser.fromJson(items[0]),
-            (items[1] as List).map((v) => GiteaRepository.fromJson(v)));
+        return Tuple2(
+          GiteaUser.fromJson(items[0]),
+          (items[1] as List).map((v) => GiteaRepository.fromJson(v)),
+        );
       },
       bodyBuilder: (data, _) {
         final user = data.item1;

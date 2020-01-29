@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/notification.dart';
 import 'package:git_touch/models/theme.dart';
+import 'package:git_touch/screens/gitea_user.dart';
 import 'package:git_touch/screens/gitlab_explore.dart';
 import 'package:git_touch/screens/gitlab_project.dart';
 import 'package:git_touch/screens/gitlab_todos.dart';
@@ -53,6 +54,14 @@ class _HomeState extends State<Home> {
             return GitlabExplore();
           case 1:
             return GitlabUserScreen(null);
+        }
+        break;
+      case PlatformType.gitea:
+        switch (index) {
+          case 0:
+            return GiteaUserScreen(null);
+          case 1:
+            return GiteaUserScreen(null);
         }
         break;
     }
@@ -107,6 +116,17 @@ class _HomeState extends State<Home> {
           ),
         ];
       case PlatformType.gitlab:
+        return [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.explore),
+            title: Text('Explore'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            title: Text('Me'),
+          ),
+        ];
+      case PlatformType.gitea:
         return [
           BottomNavigationBarItem(
             icon: Icon(Icons.explore),

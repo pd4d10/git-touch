@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:convert';
 import 'dart:async';
+import 'package:git_touch/models/gitea.dart';
 import 'package:git_touch/utils/request_serilizer.dart';
 import 'package:gql_http_link/gql_http_link.dart';
 import 'package:artemis/artemis.dart';
@@ -21,6 +22,7 @@ const clientId = 'df930d7d2e219f26142a';
 class PlatformType {
   static const github = 'github';
   static const gitlab = 'gitlab';
+  static const gitea = 'gitea';
 }
 
 class DataWithPage<T> {
@@ -159,6 +161,35 @@ class AuthModel with ChangeNotifier {
         res.headers['X-Next-Pages'] ?? res.headers['x-next-page'] ?? '');
     final info = json.decode(utf8.decode(res.bodyBytes));
     return DataWithPage(info, next, next != null);
+  }
+
+  Future loginToGitea(String domain, String token) async {
+    try {
+      loading = true;
+      notifyListeners();
+
+      final res = await http.get('$domain/api/v1/user',
+          headers: {'Authorization': 'token $token'});
+      final info = json.decode(res.body);
+      if (info['message'] != null) {
+        throw info['message'];
+      }
+      final user = GiteaUser.fromJson(info);
+
+      await _addAccount(Account(
+        platform: PlatformType.gitea,
+        domain: domain,
+        token: token,
+        login: user.login,
+        avatarUrl: user.avatarUrl,
+      ));
+    } catch (err) {
+      Fimber.e('loginToGitea failed', ex: err);
+      // TODO: show errors
+    } finally {
+      loading = false;
+      notifyListeners();
+    }
   }
 
   Future fetchGitea(String p) async {

@@ -22,6 +22,8 @@ class _LoginScreenState extends State<LoginScreen> {
   String _token = '';
   String _gitlabToken = '';
   String _gitlabDomain = 'https://gitlab.com';
+  String _giteaToken = '';
+  String _giteaDomain = 'https://try.gitea.io';
 
   Widget _buildAccountItem(int index) {
     final theme = Provider.of<ThemeModel>(context);
@@ -146,7 +148,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   // _buildAddItem(
                   //   text: 'GitLab Account by Token',
                   //   onTap: () async {
-                  //     var result =
+                  //     final result =
                   //         await Provider.of<ThemeModel>(context).showConfirm(
                   //       context,
                   //       Column(
@@ -187,6 +189,44 @@ class _LoginScreenState extends State<LoginScreen> {
                   //       try {
                   //         await auth.loginToGitlab(_gitlabDomain, _gitlabToken);
                   //         // TODO: Custom domain
+                  //       } catch (err) {
+                  //         Provider.of<ThemeModel>(context).showConfirm(
+                  //             context, Text('Token invalid: $err'));
+                  //       }
+                  //     }
+                  //   },
+                  // ),
+                  // _buildAddItem(
+                  //   text: 'Gitea Account by Token',
+                  //   onTap: () async {
+                  //     final result =
+                  //         await Provider.of<ThemeModel>(context).showConfirm(
+                  //       context,
+                  //       Column(
+                  //         children: <Widget>[
+                  //           CupertinoTextField(
+                  //             placeholder: 'Domain',
+                  //             onChanged: (v) {
+                  //               setState(() {
+                  //                 _giteaDomain = v;
+                  //               });
+                  //             },
+                  //           ),
+                  //           SizedBox(height: 8),
+                  //           CupertinoTextField(
+                  //             placeholder: 'Access token',
+                  //             onChanged: (v) {
+                  //               setState(() {
+                  //                 _giteaToken = v;
+                  //               });
+                  //             },
+                  //           ),
+                  //         ],
+                  //       ),
+                  //     );
+                  //     if (result == true) {
+                  //       try {
+                  //         await auth.loginToGitea(_giteaDomain, _giteaToken);
                   //       } catch (err) {
                   //         Provider.of<ThemeModel>(context).showConfirm(
                   //             context, Text('Token invalid: $err'));
