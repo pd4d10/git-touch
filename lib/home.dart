@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/notification.dart';
 import 'package:git_touch/models/theme.dart';
+import 'package:git_touch/screens/gitlab_explore.dart';
 import 'package:git_touch/screens/gitlab_project.dart';
 import 'package:git_touch/screens/gitlab_todos.dart';
 import 'package:git_touch/screens/gitlab_user.dart';
@@ -49,7 +50,7 @@ class _HomeState extends State<Home> {
       case PlatformType.gitlab:
         switch (index) {
           case 0:
-            return GitlabTodosScreen();
+            return GitlabExplore();
           case 1:
             return GitlabUserScreen(null);
         }
@@ -108,12 +109,11 @@ class _HomeState extends State<Home> {
       case PlatformType.gitlab:
         return [
           BottomNavigationBarItem(
-            icon: Icon(Icons.timeline),
-            title: Text('Todos'),
+            icon: Icon(Icons.explore),
+            title: Text('Explore'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline),
-            activeIcon: Icon(Icons.person),
+            icon: Icon(Icons.person),
             title: Text('Me'),
           ),
         ];

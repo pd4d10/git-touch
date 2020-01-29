@@ -147,7 +147,10 @@ GitlabProject _$GitlabProjectFromJson(Map<String, dynamic> json) {
     ..statistics = json['statistics'] == null
         ? null
         : GitlabProjectStatistics.fromJson(
-            json['statistics'] as Map<String, dynamic>);
+            json['statistics'] as Map<String, dynamic>)
+    ..lastActivityAt = json['last_activity_at'] == null
+        ? null
+        : DateTime.parse(json['last_activity_at'] as String);
 }
 
 Map<String, dynamic> _$GitlabProjectToJson(GitlabProject instance) =>
@@ -166,6 +169,7 @@ Map<String, dynamic> _$GitlabProjectToJson(GitlabProject instance) =>
       'open_issues_count': instance.openIssuesCount,
       'merge_requests_enabled': instance.mergeRequestsEnabled,
       'statistics': instance.statistics,
+      'last_activity_at': instance.lastActivityAt?.toIso8601String(),
     };
 
 GitlabProjectBadge _$GitlabProjectBadgeFromJson(Map<String, dynamic> json) {
@@ -196,7 +200,8 @@ GitlabProjectNamespace _$GitlabProjectNamespaceFromJson(
     Map<String, dynamic> json) {
   return GitlabProjectNamespace()
     ..id = json['id'] as int
-    ..name = json['name'] as String;
+    ..name = json['name'] as String
+    ..path = json['path'] as String;
 }
 
 Map<String, dynamic> _$GitlabProjectNamespaceToJson(
@@ -204,6 +209,7 @@ Map<String, dynamic> _$GitlabProjectNamespaceToJson(
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
+      'path': instance.path,
     };
 
 GitlabTreeItem _$GitlabTreeItemFromJson(Map<String, dynamic> json) {

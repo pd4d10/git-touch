@@ -14,7 +14,11 @@ class ListPayload<T, K> {
   List<T> items;
   bool hasMore;
 
-  ListPayload({this.items, this.cursor, this.hasMore});
+  ListPayload({
+    @required this.items,
+    @required this.cursor,
+    @required this.hasMore,
+  });
 }
 
 // This is a scaffold for infinite scroll screens

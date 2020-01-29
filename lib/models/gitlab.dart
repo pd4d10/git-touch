@@ -98,6 +98,7 @@ class GitlabProject {
   int openIssuesCount;
   bool mergeRequestsEnabled;
   GitlabProjectStatistics statistics;
+  DateTime lastActivityAt;
   GitlabProject();
   factory GitlabProject.fromJson(Map<String, dynamic> json) =>
       _$GitlabProjectFromJson(json);
@@ -124,6 +125,7 @@ class GitlabProjectStatistics {
 class GitlabProjectNamespace {
   int id;
   String name;
+  String path;
   GitlabProjectNamespace();
 
   factory GitlabProjectNamespace.fromJson(Map<String, dynamic> json) =>
