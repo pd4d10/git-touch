@@ -10,6 +10,7 @@ import 'package:git_touch/widgets/user_item.dart';
 import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
 import 'package:git_touch/utils/utils.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 final gitlabUserRouter = RouterScreen(
     '/gitlab/user/:id',
@@ -20,19 +21,6 @@ class GitlabUserScreen extends StatelessWidget {
   final int id;
   GitlabUserScreen(this.id);
   bool get isViewer => id == null;
-
-  static _getGitlabIcon(String visibility) {
-    switch (visibility) {
-      case 'internal':
-        return FontAwesome.shield;
-      case 'public':
-        return FontAwesome.globe;
-      case 'private':
-        return FontAwesome.lock;
-      default:
-        return Octicons.repo;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,14 +62,16 @@ class GitlabUserScreen extends StatelessWidget {
             Column(
               children: <Widget>[
                 for (var v in projects)
-                  RepositoryItem(
+                  RepositoryItem.gl(
+                    id: v.id,
                     owner: v.owner.username,
                     avatarUrl: v.owner.avatarUrl,
                     name: v.name,
                     description: v.description,
                     starCount: v.starCount,
                     forkCount: v.forksCount,
-                    url: '/gitlab/projects/${v.id}',
+                    note: 'Created ${timeago.format(v.createdAt)}',
+                    visibility: v.visibility,
                   )
               ],
             )

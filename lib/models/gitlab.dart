@@ -11,6 +11,7 @@ class GitlabUserProject {
   int starCount;
   int forksCount;
   String visibility;
+  DateTime createdAt;
 
   GitlabUserProject();
 

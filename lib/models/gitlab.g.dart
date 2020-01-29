@@ -16,7 +16,10 @@ GitlabUserProject _$GitlabUserProjectFromJson(Map<String, dynamic> json) {
     ..description = json['description'] as String
     ..starCount = json['star_count'] as int
     ..forksCount = json['forks_count'] as int
-    ..visibility = json['visibility'] as String;
+    ..visibility = json['visibility'] as String
+    ..createdAt = json['created_at'] == null
+        ? null
+        : DateTime.parse(json['created_at'] as String);
 }
 
 Map<String, dynamic> _$GitlabUserProjectToJson(GitlabUserProject instance) =>
@@ -28,6 +31,7 @@ Map<String, dynamic> _$GitlabUserProjectToJson(GitlabUserProject instance) =>
       'star_count': instance.starCount,
       'forks_count': instance.forksCount,
       'visibility': instance.visibility,
+      'created_at': instance.createdAt?.toIso8601String(),
     };
 
 GitlabUser _$GitlabUserFromJson(Map<String, dynamic> json) {

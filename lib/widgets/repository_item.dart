@@ -33,6 +33,21 @@ class RepositoryItem extends StatelessWidget {
     @required this.url,
   });
 
+  RepositoryItem.gl({
+    @required id,
+    @required this.owner,
+    @required this.avatarUrl,
+    @required this.name,
+    @required this.description,
+    @required this.starCount,
+    @required this.forkCount,
+    @required visibility,
+    this.primaryLanguageName,
+    this.primaryLanguageColor,
+    this.note,
+  })  : url = '/gitlab/projects/$id',
+        iconData = _buildGlIconData(visibility);
+
   RepositoryItem.gh({
     @required this.owner,
     @required this.avatarUrl,
@@ -45,13 +60,26 @@ class RepositoryItem extends StatelessWidget {
     this.note,
     @required bool isPrivate,
     @required bool isFork,
-  })  : this.iconData = _buildIconData(isPrivate, isFork),
-        this.url = '$owner/$name';
+  })  : iconData = _buildIconData(isPrivate, isFork),
+        url = '$owner/$name';
 
   static IconData _buildIconData(bool isPrivate, bool isFork) {
     if (isPrivate == true) return Octicons.lock;
     if (isFork == true) return Octicons.repo_forked;
     return null;
+  }
+
+  static IconData _buildGlIconData(String visibility) {
+    switch (visibility) {
+      case 'internal':
+        return FontAwesome.shield;
+      case 'public':
+        return FontAwesome.globe;
+      case 'private':
+        return FontAwesome.lock;
+      default:
+        return Octicons.repo;
+    }
   }
 
   @override
