@@ -25,9 +25,9 @@ class GitlabUser {
   String username;
   String name;
   String avatarUrl;
-
+  String bio;
+  DateTime createdAt;
   GitlabUser();
-
   factory GitlabUser.fromJson(Map<String, dynamic> json) =>
       _$GitlabUserFromJson(json);
 }

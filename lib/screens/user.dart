@@ -15,6 +15,7 @@ import 'package:git_touch/widgets/repository_item.dart';
 import 'package:git_touch/widgets/table_view.dart';
 import 'package:git_touch/widgets/text_contains_organization.dart';
 import 'package:git_touch/models/auth.dart';
+import 'package:git_touch/widgets/user_header.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/widgets/action_button.dart';
 
@@ -83,77 +84,6 @@ class UserScreen extends StatelessWidget {
     ];
   }
 
-  Widget _buildHeader(BuildContext context, String avatarUrl, String name,
-      String login, DateTime createdAt, String bio,
-      {Widget followWidget}) {
-    final theme = Provider.of<ThemeModel>(context);
-
-    return Container(
-      padding: CommonStyle.padding,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              Avatar(url: avatarUrl, size: AvatarSize.extraLarge),
-              if (followWidget != null) ...[
-                Expanded(child: Container()),
-                followWidget,
-              ]
-            ],
-          ),
-          SizedBox(height: 8),
-          if (name != null) ...[
-            Text(
-              name,
-              style: TextStyle(
-                color: theme.palette.text,
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            SizedBox(height: 4),
-          ],
-          Text(
-            login,
-            style: TextStyle(
-              color: theme.palette.primary,
-              fontSize: 18,
-            ),
-          ),
-          SizedBox(height: 8),
-          Row(
-            children: <Widget>[
-              Icon(
-                Octicons.clock,
-                size: 16,
-                color: theme.palette.tertiaryText,
-              ),
-              SizedBox(width: 4),
-              Text(
-                'Joined on ${dateFormat.format(createdAt)}',
-                style: TextStyle(
-                  color: theme.palette.tertiaryText,
-                  fontSize: 16,
-                ),
-              ),
-            ],
-          ),
-          if (bio != null && bio.isNotEmpty) ...[
-            SizedBox(height: 10),
-            Text(
-              bio,
-              style: TextStyle(
-                color: theme.palette.secondaryText,
-                fontSize: 17,
-              ),
-            )
-          ]
-        ],
-      ),
-    );
-  }
-
   Widget _buildUser(BuildContext context, GhUserUser p,
       void Function(void Function()) setState) {
     final theme = Provider.of<ThemeModel>(context);
@@ -163,13 +93,12 @@ class UserScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        _buildHeader(
-          context,
-          p.avatarUrl,
-          p.name,
-          p.login,
-          p.createdAt,
-          p.bio,
+        UserHeader(
+          avatarUrl: p.avatarUrl,
+          name: p.name,
+          login: p.login,
+          createdAt: p.createdAt,
+          bio: p.bio,
           followWidget: p.viewerCanFollow == true
               ? MutationButton(
                   text: p.viewerIsFollowing ? 'Unfollow' : 'Follow',
@@ -322,8 +251,13 @@ class UserScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        _buildHeader(
-            context, p.avatarUrl, p.name, p.login, p.createdAt, p.description),
+        UserHeader(
+          avatarUrl: p.avatarUrl,
+          name: p.name,
+          login: p.login,
+          createdAt: p.createdAt,
+          bio: p.description,
+        ),
         CommonStyle.border,
         Row(children: [
           EntryItem(

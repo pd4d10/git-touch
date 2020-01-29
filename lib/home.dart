@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/notification.dart';
 import 'package:git_touch/models/theme.dart';
+import 'package:git_touch/screens/gitlab_project.dart';
 import 'package:git_touch/screens/gitlab_todos.dart';
 import 'package:git_touch/screens/gitlab_user.dart';
 import 'package:git_touch/screens/login.dart';
@@ -50,7 +51,7 @@ class _HomeState extends State<Home> {
           case 0:
             return GitlabTodosScreen();
           case 1:
-            return GitlabUserScreen(auth.activeAccount.gitlabId);
+            return GitlabUserScreen(null);
         }
         break;
     }

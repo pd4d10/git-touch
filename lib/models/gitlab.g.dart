@@ -39,7 +39,11 @@ GitlabUser _$GitlabUserFromJson(Map<String, dynamic> json) {
     ..id = json['id'] as int
     ..username = json['username'] as String
     ..name = json['name'] as String
-    ..avatarUrl = json['avatar_url'] as String;
+    ..avatarUrl = json['avatar_url'] as String
+    ..bio = json['bio'] as String
+    ..createdAt = json['created_at'] == null
+        ? null
+        : DateTime.parse(json['created_at'] as String);
 }
 
 Map<String, dynamic> _$GitlabUserToJson(GitlabUser instance) =>
@@ -48,6 +52,8 @@ Map<String, dynamic> _$GitlabUserToJson(GitlabUser instance) =>
       'username': instance.username,
       'name': instance.name,
       'avatar_url': instance.avatarUrl,
+      'bio': instance.bio,
+      'created_at': instance.createdAt?.toIso8601String(),
     };
 
 GitlabTodoProject _$GitlabTodoProjectFromJson(Map<String, dynamic> json) {

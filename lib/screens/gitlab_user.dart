@@ -6,7 +6,7 @@ import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/widgets/action_entry.dart';
 import 'package:git_touch/widgets/repository_item.dart';
-import 'package:git_touch/widgets/user_item.dart';
+import 'package:git_touch/widgets/user_header.dart';
 import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
 import 'package:git_touch/utils/utils.dart';
@@ -53,10 +53,12 @@ class GitlabUserScreen extends StatelessWidget {
 
         return Column(
           children: <Widget>[
-            UserItem(
+            UserHeader(
               login: user.username,
               avatarUrl: user.avatarUrl,
               name: user.name,
+              createdAt: user.createdAt,
+              bio: user.bio,
             ),
             CommonStyle.border,
             Column(
