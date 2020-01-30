@@ -151,7 +151,7 @@ class AuthModel with ChangeNotifier {
     final res = await http.get('${activeAccount.domain}/api/v4$p',
         headers: {'Private-Token': token});
     final info = json.decode(utf8.decode(res.bodyBytes));
-    if (info['message'] != null) throw info['message'];
+    if (info is Map && info['message'] != null) throw info['message'];
     return info;
   }
 
@@ -161,7 +161,7 @@ class AuthModel with ChangeNotifier {
     final next = int.tryParse(
         res.headers['X-Next-Pages'] ?? res.headers['x-next-page'] ?? '');
     final info = json.decode(utf8.decode(res.bodyBytes));
-    if (info['message'] != null) throw info['message'];
+    if (info is Map && info['message'] != null) throw info['message'];
     return DataWithPage(info, next, next != null);
   }
 
