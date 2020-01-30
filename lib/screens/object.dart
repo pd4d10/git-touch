@@ -1,19 +1,14 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_highlight/theme_map.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:git_touch/graphql/gh.dart';
-import 'package:git_touch/models/code.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/widgets/action_entry.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
-import 'package:git_touch/widgets/markdown_view.dart';
+import 'package:git_touch/widgets/blob_view.dart';
 import 'package:git_touch/widgets/object_tree.dart';
 import 'package:path/path.dart' as p;
 import 'package:flutter/material.dart';
-import 'package:flutter_highlight/flutter_highlight.dart';
 import 'package:git_touch/models/auth.dart';
-import 'package:photo_view/photo_view.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/utils/utils.dart';
 
@@ -43,12 +38,8 @@ class ObjectScreen extends StatelessWidget {
     return dotext.substring(1);
   }
 
-  String get _language => _extname.isEmpty ? 'plaintext' : _extname;
   String get _path => paths.join('/');
   bool get _isImage => ['png', 'jpg', 'jpeg', 'gif', 'webp'].contains(_extname);
-
-  String get rawUrl =>
-      'https://raw.githubusercontent.com/$owner/$name/$branch/$_path'; // TODO:
 
   @override
   Widget build(BuildContext context) {
@@ -108,48 +99,14 @@ class ObjectScreen extends StatelessWidget {
               }),
             );
           case 'Blob':
-            final codeProvider = Provider.of<CodeModel>(context);
-            final theme = Provider.of<ThemeModel>(context);
-            final text = (data as GhObjectBlob).text;
-
-            switch (_extname) {
-              // TODO: All image types
-              case 'png':
-              case 'jpg':
-              case 'jpeg':
-              case 'gif':
-              case 'webp':
-                return PhotoView(
-                  imageProvider: NetworkImage(rawUrl),
-                  backgroundDecoration:
-                      BoxDecoration(color: theme.palette.background),
-                );
-              case 'md':
-              case 'markdown':
-                return Padding(
-                  padding: CommonStyle.padding,
-                  child: MarkdownView(text,
-                      basePaths: [owner, name, branch, ...paths]),
-                );
-              case 'svg':
-                return SvgPicture.network(rawUrl);
-              default:
-                return SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: HighlightView(
-                    text,
-                    language: _language,
-                    theme: themeMap[theme.brightness == Brightness.dark
-                        ? codeProvider.themeDark
-                        : codeProvider.theme],
-                    padding: CommonStyle.padding,
-                    textStyle: TextStyle(
-                        fontSize: codeProvider.fontSize.toDouble(),
-                        fontFamily: codeProvider.fontFamilyUsed),
-                  ),
-                );
-            }
-            break;
+            // TODO: Markdown base path
+            // basePaths: [owner, name, branch, ...paths]
+            return BlobView(
+              _path,
+              text: (data as GhObjectBlob).text,
+              networkUrl:
+                  'https://raw.githubusercontent.com/$owner/$name/$branch/$_path', // TODO: private
+            );
           default:
             return null;
         }
