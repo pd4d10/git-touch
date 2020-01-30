@@ -2,14 +2,21 @@ query GhObject($owner: String!, $name: String!, $expression: String!) {
   repository(owner: $owner, name: $name) {
     object(expression: $expression) {
       __typename
+      ... on Blob {
+        text
+        byteSize # x
+      }
       ... on Tree {
         entries {
           type
           name
+          object {
+            __typename
+            ... on Blob {
+              byteSize
+            }
+          }
         }
-      }
-      ... on Blob {
-        text
       }
     }
   }

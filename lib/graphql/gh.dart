@@ -7308,10 +7308,10 @@ class GhObjectGitObject with EquatableMixin {
 
   factory GhObjectGitObject.fromJson(Map<String, dynamic> json) {
     switch (json['__typename'].toString()) {
-      case 'Tree':
-        return GhObjectTree.fromJson(json);
       case 'Blob':
         return GhObjectBlob.fromJson(json);
+      case 'Tree':
+        return GhObjectTree.fromJson(json);
       default:
     }
     return _$GhObjectGitObjectFromJson(json);
@@ -7324,14 +7324,51 @@ class GhObjectGitObject with EquatableMixin {
   List<Object> get props => [resolveType];
   Map<String, dynamic> toJson() {
     switch (resolveType) {
-      case 'Tree':
-        return (this as GhObjectTree).toJson();
       case 'Blob':
         return (this as GhObjectBlob).toJson();
+      case 'Tree':
+        return (this as GhObjectTree).toJson();
       default:
     }
     return _$GhObjectGitObjectToJson(this);
   }
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhObjectBlob
+    with EquatableMixin
+    implements GhObjectNode, GhObjectGitObject {
+  GhObjectBlob({this.text, this.byteSize});
+
+  factory GhObjectBlob.fromJson(Map<String, dynamic> json) =>
+      _$GhObjectBlobFromJson(json);
+
+  String text;
+
+  int byteSize;
+
+  @override
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [text, byteSize, resolveType];
+  Map<String, dynamic> toJson() => _$GhObjectBlobToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhObjectNode with EquatableMixin {
+  GhObjectNode();
+
+  factory GhObjectNode.fromJson(Map<String, dynamic> json) =>
+      _$GhObjectNodeFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhObjectNodeToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
@@ -7356,7 +7393,7 @@ class GhObjectTree
 
 @JsonSerializable(explicitToJson: true)
 class GhObjectTreeEntry with EquatableMixin {
-  GhObjectTreeEntry({this.type, this.name});
+  GhObjectTreeEntry({this.type, this.name, this.object});
 
   factory GhObjectTreeEntry.fromJson(Map<String, dynamic> json) =>
       _$GhObjectTreeEntryFromJson(json);
@@ -7365,44 +7402,11 @@ class GhObjectTreeEntry with EquatableMixin {
 
   String name;
 
+  GhObjectGitObject object;
+
   @override
-  List<Object> get props => [type, name];
+  List<Object> get props => [type, name, object];
   Map<String, dynamic> toJson() => _$GhObjectTreeEntryToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhObjectNode with EquatableMixin {
-  GhObjectNode();
-
-  factory GhObjectNode.fromJson(Map<String, dynamic> json) =>
-      _$GhObjectNodeFromJson(json);
-
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [resolveType];
-  Map<String, dynamic> toJson() => _$GhObjectNodeToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhObjectBlob
-    with EquatableMixin
-    implements GhObjectNode, GhObjectGitObject {
-  GhObjectBlob({this.text});
-
-  factory GhObjectBlob.fromJson(Map<String, dynamic> json) =>
-      _$GhObjectBlobFromJson(json);
-
-  String text;
-
-  @override
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [text, resolveType];
-  Map<String, dynamic> toJson() => _$GhObjectBlobToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
@@ -7606,6 +7610,26 @@ class GhObjectQuery extends GraphQLQuery<GhObject, GhObjectArguments> {
                       InlineFragmentNode(
                           typeCondition: TypeConditionNode(
                               on: NamedTypeNode(
+                                  name: NameNode(value: 'Blob'),
+                                  isNonNull: false)),
+                          directives: [],
+                          selectionSet: SelectionSetNode(selections: [
+                            FieldNode(
+                                name: NameNode(value: 'text'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'byteSize'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null)
+                          ])),
+                      InlineFragmentNode(
+                          typeCondition: TypeConditionNode(
+                              on: NamedTypeNode(
                                   name: NameNode(value: 'Tree'),
                                   isNonNull: false)),
                           directives: [],
@@ -7627,22 +7651,39 @@ class GhObjectQuery extends GraphQLQuery<GhObject, GhObjectArguments> {
                                       alias: null,
                                       arguments: [],
                                       directives: [],
-                                      selectionSet: null)
+                                      selectionSet: null),
+                                  FieldNode(
+                                      name: NameNode(value: 'object'),
+                                      alias: null,
+                                      arguments: [],
+                                      directives: [],
+                                      selectionSet:
+                                          SelectionSetNode(selections: [
+                                        FieldNode(
+                                            name: NameNode(value: '__typename'),
+                                            alias: null,
+                                            arguments: [],
+                                            directives: [],
+                                            selectionSet: null),
+                                        InlineFragmentNode(
+                                            typeCondition: TypeConditionNode(
+                                                on: NamedTypeNode(
+                                                    name:
+                                                        NameNode(value: 'Blob'),
+                                                    isNonNull: false)),
+                                            directives: [],
+                                            selectionSet:
+                                                SelectionSetNode(selections: [
+                                              FieldNode(
+                                                  name: NameNode(
+                                                      value: 'byteSize'),
+                                                  alias: null,
+                                                  arguments: [],
+                                                  directives: [],
+                                                  selectionSet: null)
+                                            ]))
+                                      ]))
                                 ]))
-                          ])),
-                      InlineFragmentNode(
-                          typeCondition: TypeConditionNode(
-                              on: NamedTypeNode(
-                                  name: NameNode(value: 'Blob'),
-                                  isNonNull: false)),
-                          directives: [],
-                          selectionSet: SelectionSetNode(selections: [
-                            FieldNode(
-                                name: NameNode(value: 'text'),
-                                alias: null,
-                                arguments: [],
-                                directives: [],
-                                selectionSet: null)
                           ]))
                     ]))
               ]))

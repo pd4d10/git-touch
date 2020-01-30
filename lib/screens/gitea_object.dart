@@ -56,6 +56,7 @@ class GiteaObjectScreen extends StatelessWidget {
               return ObjectTreeItem(
                 name: v.name,
                 type: v.type,
+                size: v.type == 'file' ? v.size : null,
                 url: '/gitea/$owner/$name/blob?path=${v.path.urlencode}',
               );
             }),

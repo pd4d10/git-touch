@@ -1,3 +1,4 @@
+import 'package:filesize/filesize.dart';
 import 'package:flutter/material.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/table_view.dart';
@@ -8,10 +9,12 @@ class ObjectTreeItem {
   final String url;
   final String name;
   final String type;
+  final int size;
   ObjectTreeItem({
     @required this.name,
     @required this.url,
     @required this.type,
+    this.size,
   });
 }
 
@@ -51,7 +54,9 @@ class ObjectTree extends StatelessWidget {
           TableViewItem(
             leftWidget: _buildIcon(item),
             text: Text(item.name),
+            rightWidget: item.size == null ? null : Text(filesize(item.size)),
             url: item.url,
+            hideRightChevron: item.size != null,
           )
       ],
     );

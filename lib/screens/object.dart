@@ -94,8 +94,15 @@ class ObjectScreen extends StatelessWidget {
               items: (data as GhObjectTree).entries.map((v) {
                 // if (item.type == 'commit') return null;
                 final p = [...paths, v.name].join('/').urlencode;
-                final url = '/$owner/$name/blob/$branch?path=$p';
-                return ObjectTreeItem(name: v.name, type: v.type, url: url);
+
+                return ObjectTreeItem(
+                  name: v.name,
+                  type: v.type,
+                  url: '/$owner/$name/blob/$branch?path=$p',
+                  size: v.object.resolveType == 'Blob'
+                      ? (v.object as GhObjectBlob).byteSize
+                      : null,
+                );
               }),
             );
           case 'Blob':

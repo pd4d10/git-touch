@@ -2947,6 +2947,29 @@ Map<String, dynamic> _$GhObjectGitObjectToJson(GhObjectGitObject instance) =>
       '__typename': instance.resolveType,
     };
 
+GhObjectBlob _$GhObjectBlobFromJson(Map<String, dynamic> json) {
+  return GhObjectBlob(
+    text: json['text'] as String,
+    byteSize: json['byteSize'] as int,
+  )..resolveType = json['__typename'] as String;
+}
+
+Map<String, dynamic> _$GhObjectBlobToJson(GhObjectBlob instance) =>
+    <String, dynamic>{
+      'text': instance.text,
+      'byteSize': instance.byteSize,
+      '__typename': instance.resolveType,
+    };
+
+GhObjectNode _$GhObjectNodeFromJson(Map<String, dynamic> json) {
+  return GhObjectNode()..resolveType = json['__typename'] as String;
+}
+
+Map<String, dynamic> _$GhObjectNodeToJson(GhObjectNode instance) =>
+    <String, dynamic>{
+      '__typename': instance.resolveType,
+    };
+
 GhObjectTree _$GhObjectTreeFromJson(Map<String, dynamic> json) {
   return GhObjectTree(
     entries: (json['entries'] as List)
@@ -2967,6 +2990,9 @@ GhObjectTreeEntry _$GhObjectTreeEntryFromJson(Map<String, dynamic> json) {
   return GhObjectTreeEntry(
     type: json['type'] as String,
     name: json['name'] as String,
+    object: json['object'] == null
+        ? null
+        : GhObjectGitObject.fromJson(json['object'] as Map<String, dynamic>),
   );
 }
 
@@ -2974,27 +3000,7 @@ Map<String, dynamic> _$GhObjectTreeEntryToJson(GhObjectTreeEntry instance) =>
     <String, dynamic>{
       'type': instance.type,
       'name': instance.name,
-    };
-
-GhObjectNode _$GhObjectNodeFromJson(Map<String, dynamic> json) {
-  return GhObjectNode()..resolveType = json['__typename'] as String;
-}
-
-Map<String, dynamic> _$GhObjectNodeToJson(GhObjectNode instance) =>
-    <String, dynamic>{
-      '__typename': instance.resolveType,
-    };
-
-GhObjectBlob _$GhObjectBlobFromJson(Map<String, dynamic> json) {
-  return GhObjectBlob(
-    text: json['text'] as String,
-  )..resolveType = json['__typename'] as String;
-}
-
-Map<String, dynamic> _$GhObjectBlobToJson(GhObjectBlob instance) =>
-    <String, dynamic>{
-      'text': instance.text,
-      '__typename': instance.resolveType,
+      'object': instance.object?.toJson(),
     };
 
 GhObjectPinnableItem _$GhObjectPinnableItemFromJson(Map<String, dynamic> json) {
