@@ -57,19 +57,11 @@ class ObjectScreen extends StatelessWidget {
               ),
             ));
         final data = res.data.repository.object;
-
         if (data.resolveType == 'Tree') {
           (data as GhObjectTree).entries.sort((a, b) {
-            if (a.type == 'tree' && b.type == 'blob') {
-              return -1;
-            }
-            if (a.type == 'blob' && b.type == 'tree') {
-              return 1;
-            }
-            return 0;
+            return sortByKey('tree', a.type, b.type);
           });
         }
-
         return data;
       },
       actionBuilder: (data, _) {

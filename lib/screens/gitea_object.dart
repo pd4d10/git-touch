@@ -50,17 +50,19 @@ class GiteaObjectScreen extends StatelessWidget {
       },
       bodyBuilder: (p, _) {
         if (p is List) {
-          return ObjectTree(
-            items: p.map((t) {
-              final v = GiteaTree.fromJson(t);
-              return ObjectTreeItem(
+          final items = p.map((t) => GiteaTree.fromJson(t)).toList();
+          items.sort((a, b) {
+            return sortByKey('dir', a.type, b.type);
+          });
+          return ObjectTree(items: [
+            for (var v in items)
+              ObjectTreeItem(
                 name: v.name,
                 type: v.type,
                 size: v.type == 'file' ? v.size : null,
                 url: '/gitea/$owner/$name/blob?path=${v.path.urlencode}',
-              );
-            }),
-          );
+              ),
+          ]);
         } else {
           final v = GiteaBlob.fromJson(p);
           return BlobView(v.name, base64Text: v.content);
