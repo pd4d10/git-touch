@@ -10,16 +10,21 @@ import 'package:timeago/timeago.dart' as timeago;
 import 'package:tuple/tuple.dart';
 
 final gitlabIssueRouter = RouterScreen(
-    '/gitlab/projects/:id/issues/:iid',
-    (context, params) => GitlabIssueScreen(
-        int.parse(['id'].first), int.parse(params['iid'].first)));
+  '/gitlab/projects/:id/issues/:iid',
+  (context, params) {
+    return GitlabIssueScreen(
+      int.parse(params['id'].first),
+      int.parse(params['iid'].first),
+    );
+  },
+);
 
 class GitlabIssueScreen extends StatelessWidget {
   final int projectId;
   final int iid;
   final bool isMr;
 
-  GitlabIssueScreen(this.projectId, this.iid, {this.isMr});
+  GitlabIssueScreen(this.projectId, this.iid, {this.isMr = false});
 
   @override
   Widget build(BuildContext context) {
