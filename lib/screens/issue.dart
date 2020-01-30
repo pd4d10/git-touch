@@ -353,26 +353,6 @@ fragment ReactableParts on Reactable {
     return status;
   }
 
-  _handleReaction(payload) {
-    return (String emojiKey, bool isRemove) async {
-      if (emojiKey == null) return;
-
-      var id = payload['id'] as String;
-      var operation = isRemove ? 'remove' : 'add';
-      await Provider.of<AuthModel>(context).query('''
-mutation {
-  ${operation}Reaction(input: {subjectId: "$id", content: $emojiKey}) {
-    clientMutationId
-  }
-}
-    ''');
-      setState(() {
-        payload[emojiKey]['totalCount'] += isRemove ? -1 : 1;
-        payload[emojiKey]['viewerHasReacted'] = !isRemove;
-      });
-    };
-  }
-
   @override
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthModel>(context);
@@ -497,10 +477,7 @@ mutation {
                     CommonStyle.border,
                   ],
                   SizedBox(height: 8),
-                  CommentItem(
-                    p,
-                    onReaction: _handleReaction(p),
-                  ),
+                  CommentItem.gh(p),
                 ],
               ),
             ),
@@ -508,8 +485,7 @@ mutation {
           ],
         );
       },
-      itemBuilder: (itemPayload) =>
-          TimelineItem(itemPayload, onReaction: _handleReaction(itemPayload)),
+      itemBuilder: (itemPayload) => TimelineItem(itemPayload),
       onRefresh: () async {
         var res = await _queryIssue();
         int totalCount = res['timelineItems']['totalCount'];

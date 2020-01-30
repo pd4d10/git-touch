@@ -51,9 +51,7 @@ class TimelineEventItem extends StatelessWidget {
 
 class TimelineItem extends StatelessWidget {
   final Map<String, dynamic> p;
-  final Function(String emojiKey, bool isRemove) onReaction;
-
-  TimelineItem(this.p, {@required this.onReaction});
+  TimelineItem(this.p);
 
   TextSpan _buildReviewText(BuildContext context, item) {
     switch (item['state']) {
@@ -102,7 +100,7 @@ class TimelineItem extends StatelessWidget {
           p: p,
         );
       case 'IssueComment':
-        return CommentItem(p, onReaction: onReaction);
+        return CommentItem.gh(p);
       case 'CrossReferencedEvent':
         return TimelineEventItem(
           actor: p['actor']['login'],
@@ -336,9 +334,10 @@ class TimelineItem extends StatelessWidget {
             Container(
               padding: CommonStyle.padding.copyWith(left: 50),
               child: Column(
-                  children: comments.map((v) {
-                return CommentItem(v, onReaction: (_, __) {});
-              }).toList()),
+                children: <Widget>[
+                  for (var v in comments) CommentItem.gh(v),
+                ],
+              ),
             ),
           ],
         );
