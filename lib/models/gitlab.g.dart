@@ -99,7 +99,9 @@ GitlabTodoTarget _$GitlabTodoTargetFromJson(Map<String, dynamic> json) {
         ? null
         : GitlabUser.fromJson(json['author'] as Map<String, dynamic>)
     ..description = json['description'] as String
-    ..createdAt = json['created_at'] as String;
+    ..createdAt = json['created_at'] == null
+        ? null
+        : DateTime.parse(json['created_at'] as String);
 }
 
 Map<String, dynamic> _$GitlabTodoTargetToJson(GitlabTodoTarget instance) =>
@@ -109,7 +111,7 @@ Map<String, dynamic> _$GitlabTodoTargetToJson(GitlabTodoTarget instance) =>
       'title': instance.title,
       'author': instance.author,
       'description': instance.description,
-      'created_at': instance.createdAt,
+      'created_at': instance.createdAt?.toIso8601String(),
     };
 
 GitlabIssueNote _$GitlabIssueNoteFromJson(Map<String, dynamic> json) {
@@ -117,13 +119,19 @@ GitlabIssueNote _$GitlabIssueNoteFromJson(Map<String, dynamic> json) {
     ..author = json['author'] == null
         ? null
         : GitlabUser.fromJson(json['author'] as Map<String, dynamic>)
-    ..body = json['body'] as String;
+    ..body = json['body'] as String
+    ..system = json['system'] as bool
+    ..createdAt = json['created_at'] == null
+        ? null
+        : DateTime.parse(json['created_at'] as String);
 }
 
 Map<String, dynamic> _$GitlabIssueNoteToJson(GitlabIssueNote instance) =>
     <String, dynamic>{
       'author': instance.author,
       'body': instance.body,
+      'system': instance.system,
+      'created_at': instance.createdAt?.toIso8601String(),
     };
 
 GitlabProject _$GitlabProjectFromJson(Map<String, dynamic> json) {

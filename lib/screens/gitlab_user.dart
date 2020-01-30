@@ -30,13 +30,14 @@ class GitlabUserScreen extends StatelessWidget {
       fetchData: () async {
         final auth = Provider.of<AuthModel>(context);
         final _id = id ?? auth.activeAccount.gitlabId;
-        final v0 = await auth.fetchGitlab('/users/$_id');
-        final user = GitlabUser.fromJson(v0);
-        final v1 = await auth.fetchGitlab('/users/$_id/projects');
-        final projects =
-            (v1 as List).map((v) => GitlabUserProject.fromJson(v)).toList();
-
-        return Tuple2(user, projects);
+        final res = await Future.wait([
+          auth.fetchGitlab('/users/$_id'),
+          auth.fetchGitlab('/users/$_id/projects'),
+        ]);
+        return Tuple2(
+          GitlabUser.fromJson(res[0]),
+          [for (var v in res[1]) GitlabUserProject.fromJson(v)],
+        );
       },
       action: isViewer
           ? ActionEntry(

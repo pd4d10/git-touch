@@ -63,7 +63,7 @@ class GitlabTodoTarget {
   String title;
   GitlabUser author;
   String description;
-  String createdAt;
+  DateTime createdAt;
 
   GitlabTodoTarget();
 
@@ -75,9 +75,9 @@ class GitlabTodoTarget {
 class GitlabIssueNote {
   GitlabUser author;
   String body;
-
+  bool system;
+  DateTime createdAt;
   GitlabIssueNote();
-
   factory GitlabIssueNote.fromJson(Map<String, dynamic> json) =>
       _$GitlabIssueNoteFromJson(json);
 }

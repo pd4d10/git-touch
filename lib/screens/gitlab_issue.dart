@@ -3,6 +3,7 @@ import 'package:git_touch/models/gitlab.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/avatar.dart';
+import 'package:git_touch/widgets/comment_item.dart';
 import 'package:git_touch/widgets/markdown_view.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/models/auth.dart';
@@ -37,7 +38,7 @@ class GitlabIssueScreen extends StatelessWidget {
           Provider.of<AuthModel>(context)
               .fetchGitlab('/projects/$projectId/$type/$iid'),
           Provider.of<AuthModel>(context)
-              .fetchGitlab('/projects/$projectId/$type/$iid/notes'),
+              .fetchGitlab('/projects/$projectId/$type/$iid/notes?sort=asc'),
           Provider.of<AuthModel>(context)
               .fetchGitlab('/projects/$projectId/$type/$iid/award_emoji'),
         ]);
@@ -56,46 +57,45 @@ class GitlabIssueScreen extends StatelessWidget {
           children: <Widget>[
             Container(
               padding: CommonStyle.padding,
-              child: Column(
-                children: <Widget>[
-                  Text(issue.title),
-                  Row(
-                    children: <Widget>[
-                      Avatar(
-                        url: issue.author.avatarUrl,
-                        linkUrl: '/user/${issue.author}',
-                      ),
-                      Expanded(
-                        child: Text(issue.description),
-                      ),
-                    ],
-                  ),
-                  Text(timeago.format(DateTime.parse(issue.createdAt)))
-                ],
+              child: CommentItem(
+                avatar: Avatar(
+                  url: issue.author.avatarUrl,
+                  linkUrl: '/gitlab/user/${issue.author.id}',
+                ),
+                createdAt: issue.createdAt,
+                body: issue.description,
+                login: issue.author.username,
               ),
             ),
             CommonStyle.border,
             Column(
-              children: notes.map((note) {
-                return Container(
-                  padding: CommonStyle.padding,
-                  child: Column(
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Avatar(url: note.author.avatarUrl),
-                          Expanded(
-                            child: Column(
-                              children: <Widget>[Text(note.author.name)],
-                            ),
-                          )
-                        ],
+              children: <Widget>[
+                for (var note in notes)
+                  if (note.system)
+                    Container(
+                      padding: CommonStyle.padding,
+                      child: Text.rich(
+                        TextSpan(children: [
+                          WidgetSpan(child: Avatar(url: note.author.avatarUrl)),
+                          TextSpan(text: note.author.name),
+                          TextSpan(text: note.body),
+                        ]),
                       ),
-                      MarkdownView(note.body),
-                    ],
-                  ),
-                );
-              }).toList(),
+                    )
+                  else
+                    Container(
+                      padding: CommonStyle.padding,
+                      child: CommentItem(
+                        avatar: Avatar(
+                          url: note.author.avatarUrl,
+                          linkUrl: '/gitlab/user/${note.author.id}',
+                        ),
+                        createdAt: note.createdAt,
+                        body: note.body,
+                        login: note.author.username,
+                      ),
+                    )
+              ],
             )
           ],
         );
