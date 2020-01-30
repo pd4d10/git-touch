@@ -8,7 +8,7 @@ import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/widgets/action_entry.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/markdown_view.dart';
-import 'package:git_touch/widgets/table_view.dart';
+import 'package:git_touch/widgets/object_tree.dart';
 import 'package:path/path.dart' as p;
 import 'package:flutter/material.dart';
 import 'package:flutter_highlight/flutter_highlight.dart';
@@ -16,8 +16,6 @@ import 'package:git_touch/models/auth.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/utils/utils.dart';
-import 'package:primer/primer.dart';
-import 'package:seti/seti.dart';
 
 final objectRouter = RouterScreen(
   '/:owner/:name/blob/:ref',
@@ -51,26 +49,6 @@ class ObjectScreen extends StatelessWidget {
 
   String get rawUrl =>
       'https://raw.githubusercontent.com/$owner/$name/$branch/$_path'; // TODO:
-
-  static const _iconDefaultColor = PrimerColors.blue300;
-
-  Widget _buildIcon(GhObjectTreeEntry item) {
-    switch (item.type) {
-      case 'blob':
-        return SetiIcon(item.name, size: 36);
-      case 'tree':
-      case 'commit':
-        return Icon(
-          item.type == 'tree'
-              ? Octicons.file_directory
-              : Octicons.file_submodule,
-          color: _iconDefaultColor,
-          size: 24,
-        );
-      default:
-        return null;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -121,20 +99,12 @@ class ObjectScreen extends StatelessWidget {
       bodyBuilder: (data, _) {
         switch (data.resolveType) {
           case 'Tree':
-            final tree = data as GhObjectTree;
-
-            return TableView(
-              hasIcon: true,
-              items: tree.entries.map((item) {
+            return ObjectTree(
+              items: (data as GhObjectTree).entries.map((v) {
                 // if (item.type == 'commit') return null;
-                final p = [...paths, item.name].join('/').urlencode;
+                final p = [...paths, v.name].join('/').urlencode;
                 final url = '/$owner/$name/blob/$branch?path=$p';
-
-                return TableViewItem(
-                  leftWidget: _buildIcon(item),
-                  text: Text(item.name),
-                  url: url,
-                );
+                return ObjectTreeItem(name: v.name, type: v.type, url: url);
               }),
             );
           case 'Blob':
