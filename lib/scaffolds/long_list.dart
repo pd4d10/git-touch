@@ -121,13 +121,6 @@ class _LongListStatefulScaffoldState<T, K>
           payload.trailingItems.length;
       return Container(
         padding: CommonStyle.padding,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: ExactAssetImage('images/progressive-disclosure-line.png',
-                scale: 2),
-            repeat: ImageRepeat.repeatX,
-          ),
-        ),
         child: Center(
           child: Link(
             onTap: _loadMore,
