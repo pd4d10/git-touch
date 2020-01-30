@@ -71,7 +71,8 @@ class GiteaUserScreen extends StatelessWidget {
                     starCount: v.starsCount,
                     forkCount: v.forksCount,
                     note: 'Updated ${timeago.format(v.updatedAt)}',
-                    url: '/gitea/${v.owner.login}/${v.name}', // TODO:
+                    url: '/gitea/${v.owner.login}/${v.name}',
+                    avatarLink: '/gitea/${v.owner.login}',
                   )
               ],
             )

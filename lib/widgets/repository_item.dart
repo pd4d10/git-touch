@@ -18,6 +18,7 @@ class RepositoryItem extends StatelessWidget {
   final String primaryLanguageColor;
   final String note;
   final String url;
+  final String avatarLink;
 
   RepositoryItem({
     @required this.owner,
@@ -31,6 +32,7 @@ class RepositoryItem extends StatelessWidget {
     this.note,
     this.iconData,
     @required this.url,
+    @required this.avatarLink,
   });
 
   RepositoryItem.gl({
@@ -46,6 +48,7 @@ class RepositoryItem extends StatelessWidget {
     this.primaryLanguageColor,
     this.note,
   })  : url = '/gitlab/projects/$id',
+        avatarLink = '/gitlab/user/$id',
         iconData = _buildGlIconData(visibility);
 
   RepositoryItem.gh({
@@ -61,6 +64,7 @@ class RepositoryItem extends StatelessWidget {
     @required bool isPrivate,
     @required bool isFork,
   })  : iconData = _buildIconData(isPrivate, isFork),
+        avatarLink = '/$owner',
         url = '/$owner/$name';
 
   static IconData _buildIconData(bool isPrivate, bool isFork) {
@@ -101,7 +105,7 @@ class RepositoryItem extends StatelessWidget {
                       Avatar(
                         url: avatarUrl,
                         size: AvatarSize.small,
-                        linkUrl: '/$owner',
+                        linkUrl: avatarLink,
                       ),
                       SizedBox(width: 8),
                       Expanded(
