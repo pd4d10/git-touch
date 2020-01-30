@@ -74,7 +74,7 @@ class GiteaRepoScreen extends StatelessWidget {
                   leftIconData: Octicons.code,
                   text: Text('Code'),
                   rightWidget: Text(filesize(p.size * 1000)),
-                  url: '/gitea/blob',
+                  url: '/gitea/$owner/$name/blob',
                 ),
                 TableViewItem(
                   leftIconData: Octicons.issue_opened,

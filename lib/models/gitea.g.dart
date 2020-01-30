@@ -58,3 +58,31 @@ Map<String, dynamic> _$GiteaRepositoryToJson(GiteaRepository instance) =>
       'open_issues_count': instance.openIssuesCount,
       'open_pr_counter': instance.openPrCounter,
     };
+
+GiteaTree _$GiteaTreeFromJson(Map<String, dynamic> json) {
+  return GiteaTree()
+    ..type = json['type'] as String
+    ..name = json['name'] as String
+    ..path = json['path'] as String;
+}
+
+Map<String, dynamic> _$GiteaTreeToJson(GiteaTree instance) => <String, dynamic>{
+      'type': instance.type,
+      'name': instance.name,
+      'path': instance.path,
+    };
+
+GiteaBlob _$GiteaBlobFromJson(Map<String, dynamic> json) {
+  return GiteaBlob()
+    ..type = json['type'] as String
+    ..name = json['name'] as String
+    ..path = json['path'] as String
+    ..content = json['content'] as String;
+}
+
+Map<String, dynamic> _$GiteaBlobToJson(GiteaBlob instance) => <String, dynamic>{
+      'type': instance.type,
+      'name': instance.name,
+      'path': instance.path,
+      'content': instance.content,
+    };

@@ -22,8 +22,10 @@ class ObjectTree extends StatelessWidget {
   Widget _buildIcon(ObjectTreeItem item) {
     switch (item.type) {
       case 'blob':
+      case 'file': // Gitea
         return SetiIcon(item.name, size: 36);
       case 'tree':
+      case 'dir': // Gitea
         return Icon(
           Octicons.file_directory,
           color: PrimerColors.blue300,

@@ -7,6 +7,7 @@ import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/screens/about.dart';
 import 'package:git_touch/screens/code_theme.dart';
 import 'package:git_touch/screens/commits.dart';
+import 'package:git_touch/screens/gitea_object.dart';
 import 'package:git_touch/screens/gitea_repo.dart';
 import 'package:git_touch/screens/gitea_user.dart';
 import 'package:git_touch/screens/gitlab_blob.dart';
@@ -78,6 +79,7 @@ void main() async {
     gitlabCommitsRouter,
     giteaUserRouter,
     giteaRepoRouter,
+    giteaObjectRouter,
     loginRouter,
     settingsRouter,
     userRouter,

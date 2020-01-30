@@ -31,3 +31,21 @@ class GiteaRepository {
   factory GiteaRepository.fromJson(Map<String, dynamic> json) =>
       _$GiteaRepositoryFromJson(json);
 }
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GiteaTree {
+  String type;
+  String name;
+  String path;
+  GiteaTree();
+  factory GiteaTree.fromJson(Map<String, dynamic> json) =>
+      _$GiteaTreeFromJson(json);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GiteaBlob extends GiteaTree {
+  String content;
+  GiteaBlob();
+  factory GiteaBlob.fromJson(Map<String, dynamic> json) =>
+      _$GiteaBlobFromJson(json);
+}
