@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:path/path.dart' as p;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_highlight/theme_map.dart';
@@ -12,24 +13,26 @@ import 'package:provider/provider.dart';
 import 'package:git_touch/utils/utils.dart';
 
 class BlobView extends StatelessWidget {
-  final String path;
-  final String payload;
-
-  BlobView(this.path, this.payload);
+  final String name;
+  final String text;
+  final String base64Text;
+  final String networkUrl;
+  BlobView(this.name, {this.text, this.base64Text, this.networkUrl})
+      : assert(text == null || base64Text == null);
 
   String get _extname {
-    var dotext = p.extension(path);
+    var dotext = p.extension(name);
     if (dotext.isEmpty) return '';
     return dotext.substring(1);
   }
 
   String get _language => _extname.isEmpty ? 'plaintext' : _extname;
+  String get _text => text ?? utf8.decode(base64.decode(base64Text));
 
   @override
   Widget build(BuildContext context) {
     final codeProvider = Provider.of<CodeModel>(context);
     final theme = Provider.of<ThemeModel>(context);
-
     switch (_extname) {
       // TODO: All image types
       case 'png':
@@ -37,23 +40,28 @@ class BlobView extends StatelessWidget {
       case 'jpeg':
       case 'gif':
       case 'webp':
-        return PhotoView(
-          imageProvider: NetworkImage(payload),
-          backgroundDecoration: BoxDecoration(color: theme.palette.background),
-        );
+        // return PhotoView(
+        //   imageProvider: MemoryImage(Uint8List.fromList(bits)),
+        //   backgroundDecoration: BoxDecoration(color: theme.palette.background),
+        // );
+        return base64Text == null
+            ? Image.network(networkUrl)
+            : Image.memory(base64.decode(base64Text));
+      case 'svg':
+        return base64Text == null
+            ? SvgPicture.network(networkUrl)
+            : SvgPicture.memory(base64.decode(base64Text));
       case 'md':
       case 'markdown':
         return Padding(
           padding: CommonStyle.padding,
-          child: MarkdownView(payload), // TODO: basePath
+          child: MarkdownView(_text), // TODO: basePath
         );
-      case 'svg':
-        return SvgPicture.network(payload);
       default:
         return SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: HighlightView(
-            payload,
+            _text,
             language: _language,
             theme: themeMap[theme.brightness == Brightness.dark
                 ? codeProvider.themeDark

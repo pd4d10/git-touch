@@ -137,9 +137,7 @@ class GitlabTreeItem {
   String type;
   String path;
   String name;
-
   GitlabTreeItem();
-
   factory GitlabTreeItem.fromJson(Map<String, dynamic> json) =>
       _$GitlabTreeItemFromJson(json);
 }
@@ -147,9 +145,7 @@ class GitlabTreeItem {
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GitlabBlob {
   String content;
-
   GitlabBlob();
-
   factory GitlabBlob.fromJson(Map<String, dynamic> json) =>
       _$GitlabBlobFromJson(json);
 }

@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/gitlab.dart';
@@ -30,7 +29,7 @@ class GitlabBlobScreen extends StatelessWidget {
         return GitlabBlob.fromJson(res);
       },
       bodyBuilder: (data, _) {
-        return BlobView(path, utf8.decode(base64.decode(data.content)));
+        return BlobView(path, base64Text: data.content);
       },
     );
   }
