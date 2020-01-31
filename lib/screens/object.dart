@@ -74,11 +74,23 @@ class ObjectScreen extends StatelessWidget {
             return ObjectTree(
               items: (data as GhObjectTree).entries.map((v) {
                 // if (item.type == 'commit') return null;
+                String url;
+                var ext = p.extension(v.name);
+                if (ext.startsWith('.')) ext = ext.substring(1);
+                if (['pdf', 'docx', 'doc', 'pptx', 'ppt', 'xlsx', 'xls']
+                    .contains(ext)) {
+                  // Let system browser handle these files
+                  url =
+                      'https://raw.githubusercontent.com/$owner/$name/$branch/$path';
+                } else {
+                  url =
+                      '/$owner/$name/blob/$branch?path=${p.join(_pathNotNull, v.name).urlencode}';
+                }
+
                 return ObjectTreeItem(
                   name: v.name,
                   type: v.type,
-                  url:
-                      '/$owner/$name/blob/$branch?path=${p.join(_pathNotNull, v.name).urlencode}',
+                  url: url,
                   size: v.object.resolveType == 'Blob'
                       ? (v.object as GhObjectBlob).byteSize
                       : null,
