@@ -102,7 +102,7 @@ class _NotificationItemState extends State<NotificationItem> {
       case 'Issue':
         return '/$fullName/issues/${payload.subject.number}';
       case 'PullRequest':
-        return '/$fullName/pulls/${payload.subject.number}';
+        return '/$fullName/pull/${payload.subject.number}';
       case 'Release':
         return 'https://github.com/$fullName/releases';
       case 'Commit':

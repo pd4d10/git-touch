@@ -35,7 +35,7 @@ class EventItem extends StatelessWidget {
   InlineSpan _buildIssue(BuildContext context, int number,
       {bool isPullRequest = false}) {
     return _buildLinkSpan(context, '#$number',
-        '/${e.repoOwner}/${e.repoName}/${isPullRequest ? 'pulls' : 'issues'}/$number');
+        '/${e.repoOwner}/${e.repoName}/${isPullRequest ? 'pull' : 'issues'}/$number');
   }
 
   Widget _buildItem({
@@ -186,7 +186,7 @@ class EventItem extends StatelessWidget {
 
     return Link(
       url:
-          '/${e.repoOwner}/${e.repoName}/${isPullRequest ? 'pulls' : 'issues'}/${issue.number}',
+          '/${e.repoOwner}/${e.repoName}/${isPullRequest ? 'pull' : 'issues'}/${issue.number}',
       child: Container(
         padding: EdgeInsets.all(12),
         decoration: BoxDecoration(

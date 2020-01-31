@@ -57,7 +57,7 @@ class PullsScreen extends StatelessWidget {
                   MyLabel(name: label.name, cssColor: label.color)
               ]),
         url:
-            '/${p.repository.owner.login}/${p.repository.name}/pulls/${p.number}',
+            '/${p.repository.owner.login}/${p.repository.name}/pull/${p.number}',
       ),
     );
   }
