@@ -12,15 +12,14 @@ import 'package:git_touch/models/auth.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/utils/utils.dart';
 
-final objectRouter = RouterScreen(
-  '/:owner/:name/blob/:ref',
-  (context, params) => ObjectScreen(
+final objectRouter = RouterScreen('/:owner/:name/blob/:ref', (context, params) {
+  return ObjectScreen(
     params['owner'].first,
     params['name'].first,
     params['ref'].first,
-    paths: params['path']?.first?.urldecode?.split('/') ?? [],
-  ),
-);
+    paths: params['path']?.first?.split('/') ?? [],
+  );
+});
 
 class ObjectScreen extends StatelessWidget {
   final String owner;

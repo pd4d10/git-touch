@@ -15,7 +15,7 @@ final giteaObjectRouter = RouterScreen(
   (context, params) => GiteaObjectScreen(
     params['owner'].first,
     params['name'].first,
-    path: params['path']?.first?.urldecode,
+    path: params['path']?.first,
   ),
 );
 
