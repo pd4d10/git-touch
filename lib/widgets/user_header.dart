@@ -58,23 +58,24 @@ class UserHeader extends StatelessWidget {
             ),
           ),
           SizedBox(height: 8),
-          Row(
-            children: <Widget>[
-              Icon(
-                Octicons.clock,
-                size: 16,
-                color: theme.palette.tertiaryText,
-              ),
-              SizedBox(width: 4),
-              Text(
-                'Joined on ${dateFormat.format(createdAt)}',
-                style: TextStyle(
+          if (createdAt != null)
+            Row(
+              children: <Widget>[
+                Icon(
+                  Octicons.clock,
+                  size: 16,
                   color: theme.palette.tertiaryText,
-                  fontSize: 16,
                 ),
-              ),
-            ],
-          ),
+                SizedBox(width: 4),
+                Text(
+                  'Joined on ${dateFormat.format(createdAt)}',
+                  style: TextStyle(
+                    color: theme.palette.tertiaryText,
+                    fontSize: 16,
+                  ),
+                ),
+              ],
+            ),
           if (bio != null && bio.isNotEmpty) ...[
             SizedBox(height: 10),
             Text(

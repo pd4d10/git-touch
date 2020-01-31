@@ -28,6 +28,30 @@ Map<String, dynamic> _$GitlabUserToJson(GitlabUser instance) =>
       'created_at': instance.createdAt?.toIso8601String(),
     };
 
+GitlabGroup _$GitlabGroupFromJson(Map<String, dynamic> json) {
+  return GitlabGroup()
+    ..id = json['id'] as int
+    ..path = json['path'] as String
+    ..name = json['name'] as String
+    ..avatarUrl = json['avatar_url'] as String
+    ..description = json['description'] as String
+    ..projects = (json['projects'] as List)
+        ?.map((e) => e == null
+            ? null
+            : GitlabProject.fromJson(e as Map<String, dynamic>))
+        ?.toList();
+}
+
+Map<String, dynamic> _$GitlabGroupToJson(GitlabGroup instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'path': instance.path,
+      'name': instance.name,
+      'avatar_url': instance.avatarUrl,
+      'description': instance.description,
+      'projects': instance.projects,
+    };
+
 GitlabTodoProject _$GitlabTodoProjectFromJson(Map<String, dynamic> json) {
   return GitlabTodoProject()
     ..pathWithNamespace = json['path_with_namespace'] as String;

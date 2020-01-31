@@ -12,6 +12,7 @@ import 'package:git_touch/screens/gitea_repo.dart';
 import 'package:git_touch/screens/gitea_user.dart';
 import 'package:git_touch/screens/gitlab_blob.dart';
 import 'package:git_touch/screens/gitlab_commits.dart';
+import 'package:git_touch/screens/gitlab_group.dart';
 import 'package:git_touch/screens/gitlab_issue.dart';
 import 'package:git_touch/screens/gitlab_issues.dart';
 import 'package:git_touch/screens/gitlab_merge_requests.dart';
@@ -70,6 +71,7 @@ void main() async {
     codeThemeRouter,
     aboutRouter,
     gitlabUserRouter,
+    gitlabGroupRouter,
     gitlabBlobRouter,
     gitlabTreeRouter,
     gitlabProjectRouter,

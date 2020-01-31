@@ -16,6 +16,19 @@ class GitlabUser {
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
+class GitlabGroup {
+  int id;
+  String path;
+  String name;
+  String avatarUrl;
+  String description;
+  List<GitlabProject> projects;
+  GitlabGroup();
+  factory GitlabGroup.fromJson(Map<String, dynamic> json) =>
+      _$GitlabGroupFromJson(json);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
 class GitlabTodoProject {
   String pathWithNamespace;
   GitlabTodoProject();
