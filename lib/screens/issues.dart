@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:git_touch/graphql/gh.dart';
 import 'package:git_touch/models/auth.dart';
-import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/list_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/action_entry.dart';
@@ -43,11 +42,9 @@ class IssuesScreen extends StatelessWidget {
     return ListStatefulScaffold<GhIssuesIssue, String>(
       title: AppBarTitle('Issues'),
       actionBuilder: () => ActionEntry(
-          iconData: Octicons.plus,
-          onTap: () {
-            Provider.of<ThemeModel>(context)
-                .push(context, '/$owner/$name/issues/new');
-          }),
+        iconData: Octicons.plus,
+        url: '/$owner/$name/issues/new',
+      ),
       onRefresh: () => _query(context),
       onLoadMore: (cursor) => _query(context, cursor),
       itemBuilder: (p) => IssueItem(

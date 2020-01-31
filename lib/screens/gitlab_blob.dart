@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/gitlab.dart';
-import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/action_entry.dart';
@@ -29,13 +28,7 @@ class GitlabBlobScreen extends StatelessWidget {
             '/projects/$id/repository/files/${path.urlencode}?ref=master'); // TODO:
         return GitlabBlob.fromJson(res);
       },
-      action: ActionEntry(
-        iconData: Icons.settings,
-        onTap: () {
-          final theme = Provider.of<ThemeModel>(context);
-          theme.push(context, '/choose-code-theme');
-        },
-      ),
+      action: ActionEntry(iconData: Icons.settings, url: '/choose-code-theme'),
       bodyBuilder: (data, _) {
         return BlobView(path, base64Text: data.content);
       },

@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:git_touch/models/github.dart';
-import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/widgets/action_entry.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
@@ -40,12 +39,9 @@ class ObjectScreen extends StatelessWidget {
       },
       actionBuilder: (data, _) {
         if (data is Map) {
-          final theme = Provider.of<ThemeModel>(context);
           return ActionEntry(
             iconData: Icons.settings,
-            onTap: () {
-              theme.push(context, '/choose-code-theme');
-            },
+            url: '/choose-code-theme',
           );
         }
       },

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/gitea.dart';
-import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/action_entry.dart';
@@ -39,12 +38,9 @@ class GiteaObjectScreen extends StatelessWidget {
         if (p is List) {
           return null;
         } else {
-          final theme = Provider.of<ThemeModel>(context);
           return ActionEntry(
             iconData: Icons.settings,
-            onTap: () {
-              theme.push(context, '/choose-code-theme');
-            },
+            url: '/choose-code-theme',
           );
         }
       },

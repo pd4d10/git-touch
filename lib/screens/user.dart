@@ -8,7 +8,6 @@ import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/action_entry.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/screens/repositories.dart';
-import 'package:git_touch/widgets/avatar.dart';
 import 'package:git_touch/widgets/mutation_button.dart';
 import 'package:git_touch/widgets/entry_item.dart';
 import 'package:git_touch/widgets/repository_item.dart';
@@ -332,9 +331,7 @@ class UserScreen extends StatelessWidget {
       action: isViewer
           ? ActionEntry(
               iconData: Icons.settings,
-              onTap: () {
-                theme.push(context, '/settings');
-              },
+              url: '/settings',
             )
           : null,
       actionBuilder: isViewer
