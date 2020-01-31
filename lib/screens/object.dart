@@ -24,9 +24,9 @@ final objectRouter = RouterScreen('/:owner/:name/blob/:ref', (context, params) {
 class ObjectScreen extends StatelessWidget {
   final String owner;
   final String name;
-  final String branch;
+  final String ref;
   final String path;
-  ObjectScreen(this.owner, this.name, this.branch, {this.path});
+  ObjectScreen(this.owner, this.name, this.ref, {this.path});
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +35,8 @@ class ObjectScreen extends StatelessWidget {
       title: AppBarTitle(path == null ? 'Files' : path),
       fetchData: () async {
         final suffix = path == null ? '' : '/$path';
-        final res = await Provider.of<AuthModel>(context).getWithCredentials(
-            '/repos/$owner/$name/contents$suffix?ref=$branch');
+        final res = await Provider.of<AuthModel>(context)
+            .getWithCredentials('/repos/$owner/$name/contents$suffix?ref=$ref');
         return res;
       },
       actionBuilder: (data, _) {
@@ -60,10 +60,8 @@ class ObjectScreen extends StatelessWidget {
             items: items.map((v) {
               // if (item.type == 'commit') return null;
               String url;
-              var ext = p.extension(v.name);
-              if (ext.startsWith('.')) ext = ext.substring(1);
               if (['pdf', 'docx', 'doc', 'pptx', 'ppt', 'xlsx', 'xls']
-                  .contains(ext)) {
+                  .contains(v.name.ext)) {
                 // Let system browser handle these files
                 //
                 // TODO:
@@ -71,7 +69,7 @@ class ObjectScreen extends StatelessWidget {
                 // https://github.com/flutter/flutter/issues/49162
                 url = v.downloadUrl;
               } else {
-                url = '/$owner/$name/blob/$branch?path=${v.path.urlencode}';
+                url = '/$owner/$name/blob/$ref?path=${v.path.urlencode}';
               }
 
               return ObjectTreeItem(

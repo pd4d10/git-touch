@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:path/path.dart' as p;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_highlight/theme_map.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -24,19 +23,13 @@ class BlobView extends StatelessWidget {
     this.networkUrl,
   });
 
-  String get _extname {
-    var dotext = p.extension(name);
-    if (dotext.isEmpty) return '';
-    return dotext.substring(1);
-  }
-
-  String get _language => _extname.isEmpty ? 'plaintext' : _extname;
+  String get _language => name.ext ?? 'plaintext';
 
   @override
   Widget build(BuildContext context) {
     final codeProvider = Provider.of<CodeModel>(context);
     final theme = Provider.of<ThemeModel>(context);
-    switch (_extname) {
+    switch (name.ext) {
       // TODO: All image types
       case 'png':
       case 'jpg':
