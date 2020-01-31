@@ -6,10 +6,10 @@ import 'package:git_touch/widgets/action_entry.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/blob_view.dart';
 import 'package:git_touch/widgets/object_tree.dart';
-import 'package:path/path.dart' as p;
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:provider/provider.dart';
+import 'package:path/path.dart' as p;
 import 'package:git_touch/utils/utils.dart';
 
 final objectRouter = RouterScreen('/:owner/:name/blob/:ref', (context, params) {
@@ -17,7 +17,7 @@ final objectRouter = RouterScreen('/:owner/:name/blob/:ref', (context, params) {
     params['owner'].first,
     params['name'].first,
     params['ref'].first,
-    paths: params['path']?.first?.split('/') ?? [],
+    path: params['path']?.first,
   );
 });
 
@@ -25,26 +25,16 @@ class ObjectScreen extends StatelessWidget {
   final String owner;
   final String name;
   final String branch;
-  final List<String> paths;
+  final String path;
+  ObjectScreen(this.owner, this.name, this.branch, {this.path});
 
-  ObjectScreen(this.owner, this.name, this.branch, {this.paths = const []});
-
-  String get _expression => '$branch:$_path';
-  String get _extname {
-    if (paths.isEmpty) return '';
-    var dotext = p.extension(paths.last);
-    if (dotext.isEmpty) return '';
-    return dotext.substring(1);
-  }
-
-  String get _path => paths.join('/');
-  bool get _isImage => ['png', 'jpg', 'jpeg', 'gif', 'webp'].contains(_extname);
+  String get _pathNotNull => path ?? '';
 
   @override
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold<GhObjectGitObject>(
-      canRefresh: !_isImage,
-      title: AppBarTitle(_path.isEmpty ? 'Files' : _path),
+      // canRefresh: !_isImage, // TODO:
+      title: AppBarTitle(path == null ? 'Files' : path),
       fetchData: () async {
         final res = await Provider.of<AuthModel>(context)
             .gqlClient
@@ -52,7 +42,7 @@ class ObjectScreen extends StatelessWidget {
               variables: GhObjectArguments(
                 owner: owner,
                 name: name,
-                expression: _expression,
+                expression: '$branch:$_pathNotNull',
               ),
             ));
         final data = res.data.repository.object;
@@ -84,12 +74,11 @@ class ObjectScreen extends StatelessWidget {
             return ObjectTree(
               items: (data as GhObjectTree).entries.map((v) {
                 // if (item.type == 'commit') return null;
-                final p = [...paths, v.name].join('/').urlencode;
-
                 return ObjectTreeItem(
                   name: v.name,
                   type: v.type,
-                  url: '/$owner/$name/blob/$branch?path=$p',
+                  url:
+                      '/$owner/$name/blob/$branch?path=${p.join(_pathNotNull, v.name).urlencode}',
                   size: v.object.resolveType == 'Blob'
                       ? (v.object as GhObjectBlob).byteSize
                       : null,
@@ -100,10 +89,10 @@ class ObjectScreen extends StatelessWidget {
             // TODO: Markdown base path
             // basePaths: [owner, name, branch, ...paths]
             return BlobView(
-              _path,
+              path,
               text: (data as GhObjectBlob).text,
               networkUrl:
-                  'https://raw.githubusercontent.com/$owner/$name/$branch/$_path', // TODO: private
+                  'https://raw.githubusercontent.com/$owner/$name/$branch/$path', // TODO: private
             );
           default:
             return null;
