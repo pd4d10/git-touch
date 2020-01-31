@@ -296,8 +296,10 @@ class AuthModel with ChangeNotifier {
     final res = await http
         .get(_apiPrefix + url, headers: headers)
         .timeout(_timeoutDuration);
-    // Fimber.d(res.body);
     final data = json.decode(res.body);
+    if (res.statusCode >= 400) {
+      throw data['message'];
+    }
     return data;
   }
 
