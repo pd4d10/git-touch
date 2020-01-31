@@ -80,8 +80,8 @@ class ObjectScreen extends StatelessWidget {
                 if (['pdf', 'docx', 'doc', 'pptx', 'ppt', 'xlsx', 'xls']
                     .contains(ext)) {
                   // Let system browser handle these files
-                  url =
-                      'https://raw.githubusercontent.com/$owner/$name/$branch/$path';
+                  url = Uri.encodeFull(
+                      'https://raw.githubusercontent.com/$owner/$name/$branch/$path');
                 } else {
                   url =
                       '/$owner/$name/blob/$branch?path=${p.join(_pathNotNull, v.name).urlencode}';
@@ -103,8 +103,8 @@ class ObjectScreen extends StatelessWidget {
             return BlobView(
               path,
               text: (data as GhObjectBlob).text,
-              networkUrl:
-                  'https://raw.githubusercontent.com/$owner/$name/$branch/$path', // TODO: private
+              networkUrl: Uri.encodeFull(
+                  'https://raw.githubusercontent.com/$owner/$name/$branch/$path'), // TODO: private
             );
           default:
             return null;
