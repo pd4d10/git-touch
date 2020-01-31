@@ -3,23 +3,6 @@ import 'package:json_annotation/json_annotation.dart';
 part 'gitlab.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class GitlabUserProject {
-  int id;
-  GitlabUser owner;
-  String name;
-  String description;
-  int starCount;
-  int forksCount;
-  String visibility;
-  DateTime createdAt;
-
-  GitlabUserProject();
-
-  factory GitlabUserProject.fromJson(Map<String, dynamic> json) =>
-      _$GitlabUserProjectFromJson(json);
-}
-
-@JsonSerializable(fieldRename: FieldRename.snake)
 class GitlabUser {
   int id;
   String username;
@@ -35,9 +18,7 @@ class GitlabUser {
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GitlabTodoProject {
   String pathWithNamespace;
-
   GitlabTodoProject();
-
   factory GitlabTodoProject.fromJson(Map<String, dynamic> json) =>
       _$GitlabTodoProjectFromJson(json);
 }
@@ -49,9 +30,7 @@ class GitlabTodo {
   String actionName;
   String targetType;
   GitlabTodoTarget target;
-
   GitlabTodo();
-
   factory GitlabTodo.fromJson(Map<String, dynamic> json) =>
       _$GitlabTodoFromJson(json);
 }
@@ -64,9 +43,7 @@ class GitlabTodoTarget {
   GitlabUser author;
   String description;
   DateTime createdAt;
-
   GitlabTodoTarget();
-
   factory GitlabTodoTarget.fromJson(Map<String, dynamic> json) =>
       _$GitlabTodoTargetFromJson(json);
 }
@@ -94,11 +71,13 @@ class GitlabProject {
   String readmeUrl;
   String webUrl;
   GitlabProjectNamespace namespace;
+  GitlabUser owner;
   bool issuesEnabled;
   int openIssuesCount;
   bool mergeRequestsEnabled;
   GitlabProjectStatistics statistics;
   DateTime lastActivityAt;
+  DateTime createdAt;
   GitlabProject();
   factory GitlabProject.fromJson(Map<String, dynamic> json) =>
       _$GitlabProjectFromJson(json);
@@ -126,8 +105,8 @@ class GitlabProjectNamespace {
   int id;
   String name;
   String path;
+  String kind;
   GitlabProjectNamespace();
-
   factory GitlabProjectNamespace.fromJson(Map<String, dynamic> json) =>
       _$GitlabProjectNamespaceFromJson(json);
 }
@@ -156,9 +135,7 @@ class GitlabEvent {
   String actionName;
   String targetType;
   GitlabEventNote note;
-
   GitlabEvent();
-
   factory GitlabEvent.fromJson(Map<String, dynamic> json) =>
       _$GitlabEventFromJson(json);
 }
@@ -168,9 +145,7 @@ class GitlabEventNote {
   String body;
   String noteableType;
   int noteableIid;
-
   GitlabEventNote();
-
   factory GitlabEventNote.fromJson(Map<String, dynamic> json) =>
       _$GitlabEventNoteFromJson(json);
 }

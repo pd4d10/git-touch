@@ -23,8 +23,7 @@ class GitlabUserScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RefreshStatefulScaffold<
-        Tuple2<GitlabUser, Iterable<GitlabUserProject>>>(
+    return RefreshStatefulScaffold<Tuple2<GitlabUser, Iterable<GitlabProject>>>(
       title: Text(isViewer ? 'Me' : 'User'),
       fetchData: () async {
         final auth = Provider.of<AuthModel>(context);
@@ -35,7 +34,7 @@ class GitlabUserScreen extends StatelessWidget {
         ]);
         return Tuple2(
           GitlabUser.fromJson(res[0]),
-          [for (var v in res[1]) GitlabUserProject.fromJson(v)],
+          [for (var v in res[1]) GitlabProject.fromJson(v)],
         );
       },
       action: isViewer
@@ -62,15 +61,8 @@ class GitlabUserScreen extends StatelessWidget {
               children: <Widget>[
                 for (var v in projects)
                   RepositoryItem.gl(
-                    id: v.id,
-                    owner: v.owner.username,
-                    avatarUrl: v.owner.avatarUrl,
-                    name: v.name,
-                    description: v.description,
-                    starCount: v.starCount,
-                    forkCount: v.forksCount,
+                    payload: v,
                     note: 'Created ${timeago.format(v.createdAt)}',
-                    visibility: v.visibility,
                   )
               ],
             )

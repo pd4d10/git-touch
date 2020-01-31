@@ -30,15 +30,8 @@ class GitlabExplore extends StatelessWidget {
       onLoadMore: (page) => _query(context, page),
       itemBuilder: (v) {
         return RepositoryItem.gl(
-          id: v.id,
-          owner: v.namespace.path,
-          avatarUrl: v.avatarUrl,
-          name: v.name,
-          description: v.description,
-          starCount: v.starCount,
-          forkCount: v.forksCount,
+          payload: v,
           note: 'Updated ${timeago.format(v.lastActivityAt)}',
-          visibility: v.visibility,
         );
       },
     );

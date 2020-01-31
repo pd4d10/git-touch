@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:git_touch/models/gitlab.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/widgets/avatar.dart';
 import 'package:provider/provider.dart';
@@ -36,20 +37,21 @@ class RepositoryItem extends StatelessWidget {
   });
 
   RepositoryItem.gl({
-    @required id,
-    @required this.owner,
-    @required this.avatarUrl,
-    @required this.name,
-    @required this.description,
-    @required this.starCount,
-    @required this.forkCount,
-    @required visibility,
+    @required GitlabProject payload,
     this.primaryLanguageName,
     this.primaryLanguageColor,
     this.note,
-  })  : url = '/gitlab/projects/$id',
-        avatarLink = '/gitlab/user/$id',
-        iconData = _buildGlIconData(visibility);
+  })  : owner = payload.namespace.path,
+        avatarUrl = payload.owner?.avatarUrl,
+        name = payload.name,
+        description = payload.description,
+        starCount = payload.starCount,
+        forkCount = payload.forksCount,
+        url = '/gitlab/projects/${payload.id}',
+        avatarLink = payload.namespace.kind == 'group'
+            ? '/gitlab/group/${payload.namespace.id}'
+            : '/gitlab/user/${payload.owner.id}',
+        iconData = _buildGlIconData(payload.visibility);
 
   RepositoryItem.gh({
     @required this.owner,
