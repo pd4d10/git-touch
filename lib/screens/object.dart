@@ -58,37 +58,11 @@ class ObjectScreen extends StatelessWidget {
           return ObjectTree(
             items: items.map((v) {
               // if (item.type == 'commit') return null;
-              String url;
-              if ([
-                // Docs
-                'pdf',
-                'docx',
-                'doc',
-                'pptx',
-                'ppt',
-                'xlsx',
-                'xls',
-                // Fonts
-                'ttf',
-                'otf',
-                'eot',
-                'woff',
-                'woff2'
-              ].contains(v.name.ext)) {
-                // Let system browser handle these files
-                //
-                // TODO:
-                // Unhandled Exception: PlatformException(Error, Error while launching
-                // https://github.com/flutter/flutter/issues/49162
-                url = v.downloadUrl;
-              } else {
-                url = '/$owner/$name/blob/$ref?path=${v.path.urlencode}';
-              }
-
               return ObjectTreeItem(
                 name: v.name,
                 type: v.type,
-                url: url,
+                url: '/$owner/$name/blob/$ref?path=${v.path.urlencode}',
+                downloadUrl: v.downloadUrl,
                 size: v.type == 'file' ? v.size : null,
               );
             }),

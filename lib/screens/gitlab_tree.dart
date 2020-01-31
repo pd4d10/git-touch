@@ -20,6 +20,7 @@ class GitlabTreeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final auth = Provider.of<AuthModel>(context);
     return RefreshStatefulScaffold<Iterable<GitlabTreeItem>>(
       title: AppBarTitle(path ?? 'Files'),
       fetchData: () async {
@@ -27,7 +28,7 @@ class GitlabTreeScreen extends StatelessWidget {
         if (path != null) {
           url += '?path=' + path;
         }
-        final res = await Provider.of<AuthModel>(context).fetchGitlab(url);
+        final res = await auth.fetchGitlab(url);
         return (res as List).map((v) => GitlabTreeItem.fromJson(v));
       },
       bodyBuilder: (data, _) {
@@ -36,6 +37,8 @@ class GitlabTreeScreen extends StatelessWidget {
             return ObjectTreeItem(
               type: item.type,
               name: item.name,
+              downloadUrl:
+                  '${auth.activeAccount.domain}/api/v4/projects/$id/repository/files/${item.path.urlencode}/raw?ref=master', // TODO:
               url: (() {
                 switch (item.type) {
                   case 'tree':

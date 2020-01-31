@@ -7,12 +7,14 @@ import 'package:seti/seti.dart';
 
 class ObjectTreeItem {
   final String url;
+  final String downloadUrl;
   final String name;
   final String type;
   final int size;
   ObjectTreeItem({
     @required this.name,
     @required this.url,
+    @required this.downloadUrl,
     @required this.type,
     this.size,
   });
@@ -55,7 +57,20 @@ class ObjectTree extends StatelessWidget {
             leftWidget: _buildIcon(item),
             text: Text(item.name),
             rightWidget: item.size == null ? null : Text(filesize(item.size)),
-            url: item.url,
+            url: [
+              // Let system browser handle these files
+              //
+              // TODO:
+              // Unhandled Exception: PlatformException(Error, Error while launching
+              // https://github.com/flutter/flutter/issues/49162
+
+              // Docs
+              'pdf', 'docx', 'doc', 'pptx', 'ppt', 'xlsx', 'xls',
+              // Fonts
+              'ttf', 'otf', 'eot', 'woff', 'woff2',
+            ].contains(item.name.ext)
+                ? item.downloadUrl
+                : item.url,
             hideRightChevron: item.size != null,
           )
       ],

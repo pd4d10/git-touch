@@ -38,6 +38,7 @@ class GiteaTree {
   String name;
   String path;
   int size;
+  String downloadUrl;
   GiteaTree();
   factory GiteaTree.fromJson(Map<String, dynamic> json) =>
       _$GiteaTreeFromJson(json);

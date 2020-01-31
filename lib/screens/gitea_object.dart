@@ -61,6 +61,7 @@ class GiteaObjectScreen extends StatelessWidget {
                 type: v.type,
                 size: v.type == 'file' ? v.size : null,
                 url: '/gitea/$owner/$name/blob?path=${v.path.urlencode}',
+                downloadUrl: v.downloadUrl,
               ),
           ]);
         } else {

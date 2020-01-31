@@ -23,8 +23,6 @@ class BlobView extends StatelessWidget {
     this.networkUrl,
   });
 
-  String get _language => name.ext ?? 'plaintext';
-
   @override
   Widget build(BuildContext context) {
     final codeProvider = Provider.of<CodeModel>(context);
@@ -58,7 +56,7 @@ class BlobView extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           child: HighlightView(
             base64Text.base64ToUtf8,
-            language: _language,
+            language: name.ext ?? 'plaintext',
             theme: themeMap[theme.brightness == Brightness.dark
                 ? codeProvider.themeDark
                 : codeProvider.theme],
