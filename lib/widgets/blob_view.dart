@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_highlight/theme_map.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:git_touch/models/code.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/widgets/markdown_view.dart';
@@ -41,10 +40,6 @@ class BlobView extends StatelessWidget {
         return base64Text == null
             ? Image.network(networkUrl)
             : Image.memory(base64.decode(base64Text));
-      case 'svg':
-        return base64Text == null
-            ? SvgPicture.network(networkUrl)
-            : SvgPicture.memory(base64.decode(base64Text));
       case 'md':
       case 'markdown':
         return Padding(

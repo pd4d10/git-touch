@@ -68,6 +68,7 @@ class ObjectTree extends StatelessWidget {
               'pdf', 'docx', 'doc', 'pptx', 'ppt', 'xlsx', 'xls',
               // Fonts
               'ttf', 'otf', 'eot', 'woff', 'woff2',
+              'svg',
             ].contains(item.name.ext)
                 ? item.downloadUrl
                 : item.url,
