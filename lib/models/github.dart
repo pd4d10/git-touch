@@ -235,3 +235,16 @@ class GithubTrendingUserRepo {
   factory GithubTrendingUserRepo.fromJson(Map<String, dynamic> json) =>
       _$GithubTrendingUserRepoFromJson(json);
 }
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GithubTreeItem {
+  String name;
+  String path;
+  int size;
+  String type;
+  String downloadUrl;
+  String content;
+  GithubTreeItem();
+  factory GithubTreeItem.fromJson(Map<String, dynamic> json) =>
+      _$GithubTreeItemFromJson(json);
+}

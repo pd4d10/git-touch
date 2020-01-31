@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:git_touch/graphql/gh.dart';
+import 'package:git_touch/models/github.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/widgets/action_entry.dart';
@@ -28,86 +28,69 @@ class ObjectScreen extends StatelessWidget {
   final String path;
   ObjectScreen(this.owner, this.name, this.branch, {this.path});
 
-  String get _pathNotNull => path ?? '';
-
   @override
   Widget build(BuildContext context) {
-    return RefreshStatefulScaffold<GhObjectGitObject>(
+    return RefreshStatefulScaffold(
       // canRefresh: !_isImage, // TODO:
       title: AppBarTitle(path == null ? 'Files' : path),
       fetchData: () async {
-        final res = await Provider.of<AuthModel>(context)
-            .gqlClient
-            .execute(GhObjectQuery(
-              variables: GhObjectArguments(
-                owner: owner,
-                name: name,
-                expression: '$branch:$_pathNotNull',
-              ),
-            ));
-        final data = res.data.repository.object;
-        if (data.resolveType == 'Tree') {
-          (data as GhObjectTree).entries.sort((a, b) {
-            return sortByKey('tree', a.type, b.type);
-          });
-        }
-        return data;
+        final suffix = path == null ? '' : '/$path';
+        final res = await Provider.of<AuthModel>(context).getWithCredentials(
+            '/repos/$owner/$name/contents$suffix?ref=$branch');
+        return res;
       },
       actionBuilder: (data, _) {
-        switch (data.resolveType) {
-          case 'Blob':
-            final blob = data as GhObjectBlob;
-            final theme = Provider.of<ThemeModel>(context);
-            return ActionEntry(
-              iconData: Icons.settings,
-              onTap: () {
-                theme.push(context, '/choose-code-theme');
-              },
-            );
-          default:
-            return null;
+        if (data is Map) {
+          final theme = Provider.of<ThemeModel>(context);
+          return ActionEntry(
+            iconData: Icons.settings,
+            onTap: () {
+              theme.push(context, '/choose-code-theme');
+            },
+          );
         }
       },
       bodyBuilder: (data, _) {
-        switch (data.resolveType) {
-          case 'Tree':
-            return ObjectTree(
-              items: (data as GhObjectTree).entries.map((v) {
-                // if (item.type == 'commit') return null;
-                String url;
-                var ext = p.extension(v.name);
-                if (ext.startsWith('.')) ext = ext.substring(1);
-                if (['pdf', 'docx', 'doc', 'pptx', 'ppt', 'xlsx', 'xls']
-                    .contains(ext)) {
-                  // Let system browser handle these files
-                  url = Uri.encodeFull(
-                      'https://raw.githubusercontent.com/$owner/$name/$branch/$path');
-                } else {
-                  url =
-                      '/$owner/$name/blob/$branch?path=${p.join(_pathNotNull, v.name).urlencode}';
-                }
+        if (data is List) {
+          final items = data.map((t) => GithubTreeItem.fromJson(t)).toList();
+          items.sort((a, b) {
+            return sortByKey('dir', a.type, b.type);
+          });
+          return ObjectTree(
+            items: items.map((v) {
+              // if (item.type == 'commit') return null;
+              String url;
+              var ext = p.extension(v.name);
+              if (ext.startsWith('.')) ext = ext.substring(1);
+              if (['pdf', 'docx', 'doc', 'pptx', 'ppt', 'xlsx', 'xls']
+                  .contains(ext)) {
+                // Let system browser handle these files
+                //
+                // TODO:
+                // Unhandled Exception: PlatformException(Error, Error while launching
+                // https://github.com/flutter/flutter/issues/49162
+                url = v.downloadUrl;
+              } else {
+                url = '/$owner/$name/blob/$branch?path=${v.path.urlencode}';
+              }
 
-                return ObjectTreeItem(
-                  name: v.name,
-                  type: v.type,
-                  url: url,
-                  size: v.object.resolveType == 'Blob'
-                      ? (v.object as GhObjectBlob).byteSize
-                      : null,
-                );
-              }),
-            );
-          case 'Blob':
-            // TODO: Markdown base path
-            // basePaths: [owner, name, branch, ...paths]
-            return BlobView(
-              path,
-              text: (data as GhObjectBlob).text,
-              networkUrl: Uri.encodeFull(
-                  'https://raw.githubusercontent.com/$owner/$name/$branch/$path'), // TODO: private
-            );
-          default:
-            return null;
+              return ObjectTreeItem(
+                name: v.name,
+                type: v.type,
+                url: url,
+                size: v.type == 'file' ? v.size : null,
+              );
+            }),
+          );
+        } else {
+          // TODO: Markdown base path
+          // basePaths: [owner, name, branch, ...paths]
+          final v = GithubTreeItem.fromJson(data);
+          return BlobView(
+            path,
+            base64Text: v.content,
+            networkUrl: v.downloadUrl,
+          );
         }
       },
     );

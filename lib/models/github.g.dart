@@ -278,3 +278,23 @@ Map<String, dynamic> _$GithubTrendingUserRepoToJson(
       'name': instance.name,
       'description': instance.description,
     };
+
+GithubTreeItem _$GithubTreeItemFromJson(Map<String, dynamic> json) {
+  return GithubTreeItem()
+    ..name = json['name'] as String
+    ..path = json['path'] as String
+    ..size = json['size'] as int
+    ..type = json['type'] as String
+    ..downloadUrl = json['download_url'] as String
+    ..content = json['content'] as String;
+}
+
+Map<String, dynamic> _$GithubTreeItemToJson(GithubTreeItem instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'path': instance.path,
+      'size': instance.size,
+      'type': instance.type,
+      'download_url': instance.downloadUrl,
+      'content': instance.content,
+    };
