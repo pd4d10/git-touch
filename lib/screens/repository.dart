@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:filesize/filesize.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -44,12 +43,6 @@ class RepositoryScreen extends StatelessWidget {
                 branchSpecified: branch != null,
                 branch: branch ?? '')));
     return res.data.repository;
-  }
-
-  Future<String> _fetchReadme(BuildContext context) async {
-    final data = await Provider.of<AuthModel>(context)
-        .getWithCredentials('/repos/$owner/$name/readme');
-    return (data['content'] as String)?.dropLineBreak?.base64ToUtf8;
   }
 
   Widget _buildLanguages(BuildContext context, GhRepoRepository repo) {
@@ -106,7 +99,7 @@ class RepositoryScreen extends StatelessWidget {
       fetchData: () async {
         final rs = await Future.wait([
           _query(context),
-          _fetchReadme(context),
+          Provider.of<AuthModel>(context).getRaw('/repos/$owner/$name/readme'),
         ]);
         return Tuple2(rs[0] as GhRepoRepository, rs[1] as String);
       },

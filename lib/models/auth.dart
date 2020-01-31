@@ -287,20 +287,24 @@ class AuthModel with ChangeNotifier {
     return data['data'];
   }
 
-  Future<dynamic> getWithCredentials(String url, {String contentType}) async {
-    var headers = _headers;
-    if (contentType != null) {
-      // https://developer.github.com/v3/repos/contents/#custom-media-types
-      headers[HttpHeaders.contentTypeHeader] = contentType;
-    }
+  Future<dynamic> getWithCredentials(String url) async {
     final res = await http
-        .get(_apiPrefix + url, headers: headers)
+        .get(_apiPrefix + url, headers: _headers)
         .timeout(_timeoutDuration);
     final data = json.decode(res.body);
     if (res.statusCode >= 400) {
       throw data['message'];
     }
     return data;
+  }
+
+  Future<String> getRaw(String url) async {
+    final res = await http.get(_apiPrefix + url, headers: {
+      ..._headers,
+      // https://developer.github.com/v3/repos/contents/#custom-media-types
+      HttpHeaders.acceptHeader: 'application/vnd.github.v3.raw'
+    }).timeout(_timeoutDuration);
+    return res.body;
   }
 
   Future<void> patchWithCredentials(String url) async {
