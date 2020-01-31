@@ -36,7 +36,7 @@ class GiteaRepoScreen extends StatelessWidget {
         ]);
         return Tuple2(
           GiteaRepository.fromJson(res[0]),
-          convertBase64ToString(res[1]['content']),
+          (res[1]['content'] as String)?.base64ToUtf8,
         );
       },
       bodyBuilder: (t, setState) {

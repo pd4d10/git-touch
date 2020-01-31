@@ -14,11 +14,15 @@ import 'package:git_touch/utils/utils.dart';
 
 class BlobView extends StatelessWidget {
   final String name;
-  final String text;
+  // final String text;
   final String base64Text;
   final String networkUrl;
-  BlobView(this.name, {this.text, this.base64Text, this.networkUrl})
-      : assert(text == null || base64Text == null);
+  BlobView(
+    this.name, {
+    // this.text,
+    @required this.base64Text,
+    this.networkUrl,
+  });
 
   String get _extname {
     var dotext = p.extension(name);
@@ -27,7 +31,6 @@ class BlobView extends StatelessWidget {
   }
 
   String get _language => _extname.isEmpty ? 'plaintext' : _extname;
-  String get _text => text ?? utf8.decode(base64.decode(base64Text));
 
   @override
   Widget build(BuildContext context) {
@@ -55,13 +58,13 @@ class BlobView extends StatelessWidget {
       case 'markdown':
         return Padding(
           padding: CommonStyle.padding,
-          child: MarkdownView(_text), // TODO: basePath
+          child: MarkdownView(base64Text.base64ToUtf8), // TODO: basePath
         );
       default:
         return SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: HighlightView(
-            _text,
+            base64Text.base64ToUtf8,
             language: _language,
             theme: themeMap[theme.brightness == Brightness.dark
                 ? codeProvider.themeDark

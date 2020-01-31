@@ -189,12 +189,6 @@ class RouterScreen {
 
 final dateFormat = DateFormat.yMMMMd();
 
-String convertBase64ToString(String input) {
-  if (input == null) return null;
-  final bits = base64.decode(input.replaceAll('\n', ''));
-  return utf8.decode(bits);
-}
-
 int sortByKey<T>(T key, T a, T b) {
   if (a == key && b != key) return -1;
   if (a != key && b == key) return 1;

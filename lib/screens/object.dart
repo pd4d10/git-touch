@@ -88,7 +88,7 @@ class ObjectScreen extends StatelessWidget {
           final v = GithubTreeItem.fromJson(data);
           return BlobView(
             path,
-            base64Text: v.content,
+            base64Text: v.content?.dropLineBreak,
             networkUrl: v.downloadUrl,
           );
         }

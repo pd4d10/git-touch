@@ -49,7 +49,7 @@ class RepositoryScreen extends StatelessWidget {
   Future<String> _fetchReadme(BuildContext context) async {
     final data = await Provider.of<AuthModel>(context)
         .getWithCredentials('/repos/$owner/$name/readme');
-    return convertBase64ToString(data['content']);
+    return (data['content'] as String)?.dropLineBreak?.base64ToUtf8;
   }
 
   Widget _buildLanguages(BuildContext context, GhRepoRepository repo) {
