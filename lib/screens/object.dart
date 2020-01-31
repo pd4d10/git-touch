@@ -16,6 +16,7 @@ final objectRouter = RouterScreen('/:owner/:name/blob/:ref', (context, params) {
     params['name'].first,
     params['ref'].first,
     path: params['path']?.first,
+    raw: params['raw']?.first,
   );
 });
 
@@ -24,7 +25,8 @@ class ObjectScreen extends StatelessWidget {
   final String name;
   final String ref;
   final String path;
-  ObjectScreen(this.owner, this.name, this.ref, {this.path});
+  final String raw;
+  ObjectScreen(this.owner, this.name, this.ref, {this.path, this.raw});
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +34,12 @@ class ObjectScreen extends StatelessWidget {
       // canRefresh: !_isImage, // TODO:
       title: AppBarTitle(path == null ? 'Files' : path),
       fetchData: () async {
+        // Do not request again for images
+        if (path != null &&
+            raw != null &&
+            ['png', 'jpg', 'jpeg', 'gif', 'webp'].contains(path.ext))
+          return {'download_url': raw};
+
         final suffix = path == null ? '' : '/$path';
         final res = await Provider.of<AuthModel>(context)
             .getWithCredentials('/repos/$owner/$name/contents$suffix?ref=$ref');
@@ -54,10 +62,17 @@ class ObjectScreen extends StatelessWidget {
           return ObjectTree(
             items: items.map((v) {
               // if (item.type == 'commit') return null;
+              final uri = Uri(
+                path: '/$owner/$name/blob/$ref',
+                queryParameters: {
+                  'path': v.path,
+                  ...(v.downloadUrl == null ? {} : {'raw': v.downloadUrl}),
+                },
+              ).toString();
               return ObjectTreeItem(
                 name: v.name,
                 type: v.type,
-                url: '/$owner/$name/blob/$ref?path=${v.path.urlencode}',
+                url: uri.toString(),
                 downloadUrl: v.downloadUrl,
                 size: v.type == 'file' ? v.size : null,
               );

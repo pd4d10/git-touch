@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_highlight/theme_map.dart';
 import 'package:git_touch/models/code.dart';
 import 'package:git_touch/models/theme.dart';
+import 'package:git_touch/widgets/loading.dart';
 import 'package:git_touch/widgets/markdown_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_highlight/flutter_highlight.dart';
@@ -38,7 +39,14 @@ class BlobView extends StatelessWidget {
         //   backgroundDecoration: BoxDecoration(color: theme.palette.background),
         // );
         return base64Text == null
-            ? Image.network(networkUrl)
+            ? Image.network(
+                networkUrl,
+                loadingBuilder: (_, child, p) {
+                  if (p == null) return child;
+                  // TODO: progress
+                  return Loading();
+                },
+              )
             : Image.memory(base64.decode(base64Text));
       case 'md':
       case 'markdown':
