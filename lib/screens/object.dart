@@ -9,7 +9,6 @@ import 'package:git_touch/widgets/object_tree.dart';
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:provider/provider.dart';
-import 'package:path/path.dart' as p;
 import 'package:git_touch/utils/utils.dart';
 
 final objectRouter = RouterScreen('/:owner/:name/blob/:ref', (context, params) {
@@ -60,8 +59,22 @@ class ObjectScreen extends StatelessWidget {
             items: items.map((v) {
               // if (item.type == 'commit') return null;
               String url;
-              if (['pdf', 'docx', 'doc', 'pptx', 'ppt', 'xlsx', 'xls']
-                  .contains(v.name.ext)) {
+              if ([
+                // Docs
+                'pdf',
+                'docx',
+                'doc',
+                'pptx',
+                'ppt',
+                'xlsx',
+                'xls',
+                // Fonts
+                'ttf',
+                'otf',
+                'eot',
+                'woff',
+                'woff2'
+              ].contains(v.name.ext)) {
                 // Let system browser handle these files
                 //
                 // TODO:
