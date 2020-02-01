@@ -91,8 +91,8 @@ class AuthModel with ChangeNotifier {
   }
 
   Future<void> loginWithToken(String token) async {
-    // Get login and avatar url
-    final queryData = await query('''
+    try {
+      final queryData = await query('''
 {
   viewer {
     login
@@ -101,23 +101,23 @@ class AuthModel with ChangeNotifier {
 }
 ''', token);
 
-    await _addAccount(Account(
-      platform: PlatformType.github,
-      domain: 'https://github.com',
-      token: token,
-      login: queryData['viewer']['login'] as String,
-      avatarUrl: queryData['viewer']['avatarUrl'] as String,
-    ));
-
-    loading = false;
-    notifyListeners();
+      await _addAccount(Account(
+        platform: PlatformType.github,
+        domain: 'https://github.com',
+        token: token,
+        login: queryData['viewer']['login'] as String,
+        avatarUrl: queryData['viewer']['avatarUrl'] as String,
+      ));
+    } finally {
+      loading = false;
+      notifyListeners();
+    }
   }
 
   Future<void> loginToGitlab(String domain, String token) async {
+    loading = true;
+    notifyListeners();
     try {
-      loading = true;
-      notifyListeners();
-
       final res = await http
           .get('$domain/api/v4/user', headers: {'Private-Token': token});
       final info = json.decode(res.body);
@@ -134,9 +134,6 @@ class AuthModel with ChangeNotifier {
         avatarUrl: user.avatarUrl,
         gitlabId: user.id,
       ));
-    } catch (err) {
-      Fimber.e('loginToGitlab failed', ex: err);
-      // TODO: show errors
     } finally {
       loading = false;
       notifyListeners();
@@ -176,7 +173,6 @@ class AuthModel with ChangeNotifier {
     try {
       loading = true;
       notifyListeners();
-
       final res = await http.get('$domain/api/v1/user',
           headers: {'Authorization': 'token $token'});
       final info = json.decode(res.body);
@@ -192,9 +188,6 @@ class AuthModel with ChangeNotifier {
         login: user.login,
         avatarUrl: user.avatarUrl,
       ));
-    } catch (err) {
-      Fimber.e('loginToGitea failed', ex: err);
-      // TODO: show errors
     } finally {
       loading = false;
       notifyListeners();

@@ -4,6 +4,7 @@ import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/single.dart';
 import 'package:git_touch/utils/utils.dart';
+import 'package:git_touch/widgets/action_button.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:provider/provider.dart';
 import '../widgets/link.dart';
@@ -16,17 +17,21 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  String _token = '';
-  String _gitlabToken = '';
-  String _gitlabDomain = 'https://gitlab.com';
-  String _giteaToken = '';
-  String _giteaDomain = 'https://try.gitea.io';
+  final _tokenController = TextEditingController();
+  final _domainController = TextEditingController();
+
+  // @override
+  // initState() {
+  //   super.initState();
+  //   _tokenController.addListener(() {
+  //     print(_tokenController.text);
+  //   });
+  // }
 
   Widget _buildAccountItem(int index) {
     final theme = Provider.of<ThemeModel>(context);
     final auth = Provider.of<AuthModel>(context);
     final account = auth.accounts[index];
-
     return Link(
       onTap: () {
         auth.setActiveAccountAndReload(index);
@@ -59,9 +64,8 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget _buildAddItem({String text, Function onTap}) {
+  Widget _buildAddItem({IconData brand, String text, Function onTap}) {
     final theme = Provider.of<ThemeModel>(context);
-
     return Link(
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 20),
@@ -72,6 +76,9 @@ class _LoginScreenState extends State<LoginScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Icon(Icons.add),
+            SizedBox(width: 4),
+            Icon(brand),
+            SizedBox(width: 8),
             Text(text, style: TextStyle(fontSize: 16)),
           ],
         ),
@@ -80,11 +87,38 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  Widget _buildPopup(
+    BuildContext context, {
+    List<Widget> notes,
+    bool showDomain = false,
+  }) {
+    return Column(
+      children: <Widget>[
+        if (showDomain)
+          CupertinoTextField(
+            controller: _domainController,
+            placeholder: 'Domain',
+          ),
+        SizedBox(height: 8),
+        CupertinoTextField(
+          placeholder: 'Access token',
+          controller: _tokenController,
+        ),
+        SizedBox(height: 8),
+        if (notes != null) ...notes,
+      ],
+    );
+  }
+
+  void showError(err) {
+    final theme = Provider.of<ThemeModel>(context);
+    theme.showConfirm(context, Text('Something bad happens: $err'));
+  }
+
   @override
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthModel>(context);
     final theme = Provider.of<ThemeModel>(context);
-
     return SingleScaffold(
       title: AppBarTitle('Select account'),
       body: auth.loading
@@ -94,26 +128,62 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   ...List.generate(auth.accounts.length, _buildAccountItem),
                   _buildAddItem(
-                    text: 'GitHub Account by OAuth',
-                    onTap: auth.redirectToGithubOauth,
+                    text: 'GitHub Account',
+                    brand: FontAwesome5Brands.github,
+                    onTap: () async {
+                      theme.showActions(context, [
+                        ActionItem(
+                          text: 'via OAuth',
+                          onTap: (_) {
+                            auth.redirectToGithubOauth();
+                          },
+                        ),
+                        ActionItem(
+                          text: 'via Personal token',
+                          onTap: (_) async {
+                            final result = await theme.showConfirm(
+                              context,
+                              _buildPopup(context, notes: [
+                                Text(
+                                  'GitTouch needs these permissions',
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400),
+                                ),
+                                SizedBox(height: 8),
+                                Text(
+                                  'user, repo, read:org, notifications',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      color: theme.palette.primary),
+                                )
+                              ]),
+                            );
+                            if (result == true) {
+                              try {
+                                await auth
+                                    .loginWithToken(_tokenController.text);
+                                _tokenController.clear();
+                              } catch (err) {
+                                showError(err);
+                              }
+                            }
+                          },
+                        ),
+                      ]);
+                    },
                   ),
                   _buildAddItem(
-                    text: 'GitHub Account by Token',
+                    text: 'GitLab Account',
+                    brand: FontAwesome5Brands.gitlab,
                     onTap: () async {
-                      var result =
-                          await Provider.of<ThemeModel>(context).showConfirm(
+                      _domainController.text = 'https://gitlab.com';
+                      final result = await theme.showConfirm(
                         context,
-                        Column(
-                          children: <Widget>[
-                            CupertinoTextField(
-                              placeholder: 'Access token',
-                              onChanged: (v) {
-                                setState(() {
-                                  _token = v;
-                                });
-                              },
-                            ),
-                            SizedBox(height: 8),
+                        _buildPopup(
+                          context,
+                          showDomain: true,
+                          notes: [
                             Text(
                               'GitTouch needs these permissions',
                               style: TextStyle(
@@ -121,7 +191,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             SizedBox(height: 8),
                             Text(
-                              'user, repo, read:org, notifications',
+                              'api, read_user, read_repository',
                               style: TextStyle(
                                   fontSize: 16, color: theme.palette.primary),
                             )
@@ -130,103 +200,35 @@ class _LoginScreenState extends State<LoginScreen> {
                       );
                       if (result == true) {
                         try {
-                          await auth.loginWithToken(_token);
+                          await auth.loginToGitlab(
+                              _domainController.text, _tokenController.text);
+                          _tokenController.clear();
                         } catch (err) {
-                          Provider.of<ThemeModel>(context).showConfirm(
-                              context, Text('Token invalid: $err'));
+                          showError(err);
                         }
                       }
                     },
                   ),
-                  // _buildAddItem(
-                  //   text: 'GitLab Account by Token',
-                  //   onTap: () async {
-                  //     final result =
-                  //         await Provider.of<ThemeModel>(context).showConfirm(
-                  //       context,
-                  //       Column(
-                  //         children: <Widget>[
-                  //           CupertinoTextField(
-                  //             placeholder: 'Domain',
-                  //             onChanged: (v) {
-                  //               setState(() {
-                  //                 _gitlabDomain = v;
-                  //               });
-                  //             },
-                  //           ),
-                  //           SizedBox(height: 8),
-                  //           CupertinoTextField(
-                  //             placeholder: 'Access token',
-                  //             onChanged: (v) {
-                  //               setState(() {
-                  //                 _gitlabToken = v;
-                  //               });
-                  //             },
-                  //           ),
-                  //           SizedBox(height: 8),
-                  //           Text(
-                  //             'GitTouch needs these permissions',
-                  //             style: TextStyle(
-                  //                 fontSize: 14, fontWeight: FontWeight.w400),
-                  //           ),
-                  //           SizedBox(height: 8),
-                  //           Text(
-                  //             'api, read_user, read_repository',
-                  //             style: TextStyle(
-                  //                 fontSize: 16, color: theme.palette.primary),
-                  //           )
-                  //         ],
-                  //       ),
-                  //     );
-                  //     if (result == true) {
-                  //       try {
-                  //         await auth.loginToGitlab(_gitlabDomain, _gitlabToken);
-                  //         // TODO: Custom domain
-                  //       } catch (err) {
-                  //         Provider.of<ThemeModel>(context).showConfirm(
-                  //             context, Text('Token invalid: $err'));
-                  //       }
-                  //     }
-                  //   },
-                  // ),
-                  // _buildAddItem(
-                  //   text: 'Gitea Account by Token',
-                  //   onTap: () async {
-                  //     final result =
-                  //         await Provider.of<ThemeModel>(context).showConfirm(
-                  //       context,
-                  //       Column(
-                  //         children: <Widget>[
-                  //           CupertinoTextField(
-                  //             placeholder: 'Domain',
-                  //             onChanged: (v) {
-                  //               setState(() {
-                  //                 _giteaDomain = v;
-                  //               });
-                  //             },
-                  //           ),
-                  //           SizedBox(height: 8),
-                  //           CupertinoTextField(
-                  //             placeholder: 'Access token',
-                  //             onChanged: (v) {
-                  //               setState(() {
-                  //                 _giteaToken = v;
-                  //               });
-                  //             },
-                  //           ),
-                  //         ],
-                  //       ),
-                  //     );
-                  //     if (result == true) {
-                  //       try {
-                  //         await auth.loginToGitea(_giteaDomain, _giteaToken);
-                  //       } catch (err) {
-                  //         Provider.of<ThemeModel>(context).showConfirm(
-                  //             context, Text('Token invalid: $err'));
-                  //       }
-                  //     }
-                  //   },
-                  // )
+                  _buildAddItem(
+                    text: 'Gitea Account',
+                    brand: Octicons.git_branch, // TODO: brand icon
+                    onTap: () async {
+                      _domainController.text = 'https://try.gitea.io';
+                      final result = await theme.showConfirm(
+                        context,
+                        _buildPopup(context, showDomain: true),
+                      );
+                      if (result == true) {
+                        try {
+                          await auth.loginToGitea(
+                              _domainController.text, _tokenController.text);
+                          _tokenController.clear();
+                        } catch (err) {
+                          showError(err);
+                        }
+                      }
+                    },
+                  )
                 ],
               ),
             ),
