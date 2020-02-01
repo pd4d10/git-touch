@@ -40,7 +40,7 @@ class RepoHeader extends StatelessWidget {
               Avatar(
                 url: avatarUrl,
                 size: AvatarSize.small,
-                linkUrl: '/$owner',
+                linkUrl: avatarLink,
               ),
               SizedBox(width: 8),
               Text(

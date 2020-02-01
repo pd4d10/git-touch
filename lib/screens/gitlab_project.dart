@@ -74,7 +74,9 @@ class GitlabProjectScreen extends StatelessWidget {
           children: <Widget>[
             RepoHeader(
               avatarUrl: p.avatarUrl,
-              avatarLink: '/${p.namespace.name}',
+              avatarLink: p.namespace.kind == 'group'
+                  ? '/gitlab/group/${p.namespace.id}'
+                  : '/gitlab/user/${p.namespace.id}',
               owner: p.namespace.name,
               name: p.name,
               description: p.description,
