@@ -96,6 +96,7 @@ class GitlabProjectScreen extends StatelessWidget {
                 EntryItem(
                   count: t.item4,
                   text: 'Members',
+                  url: '/gitlab/projects/$id/members',
                 ),
                 EntryItem(
                   count: p.starCount,

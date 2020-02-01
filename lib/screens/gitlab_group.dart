@@ -51,6 +51,7 @@ class GitlabGroupScreen extends StatelessWidget {
               EntryItem(
                 count: data.item2,
                 text: 'Members',
+                url: '/gitlab/groups/$id/members',
               ),
             ]),
             CommonStyle.border,

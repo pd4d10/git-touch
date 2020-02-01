@@ -15,7 +15,8 @@ GitlabUser _$GitlabUserFromJson(Map<String, dynamic> json) {
     ..bio = json['bio'] as String
     ..createdAt = json['created_at'] == null
         ? null
-        : DateTime.parse(json['created_at'] as String);
+        : DateTime.parse(json['created_at'] as String)
+    ..accessLevel = json['access_level'] as int;
 }
 
 Map<String, dynamic> _$GitlabUserToJson(GitlabUser instance) =>
@@ -26,6 +27,7 @@ Map<String, dynamic> _$GitlabUserToJson(GitlabUser instance) =>
       'avatar_url': instance.avatarUrl,
       'bio': instance.bio,
       'created_at': instance.createdAt?.toIso8601String(),
+      'access_level': instance.accessLevel,
     };
 
 GitlabGroup _$GitlabGroupFromJson(Map<String, dynamic> json) {

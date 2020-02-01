@@ -10,6 +10,7 @@ class GitlabUser {
   String avatarUrl;
   String bio;
   DateTime createdAt;
+  int accessLevel;
   GitlabUser();
   factory GitlabUser.fromJson(Map<String, dynamic> json) =>
       _$GitlabUserFromJson(json);
