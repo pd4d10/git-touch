@@ -224,6 +224,7 @@ class ThemeModel with ChangeNotifier {
   Future<bool> showConfirm(BuildContext context, Widget content) {
     switch (theme) {
       case AppThemeType.cupertino:
+      default:
         return showCupertinoDialog(
           context: context,
           builder: (context) {
@@ -247,29 +248,29 @@ class ThemeModel with ChangeNotifier {
             );
           },
         );
-      default:
-        return showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              content: content,
-              actions: <Widget>[
-                FlatButton(
-                  child: const Text('CANCEL'),
-                  onPressed: () {
-                    Navigator.pop(context, false);
-                  },
-                ),
-                FlatButton(
-                  child: const Text('OK'),
-                  onPressed: () {
-                    Navigator.pop(context, true);
-                  },
-                )
-              ],
-            );
-          },
-        );
+      // default:
+      //   return showDialog(
+      //     context: context,
+      //     builder: (BuildContext context) {
+      //       return AlertDialog(
+      //         content: content,
+      //         actions: <Widget>[
+      //           FlatButton(
+      //             child: const Text('CANCEL'),
+      //             onPressed: () {
+      //               Navigator.pop(context, false);
+      //             },
+      //           ),
+      //           FlatButton(
+      //             child: const Text('OK'),
+      //             onPressed: () {
+      //               Navigator.pop(context, true);
+      //             },
+      //           )
+      //         ],
+      //       );
+      //     },
+      //   );
     }
   }
 

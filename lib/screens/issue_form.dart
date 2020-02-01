@@ -22,6 +22,7 @@ class _IssueFormScreenState extends State<IssueFormScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Provider.of<ThemeModel>(context);
     return CommonScaffold(
       title: Text('Submit an issue'),
       body: Column(
@@ -29,6 +30,7 @@ class _IssueFormScreenState extends State<IssueFormScreen> {
           Padding(
             padding: CommonStyle.padding,
             child: CupertinoTextField(
+              style: TextStyle(color: theme.palette.text),
               placeholder: 'Title',
               onChanged: (v) {
                 setState(() {
@@ -40,6 +42,7 @@ class _IssueFormScreenState extends State<IssueFormScreen> {
           Padding(
             padding: CommonStyle.padding,
             child: CupertinoTextField(
+              style: TextStyle(color: theme.palette.text),
               placeholder: 'Body',
               onChanged: (v) {
                 setState(() {
