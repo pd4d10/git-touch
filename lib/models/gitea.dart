@@ -15,6 +15,18 @@ class GiteaUser {
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
+class GiteaOrg {
+  int id;
+  String username;
+  String fullName;
+  String avatarUrl;
+  String description;
+  GiteaOrg();
+  factory GiteaOrg.fromJson(Map<String, dynamic> json) =>
+      _$GiteaOrgFromJson(json);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
 class GiteaRepository {
   int id;
   GiteaUser owner;
