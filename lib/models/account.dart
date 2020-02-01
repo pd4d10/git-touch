@@ -3,7 +3,7 @@ import 'package:meta/meta.dart';
 
 part 'account.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class Account {
   String platform;
   String domain;

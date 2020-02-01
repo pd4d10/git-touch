@@ -17,11 +17,20 @@ Account _$AccountFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$AccountToJson(Account instance) => <String, dynamic>{
-      'platform': instance.platform,
-      'domain': instance.domain,
-      'token': instance.token,
-      'login': instance.login,
-      'avatarUrl': instance.avatarUrl,
-      'gitlabId': instance.gitlabId,
-    };
+Map<String, dynamic> _$AccountToJson(Account instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('platform', instance.platform);
+  writeNotNull('domain', instance.domain);
+  writeNotNull('token', instance.token);
+  writeNotNull('login', instance.login);
+  writeNotNull('avatarUrl', instance.avatarUrl);
+  writeNotNull('gitlabId', instance.gitlabId);
+  return val;
+}

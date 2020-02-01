@@ -58,7 +58,6 @@ class AuthModel with ChangeNotifier {
       }
     }
     newAccounts.add(account);
-
     _accounts = newAccounts;
 
     // Save
