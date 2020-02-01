@@ -45,7 +45,7 @@ class GitlabGroupScreen extends StatelessWidget {
                 for (var v in p.projects)
                   RepositoryItem.gl(
                     payload: v,
-                    note: 'Created ${timeago.format(v.createdAt)}',
+                    note: 'Updated ${timeago.format(v.lastActivityAt)}',
                   )
               ],
             )
