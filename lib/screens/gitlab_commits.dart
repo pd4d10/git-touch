@@ -8,9 +8,9 @@ import 'package:provider/provider.dart';
 
 class GitlabCommitsScreen extends StatelessWidget {
   final String id;
+  final String prefix;
   // final String branch; // TODO:
-
-  GitlabCommitsScreen(this.id);
+  GitlabCommitsScreen(this.id, {this.prefix});
 
   Future<ListPayload<GitlabCommit, int>> _query(BuildContext context,
       [int page = 1]) async {
@@ -36,8 +36,7 @@ class GitlabCommitsScreen extends StatelessWidget {
           avatarUrl: null,
           createdAt: c.createdAt,
           message: c.message,
-          // url: '${auth.activeAccount.domain}/',
-          url: null, // TODO:
+          url: '$prefix/commit/${c.id}', // TODO:
         );
       },
     );

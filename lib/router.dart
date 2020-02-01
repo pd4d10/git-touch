@@ -166,8 +166,10 @@ class GitlabRouter {
             params['id'].first,
             prefix: params['prefix'].first,
           ));
-  static final commits = RouterScreen('/projects/:id/commits',
-      (context, params) => GitlabCommitsScreen(params['id'].first));
+  static final commits = RouterScreen(
+      '/projects/:id/commits',
+      (context, params) => GitlabCommitsScreen(params['id'].first,
+          prefix: params['prefix'].first));
   static final projectMembers = RouterScreen(
       '/projects/:id/members',
       (context, parameters) =>

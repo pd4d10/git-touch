@@ -134,7 +134,7 @@ class GitlabProjectScreen extends StatelessWidget {
                   leftIconData: Octicons.history,
                   text: Text('Commits'),
                   rightWidget: Text(p.statistics.commitCount.toString()),
-                  url: '/gitlab/projects/$id/commits',
+                  url: '/gitlab/projects/$id/commits?prefix=$prefix',
                 ),
               ],
             ),
