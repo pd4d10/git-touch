@@ -7,16 +7,10 @@ import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/commit_item.dart';
 import 'package:provider/provider.dart';
 
-final commitsRouter = RouterScreen(
-    '/:owner/:name/commits',
-    (context, params) =>
-        CommitsScreen(params['owner'].first, params['name'].first));
-
 class CommitsScreen extends StatelessWidget {
   final String owner;
   final String name;
   final String branch;
-
   CommitsScreen(this.owner, this.name, {this.branch});
 
   Future<ListPayload<GhCommitsCommit, String>> _query(BuildContext context,

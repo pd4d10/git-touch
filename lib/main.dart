@@ -4,37 +4,10 @@ import 'package:git_touch/app.dart';
 import 'package:git_touch/models/code.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/theme.dart';
-import 'package:git_touch/screens/about.dart';
-import 'package:git_touch/screens/code_theme.dart';
-import 'package:git_touch/screens/commits.dart';
-import 'package:git_touch/screens/gitea_object.dart';
-import 'package:git_touch/screens/gitea_repo.dart';
-import 'package:git_touch/screens/gitea_user.dart';
-import 'package:git_touch/screens/gitlab_blob.dart';
-import 'package:git_touch/screens/gitlab_commits.dart';
-import 'package:git_touch/screens/gitlab_group.dart';
-import 'package:git_touch/screens/gitlab_issue.dart';
-import 'package:git_touch/screens/gitlab_issues.dart';
-import 'package:git_touch/screens/gitlab_members.dart';
-import 'package:git_touch/screens/gitlab_merge_requests.dart';
-import 'package:git_touch/screens/gitlab_project.dart';
-import 'package:git_touch/screens/gitlab_tree.dart';
-import 'package:git_touch/screens/gitlab_user.dart';
-import 'package:git_touch/screens/issue_form.dart';
-import 'package:git_touch/screens/issues.dart';
-import 'package:git_touch/screens/object.dart';
-import 'package:git_touch/screens/pulls.dart';
-import 'package:git_touch/screens/repository.dart';
-import 'package:git_touch/screens/settings.dart';
-import 'package:git_touch/screens/stargazers.dart';
-import 'package:git_touch/screens/user.dart';
-import 'package:git_touch/screens/watchers.dart';
-import 'package:git_touch/utils/utils.dart';
+import 'package:git_touch/router.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/models/notification.dart';
 import 'package:fluro/fluro.dart';
-import 'package:git_touch/screens/login.dart';
-import 'package:git_touch/screens/issue.dart';
 import 'package:fimber/fimber.dart';
 
 void main() async {
@@ -68,41 +41,21 @@ void main() async {
     codeModel.init(),
   ]);
 
-  final List<RouterScreen> routers = [
-    codeThemeRouter,
-    aboutRouter,
-    gitlabUserRouter,
-    gitlabGroupRouter,
-    gitlabBlobRouter,
-    gitlabTreeRouter,
-    gitlabProjectRouter,
-    gitlabIssueRouter,
-    gitlabIssuesRouter,
-    gitlabMergeRequestsRouter,
-    gitlabCommitsRouter,
-    gitlabProjectMembersRouter,
-    gitlabGroupMembersRouter,
-    giteaUserRouter,
-    giteaRepoRouter,
-    giteaObjectRouter,
-    loginRouter,
-    settingsRouter,
-    userRouter,
-    repositoryRouter,
-    issueAddRouter,
-    issuesRouter,
-    pullsRouter,
-    issueRouter,
-    pullRouter,
-    commitsRouter,
-    objectRouter,
-    stargazersRouter,
-    watchersRouter,
-  ];
-
-  routers.forEach((screen) {
-    themeModel.router
-        .define(screen.path, handler: Handler(handlerFunc: screen.handler));
+  CommonRouter.routes.forEach((screen) {
+    themeModel.router.define(CommonRouter.prefix + screen.path,
+        handler: Handler(handlerFunc: screen.handler));
+  });
+  GitlabRouter.routes.forEach((screen) {
+    themeModel.router.define(GitlabRouter.prefix + screen.path,
+        handler: Handler(handlerFunc: screen.handler));
+  });
+  GiteaRouter.routes.forEach((screen) {
+    themeModel.router.define(GiteaRouter.prefix + screen.path,
+        handler: Handler(handlerFunc: screen.handler));
+  });
+  GithubRouter.routes.forEach((screen) {
+    themeModel.router.define(GithubRouter.prefix + screen.path,
+        handler: Handler(handlerFunc: screen.handler));
   });
 
   runApp(MultiProvider(

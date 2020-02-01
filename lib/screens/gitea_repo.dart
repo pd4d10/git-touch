@@ -13,12 +13,6 @@ import 'package:git_touch/widgets/table_view.dart';
 import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
 
-final giteaRepoRouter = RouterScreen(
-  '/gitea/:owner/:name',
-  (context, params) =>
-      GiteaRepoScreen(params['owner'].first, params['name'].first),
-);
-
 class GiteaRepoScreen extends StatelessWidget {
   final String owner;
   final String name;

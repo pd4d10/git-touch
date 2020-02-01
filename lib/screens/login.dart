@@ -10,9 +10,6 @@ import '../widgets/link.dart';
 import '../widgets/loading.dart';
 import '../widgets/avatar.dart';
 
-final loginRouter =
-    RouterScreen('/login', (context, parameters) => LoginScreen());
-
 class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();

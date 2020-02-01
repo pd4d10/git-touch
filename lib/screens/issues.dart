@@ -9,15 +9,9 @@ import 'package:git_touch/widgets/issue_item.dart';
 import 'package:git_touch/widgets/label.dart';
 import 'package:provider/provider.dart';
 
-final issuesRouter = RouterScreen(
-    '/:owner/:name/issues',
-    (context, params) =>
-        IssuesScreen(params['owner'].first, params['name'].first));
-
 class IssuesScreen extends StatelessWidget {
   final String owner;
   final String name;
-
   IssuesScreen(this.owner, this.name);
 
   Future<ListPayload<GhIssuesIssue, String>> _query(BuildContext context,

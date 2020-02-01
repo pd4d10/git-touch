@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/gitlab.dart';
-
 import 'package:git_touch/scaffolds/list_stateful.dart';
-import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/commit_item.dart';
 import 'package:provider/provider.dart';
-
-final gitlabCommitsRouter = RouterScreen('/gitlab/projects/:id/commits',
-    (context, params) => GitlabCommitsScreen(params['id'].first));
 
 class GitlabCommitsScreen extends StatelessWidget {
   final String id;

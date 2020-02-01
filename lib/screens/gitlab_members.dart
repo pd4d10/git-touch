@@ -2,20 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/gitlab.dart';
 import 'package:git_touch/scaffolds/list_stateful.dart';
-import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/user_item.dart';
 import 'package:provider/provider.dart';
-
-final gitlabProjectMembersRouter = RouterScreen(
-    '/gitlab/projects/:id/members',
-    (context, parameters) =>
-        GitlabMembers(int.parse(parameters['id'].first), 'projects'));
-
-final gitlabGroupMembersRouter = RouterScreen(
-    '/gitlab/groups/:id/members',
-    (context, parameters) =>
-        GitlabMembers(int.parse(parameters['id'].first), 'groups'));
 
 class GitlabMembers extends StatelessWidget {
   final int id;

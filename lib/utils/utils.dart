@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
@@ -179,12 +178,6 @@ launchUrl(String url) async {
   } else {
     // TODO: fallback
   }
-}
-
-class RouterScreen {
-  String path;
-  HandlerFunc handler;
-  RouterScreen(this.path, this.handler);
 }
 
 final dateFormat = DateFormat.yMMMMd();

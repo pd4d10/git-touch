@@ -2,21 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:git_touch/graphql/gh.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/scaffolds/list_stateful.dart';
-import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/issue_item.dart';
 import 'package:git_touch/widgets/label.dart';
 import 'package:provider/provider.dart';
 
-final pullsRouter = RouterScreen(
-    '/:owner/:name/pulls',
-    (context, params) =>
-        PullsScreen(params['owner'].first, params['name'].first));
-
 class PullsScreen extends StatelessWidget {
   final String owner;
   final String name;
-
   PullsScreen(this.owner, this.name);
 
   Future<ListPayload<GhPullsPullRequest, String>> _query(BuildContext context,

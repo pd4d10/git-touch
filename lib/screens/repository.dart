@@ -9,7 +9,6 @@ import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/entry_item.dart';
 import 'package:git_touch/widgets/label.dart';
 import 'package:git_touch/widgets/mutation_button.dart';
-
 import 'package:git_touch/widgets/markdown_view.dart';
 import 'package:git_touch/widgets/repo_header.dart';
 import 'package:git_touch/widgets/table_view.dart';
@@ -18,20 +17,10 @@ import 'package:git_touch/models/theme.dart';
 import 'package:tuple/tuple.dart';
 import 'package:git_touch/widgets/action_button.dart';
 
-final repositoryRouter = RouterScreen('/:owner/:name', (context, params) {
-  if (params['ref'] == null) {
-    return RepositoryScreen(params['owner'].first, params['name'].first);
-  } else {
-    return RepositoryScreen(params['owner'].first, params['name'].first,
-        branch: params['ref'].first);
-  }
-});
-
 class RepositoryScreen extends StatelessWidget {
   final String owner;
   final String name;
   final String branch;
-
   RepositoryScreen(this.owner, this.name, {this.branch});
 
   Future<GhRepoRepository> _query(BuildContext context) async {

@@ -10,13 +10,6 @@ import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/table_view.dart';
 import 'package:provider/provider.dart';
 
-final codeThemeRouter = RouterScreen(
-  '/choose-code-theme',
-  (context, parameters) {
-    return CodeThemeScreen();
-  },
-);
-
 class CodeThemeScreen extends StatelessWidget {
   String _getCode(bool isDark) => '''// ${isDark ? 'Dark' : 'Light'} Mode
 import 'package:flutter/material.dart';

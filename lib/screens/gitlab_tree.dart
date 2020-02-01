@@ -8,11 +8,6 @@ import 'package:git_touch/models/auth.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/utils/utils.dart';
 
-final gitlabTreeRouter = RouterScreen(
-    '/gitlab/projects/:id/tree',
-    (context, params) => GitlabTreeScreen(params['id'].first.toInt,
-        path: params['path']?.first));
-
 class GitlabTreeScreen extends StatelessWidget {
   final int id;
   final String path;

@@ -13,17 +13,6 @@ import '../scaffolds/long_list.dart';
 import '../widgets/timeline_item.dart';
 import '../widgets/comment_item.dart';
 
-final issueRouter = RouterScreen(
-    '/:owner/:name/issues/:number',
-    (context, params) => IssueScreen(params['owner'].first,
-        params['name'].first, int.parse(params['number'].first)));
-
-final pullRouter = RouterScreen(
-    '/:owner/:name/pull/:number',
-    (context, params) => IssueScreen(params['owner'].first,
-        params['name'].first, int.parse(params['number'].first),
-        isPullRequest: true));
-
 final reactionChunk = emojiMap.entries.map((entry) {
   var key = entry.key;
   return '''

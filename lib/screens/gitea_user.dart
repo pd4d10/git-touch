@@ -11,11 +11,6 @@ import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
-final giteaUserRouter = RouterScreen(
-  '/gitea/:login',
-  (context, params) => GiteaUserScreen(params['login'].first),
-);
-
 class GiteaUserScreen extends StatelessWidget {
   final String login;
   GiteaUserScreen(this.login);

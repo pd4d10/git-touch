@@ -13,11 +13,6 @@ import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
 
-final settingsRouter = RouterScreen(
-  '/settings',
-  (context, parameters) => SettingsScreen(),
-);
-
 class SettingsScreen extends StatefulWidget {
   @override
   _SettingsScreenState createState() => _SettingsScreenState();

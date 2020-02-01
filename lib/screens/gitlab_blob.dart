@@ -8,15 +8,9 @@ import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/blob_view.dart';
 import 'package:provider/provider.dart';
 
-final gitlabBlobRouter = RouterScreen(
-    '/gitlab/projects/:id/blob',
-    (context, params) => GitlabBlobScreen(params['id'].first.toInt,
-        path: params['path']?.first));
-
 class GitlabBlobScreen extends StatelessWidget {
   final int id;
   final String path;
-
   GitlabBlobScreen(this.id, {this.path});
 
   @override

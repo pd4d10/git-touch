@@ -11,11 +11,6 @@ import 'package:tuple/tuple.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
-final gitlabUserRouter = RouterScreen(
-    '/gitlab/user/:id',
-    (context, parameters) =>
-        GitlabUserScreen(int.parse(parameters['id'].first)));
-
 class GitlabUserScreen extends StatelessWidget {
   final int id;
   GitlabUserScreen(this.id);

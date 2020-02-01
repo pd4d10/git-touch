@@ -16,12 +16,8 @@ import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/widgets/action_button.dart';
 import 'package:tuple/tuple.dart';
 
-final gitlabProjectRouter = RouterScreen('/gitlab/projects/:id',
-    (context, params) => GitlabProjectScreen(int.parse(params['id'].first)));
-
 class GitlabProjectScreen extends StatelessWidget {
   final int id;
-
   GitlabProjectScreen(this.id);
 
   @override

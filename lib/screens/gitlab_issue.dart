@@ -10,16 +10,6 @@ import 'package:git_touch/models/auth.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:tuple/tuple.dart';
 
-final gitlabIssueRouter = RouterScreen(
-  '/gitlab/projects/:id/issues/:iid',
-  (context, params) {
-    return GitlabIssueScreen(
-      int.parse(params['id'].first),
-      int.parse(params['iid'].first),
-    );
-  },
-);
-
 class GitlabIssueScreen extends StatelessWidget {
   final int projectId;
   final int iid;

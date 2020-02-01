@@ -1,20 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/single.dart';
-import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/table_view.dart';
 import 'package:launch_review/launch_review.dart';
 import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
 
-final aboutRouter = RouterScreen(
-  '/about',
-  (context, parameters) {
-    return AboutScreen();
-  },
-);
-
+/// Unused
 class AboutScreen extends StatefulWidget {
   @override
   _AboutScreenState createState() => _AboutScreenState();

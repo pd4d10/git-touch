@@ -9,15 +9,6 @@ import 'package:git_touch/widgets/blob_view.dart';
 import 'package:git_touch/widgets/object_tree.dart';
 import 'package:provider/provider.dart';
 
-final giteaObjectRouter = RouterScreen(
-  '/gitea/:owner/:name/blob',
-  (context, params) => GiteaObjectScreen(
-    params['owner'].first,
-    params['name'].first,
-    path: params['path']?.first,
-  ),
-);
-
 class GiteaObjectScreen extends StatelessWidget {
   final String owner;
   final String name;

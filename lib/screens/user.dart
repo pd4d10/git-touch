@@ -3,11 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:git_touch/graphql/gh.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
-import 'package:git_touch/screens/users.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/action_entry.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
-import 'package:git_touch/screens/repositories.dart';
 import 'package:git_touch/widgets/mutation_button.dart';
 import 'package:git_touch/widgets/entry_item.dart';
 import 'package:git_touch/widgets/repository_item.dart';
@@ -17,28 +15,6 @@ import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/widgets/user_header.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/widgets/action_button.dart';
-
-final userRouter = RouterScreen(
-  '/:login',
-  (context, parameters) {
-    final login = parameters['login'].first;
-    final tab = parameters['tab']?.first;
-    switch (tab) {
-      case 'followers':
-        return UsersScreen(login, UsersScreenType.follower);
-      case 'following':
-        return UsersScreen(login, UsersScreenType.following);
-      case 'people':
-        return UsersScreen(login, UsersScreenType.member);
-      case 'stars':
-        return RepositoriesScreen.stars(login);
-      case 'repositories':
-        return RepositoriesScreen(login);
-      default:
-        return UserScreen(login);
-    }
-  },
-);
 
 class UserScreen extends StatelessWidget {
   final String login;

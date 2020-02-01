@@ -11,11 +11,6 @@ import 'package:tuple/tuple.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
-final gitlabGroupRouter = RouterScreen(
-    '/gitlab/group/:id',
-    (context, parameters) =>
-        GitlabGroupScreen(int.parse(parameters['id'].first)));
-
 class GitlabGroupScreen extends StatelessWidget {
   final int id;
   GitlabGroupScreen(this.id);
