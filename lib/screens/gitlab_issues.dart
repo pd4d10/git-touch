@@ -8,17 +8,22 @@ import 'package:git_touch/widgets/issue_item.dart';
 import 'package:git_touch/widgets/label.dart';
 import 'package:provider/provider.dart';
 
-final gitlabIssuesRouter = RouterScreen('/gitlab/projects/:id/issues',
-    (context, params) => GitlabIssuesScreen(params['id'].first));
+final gitlabIssuesRouter = RouterScreen(
+    '/gitlab/projects/:id/issues',
+    (context, params) => GitlabIssuesScreen(
+          params['id'].first,
+          prefix: params['prefix'].first,
+        ));
 
 class GitlabIssuesScreen extends StatelessWidget {
   final String id;
-
-  GitlabIssuesScreen(this.id);
+  final String prefix;
+  GitlabIssuesScreen(this.id, {this.prefix});
 
   Future<ListPayload<GitlabIssue, int>> _query(BuildContext context,
       [int page = 1]) async {
-    final res = await Provider.of<AuthModel>(context)
+    final auth = Provider.of<AuthModel>(context);
+    final res = await auth
         .fetchGitlabWithPage('/projects/$id/issues?state=opened&page=$page');
     return ListPayload(
       cursor: res.cursor,
@@ -47,7 +52,8 @@ class GitlabIssuesScreen extends StatelessWidget {
                 for (var label in p.labels)
                   MyLabel(name: label, cssColor: '#428BCA')
               ]),
-        url: '/gitlab/projects/${p.projectId}/issues/${p.iid}',
+        // url: '/gitlab/projects/${p.projectId}/issues/${p.iid}',
+        url: '$prefix/issues/${p.iid}', // TODO:
       ),
     );
   }

@@ -10,12 +10,15 @@ import 'package:provider/provider.dart';
 
 final gitlabMergeRequestsRouter = RouterScreen(
     '/gitlab/projects/:id/merge_requests',
-    (context, params) => GitlabMergeRequestsScreen(params['id'].first));
+    (context, params) => GitlabMergeRequestsScreen(
+          params['id'].first,
+          prefix: params['prefix'].first,
+        ));
 
 class GitlabMergeRequestsScreen extends StatelessWidget {
   final String id;
-
-  GitlabMergeRequestsScreen(this.id);
+  final String prefix;
+  GitlabMergeRequestsScreen(this.id, {this.prefix});
 
   Future<ListPayload<GitlabIssue, int>> _query(BuildContext context,
       [int page = 1]) async {
@@ -48,7 +51,8 @@ class GitlabMergeRequestsScreen extends StatelessWidget {
                 for (var label in p.labels)
                   MyLabel(name: label, cssColor: '#428BCA')
               ]),
-        url: '/gitlab/projects/${p.projectId}/merge_requests/${p.iid}',
+        // url: '/gitlab/projects/${p.projectId}/merge_requests/${p.iid}',
+        url: '$prefix/merge_requests/${p.iid}', // TODO:
       ),
     );
   }

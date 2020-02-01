@@ -70,7 +70,10 @@ class GitlabProjectScreen extends StatelessWidget {
         final langs = t.item2;
         final badges = t.item3;
         final theme = Provider.of<ThemeModel>(context);
-        // final auth = Provider.of<AuthModel>(context);
+        final auth = Provider.of<AuthModel>(context);
+        final prefix =
+            '${auth.activeAccount.domain}/${p.namespace.path}/${p.name}'
+                .urlencode;
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
@@ -123,13 +126,13 @@ class GitlabProjectScreen extends StatelessWidget {
                     leftIconData: Octicons.issue_opened,
                     text: Text('Issues'),
                     rightWidget: Text(numberFormat.format(p.openIssuesCount)),
-                    url: '/gitlab/projects/$id/issues',
+                    url: '/gitlab/projects/$id/issues?prefix=$prefix',
                   ),
                 if (p.mergeRequestsEnabled)
                   TableViewItem(
                     leftIconData: Octicons.git_pull_request,
                     text: Text('Merge requests'),
-                    url: '/gitlab/projects/$id/merge_requests',
+                    url: '/gitlab/projects/$id/merge_requests?prefix=$prefix',
                   ),
                 TableViewItem(
                   leftIconData: Octicons.history,
