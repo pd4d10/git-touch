@@ -153,3 +153,29 @@ Map<String, dynamic> _$GiteaCommitAuthorToJson(GiteaCommitAuthor instance) =>
       'email': instance.email,
       'date': instance.date?.toIso8601String(),
     };
+
+GiteaIssue _$GiteaIssueFromJson(Map<String, dynamic> json) {
+  return GiteaIssue()
+    ..title = json['title'] as String
+    ..body = json['body'] as String
+    ..number = json['number'] as int
+    ..user = json['user'] == null
+        ? null
+        : GiteaUser.fromJson(json['user'] as Map<String, dynamic>)
+    ..comments = json['comments'] as int
+    ..updatedAt = json['updated_at'] == null
+        ? null
+        : DateTime.parse(json['updated_at'] as String)
+    ..htmlUrl = json['html_url'] as String;
+}
+
+Map<String, dynamic> _$GiteaIssueToJson(GiteaIssue instance) =>
+    <String, dynamic>{
+      'title': instance.title,
+      'body': instance.body,
+      'number': instance.number,
+      'user': instance.user,
+      'comments': instance.comments,
+      'updated_at': instance.updatedAt?.toIso8601String(),
+      'html_url': instance.htmlUrl,
+    };

@@ -214,8 +214,8 @@ class AuthModel with ChangeNotifier {
     final info = json.decode(utf8.decode(res.bodyBytes));
     return DataWithPage(
       data: info,
-      cursor: int.tryParse(res.headers["x-page"]) + 1,
-      hasMore: res.headers['x-hasmore'] != null,
+      cursor: int.tryParse(res.headers["x-page"] ?? ''),
+      hasMore: res.headers['x-hasmore'] == 'true',
       total: int.tryParse(res.headers['x-total'] ?? ''),
     );
   }

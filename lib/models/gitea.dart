@@ -85,3 +85,17 @@ class GiteaCommitAuthor {
   factory GiteaCommitAuthor.fromJson(Map<String, dynamic> json) =>
       _$GiteaCommitAuthorFromJson(json);
 }
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GiteaIssue {
+  String title;
+  String body;
+  int number;
+  GiteaUser user;
+  int comments;
+  DateTime updatedAt;
+  String htmlUrl;
+  GiteaIssue();
+  factory GiteaIssue.fromJson(Map<String, dynamic> json) =>
+      _$GiteaIssueFromJson(json);
+}
