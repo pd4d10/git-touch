@@ -237,7 +237,10 @@ class AuthModel with ChangeNotifier {
     super.dispose();
   }
 
-  void setActiveAccountIndex(int index) {
+  var rootKey = UniqueKey();
+  void setActiveAccountAndReload(int index) {
+    // https://stackoverflow.com/a/50116077
+    rootKey = UniqueKey();
     activeAccountIndex = index;
     _gqlClient = null;
     notifyListeners();

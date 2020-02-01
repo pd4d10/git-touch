@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:git_touch/home.dart';
+import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:provider/provider.dart';
 
 class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildChild(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
     switch (theme.theme) {
       case AppThemeType.cupertino:
@@ -26,5 +26,11 @@ class MyApp extends StatelessWidget {
           home: Home(),
         );
     }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final auth = Provider.of<AuthModel>(context);
+    return Container(key: auth.rootKey, child: _buildChild(context));
   }
 }

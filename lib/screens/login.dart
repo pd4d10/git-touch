@@ -29,11 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     return Link(
       onTap: () {
-        auth.setActiveAccountIndex(null);
-        // FIXME: trigger scaffold reload
-        Future.delayed(Duration(milliseconds: 100), () {
-          auth.setActiveAccountIndex(index);
-        });
+        auth.setActiveAccountAndReload(index);
       },
       child: Container(
         padding: CommonStyle.padding,
