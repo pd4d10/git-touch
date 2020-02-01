@@ -27,8 +27,8 @@ class GitlabProjectScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold<
-        Tuple4<GitlabProject, Map<String, double>, List<GitlabProjectBadge>,
-            String>>(
+        Tuple5<GitlabProject, Map<String, double>, List<GitlabProjectBadge>,
+            int, String>>(
       title: AppBarTitle('Project'),
       fetchData: () async {
         final auth = Provider.of<AuthModel>(context);
@@ -36,6 +36,7 @@ class GitlabProjectScreen extends StatelessWidget {
           auth.fetchGitlab('/projects/$id?statistics=1'),
           auth.fetchGitlab('/projects/$id/languages'),
           auth.fetchGitlab('/projects/$id/badges'),
+          auth.fetchGitlabWithPage('/projects/$id/members?per_page=1')
         ]);
         final p = GitlabProject.fromJson(res[0]);
         String readme;
@@ -43,10 +44,11 @@ class GitlabProjectScreen extends StatelessWidget {
           readme = await auth.fetchWithGitlabToken(
               p.readmeUrl.replaceFirst(r'/blob/', '/raw/'));
         }
-        return Tuple4(
+        return Tuple5(
           p,
           Map<String, double>.from(res[1]),
           (res[2] as List).map((v) => GitlabProjectBadge.fromJson(v)).toList(),
+          (res[3] as DataWithPage).total,
           readme,
         );
       },
@@ -92,6 +94,10 @@ class GitlabProjectScreen extends StatelessWidget {
             Row(
               children: <Widget>[
                 EntryItem(
+                  count: t.item4,
+                  text: 'Members',
+                ),
+                EntryItem(
                   count: p.starCount,
                   text: 'Stars',
                 ),
@@ -133,11 +139,11 @@ class GitlabProjectScreen extends StatelessWidget {
               ],
             ),
             CommonStyle.verticalGap,
-            if (t.item4 != null)
+            if (t.item5 != null)
               Container(
                 padding: CommonStyle.padding,
                 color: theme.palette.background,
-                child: MarkdownView(t.item4),
+                child: MarkdownView(t.item5),
               ),
             CommonStyle.verticalGap,
           ],

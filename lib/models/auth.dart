@@ -29,7 +29,8 @@ class DataWithPage<T> {
   T data;
   int cursor;
   bool hasMore;
-  DataWithPage(this.data, this.cursor, this.hasMore);
+  int total;
+  DataWithPage({this.data, this.cursor, this.hasMore, this.total});
 }
 
 class AuthModel with ChangeNotifier {
@@ -162,7 +163,13 @@ class AuthModel with ChangeNotifier {
         res.headers['X-Next-Pages'] ?? res.headers['x-next-page'] ?? '');
     final info = json.decode(utf8.decode(res.bodyBytes));
     if (info is Map && info['message'] != null) throw info['message'];
-    return DataWithPage(info, next, next != null);
+    return DataWithPage(
+      data: info,
+      cursor: next,
+      hasMore: next != null,
+      total:
+          int.tryParse(res.headers['X-Total'] ?? res.headers['x-total'] ?? ''),
+    );
   }
 
   Future loginToGitea(String domain, String token) async {

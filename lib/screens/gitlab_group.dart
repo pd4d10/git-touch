@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/gitlab.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
+import 'package:git_touch/widgets/entry_item.dart';
 import 'package:git_touch/widgets/repository_item.dart';
 import 'package:git_touch/widgets/user_header.dart';
 import 'package:provider/provider.dart';
@@ -21,12 +22,18 @@ class GitlabGroupScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RefreshStatefulScaffold<Tuple2<GitlabGroup, Null>>(
+    return RefreshStatefulScaffold<Tuple2<GitlabGroup, int>>(
       title: Text('Group'),
       fetchData: () async {
         final auth = Provider.of<AuthModel>(context);
-        final res = await Future.wait([auth.fetchGitlab('/groups/$id')]);
-        return Tuple2(GitlabGroup.fromJson(res[0]), null);
+        final res = await Future.wait([
+          auth.fetchGitlab('/groups/$id'),
+          auth.fetchGitlabWithPage('/groups/$id/members?per_page=1')
+        ]);
+        return Tuple2(
+          GitlabGroup.fromJson(res[0]),
+          (res[1] as DataWithPage).total,
+        );
       },
       bodyBuilder: (data, _) {
         final p = data.item1;
@@ -39,6 +46,13 @@ class GitlabGroupScreen extends StatelessWidget {
               createdAt: null,
               bio: p.description,
             ),
+            CommonStyle.border,
+            Row(children: [
+              EntryItem(
+                count: data.item2,
+                text: 'Members',
+              ),
+            ]),
             CommonStyle.border,
             Column(
               children: <Widget>[
