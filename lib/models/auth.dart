@@ -50,16 +50,7 @@ class AuthModel with ChangeNotifier {
   String get token => activeAccount.token;
 
   _addAccount(Account account) async {
-    // Remove previous if duplicated
-    List<Account> newAccounts = [];
-    for (var a in _accounts) {
-      if (!account.equals(a)) {
-        newAccounts.add(a);
-      }
-    }
-    newAccounts.add(account);
-    _accounts = newAccounts;
-
+    _accounts = [...accounts, account];
     // Save
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(StorageKeys.accounts, json.encode(_accounts));
