@@ -408,6 +408,7 @@ class ThemeModel with ChangeNotifier {
           actions: actionItems.asMap().entries.map((entry) {
             return CupertinoActionSheetAction(
               child: Text(entry.value.text),
+              isDestructiveAction: entry.value.isDestructiveAction,
               onPressed: () {
                 Navigator.pop(context, entry.key);
               },

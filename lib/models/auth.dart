@@ -56,6 +56,17 @@ class AuthModel with ChangeNotifier {
     await prefs.setString(StorageKeys.accounts, json.encode(_accounts));
   }
 
+  removeAccount(int index) async {
+    if (activeAccountIndex == index) {
+      activeAccountIndex = null;
+    }
+    _accounts.removeAt(index);
+    // Save
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(StorageKeys.accounts, json.encode(_accounts));
+    notifyListeners();
+  }
+
   // https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/#web-application-flow
   Future<void> _onSchemeDetected(Uri uri) async {
     await closeWebView();

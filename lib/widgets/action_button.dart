@@ -8,6 +8,7 @@ import 'package:share/share.dart';
 class ActionItem {
   String text;
   String url;
+  bool isDestructiveAction;
   void Function(BuildContext context) onTap;
   IconData iconData;
 
@@ -16,6 +17,7 @@ class ActionItem {
     this.onTap,
     this.url,
     this.iconData,
+    this.isDestructiveAction = false,
   });
 
   static List<ActionItem> getUrlActions(String url) {

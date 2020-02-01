@@ -5,6 +5,7 @@ import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/single.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/action_button.dart';
+import 'package:git_touch/widgets/action_entry.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/text_field.dart';
 import 'package:provider/provider.dart';
@@ -37,6 +38,17 @@ class _LoginScreenState extends State<LoginScreen> {
       onTap: () {
         auth.setActiveAccountAndReload(index);
       },
+      onLongPress: () {
+        theme.showActions(context, [
+          ActionItem(
+            text: 'Remove account',
+            isDestructiveAction: true,
+            onTap: (_) {
+              auth.removeAccount(index);
+            },
+          ),
+        ]);
+      },
       child: Container(
         padding: CommonStyle.padding,
         decoration: BoxDecoration(
@@ -50,9 +62,15 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(account.login, style: TextStyle(fontSize: 20)),
+                  Text(
+                    account.login,
+                    style: TextStyle(fontSize: 20, color: theme.palette.text),
+                  ),
                   Padding(padding: EdgeInsets.only(top: 6)),
-                  Text(account.domain)
+                  Text(
+                    account.domain,
+                    style: TextStyle(color: theme.palette.secondaryText),
+                  )
                 ],
               ),
             ),
@@ -229,6 +247,16 @@ class _LoginScreenState extends State<LoginScreen> {
                         }
                       }
                     },
+                  ),
+                  Container(
+                    padding: CommonStyle.padding,
+                    child: Text(
+                      'Note: Long press to remove account',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: theme.palette.secondaryText,
+                      ),
+                    ),
                   )
                 ],
               ),

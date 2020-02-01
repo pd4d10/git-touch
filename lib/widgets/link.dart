@@ -51,11 +51,13 @@ class Link extends StatelessWidget {
   final Widget child;
   final String url;
   final Function onTap;
+  final Function onLongPress;
 
   Link({
-    this.child,
+    @required this.child,
     this.url,
     this.onTap,
+    this.onLongPress,
   });
 
   @override
@@ -64,7 +66,7 @@ class Link extends StatelessWidget {
 
     switch (theme.theme) {
       case AppThemeType.cupertino:
-        return CupertinoButton(
+        Widget w = CupertinoButton(
           minSize: 0,
           child: child,
           padding: EdgeInsets.zero,
@@ -73,6 +75,10 @@ class Link extends StatelessWidget {
             if (url != null) theme.push(context, url);
           },
         );
+        if (onLongPress != null) {
+          w = GestureDetector(onLongPress: onLongPress, child: w);
+        }
+        return w;
       default:
         return InkWell(
           child: child,
@@ -80,6 +86,7 @@ class Link extends StatelessWidget {
             if (onTap != null) onTap();
             if (url != null) theme.push(context, url);
           },
+          onLongPress: onLongPress,
         );
     }
   }
