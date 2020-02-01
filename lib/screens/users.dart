@@ -144,9 +144,9 @@ class UsersScreen extends StatelessWidget {
       onRefresh: () => _queryUsers(context),
       onLoadMore: (cursor) => _queryUsers(context, cursor),
       itemBuilder: (payload) {
-        return UserItem(
+        return UserItem.gh(
           login: payload.login,
-          name: payload.name,
+          // name: payload.name,
           avatarUrl: payload.avatarUrl,
           bio: _buildBio(
               context, payload.company, payload.location, payload.createdAt),

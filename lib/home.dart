@@ -5,6 +5,7 @@ import 'package:git_touch/models/notification.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/screens/gitea_user.dart';
 import 'package:git_touch/screens/gitlab_explore.dart';
+import 'package:git_touch/screens/gitlab_groups.dart';
 import 'package:git_touch/screens/gitlab_project.dart';
 import 'package:git_touch/screens/gitlab_todos.dart';
 import 'package:git_touch/screens/gitlab_user.dart';
@@ -53,6 +54,8 @@ class _HomeState extends State<Home> {
           case 0:
             return GitlabExplore();
           case 1:
+            return GitlabGroups();
+          case 2:
             return GitlabUserScreen(null);
         }
         break;
@@ -122,6 +125,10 @@ class _HomeState extends State<Home> {
             title: Text('Explore'),
           ),
           BottomNavigationBarItem(
+            icon: Icon(Icons.group),
+            title: Text('Groups'),
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.person),
             title: Text('Me'),
           ),
@@ -131,6 +138,10 @@ class _HomeState extends State<Home> {
           BottomNavigationBarItem(
             icon: Icon(Icons.explore),
             title: Text('Explore'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.explore),
+            title: Text('Groups'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),

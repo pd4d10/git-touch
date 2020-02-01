@@ -196,6 +196,7 @@ class ThemeModel with ChangeNotifier {
   }
 
   push(BuildContext context, String url, {bool replace = false}) {
+    // Fimber.d(url);
     if (url.startsWith('/')) {
       return router.navigateTo(
         context,

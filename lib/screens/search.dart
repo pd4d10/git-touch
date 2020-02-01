@@ -183,9 +183,9 @@ class _SearchScreenState extends State<SearchScreen> {
           isFork: p['isFork'],
         );
       case 1:
-        return UserItem(
+        return UserItem.gh(
           login: p['login'],
-          name: p['name'],
+          // name: p['name'],
           avatarUrl: p['avatarUrl'],
           bio: Text(p['bio'] ?? ''),
         );

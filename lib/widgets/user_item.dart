@@ -14,22 +14,30 @@ const userGqlChunk = '''
 
 class UserItem extends StatelessWidget {
   final String login;
-  final String name;
+  // final String name;
   final String avatarUrl;
   final Widget bio;
+  final String url;
+
+  UserItem.gh({
+    @required this.login,
+    // @required this.name,
+    @required this.avatarUrl,
+    @required this.bio,
+  }) : url = '/$login';
 
   UserItem({
-    this.login,
-    this.name,
-    this.avatarUrl,
-    this.bio,
+    @required this.login,
+    @required this.avatarUrl,
+    @required this.bio,
+    @required this.url,
   });
 
   @override
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
     return Link(
-      url: '/$login',
+      url: url,
       child: Container(
         padding: CommonStyle.padding,
         child: Row(

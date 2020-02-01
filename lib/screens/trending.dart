@@ -46,9 +46,9 @@ class TrendingScreen extends StatelessWidget {
                   );
                 case 1:
                   final item = GithubTrendingUser.fromJson(v);
-                  return UserItem(
+                  return UserItem.gh(
                     login: item.username,
-                    name: item.name,
+                    // name: item.name,
                     avatarUrl: item.avatar,
                     bio: Row(
                       children: <Widget>[
