@@ -94,3 +94,62 @@ Map<String, dynamic> _$GiteaBlobToJson(GiteaBlob instance) => <String, dynamic>{
       'download_url': instance.downloadUrl,
       'content': instance.content,
     };
+
+GiteaCommit _$GiteaCommitFromJson(Map<String, dynamic> json) {
+  return GiteaCommit()
+    ..number = json['number'] as int
+    ..author = json['author'] == null
+        ? null
+        : GiteaUser.fromJson(json['author'] as Map<String, dynamic>)
+    ..title = json['title'] as String
+    ..body = json['body'] as String
+    ..commit = json['commit'] == null
+        ? null
+        : GiteaCommitDetail.fromJson(json['commit'] as Map<String, dynamic>)
+    ..sha = json['sha'] as String
+    ..htmlUrl = json['html_url'] as String;
+}
+
+Map<String, dynamic> _$GiteaCommitToJson(GiteaCommit instance) =>
+    <String, dynamic>{
+      'number': instance.number,
+      'author': instance.author,
+      'title': instance.title,
+      'body': instance.body,
+      'commit': instance.commit,
+      'sha': instance.sha,
+      'html_url': instance.htmlUrl,
+    };
+
+GiteaCommitDetail _$GiteaCommitDetailFromJson(Map<String, dynamic> json) {
+  return GiteaCommitDetail()
+    ..message = json['message'] as String
+    ..author = json['author'] == null
+        ? null
+        : GiteaCommitAuthor.fromJson(json['author'] as Map<String, dynamic>)
+    ..committer = json['committer'] == null
+        ? null
+        : GiteaCommitAuthor.fromJson(json['committer'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$GiteaCommitDetailToJson(GiteaCommitDetail instance) =>
+    <String, dynamic>{
+      'message': instance.message,
+      'author': instance.author,
+      'committer': instance.committer,
+    };
+
+GiteaCommitAuthor _$GiteaCommitAuthorFromJson(Map<String, dynamic> json) {
+  return GiteaCommitAuthor()
+    ..name = json['name'] as String
+    ..email = json['email'] as String
+    ..date =
+        json['date'] == null ? null : DateTime.parse(json['date'] as String);
+}
+
+Map<String, dynamic> _$GiteaCommitAuthorToJson(GiteaCommitAuthor instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'email': instance.email,
+      'date': instance.date?.toIso8601String(),
+    };

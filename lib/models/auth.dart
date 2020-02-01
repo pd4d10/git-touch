@@ -208,6 +208,18 @@ class AuthModel with ChangeNotifier {
     return info;
   }
 
+  Future<DataWithPage> fetchGiteaWithPage(String p) async {
+    final res = await http.get('${activeAccount.domain}/api/v1$p',
+        headers: {'Authorization': 'token $token'});
+    final info = json.decode(utf8.decode(res.bodyBytes));
+    return DataWithPage(
+      data: info,
+      cursor: int.tryParse(res.headers["x-page"]) + 1,
+      hasMore: res.headers['x-hasmore'] != null,
+      total: int.tryParse(res.headers['x-total'] ?? ''),
+    );
+  }
+
   Future<void> init() async {
     // Listen scheme
     _sub = getUriLinksStream().listen(_onSchemeDetected, onError: (err) {

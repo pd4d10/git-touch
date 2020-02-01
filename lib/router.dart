@@ -1,6 +1,7 @@
 import 'package:fluro/fluro.dart';
 import 'package:git_touch/screens/code_theme.dart';
 import 'package:git_touch/screens/commits.dart';
+import 'package:git_touch/screens/gitea_commits.dart';
 import 'package:git_touch/screens/gitea_object.dart';
 import 'package:git_touch/screens/gitea_repo.dart';
 import 'package:git_touch/screens/gitea_user.dart';
@@ -194,7 +195,8 @@ class GiteaRouter {
   static final routes = [
     GiteaRouter.user,
     GiteaRouter.repo,
-    GiteaRouter.object
+    GiteaRouter.object,
+    GiteaRouter.commits,
   ];
   static final user = RouterScreen(
     '/:login',
@@ -206,11 +208,13 @@ class GiteaRouter {
         GiteaRepoScreen(params['owner'].first, params['name'].first),
   );
   static final object = RouterScreen(
-    '/gitea/:owner/:name/blob',
+    '/:owner/:name/blob',
     (context, params) => GiteaObjectScreen(
       params['owner'].first,
       params['name'].first,
       path: params['path']?.first,
     ),
   );
+  static final commits = RouterScreen('/:owner/:name/commits',
+      (_, p) => GiteaCommitsScreen(p['owner'].first, p['name'].first));
 }
