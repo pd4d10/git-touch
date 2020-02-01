@@ -1,6 +1,6 @@
 # GitTouch
 
-Open source GitHub client built with Flutter
+Open source mobile client for GitHub, GitLab and Gitea, built with Flutter
 
 <p>
   <a href="https://itunes.apple.com/us/app/gittouch/id1452042346">
