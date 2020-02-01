@@ -365,7 +365,10 @@ class ThemeModel with ChangeNotifier {
               height: 216,
               child: CupertinoPicker(
                 backgroundColor: palette.background,
-                children: groupItem.items.map((v) => Text(v.text)).toList(),
+                children: <Widget>[
+                  for (var v in groupItem.items)
+                    Text(v.text, style: TextStyle(color: palette.text)),
+                ],
                 itemExtent: 40,
                 scrollController: FixedExtentScrollController(
                     initialItem: groupItem.items
