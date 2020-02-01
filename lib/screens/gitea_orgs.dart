@@ -30,7 +30,7 @@ class GiteaOrgsScreen extends StatelessWidget {
           avatarUrl: v.avatarUrl,
           login: v.username,
           bio: Text(v.description ?? ''),
-          url: '',
+          url: '/gitea/${v.username}?org=1',
         );
       },
     );

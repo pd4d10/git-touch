@@ -4,6 +4,7 @@ import 'package:git_touch/screens/commits.dart';
 import 'package:git_touch/screens/gitea_commits.dart';
 import 'package:git_touch/screens/gitea_issues.dart';
 import 'package:git_touch/screens/gitea_object.dart';
+import 'package:git_touch/screens/gitea_org.dart';
 import 'package:git_touch/screens/gitea_repo.dart';
 import 'package:git_touch/screens/gitea_user.dart';
 import 'package:git_touch/screens/gitlab_blob.dart';
@@ -203,7 +204,9 @@ class GiteaRouter {
   ];
   static final user = RouterScreen(
     '/:login',
-    (context, params) => GiteaUserScreen(params['login'].first),
+    (context, params) => params['org'].first == '1'
+        ? GiteaOrgScreen(params['login'].first)
+        : GiteaUserScreen(params['login'].first),
   );
   static final repo = RouterScreen(
     '/:owner/:name',
