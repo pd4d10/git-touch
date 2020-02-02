@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:filesize/filesize.dart';
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/auth.dart';
@@ -27,7 +29,8 @@ class BbRepoScreen extends StatelessWidget {
         final repo = BbRepo.fromJson(r);
         final res = await auth.fetchBb(
             '/repositories/$owner/$name/src/${repo.mainbranch.name}/README.md');
-        final readme = res.statusCode >= 400 ? null : res.body;
+        final readme =
+            res.statusCode >= 400 ? null : utf8.decode(res.bodyBytes);
         return Tuple2(repo, readme);
       },
       bodyBuilder: (t, setState) {

@@ -287,12 +287,6 @@ class AuthModel with ChangeNotifier {
     );
   }
 
-  Future<String> fetchBbReadme(String p) async {
-    final res = await fetchBb(p);
-    if (res.statusCode >= 400) return null;
-    return res.body;
-  }
-
   Future<void> init() async {
     // Listen scheme
     _sub = getUriLinksStream().listen(_onSchemeDetected, onError: (err) {

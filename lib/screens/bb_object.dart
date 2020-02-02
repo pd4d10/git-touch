@@ -28,9 +28,10 @@ class BbObjectScreen extends StatelessWidget {
         final res = await auth
             .fetchBb('/repositories/$owner/$name/src/$ref/${path ?? ''}');
         if (res.headers[HttpHeaders.contentTypeHeader] == 'text/plain') {
-          return res.body;
+          return utf8.decode(res.bodyBytes);
         } else {
-          return BbPagination.fromJson(json.decode(res.body)).values;
+          return BbPagination.fromJson(json.decode(utf8.decode(res.bodyBytes)))
+              .values;
         }
       },
       actionBuilder: (p, _) {
