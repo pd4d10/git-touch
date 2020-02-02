@@ -40,6 +40,19 @@ class DataWithPage<T> {
   });
 }
 
+class BbPagePayload<T> {
+  T data;
+  String cursor;
+  bool hasMore;
+  int total;
+  BbPagePayload({
+    @required this.data,
+    @required this.cursor,
+    @required this.hasMore,
+    this.total,
+  });
+}
+
 class AuthModel with ChangeNotifier {
   static const _apiPrefix = 'https://api.github.com';
 
@@ -248,7 +261,7 @@ class AuthModel with ChangeNotifier {
   }
 
   Future fetchBb(String p) async {
-    if (!p.startsWith('/api')) p = '/api/2.0$p';
+    if (p.startsWith('/') && !p.startsWith('/api')) p = '/api/2.0$p';
     final input = Uri.parse(p);
     final uri = Uri.parse(activeAccount.domain).replace(
       userInfo: '${activeAccount.login}:${activeAccount.appPassword}',
@@ -260,11 +273,11 @@ class AuthModel with ChangeNotifier {
     return info;
   }
 
-  Future<DataWithPage<List>> fetchBbWithPage(String p) async {
+  Future<BbPagePayload<List>> fetchBbWithPage(String p) async {
     final res = await fetchBb(p);
     final v = BbPagination.fromJson(res);
-    return DataWithPage(
-      cursor: v.page,
+    return BbPagePayload(
+      cursor: v.next,
       total: v.size,
       data: v.values,
       hasMore: v.next != null,

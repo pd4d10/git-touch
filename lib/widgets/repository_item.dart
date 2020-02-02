@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:git_touch/models/bitbucket.dart';
 import 'package:git_touch/models/gitlab.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/widgets/avatar.dart';
 import 'package:provider/provider.dart';
 import '../utils/utils.dart';
 import 'link.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class RepositoryItem extends StatelessWidget {
   final String owner;
@@ -35,6 +37,21 @@ class RepositoryItem extends StatelessWidget {
     @required this.url,
     @required this.avatarLink,
   });
+
+  RepositoryItem.bb({
+    @required BbRepo payload,
+    this.primaryLanguageName,
+    this.primaryLanguageColor,
+  })  : owner = payload.owner.displayName,
+        name = payload.name,
+        url = '/bitbucket/${payload.fullName}',
+        avatarUrl = payload.avatarUrl,
+        avatarLink = '/bitbucket/${payload.owner.displayName}',
+        note = 'Updated ${timeago.format(payload.updatedOn)}',
+        description = payload.description,
+        forkCount = 0,
+        starCount = 0,
+        iconData = payload.isPrivate ? Octicons.lock : null;
 
   RepositoryItem.gl({
     @required GitlabProject payload,

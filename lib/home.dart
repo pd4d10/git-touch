@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/notification.dart';
 import 'package:git_touch/models/theme.dart';
+import 'package:git_touch/screens/bb_explore.dart';
 import 'package:git_touch/screens/bb_user.dart';
 import 'package:git_touch/screens/gitea_orgs.dart';
 import 'package:git_touch/screens/gitea_user.dart';
@@ -64,7 +65,7 @@ class _HomeState extends State<Home> {
       case PlatformType.bitbucket:
         switch (index) {
           case 0:
-            return BbUserScreen(null);
+            return BbExplore();
           case 1:
             return BbUserScreen(null);
         }

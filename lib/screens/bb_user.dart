@@ -9,7 +9,6 @@ import 'package:git_touch/widgets/user_header.dart';
 import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
 import 'package:git_touch/utils/utils.dart';
-import 'package:timeago/timeago.dart' as timeago;
 
 class BbUserScreen extends StatelessWidget {
   final String login;
@@ -30,7 +29,7 @@ class BbUserScreen extends StatelessWidget {
         return Tuple2(
           BbUser.fromJson(res[0]),
           [
-            for (var v in (res[1] as DataWithPage<List>).data)
+            for (var v in (res[1] as BbPagePayload<List>).data)
               BbRepo.fromJson(v)
           ],
         );
@@ -56,18 +55,7 @@ class BbUserScreen extends StatelessWidget {
             CommonStyle.border,
             Column(
               children: <Widget>[
-                for (var v in repos)
-                  RepositoryItem(
-                    owner: v.owner.displayName,
-                    name: v.name,
-                    url: '/bitbucket/${v.fullName}',
-                    avatarUrl: v.avatarUrl,
-                    avatarLink: '/bitbucket/${v.owner.displayName}',
-                    note: 'Updated ${timeago.format(v.updatedOn)}',
-                    description: v.description,
-                    forkCount: 0,
-                    starCount: 0,
-                  )
+                for (var v in repos) RepositoryItem.bb(payload: v)
               ],
             )
           ],
