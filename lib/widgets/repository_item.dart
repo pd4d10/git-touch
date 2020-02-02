@@ -46,7 +46,7 @@ class RepositoryItem extends StatelessWidget {
         name = payload.name,
         url = '/bitbucket/${payload.fullName}',
         avatarUrl = payload.avatarUrl,
-        avatarLink = '/bitbucket/${payload.owner.displayName}',
+        avatarLink = null,
         note = 'Updated ${timeago.format(payload.updatedOn)}',
         description = payload.description,
         forkCount = 0,

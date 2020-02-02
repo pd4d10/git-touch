@@ -23,10 +23,11 @@ class BbRepoScreen extends StatelessWidget {
       title: AppBarTitle('Repository'),
       fetchData: () async {
         final auth = Provider.of<AuthModel>(context);
-        final res = await auth.fetchBb('/repositories/$owner/$name');
-        final repo = BbRepo.fromJson(res);
-        final readme = await auth.fetchBbReadme(
+        final r = await auth.fetchBbJson('/repositories/$owner/$name');
+        final repo = BbRepo.fromJson(r);
+        final res = await auth.fetchBb(
             '/repositories/$owner/$name/src/${repo.mainbranch.name}/README.md');
+        final readme = res.statusCode >= 400 ? null : res.body;
         return Tuple2(repo, readme);
       },
       bodyBuilder: (t, setState) {

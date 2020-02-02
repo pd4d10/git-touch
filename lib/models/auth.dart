@@ -260,7 +260,7 @@ class AuthModel with ChangeNotifier {
     }
   }
 
-  Future fetchBb(String p) async {
+  Future<http.Response> fetchBb(String p) async {
     if (p.startsWith('/') && !p.startsWith('/api')) p = '/api/2.0$p';
     final input = Uri.parse(p);
     final uri = Uri.parse(activeAccount.domain).replace(
@@ -268,14 +268,17 @@ class AuthModel with ChangeNotifier {
       path: input.path,
       query: input.query,
     );
-    final res = await http.get(uri);
-    final info = json.decode(utf8.decode(res.bodyBytes));
-    return info;
+    return http.get(uri);
+  }
+
+  Future fetchBbJson(String p) async {
+    final res = await fetchBb(p);
+    return json.decode(utf8.decode(res.bodyBytes));
   }
 
   Future<BbPagePayload<List>> fetchBbWithPage(String p) async {
-    final res = await fetchBb(p);
-    final v = BbPagination.fromJson(res);
+    final data = await fetchBbJson(p);
+    final v = BbPagination.fromJson(data);
     return BbPagePayload(
       cursor: v.next,
       total: v.size,
@@ -285,14 +288,7 @@ class AuthModel with ChangeNotifier {
   }
 
   Future<String> fetchBbReadme(String p) async {
-    if (p.startsWith('/') && !p.startsWith('/api')) p = '/api/2.0$p';
-    final input = Uri.parse(p);
-    final uri = Uri.parse(activeAccount.domain).replace(
-      userInfo: '${activeAccount.login}:${activeAccount.appPassword}',
-      path: input.path,
-      query: input.query,
-    );
-    final res = await http.get(uri);
+    final res = await fetchBb(p);
     if (res.statusCode >= 400) return null;
     return res.body;
   }

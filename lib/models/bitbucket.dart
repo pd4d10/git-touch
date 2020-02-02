@@ -64,3 +64,12 @@ class BbRepoMainbranch {
   factory BbRepoMainbranch.fromJson(Map<String, dynamic> json) =>
       _$BbRepoMainbranchFromJson(json);
 }
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class BbTree {
+  String type;
+  String path;
+  int size;
+  BbTree();
+  factory BbTree.fromJson(Map<String, dynamic> json) => _$BbTreeFromJson(json);
+}

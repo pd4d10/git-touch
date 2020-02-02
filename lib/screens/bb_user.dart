@@ -23,7 +23,7 @@ class BbUserScreen extends StatelessWidget {
       title: Text(isViewer ? 'Me' : 'User'),
       fetchData: () async {
         final res = await Future.wait([
-          auth.fetchBb('/users/$_login'),
+          auth.fetchBbJson('/users/$_login'),
           auth.fetchBbWithPage('/repositories/$_login'),
         ]);
         return Tuple2(

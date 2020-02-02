@@ -1,4 +1,5 @@
 import 'package:fluro/fluro.dart';
+import 'package:git_touch/screens/bb_object.dart';
 import 'package:git_touch/screens/bb_repo.dart';
 import 'package:git_touch/screens/bb_user.dart';
 import 'package:git_touch/screens/code_theme.dart';
@@ -240,6 +241,7 @@ class BitbucketRouter {
   static final routes = [
     BitbucketRouter.user,
     BitbucketRouter.repo,
+    BitbucketRouter.object,
   ];
   static final user = RouterScreen(
     '/:login',
@@ -251,5 +253,14 @@ class BitbucketRouter {
     '/:owner/:name',
     (context, params) =>
         BbRepoScreen(params['owner'].first, params['name'].first),
+  );
+  static final object = RouterScreen(
+    '/:owner/:name/src/:ref',
+    (context, params) => BbObjectScreen(
+      params['owner'].first,
+      params['name'].first,
+      params['ref'].first,
+      path: params['path']?.first,
+    ),
   );
 }

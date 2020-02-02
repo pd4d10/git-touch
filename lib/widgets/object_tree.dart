@@ -28,9 +28,11 @@ class ObjectTree extends StatelessWidget {
     switch (item.type) {
       case 'blob': // github gql, gitlab
       case 'file': // github rest, gitea
+      case 'commit_file': // bitbucket
         return SetiIcon(item.name, size: 36);
       case 'tree': // github gql, gitlab
       case 'dir': // github rest, gitea
+      case 'commit_directory': // bitbucket
         return Icon(
           Octicons.file_directory,
           color: PrimerColors.blue300,

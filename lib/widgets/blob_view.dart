@@ -13,15 +13,17 @@ import 'package:git_touch/utils/utils.dart';
 
 class BlobView extends StatelessWidget {
   final String name;
-  // final String text;
+  final String text;
   final String base64Text;
   final String networkUrl;
   BlobView(
     this.name, {
-    // this.text,
-    @required this.base64Text,
+    this.text,
+    this.base64Text,
     this.networkUrl,
   });
+
+  String get _text => text ?? base64Text.base64ToUtf8;
 
   @override
   Widget build(BuildContext context) {
@@ -52,13 +54,13 @@ class BlobView extends StatelessWidget {
       case 'markdown':
         return Padding(
           padding: CommonStyle.padding,
-          child: MarkdownView(base64Text.base64ToUtf8), // TODO: basePath
+          child: MarkdownView(_text), // TODO: basePath
         );
       default:
         return SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: HighlightView(
-            base64Text.base64ToUtf8,
+            _text,
             language: name.ext ?? 'plaintext',
             theme: themeMap[theme.brightness == Brightness.dark
                 ? codeProvider.themeDark
