@@ -115,7 +115,7 @@ class GitlabProjectScreen extends StatelessWidget {
                   leftIconData: Octicons.code,
                   text: Text(langs.keys.isEmpty ? 'Code' : langs.keys.first),
                   rightWidget: Text(filesize(p.statistics.repositorySize)),
-                  url: '/gitlab/projects/$id/tree',
+                  url: '/gitlab/projects/$id/tree/${p.defaultBranch}',
                 ),
                 if (p.issuesEnabled)
                   TableViewItem(

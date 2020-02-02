@@ -92,6 +92,7 @@ class GitlabProject {
   GitlabProjectStatistics statistics;
   DateTime lastActivityAt;
   DateTime createdAt;
+  String defaultBranch;
   GitlabProject();
   factory GitlabProject.fromJson(Map<String, dynamic> json) =>
       _$GitlabProjectFromJson(json);

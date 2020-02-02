@@ -10,8 +10,9 @@ import 'package:git_touch/utils/utils.dart';
 
 class GitlabTreeScreen extends StatelessWidget {
   final int id;
+  final String ref;
   final String path;
-  GitlabTreeScreen(this.id, {this.path});
+  GitlabTreeScreen(this.id, this.ref, {this.path});
 
   @override
   Widget build(BuildContext context) {
@@ -19,11 +20,14 @@ class GitlabTreeScreen extends StatelessWidget {
     return RefreshStatefulScaffold<Iterable<GitlabTreeItem>>(
       title: AppBarTitle(path ?? 'Files'),
       fetchData: () async {
-        var url = '/projects/$id/repository/tree';
-        if (path != null) {
-          url += '?path=' + path;
-        }
-        final res = await auth.fetchGitlab(url);
+        final uri = Uri(
+          path: '/projects/$id/repository/tree',
+          queryParameters: {
+            'ref': ref,
+            ...(path == null ? {} : {'path': path})
+          },
+        );
+        final res = await auth.fetchGitlab(uri.toString());
         return (res as List).map((v) => GitlabTreeItem.fromJson(v));
       },
       bodyBuilder: (data, _) {
@@ -37,9 +41,9 @@ class GitlabTreeScreen extends StatelessWidget {
               url: (() {
                 switch (item.type) {
                   case 'tree':
-                    return '/gitlab/projects/$id/tree?path=${item.path.urlencode}';
+                    return '/gitlab/projects/$id/tree/$ref?path=${item.path.urlencode}';
                   case 'blob':
-                    return '/gitlab/projects/$id/blob?path=${item.path.urlencode}';
+                    return '/gitlab/projects/$id/blob/$ref?path=${item.path.urlencode}';
                   default:
                     return null;
                 }

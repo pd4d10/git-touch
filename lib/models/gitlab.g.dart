@@ -162,7 +162,8 @@ GitlabProject _$GitlabProjectFromJson(Map<String, dynamic> json) {
         : DateTime.parse(json['last_activity_at'] as String)
     ..createdAt = json['created_at'] == null
         ? null
-        : DateTime.parse(json['created_at'] as String);
+        : DateTime.parse(json['created_at'] as String)
+    ..defaultBranch = json['default_branch'] as String;
 }
 
 Map<String, dynamic> _$GitlabProjectToJson(GitlabProject instance) =>
@@ -184,6 +185,7 @@ Map<String, dynamic> _$GitlabProjectToJson(GitlabProject instance) =>
       'statistics': instance.statistics,
       'last_activity_at': instance.lastActivityAt?.toIso8601String(),
       'created_at': instance.createdAt?.toIso8601String(),
+      'default_branch': instance.defaultBranch,
     };
 
 GitlabProjectBadge _$GitlabProjectBadgeFromJson(Map<String, dynamic> json) {

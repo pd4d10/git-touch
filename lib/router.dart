@@ -148,12 +148,14 @@ class GitlabRouter {
   static final group = RouterScreen('/group/:id',
       (context, p) => GitlabGroupScreen(int.parse(p['id'].first)));
   static final blob = RouterScreen(
-      '/projects/:id/blob',
-      (context, params) => GitlabBlobScreen(int.parse(params['id'].first),
+      '/projects/:id/blob/:ref',
+      (context, params) => GitlabBlobScreen(
+          int.parse(params['id'].first), params['ref'].first,
           path: params['path']?.first));
   static final tree = RouterScreen(
-      '/projects/:id/tree',
-      (context, params) => GitlabTreeScreen(int.parse(params['id'].first),
+      '/projects/:id/tree/:ref',
+      (context, params) => GitlabTreeScreen(
+          int.parse(params['id'].first), params['ref'].first,
           path: params['path']?.first));
   static final project = RouterScreen('/projects/:id',
       (context, params) => GitlabProjectScreen(int.parse(params['id'].first)));
