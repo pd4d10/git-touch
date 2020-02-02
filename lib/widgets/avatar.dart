@@ -26,16 +26,19 @@ class Avatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final fallback = 'images/avatar.png';
     final widget = ClipRRect(
       borderRadius: borderRadius ?? BorderRadius.circular(size / 2),
-      child: FadeInImage.assetNetwork(
-        placeholder: 'images/avatar.png',
-        image: url ?? 'images/avatar.png',
-        width: size,
-        height: size,
-        fadeInDuration: Duration(milliseconds: 200),
-        fadeOutDuration: Duration(milliseconds: 100),
-      ),
+      child: url == null
+          ? Image.asset(fallback)
+          : FadeInImage.assetNetwork(
+              placeholder: fallback,
+              image: url,
+              width: size,
+              height: size,
+              fadeInDuration: Duration(milliseconds: 200),
+              fadeOutDuration: Duration(milliseconds: 100),
+            ),
     );
     if (linkUrl == null) return widget;
     return Link(
