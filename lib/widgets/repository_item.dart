@@ -42,7 +42,7 @@ class RepositoryItem extends StatelessWidget {
     @required BbRepo payload,
     this.primaryLanguageName,
     this.primaryLanguageColor,
-  })  : owner = payload.owner.displayName,
+  })  : owner = payload.ownerLogin,
         name = payload.name,
         url = '/bitbucket/${payload.fullName}',
         avatarUrl = payload.avatarUrl,

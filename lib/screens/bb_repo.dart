@@ -38,7 +38,7 @@ class BbRepoScreen extends StatelessWidget {
             RepoHeader(
               avatarUrl: p.avatarUrl,
               avatarLink: null,
-              owner: p.owner.displayName, // TODO:
+              owner: p.ownerLogin,
               name: p.slug,
               description: p.description,
               homepageUrl: p.website,

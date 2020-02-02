@@ -17,11 +17,11 @@ class BbUserScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final auth = Provider.of<AuthModel>(context);
+    final _login = login ?? auth.activeAccount.login;
     return RefreshStatefulScaffold<Tuple2<BbUser, Iterable<BbRepo>>>(
       title: Text(isViewer ? 'Me' : 'User'),
       fetchData: () async {
-        final auth = Provider.of<AuthModel>(context);
-        final _login = login ?? auth.activeAccount.login;
         final res = await Future.wait([
           auth.fetchBb('/users/$_login'),
           auth.fetchBbWithPage('/repositories/$_login'),
@@ -46,9 +46,9 @@ class BbUserScreen extends StatelessWidget {
         return Column(
           children: <Widget>[
             UserHeader(
-              login: user.displayName,
+              login: _login,
               avatarUrl: user.avatarUrl,
-              name: user.nickname,
+              name: user.displayName,
               createdAt: user.createdOn,
               bio: null,
             ),

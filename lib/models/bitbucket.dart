@@ -50,6 +50,7 @@ class BbRepo {
   String slug;
   BbRepoMainbranch mainbranch;
   Map<String, dynamic> links;
+  String get ownerLogin => fullName.split('/')[0]; // owner has no username
   String get avatarUrl => links['avatar']['href'];
   BbRepo();
   factory BbRepo.fromJson(Map<String, dynamic> json) => _$BbRepoFromJson(json);
