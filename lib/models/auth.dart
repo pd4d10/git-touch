@@ -233,7 +233,7 @@ class AuthModel with ChangeNotifier {
         domain: domain,
         token: user.username,
         login: username,
-        avatarUrl: null,
+        avatarUrl: user.avatarUrl,
         appPassword: appPassword,
       ));
     } finally {
