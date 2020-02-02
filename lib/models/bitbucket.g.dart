@@ -122,11 +122,13 @@ BbTree _$BbTreeFromJson(Map<String, dynamic> json) {
   return BbTree()
     ..type = json['type'] as String
     ..path = json['path'] as String
-    ..size = json['size'] as int;
+    ..size = json['size'] as int
+    ..links = json['links'] as Map<String, dynamic>;
 }
 
 Map<String, dynamic> _$BbTreeToJson(BbTree instance) => <String, dynamic>{
       'type': instance.type,
       'path': instance.path,
       'size': instance.size,
+      'links': instance.links,
     };

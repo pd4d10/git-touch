@@ -70,6 +70,7 @@ class BbTree {
   String type;
   String path;
   int size;
+  Map<String, dynamic> links;
   BbTree();
   factory BbTree.fromJson(Map<String, dynamic> json) => _$BbTreeFromJson(json);
 }

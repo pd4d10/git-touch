@@ -21,10 +21,11 @@ class BbObjectScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final auth = Provider.of<AuthModel>(context);
     return RefreshStatefulScaffold(
       title: AppBarTitle(path ?? 'Files'),
       fetchData: () async {
-        final res = await Provider.of<AuthModel>(context)
+        final res = await auth
             .fetchBb('/repositories/$owner/$name/src/$ref/${path ?? ''}');
         if (res.headers[HttpHeaders.contentTypeHeader] == 'text/plain') {
           return res.body;
@@ -58,7 +59,7 @@ class BbObjectScreen extends StatelessWidget {
                 size: v.type == 'commit_file' ? v.size : null,
                 url:
                     '/bitbucket/$owner/$name/src/$ref?path=${v.path.urlencode}',
-                downloadUrl: null,
+                downloadUrl: v.links['self']['href'] as String,
               ),
           ]);
         } else {
