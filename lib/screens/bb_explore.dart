@@ -6,7 +6,7 @@ import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/repository_item.dart';
 import 'package:provider/provider.dart';
 
-class BbExplore extends StatelessWidget {
+class BbExploreScreen extends StatelessWidget {
   Future<ListPayload<BbRepo, String>> _query(BuildContext context,
       [String nextUrl]) async {
     final auth = Provider.of<AuthModel>(context);

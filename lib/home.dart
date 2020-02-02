@@ -4,6 +4,7 @@ import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/notification.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/screens/bb_explore.dart';
+import 'package:git_touch/screens/bb_teams.dart';
 import 'package:git_touch/screens/bb_user.dart';
 import 'package:git_touch/screens/gitea_orgs.dart';
 import 'package:git_touch/screens/gitea_user.dart';
@@ -65,8 +66,10 @@ class _HomeState extends State<Home> {
       case PlatformType.bitbucket:
         switch (index) {
           case 0:
-            return BbExplore();
+            return BbExploreScreen();
           case 1:
+            return BbTeamsScreen();
+          case 2:
             return BbUserScreen(null);
         }
         break;
@@ -149,6 +152,10 @@ class _HomeState extends State<Home> {
           BottomNavigationBarItem(
             icon: Icon(Icons.explore),
             title: Text('Explore'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.group),
+            title: Text('Teams'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
