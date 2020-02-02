@@ -24,27 +24,43 @@ Map<String, dynamic> _$BbPaginationToJson(BbPagination instance) =>
       'values': instance.values,
     };
 
-BbUser _$BbUserFromJson(Map<String, dynamic> json) {
-  return BbUser()
-    ..username = json['username'] as String
+BbRepoOwner _$BbRepoOwnerFromJson(Map<String, dynamic> json) {
+  return BbRepoOwner()
     ..nickname = json['nickname'] as String
     ..displayName = json['display_name'] as String
     ..type = json['type'] as String
-    ..isStaff = json['is_staff'] as bool
-    ..createdOn = json['created_on'] == null
-        ? null
-        : DateTime.parse(json['created_on'] as String)
     ..links = json['links'] as Map<String, dynamic>;
 }
 
-Map<String, dynamic> _$BbUserToJson(BbUser instance) => <String, dynamic>{
-      'username': instance.username,
+Map<String, dynamic> _$BbRepoOwnerToJson(BbRepoOwner instance) =>
+    <String, dynamic>{
       'nickname': instance.nickname,
       'display_name': instance.displayName,
       'type': instance.type,
+      'links': instance.links,
+    };
+
+BbUser _$BbUserFromJson(Map<String, dynamic> json) {
+  return BbUser()
+    ..nickname = json['nickname'] as String
+    ..displayName = json['display_name'] as String
+    ..type = json['type'] as String
+    ..links = json['links'] as Map<String, dynamic>
+    ..username = json['username'] as String
+    ..isStaff = json['is_staff'] as bool
+    ..createdOn = json['created_on'] == null
+        ? null
+        : DateTime.parse(json['created_on'] as String);
+}
+
+Map<String, dynamic> _$BbUserToJson(BbUser instance) => <String, dynamic>{
+      'nickname': instance.nickname,
+      'display_name': instance.displayName,
+      'type': instance.type,
+      'links': instance.links,
+      'username': instance.username,
       'is_staff': instance.isStaff,
       'created_on': instance.createdOn?.toIso8601String(),
-      'links': instance.links,
     };
 
 BbRepo _$BbRepoFromJson(Map<String, dynamic> json) {
@@ -52,7 +68,7 @@ BbRepo _$BbRepoFromJson(Map<String, dynamic> json) {
     ..name = json['name'] as String
     ..owner = json['owner'] == null
         ? null
-        : BbUser.fromJson(json['owner'] as Map<String, dynamic>)
+        : BbRepoOwner.fromJson(json['owner'] as Map<String, dynamic>)
     ..website = json['website'] as String
     ..language = json['language'] as String
     ..size = json['size'] as int
@@ -66,6 +82,10 @@ BbRepo _$BbRepoFromJson(Map<String, dynamic> json) {
         : DateTime.parse(json['updated_on'] as String)
     ..description = json['description'] as String
     ..fullName = json['full_name'] as String
+    ..slug = json['slug'] as String
+    ..mainbranch = json['mainbranch'] == null
+        ? null
+        : BbRepoMainbranch.fromJson(json['mainbranch'] as Map<String, dynamic>)
     ..links = json['links'] as Map<String, dynamic>;
 }
 
@@ -81,5 +101,19 @@ Map<String, dynamic> _$BbRepoToJson(BbRepo instance) => <String, dynamic>{
       'updated_on': instance.updatedOn?.toIso8601String(),
       'description': instance.description,
       'full_name': instance.fullName,
+      'slug': instance.slug,
+      'mainbranch': instance.mainbranch,
       'links': instance.links,
+    };
+
+BbRepoMainbranch _$BbRepoMainbranchFromJson(Map<String, dynamic> json) {
+  return BbRepoMainbranch()
+    ..type = json['type'] as String
+    ..name = json['name'] as String;
+}
+
+Map<String, dynamic> _$BbRepoMainbranchToJson(BbRepoMainbranch instance) =>
+    <String, dynamic>{
+      'type': instance.type,
+      'name': instance.name,
     };

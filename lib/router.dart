@@ -1,4 +1,6 @@
 import 'package:fluro/fluro.dart';
+import 'package:git_touch/screens/bb_repo.dart';
+import 'package:git_touch/screens/bb_user.dart';
 import 'package:git_touch/screens/code_theme.dart';
 import 'package:git_touch/screens/commits.dart';
 import 'package:git_touch/screens/gitea_commits.dart';
@@ -231,4 +233,23 @@ class GiteaRouter {
       '/:owner/:name/pulls',
       (_, p) =>
           GiteaIssuesScreen(p['owner'].first, p['name'].first, isPr: true));
+}
+
+class BitbucketRouter {
+  static const prefix = '/bitbucket';
+  static final routes = [
+    BitbucketRouter.user,
+    BitbucketRouter.repo,
+  ];
+  static final user = RouterScreen(
+    '/:login',
+    (context, params) => params['team'].first == '1'
+        ? BbUserScreen(params['login'].first)
+        : BbUserScreen(params['login'].first),
+  );
+  static final repo = RouterScreen(
+    '/:owner/:name',
+    (context, params) =>
+        BbRepoScreen(params['owner'].first, params['name'].first),
+  );
 }

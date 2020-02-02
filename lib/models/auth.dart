@@ -284,6 +284,19 @@ class AuthModel with ChangeNotifier {
     );
   }
 
+  Future<String> fetchBbReadme(String p) async {
+    if (p.startsWith('/') && !p.startsWith('/api')) p = '/api/2.0$p';
+    final input = Uri.parse(p);
+    final uri = Uri.parse(activeAccount.domain).replace(
+      userInfo: '${activeAccount.login}:${activeAccount.appPassword}',
+      path: input.path,
+      query: input.query,
+    );
+    final res = await http.get(uri);
+    if (res.statusCode >= 400) return null;
+    return res.body;
+  }
+
   Future<void> init() async {
     // Listen scheme
     _sub = getUriLinksStream().listen(_onSchemeDetected, onError: (err) {

@@ -53,6 +53,10 @@ void main() async {
     themeModel.router.define(GiteaRouter.prefix + screen.path,
         handler: Handler(handlerFunc: screen.handler));
   });
+  BitbucketRouter.routes.forEach((screen) {
+    themeModel.router.define(BitbucketRouter.prefix + screen.path,
+        handler: Handler(handlerFunc: screen.handler));
+  });
   GithubRouter.routes.forEach((screen) {
     themeModel.router.define(GithubRouter.prefix + screen.path,
         handler: Handler(handlerFunc: screen.handler));
