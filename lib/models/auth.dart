@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:convert';
 import 'dart:async';
+import 'package:git_touch/models/bitbucket.dart';
 import 'package:git_touch/models/gitea.dart';
 import 'package:git_touch/utils/request_serilizer.dart';
 import 'package:gql_http_link/gql_http_link.dart';
@@ -22,6 +23,7 @@ const clientId = 'df930d7d2e219f26142a';
 class PlatformType {
   static const github = 'github';
   static const gitlab = 'gitlab';
+  static const bitbucket = 'bitbucket';
   static const gitea = 'gitea';
 }
 
@@ -212,6 +214,32 @@ class AuthModel with ChangeNotifier {
       hasMore: res.headers['x-hasmore'] == 'true',
       total: int.tryParse(res.headers['x-total'] ?? ''),
     );
+  }
+
+  Future loginToBb(String domain, String username, String appPassword) async {
+    try {
+      loading = true;
+      notifyListeners();
+      final uri = Uri.parse('$domain/api/2.0/user')
+          .replace(userInfo: '$username:$appPassword');
+      final res = await http.get(uri);
+      if (res.statusCode >= 400) {
+        throw 'status ${res.statusCode}';
+      }
+      final info = json.decode(res.body);
+      final user = BbUser.fromJson(info);
+      await _addAccount(Account(
+        platform: PlatformType.bitbucket,
+        domain: domain,
+        token: user.username,
+        login: username,
+        avatarUrl: null,
+        appPassword: appPassword,
+      ));
+    } finally {
+      loading = false;
+      notifyListeners();
+    }
   }
 
   Future<void> init() async {

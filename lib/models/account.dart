@@ -10,19 +10,20 @@ class Account {
   String token;
   String login;
   String avatarUrl;
-  int gitlabId;
+  int gitlabId; // For GitLab
+  String appPassword; // For Bitbucket
 
-  equals(Account a) {
-    final uri = Uri.parse(domain);
-    final uriA = Uri.parse(a.domain);
+  // equals(Account a) {
+  //   final uri = Uri.parse(domain);
+  //   final uriA = Uri.parse(a.domain);
 
-    // Treat domains as the same if they have the same hosts and ports
-    return a.platform == platform &&
-        a.login == login &&
-        a.gitlabId == gitlabId &&
-        uri.host == uriA.host &&
-        uri.port == uriA.port;
-  }
+  //   // Treat domains as the same if they have the same hosts and ports
+  //   return a.platform == platform &&
+  //       a.login == login &&
+  //       a.gitlabId == gitlabId &&
+  //       uri.host == uriA.host &&
+  //       uri.port == uriA.port;
+  // }
 
   Account({
     @required this.platform,
@@ -31,6 +32,7 @@ class Account {
     @required this.login,
     @required this.avatarUrl,
     this.gitlabId,
+    this.appPassword,
   });
 
   factory Account.fromJson(Map<String, dynamic> json) =>

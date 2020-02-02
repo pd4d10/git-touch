@@ -22,6 +22,10 @@ class _LoginScreenState extends State<LoginScreen> {
   final _tokenController = TextEditingController();
   final _domainController = TextEditingController();
 
+  // For Bitbucket
+  final _usernameController = TextEditingController();
+  final _passwordController = TextEditingController();
+
   // @override
   // initState() {
   //   super.initState();
@@ -114,15 +118,9 @@ class _LoginScreenState extends State<LoginScreen> {
     return Column(
       children: <Widget>[
         if (showDomain)
-          MyTextField(
-            controller: _domainController,
-            placeholder: 'Domain',
-          ),
+          MyTextField(controller: _domainController, placeholder: 'Domain'),
         SizedBox(height: 8),
-        MyTextField(
-          placeholder: 'Access token',
-          controller: _tokenController,
-        ),
+        MyTextField(placeholder: 'Access token', controller: _tokenController),
         SizedBox(height: 8),
         if (notes != null) ...notes,
       ],
@@ -222,6 +220,43 @@ class _LoginScreenState extends State<LoginScreen> {
                           await auth.loginToGitlab(
                               _domainController.text, _tokenController.text);
                           _tokenController.clear();
+                        } catch (err) {
+                          showError(err);
+                        }
+                      }
+                    },
+                  ),
+                  _buildAddItem(
+                    text: 'Bitbucket Account',
+                    brand: FontAwesome5Brands.bitbucket,
+                    onTap: () async {
+                      _domainController.text = 'https://bitbucket.org';
+                      final result = await theme.showConfirm(
+                        context,
+                        Column(
+                          children: <Widget>[
+                            MyTextField(
+                                controller: _domainController,
+                                placeholder: 'Domain'),
+                            SizedBox(height: 8),
+                            MyTextField(
+                                placeholder: 'Username',
+                                controller: _usernameController),
+                            SizedBox(height: 8),
+                            MyTextField(
+                                placeholder: 'App password',
+                                controller: _passwordController),
+                            SizedBox(height: 8),
+                            // TODO: permissions
+                          ],
+                        ),
+                      );
+                      if (result == true) {
+                        try {
+                          await auth.loginToBb(
+                              _domainController.text,
+                              _usernameController.text,
+                              _passwordController.text);
                         } catch (err) {
                           showError(err);
                         }
