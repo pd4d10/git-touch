@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/notification.dart';
 import 'package:git_touch/models/theme.dart';
+import 'package:git_touch/screens/bb_user.dart';
 import 'package:git_touch/screens/gitea_orgs.dart';
 import 'package:git_touch/screens/gitea_user.dart';
 import 'package:git_touch/screens/gitlab_explore.dart';
@@ -58,6 +59,14 @@ class _HomeState extends State<Home> {
             return GitlabGroups();
           case 2:
             return GitlabUserScreen(null);
+        }
+        break;
+      case PlatformType.bitbucket:
+        switch (index) {
+          case 0:
+            return BbUserScreen(null);
+          case 1:
+            return BbUserScreen(null);
         }
         break;
       case PlatformType.gitea:
@@ -128,6 +137,17 @@ class _HomeState extends State<Home> {
           BottomNavigationBarItem(
             icon: Icon(Icons.group),
             title: Text('Groups'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            title: Text('Me'),
+          ),
+        ];
+      case PlatformType.bitbucket:
+        return [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.explore),
+            title: Text('Explore'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),

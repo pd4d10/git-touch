@@ -32,7 +32,12 @@ class DataWithPage<T> {
   int cursor;
   bool hasMore;
   int total;
-  DataWithPage({this.data, this.cursor, this.hasMore, this.total});
+  DataWithPage({
+    @required this.data,
+    @required this.cursor,
+    @required this.hasMore,
+    this.total,
+  });
 }
 
 class AuthModel with ChangeNotifier {
@@ -240,6 +245,30 @@ class AuthModel with ChangeNotifier {
       loading = false;
       notifyListeners();
     }
+  }
+
+  Future fetchBb(String p) async {
+    if (!p.startsWith('/api')) p = '/api/2.0$p';
+    final input = Uri.parse(p);
+    final uri = Uri.parse(activeAccount.domain).replace(
+      userInfo: '${activeAccount.login}:${activeAccount.appPassword}',
+      path: input.path,
+      query: input.query,
+    );
+    final res = await http.get(uri);
+    final info = json.decode(utf8.decode(res.bodyBytes));
+    return info;
+  }
+
+  Future<DataWithPage<List>> fetchBbWithPage(String p) async {
+    final res = await fetchBb(p);
+    final v = BbPagination.fromJson(res);
+    return DataWithPage(
+      cursor: v.page,
+      total: v.size,
+      data: v.values,
+      hasMore: v.next != null,
+    );
   }
 
   Future<void> init() async {
