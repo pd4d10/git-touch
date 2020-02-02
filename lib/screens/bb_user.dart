@@ -12,7 +12,8 @@ import 'package:git_touch/utils/utils.dart';
 
 class BbUserScreen extends StatelessWidget {
   final String login;
-  BbUserScreen(this.login);
+  final bool isTeam;
+  BbUserScreen(this.login, {this.isTeam = false});
   bool get isViewer => login == null;
 
   @override
@@ -20,10 +21,10 @@ class BbUserScreen extends StatelessWidget {
     final auth = Provider.of<AuthModel>(context);
     final _login = login ?? auth.activeAccount.login;
     return RefreshStatefulScaffold<Tuple2<BbUser, Iterable<BbRepo>>>(
-      title: Text(isViewer ? 'Me' : 'User'),
+      title: Text(isViewer ? 'Me' : isTeam ? 'Team' : 'User'),
       fetchData: () async {
         final res = await Future.wait([
-          auth.fetchBbJson('/users/$_login'),
+          auth.fetchBbJson('/${isTeam ? 'teams' : 'users'}/$_login'),
           auth.fetchBbWithPage('/repositories/$_login'),
         ]);
         return Tuple2(

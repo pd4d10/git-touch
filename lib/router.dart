@@ -244,11 +244,9 @@ class BitbucketRouter {
     BitbucketRouter.object,
   ];
   static final user = RouterScreen(
-    '/:login',
-    (context, params) => params['team'].first == '1'
-        ? BbUserScreen(params['login'].first)
-        : BbUserScreen(params['login'].first),
-  );
+      '/:login',
+      (context, params) => BbUserScreen(params['login'].first,
+          isTeam: params['team'].first == '1'));
   static final repo = RouterScreen(
     '/:owner/:name',
     (context, params) =>
