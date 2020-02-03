@@ -132,3 +132,35 @@ Map<String, dynamic> _$BbTreeToJson(BbTree instance) => <String, dynamic>{
       'size': instance.size,
       'links': instance.links,
     };
+
+BbCommit _$BbCommitFromJson(Map<String, dynamic> json) {
+  return BbCommit()
+    ..message = json['message'] as String
+    ..date =
+        json['date'] == null ? null : DateTime.parse(json['date'] as String)
+    ..hash = json['hash'] as String
+    ..author = json['author'] == null
+        ? null
+        : BbCommitAuthor.fromJson(json['author'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$BbCommitToJson(BbCommit instance) => <String, dynamic>{
+      'message': instance.message,
+      'date': instance.date?.toIso8601String(),
+      'hash': instance.hash,
+      'author': instance.author,
+    };
+
+BbCommitAuthor _$BbCommitAuthorFromJson(Map<String, dynamic> json) {
+  return BbCommitAuthor()
+    ..raw = json['raw'] as String
+    ..user = json['user'] == null
+        ? null
+        : BbRepoOwner.fromJson(json['user'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$BbCommitAuthorToJson(BbCommitAuthor instance) =>
+    <String, dynamic>{
+      'raw': instance.raw,
+      'user': instance.user,
+    };

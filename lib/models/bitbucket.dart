@@ -74,3 +74,23 @@ class BbTree {
   BbTree();
   factory BbTree.fromJson(Map<String, dynamic> json) => _$BbTreeFromJson(json);
 }
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class BbCommit {
+  String message;
+  DateTime date;
+  String hash;
+  BbCommitAuthor author;
+  BbCommit();
+  factory BbCommit.fromJson(Map<String, dynamic> json) =>
+      _$BbCommitFromJson(json);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class BbCommitAuthor {
+  String raw;
+  BbRepoOwner user;
+  BbCommitAuthor();
+  factory BbCommitAuthor.fromJson(Map<String, dynamic> json) =>
+      _$BbCommitAuthorFromJson(json);
+}

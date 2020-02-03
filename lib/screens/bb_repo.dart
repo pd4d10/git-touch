@@ -60,7 +60,7 @@ class BbRepoScreen extends StatelessWidget {
                 TableViewItem(
                   leftIconData: Octicons.history,
                   text: Text('Commits'),
-                  url: '/bitbucket/$owner/$name/commits',
+                  url: '/bitbucket/$owner/$name/commits/${p.mainbranch.name}',
                 ),
               ],
             ),

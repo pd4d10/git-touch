@@ -1,4 +1,5 @@
 import 'package:fluro/fluro.dart';
+import 'package:git_touch/screens/bb_commits.dart';
 import 'package:git_touch/screens/bb_object.dart';
 import 'package:git_touch/screens/bb_repo.dart';
 import 'package:git_touch/screens/bb_user.dart';
@@ -242,6 +243,7 @@ class BitbucketRouter {
     BitbucketRouter.user,
     BitbucketRouter.repo,
     BitbucketRouter.object,
+    BitbucketRouter.commits,
   ];
   static final user = RouterScreen(
       '/:login',
@@ -261,4 +263,8 @@ class BitbucketRouter {
       path: params['path']?.first,
     ),
   );
+  static final commits = RouterScreen(
+      '/:owner/:name/commits/:ref',
+      (_, p) =>
+          BbCommitsScreen(p['owner'].first, p['name'].first, p['ref'].first));
 }
