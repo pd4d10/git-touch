@@ -4,9 +4,7 @@ import 'package:git_touch/models/bitbucket.dart';
 import 'package:git_touch/scaffolds/list_stateful.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/commit_item.dart';
-import 'package:git_touch/widgets/user_item.dart';
 import 'package:provider/provider.dart';
-import 'package:timeago/timeago.dart' as timeago;
 
 class BbCommitsScreen extends StatelessWidget {
   final String owner;
@@ -30,13 +28,14 @@ class BbCommitsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final auth = Provider.of<AuthModel>(context);
     return ListStatefulScaffold<BbCommit, String>(
       title: AppBarTitle('Commits'),
       onRefresh: () => _query(context),
       onLoadMore: (page) => _query(context, page),
       itemBuilder: (v) {
         return CommitItem(
-          url: '/bitbucket/$owner/$name/commits/$ref',
+          url: '${auth.activeAccount.domain}/$owner/$name/commits/${v.hash}',
           avatarUrl: v.author.user?.avatarUrl,
           author: v.author.raw.replaceFirst(RegExp(r' <.*>'), ''),
           createdAt: v.date,
