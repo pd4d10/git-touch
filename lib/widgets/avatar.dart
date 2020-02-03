@@ -30,7 +30,7 @@ class Avatar extends StatelessWidget {
     final widget = ClipRRect(
       borderRadius: borderRadius ?? BorderRadius.circular(size / 2),
       child: url == null
-          ? Image.asset(fallback)
+          ? Image.asset(fallback, width: size, height: size)
           : FadeInImage.assetNetwork(
               placeholder: fallback,
               image: url,
