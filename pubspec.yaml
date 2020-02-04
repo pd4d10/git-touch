@@ -16,7 +16,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_vector_icons: ^0.2.1
-  flutter_highlight: ^0.5.0
+  flutter_highlight: ^0.6.0
   primer: ^0.0.2
   nanoid: ^0.0.6
   seti: ^0.2.0
@@ -37,10 +37,6 @@ dependencies:
   fimber: ^0.3.2
   photo_view: ^0.7.0
   artemis: ^3.0.0
-  # path: ../../github/artemis
-  # git:
-  #   url: git://github.com/pd4d10/artemis.git
-  #   ref: patch-1
   gql_link: ^0.2.0
   fluro: ^1.5.1
   package_info: ^0.4.0
@@ -57,7 +53,7 @@ dev_dependencies:
 
 # dependencies_overrides:
 #   flutter_highlight:
-#     path: ../pd4d10/highlight/flutter_highlight
+#     path: ../highlight/flutter_highlight
 
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec
