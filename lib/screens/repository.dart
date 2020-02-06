@@ -81,6 +81,32 @@ class RepositoryScreen extends StatelessWidget {
     );
   }
 
+  String _buildWatchState(GhRepoSubscriptionState state) {
+    switch (state) {
+      case GhRepoSubscriptionState.IGNORED:
+        return 'Ignoring';
+      case GhRepoSubscriptionState.SUBSCRIBED:
+        return 'Watching';
+      case GhRepoSubscriptionState.UNSUBSCRIBED:
+        return 'Not watching';
+      default:
+        return 'Unknown';
+    }
+  }
+
+  String _buildWatchSelectState(GhWatchSubscriptionState state) {
+    switch (state) {
+      case GhWatchSubscriptionState.IGNORED:
+        return 'Ignoring';
+      case GhWatchSubscriptionState.SUBSCRIBED:
+        return 'Watching';
+      case GhWatchSubscriptionState.UNSUBSCRIBED:
+        return 'Not watching';
+      default:
+        return '';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold<Tuple2<GhRepoRepository, String>>(
@@ -135,73 +161,71 @@ class RepositoryScreen extends StatelessWidget {
               description: repo.description,
               homepageUrl: repo.homepageUrl,
               actions: [
-                MutationButton(
-                  text: repo.viewerHasStarred ? 'Unstar' : 'Star',
-                  onPressed: () async {
-                    final res = await auth.gqlClient.execute(
-                      GhStarQuery(
-                        variables: GhStarArguments(
-                          id: repo.id,
-                          flag: !repo.viewerHasStarred,
-                        ),
-                      ),
-                    );
-                    setState(() {
-                      repo.viewerHasStarred =
-                          res.data.removeStar?.starrable?.viewerHasStarred ??
+                Row(
+                  children: <Widget>[
+                    MutationButton(
+                      text: _buildWatchState(repo.viewerSubscription),
+                      onPressed: () async {
+                        final vs = GhWatchSubscriptionState.values.where((v) =>
+                            v != GhWatchSubscriptionState.ARTEMIS_UNKNOWN);
+                        theme.showActions(context, [
+                          for (var v in vs)
+                            ActionItem(
+                              text: _buildWatchSelectState(v),
+                              onTap: (_) async {
+                                final res = await auth.gqlClient.execute(
+                                  GhWatchQuery(
+                                    variables: GhWatchArguments(
+                                      id: repo.id,
+                                      state: v,
+                                    ),
+                                  ),
+                                );
+                                setState(() {
+                                  final r = res.data.updateSubscription
+                                      .subscribable as GhWatchRepository;
+                                  switch (r.viewerSubscription) {
+                                    case GhWatchSubscriptionState.IGNORED:
+                                      repo.viewerSubscription =
+                                          GhRepoSubscriptionState.IGNORED;
+                                      break;
+                                    case GhWatchSubscriptionState.SUBSCRIBED:
+                                      repo.viewerSubscription =
+                                          GhRepoSubscriptionState.SUBSCRIBED;
+                                      break;
+                                    case GhWatchSubscriptionState.UNSUBSCRIBED:
+                                      repo.viewerSubscription =
+                                          GhRepoSubscriptionState.UNSUBSCRIBED;
+                                      break;
+                                    default:
+                                  }
+                                });
+                              },
+                            )
+                        ]);
+                      },
+                    ),
+                    SizedBox(width: 8),
+                    MutationButton(
+                      text: repo.viewerHasStarred ? 'Unstar' : 'Star',
+                      onPressed: () async {
+                        final res = await auth.gqlClient.execute(
+                          GhStarQuery(
+                            variables: GhStarArguments(
+                              id: repo.id,
+                              flag: !repo.viewerHasStarred,
+                            ),
+                          ),
+                        );
+                        setState(() {
+                          repo.viewerHasStarred = res.data.removeStar?.starrable
+                                  ?.viewerHasStarred ??
                               res.data.addStar.starrable.viewerHasStarred;
-                    });
-                  },
+                        });
+                      },
+                    ),
+                  ],
                 ),
-                // TODO:
-                // SizedBox(width: 4),
-                // MutationButton(
-                //   text: repo.viewerSubscription ==
-                //           GhRepoSubscriptionState.SUBSCRIBED
-                //       ? 'Unwatch'
-                //       : 'Watch',
-                //   onPressed: () async {
-                //     theme.showActions(
-                //       context,
-                //       GhWatchSubscriptionState.values.map((v) {
-                //         return ActionItem(
-                //           text: v.toString(),
-                //           onTap: (_) async {
-                //             final res = await auth.gqlClient.execute(
-                //               GhWatchQuery(
-                //                 variables: GhWatchArguments(
-                //                   id: repo.id,
-                //                   state:
-                //                       GhWatchSubscriptionState.SUBSCRIBED,
-                //                 ),
-                //               ),
-                //             );
-                //             setState(() {
-                //               final r = res.data.updateSubscription
-                //                   .subscribable as GhWatchRepository;
-                //               switch (r.viewerSubscription) {
-                //                 case GhWatchSubscriptionState.IGNORED:
-                //                   repo.viewerSubscription =
-                //                       GhRepoSubscriptionState.IGNORED;
-                //                   break;
-                //                 case GhWatchSubscriptionState.SUBSCRIBED:
-                //                   repo.viewerSubscription =
-                //                       GhRepoSubscriptionState.SUBSCRIBED;
-                //                   break;
-                //                 case GhWatchSubscriptionState
-                //                     .UNSUBSCRIBED:
-                //                   repo.viewerSubscription =
-                //                       GhRepoSubscriptionState
-                //                           .UNSUBSCRIBED;
-                //                   break;
-                //               }
-                //             });
-                //           },
-                //         );
-                //       }).toList(),
-                //     );
-                //   },
-                // ),
               ],
               trailings: <Widget>[
                 if (repo.repositoryTopics.nodes.isNotEmpty)

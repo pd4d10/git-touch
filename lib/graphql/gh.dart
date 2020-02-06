@@ -89,6 +89,7 @@ class GhRepoRepository extends GhRepoPinnableItem
   bool viewerHasStarred;
 
   @override
+  @JsonKey(unknownEnumValue: GhRepoSubscriptionState.ARTEMIS_UNKNOWN)
   GhRepoSubscriptionState viewerSubscription;
 
   @override
@@ -699,6 +700,7 @@ enum GhRepoSubscriptionState {
   UNSUBSCRIBED,
   SUBSCRIBED,
   IGNORED,
+  ARTEMIS_UNKNOWN,
 }
 
 @JsonSerializable(explicitToJson: true)
@@ -2929,6 +2931,778 @@ class GhCreateIssueQuery
 }
 
 @JsonSerializable(explicitToJson: true)
+class GhPulls with EquatableMixin {
+  GhPulls({this.repository});
+
+  factory GhPulls.fromJson(Map<String, dynamic> json) =>
+      _$GhPullsFromJson(json);
+
+  GhPullsRepository repository;
+
+  @override
+  List<Object> get props => [repository];
+  Map<String, dynamic> toJson() => _$GhPullsToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhPullsRepository extends GhPullsPinnableItem
+    with EquatableMixin
+    implements
+        GhPullsNode,
+        GhPullsProjectOwner,
+        GhPullsRegistryPackageOwner,
+        GhPullsRegistryPackageSearch,
+        GhPullsSubscribable,
+        GhPullsStarrable,
+        GhPullsUniformResourceLocatable,
+        GhPullsRepositoryInfo {
+  GhPullsRepository({this.pullRequests});
+
+  factory GhPullsRepository.fromJson(Map<String, dynamic> json) =>
+      _$GhPullsRepositoryFromJson(json);
+
+  @override
+  GhPullsRepositoryOwner owner;
+
+  @override
+  String name;
+
+  GhPullsPullRequestConnection pullRequests;
+
+  @override
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [owner, name, pullRequests, resolveType];
+  Map<String, dynamic> toJson() => _$GhPullsRepositoryToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhPullsRepositoryOwner with EquatableMixin {
+  GhPullsRepositoryOwner({this.login});
+
+  factory GhPullsRepositoryOwner.fromJson(Map<String, dynamic> json) =>
+      _$GhPullsRepositoryOwnerFromJson(json);
+
+  String login;
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [login, resolveType];
+  Map<String, dynamic> toJson() => _$GhPullsRepositoryOwnerToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhPullsPullRequestConnection with EquatableMixin {
+  GhPullsPullRequestConnection({this.pageInfo, this.nodes});
+
+  factory GhPullsPullRequestConnection.fromJson(Map<String, dynamic> json) =>
+      _$GhPullsPullRequestConnectionFromJson(json);
+
+  GhPullsPageInfo pageInfo;
+
+  List<GhPullsPullRequest> nodes;
+
+  @override
+  List<Object> get props => [pageInfo, nodes];
+  Map<String, dynamic> toJson() => _$GhPullsPullRequestConnectionToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhPullsPageInfo with EquatableMixin {
+  GhPullsPageInfo({this.hasNextPage, this.endCursor});
+
+  factory GhPullsPageInfo.fromJson(Map<String, dynamic> json) =>
+      _$GhPullsPageInfoFromJson(json);
+
+  bool hasNextPage;
+
+  String endCursor;
+
+  @override
+  List<Object> get props => [hasNextPage, endCursor];
+  Map<String, dynamic> toJson() => _$GhPullsPageInfoToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhPullsPullRequest extends GhPullsProjectCardItem
+    with EquatableMixin
+    implements
+        GhPullsNode,
+        GhPullsAssignable,
+        GhPullsClosable,
+        GhPullsComment,
+        GhPullsUpdatable,
+        GhPullsUpdatableComment,
+        GhPullsLabelable,
+        GhPullsLockable,
+        GhPullsReactable,
+        GhPullsRepositoryNode,
+        GhPullsSubscribable,
+        GhPullsUniformResourceLocatable {
+  GhPullsPullRequest({this.number, this.title, this.comments});
+
+  factory GhPullsPullRequest.fromJson(Map<String, dynamic> json) =>
+      _$GhPullsPullRequestFromJson(json);
+
+  @override
+  GhPullsRepository repository;
+
+  int number;
+
+  String title;
+
+  @override
+  DateTime updatedAt;
+
+  @override
+  GhPullsActor author;
+
+  @override
+  GhPullsLabelConnection labels;
+
+  GhPullsIssueCommentConnection comments;
+
+  @override
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [
+        repository,
+        number,
+        title,
+        updatedAt,
+        author,
+        labels,
+        comments,
+        resolveType
+      ];
+  Map<String, dynamic> toJson() => _$GhPullsPullRequestToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhPullsPinnableItem with EquatableMixin {
+  GhPullsPinnableItem();
+
+  factory GhPullsPinnableItem.fromJson(Map<String, dynamic> json) =>
+      _$GhPullsPinnableItemFromJson(json);
+
+  @override
+  List<Object> get props => [];
+  Map<String, dynamic> toJson() => _$GhPullsPinnableItemToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhPullsNode with EquatableMixin {
+  GhPullsNode();
+
+  factory GhPullsNode.fromJson(Map<String, dynamic> json) =>
+      _$GhPullsNodeFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhPullsNodeToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhPullsProjectOwner with EquatableMixin {
+  GhPullsProjectOwner();
+
+  factory GhPullsProjectOwner.fromJson(Map<String, dynamic> json) =>
+      _$GhPullsProjectOwnerFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhPullsProjectOwnerToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhPullsRegistryPackageOwner with EquatableMixin {
+  GhPullsRegistryPackageOwner();
+
+  factory GhPullsRegistryPackageOwner.fromJson(Map<String, dynamic> json) =>
+      _$GhPullsRegistryPackageOwnerFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhPullsRegistryPackageOwnerToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhPullsRegistryPackageSearch with EquatableMixin {
+  GhPullsRegistryPackageSearch();
+
+  factory GhPullsRegistryPackageSearch.fromJson(Map<String, dynamic> json) =>
+      _$GhPullsRegistryPackageSearchFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhPullsRegistryPackageSearchToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhPullsSubscribable with EquatableMixin {
+  GhPullsSubscribable();
+
+  factory GhPullsSubscribable.fromJson(Map<String, dynamic> json) =>
+      _$GhPullsSubscribableFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhPullsSubscribableToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhPullsStarrable with EquatableMixin {
+  GhPullsStarrable();
+
+  factory GhPullsStarrable.fromJson(Map<String, dynamic> json) =>
+      _$GhPullsStarrableFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhPullsStarrableToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhPullsUniformResourceLocatable with EquatableMixin {
+  GhPullsUniformResourceLocatable();
+
+  factory GhPullsUniformResourceLocatable.fromJson(Map<String, dynamic> json) =>
+      _$GhPullsUniformResourceLocatableFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() =>
+      _$GhPullsUniformResourceLocatableToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhPullsRepositoryInfo with EquatableMixin {
+  GhPullsRepositoryInfo({this.owner, this.name});
+
+  factory GhPullsRepositoryInfo.fromJson(Map<String, dynamic> json) =>
+      _$GhPullsRepositoryInfoFromJson(json);
+
+  GhPullsRepositoryOwner owner;
+
+  String name;
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [owner, name, resolveType];
+  Map<String, dynamic> toJson() => _$GhPullsRepositoryInfoToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhPullsActor with EquatableMixin {
+  GhPullsActor({this.login, this.avatarUrl});
+
+  factory GhPullsActor.fromJson(Map<String, dynamic> json) =>
+      _$GhPullsActorFromJson(json);
+
+  String login;
+
+  String avatarUrl;
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [login, avatarUrl, resolveType];
+  Map<String, dynamic> toJson() => _$GhPullsActorToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhPullsLabelConnection with EquatableMixin {
+  GhPullsLabelConnection({this.nodes});
+
+  factory GhPullsLabelConnection.fromJson(Map<String, dynamic> json) =>
+      _$GhPullsLabelConnectionFromJson(json);
+
+  List<GhPullsLabel> nodes;
+
+  @override
+  List<Object> get props => [nodes];
+  Map<String, dynamic> toJson() => _$GhPullsLabelConnectionToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhPullsLabel with EquatableMixin implements GhPullsNode {
+  GhPullsLabel({this.name, this.color});
+
+  factory GhPullsLabel.fromJson(Map<String, dynamic> json) =>
+      _$GhPullsLabelFromJson(json);
+
+  String name;
+
+  String color;
+
+  @override
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [name, color, resolveType];
+  Map<String, dynamic> toJson() => _$GhPullsLabelToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhPullsIssueCommentConnection with EquatableMixin {
+  GhPullsIssueCommentConnection({this.totalCount});
+
+  factory GhPullsIssueCommentConnection.fromJson(Map<String, dynamic> json) =>
+      _$GhPullsIssueCommentConnectionFromJson(json);
+
+  int totalCount;
+
+  @override
+  List<Object> get props => [totalCount];
+  Map<String, dynamic> toJson() => _$GhPullsIssueCommentConnectionToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhPullsProjectCardItem with EquatableMixin {
+  GhPullsProjectCardItem();
+
+  factory GhPullsProjectCardItem.fromJson(Map<String, dynamic> json) =>
+      _$GhPullsProjectCardItemFromJson(json);
+
+  @override
+  List<Object> get props => [];
+  Map<String, dynamic> toJson() => _$GhPullsProjectCardItemToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhPullsAssignable with EquatableMixin {
+  GhPullsAssignable();
+
+  factory GhPullsAssignable.fromJson(Map<String, dynamic> json) =>
+      _$GhPullsAssignableFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhPullsAssignableToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhPullsClosable with EquatableMixin {
+  GhPullsClosable();
+
+  factory GhPullsClosable.fromJson(Map<String, dynamic> json) =>
+      _$GhPullsClosableFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhPullsClosableToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhPullsComment with EquatableMixin {
+  GhPullsComment({this.updatedAt, this.author});
+
+  factory GhPullsComment.fromJson(Map<String, dynamic> json) =>
+      _$GhPullsCommentFromJson(json);
+
+  DateTime updatedAt;
+
+  GhPullsActor author;
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [updatedAt, author, resolveType];
+  Map<String, dynamic> toJson() => _$GhPullsCommentToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhPullsUpdatable with EquatableMixin {
+  GhPullsUpdatable();
+
+  factory GhPullsUpdatable.fromJson(Map<String, dynamic> json) =>
+      _$GhPullsUpdatableFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhPullsUpdatableToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhPullsUpdatableComment with EquatableMixin {
+  GhPullsUpdatableComment();
+
+  factory GhPullsUpdatableComment.fromJson(Map<String, dynamic> json) =>
+      _$GhPullsUpdatableCommentFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhPullsUpdatableCommentToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhPullsLabelable with EquatableMixin {
+  GhPullsLabelable({this.labels});
+
+  factory GhPullsLabelable.fromJson(Map<String, dynamic> json) =>
+      _$GhPullsLabelableFromJson(json);
+
+  GhPullsLabelConnection labels;
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [labels, resolveType];
+  Map<String, dynamic> toJson() => _$GhPullsLabelableToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhPullsLockable with EquatableMixin {
+  GhPullsLockable();
+
+  factory GhPullsLockable.fromJson(Map<String, dynamic> json) =>
+      _$GhPullsLockableFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhPullsLockableToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhPullsReactable with EquatableMixin {
+  GhPullsReactable();
+
+  factory GhPullsReactable.fromJson(Map<String, dynamic> json) =>
+      _$GhPullsReactableFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhPullsReactableToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhPullsRepositoryNode with EquatableMixin {
+  GhPullsRepositoryNode({this.repository});
+
+  factory GhPullsRepositoryNode.fromJson(Map<String, dynamic> json) =>
+      _$GhPullsRepositoryNodeFromJson(json);
+
+  GhPullsRepository repository;
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [repository, resolveType];
+  Map<String, dynamic> toJson() => _$GhPullsRepositoryNodeToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhPullsArguments extends JsonSerializable with EquatableMixin {
+  GhPullsArguments({@required this.owner, @required this.name, this.cursor});
+
+  factory GhPullsArguments.fromJson(Map<String, dynamic> json) =>
+      _$GhPullsArgumentsFromJson(json);
+
+  final String owner;
+
+  final String name;
+
+  final String cursor;
+
+  @override
+  List<Object> get props => [owner, name, cursor];
+  Map<String, dynamic> toJson() => _$GhPullsArgumentsToJson(this);
+}
+
+class GhPullsQuery extends GraphQLQuery<GhPulls, GhPullsArguments> {
+  GhPullsQuery({this.variables});
+
+  @override
+  final DocumentNode document = DocumentNode(definitions: [
+    OperationDefinitionNode(
+        type: OperationType.query,
+        name: NameNode(value: 'GhPulls'),
+        variableDefinitions: [
+          VariableDefinitionNode(
+              variable: VariableNode(name: NameNode(value: 'owner')),
+              type: NamedTypeNode(
+                  name: NameNode(value: 'String'), isNonNull: true),
+              defaultValue: DefaultValueNode(value: null),
+              directives: []),
+          VariableDefinitionNode(
+              variable: VariableNode(name: NameNode(value: 'name')),
+              type: NamedTypeNode(
+                  name: NameNode(value: 'String'), isNonNull: true),
+              defaultValue: DefaultValueNode(value: null),
+              directives: []),
+          VariableDefinitionNode(
+              variable: VariableNode(name: NameNode(value: 'cursor')),
+              type: NamedTypeNode(
+                  name: NameNode(value: 'String'), isNonNull: false),
+              defaultValue: DefaultValueNode(value: null),
+              directives: [])
+        ],
+        directives: [],
+        selectionSet: SelectionSetNode(selections: [
+          FieldNode(
+              name: NameNode(value: 'repository'),
+              alias: null,
+              arguments: [
+                ArgumentNode(
+                    name: NameNode(value: 'owner'),
+                    value: VariableNode(name: NameNode(value: 'owner'))),
+                ArgumentNode(
+                    name: NameNode(value: 'name'),
+                    value: VariableNode(name: NameNode(value: 'name')))
+              ],
+              directives: [],
+              selectionSet: SelectionSetNode(selections: [
+                FieldNode(
+                    name: NameNode(value: 'owner'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: SelectionSetNode(selections: [
+                      FieldNode(
+                          name: NameNode(value: 'login'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null)
+                    ])),
+                FieldNode(
+                    name: NameNode(value: 'name'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'pullRequests'),
+                    alias: null,
+                    arguments: [
+                      ArgumentNode(
+                          name: NameNode(value: 'states'),
+                          value: EnumValueNode(name: NameNode(value: 'OPEN'))),
+                      ArgumentNode(
+                          name: NameNode(value: 'orderBy'),
+                          value: ObjectValueNode(fields: [
+                            ObjectFieldNode(
+                                name: NameNode(value: 'field'),
+                                value: EnumValueNode(
+                                    name: NameNode(value: 'CREATED_AT'))),
+                            ObjectFieldNode(
+                                name: NameNode(value: 'direction'),
+                                value: EnumValueNode(
+                                    name: NameNode(value: 'DESC')))
+                          ])),
+                      ArgumentNode(
+                          name: NameNode(value: 'first'),
+                          value: IntValueNode(value: '30')),
+                      ArgumentNode(
+                          name: NameNode(value: 'after'),
+                          value: VariableNode(name: NameNode(value: 'cursor')))
+                    ],
+                    directives: [],
+                    selectionSet: SelectionSetNode(selections: [
+                      FieldNode(
+                          name: NameNode(value: 'pageInfo'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: SelectionSetNode(selections: [
+                            FieldNode(
+                                name: NameNode(value: 'hasNextPage'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'endCursor'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null)
+                          ])),
+                      FieldNode(
+                          name: NameNode(value: 'nodes'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: SelectionSetNode(selections: [
+                            FieldNode(
+                                name: NameNode(value: 'repository'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: SelectionSetNode(selections: [
+                                  FieldNode(
+                                      name: NameNode(value: 'owner'),
+                                      alias: null,
+                                      arguments: [],
+                                      directives: [],
+                                      selectionSet:
+                                          SelectionSetNode(selections: [
+                                        FieldNode(
+                                            name: NameNode(value: 'login'),
+                                            alias: null,
+                                            arguments: [],
+                                            directives: [],
+                                            selectionSet: null)
+                                      ])),
+                                  FieldNode(
+                                      name: NameNode(value: 'name'),
+                                      alias: null,
+                                      arguments: [],
+                                      directives: [],
+                                      selectionSet: null)
+                                ])),
+                            FieldNode(
+                                name: NameNode(value: 'number'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'title'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'updatedAt'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'author'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: SelectionSetNode(selections: [
+                                  FieldNode(
+                                      name: NameNode(value: 'login'),
+                                      alias: null,
+                                      arguments: [],
+                                      directives: [],
+                                      selectionSet: null),
+                                  FieldNode(
+                                      name: NameNode(value: 'avatarUrl'),
+                                      alias: null,
+                                      arguments: [],
+                                      directives: [],
+                                      selectionSet: null)
+                                ])),
+                            FieldNode(
+                                name: NameNode(value: 'labels'),
+                                alias: null,
+                                arguments: [
+                                  ArgumentNode(
+                                      name: NameNode(value: 'first'),
+                                      value: IntValueNode(value: '10'))
+                                ],
+                                directives: [],
+                                selectionSet: SelectionSetNode(selections: [
+                                  FieldNode(
+                                      name: NameNode(value: 'nodes'),
+                                      alias: null,
+                                      arguments: [],
+                                      directives: [],
+                                      selectionSet:
+                                          SelectionSetNode(selections: [
+                                        FieldNode(
+                                            name: NameNode(value: 'name'),
+                                            alias: null,
+                                            arguments: [],
+                                            directives: [],
+                                            selectionSet: null),
+                                        FieldNode(
+                                            name: NameNode(value: 'color'),
+                                            alias: null,
+                                            arguments: [],
+                                            directives: [],
+                                            selectionSet: null)
+                                      ]))
+                                ])),
+                            FieldNode(
+                                name: NameNode(value: 'comments'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: SelectionSetNode(selections: [
+                                  FieldNode(
+                                      name: NameNode(value: 'totalCount'),
+                                      alias: null,
+                                      arguments: [],
+                                      directives: [],
+                                      selectionSet: null)
+                                ]))
+                          ]))
+                    ]))
+              ]))
+        ]))
+  ]);
+
+  @override
+  final String operationName = 'GhPulls';
+
+  @override
+  final GhPullsArguments variables;
+
+  @override
+  List<Object> get props => [document, operationName, variables];
+  @override
+  GhPulls parse(Map<String, dynamic> json) => GhPulls.fromJson(json);
+}
+
+@JsonSerializable(explicitToJson: true)
 class GhOpenIssue with EquatableMixin {
   GhOpenIssue({this.reopenIssue, this.closeIssue});
 
@@ -3321,6 +4095,779 @@ class GhOpenIssueQuery extends GraphQLQuery<GhOpenIssue, GhOpenIssueArguments> {
   List<Object> get props => [document, operationName, variables];
   @override
   GhOpenIssue parse(Map<String, dynamic> json) => GhOpenIssue.fromJson(json);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhIssues with EquatableMixin {
+  GhIssues({this.repository});
+
+  factory GhIssues.fromJson(Map<String, dynamic> json) =>
+      _$GhIssuesFromJson(json);
+
+  GhIssuesRepository repository;
+
+  @override
+  List<Object> get props => [repository];
+  Map<String, dynamic> toJson() => _$GhIssuesToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhIssuesRepository extends GhIssuesPinnableItem
+    with EquatableMixin
+    implements
+        GhIssuesNode,
+        GhIssuesProjectOwner,
+        GhIssuesRegistryPackageOwner,
+        GhIssuesRegistryPackageSearch,
+        GhIssuesSubscribable,
+        GhIssuesStarrable,
+        GhIssuesUniformResourceLocatable,
+        GhIssuesRepositoryInfo {
+  GhIssuesRepository({this.issues});
+
+  factory GhIssuesRepository.fromJson(Map<String, dynamic> json) =>
+      _$GhIssuesRepositoryFromJson(json);
+
+  @override
+  GhIssuesRepositoryOwner owner;
+
+  @override
+  String name;
+
+  GhIssuesIssueConnection issues;
+
+  @override
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [owner, name, issues, resolveType];
+  Map<String, dynamic> toJson() => _$GhIssuesRepositoryToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhIssuesRepositoryOwner with EquatableMixin {
+  GhIssuesRepositoryOwner({this.login});
+
+  factory GhIssuesRepositoryOwner.fromJson(Map<String, dynamic> json) =>
+      _$GhIssuesRepositoryOwnerFromJson(json);
+
+  String login;
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [login, resolveType];
+  Map<String, dynamic> toJson() => _$GhIssuesRepositoryOwnerToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhIssuesIssueConnection with EquatableMixin {
+  GhIssuesIssueConnection({this.pageInfo, this.nodes});
+
+  factory GhIssuesIssueConnection.fromJson(Map<String, dynamic> json) =>
+      _$GhIssuesIssueConnectionFromJson(json);
+
+  GhIssuesPageInfo pageInfo;
+
+  List<GhIssuesIssue> nodes;
+
+  @override
+  List<Object> get props => [pageInfo, nodes];
+  Map<String, dynamic> toJson() => _$GhIssuesIssueConnectionToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhIssuesPageInfo with EquatableMixin {
+  GhIssuesPageInfo({this.hasNextPage, this.endCursor});
+
+  factory GhIssuesPageInfo.fromJson(Map<String, dynamic> json) =>
+      _$GhIssuesPageInfoFromJson(json);
+
+  bool hasNextPage;
+
+  String endCursor;
+
+  @override
+  List<Object> get props => [hasNextPage, endCursor];
+  Map<String, dynamic> toJson() => _$GhIssuesPageInfoToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhIssuesIssue extends GhIssuesProjectCardItem
+    with EquatableMixin
+    implements
+        GhIssuesNode,
+        GhIssuesAssignable,
+        GhIssuesClosable,
+        GhIssuesComment,
+        GhIssuesUpdatable,
+        GhIssuesUpdatableComment,
+        GhIssuesLabelable,
+        GhIssuesLockable,
+        GhIssuesReactable,
+        GhIssuesRepositoryNode,
+        GhIssuesSubscribable,
+        GhIssuesUniformResourceLocatable {
+  GhIssuesIssue({this.number, this.title, this.comments});
+
+  factory GhIssuesIssue.fromJson(Map<String, dynamic> json) =>
+      _$GhIssuesIssueFromJson(json);
+
+  @override
+  GhIssuesRepository repository;
+
+  int number;
+
+  String title;
+
+  @override
+  DateTime updatedAt;
+
+  @override
+  GhIssuesActor author;
+
+  @override
+  GhIssuesLabelConnection labels;
+
+  GhIssuesIssueCommentConnection comments;
+
+  @override
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [
+        repository,
+        number,
+        title,
+        updatedAt,
+        author,
+        labels,
+        comments,
+        resolveType
+      ];
+  Map<String, dynamic> toJson() => _$GhIssuesIssueToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhIssuesPinnableItem with EquatableMixin {
+  GhIssuesPinnableItem();
+
+  factory GhIssuesPinnableItem.fromJson(Map<String, dynamic> json) =>
+      _$GhIssuesPinnableItemFromJson(json);
+
+  @override
+  List<Object> get props => [];
+  Map<String, dynamic> toJson() => _$GhIssuesPinnableItemToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhIssuesNode with EquatableMixin {
+  GhIssuesNode();
+
+  factory GhIssuesNode.fromJson(Map<String, dynamic> json) =>
+      _$GhIssuesNodeFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhIssuesNodeToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhIssuesProjectOwner with EquatableMixin {
+  GhIssuesProjectOwner();
+
+  factory GhIssuesProjectOwner.fromJson(Map<String, dynamic> json) =>
+      _$GhIssuesProjectOwnerFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhIssuesProjectOwnerToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhIssuesRegistryPackageOwner with EquatableMixin {
+  GhIssuesRegistryPackageOwner();
+
+  factory GhIssuesRegistryPackageOwner.fromJson(Map<String, dynamic> json) =>
+      _$GhIssuesRegistryPackageOwnerFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhIssuesRegistryPackageOwnerToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhIssuesRegistryPackageSearch with EquatableMixin {
+  GhIssuesRegistryPackageSearch();
+
+  factory GhIssuesRegistryPackageSearch.fromJson(Map<String, dynamic> json) =>
+      _$GhIssuesRegistryPackageSearchFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhIssuesRegistryPackageSearchToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhIssuesSubscribable with EquatableMixin {
+  GhIssuesSubscribable();
+
+  factory GhIssuesSubscribable.fromJson(Map<String, dynamic> json) =>
+      _$GhIssuesSubscribableFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhIssuesSubscribableToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhIssuesStarrable with EquatableMixin {
+  GhIssuesStarrable();
+
+  factory GhIssuesStarrable.fromJson(Map<String, dynamic> json) =>
+      _$GhIssuesStarrableFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhIssuesStarrableToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhIssuesUniformResourceLocatable with EquatableMixin {
+  GhIssuesUniformResourceLocatable();
+
+  factory GhIssuesUniformResourceLocatable.fromJson(
+          Map<String, dynamic> json) =>
+      _$GhIssuesUniformResourceLocatableFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() =>
+      _$GhIssuesUniformResourceLocatableToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhIssuesRepositoryInfo with EquatableMixin {
+  GhIssuesRepositoryInfo({this.owner, this.name});
+
+  factory GhIssuesRepositoryInfo.fromJson(Map<String, dynamic> json) =>
+      _$GhIssuesRepositoryInfoFromJson(json);
+
+  GhIssuesRepositoryOwner owner;
+
+  String name;
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [owner, name, resolveType];
+  Map<String, dynamic> toJson() => _$GhIssuesRepositoryInfoToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhIssuesActor with EquatableMixin {
+  GhIssuesActor({this.login, this.avatarUrl});
+
+  factory GhIssuesActor.fromJson(Map<String, dynamic> json) =>
+      _$GhIssuesActorFromJson(json);
+
+  String login;
+
+  String avatarUrl;
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [login, avatarUrl, resolveType];
+  Map<String, dynamic> toJson() => _$GhIssuesActorToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhIssuesLabelConnection with EquatableMixin {
+  GhIssuesLabelConnection({this.nodes});
+
+  factory GhIssuesLabelConnection.fromJson(Map<String, dynamic> json) =>
+      _$GhIssuesLabelConnectionFromJson(json);
+
+  List<GhIssuesLabel> nodes;
+
+  @override
+  List<Object> get props => [nodes];
+  Map<String, dynamic> toJson() => _$GhIssuesLabelConnectionToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhIssuesLabel with EquatableMixin implements GhIssuesNode {
+  GhIssuesLabel({this.name, this.color});
+
+  factory GhIssuesLabel.fromJson(Map<String, dynamic> json) =>
+      _$GhIssuesLabelFromJson(json);
+
+  String name;
+
+  String color;
+
+  @override
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [name, color, resolveType];
+  Map<String, dynamic> toJson() => _$GhIssuesLabelToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhIssuesIssueCommentConnection with EquatableMixin {
+  GhIssuesIssueCommentConnection({this.totalCount});
+
+  factory GhIssuesIssueCommentConnection.fromJson(Map<String, dynamic> json) =>
+      _$GhIssuesIssueCommentConnectionFromJson(json);
+
+  int totalCount;
+
+  @override
+  List<Object> get props => [totalCount];
+  Map<String, dynamic> toJson() => _$GhIssuesIssueCommentConnectionToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhIssuesProjectCardItem with EquatableMixin {
+  GhIssuesProjectCardItem();
+
+  factory GhIssuesProjectCardItem.fromJson(Map<String, dynamic> json) =>
+      _$GhIssuesProjectCardItemFromJson(json);
+
+  @override
+  List<Object> get props => [];
+  Map<String, dynamic> toJson() => _$GhIssuesProjectCardItemToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhIssuesAssignable with EquatableMixin {
+  GhIssuesAssignable();
+
+  factory GhIssuesAssignable.fromJson(Map<String, dynamic> json) =>
+      _$GhIssuesAssignableFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhIssuesAssignableToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhIssuesClosable with EquatableMixin {
+  GhIssuesClosable();
+
+  factory GhIssuesClosable.fromJson(Map<String, dynamic> json) =>
+      _$GhIssuesClosableFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhIssuesClosableToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhIssuesComment with EquatableMixin {
+  GhIssuesComment({this.updatedAt, this.author});
+
+  factory GhIssuesComment.fromJson(Map<String, dynamic> json) =>
+      _$GhIssuesCommentFromJson(json);
+
+  DateTime updatedAt;
+
+  GhIssuesActor author;
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [updatedAt, author, resolveType];
+  Map<String, dynamic> toJson() => _$GhIssuesCommentToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhIssuesUpdatable with EquatableMixin {
+  GhIssuesUpdatable();
+
+  factory GhIssuesUpdatable.fromJson(Map<String, dynamic> json) =>
+      _$GhIssuesUpdatableFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhIssuesUpdatableToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhIssuesUpdatableComment with EquatableMixin {
+  GhIssuesUpdatableComment();
+
+  factory GhIssuesUpdatableComment.fromJson(Map<String, dynamic> json) =>
+      _$GhIssuesUpdatableCommentFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhIssuesUpdatableCommentToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhIssuesLabelable with EquatableMixin {
+  GhIssuesLabelable({this.labels});
+
+  factory GhIssuesLabelable.fromJson(Map<String, dynamic> json) =>
+      _$GhIssuesLabelableFromJson(json);
+
+  GhIssuesLabelConnection labels;
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [labels, resolveType];
+  Map<String, dynamic> toJson() => _$GhIssuesLabelableToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhIssuesLockable with EquatableMixin {
+  GhIssuesLockable();
+
+  factory GhIssuesLockable.fromJson(Map<String, dynamic> json) =>
+      _$GhIssuesLockableFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhIssuesLockableToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhIssuesReactable with EquatableMixin {
+  GhIssuesReactable();
+
+  factory GhIssuesReactable.fromJson(Map<String, dynamic> json) =>
+      _$GhIssuesReactableFromJson(json);
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [resolveType];
+  Map<String, dynamic> toJson() => _$GhIssuesReactableToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhIssuesRepositoryNode with EquatableMixin {
+  GhIssuesRepositoryNode({this.repository});
+
+  factory GhIssuesRepositoryNode.fromJson(Map<String, dynamic> json) =>
+      _$GhIssuesRepositoryNodeFromJson(json);
+
+  GhIssuesRepository repository;
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [repository, resolveType];
+  Map<String, dynamic> toJson() => _$GhIssuesRepositoryNodeToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhIssuesArguments extends JsonSerializable with EquatableMixin {
+  GhIssuesArguments({@required this.owner, @required this.name, this.cursor});
+
+  factory GhIssuesArguments.fromJson(Map<String, dynamic> json) =>
+      _$GhIssuesArgumentsFromJson(json);
+
+  final String owner;
+
+  final String name;
+
+  final String cursor;
+
+  @override
+  List<Object> get props => [owner, name, cursor];
+  Map<String, dynamic> toJson() => _$GhIssuesArgumentsToJson(this);
+}
+
+class GhIssuesQuery extends GraphQLQuery<GhIssues, GhIssuesArguments> {
+  GhIssuesQuery({this.variables});
+
+  @override
+  final DocumentNode document = DocumentNode(definitions: [
+    OperationDefinitionNode(
+        type: OperationType.query,
+        name: NameNode(value: 'GhIssues'),
+        variableDefinitions: [
+          VariableDefinitionNode(
+              variable: VariableNode(name: NameNode(value: 'owner')),
+              type: NamedTypeNode(
+                  name: NameNode(value: 'String'), isNonNull: true),
+              defaultValue: DefaultValueNode(value: null),
+              directives: []),
+          VariableDefinitionNode(
+              variable: VariableNode(name: NameNode(value: 'name')),
+              type: NamedTypeNode(
+                  name: NameNode(value: 'String'), isNonNull: true),
+              defaultValue: DefaultValueNode(value: null),
+              directives: []),
+          VariableDefinitionNode(
+              variable: VariableNode(name: NameNode(value: 'cursor')),
+              type: NamedTypeNode(
+                  name: NameNode(value: 'String'), isNonNull: false),
+              defaultValue: DefaultValueNode(value: null),
+              directives: [])
+        ],
+        directives: [],
+        selectionSet: SelectionSetNode(selections: [
+          FieldNode(
+              name: NameNode(value: 'repository'),
+              alias: null,
+              arguments: [
+                ArgumentNode(
+                    name: NameNode(value: 'owner'),
+                    value: VariableNode(name: NameNode(value: 'owner'))),
+                ArgumentNode(
+                    name: NameNode(value: 'name'),
+                    value: VariableNode(name: NameNode(value: 'name')))
+              ],
+              directives: [],
+              selectionSet: SelectionSetNode(selections: [
+                FieldNode(
+                    name: NameNode(value: 'owner'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: SelectionSetNode(selections: [
+                      FieldNode(
+                          name: NameNode(value: 'login'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null)
+                    ])),
+                FieldNode(
+                    name: NameNode(value: 'name'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'issues'),
+                    alias: null,
+                    arguments: [
+                      ArgumentNode(
+                          name: NameNode(value: 'states'),
+                          value: EnumValueNode(name: NameNode(value: 'OPEN'))),
+                      ArgumentNode(
+                          name: NameNode(value: 'orderBy'),
+                          value: ObjectValueNode(fields: [
+                            ObjectFieldNode(
+                                name: NameNode(value: 'field'),
+                                value: EnumValueNode(
+                                    name: NameNode(value: 'CREATED_AT'))),
+                            ObjectFieldNode(
+                                name: NameNode(value: 'direction'),
+                                value: EnumValueNode(
+                                    name: NameNode(value: 'DESC')))
+                          ])),
+                      ArgumentNode(
+                          name: NameNode(value: 'first'),
+                          value: IntValueNode(value: '30')),
+                      ArgumentNode(
+                          name: NameNode(value: 'after'),
+                          value: VariableNode(name: NameNode(value: 'cursor')))
+                    ],
+                    directives: [],
+                    selectionSet: SelectionSetNode(selections: [
+                      FieldNode(
+                          name: NameNode(value: 'pageInfo'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: SelectionSetNode(selections: [
+                            FieldNode(
+                                name: NameNode(value: 'hasNextPage'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'endCursor'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null)
+                          ])),
+                      FieldNode(
+                          name: NameNode(value: 'nodes'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: SelectionSetNode(selections: [
+                            FieldNode(
+                                name: NameNode(value: 'repository'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: SelectionSetNode(selections: [
+                                  FieldNode(
+                                      name: NameNode(value: 'owner'),
+                                      alias: null,
+                                      arguments: [],
+                                      directives: [],
+                                      selectionSet:
+                                          SelectionSetNode(selections: [
+                                        FieldNode(
+                                            name: NameNode(value: 'login'),
+                                            alias: null,
+                                            arguments: [],
+                                            directives: [],
+                                            selectionSet: null)
+                                      ])),
+                                  FieldNode(
+                                      name: NameNode(value: 'name'),
+                                      alias: null,
+                                      arguments: [],
+                                      directives: [],
+                                      selectionSet: null)
+                                ])),
+                            FieldNode(
+                                name: NameNode(value: 'number'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'title'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'updatedAt'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'author'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: SelectionSetNode(selections: [
+                                  FieldNode(
+                                      name: NameNode(value: 'login'),
+                                      alias: null,
+                                      arguments: [],
+                                      directives: [],
+                                      selectionSet: null),
+                                  FieldNode(
+                                      name: NameNode(value: 'avatarUrl'),
+                                      alias: null,
+                                      arguments: [],
+                                      directives: [],
+                                      selectionSet: null)
+                                ])),
+                            FieldNode(
+                                name: NameNode(value: 'labels'),
+                                alias: null,
+                                arguments: [
+                                  ArgumentNode(
+                                      name: NameNode(value: 'first'),
+                                      value: IntValueNode(value: '10'))
+                                ],
+                                directives: [],
+                                selectionSet: SelectionSetNode(selections: [
+                                  FieldNode(
+                                      name: NameNode(value: 'nodes'),
+                                      alias: null,
+                                      arguments: [],
+                                      directives: [],
+                                      selectionSet:
+                                          SelectionSetNode(selections: [
+                                        FieldNode(
+                                            name: NameNode(value: 'name'),
+                                            alias: null,
+                                            arguments: [],
+                                            directives: [],
+                                            selectionSet: null),
+                                        FieldNode(
+                                            name: NameNode(value: 'color'),
+                                            alias: null,
+                                            arguments: [],
+                                            directives: [],
+                                            selectionSet: null)
+                                      ]))
+                                ])),
+                            FieldNode(
+                                name: NameNode(value: 'comments'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: SelectionSetNode(selections: [
+                                  FieldNode(
+                                      name: NameNode(value: 'totalCount'),
+                                      alias: null,
+                                      arguments: [],
+                                      directives: [],
+                                      selectionSet: null)
+                                ]))
+                          ]))
+                    ]))
+              ]))
+        ]))
+  ]);
+
+  @override
+  final String operationName = 'GhIssues';
+
+  @override
+  final GhIssuesArguments variables;
+
+  @override
+  List<Object> get props => [document, operationName, variables];
+  @override
+  GhIssues parse(Map<String, dynamic> json) => GhIssues.fromJson(json);
 }
 
 @JsonSerializable(explicitToJson: true)
@@ -4522,6 +6069,7 @@ class GhWatchRepository extends GhWatchPinnableItem
   factory GhWatchRepository.fromJson(Map<String, dynamic> json) =>
       _$GhWatchRepositoryFromJson(json);
 
+  @JsonKey(unknownEnumValue: GhWatchSubscriptionState.ARTEMIS_UNKNOWN)
   GhWatchSubscriptionState viewerSubscription;
 
   @override
@@ -4655,6 +6203,7 @@ enum GhWatchSubscriptionState {
   UNSUBSCRIBED,
   SUBSCRIBED,
   IGNORED,
+  ARTEMIS_UNKNOWN,
 }
 
 @JsonSerializable(explicitToJson: true)
@@ -4719,6 +6268,12 @@ class GhWatchQuery extends GraphQLQuery<GhWatch, GhWatchArguments> {
                     arguments: [],
                     directives: [],
                     selectionSet: SelectionSetNode(selections: [
+                      FieldNode(
+                          name: NameNode(value: '__typename'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
                       InlineFragmentNode(
                           typeCondition: TypeConditionNode(
                               on: NamedTypeNode(
@@ -8056,6 +9611,7 @@ class GhCommitsStatus with EquatableMixin implements GhCommitsNode {
   factory GhCommitsStatus.fromJson(Map<String, dynamic> json) =>
       _$GhCommitsStatusFromJson(json);
 
+  @JsonKey(unknownEnumValue: GhCommitsStatusState.ARTEMIS_UNKNOWN)
   GhCommitsStatusState state;
 
   @override
@@ -8178,6 +9734,7 @@ enum GhCommitsStatusState {
   FAILURE,
   PENDING,
   SUCCESS,
+  ARTEMIS_UNKNOWN,
 }
 
 @JsonSerializable(explicitToJson: true)
@@ -8788,1549 +10345,4 @@ class GhRepoIdQuery extends GraphQLQuery<GhRepoId, GhRepoIdArguments> {
   List<Object> get props => [document, operationName, variables];
   @override
   GhRepoId parse(Map<String, dynamic> json) => GhRepoId.fromJson(json);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhIssues with EquatableMixin {
-  GhIssues({this.repository});
-
-  factory GhIssues.fromJson(Map<String, dynamic> json) =>
-      _$GhIssuesFromJson(json);
-
-  GhIssuesRepository repository;
-
-  @override
-  List<Object> get props => [repository];
-  Map<String, dynamic> toJson() => _$GhIssuesToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhIssuesRepository extends GhIssuesPinnableItem
-    with EquatableMixin
-    implements
-        GhIssuesNode,
-        GhIssuesProjectOwner,
-        GhIssuesRegistryPackageOwner,
-        GhIssuesRegistryPackageSearch,
-        GhIssuesSubscribable,
-        GhIssuesStarrable,
-        GhIssuesUniformResourceLocatable,
-        GhIssuesRepositoryInfo {
-  GhIssuesRepository({this.issues});
-
-  factory GhIssuesRepository.fromJson(Map<String, dynamic> json) =>
-      _$GhIssuesRepositoryFromJson(json);
-
-  @override
-  GhIssuesRepositoryOwner owner;
-
-  @override
-  String name;
-
-  GhIssuesIssueConnection issues;
-
-  @override
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [owner, name, issues, resolveType];
-  Map<String, dynamic> toJson() => _$GhIssuesRepositoryToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhIssuesRepositoryOwner with EquatableMixin {
-  GhIssuesRepositoryOwner({this.login});
-
-  factory GhIssuesRepositoryOwner.fromJson(Map<String, dynamic> json) =>
-      _$GhIssuesRepositoryOwnerFromJson(json);
-
-  String login;
-
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [login, resolveType];
-  Map<String, dynamic> toJson() => _$GhIssuesRepositoryOwnerToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhIssuesIssueConnection with EquatableMixin {
-  GhIssuesIssueConnection({this.pageInfo, this.nodes});
-
-  factory GhIssuesIssueConnection.fromJson(Map<String, dynamic> json) =>
-      _$GhIssuesIssueConnectionFromJson(json);
-
-  GhIssuesPageInfo pageInfo;
-
-  List<GhIssuesIssue> nodes;
-
-  @override
-  List<Object> get props => [pageInfo, nodes];
-  Map<String, dynamic> toJson() => _$GhIssuesIssueConnectionToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhIssuesPageInfo with EquatableMixin {
-  GhIssuesPageInfo({this.hasNextPage, this.endCursor});
-
-  factory GhIssuesPageInfo.fromJson(Map<String, dynamic> json) =>
-      _$GhIssuesPageInfoFromJson(json);
-
-  bool hasNextPage;
-
-  String endCursor;
-
-  @override
-  List<Object> get props => [hasNextPage, endCursor];
-  Map<String, dynamic> toJson() => _$GhIssuesPageInfoToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhIssuesIssue extends GhIssuesProjectCardItem
-    with EquatableMixin
-    implements
-        GhIssuesNode,
-        GhIssuesAssignable,
-        GhIssuesClosable,
-        GhIssuesComment,
-        GhIssuesUpdatable,
-        GhIssuesUpdatableComment,
-        GhIssuesLabelable,
-        GhIssuesLockable,
-        GhIssuesReactable,
-        GhIssuesRepositoryNode,
-        GhIssuesSubscribable,
-        GhIssuesUniformResourceLocatable {
-  GhIssuesIssue({this.number, this.title, this.comments});
-
-  factory GhIssuesIssue.fromJson(Map<String, dynamic> json) =>
-      _$GhIssuesIssueFromJson(json);
-
-  @override
-  GhIssuesRepository repository;
-
-  int number;
-
-  String title;
-
-  @override
-  DateTime updatedAt;
-
-  @override
-  GhIssuesActor author;
-
-  @override
-  GhIssuesLabelConnection labels;
-
-  GhIssuesIssueCommentConnection comments;
-
-  @override
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [
-        repository,
-        number,
-        title,
-        updatedAt,
-        author,
-        labels,
-        comments,
-        resolveType
-      ];
-  Map<String, dynamic> toJson() => _$GhIssuesIssueToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhIssuesPinnableItem with EquatableMixin {
-  GhIssuesPinnableItem();
-
-  factory GhIssuesPinnableItem.fromJson(Map<String, dynamic> json) =>
-      _$GhIssuesPinnableItemFromJson(json);
-
-  @override
-  List<Object> get props => [];
-  Map<String, dynamic> toJson() => _$GhIssuesPinnableItemToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhIssuesNode with EquatableMixin {
-  GhIssuesNode();
-
-  factory GhIssuesNode.fromJson(Map<String, dynamic> json) =>
-      _$GhIssuesNodeFromJson(json);
-
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [resolveType];
-  Map<String, dynamic> toJson() => _$GhIssuesNodeToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhIssuesProjectOwner with EquatableMixin {
-  GhIssuesProjectOwner();
-
-  factory GhIssuesProjectOwner.fromJson(Map<String, dynamic> json) =>
-      _$GhIssuesProjectOwnerFromJson(json);
-
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [resolveType];
-  Map<String, dynamic> toJson() => _$GhIssuesProjectOwnerToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhIssuesRegistryPackageOwner with EquatableMixin {
-  GhIssuesRegistryPackageOwner();
-
-  factory GhIssuesRegistryPackageOwner.fromJson(Map<String, dynamic> json) =>
-      _$GhIssuesRegistryPackageOwnerFromJson(json);
-
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [resolveType];
-  Map<String, dynamic> toJson() => _$GhIssuesRegistryPackageOwnerToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhIssuesRegistryPackageSearch with EquatableMixin {
-  GhIssuesRegistryPackageSearch();
-
-  factory GhIssuesRegistryPackageSearch.fromJson(Map<String, dynamic> json) =>
-      _$GhIssuesRegistryPackageSearchFromJson(json);
-
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [resolveType];
-  Map<String, dynamic> toJson() => _$GhIssuesRegistryPackageSearchToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhIssuesSubscribable with EquatableMixin {
-  GhIssuesSubscribable();
-
-  factory GhIssuesSubscribable.fromJson(Map<String, dynamic> json) =>
-      _$GhIssuesSubscribableFromJson(json);
-
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [resolveType];
-  Map<String, dynamic> toJson() => _$GhIssuesSubscribableToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhIssuesStarrable with EquatableMixin {
-  GhIssuesStarrable();
-
-  factory GhIssuesStarrable.fromJson(Map<String, dynamic> json) =>
-      _$GhIssuesStarrableFromJson(json);
-
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [resolveType];
-  Map<String, dynamic> toJson() => _$GhIssuesStarrableToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhIssuesUniformResourceLocatable with EquatableMixin {
-  GhIssuesUniformResourceLocatable();
-
-  factory GhIssuesUniformResourceLocatable.fromJson(
-          Map<String, dynamic> json) =>
-      _$GhIssuesUniformResourceLocatableFromJson(json);
-
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [resolveType];
-  Map<String, dynamic> toJson() =>
-      _$GhIssuesUniformResourceLocatableToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhIssuesRepositoryInfo with EquatableMixin {
-  GhIssuesRepositoryInfo({this.owner, this.name});
-
-  factory GhIssuesRepositoryInfo.fromJson(Map<String, dynamic> json) =>
-      _$GhIssuesRepositoryInfoFromJson(json);
-
-  GhIssuesRepositoryOwner owner;
-
-  String name;
-
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [owner, name, resolveType];
-  Map<String, dynamic> toJson() => _$GhIssuesRepositoryInfoToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhIssuesActor with EquatableMixin {
-  GhIssuesActor({this.login, this.avatarUrl});
-
-  factory GhIssuesActor.fromJson(Map<String, dynamic> json) =>
-      _$GhIssuesActorFromJson(json);
-
-  String login;
-
-  String avatarUrl;
-
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [login, avatarUrl, resolveType];
-  Map<String, dynamic> toJson() => _$GhIssuesActorToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhIssuesLabelConnection with EquatableMixin {
-  GhIssuesLabelConnection({this.nodes});
-
-  factory GhIssuesLabelConnection.fromJson(Map<String, dynamic> json) =>
-      _$GhIssuesLabelConnectionFromJson(json);
-
-  List<GhIssuesLabel> nodes;
-
-  @override
-  List<Object> get props => [nodes];
-  Map<String, dynamic> toJson() => _$GhIssuesLabelConnectionToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhIssuesLabel with EquatableMixin implements GhIssuesNode {
-  GhIssuesLabel({this.name, this.color});
-
-  factory GhIssuesLabel.fromJson(Map<String, dynamic> json) =>
-      _$GhIssuesLabelFromJson(json);
-
-  String name;
-
-  String color;
-
-  @override
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [name, color, resolveType];
-  Map<String, dynamic> toJson() => _$GhIssuesLabelToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhIssuesIssueCommentConnection with EquatableMixin {
-  GhIssuesIssueCommentConnection({this.totalCount});
-
-  factory GhIssuesIssueCommentConnection.fromJson(Map<String, dynamic> json) =>
-      _$GhIssuesIssueCommentConnectionFromJson(json);
-
-  int totalCount;
-
-  @override
-  List<Object> get props => [totalCount];
-  Map<String, dynamic> toJson() => _$GhIssuesIssueCommentConnectionToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhIssuesProjectCardItem with EquatableMixin {
-  GhIssuesProjectCardItem();
-
-  factory GhIssuesProjectCardItem.fromJson(Map<String, dynamic> json) =>
-      _$GhIssuesProjectCardItemFromJson(json);
-
-  @override
-  List<Object> get props => [];
-  Map<String, dynamic> toJson() => _$GhIssuesProjectCardItemToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhIssuesAssignable with EquatableMixin {
-  GhIssuesAssignable();
-
-  factory GhIssuesAssignable.fromJson(Map<String, dynamic> json) =>
-      _$GhIssuesAssignableFromJson(json);
-
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [resolveType];
-  Map<String, dynamic> toJson() => _$GhIssuesAssignableToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhIssuesClosable with EquatableMixin {
-  GhIssuesClosable();
-
-  factory GhIssuesClosable.fromJson(Map<String, dynamic> json) =>
-      _$GhIssuesClosableFromJson(json);
-
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [resolveType];
-  Map<String, dynamic> toJson() => _$GhIssuesClosableToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhIssuesComment with EquatableMixin {
-  GhIssuesComment({this.updatedAt, this.author});
-
-  factory GhIssuesComment.fromJson(Map<String, dynamic> json) =>
-      _$GhIssuesCommentFromJson(json);
-
-  DateTime updatedAt;
-
-  GhIssuesActor author;
-
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [updatedAt, author, resolveType];
-  Map<String, dynamic> toJson() => _$GhIssuesCommentToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhIssuesUpdatable with EquatableMixin {
-  GhIssuesUpdatable();
-
-  factory GhIssuesUpdatable.fromJson(Map<String, dynamic> json) =>
-      _$GhIssuesUpdatableFromJson(json);
-
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [resolveType];
-  Map<String, dynamic> toJson() => _$GhIssuesUpdatableToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhIssuesUpdatableComment with EquatableMixin {
-  GhIssuesUpdatableComment();
-
-  factory GhIssuesUpdatableComment.fromJson(Map<String, dynamic> json) =>
-      _$GhIssuesUpdatableCommentFromJson(json);
-
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [resolveType];
-  Map<String, dynamic> toJson() => _$GhIssuesUpdatableCommentToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhIssuesLabelable with EquatableMixin {
-  GhIssuesLabelable({this.labels});
-
-  factory GhIssuesLabelable.fromJson(Map<String, dynamic> json) =>
-      _$GhIssuesLabelableFromJson(json);
-
-  GhIssuesLabelConnection labels;
-
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [labels, resolveType];
-  Map<String, dynamic> toJson() => _$GhIssuesLabelableToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhIssuesLockable with EquatableMixin {
-  GhIssuesLockable();
-
-  factory GhIssuesLockable.fromJson(Map<String, dynamic> json) =>
-      _$GhIssuesLockableFromJson(json);
-
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [resolveType];
-  Map<String, dynamic> toJson() => _$GhIssuesLockableToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhIssuesReactable with EquatableMixin {
-  GhIssuesReactable();
-
-  factory GhIssuesReactable.fromJson(Map<String, dynamic> json) =>
-      _$GhIssuesReactableFromJson(json);
-
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [resolveType];
-  Map<String, dynamic> toJson() => _$GhIssuesReactableToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhIssuesRepositoryNode with EquatableMixin {
-  GhIssuesRepositoryNode({this.repository});
-
-  factory GhIssuesRepositoryNode.fromJson(Map<String, dynamic> json) =>
-      _$GhIssuesRepositoryNodeFromJson(json);
-
-  GhIssuesRepository repository;
-
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [repository, resolveType];
-  Map<String, dynamic> toJson() => _$GhIssuesRepositoryNodeToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhIssuesArguments extends JsonSerializable with EquatableMixin {
-  GhIssuesArguments({@required this.owner, @required this.name, this.cursor});
-
-  factory GhIssuesArguments.fromJson(Map<String, dynamic> json) =>
-      _$GhIssuesArgumentsFromJson(json);
-
-  final String owner;
-
-  final String name;
-
-  final String cursor;
-
-  @override
-  List<Object> get props => [owner, name, cursor];
-  Map<String, dynamic> toJson() => _$GhIssuesArgumentsToJson(this);
-}
-
-class GhIssuesQuery extends GraphQLQuery<GhIssues, GhIssuesArguments> {
-  GhIssuesQuery({this.variables});
-
-  @override
-  final DocumentNode document = DocumentNode(definitions: [
-    OperationDefinitionNode(
-        type: OperationType.query,
-        name: NameNode(value: 'GhIssues'),
-        variableDefinitions: [
-          VariableDefinitionNode(
-              variable: VariableNode(name: NameNode(value: 'owner')),
-              type: NamedTypeNode(
-                  name: NameNode(value: 'String'), isNonNull: true),
-              defaultValue: DefaultValueNode(value: null),
-              directives: []),
-          VariableDefinitionNode(
-              variable: VariableNode(name: NameNode(value: 'name')),
-              type: NamedTypeNode(
-                  name: NameNode(value: 'String'), isNonNull: true),
-              defaultValue: DefaultValueNode(value: null),
-              directives: []),
-          VariableDefinitionNode(
-              variable: VariableNode(name: NameNode(value: 'cursor')),
-              type: NamedTypeNode(
-                  name: NameNode(value: 'String'), isNonNull: false),
-              defaultValue: DefaultValueNode(value: null),
-              directives: [])
-        ],
-        directives: [],
-        selectionSet: SelectionSetNode(selections: [
-          FieldNode(
-              name: NameNode(value: 'repository'),
-              alias: null,
-              arguments: [
-                ArgumentNode(
-                    name: NameNode(value: 'owner'),
-                    value: VariableNode(name: NameNode(value: 'owner'))),
-                ArgumentNode(
-                    name: NameNode(value: 'name'),
-                    value: VariableNode(name: NameNode(value: 'name')))
-              ],
-              directives: [],
-              selectionSet: SelectionSetNode(selections: [
-                FieldNode(
-                    name: NameNode(value: 'owner'),
-                    alias: null,
-                    arguments: [],
-                    directives: [],
-                    selectionSet: SelectionSetNode(selections: [
-                      FieldNode(
-                          name: NameNode(value: 'login'),
-                          alias: null,
-                          arguments: [],
-                          directives: [],
-                          selectionSet: null)
-                    ])),
-                FieldNode(
-                    name: NameNode(value: 'name'),
-                    alias: null,
-                    arguments: [],
-                    directives: [],
-                    selectionSet: null),
-                FieldNode(
-                    name: NameNode(value: 'issues'),
-                    alias: null,
-                    arguments: [
-                      ArgumentNode(
-                          name: NameNode(value: 'states'),
-                          value: EnumValueNode(name: NameNode(value: 'OPEN'))),
-                      ArgumentNode(
-                          name: NameNode(value: 'orderBy'),
-                          value: ObjectValueNode(fields: [
-                            ObjectFieldNode(
-                                name: NameNode(value: 'field'),
-                                value: EnumValueNode(
-                                    name: NameNode(value: 'CREATED_AT'))),
-                            ObjectFieldNode(
-                                name: NameNode(value: 'direction'),
-                                value: EnumValueNode(
-                                    name: NameNode(value: 'DESC')))
-                          ])),
-                      ArgumentNode(
-                          name: NameNode(value: 'first'),
-                          value: IntValueNode(value: '30')),
-                      ArgumentNode(
-                          name: NameNode(value: 'after'),
-                          value: VariableNode(name: NameNode(value: 'cursor')))
-                    ],
-                    directives: [],
-                    selectionSet: SelectionSetNode(selections: [
-                      FieldNode(
-                          name: NameNode(value: 'pageInfo'),
-                          alias: null,
-                          arguments: [],
-                          directives: [],
-                          selectionSet: SelectionSetNode(selections: [
-                            FieldNode(
-                                name: NameNode(value: 'hasNextPage'),
-                                alias: null,
-                                arguments: [],
-                                directives: [],
-                                selectionSet: null),
-                            FieldNode(
-                                name: NameNode(value: 'endCursor'),
-                                alias: null,
-                                arguments: [],
-                                directives: [],
-                                selectionSet: null)
-                          ])),
-                      FieldNode(
-                          name: NameNode(value: 'nodes'),
-                          alias: null,
-                          arguments: [],
-                          directives: [],
-                          selectionSet: SelectionSetNode(selections: [
-                            FieldNode(
-                                name: NameNode(value: 'repository'),
-                                alias: null,
-                                arguments: [],
-                                directives: [],
-                                selectionSet: SelectionSetNode(selections: [
-                                  FieldNode(
-                                      name: NameNode(value: 'owner'),
-                                      alias: null,
-                                      arguments: [],
-                                      directives: [],
-                                      selectionSet:
-                                          SelectionSetNode(selections: [
-                                        FieldNode(
-                                            name: NameNode(value: 'login'),
-                                            alias: null,
-                                            arguments: [],
-                                            directives: [],
-                                            selectionSet: null)
-                                      ])),
-                                  FieldNode(
-                                      name: NameNode(value: 'name'),
-                                      alias: null,
-                                      arguments: [],
-                                      directives: [],
-                                      selectionSet: null)
-                                ])),
-                            FieldNode(
-                                name: NameNode(value: 'number'),
-                                alias: null,
-                                arguments: [],
-                                directives: [],
-                                selectionSet: null),
-                            FieldNode(
-                                name: NameNode(value: 'title'),
-                                alias: null,
-                                arguments: [],
-                                directives: [],
-                                selectionSet: null),
-                            FieldNode(
-                                name: NameNode(value: 'updatedAt'),
-                                alias: null,
-                                arguments: [],
-                                directives: [],
-                                selectionSet: null),
-                            FieldNode(
-                                name: NameNode(value: 'author'),
-                                alias: null,
-                                arguments: [],
-                                directives: [],
-                                selectionSet: SelectionSetNode(selections: [
-                                  FieldNode(
-                                      name: NameNode(value: 'login'),
-                                      alias: null,
-                                      arguments: [],
-                                      directives: [],
-                                      selectionSet: null),
-                                  FieldNode(
-                                      name: NameNode(value: 'avatarUrl'),
-                                      alias: null,
-                                      arguments: [],
-                                      directives: [],
-                                      selectionSet: null)
-                                ])),
-                            FieldNode(
-                                name: NameNode(value: 'labels'),
-                                alias: null,
-                                arguments: [
-                                  ArgumentNode(
-                                      name: NameNode(value: 'first'),
-                                      value: IntValueNode(value: '10'))
-                                ],
-                                directives: [],
-                                selectionSet: SelectionSetNode(selections: [
-                                  FieldNode(
-                                      name: NameNode(value: 'nodes'),
-                                      alias: null,
-                                      arguments: [],
-                                      directives: [],
-                                      selectionSet:
-                                          SelectionSetNode(selections: [
-                                        FieldNode(
-                                            name: NameNode(value: 'name'),
-                                            alias: null,
-                                            arguments: [],
-                                            directives: [],
-                                            selectionSet: null),
-                                        FieldNode(
-                                            name: NameNode(value: 'color'),
-                                            alias: null,
-                                            arguments: [],
-                                            directives: [],
-                                            selectionSet: null)
-                                      ]))
-                                ])),
-                            FieldNode(
-                                name: NameNode(value: 'comments'),
-                                alias: null,
-                                arguments: [],
-                                directives: [],
-                                selectionSet: SelectionSetNode(selections: [
-                                  FieldNode(
-                                      name: NameNode(value: 'totalCount'),
-                                      alias: null,
-                                      arguments: [],
-                                      directives: [],
-                                      selectionSet: null)
-                                ]))
-                          ]))
-                    ]))
-              ]))
-        ]))
-  ]);
-
-  @override
-  final String operationName = 'GhIssues';
-
-  @override
-  final GhIssuesArguments variables;
-
-  @override
-  List<Object> get props => [document, operationName, variables];
-  @override
-  GhIssues parse(Map<String, dynamic> json) => GhIssues.fromJson(json);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhPulls with EquatableMixin {
-  GhPulls({this.repository});
-
-  factory GhPulls.fromJson(Map<String, dynamic> json) =>
-      _$GhPullsFromJson(json);
-
-  GhPullsRepository repository;
-
-  @override
-  List<Object> get props => [repository];
-  Map<String, dynamic> toJson() => _$GhPullsToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhPullsRepository extends GhPullsPinnableItem
-    with EquatableMixin
-    implements
-        GhPullsNode,
-        GhPullsProjectOwner,
-        GhPullsRegistryPackageOwner,
-        GhPullsRegistryPackageSearch,
-        GhPullsSubscribable,
-        GhPullsStarrable,
-        GhPullsUniformResourceLocatable,
-        GhPullsRepositoryInfo {
-  GhPullsRepository({this.pullRequests});
-
-  factory GhPullsRepository.fromJson(Map<String, dynamic> json) =>
-      _$GhPullsRepositoryFromJson(json);
-
-  @override
-  GhPullsRepositoryOwner owner;
-
-  @override
-  String name;
-
-  GhPullsPullRequestConnection pullRequests;
-
-  @override
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [owner, name, pullRequests, resolveType];
-  Map<String, dynamic> toJson() => _$GhPullsRepositoryToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhPullsRepositoryOwner with EquatableMixin {
-  GhPullsRepositoryOwner({this.login});
-
-  factory GhPullsRepositoryOwner.fromJson(Map<String, dynamic> json) =>
-      _$GhPullsRepositoryOwnerFromJson(json);
-
-  String login;
-
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [login, resolveType];
-  Map<String, dynamic> toJson() => _$GhPullsRepositoryOwnerToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhPullsPullRequestConnection with EquatableMixin {
-  GhPullsPullRequestConnection({this.pageInfo, this.nodes});
-
-  factory GhPullsPullRequestConnection.fromJson(Map<String, dynamic> json) =>
-      _$GhPullsPullRequestConnectionFromJson(json);
-
-  GhPullsPageInfo pageInfo;
-
-  List<GhPullsPullRequest> nodes;
-
-  @override
-  List<Object> get props => [pageInfo, nodes];
-  Map<String, dynamic> toJson() => _$GhPullsPullRequestConnectionToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhPullsPageInfo with EquatableMixin {
-  GhPullsPageInfo({this.hasNextPage, this.endCursor});
-
-  factory GhPullsPageInfo.fromJson(Map<String, dynamic> json) =>
-      _$GhPullsPageInfoFromJson(json);
-
-  bool hasNextPage;
-
-  String endCursor;
-
-  @override
-  List<Object> get props => [hasNextPage, endCursor];
-  Map<String, dynamic> toJson() => _$GhPullsPageInfoToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhPullsPullRequest extends GhPullsProjectCardItem
-    with EquatableMixin
-    implements
-        GhPullsNode,
-        GhPullsAssignable,
-        GhPullsClosable,
-        GhPullsComment,
-        GhPullsUpdatable,
-        GhPullsUpdatableComment,
-        GhPullsLabelable,
-        GhPullsLockable,
-        GhPullsReactable,
-        GhPullsRepositoryNode,
-        GhPullsSubscribable,
-        GhPullsUniformResourceLocatable {
-  GhPullsPullRequest({this.number, this.title, this.comments});
-
-  factory GhPullsPullRequest.fromJson(Map<String, dynamic> json) =>
-      _$GhPullsPullRequestFromJson(json);
-
-  @override
-  GhPullsRepository repository;
-
-  int number;
-
-  String title;
-
-  @override
-  DateTime updatedAt;
-
-  @override
-  GhPullsActor author;
-
-  @override
-  GhPullsLabelConnection labels;
-
-  GhPullsIssueCommentConnection comments;
-
-  @override
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [
-        repository,
-        number,
-        title,
-        updatedAt,
-        author,
-        labels,
-        comments,
-        resolveType
-      ];
-  Map<String, dynamic> toJson() => _$GhPullsPullRequestToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhPullsPinnableItem with EquatableMixin {
-  GhPullsPinnableItem();
-
-  factory GhPullsPinnableItem.fromJson(Map<String, dynamic> json) =>
-      _$GhPullsPinnableItemFromJson(json);
-
-  @override
-  List<Object> get props => [];
-  Map<String, dynamic> toJson() => _$GhPullsPinnableItemToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhPullsNode with EquatableMixin {
-  GhPullsNode();
-
-  factory GhPullsNode.fromJson(Map<String, dynamic> json) =>
-      _$GhPullsNodeFromJson(json);
-
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [resolveType];
-  Map<String, dynamic> toJson() => _$GhPullsNodeToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhPullsProjectOwner with EquatableMixin {
-  GhPullsProjectOwner();
-
-  factory GhPullsProjectOwner.fromJson(Map<String, dynamic> json) =>
-      _$GhPullsProjectOwnerFromJson(json);
-
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [resolveType];
-  Map<String, dynamic> toJson() => _$GhPullsProjectOwnerToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhPullsRegistryPackageOwner with EquatableMixin {
-  GhPullsRegistryPackageOwner();
-
-  factory GhPullsRegistryPackageOwner.fromJson(Map<String, dynamic> json) =>
-      _$GhPullsRegistryPackageOwnerFromJson(json);
-
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [resolveType];
-  Map<String, dynamic> toJson() => _$GhPullsRegistryPackageOwnerToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhPullsRegistryPackageSearch with EquatableMixin {
-  GhPullsRegistryPackageSearch();
-
-  factory GhPullsRegistryPackageSearch.fromJson(Map<String, dynamic> json) =>
-      _$GhPullsRegistryPackageSearchFromJson(json);
-
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [resolveType];
-  Map<String, dynamic> toJson() => _$GhPullsRegistryPackageSearchToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhPullsSubscribable with EquatableMixin {
-  GhPullsSubscribable();
-
-  factory GhPullsSubscribable.fromJson(Map<String, dynamic> json) =>
-      _$GhPullsSubscribableFromJson(json);
-
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [resolveType];
-  Map<String, dynamic> toJson() => _$GhPullsSubscribableToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhPullsStarrable with EquatableMixin {
-  GhPullsStarrable();
-
-  factory GhPullsStarrable.fromJson(Map<String, dynamic> json) =>
-      _$GhPullsStarrableFromJson(json);
-
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [resolveType];
-  Map<String, dynamic> toJson() => _$GhPullsStarrableToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhPullsUniformResourceLocatable with EquatableMixin {
-  GhPullsUniformResourceLocatable();
-
-  factory GhPullsUniformResourceLocatable.fromJson(Map<String, dynamic> json) =>
-      _$GhPullsUniformResourceLocatableFromJson(json);
-
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [resolveType];
-  Map<String, dynamic> toJson() =>
-      _$GhPullsUniformResourceLocatableToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhPullsRepositoryInfo with EquatableMixin {
-  GhPullsRepositoryInfo({this.owner, this.name});
-
-  factory GhPullsRepositoryInfo.fromJson(Map<String, dynamic> json) =>
-      _$GhPullsRepositoryInfoFromJson(json);
-
-  GhPullsRepositoryOwner owner;
-
-  String name;
-
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [owner, name, resolveType];
-  Map<String, dynamic> toJson() => _$GhPullsRepositoryInfoToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhPullsActor with EquatableMixin {
-  GhPullsActor({this.login, this.avatarUrl});
-
-  factory GhPullsActor.fromJson(Map<String, dynamic> json) =>
-      _$GhPullsActorFromJson(json);
-
-  String login;
-
-  String avatarUrl;
-
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [login, avatarUrl, resolveType];
-  Map<String, dynamic> toJson() => _$GhPullsActorToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhPullsLabelConnection with EquatableMixin {
-  GhPullsLabelConnection({this.nodes});
-
-  factory GhPullsLabelConnection.fromJson(Map<String, dynamic> json) =>
-      _$GhPullsLabelConnectionFromJson(json);
-
-  List<GhPullsLabel> nodes;
-
-  @override
-  List<Object> get props => [nodes];
-  Map<String, dynamic> toJson() => _$GhPullsLabelConnectionToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhPullsLabel with EquatableMixin implements GhPullsNode {
-  GhPullsLabel({this.name, this.color});
-
-  factory GhPullsLabel.fromJson(Map<String, dynamic> json) =>
-      _$GhPullsLabelFromJson(json);
-
-  String name;
-
-  String color;
-
-  @override
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [name, color, resolveType];
-  Map<String, dynamic> toJson() => _$GhPullsLabelToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhPullsIssueCommentConnection with EquatableMixin {
-  GhPullsIssueCommentConnection({this.totalCount});
-
-  factory GhPullsIssueCommentConnection.fromJson(Map<String, dynamic> json) =>
-      _$GhPullsIssueCommentConnectionFromJson(json);
-
-  int totalCount;
-
-  @override
-  List<Object> get props => [totalCount];
-  Map<String, dynamic> toJson() => _$GhPullsIssueCommentConnectionToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhPullsProjectCardItem with EquatableMixin {
-  GhPullsProjectCardItem();
-
-  factory GhPullsProjectCardItem.fromJson(Map<String, dynamic> json) =>
-      _$GhPullsProjectCardItemFromJson(json);
-
-  @override
-  List<Object> get props => [];
-  Map<String, dynamic> toJson() => _$GhPullsProjectCardItemToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhPullsAssignable with EquatableMixin {
-  GhPullsAssignable();
-
-  factory GhPullsAssignable.fromJson(Map<String, dynamic> json) =>
-      _$GhPullsAssignableFromJson(json);
-
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [resolveType];
-  Map<String, dynamic> toJson() => _$GhPullsAssignableToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhPullsClosable with EquatableMixin {
-  GhPullsClosable();
-
-  factory GhPullsClosable.fromJson(Map<String, dynamic> json) =>
-      _$GhPullsClosableFromJson(json);
-
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [resolveType];
-  Map<String, dynamic> toJson() => _$GhPullsClosableToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhPullsComment with EquatableMixin {
-  GhPullsComment({this.updatedAt, this.author});
-
-  factory GhPullsComment.fromJson(Map<String, dynamic> json) =>
-      _$GhPullsCommentFromJson(json);
-
-  DateTime updatedAt;
-
-  GhPullsActor author;
-
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [updatedAt, author, resolveType];
-  Map<String, dynamic> toJson() => _$GhPullsCommentToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhPullsUpdatable with EquatableMixin {
-  GhPullsUpdatable();
-
-  factory GhPullsUpdatable.fromJson(Map<String, dynamic> json) =>
-      _$GhPullsUpdatableFromJson(json);
-
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [resolveType];
-  Map<String, dynamic> toJson() => _$GhPullsUpdatableToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhPullsUpdatableComment with EquatableMixin {
-  GhPullsUpdatableComment();
-
-  factory GhPullsUpdatableComment.fromJson(Map<String, dynamic> json) =>
-      _$GhPullsUpdatableCommentFromJson(json);
-
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [resolveType];
-  Map<String, dynamic> toJson() => _$GhPullsUpdatableCommentToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhPullsLabelable with EquatableMixin {
-  GhPullsLabelable({this.labels});
-
-  factory GhPullsLabelable.fromJson(Map<String, dynamic> json) =>
-      _$GhPullsLabelableFromJson(json);
-
-  GhPullsLabelConnection labels;
-
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [labels, resolveType];
-  Map<String, dynamic> toJson() => _$GhPullsLabelableToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhPullsLockable with EquatableMixin {
-  GhPullsLockable();
-
-  factory GhPullsLockable.fromJson(Map<String, dynamic> json) =>
-      _$GhPullsLockableFromJson(json);
-
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [resolveType];
-  Map<String, dynamic> toJson() => _$GhPullsLockableToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhPullsReactable with EquatableMixin {
-  GhPullsReactable();
-
-  factory GhPullsReactable.fromJson(Map<String, dynamic> json) =>
-      _$GhPullsReactableFromJson(json);
-
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [resolveType];
-  Map<String, dynamic> toJson() => _$GhPullsReactableToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhPullsRepositoryNode with EquatableMixin {
-  GhPullsRepositoryNode({this.repository});
-
-  factory GhPullsRepositoryNode.fromJson(Map<String, dynamic> json) =>
-      _$GhPullsRepositoryNodeFromJson(json);
-
-  GhPullsRepository repository;
-
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [repository, resolveType];
-  Map<String, dynamic> toJson() => _$GhPullsRepositoryNodeToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhPullsArguments extends JsonSerializable with EquatableMixin {
-  GhPullsArguments({@required this.owner, @required this.name, this.cursor});
-
-  factory GhPullsArguments.fromJson(Map<String, dynamic> json) =>
-      _$GhPullsArgumentsFromJson(json);
-
-  final String owner;
-
-  final String name;
-
-  final String cursor;
-
-  @override
-  List<Object> get props => [owner, name, cursor];
-  Map<String, dynamic> toJson() => _$GhPullsArgumentsToJson(this);
-}
-
-class GhPullsQuery extends GraphQLQuery<GhPulls, GhPullsArguments> {
-  GhPullsQuery({this.variables});
-
-  @override
-  final DocumentNode document = DocumentNode(definitions: [
-    OperationDefinitionNode(
-        type: OperationType.query,
-        name: NameNode(value: 'GhPulls'),
-        variableDefinitions: [
-          VariableDefinitionNode(
-              variable: VariableNode(name: NameNode(value: 'owner')),
-              type: NamedTypeNode(
-                  name: NameNode(value: 'String'), isNonNull: true),
-              defaultValue: DefaultValueNode(value: null),
-              directives: []),
-          VariableDefinitionNode(
-              variable: VariableNode(name: NameNode(value: 'name')),
-              type: NamedTypeNode(
-                  name: NameNode(value: 'String'), isNonNull: true),
-              defaultValue: DefaultValueNode(value: null),
-              directives: []),
-          VariableDefinitionNode(
-              variable: VariableNode(name: NameNode(value: 'cursor')),
-              type: NamedTypeNode(
-                  name: NameNode(value: 'String'), isNonNull: false),
-              defaultValue: DefaultValueNode(value: null),
-              directives: [])
-        ],
-        directives: [],
-        selectionSet: SelectionSetNode(selections: [
-          FieldNode(
-              name: NameNode(value: 'repository'),
-              alias: null,
-              arguments: [
-                ArgumentNode(
-                    name: NameNode(value: 'owner'),
-                    value: VariableNode(name: NameNode(value: 'owner'))),
-                ArgumentNode(
-                    name: NameNode(value: 'name'),
-                    value: VariableNode(name: NameNode(value: 'name')))
-              ],
-              directives: [],
-              selectionSet: SelectionSetNode(selections: [
-                FieldNode(
-                    name: NameNode(value: 'owner'),
-                    alias: null,
-                    arguments: [],
-                    directives: [],
-                    selectionSet: SelectionSetNode(selections: [
-                      FieldNode(
-                          name: NameNode(value: 'login'),
-                          alias: null,
-                          arguments: [],
-                          directives: [],
-                          selectionSet: null)
-                    ])),
-                FieldNode(
-                    name: NameNode(value: 'name'),
-                    alias: null,
-                    arguments: [],
-                    directives: [],
-                    selectionSet: null),
-                FieldNode(
-                    name: NameNode(value: 'pullRequests'),
-                    alias: null,
-                    arguments: [
-                      ArgumentNode(
-                          name: NameNode(value: 'states'),
-                          value: EnumValueNode(name: NameNode(value: 'OPEN'))),
-                      ArgumentNode(
-                          name: NameNode(value: 'orderBy'),
-                          value: ObjectValueNode(fields: [
-                            ObjectFieldNode(
-                                name: NameNode(value: 'field'),
-                                value: EnumValueNode(
-                                    name: NameNode(value: 'CREATED_AT'))),
-                            ObjectFieldNode(
-                                name: NameNode(value: 'direction'),
-                                value: EnumValueNode(
-                                    name: NameNode(value: 'DESC')))
-                          ])),
-                      ArgumentNode(
-                          name: NameNode(value: 'first'),
-                          value: IntValueNode(value: '30')),
-                      ArgumentNode(
-                          name: NameNode(value: 'after'),
-                          value: VariableNode(name: NameNode(value: 'cursor')))
-                    ],
-                    directives: [],
-                    selectionSet: SelectionSetNode(selections: [
-                      FieldNode(
-                          name: NameNode(value: 'pageInfo'),
-                          alias: null,
-                          arguments: [],
-                          directives: [],
-                          selectionSet: SelectionSetNode(selections: [
-                            FieldNode(
-                                name: NameNode(value: 'hasNextPage'),
-                                alias: null,
-                                arguments: [],
-                                directives: [],
-                                selectionSet: null),
-                            FieldNode(
-                                name: NameNode(value: 'endCursor'),
-                                alias: null,
-                                arguments: [],
-                                directives: [],
-                                selectionSet: null)
-                          ])),
-                      FieldNode(
-                          name: NameNode(value: 'nodes'),
-                          alias: null,
-                          arguments: [],
-                          directives: [],
-                          selectionSet: SelectionSetNode(selections: [
-                            FieldNode(
-                                name: NameNode(value: 'repository'),
-                                alias: null,
-                                arguments: [],
-                                directives: [],
-                                selectionSet: SelectionSetNode(selections: [
-                                  FieldNode(
-                                      name: NameNode(value: 'owner'),
-                                      alias: null,
-                                      arguments: [],
-                                      directives: [],
-                                      selectionSet:
-                                          SelectionSetNode(selections: [
-                                        FieldNode(
-                                            name: NameNode(value: 'login'),
-                                            alias: null,
-                                            arguments: [],
-                                            directives: [],
-                                            selectionSet: null)
-                                      ])),
-                                  FieldNode(
-                                      name: NameNode(value: 'name'),
-                                      alias: null,
-                                      arguments: [],
-                                      directives: [],
-                                      selectionSet: null)
-                                ])),
-                            FieldNode(
-                                name: NameNode(value: 'number'),
-                                alias: null,
-                                arguments: [],
-                                directives: [],
-                                selectionSet: null),
-                            FieldNode(
-                                name: NameNode(value: 'title'),
-                                alias: null,
-                                arguments: [],
-                                directives: [],
-                                selectionSet: null),
-                            FieldNode(
-                                name: NameNode(value: 'updatedAt'),
-                                alias: null,
-                                arguments: [],
-                                directives: [],
-                                selectionSet: null),
-                            FieldNode(
-                                name: NameNode(value: 'author'),
-                                alias: null,
-                                arguments: [],
-                                directives: [],
-                                selectionSet: SelectionSetNode(selections: [
-                                  FieldNode(
-                                      name: NameNode(value: 'login'),
-                                      alias: null,
-                                      arguments: [],
-                                      directives: [],
-                                      selectionSet: null),
-                                  FieldNode(
-                                      name: NameNode(value: 'avatarUrl'),
-                                      alias: null,
-                                      arguments: [],
-                                      directives: [],
-                                      selectionSet: null)
-                                ])),
-                            FieldNode(
-                                name: NameNode(value: 'labels'),
-                                alias: null,
-                                arguments: [
-                                  ArgumentNode(
-                                      name: NameNode(value: 'first'),
-                                      value: IntValueNode(value: '10'))
-                                ],
-                                directives: [],
-                                selectionSet: SelectionSetNode(selections: [
-                                  FieldNode(
-                                      name: NameNode(value: 'nodes'),
-                                      alias: null,
-                                      arguments: [],
-                                      directives: [],
-                                      selectionSet:
-                                          SelectionSetNode(selections: [
-                                        FieldNode(
-                                            name: NameNode(value: 'name'),
-                                            alias: null,
-                                            arguments: [],
-                                            directives: [],
-                                            selectionSet: null),
-                                        FieldNode(
-                                            name: NameNode(value: 'color'),
-                                            alias: null,
-                                            arguments: [],
-                                            directives: [],
-                                            selectionSet: null)
-                                      ]))
-                                ])),
-                            FieldNode(
-                                name: NameNode(value: 'comments'),
-                                alias: null,
-                                arguments: [],
-                                directives: [],
-                                selectionSet: SelectionSetNode(selections: [
-                                  FieldNode(
-                                      name: NameNode(value: 'totalCount'),
-                                      alias: null,
-                                      arguments: [],
-                                      directives: [],
-                                      selectionSet: null)
-                                ]))
-                          ]))
-                    ]))
-              ]))
-        ]))
-  ]);
-
-  @override
-  final String operationName = 'GhPulls';
-
-  @override
-  final GhPullsArguments variables;
-
-  @override
-  List<Object> get props => [document, operationName, variables];
-  @override
-  GhPulls parse(Map<String, dynamic> json) => GhPulls.fromJson(json);
 }
