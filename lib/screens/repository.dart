@@ -164,6 +164,8 @@ class RepositoryScreen extends StatelessWidget {
                 Row(
                   children: <Widget>[
                     MutationButton(
+                      active: repo.viewerSubscription ==
+                          GhRepoSubscriptionState.SUBSCRIBED,
                       text: _buildWatchState(repo.viewerSubscription),
                       onPressed: () async {
                         final vs = GhWatchSubscriptionState.values.where((v) =>
@@ -207,6 +209,7 @@ class RepositoryScreen extends StatelessWidget {
                     ),
                     SizedBox(width: 8),
                     MutationButton(
+                      active: repo.viewerHasStarred,
                       text: repo.viewerHasStarred ? 'Unstar' : 'Star',
                       onPressed: () async {
                         final res = await auth.gqlClient.execute(

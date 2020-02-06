@@ -74,6 +74,7 @@ class UserScreen extends StatelessWidget {
           bio: p.bio,
           followWidget: p.viewerCanFollow == true
               ? MutationButton(
+                  active: p.viewerIsFollowing,
                   text: p.viewerIsFollowing ? 'Unfollow' : 'Follow',
                   onPressed: () async {
                     final res = await auth.gqlClient.execute(
