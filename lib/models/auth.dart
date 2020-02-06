@@ -136,6 +136,8 @@ class AuthModel with ChangeNotifier {
   }
 
   Future<void> loginToGitlab(String domain, String token) async {
+    domain = domain.trim();
+    token = token.trim();
     loading = true;
     notifyListeners();
     try {
@@ -191,6 +193,8 @@ class AuthModel with ChangeNotifier {
   }
 
   Future loginToGitea(String domain, String token) async {
+    domain = domain.trim();
+    token = token.trim();
     try {
       loading = true;
       notifyListeners();
@@ -235,6 +239,9 @@ class AuthModel with ChangeNotifier {
   }
 
   Future loginToBb(String domain, String username, String appPassword) async {
+    domain = domain.trim();
+    username = username.trim();
+    appPassword = appPassword.trim();
     try {
       loading = true;
       notifyListeners();
