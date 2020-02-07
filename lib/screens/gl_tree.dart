@@ -8,11 +8,11 @@ import 'package:git_touch/models/auth.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/utils/utils.dart';
 
-class GitlabTreeScreen extends StatelessWidget {
+class GlTreeScreen extends StatelessWidget {
   final int id;
   final String ref;
   final String path;
-  GitlabTreeScreen(this.id, this.ref, {this.path});
+  GlTreeScreen(this.id, this.ref, {this.path});
 
   @override
   Widget build(BuildContext context) {

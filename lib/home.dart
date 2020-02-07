@@ -8,11 +8,11 @@ import 'package:git_touch/screens/bb_teams.dart';
 import 'package:git_touch/screens/bb_user.dart';
 import 'package:git_touch/screens/gt_orgs.dart';
 import 'package:git_touch/screens/gt_user.dart';
-import 'package:git_touch/screens/gitlab_explore.dart';
-import 'package:git_touch/screens/gitlab_groups.dart';
-import 'package:git_touch/screens/gitlab_project.dart';
-import 'package:git_touch/screens/gitlab_todos.dart';
-import 'package:git_touch/screens/gitlab_user.dart';
+import 'package:git_touch/screens/gl_explore.dart';
+import 'package:git_touch/screens/gl_groups.dart';
+import 'package:git_touch/screens/gl_project.dart';
+import 'package:git_touch/screens/gl_todos.dart';
+import 'package:git_touch/screens/gl_user.dart';
 import 'package:git_touch/screens/login.dart';
 import 'package:git_touch/screens/gh_notification.dart';
 import 'package:git_touch/screens/gh_user.dart';
@@ -31,7 +31,7 @@ class _HomeState extends State<Home> {
   int active = 0;
 
   _buildScreen(int index) {
-    // return GitlabProjectScreen(32221);
+    // return GlProjectScreen(32221);
     // return IssuesScreen('flutter', 'flutter', isPullRequest: true);
     // return IssueScreen('reactjs', 'rfcs', 29);
     // return IssueScreen('reactjs', 'rfcs', 68, isPullRequest: true);
@@ -56,11 +56,11 @@ class _HomeState extends State<Home> {
       case PlatformType.gitlab:
         switch (index) {
           case 0:
-            return GitlabExplore();
+            return GlExploreScreen();
           case 1:
-            return GitlabGroups();
+            return GlGroupsScreenn();
           case 2:
-            return GitlabUserScreen(null);
+            return GlUserScreen(null);
         }
         break;
       case PlatformType.bitbucket:

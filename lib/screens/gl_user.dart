@@ -11,9 +11,9 @@ import 'package:tuple/tuple.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
-class GitlabUserScreen extends StatelessWidget {
+class GlUserScreen extends StatelessWidget {
   final int id;
-  GitlabUserScreen(this.id);
+  GlUserScreen(this.id);
   bool get isViewer => id == null;
 
   @override

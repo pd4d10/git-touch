@@ -9,10 +9,10 @@ import 'package:git_touch/widgets/avatar.dart';
 import 'package:git_touch/widgets/link.dart';
 import 'package:provider/provider.dart';
 
-class GitlabProjectActivity extends StatelessWidget {
+class GlProjectActivityScreen extends StatelessWidget {
   final int id;
 
-  GitlabProjectActivity(this.id);
+  GlProjectActivityScreen(this.id);
 
   Future<ListPayload<GitlabEvent, int>> _query(BuildContext context,
       [int page]) async {

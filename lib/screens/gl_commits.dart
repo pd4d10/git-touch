@@ -6,11 +6,11 @@ import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/commit_item.dart';
 import 'package:provider/provider.dart';
 
-class GitlabCommitsScreen extends StatelessWidget {
+class GlCommitsScreen extends StatelessWidget {
   final String id;
   final String prefix;
   // final String branch; // TODO:
-  GitlabCommitsScreen(this.id, {this.prefix});
+  GlCommitsScreen(this.id, {this.prefix});
 
   Future<ListPayload<GitlabCommit, int>> _query(BuildContext context,
       [int page = 1]) async {

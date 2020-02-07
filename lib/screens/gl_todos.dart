@@ -8,7 +8,7 @@ import 'package:git_touch/widgets/avatar.dart';
 import 'package:git_touch/widgets/link.dart';
 import 'package:provider/provider.dart';
 
-class GitlabTodosScreen extends StatelessWidget {
+class GlTodosScreen extends StatelessWidget {
   InlineSpan _buildActor(BuildContext context, GitlabTodo p) {
     final theme = Provider.of<ThemeModel>(context);
     return TextSpan(

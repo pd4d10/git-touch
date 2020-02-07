@@ -6,10 +6,10 @@ import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/user_item.dart';
 import 'package:provider/provider.dart';
 
-class GitlabMembers extends StatelessWidget {
+class GlMembersScreen extends StatelessWidget {
   final int id;
   final String type;
-  GitlabMembers(this.id, this.type);
+  GlMembersScreen(this.id, this.type);
 
   Future<ListPayload<GitlabUser, int>> _query(BuildContext context,
       [int page = 1]) async {

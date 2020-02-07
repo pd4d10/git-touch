@@ -7,7 +7,7 @@ import 'package:git_touch/widgets/repository_item.dart';
 import 'package:provider/provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
-class GitlabExplore extends StatelessWidget {
+class GlExploreScreen extends StatelessWidget {
   Future<ListPayload<GitlabProject, int>> _query(BuildContext context,
       [int page = 1]) async {
     final auth = Provider.of<AuthModel>(context);

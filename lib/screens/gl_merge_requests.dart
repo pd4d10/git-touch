@@ -7,16 +7,15 @@ import 'package:git_touch/widgets/issue_item.dart';
 import 'package:git_touch/widgets/label.dart';
 import 'package:provider/provider.dart';
 
-class GitlabIssuesScreen extends StatelessWidget {
+class GlMergeRequestsScreen extends StatelessWidget {
   final String id;
   final String prefix;
-  GitlabIssuesScreen(this.id, {this.prefix});
+  GlMergeRequestsScreen(this.id, {this.prefix});
 
   Future<ListPayload<GitlabIssue, int>> _query(BuildContext context,
       [int page = 1]) async {
-    final auth = Provider.of<AuthModel>(context);
-    final res = await auth
-        .fetchGitlabWithPage('/projects/$id/issues?state=opened&page=$page');
+    final res = await Provider.of<AuthModel>(context).fetchGitlabWithPage(
+        '/projects/$id/merge_requests?state=opened&page=$page');
     return ListPayload(
       cursor: res.cursor,
       hasMore: res.hasMore,
@@ -27,11 +26,11 @@ class GitlabIssuesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GitlabIssue, int>(
-      title: AppBarTitle('Issues'),
-      // TODO: create issue
+      title: AppBarTitle('Merge Requests'),
       onRefresh: () => _query(context),
       onLoadMore: (cursor) => _query(context, cursor),
       itemBuilder: (p) => IssueItem(
+        isPr: true,
         author: p.author.username,
         avatarUrl: p.author.avatarUrl,
         commentCount: p.userNotesCount,
@@ -44,8 +43,8 @@ class GitlabIssuesScreen extends StatelessWidget {
                 for (var label in p.labels)
                   MyLabel(name: label, cssColor: '#428BCA')
               ]),
-        // url: '/gitlab/projects/${p.projectId}/issues/${p.iid}',
-        url: '$prefix/issues/${p.iid}', // TODO:
+        // url: '/gitlab/projects/${p.projectId}/merge_requests/${p.iid}',
+        url: '$prefix/merge_requests/${p.iid}', // TODO:
       ),
     );
   }

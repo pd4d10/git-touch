@@ -11,16 +11,16 @@ import 'package:git_touch/screens/gt_object.dart';
 import 'package:git_touch/screens/gt_org.dart';
 import 'package:git_touch/screens/gt_repo.dart';
 import 'package:git_touch/screens/gt_user.dart';
-import 'package:git_touch/screens/gitlab_blob.dart';
-import 'package:git_touch/screens/gitlab_commits.dart';
-import 'package:git_touch/screens/gitlab_group.dart';
-import 'package:git_touch/screens/gitlab_issue.dart';
-import 'package:git_touch/screens/gitlab_issues.dart';
-import 'package:git_touch/screens/gitlab_members.dart';
-import 'package:git_touch/screens/gitlab_merge_requests.dart';
-import 'package:git_touch/screens/gitlab_project.dart';
-import 'package:git_touch/screens/gitlab_tree.dart';
-import 'package:git_touch/screens/gitlab_user.dart';
+import 'package:git_touch/screens/gl_blob.dart';
+import 'package:git_touch/screens/gl_commits.dart';
+import 'package:git_touch/screens/gl_group.dart';
+import 'package:git_touch/screens/gl_issue.dart';
+import 'package:git_touch/screens/gl_issues.dart';
+import 'package:git_touch/screens/gl_members.dart';
+import 'package:git_touch/screens/gl_merge_requests.dart';
+import 'package:git_touch/screens/gl_project.dart';
+import 'package:git_touch/screens/gl_tree.dart';
+import 'package:git_touch/screens/gl_user.dart';
 import 'package:git_touch/screens/gh_issue.dart';
 import 'package:git_touch/screens/gh_issue_form.dart';
 import 'package:git_touch/screens/gh_issues.dart';
@@ -148,49 +148,49 @@ class GitlabRouter {
     GitlabRouter.issue,
   ];
   static final user = RouterScreen(
-      '/user/:id', (context, p) => GitlabUserScreen(int.parse(p['id'].first)));
-  static final group = RouterScreen('/group/:id',
-      (context, p) => GitlabGroupScreen(int.parse(p['id'].first)));
+      '/user/:id', (context, p) => GlUserScreen(int.parse(p['id'].first)));
+  static final group = RouterScreen(
+      '/group/:id', (context, p) => GlGroupScreen(int.parse(p['id'].first)));
   static final blob = RouterScreen(
       '/projects/:id/blob/:ref',
-      (context, params) => GitlabBlobScreen(
+      (context, params) => GlBlobScreen(
           int.parse(params['id'].first), params['ref'].first,
           path: params['path']?.first));
   static final tree = RouterScreen(
       '/projects/:id/tree/:ref',
-      (context, params) => GitlabTreeScreen(
+      (context, params) => GlTreeScreen(
           int.parse(params['id'].first), params['ref'].first,
           path: params['path']?.first));
   static final project = RouterScreen('/projects/:id',
-      (context, params) => GitlabProjectScreen(int.parse(params['id'].first)));
+      (context, params) => GlProjectScreen(int.parse(params['id'].first)));
   static final issues = RouterScreen(
       '/projects/:id/issues',
-      (context, params) => GitlabIssuesScreen(
+      (context, params) => GlIssuesScreen(
             params['id'].first,
             prefix: params['prefix'].first,
           ));
   static final mergeRequests = RouterScreen(
       '/projects/:id/merge_requests',
-      (context, params) => GitlabMergeRequestsScreen(
+      (context, params) => GlMergeRequestsScreen(
             params['id'].first,
             prefix: params['prefix'].first,
           ));
   static final commits = RouterScreen(
       '/projects/:id/commits',
-      (context, params) => GitlabCommitsScreen(params['id'].first,
-          prefix: params['prefix'].first));
+      (context, params) =>
+          GlCommitsScreen(params['id'].first, prefix: params['prefix'].first));
   static final projectMembers = RouterScreen(
       '/projects/:id/members',
       (context, parameters) =>
-          GitlabMembers(int.parse(parameters['id'].first), 'projects'));
+          GlMembersScreen(int.parse(parameters['id'].first), 'projects'));
   static final groupMembers = RouterScreen(
       '/groups/:id/members',
       (context, parameters) =>
-          GitlabMembers(int.parse(parameters['id'].first), 'groups'));
+          GlMembersScreen(int.parse(parameters['id'].first), 'groups'));
   static final issue = RouterScreen(
     '/gitlab/projects/:id/issues/:iid',
     (context, params) {
-      return GitlabIssueScreen(
+      return GlIssueScreen(
         int.parse(params['id'].first),
         int.parse(params['iid'].first),
       );

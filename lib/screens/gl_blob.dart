@@ -8,11 +8,11 @@ import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/blob_view.dart';
 import 'package:provider/provider.dart';
 
-class GitlabBlobScreen extends StatelessWidget {
+class GlBlobScreen extends StatelessWidget {
   final int id;
   final String ref;
   final String path;
-  GitlabBlobScreen(this.id, this.ref, {this.path});
+  GlBlobScreen(this.id, this.ref, {this.path});
 
   @override
   Widget build(BuildContext context) {

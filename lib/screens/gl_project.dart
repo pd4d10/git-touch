@@ -16,9 +16,9 @@ import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/widgets/action_button.dart';
 import 'package:tuple/tuple.dart';
 
-class GitlabProjectScreen extends StatelessWidget {
+class GlProjectScreen extends StatelessWidget {
   final int id;
-  GitlabProjectScreen(this.id);
+  GlProjectScreen(this.id);
 
   @override
   Widget build(BuildContext context) {

@@ -6,7 +6,7 @@ import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/user_item.dart';
 import 'package:provider/provider.dart';
 
-class GitlabGroups extends StatelessWidget {
+class GlGroupsScreenn extends StatelessWidget {
   Future<ListPayload<GitlabGroup, int>> _query(BuildContext context,
       [int page = 1]) async {
     final auth = Provider.of<AuthModel>(context);

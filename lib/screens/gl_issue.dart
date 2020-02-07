@@ -10,12 +10,12 @@ import 'package:git_touch/models/auth.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:tuple/tuple.dart';
 
-class GitlabIssueScreen extends StatelessWidget {
+class GlIssueScreen extends StatelessWidget {
   final int projectId;
   final int iid;
   final bool isMr;
 
-  GitlabIssueScreen(this.projectId, this.iid, {this.isMr = false});
+  GlIssueScreen(this.projectId, this.iid, {this.isMr = false});
 
   @override
   Widget build(BuildContext context) {
