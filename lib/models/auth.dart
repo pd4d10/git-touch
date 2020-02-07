@@ -414,26 +414,6 @@ class AuthModel with ChangeNotifier {
     return res.body;
   }
 
-  Future<void> patchWithCredentials(String url) async {
-    await http
-        .patch(_apiPrefix + url, headers: _headers)
-        .timeout(_timeoutDuration);
-  }
-
-  Future<http.Response> putWithCredentials(
-    String url, {
-    String contentType = 'application/json',
-    Map<String, dynamic> body = const {},
-  }) async {
-    return http
-        .put(
-          _apiPrefix + url,
-          headers: {..._headers, HttpHeaders.contentTypeHeader: contentType},
-          body: json.encode(body),
-        )
-        .timeout(_timeoutDuration);
-  }
-
   String _oauthState;
   void redirectToGithubOauth() {
     _oauthState = nanoid();

@@ -4,6 +4,7 @@ import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/tab_stateful.dart';
 import 'package:git_touch/widgets/action_entry.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
+import 'package:github/github.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/models/notification.dart';
 import 'package:git_touch/models/auth.dart';
@@ -100,9 +101,10 @@ ${item.key}: pullRequest(number: ${item.subject.number}) {
   }
 
   Widget _buildGroupItem(
-      BuildContext context,
-      MapEntry<String, NotificationGroup> entry,
-      Map<String, NotificationGroup> groupMap) {
+    BuildContext context,
+    MapEntry<String, NotificationGroup> entry,
+    Map<String, NotificationGroup> groupMap,
+  ) {
     final theme = Provider.of<ThemeModel>(context);
     final group = entry.value;
     return ListGroup(
@@ -119,8 +121,9 @@ ${item.key}: pullRequest(number: ${item.subject.number}) {
           ),
           GestureDetector(
             onTap: () async {
-              await Provider.of<AuthModel>(context)
-                  .putWithCredentials('/repos/${group.fullName}/notifications');
+              final auth = Provider.of<AuthModel>(context);
+              await auth.ghClient.activity.markRepositoryNotificationsRead(
+                  RepositorySlug.full(group.fullName));
               // await _onSwitchTab(); // TODO:
             },
             child: Icon(
@@ -172,7 +175,9 @@ ${item.key}: pullRequest(number: ${item.subject.number}) {
               .showConfirm(context, Text('Mark all as read?'));
           if (value) {
             await Provider.of<AuthModel>(context)
-                .putWithCredentials('/notifications');
+                .ghClient
+                .activity
+                .markNotificationsRead();
             refresh();
           }
         },

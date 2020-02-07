@@ -84,7 +84,9 @@ class _NotificationItemState extends State<NotificationItem> {
       });
       try {
         await Provider.of<AuthModel>(context)
-            .patchWithCredentials('/notifications/threads/${payload.id}');
+            .ghClient
+            .activity
+            .markThreadRead(payload.id);
         widget.markAsRead();
       } finally {
         if (mounted) {
