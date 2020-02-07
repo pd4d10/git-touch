@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
-import 'package:git_touch/models/github.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
+import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/action_entry.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/blob_view.dart';
 import 'package:git_touch/widgets/object_tree.dart';
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/auth.dart';
+import 'package:github/github.dart';
 import 'package:provider/provider.dart';
-import 'package:git_touch/utils/utils.dart';
 
 class GhObjectScreen extends StatelessWidget {
   final String owner;
@@ -20,23 +20,32 @@ class GhObjectScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RefreshStatefulScaffold(
+    return RefreshStatefulScaffold<RepositoryContents>(
       // canRefresh: !_isImage, // TODO:
       title: AppBarTitle(path == null ? 'Files' : path),
       fetchData: () async {
         // Do not request again for images
         if (path != null &&
             raw != null &&
-            ['png', 'jpg', 'jpeg', 'gif', 'webp'].contains(path.ext))
-          return {'download_url': raw};
+            ['png', 'jpg', 'jpeg', 'gif', 'webp'].contains(path.ext)) {
+          return RepositoryContents(
+            file: GitHubFile(downloadUrl: raw, content: ''),
+          );
+        }
 
         final suffix = path == null ? '' : '/$path';
-        final res = await Provider.of<AuthModel>(context)
-            .getWithCredentials('/repos/$owner/$name/contents$suffix?ref=$ref');
+        final auth = Provider.of<AuthModel>(context);
+        final res = await auth.ghClient.repositories
+            .getContents(RepositorySlug(owner, name), suffix, ref: ref);
+        if (res.isDirectory) {
+          res.tree.sort((a, b) {
+            return sortByKey('dir', a.type, b.type);
+          });
+        }
         return res;
       },
       actionBuilder: (data, _) {
-        if (data is Map) {
+        if (data.isFile) {
           return ActionEntry(
             iconData: Icons.settings,
             url: '/choose-code-theme',
@@ -44,13 +53,9 @@ class GhObjectScreen extends StatelessWidget {
         }
       },
       bodyBuilder: (data, _) {
-        if (data is List) {
-          final items = data.map((t) => GithubTreeItem.fromJson(t)).toList();
-          items.sort((a, b) {
-            return sortByKey('dir', a.type, b.type);
-          });
+        if (data.isDirectory) {
           return ObjectTree(
-            items: items.map((v) {
+            items: data.tree.map((v) {
               // if (item.type == 'commit') return null;
               final uri = Uri(
                 path: '/$owner/$name/blob/$ref',
@@ -71,11 +76,10 @@ class GhObjectScreen extends StatelessWidget {
         } else {
           // TODO: Markdown base path
           // basePaths: [owner, name, branch, ...paths]
-          final v = GithubTreeItem.fromJson(data);
           return BlobView(
             path,
-            base64Text: v.content?.dropLineBreak,
-            networkUrl: v.downloadUrl,
+            text: data.file.text,
+            networkUrl: data.file.downloadUrl,
           );
         }
       },

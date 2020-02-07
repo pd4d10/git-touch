@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:git_touch/models/bitbucket.dart';
 import 'package:git_touch/models/gitea.dart';
 import 'package:git_touch/utils/request_serilizer.dart';
+import 'package:github/github.dart';
 import 'package:gql_http_link/gql_http_link.dart';
 import 'package:artemis/artemis.dart';
 import 'package:fimber/fimber.dart';
@@ -328,6 +329,7 @@ class AuthModel with ChangeNotifier {
     // https://stackoverflow.com/a/50116077
     rootKey = UniqueKey();
     activeAccountIndex = index;
+    _ghClient = null;
     _gqlClient = null;
     notifyListeners();
   }
@@ -338,6 +340,15 @@ class AuthModel with ChangeNotifier {
   // http timeout
   var _timeoutDuration = Duration(seconds: 10);
   // var _timeoutDuration = Duration(seconds: 1);
+
+  GitHub _ghClient;
+  GitHub get ghClient {
+    if (token == null) return null;
+    if (_ghClient == null) {
+      _ghClient = GitHub(auth: Authentication.withToken(token));
+    }
+    return _ghClient;
+  }
 
   ArtemisClient _gqlClient;
   ArtemisClient get gqlClient {
