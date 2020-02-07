@@ -7,10 +7,10 @@ import 'package:git_touch/widgets/issue_item.dart';
 import 'package:git_touch/widgets/label.dart';
 import 'package:provider/provider.dart';
 
-class PullsScreen extends StatelessWidget {
+class GhPullsScreen extends StatelessWidget {
   final String owner;
   final String name;
-  PullsScreen(this.owner, this.name);
+  GhPullsScreen(this.owner, this.name);
 
   Future<ListPayload<GhPullsPullRequest, String>> _query(BuildContext context,
       [String cursor]) async {

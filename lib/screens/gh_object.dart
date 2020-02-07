@@ -10,13 +10,13 @@ import 'package:git_touch/models/auth.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/utils/utils.dart';
 
-class ObjectScreen extends StatelessWidget {
+class GhObjectScreen extends StatelessWidget {
   final String owner;
   final String name;
   final String ref;
   final String path;
   final String raw;
-  ObjectScreen(this.owner, this.name, this.ref, {this.path, this.raw});
+  GhObjectScreen(this.owner, this.name, this.ref, {this.path, this.raw});
 
   @override
   Widget build(BuildContext context) {

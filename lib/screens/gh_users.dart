@@ -16,12 +16,12 @@ enum UsersScreenType {
   star,
 }
 
-class UsersScreen extends StatelessWidget {
+class GhUsersScreen extends StatelessWidget {
   final String login;
   final String repoName;
   final UsersScreenType type;
 
-  UsersScreen(this.login, this.type, {this.repoName = ''});
+  GhUsersScreen(this.login, this.type, {this.repoName = ''});
 
   String get _title {
     switch (type) {

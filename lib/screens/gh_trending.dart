@@ -10,7 +10,7 @@ import 'package:http/http.dart' as http;
 import 'package:git_touch/widgets/repository_item.dart';
 import 'package:provider/provider.dart';
 
-class TrendingScreen extends StatelessWidget {
+class GhTrendingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return TabStatefulScaffold<Iterable>(
       title: AppBarTitle('Trending'),

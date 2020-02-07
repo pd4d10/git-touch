@@ -9,10 +9,10 @@ import 'package:git_touch/widgets/issue_item.dart';
 import 'package:git_touch/widgets/label.dart';
 import 'package:provider/provider.dart';
 
-class IssuesScreen extends StatelessWidget {
+class GhIssuesScreen extends StatelessWidget {
   final String owner;
   final String name;
-  IssuesScreen(this.owner, this.name);
+  GhIssuesScreen(this.owner, this.name);
 
   Future<ListPayload<GhIssuesIssue, String>> _query(BuildContext context,
       [String cursor]) async {

@@ -4,7 +4,7 @@ import 'package:git_touch/screens/bb_object.dart';
 import 'package:git_touch/screens/bb_repo.dart';
 import 'package:git_touch/screens/bb_user.dart';
 import 'package:git_touch/screens/code_theme.dart';
-import 'package:git_touch/screens/commits.dart';
+import 'package:git_touch/screens/gh_commits.dart';
 import 'package:git_touch/screens/gitea_commits.dart';
 import 'package:git_touch/screens/gitea_issues.dart';
 import 'package:git_touch/screens/gitea_object.dart';
@@ -21,17 +21,17 @@ import 'package:git_touch/screens/gitlab_merge_requests.dart';
 import 'package:git_touch/screens/gitlab_project.dart';
 import 'package:git_touch/screens/gitlab_tree.dart';
 import 'package:git_touch/screens/gitlab_user.dart';
-import 'package:git_touch/screens/issue.dart';
-import 'package:git_touch/screens/issue_form.dart';
-import 'package:git_touch/screens/issues.dart';
+import 'package:git_touch/screens/gh_issue.dart';
+import 'package:git_touch/screens/gh_issue_form.dart';
+import 'package:git_touch/screens/gh_issues.dart';
 import 'package:git_touch/screens/login.dart';
-import 'package:git_touch/screens/object.dart';
-import 'package:git_touch/screens/pulls.dart';
-import 'package:git_touch/screens/repositories.dart';
-import 'package:git_touch/screens/repository.dart';
+import 'package:git_touch/screens/gh_object.dart';
+import 'package:git_touch/screens/gh_pulls.dart';
+import 'package:git_touch/screens/gh_repos.dart';
+import 'package:git_touch/screens/gh_repo.dart';
 import 'package:git_touch/screens/settings.dart';
-import 'package:git_touch/screens/user.dart';
-import 'package:git_touch/screens/users.dart';
+import 'package:git_touch/screens/gh_user.dart';
+import 'package:git_touch/screens/gh_users.dart';
 
 class RouterScreen {
   String path;
@@ -74,47 +74,47 @@ class GithubRouter {
     final tab = p['tab']?.first;
     switch (tab) {
       case 'followers':
-        return UsersScreen(login, UsersScreenType.follower);
+        return GhUsersScreen(login, UsersScreenType.follower);
       case 'following':
-        return UsersScreen(login, UsersScreenType.following);
+        return GhUsersScreen(login, UsersScreenType.following);
       case 'people':
-        return UsersScreen(login, UsersScreenType.member);
+        return GhUsersScreen(login, UsersScreenType.member);
       case 'stars':
-        return RepositoriesScreen.stars(login);
+        return GhReposScreen.stars(login);
       case 'repositories':
-        return RepositoriesScreen(login);
+        return GhReposScreen(login);
       default:
-        return UserScreen(login);
+        return GhUserScreen(login);
     }
   });
   static final repo = RouterScreen('/:owner/:name', (_, p) {
     if (p['ref'] == null) {
-      return RepositoryScreen(p['owner'].first, p['name'].first);
+      return GhRepoScreen(p['owner'].first, p['name'].first);
     } else {
-      return RepositoryScreen(p['owner'].first, p['name'].first,
+      return GhRepoScreen(p['owner'].first, p['name'].first,
           branch: p['ref'].first);
     }
   });
   static final issueAdd = RouterScreen('/:owner/:name/issues/new', (_, p) {
-    return IssueFormScreen(p['owner'].first, p['name'].first);
+    return GhIssueFormScreen(p['owner'].first, p['name'].first);
   });
   static final issues = RouterScreen('/:owner/:name/issues',
-      (context, p) => IssuesScreen(p['owner'].first, p['name'].first));
+      (context, p) => GhIssuesScreen(p['owner'].first, p['name'].first));
   static final pulls = RouterScreen('/:owner/:name/pulls',
-      (context, p) => PullsScreen(p['owner'].first, p['name'].first));
+      (context, p) => GhPullsScreen(p['owner'].first, p['name'].first));
   static final issue = RouterScreen(
       '/:owner/:name/issues/:number',
-      (context, p) => IssueScreen(
+      (context, p) => GhIssueScreen(
           p['owner'].first, p['name'].first, int.parse(p['number'].first)));
   static final pull = RouterScreen(
       '/:owner/:name/pull/:number',
-      (context, p) => IssueScreen(
+      (context, p) => GhIssueScreen(
           p['owner'].first, p['name'].first, int.parse(p['number'].first),
           isPullRequest: true));
   static final commits = RouterScreen('/:owner/:name/commits',
-      (context, p) => CommitsScreen(p['owner'].first, p['name'].first));
+      (context, p) => GhCommitsScreen(p['owner'].first, p['name'].first));
   static final object = RouterScreen('/:owner/:name/blob/:ref', (_, p) {
-    return ObjectScreen(
+    return GhObjectScreen(
       p['owner'].first,
       p['name'].first,
       p['ref'].first,
@@ -123,11 +123,11 @@ class GithubRouter {
     );
   });
   static final stargazers = RouterScreen('/:owner/:name/stargazers', (_, p) {
-    return UsersScreen(p['owner'].first, UsersScreenType.star,
+    return GhUsersScreen(p['owner'].first, UsersScreenType.star,
         repoName: p['name'].first);
   });
   static final watchers = RouterScreen('/:owner/:name/watchers', (_, p) {
-    return UsersScreen(p['owner'].first, UsersScreenType.watch,
+    return GhUsersScreen(p['owner'].first, UsersScreenType.watch,
         repoName: p['name'].first);
   });
 }

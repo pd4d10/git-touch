@@ -23,19 +23,20 @@ $key: reactions(content: $key) {
 }).join('\n');
 
 /// Screen for issue and pull request
-class IssueScreen extends StatefulWidget {
+class GhIssueScreen extends StatefulWidget {
   final String owner;
   final String name;
   final int number;
   final bool isPullRequest;
 
-  IssueScreen(this.owner, this.name, this.number, {this.isPullRequest = false});
+  GhIssueScreen(this.owner, this.name, this.number,
+      {this.isPullRequest = false});
 
   @override
-  _IssueScreenState createState() => _IssueScreenState();
+  _GhIssueScreenState createState() => _GhIssueScreenState();
 }
 
-class _IssueScreenState extends State<IssueScreen> {
+class _GhIssueScreenState extends State<GhIssueScreen> {
   String get owner => widget.owner;
   String get name => widget.name;
   int get number => widget.number;

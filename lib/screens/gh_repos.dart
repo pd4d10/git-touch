@@ -7,15 +7,15 @@ import 'package:provider/provider.dart';
 import 'package:git_touch/widgets/repository_item.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
-class RepositoriesScreen extends StatelessWidget {
+class GhReposScreen extends StatelessWidget {
   final String owner;
   final String title;
   final bool isStar;
 
-  RepositoriesScreen(this.owner)
+  GhReposScreen(this.owner)
       : title = 'Repositories',
         isStar = false;
-  RepositoriesScreen.stars(this.owner)
+  GhReposScreen.stars(this.owner)
       : title = 'Stars',
         isStar = true;
 

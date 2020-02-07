@@ -17,11 +17,11 @@ import 'package:git_touch/models/theme.dart';
 import 'package:tuple/tuple.dart';
 import 'package:git_touch/widgets/action_button.dart';
 
-class RepositoryScreen extends StatelessWidget {
+class GhRepoScreen extends StatelessWidget {
   final String owner;
   final String name;
   final String branch;
-  RepositoryScreen(this.owner, this.name, {this.branch});
+  GhRepoScreen(this.owner, this.name, {this.branch});
 
   Future<GhRepoRepository> _query(BuildContext context) async {
     var res = await Provider.of<AuthModel>(context).gqlClient.execute(

@@ -11,12 +11,12 @@ import 'package:provider/provider.dart';
 import '../widgets/event_item.dart';
 import 'package:git_touch/models/auth.dart';
 
-class NewsScreen extends StatefulWidget {
+class GhNewsScreen extends StatefulWidget {
   @override
-  NewsScreenState createState() => NewsScreenState();
+  GhNewsScreenState createState() => GhNewsScreenState();
 }
 
-class NewsScreenState extends State<NewsScreen> {
+class GhNewsScreenState extends State<GhNewsScreen> {
   @override
   initState() {
     super.initState();

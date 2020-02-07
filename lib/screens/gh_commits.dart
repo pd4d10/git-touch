@@ -7,11 +7,11 @@ import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/commit_item.dart';
 import 'package:provider/provider.dart';
 
-class CommitsScreen extends StatelessWidget {
+class GhCommitsScreen extends StatelessWidget {
   final String owner;
   final String name;
   final String branch;
-  CommitsScreen(this.owner, this.name, {this.branch});
+  GhCommitsScreen(this.owner, this.name, {this.branch});
 
   Future<ListPayload<GhCommitsCommit, String>> _query(BuildContext context,
       [String cursor]) async {

@@ -14,13 +14,13 @@ import 'package:git_touch/screens/gitlab_project.dart';
 import 'package:git_touch/screens/gitlab_todos.dart';
 import 'package:git_touch/screens/gitlab_user.dart';
 import 'package:git_touch/screens/login.dart';
-import 'package:git_touch/screens/notification.dart';
-import 'package:git_touch/screens/user.dart';
+import 'package:git_touch/screens/gh_notification.dart';
+import 'package:git_touch/screens/gh_user.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:provider/provider.dart';
-import 'package:git_touch/screens/news.dart';
-import 'package:git_touch/screens/search.dart';
-import 'package:git_touch/screens/trending.dart';
+import 'package:git_touch/screens/gh_news.dart';
+import 'package:git_touch/screens/gh_search.dart';
+import 'package:git_touch/screens/gh_trending.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -42,15 +42,15 @@ class _HomeState extends State<Home> {
       case PlatformType.github:
         switch (index) {
           case 0:
-            return NewsScreen();
+            return GhNewsScreen();
           case 1:
-            return NotificationScreen();
+            return GhNotificationScreen();
           case 2:
-            return TrendingScreen();
+            return GhTrendingScreen();
           case 3:
-            return SearchScreen();
+            return GhSearchScreen();
           case 4:
-            return UserScreen(null);
+            return GhUserScreen(null);
         }
         break;
       case PlatformType.gitlab:

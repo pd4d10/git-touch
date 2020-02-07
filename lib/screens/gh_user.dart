@@ -16,9 +16,9 @@ import 'package:git_touch/widgets/user_header.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/widgets/action_button.dart';
 
-class UserScreen extends StatelessWidget {
+class GhUserScreen extends StatelessWidget {
   final String login;
-  UserScreen(this.login);
+  GhUserScreen(this.login);
   bool get isViewer => login == null;
 
   Iterable<Widget> _buildPinnedItems(Iterable<GhUserRepository> pinnedItems,

@@ -12,12 +12,12 @@ import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/widgets/repository_item.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
-class SearchScreen extends StatefulWidget {
+class GhSearchScreen extends StatefulWidget {
   @override
-  _SearchScreenState createState() => _SearchScreenState();
+  _GhSearchScreenState createState() => _GhSearchScreenState();
 }
 
-class _SearchScreenState extends State<SearchScreen> {
+class _GhSearchScreenState extends State<GhSearchScreen> {
   int _activeTab = 0;
   bool _loading = false;
   List<List> _payloads = [[], [], []];

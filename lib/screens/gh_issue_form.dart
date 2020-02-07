@@ -7,16 +7,16 @@ import 'package:git_touch/scaffolds/common.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:provider/provider.dart';
 
-class IssueFormScreen extends StatefulWidget {
+class GhIssueFormScreen extends StatefulWidget {
   final String owner;
   final String name;
-  IssueFormScreen(this.owner, this.name);
+  GhIssueFormScreen(this.owner, this.name);
 
   @override
-  _IssueFormScreenState createState() => _IssueFormScreenState();
+  _GhIssueFormScreenState createState() => _GhIssueFormScreenState();
 }
 
-class _IssueFormScreenState extends State<IssueFormScreen> {
+class _GhIssueFormScreenState extends State<GhIssueFormScreen> {
   var _title = '';
   var _body = '';
 

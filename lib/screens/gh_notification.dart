@@ -13,12 +13,12 @@ import '../widgets/list_group.dart';
 import '../widgets/empty.dart';
 import '../utils/utils.dart';
 
-class NotificationScreen extends StatefulWidget {
+class GhNotificationScreen extends StatefulWidget {
   @override
-  NotificationScreenState createState() => NotificationScreenState();
+  GhNotificationScreenState createState() => GhNotificationScreenState();
 }
 
-class NotificationScreenState extends State<NotificationScreen> {
+class GhNotificationScreenState extends State<GhNotificationScreen> {
   Future<Map<String, NotificationGroup>> fetchNotifications(int index) async {
     List items = await Provider.of<AuthModel>(context).getWithCredentials(
         '/notifications?all=${index == 2}&participating=${index == 1}');
