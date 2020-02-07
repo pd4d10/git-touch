@@ -25,33 +25,19 @@ class GhReposScreen extends StatelessWidget {
         GhReposQuery(
             variables:
                 GhReposArguments(owner: owner, isStar: isStar, after: cursor)));
-    final data = res.data.repositoryOwner;
-    switch (data.resolveType) {
-      case 'User':
-        final user = data as GhReposUser;
-        if (isStar) {
-          return ListPayload(
-            cursor: user.starredRepositories.pageInfo.endCursor,
-            items: user.starredRepositories.nodes,
-            hasMore: user.starredRepositories.pageInfo.hasNextPage,
-          );
-        } else {
-          return ListPayload(
-            cursor: user.repositories.pageInfo.endCursor,
-            items: user.repositories.nodes,
-            hasMore: user.repositories.pageInfo.hasNextPage,
-          );
-        }
-        break;
-      case 'Organization':
-        final org = data as GhReposOrganization;
-        return ListPayload(
-          cursor: org.pinnableItems.pageInfo.endCursor,
-          items: org.pinnableItems.nodes,
-          hasMore: org.pinnableItems.pageInfo.hasNextPage,
-        );
-      default:
-        return null;
+    final data = res.data.user;
+    if (isStar) {
+      return ListPayload(
+        cursor: data.starredRepositories.pageInfo.endCursor,
+        items: data.starredRepositories.nodes,
+        hasMore: data.starredRepositories.pageInfo.hasNextPage,
+      );
+    } else {
+      return ListPayload(
+        cursor: data.repositories.pageInfo.endCursor,
+        items: data.repositories.nodes,
+        hasMore: data.repositories.pageInfo.hasNextPage,
+      );
     }
   }
 

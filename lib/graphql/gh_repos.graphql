@@ -1,103 +1,68 @@
 query GhRepos($owner: String!, $after: String, $isStar: Boolean!) {
-  repositoryOwner(login: $owner) {
+  user(login: $owner) {
     __typename
     login
     avatarUrl
-    ... on User {
-      repositories(
-        first: 30
-        after: $after
-        orderBy: { field: UPDATED_AT, direction: DESC }
-      ) @skip(if: $isStar) {
-        totalCount # TODO:
-        pageInfo {
-          hasNextPage
-          endCursor
-        }
-        nodes {
-          owner {
-            login
-            avatarUrl
-          }
-          name
-          description
-          isPrivate
-          isFork
-          updatedAt
-          stargazers {
-            totalCount
-          }
-          forks {
-            totalCount
-          }
-          primaryLanguage {
-            color
-            name
-          }
-        }
+    repositories(
+      first: 30
+      after: $after
+      orderBy: { field: UPDATED_AT, direction: DESC }
+    ) @skip(if: $isStar) {
+      totalCount # TODO:
+      pageInfo {
+        hasNextPage
+        endCursor
       }
-      starredRepositories(
-        first: 30
-        after: $after
-        orderBy: { field: STARRED_AT, direction: DESC }
-      ) @include(if: $isStar) {
-        pageInfo {
-          hasNextPage
-          endCursor
+      nodes {
+        owner {
+          login
+          avatarUrl
         }
-        nodes {
-          owner {
-            login
-            avatarUrl
-          }
+        name
+        description
+        isPrivate
+        isFork
+        updatedAt
+        stargazers {
+          totalCount
+        }
+        forks {
+          totalCount
+        }
+        primaryLanguage {
+          color
           name
-          description
-          isPrivate
-          isFork
-          updatedAt
-          stargazers {
-            totalCount
-          }
-          forks {
-            totalCount
-          }
-          primaryLanguage {
-            color
-            name
-          }
         }
       }
     }
-    ... on Organization {
-      pinnableItems(first: 30, after: $after, types: [REPOSITORY])
-        @skip(if: $isStar) {
-        __typename
-        pageInfo {
-          hasNextPage
-          endCursor
+    starredRepositories(
+      first: 30
+      after: $after
+      orderBy: { field: STARRED_AT, direction: DESC }
+    ) @include(if: $isStar) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      nodes {
+        owner {
+          login
+          avatarUrl
         }
-        nodes {
-          ... on Repository {
-            owner {
-              login
-              avatarUrl
-            }
-            name
-            description
-            isPrivate
-            isFork
-            updatedAt
-            stargazers {
-              totalCount
-            }
-            forks {
-              totalCount
-            }
-            primaryLanguage {
-              color
-              name
-            }
-          }
+        name
+        description
+        isPrivate
+        isFork
+        updatedAt
+        stargazers {
+          totalCount
+        }
+        forks {
+          totalCount
+        }
+        primaryLanguage {
+          color
+          name
         }
       }
     }

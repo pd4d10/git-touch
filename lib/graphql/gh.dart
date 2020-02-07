@@ -4872,52 +4872,16 @@ class GhIssuesQuery extends GraphQLQuery<GhIssues, GhIssuesArguments> {
 
 @JsonSerializable(explicitToJson: true)
 class GhRepos with EquatableMixin {
-  GhRepos({this.repositoryOwner});
+  GhRepos({this.user});
 
   factory GhRepos.fromJson(Map<String, dynamic> json) =>
       _$GhReposFromJson(json);
 
-  GhReposRepositoryOwner repositoryOwner;
+  GhReposUser user;
 
   @override
-  List<Object> get props => [repositoryOwner];
+  List<Object> get props => [user];
   Map<String, dynamic> toJson() => _$GhReposToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhReposRepositoryOwner with EquatableMixin {
-  GhReposRepositoryOwner({this.login, this.avatarUrl});
-
-  factory GhReposRepositoryOwner.fromJson(Map<String, dynamic> json) {
-    switch (json['__typename'].toString()) {
-      case 'User':
-        return GhReposUser.fromJson(json);
-      case 'Organization':
-        return GhReposOrganization.fromJson(json);
-      default:
-    }
-    return _$GhReposRepositoryOwnerFromJson(json);
-  }
-
-  String login;
-
-  String avatarUrl;
-
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [login, avatarUrl, resolveType];
-  Map<String, dynamic> toJson() {
-    switch (resolveType) {
-      case 'User':
-        return (this as GhReposUser).toJson();
-      case 'Organization':
-        return (this as GhReposOrganization).toJson();
-      default:
-    }
-    return _$GhReposRepositoryOwnerToJson(this);
-  }
 }
 
 @JsonSerializable(explicitToJson: true)
@@ -4933,11 +4897,18 @@ class GhReposUser extends GhReposAuditEntryActor
         GhReposUniformResourceLocatable,
         GhReposProfileOwner,
         GhReposSponsorable {
-  GhReposUser({this.repositories, this.starredRepositories});
+  GhReposUser({this.starredRepositories});
 
   factory GhReposUser.fromJson(Map<String, dynamic> json) =>
       _$GhReposUserFromJson(json);
 
+  @override
+  String login;
+
+  @override
+  String avatarUrl;
+
+  @override
   GhReposRepositoryConnection repositories;
 
   GhReposStarredRepositoryConnection starredRepositories;
@@ -4947,14 +4918,8 @@ class GhReposUser extends GhReposAuditEntryActor
   String resolveType;
 
   @override
-  String login;
-
-  @override
-  String avatarUrl;
-
-  @override
   List<Object> get props =>
-      [repositories, starredRepositories, resolveType, login, avatarUrl];
+      [login, avatarUrl, repositories, starredRepositories, resolveType];
   Map<String, dynamic> toJson() => _$GhReposUserToJson(this);
 }
 
@@ -5052,6 +5017,25 @@ class GhReposRepository extends GhReposPinnableItem
         resolveType
       ];
   Map<String, dynamic> toJson() => _$GhReposRepositoryToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GhReposRepositoryOwner with EquatableMixin {
+  GhReposRepositoryOwner({this.login, this.avatarUrl});
+
+  factory GhReposRepositoryOwner.fromJson(Map<String, dynamic> json) =>
+      _$GhReposRepositoryOwnerFromJson(json);
+
+  String login;
+
+  String avatarUrl;
+
+  @JsonKey(name: '__typename')
+  String resolveType;
+
+  @override
+  List<Object> get props => [login, avatarUrl, resolveType];
+  Map<String, dynamic> toJson() => _$GhReposRepositoryOwnerToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
@@ -5274,31 +5258,37 @@ class GhReposAuditEntryActor with EquatableMixin {
 
 @JsonSerializable(explicitToJson: true)
 class GhReposActor with EquatableMixin {
-  GhReposActor();
+  GhReposActor({this.login, this.avatarUrl});
 
   factory GhReposActor.fromJson(Map<String, dynamic> json) =>
       _$GhReposActorFromJson(json);
+
+  String login;
+
+  String avatarUrl;
 
   @JsonKey(name: '__typename')
   String resolveType;
 
   @override
-  List<Object> get props => [resolveType];
+  List<Object> get props => [login, avatarUrl, resolveType];
   Map<String, dynamic> toJson() => _$GhReposActorToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
 class GhReposProfileOwner with EquatableMixin {
-  GhReposProfileOwner();
+  GhReposProfileOwner({this.login});
 
   factory GhReposProfileOwner.fromJson(Map<String, dynamic> json) =>
       _$GhReposProfileOwnerFromJson(json);
+
+  String login;
 
   @JsonKey(name: '__typename')
   String resolveType;
 
   @override
-  List<Object> get props => [resolveType];
+  List<Object> get props => [login, resolveType];
   Map<String, dynamic> toJson() => _$GhReposProfileOwnerToJson(this);
 }
 
@@ -5315,73 +5305,6 @@ class GhReposSponsorable with EquatableMixin {
   @override
   List<Object> get props => [resolveType];
   Map<String, dynamic> toJson() => _$GhReposSponsorableToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhReposOrganization extends GhReposAuditEntryActor
-    with EquatableMixin
-    implements
-        GhReposNode,
-        GhReposActor,
-        GhReposRegistryPackageOwner,
-        GhReposRegistryPackageSearch,
-        GhReposProjectOwner,
-        GhReposRepositoryOwner,
-        GhReposUniformResourceLocatable,
-        GhReposMemberStatusable,
-        GhReposProfileOwner,
-        GhReposSponsorable {
-  GhReposOrganization({this.pinnableItems});
-
-  factory GhReposOrganization.fromJson(Map<String, dynamic> json) =>
-      _$GhReposOrganizationFromJson(json);
-
-  GhReposPinnableItemConnection pinnableItems;
-
-  @override
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  String login;
-
-  @override
-  String avatarUrl;
-
-  @override
-  List<Object> get props => [pinnableItems, resolveType, login, avatarUrl];
-  Map<String, dynamic> toJson() => _$GhReposOrganizationToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhReposPinnableItemConnection with EquatableMixin {
-  GhReposPinnableItemConnection({this.pageInfo, this.nodes});
-
-  factory GhReposPinnableItemConnection.fromJson(Map<String, dynamic> json) =>
-      _$GhReposPinnableItemConnectionFromJson(json);
-
-  GhReposPageInfo pageInfo;
-
-  List<GhReposPinnableItem> nodes;
-
-  @override
-  List<Object> get props => [pageInfo, nodes];
-  Map<String, dynamic> toJson() => _$GhReposPinnableItemConnectionToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GhReposMemberStatusable with EquatableMixin {
-  GhReposMemberStatusable();
-
-  factory GhReposMemberStatusable.fromJson(Map<String, dynamic> json) =>
-      _$GhReposMemberStatusableFromJson(json);
-
-  @JsonKey(name: '__typename')
-  String resolveType;
-
-  @override
-  List<Object> get props => [resolveType];
-  Map<String, dynamic> toJson() => _$GhReposMemberStatusableToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
@@ -5433,7 +5356,7 @@ class GhReposQuery extends GraphQLQuery<GhRepos, GhReposArguments> {
         directives: [],
         selectionSet: SelectionSetNode(selections: [
           FieldNode(
-              name: NameNode(value: 'repositoryOwner'),
+              name: NameNode(value: 'user'),
               alias: null,
               arguments: [
                 ArgumentNode(
@@ -5460,521 +5383,317 @@ class GhReposQuery extends GraphQLQuery<GhRepos, GhReposArguments> {
                     arguments: [],
                     directives: [],
                     selectionSet: null),
-                InlineFragmentNode(
-                    typeCondition: TypeConditionNode(
-                        on: NamedTypeNode(
-                            name: NameNode(value: 'User'), isNonNull: false)),
-                    directives: [],
+                FieldNode(
+                    name: NameNode(value: 'repositories'),
+                    alias: null,
+                    arguments: [
+                      ArgumentNode(
+                          name: NameNode(value: 'first'),
+                          value: IntValueNode(value: '30')),
+                      ArgumentNode(
+                          name: NameNode(value: 'after'),
+                          value: VariableNode(name: NameNode(value: 'after'))),
+                      ArgumentNode(
+                          name: NameNode(value: 'orderBy'),
+                          value: ObjectValueNode(fields: [
+                            ObjectFieldNode(
+                                name: NameNode(value: 'field'),
+                                value: EnumValueNode(
+                                    name: NameNode(value: 'UPDATED_AT'))),
+                            ObjectFieldNode(
+                                name: NameNode(value: 'direction'),
+                                value: EnumValueNode(
+                                    name: NameNode(value: 'DESC')))
+                          ]))
+                    ],
+                    directives: [
+                      DirectiveNode(name: NameNode(value: 'skip'), arguments: [
+                        ArgumentNode(
+                            name: NameNode(value: 'if'),
+                            value:
+                                VariableNode(name: NameNode(value: 'isStar')))
+                      ])
+                    ],
                     selectionSet: SelectionSetNode(selections: [
                       FieldNode(
-                          name: NameNode(value: 'repositories'),
+                          name: NameNode(value: 'totalCount'),
                           alias: null,
-                          arguments: [
-                            ArgumentNode(
-                                name: NameNode(value: 'first'),
-                                value: IntValueNode(value: '30')),
-                            ArgumentNode(
-                                name: NameNode(value: 'after'),
-                                value: VariableNode(
-                                    name: NameNode(value: 'after'))),
-                            ArgumentNode(
-                                name: NameNode(value: 'orderBy'),
-                                value: ObjectValueNode(fields: [
-                                  ObjectFieldNode(
-                                      name: NameNode(value: 'field'),
-                                      value: EnumValueNode(
-                                          name: NameNode(value: 'UPDATED_AT'))),
-                                  ObjectFieldNode(
-                                      name: NameNode(value: 'direction'),
-                                      value: EnumValueNode(
-                                          name: NameNode(value: 'DESC')))
-                                ]))
-                          ],
-                          directives: [
-                            DirectiveNode(
-                                name: NameNode(value: 'skip'),
-                                arguments: [
-                                  ArgumentNode(
-                                      name: NameNode(value: 'if'),
-                                      value: VariableNode(
-                                          name: NameNode(value: 'isStar')))
-                                ])
-                          ],
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'pageInfo'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
                           selectionSet: SelectionSetNode(selections: [
                             FieldNode(
-                                name: NameNode(value: 'totalCount'),
+                                name: NameNode(value: 'hasNextPage'),
                                 alias: null,
                                 arguments: [],
                                 directives: [],
                                 selectionSet: null),
                             FieldNode(
-                                name: NameNode(value: 'pageInfo'),
+                                name: NameNode(value: 'endCursor'),
                                 alias: null,
                                 arguments: [],
                                 directives: [],
-                                selectionSet: SelectionSetNode(selections: [
-                                  FieldNode(
-                                      name: NameNode(value: 'hasNextPage'),
-                                      alias: null,
-                                      arguments: [],
-                                      directives: [],
-                                      selectionSet: null),
-                                  FieldNode(
-                                      name: NameNode(value: 'endCursor'),
-                                      alias: null,
-                                      arguments: [],
-                                      directives: [],
-                                      selectionSet: null)
-                                ])),
-                            FieldNode(
-                                name: NameNode(value: 'nodes'),
-                                alias: null,
-                                arguments: [],
-                                directives: [],
-                                selectionSet: SelectionSetNode(selections: [
-                                  FieldNode(
-                                      name: NameNode(value: 'owner'),
-                                      alias: null,
-                                      arguments: [],
-                                      directives: [],
-                                      selectionSet:
-                                          SelectionSetNode(selections: [
-                                        FieldNode(
-                                            name: NameNode(value: 'login'),
-                                            alias: null,
-                                            arguments: [],
-                                            directives: [],
-                                            selectionSet: null),
-                                        FieldNode(
-                                            name: NameNode(value: 'avatarUrl'),
-                                            alias: null,
-                                            arguments: [],
-                                            directives: [],
-                                            selectionSet: null)
-                                      ])),
-                                  FieldNode(
-                                      name: NameNode(value: 'name'),
-                                      alias: null,
-                                      arguments: [],
-                                      directives: [],
-                                      selectionSet: null),
-                                  FieldNode(
-                                      name: NameNode(value: 'description'),
-                                      alias: null,
-                                      arguments: [],
-                                      directives: [],
-                                      selectionSet: null),
-                                  FieldNode(
-                                      name: NameNode(value: 'isPrivate'),
-                                      alias: null,
-                                      arguments: [],
-                                      directives: [],
-                                      selectionSet: null),
-                                  FieldNode(
-                                      name: NameNode(value: 'isFork'),
-                                      alias: null,
-                                      arguments: [],
-                                      directives: [],
-                                      selectionSet: null),
-                                  FieldNode(
-                                      name: NameNode(value: 'updatedAt'),
-                                      alias: null,
-                                      arguments: [],
-                                      directives: [],
-                                      selectionSet: null),
-                                  FieldNode(
-                                      name: NameNode(value: 'stargazers'),
-                                      alias: null,
-                                      arguments: [],
-                                      directives: [],
-                                      selectionSet:
-                                          SelectionSetNode(selections: [
-                                        FieldNode(
-                                            name: NameNode(value: 'totalCount'),
-                                            alias: null,
-                                            arguments: [],
-                                            directives: [],
-                                            selectionSet: null)
-                                      ])),
-                                  FieldNode(
-                                      name: NameNode(value: 'forks'),
-                                      alias: null,
-                                      arguments: [],
-                                      directives: [],
-                                      selectionSet:
-                                          SelectionSetNode(selections: [
-                                        FieldNode(
-                                            name: NameNode(value: 'totalCount'),
-                                            alias: null,
-                                            arguments: [],
-                                            directives: [],
-                                            selectionSet: null)
-                                      ])),
-                                  FieldNode(
-                                      name: NameNode(value: 'primaryLanguage'),
-                                      alias: null,
-                                      arguments: [],
-                                      directives: [],
-                                      selectionSet:
-                                          SelectionSetNode(selections: [
-                                        FieldNode(
-                                            name: NameNode(value: 'color'),
-                                            alias: null,
-                                            arguments: [],
-                                            directives: [],
-                                            selectionSet: null),
-                                        FieldNode(
-                                            name: NameNode(value: 'name'),
-                                            alias: null,
-                                            arguments: [],
-                                            directives: [],
-                                            selectionSet: null)
-                                      ]))
-                                ]))
+                                selectionSet: null)
                           ])),
                       FieldNode(
-                          name: NameNode(value: 'starredRepositories'),
+                          name: NameNode(value: 'nodes'),
                           alias: null,
-                          arguments: [
-                            ArgumentNode(
-                                name: NameNode(value: 'first'),
-                                value: IntValueNode(value: '30')),
-                            ArgumentNode(
-                                name: NameNode(value: 'after'),
-                                value: VariableNode(
-                                    name: NameNode(value: 'after'))),
-                            ArgumentNode(
-                                name: NameNode(value: 'orderBy'),
-                                value: ObjectValueNode(fields: [
-                                  ObjectFieldNode(
-                                      name: NameNode(value: 'field'),
-                                      value: EnumValueNode(
-                                          name: NameNode(value: 'STARRED_AT'))),
-                                  ObjectFieldNode(
-                                      name: NameNode(value: 'direction'),
-                                      value: EnumValueNode(
-                                          name: NameNode(value: 'DESC')))
-                                ]))
-                          ],
-                          directives: [
-                            DirectiveNode(
-                                name: NameNode(value: 'include'),
-                                arguments: [
-                                  ArgumentNode(
-                                      name: NameNode(value: 'if'),
-                                      value: VariableNode(
-                                          name: NameNode(value: 'isStar')))
-                                ])
-                          ],
+                          arguments: [],
+                          directives: [],
                           selectionSet: SelectionSetNode(selections: [
                             FieldNode(
-                                name: NameNode(value: 'pageInfo'),
+                                name: NameNode(value: 'owner'),
                                 alias: null,
                                 arguments: [],
                                 directives: [],
                                 selectionSet: SelectionSetNode(selections: [
                                   FieldNode(
-                                      name: NameNode(value: 'hasNextPage'),
+                                      name: NameNode(value: 'login'),
                                       alias: null,
                                       arguments: [],
                                       directives: [],
                                       selectionSet: null),
                                   FieldNode(
-                                      name: NameNode(value: 'endCursor'),
+                                      name: NameNode(value: 'avatarUrl'),
                                       alias: null,
                                       arguments: [],
                                       directives: [],
                                       selectionSet: null)
                                 ])),
                             FieldNode(
-                                name: NameNode(value: 'nodes'),
+                                name: NameNode(value: 'name'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'description'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'isPrivate'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'isFork'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'updatedAt'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'stargazers'),
                                 alias: null,
                                 arguments: [],
                                 directives: [],
                                 selectionSet: SelectionSetNode(selections: [
                                   FieldNode(
-                                      name: NameNode(value: 'owner'),
+                                      name: NameNode(value: 'totalCount'),
                                       alias: null,
                                       arguments: [],
                                       directives: [],
-                                      selectionSet:
-                                          SelectionSetNode(selections: [
-                                        FieldNode(
-                                            name: NameNode(value: 'login'),
-                                            alias: null,
-                                            arguments: [],
-                                            directives: [],
-                                            selectionSet: null),
-                                        FieldNode(
-                                            name: NameNode(value: 'avatarUrl'),
-                                            alias: null,
-                                            arguments: [],
-                                            directives: [],
-                                            selectionSet: null)
-                                      ])),
+                                      selectionSet: null)
+                                ])),
+                            FieldNode(
+                                name: NameNode(value: 'forks'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: SelectionSetNode(selections: [
+                                  FieldNode(
+                                      name: NameNode(value: 'totalCount'),
+                                      alias: null,
+                                      arguments: [],
+                                      directives: [],
+                                      selectionSet: null)
+                                ])),
+                            FieldNode(
+                                name: NameNode(value: 'primaryLanguage'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: SelectionSetNode(selections: [
+                                  FieldNode(
+                                      name: NameNode(value: 'color'),
+                                      alias: null,
+                                      arguments: [],
+                                      directives: [],
+                                      selectionSet: null),
                                   FieldNode(
                                       name: NameNode(value: 'name'),
                                       alias: null,
                                       arguments: [],
                                       directives: [],
-                                      selectionSet: null),
-                                  FieldNode(
-                                      name: NameNode(value: 'description'),
-                                      alias: null,
-                                      arguments: [],
-                                      directives: [],
-                                      selectionSet: null),
-                                  FieldNode(
-                                      name: NameNode(value: 'isPrivate'),
-                                      alias: null,
-                                      arguments: [],
-                                      directives: [],
-                                      selectionSet: null),
-                                  FieldNode(
-                                      name: NameNode(value: 'isFork'),
-                                      alias: null,
-                                      arguments: [],
-                                      directives: [],
-                                      selectionSet: null),
-                                  FieldNode(
-                                      name: NameNode(value: 'updatedAt'),
-                                      alias: null,
-                                      arguments: [],
-                                      directives: [],
-                                      selectionSet: null),
-                                  FieldNode(
-                                      name: NameNode(value: 'stargazers'),
-                                      alias: null,
-                                      arguments: [],
-                                      directives: [],
-                                      selectionSet:
-                                          SelectionSetNode(selections: [
-                                        FieldNode(
-                                            name: NameNode(value: 'totalCount'),
-                                            alias: null,
-                                            arguments: [],
-                                            directives: [],
-                                            selectionSet: null)
-                                      ])),
-                                  FieldNode(
-                                      name: NameNode(value: 'forks'),
-                                      alias: null,
-                                      arguments: [],
-                                      directives: [],
-                                      selectionSet:
-                                          SelectionSetNode(selections: [
-                                        FieldNode(
-                                            name: NameNode(value: 'totalCount'),
-                                            alias: null,
-                                            arguments: [],
-                                            directives: [],
-                                            selectionSet: null)
-                                      ])),
-                                  FieldNode(
-                                      name: NameNode(value: 'primaryLanguage'),
-                                      alias: null,
-                                      arguments: [],
-                                      directives: [],
-                                      selectionSet:
-                                          SelectionSetNode(selections: [
-                                        FieldNode(
-                                            name: NameNode(value: 'color'),
-                                            alias: null,
-                                            arguments: [],
-                                            directives: [],
-                                            selectionSet: null),
-                                        FieldNode(
-                                            name: NameNode(value: 'name'),
-                                            alias: null,
-                                            arguments: [],
-                                            directives: [],
-                                            selectionSet: null)
-                                      ]))
+                                      selectionSet: null)
                                 ]))
                           ]))
                     ])),
-                InlineFragmentNode(
-                    typeCondition: TypeConditionNode(
-                        on: NamedTypeNode(
-                            name: NameNode(value: 'Organization'),
-                            isNonNull: false)),
-                    directives: [],
-                    selectionSet: SelectionSetNode(selections: [
-                      FieldNode(
-                          name: NameNode(value: 'pinnableItems'),
-                          alias: null,
+                FieldNode(
+                    name: NameNode(value: 'starredRepositories'),
+                    alias: null,
+                    arguments: [
+                      ArgumentNode(
+                          name: NameNode(value: 'first'),
+                          value: IntValueNode(value: '30')),
+                      ArgumentNode(
+                          name: NameNode(value: 'after'),
+                          value: VariableNode(name: NameNode(value: 'after'))),
+                      ArgumentNode(
+                          name: NameNode(value: 'orderBy'),
+                          value: ObjectValueNode(fields: [
+                            ObjectFieldNode(
+                                name: NameNode(value: 'field'),
+                                value: EnumValueNode(
+                                    name: NameNode(value: 'STARRED_AT'))),
+                            ObjectFieldNode(
+                                name: NameNode(value: 'direction'),
+                                value: EnumValueNode(
+                                    name: NameNode(value: 'DESC')))
+                          ]))
+                    ],
+                    directives: [
+                      DirectiveNode(
+                          name: NameNode(value: 'include'),
                           arguments: [
                             ArgumentNode(
-                                name: NameNode(value: 'first'),
-                                value: IntValueNode(value: '30')),
-                            ArgumentNode(
-                                name: NameNode(value: 'after'),
+                                name: NameNode(value: 'if'),
                                 value: VariableNode(
-                                    name: NameNode(value: 'after'))),
-                            ArgumentNode(
-                                name: NameNode(value: 'types'),
-                                value: ListValueNode(values: [
-                                  EnumValueNode(
-                                      name: NameNode(value: 'REPOSITORY'))
-                                ]))
-                          ],
-                          directives: [
-                            DirectiveNode(
-                                name: NameNode(value: 'skip'),
-                                arguments: [
-                                  ArgumentNode(
-                                      name: NameNode(value: 'if'),
-                                      value: VariableNode(
-                                          name: NameNode(value: 'isStar')))
-                                ])
-                          ],
+                                    name: NameNode(value: 'isStar')))
+                          ])
+                    ],
+                    selectionSet: SelectionSetNode(selections: [
+                      FieldNode(
+                          name: NameNode(value: 'pageInfo'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
                           selectionSet: SelectionSetNode(selections: [
                             FieldNode(
-                                name: NameNode(value: '__typename'),
+                                name: NameNode(value: 'hasNextPage'),
                                 alias: null,
                                 arguments: [],
                                 directives: [],
                                 selectionSet: null),
                             FieldNode(
-                                name: NameNode(value: 'pageInfo'),
+                                name: NameNode(value: 'endCursor'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null)
+                          ])),
+                      FieldNode(
+                          name: NameNode(value: 'nodes'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: SelectionSetNode(selections: [
+                            FieldNode(
+                                name: NameNode(value: 'owner'),
                                 alias: null,
                                 arguments: [],
                                 directives: [],
                                 selectionSet: SelectionSetNode(selections: [
                                   FieldNode(
-                                      name: NameNode(value: 'hasNextPage'),
+                                      name: NameNode(value: 'login'),
                                       alias: null,
                                       arguments: [],
                                       directives: [],
                                       selectionSet: null),
                                   FieldNode(
-                                      name: NameNode(value: 'endCursor'),
+                                      name: NameNode(value: 'avatarUrl'),
                                       alias: null,
                                       arguments: [],
                                       directives: [],
                                       selectionSet: null)
                                 ])),
                             FieldNode(
-                                name: NameNode(value: 'nodes'),
+                                name: NameNode(value: 'name'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'description'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'isPrivate'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'isFork'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'updatedAt'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'stargazers'),
                                 alias: null,
                                 arguments: [],
                                 directives: [],
                                 selectionSet: SelectionSetNode(selections: [
-                                  InlineFragmentNode(
-                                      typeCondition: TypeConditionNode(
-                                          on: NamedTypeNode(
-                                              name:
-                                                  NameNode(value: 'Repository'),
-                                              isNonNull: false)),
+                                  FieldNode(
+                                      name: NameNode(value: 'totalCount'),
+                                      alias: null,
+                                      arguments: [],
                                       directives: [],
-                                      selectionSet:
-                                          SelectionSetNode(selections: [
-                                        FieldNode(
-                                            name: NameNode(value: 'owner'),
-                                            alias: null,
-                                            arguments: [],
-                                            directives: [],
-                                            selectionSet:
-                                                SelectionSetNode(selections: [
-                                              FieldNode(
-                                                  name:
-                                                      NameNode(value: 'login'),
-                                                  alias: null,
-                                                  arguments: [],
-                                                  directives: [],
-                                                  selectionSet: null),
-                                              FieldNode(
-                                                  name: NameNode(
-                                                      value: 'avatarUrl'),
-                                                  alias: null,
-                                                  arguments: [],
-                                                  directives: [],
-                                                  selectionSet: null)
-                                            ])),
-                                        FieldNode(
-                                            name: NameNode(value: 'name'),
-                                            alias: null,
-                                            arguments: [],
-                                            directives: [],
-                                            selectionSet: null),
-                                        FieldNode(
-                                            name:
-                                                NameNode(value: 'description'),
-                                            alias: null,
-                                            arguments: [],
-                                            directives: [],
-                                            selectionSet: null),
-                                        FieldNode(
-                                            name: NameNode(value: 'isPrivate'),
-                                            alias: null,
-                                            arguments: [],
-                                            directives: [],
-                                            selectionSet: null),
-                                        FieldNode(
-                                            name: NameNode(value: 'isFork'),
-                                            alias: null,
-                                            arguments: [],
-                                            directives: [],
-                                            selectionSet: null),
-                                        FieldNode(
-                                            name: NameNode(value: 'updatedAt'),
-                                            alias: null,
-                                            arguments: [],
-                                            directives: [],
-                                            selectionSet: null),
-                                        FieldNode(
-                                            name: NameNode(value: 'stargazers'),
-                                            alias: null,
-                                            arguments: [],
-                                            directives: [],
-                                            selectionSet:
-                                                SelectionSetNode(selections: [
-                                              FieldNode(
-                                                  name: NameNode(
-                                                      value: 'totalCount'),
-                                                  alias: null,
-                                                  arguments: [],
-                                                  directives: [],
-                                                  selectionSet: null)
-                                            ])),
-                                        FieldNode(
-                                            name: NameNode(value: 'forks'),
-                                            alias: null,
-                                            arguments: [],
-                                            directives: [],
-                                            selectionSet:
-                                                SelectionSetNode(selections: [
-                                              FieldNode(
-                                                  name: NameNode(
-                                                      value: 'totalCount'),
-                                                  alias: null,
-                                                  arguments: [],
-                                                  directives: [],
-                                                  selectionSet: null)
-                                            ])),
-                                        FieldNode(
-                                            name: NameNode(
-                                                value: 'primaryLanguage'),
-                                            alias: null,
-                                            arguments: [],
-                                            directives: [],
-                                            selectionSet:
-                                                SelectionSetNode(selections: [
-                                              FieldNode(
-                                                  name:
-                                                      NameNode(value: 'color'),
-                                                  alias: null,
-                                                  arguments: [],
-                                                  directives: [],
-                                                  selectionSet: null),
-                                              FieldNode(
-                                                  name: NameNode(value: 'name'),
-                                                  alias: null,
-                                                  arguments: [],
-                                                  directives: [],
-                                                  selectionSet: null)
-                                            ]))
-                                      ]))
+                                      selectionSet: null)
+                                ])),
+                            FieldNode(
+                                name: NameNode(value: 'forks'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: SelectionSetNode(selections: [
+                                  FieldNode(
+                                      name: NameNode(value: 'totalCount'),
+                                      alias: null,
+                                      arguments: [],
+                                      directives: [],
+                                      selectionSet: null)
+                                ])),
+                            FieldNode(
+                                name: NameNode(value: 'primaryLanguage'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: SelectionSetNode(selections: [
+                                  FieldNode(
+                                      name: NameNode(value: 'color'),
+                                      alias: null,
+                                      arguments: [],
+                                      directives: [],
+                                      selectionSet: null),
+                                  FieldNode(
+                                      name: NameNode(value: 'name'),
+                                      alias: null,
+                                      arguments: [],
+                                      directives: [],
+                                      selectionSet: null)
                                 ]))
                           ]))
                     ]))

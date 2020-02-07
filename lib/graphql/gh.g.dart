@@ -2371,56 +2371,39 @@ Map<String, dynamic> _$GhIssuesArgumentsToJson(GhIssuesArguments instance) =>
 
 GhRepos _$GhReposFromJson(Map<String, dynamic> json) {
   return GhRepos(
-    repositoryOwner: json['repositoryOwner'] == null
+    user: json['user'] == null
         ? null
-        : GhReposRepositoryOwner.fromJson(
-            json['repositoryOwner'] as Map<String, dynamic>),
+        : GhReposUser.fromJson(json['user'] as Map<String, dynamic>),
   );
 }
 
 Map<String, dynamic> _$GhReposToJson(GhRepos instance) => <String, dynamic>{
-      'repositoryOwner': instance.repositoryOwner?.toJson(),
-    };
-
-GhReposRepositoryOwner _$GhReposRepositoryOwnerFromJson(
-    Map<String, dynamic> json) {
-  return GhReposRepositoryOwner(
-    login: json['login'] as String,
-    avatarUrl: json['avatarUrl'] as String,
-  )..resolveType = json['__typename'] as String;
-}
-
-Map<String, dynamic> _$GhReposRepositoryOwnerToJson(
-        GhReposRepositoryOwner instance) =>
-    <String, dynamic>{
-      'login': instance.login,
-      'avatarUrl': instance.avatarUrl,
-      '__typename': instance.resolveType,
+      'user': instance.user?.toJson(),
     };
 
 GhReposUser _$GhReposUserFromJson(Map<String, dynamic> json) {
   return GhReposUser(
-    repositories: json['repositories'] == null
-        ? null
-        : GhReposRepositoryConnection.fromJson(
-            json['repositories'] as Map<String, dynamic>),
     starredRepositories: json['starredRepositories'] == null
         ? null
         : GhReposStarredRepositoryConnection.fromJson(
             json['starredRepositories'] as Map<String, dynamic>),
   )
-    ..resolveType = json['__typename'] as String
     ..login = json['login'] as String
-    ..avatarUrl = json['avatarUrl'] as String;
+    ..avatarUrl = json['avatarUrl'] as String
+    ..repositories = json['repositories'] == null
+        ? null
+        : GhReposRepositoryConnection.fromJson(
+            json['repositories'] as Map<String, dynamic>)
+    ..resolveType = json['__typename'] as String;
 }
 
 Map<String, dynamic> _$GhReposUserToJson(GhReposUser instance) =>
     <String, dynamic>{
+      'login': instance.login,
+      'avatarUrl': instance.avatarUrl,
       'repositories': instance.repositories?.toJson(),
       'starredRepositories': instance.starredRepositories?.toJson(),
       '__typename': instance.resolveType,
-      'login': instance.login,
-      'avatarUrl': instance.avatarUrl,
     };
 
 GhReposRepositoryConnection _$GhReposRepositoryConnectionFromJson(
@@ -2498,6 +2481,22 @@ Map<String, dynamic> _$GhReposRepositoryToJson(GhReposRepository instance) =>
       'stargazers': instance.stargazers?.toJson(),
       'forks': instance.forks?.toJson(),
       'primaryLanguage': instance.primaryLanguage?.toJson(),
+      '__typename': instance.resolveType,
+    };
+
+GhReposRepositoryOwner _$GhReposRepositoryOwnerFromJson(
+    Map<String, dynamic> json) {
+  return GhReposRepositoryOwner(
+    login: json['login'] as String,
+    avatarUrl: json['avatarUrl'] as String,
+  )..resolveType = json['__typename'] as String;
+}
+
+Map<String, dynamic> _$GhReposRepositoryOwnerToJson(
+        GhReposRepositoryOwner instance) =>
+    <String, dynamic>{
+      'login': instance.login,
+      'avatarUrl': instance.avatarUrl,
       '__typename': instance.resolveType,
     };
 
@@ -2676,21 +2675,29 @@ Map<String, dynamic> _$GhReposAuditEntryActorToJson(
     <String, dynamic>{};
 
 GhReposActor _$GhReposActorFromJson(Map<String, dynamic> json) {
-  return GhReposActor()..resolveType = json['__typename'] as String;
+  return GhReposActor(
+    login: json['login'] as String,
+    avatarUrl: json['avatarUrl'] as String,
+  )..resolveType = json['__typename'] as String;
 }
 
 Map<String, dynamic> _$GhReposActorToJson(GhReposActor instance) =>
     <String, dynamic>{
+      'login': instance.login,
+      'avatarUrl': instance.avatarUrl,
       '__typename': instance.resolveType,
     };
 
 GhReposProfileOwner _$GhReposProfileOwnerFromJson(Map<String, dynamic> json) {
-  return GhReposProfileOwner()..resolveType = json['__typename'] as String;
+  return GhReposProfileOwner(
+    login: json['login'] as String,
+  )..resolveType = json['__typename'] as String;
 }
 
 Map<String, dynamic> _$GhReposProfileOwnerToJson(
         GhReposProfileOwner instance) =>
     <String, dynamic>{
+      'login': instance.login,
       '__typename': instance.resolveType,
     };
 
@@ -2699,59 +2706,6 @@ GhReposSponsorable _$GhReposSponsorableFromJson(Map<String, dynamic> json) {
 }
 
 Map<String, dynamic> _$GhReposSponsorableToJson(GhReposSponsorable instance) =>
-    <String, dynamic>{
-      '__typename': instance.resolveType,
-    };
-
-GhReposOrganization _$GhReposOrganizationFromJson(Map<String, dynamic> json) {
-  return GhReposOrganization(
-    pinnableItems: json['pinnableItems'] == null
-        ? null
-        : GhReposPinnableItemConnection.fromJson(
-            json['pinnableItems'] as Map<String, dynamic>),
-  )
-    ..resolveType = json['__typename'] as String
-    ..login = json['login'] as String
-    ..avatarUrl = json['avatarUrl'] as String;
-}
-
-Map<String, dynamic> _$GhReposOrganizationToJson(
-        GhReposOrganization instance) =>
-    <String, dynamic>{
-      'pinnableItems': instance.pinnableItems?.toJson(),
-      '__typename': instance.resolveType,
-      'login': instance.login,
-      'avatarUrl': instance.avatarUrl,
-    };
-
-GhReposPinnableItemConnection _$GhReposPinnableItemConnectionFromJson(
-    Map<String, dynamic> json) {
-  return GhReposPinnableItemConnection(
-    pageInfo: json['pageInfo'] == null
-        ? null
-        : GhReposPageInfo.fromJson(json['pageInfo'] as Map<String, dynamic>),
-    nodes: (json['nodes'] as List)
-        ?.map((e) => e == null
-            ? null
-            : GhReposPinnableItem.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
-  );
-}
-
-Map<String, dynamic> _$GhReposPinnableItemConnectionToJson(
-        GhReposPinnableItemConnection instance) =>
-    <String, dynamic>{
-      'pageInfo': instance.pageInfo?.toJson(),
-      'nodes': instance.nodes?.map((e) => e?.toJson())?.toList(),
-    };
-
-GhReposMemberStatusable _$GhReposMemberStatusableFromJson(
-    Map<String, dynamic> json) {
-  return GhReposMemberStatusable()..resolveType = json['__typename'] as String;
-}
-
-Map<String, dynamic> _$GhReposMemberStatusableToJson(
-        GhReposMemberStatusable instance) =>
     <String, dynamic>{
       '__typename': instance.resolveType,
     };
