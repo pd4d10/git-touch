@@ -6,8 +6,8 @@ import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/screens/bb_explore.dart';
 import 'package:git_touch/screens/bb_teams.dart';
 import 'package:git_touch/screens/bb_user.dart';
-import 'package:git_touch/screens/gitea_orgs.dart';
-import 'package:git_touch/screens/gitea_user.dart';
+import 'package:git_touch/screens/gt_orgs.dart';
+import 'package:git_touch/screens/gt_user.dart';
 import 'package:git_touch/screens/gitlab_explore.dart';
 import 'package:git_touch/screens/gitlab_groups.dart';
 import 'package:git_touch/screens/gitlab_project.dart';
@@ -76,9 +76,9 @@ class _HomeState extends State<Home> {
       case PlatformType.gitea:
         switch (index) {
           case 0:
-            return GiteaOrgsScreen();
+            return GtOrgsScreen();
           case 1:
-            return GiteaUserScreen(null);
+            return GtUserScreen(null);
         }
         break;
     }

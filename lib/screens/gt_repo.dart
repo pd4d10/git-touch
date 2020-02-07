@@ -13,10 +13,10 @@ import 'package:git_touch/widgets/table_view.dart';
 import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
 
-class GiteaRepoScreen extends StatelessWidget {
+class GtRepoScreen extends StatelessWidget {
   final String owner;
   final String name;
-  GiteaRepoScreen(this.owner, this.name);
+  GtRepoScreen(this.owner, this.name);
 
   @override
   Widget build(BuildContext context) {

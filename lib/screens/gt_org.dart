@@ -4,51 +4,43 @@ import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/gitea.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
-import 'package:git_touch/widgets/action_entry.dart';
 import 'package:git_touch/widgets/repository_item.dart';
 import 'package:git_touch/widgets/user_header.dart';
 import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
-class GiteaUserScreen extends StatelessWidget {
+class GtOrgScreen extends StatelessWidget {
   final String login;
-  GiteaUserScreen(this.login);
-  bool get isViewer => login == null;
+  GtOrgScreen(this.login);
 
   @override
   Widget build(BuildContext context) {
-    return RefreshStatefulScaffold<Tuple2<GiteaUser, List<GiteaRepository>>>(
-      title: Text(isViewer ? 'Me' : 'User'),
+    return RefreshStatefulScaffold<Tuple2<GiteaOrg, List<GiteaRepository>>>(
+      title: Text(login),
       fetchData: () async {
         final auth = Provider.of<AuthModel>(context);
         final res = await Future.wait([
-          auth.fetchGitea(isViewer ? '/user' : '/users/$login'),
-          auth.fetchGitea(isViewer ? '/user/repos' : '/users/$login/repos'),
+          auth.fetchGitea('/orgs/$login'),
+          auth.fetchGitea('/orgs/$login/repos'),
         ]);
         return Tuple2(
-          GiteaUser.fromJson(res[0]),
+          GiteaOrg.fromJson(res[0]),
           [for (var v in res[1]) GiteaRepository.fromJson(v)],
         );
       },
-      action: isViewer
-          ? ActionEntry(
-              iconData: Icons.settings,
-              url: '/settings',
-            )
-          : null,
       bodyBuilder: (data, _) {
-        final user = data.item1;
+        final org = data.item1;
         final repos = data.item2;
 
         return Column(
           children: <Widget>[
             UserHeader(
-              login: user.login,
-              avatarUrl: user.avatarUrl,
-              name: user.fullName,
-              createdAt: user.created,
-              bio: '',
+              login: org.username,
+              avatarUrl: org.avatarUrl,
+              name: org.fullName,
+              createdAt: null,
+              bio: org.description,
             ),
             CommonStyle.border,
             Column(

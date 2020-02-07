@@ -6,7 +6,7 @@ import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/user_item.dart';
 import 'package:provider/provider.dart';
 
-class GiteaOrgsScreen extends StatelessWidget {
+class GtOrgsScreen extends StatelessWidget {
   // final String branch; // TODO:
   Future<ListPayload<GiteaOrg, int>> _query(BuildContext context,
       [int page = 1]) async {

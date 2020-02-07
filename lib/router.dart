@@ -5,12 +5,12 @@ import 'package:git_touch/screens/bb_repo.dart';
 import 'package:git_touch/screens/bb_user.dart';
 import 'package:git_touch/screens/code_theme.dart';
 import 'package:git_touch/screens/gh_commits.dart';
-import 'package:git_touch/screens/gitea_commits.dart';
-import 'package:git_touch/screens/gitea_issues.dart';
-import 'package:git_touch/screens/gitea_object.dart';
-import 'package:git_touch/screens/gitea_org.dart';
-import 'package:git_touch/screens/gitea_repo.dart';
-import 'package:git_touch/screens/gitea_user.dart';
+import 'package:git_touch/screens/gt_commits.dart';
+import 'package:git_touch/screens/gt_issues.dart';
+import 'package:git_touch/screens/gt_object.dart';
+import 'package:git_touch/screens/gt_org.dart';
+import 'package:git_touch/screens/gt_repo.dart';
+import 'package:git_touch/screens/gt_user.dart';
 import 'package:git_touch/screens/gitlab_blob.dart';
 import 'package:git_touch/screens/gitlab_commits.dart';
 import 'package:git_touch/screens/gitlab_group.dart';
@@ -211,30 +211,28 @@ class GiteaRouter {
   static final user = RouterScreen(
     '/:login',
     (context, params) => params['org'].first == '1'
-        ? GiteaOrgScreen(params['login'].first)
-        : GiteaUserScreen(params['login'].first),
+        ? GtOrgScreen(params['login'].first)
+        : GtUserScreen(params['login'].first),
   );
   static final repo = RouterScreen(
     '/:owner/:name',
     (context, params) =>
-        GiteaRepoScreen(params['owner'].first, params['name'].first),
+        GtRepoScreen(params['owner'].first, params['name'].first),
   );
   static final object = RouterScreen(
     '/:owner/:name/blob',
-    (context, params) => GiteaObjectScreen(
+    (context, params) => GtObjectScreen(
       params['owner'].first,
       params['name'].first,
       path: params['path']?.first,
     ),
   );
   static final commits = RouterScreen('/:owner/:name/commits',
-      (_, p) => GiteaCommitsScreen(p['owner'].first, p['name'].first));
+      (_, p) => GtCommitsScreen(p['owner'].first, p['name'].first));
   static final issues = RouterScreen('/:owner/:name/issues',
-      (_, p) => GiteaIssuesScreen(p['owner'].first, p['name'].first));
-  static final pulls = RouterScreen(
-      '/:owner/:name/pulls',
-      (_, p) =>
-          GiteaIssuesScreen(p['owner'].first, p['name'].first, isPr: true));
+      (_, p) => GtIssuesScreen(p['owner'].first, p['name'].first));
+  static final pulls = RouterScreen('/:owner/:name/pulls',
+      (_, p) => GtIssuesScreen(p['owner'].first, p['name'].first, isPr: true));
 }
 
 class BitbucketRouter {

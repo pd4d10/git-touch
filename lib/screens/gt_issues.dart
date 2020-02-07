@@ -6,11 +6,11 @@ import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/issue_item.dart';
 import 'package:provider/provider.dart';
 
-class GiteaIssuesScreen extends StatelessWidget {
+class GtIssuesScreen extends StatelessWidget {
   final String owner;
   final String name;
   final bool isPr;
-  GiteaIssuesScreen(this.owner, this.name, {this.isPr = false});
+  GtIssuesScreen(this.owner, this.name, {this.isPr = false});
 
   Future<ListPayload<GiteaIssue, int>> _query(BuildContext context,
       [int page = 1]) async {

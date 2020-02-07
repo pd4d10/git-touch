@@ -6,11 +6,11 @@ import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/commit_item.dart';
 import 'package:provider/provider.dart';
 
-class GiteaCommitsScreen extends StatelessWidget {
+class GtCommitsScreen extends StatelessWidget {
   final String owner;
   final String name;
   // final String branch; // TODO:
-  GiteaCommitsScreen(this.owner, this.name);
+  GtCommitsScreen(this.owner, this.name);
 
   Future<ListPayload<GiteaCommit, int>> _query(BuildContext context,
       [int page = 1]) async {

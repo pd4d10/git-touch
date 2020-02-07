@@ -9,11 +9,11 @@ import 'package:git_touch/widgets/blob_view.dart';
 import 'package:git_touch/widgets/object_tree.dart';
 import 'package:provider/provider.dart';
 
-class GiteaObjectScreen extends StatelessWidget {
+class GtObjectScreen extends StatelessWidget {
   final String owner;
   final String name;
   final String path;
-  GiteaObjectScreen(this.owner, this.name, {this.path});
+  GtObjectScreen(this.owner, this.name, {this.path});
 
   @override
   Widget build(BuildContext context) {
