@@ -12,6 +12,7 @@ import 'package:git_touch/widgets/mutation_button.dart';
 import 'package:git_touch/widgets/markdown_view.dart';
 import 'package:git_touch/widgets/repo_header.dart';
 import 'package:git_touch/widgets/table_view.dart';
+import 'package:github/github.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:tuple/tuple.dart';
@@ -107,14 +108,28 @@ class GhRepoScreen extends StatelessWidget {
     }
   }
 
+  Future<String> _fetchReadme(BuildContext context) async {
+    try {
+      final auth = Provider.of<AuthModel>(context);
+      final res = await auth.ghClient.repositories
+          .getReadme(RepositorySlug(owner, name));
+      return res.text;
+    } catch (e) {
+      // 404
+      return null;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final theme = Provider.of<ThemeModel>(context);
+    final auth = Provider.of<AuthModel>(context);
     return RefreshStatefulScaffold<Tuple2<GhRepoRepository, String>>(
       title: AppBarTitle('Repository'),
       fetchData: () async {
         final rs = await Future.wait([
           _query(context),
-          Provider.of<AuthModel>(context).getRaw('/repos/$owner/$name/readme'),
+          _fetchReadme(context),
         ]);
         return Tuple2(rs[0] as GhRepoRepository, rs[1] as String);
       },
@@ -146,8 +161,6 @@ class GhRepoScreen extends StatelessWidget {
             repo.languages.edges.length +
             1;
 
-        final theme = Provider.of<ThemeModel>(context);
-        final auth = Provider.of<AuthModel>(context);
         final license = repo.licenseInfo?.spdxId ?? repo.licenseInfo?.name;
 
         return Column(
@@ -351,7 +364,7 @@ class GhRepoScreen extends StatelessWidget {
                         final refs = repo.refs.nodes;
                         if (refs.length < 2) return;
 
-                        await Provider.of<ThemeModel>(context).showPicker(
+                        await theme.showPicker(
                           context,
                           PickerGroupItem(
                             value: ref.name,
@@ -360,8 +373,7 @@ class GhRepoScreen extends StatelessWidget {
                                 .toList(),
                             onChange: (ref) {
                               if (ref != branch) {
-                                Provider.of<ThemeModel>(context).push(
-                                    context, '/$owner/$name?ref=$ref',
+                                theme.push(context, '/$owner/$name?ref=$ref',
                                     replace: true);
                               }
                             },

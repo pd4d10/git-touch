@@ -405,15 +405,6 @@ class AuthModel with ChangeNotifier {
     return data;
   }
 
-  Future<String> getRaw(String url) async {
-    final res = await http.get(_apiPrefix + url, headers: {
-      ..._headers,
-      // https://developer.github.com/v3/repos/contents/#custom-media-types
-      HttpHeaders.acceptHeader: 'application/vnd.github.v3.raw'
-    }).timeout(_timeoutDuration);
-    return res.body;
-  }
-
   String _oauthState;
   void redirectToGithubOauth() {
     _oauthState = nanoid();
