@@ -237,7 +237,7 @@ class GhUserScreen extends StatelessWidget {
           EntryItem(
             count: p.pinnableItems.totalCount,
             text: 'Repositories',
-            url: '/${p.login}?tab=repositories',
+            url: '/${p.login}?tab=orgrepo',
           ),
           EntryItem(
             count: p.membersWithRole.totalCount,

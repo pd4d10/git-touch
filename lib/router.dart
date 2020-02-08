@@ -5,6 +5,7 @@ import 'package:git_touch/screens/bb_repo.dart';
 import 'package:git_touch/screens/bb_user.dart';
 import 'package:git_touch/screens/code_theme.dart';
 import 'package:git_touch/screens/gh_commits.dart';
+import 'package:git_touch/screens/gh_org_repos.dart';
 import 'package:git_touch/screens/gt_commits.dart';
 import 'package:git_touch/screens/gt_issues.dart';
 import 'package:git_touch/screens/gt_object.dart';
@@ -83,6 +84,8 @@ class GithubRouter {
         return GhReposScreen.stars(login);
       case 'repositories':
         return GhReposScreen(login);
+      case 'orgrepo':
+        return GhOrgReposScreen(login);
       default:
         return GhUserScreen(login);
     }

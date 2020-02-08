@@ -44,23 +44,24 @@ class GhReposScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GhReposRepository, String>(
-        title: AppBarTitle(title),
-        onRefresh: () => _query(context),
-        onLoadMore: (cursor) => _query(context, cursor),
-        itemBuilder: (v) {
-          return RepositoryItem.gh(
-            owner: v.owner.login,
-            avatarUrl: v.owner.avatarUrl,
-            name: v.name,
-            description: v.description,
-            starCount: v.stargazers.totalCount,
-            forkCount: v.forks.totalCount,
-            primaryLanguageName: v.primaryLanguage?.name,
-            primaryLanguageColor: v.primaryLanguage?.color,
-            note: 'Updated ${timeago.format(v.updatedAt)}',
-            isPrivate: v.isPrivate,
-            isFork: v.isFork,
-          );
-        });
+      title: AppBarTitle(title),
+      onRefresh: () => _query(context),
+      onLoadMore: (cursor) => _query(context, cursor),
+      itemBuilder: (v) {
+        return RepositoryItem.gh(
+          owner: v.owner.login,
+          avatarUrl: v.owner.avatarUrl,
+          name: v.name,
+          description: v.description,
+          starCount: v.stargazers.totalCount,
+          forkCount: v.forks.totalCount,
+          primaryLanguageName: v.primaryLanguage?.name,
+          primaryLanguageColor: v.primaryLanguage?.color,
+          note: 'Updated ${timeago.format(v.updatedAt)}',
+          isPrivate: v.isPrivate,
+          isFork: v.isFork,
+        );
+      },
+    );
   }
 }
