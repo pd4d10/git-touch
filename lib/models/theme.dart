@@ -213,65 +213,53 @@ class ThemeModel with ChangeNotifier {
     }
   }
 
-  pushGitlab(BuildContext context, String url, {bool replace = false}) {
-    if (url.startsWith('/')) {
-      push(context, '/gitlab/$url', replace: replace);
-    } else {
-      launchUrl(url);
-    }
-  }
-
   Future<bool> showConfirm(BuildContext context, Widget content) {
-    switch (theme) {
-      case AppThemeType.cupertino:
-      default:
-        return showCupertinoDialog(
-          context: context,
-          builder: (context) {
-            return CupertinoAlertDialog(
-              title: content,
-              actions: <Widget>[
-                CupertinoDialogAction(
-                  child: const Text('cancel'),
-                  isDefaultAction: true,
-                  onPressed: () {
-                    Navigator.pop(context, false);
-                  },
-                ),
-                CupertinoDialogAction(
-                  child: const Text('OK'),
-                  onPressed: () {
-                    Navigator.pop(context, true);
-                  },
-                ),
-              ],
-            );
-          },
+    return showCupertinoDialog(
+      context: context,
+      builder: (context) {
+        return CupertinoAlertDialog(
+          title: content,
+          actions: <Widget>[
+            CupertinoDialogAction(
+              child: const Text('cancel'),
+              isDefaultAction: true,
+              onPressed: () {
+                Navigator.pop(context, false);
+              },
+            ),
+            CupertinoDialogAction(
+              child: const Text('OK'),
+              onPressed: () {
+                Navigator.pop(context, true);
+              },
+            ),
+          ],
         );
-      // default:
-      //   return showDialog(
-      //     context: context,
-      //     builder: (BuildContext context) {
-      //       return AlertDialog(
-      //         content: content,
-      //         actions: <Widget>[
-      //           FlatButton(
-      //             child: const Text('CANCEL'),
-      //             onPressed: () {
-      //               Navigator.pop(context, false);
-      //             },
-      //           ),
-      //           FlatButton(
-      //             child: const Text('OK'),
-      //             onPressed: () {
-      //               Navigator.pop(context, true);
-      //             },
-      //           )
-      //         ],
-      //       );
-      //     },
-      //   );
-    }
+      },
+    );
+    // default:
+    //   return showDialog(
+    //     context: context,
+    //     builder: (BuildContext context) {
+    //       return AlertDialog(
+    //         content: content,
+    //         actions: <Widget>[
+    //           FlatButton(
+    //             child: const Text('CANCEL'),
+    //             onPressed: () {
+    //               Navigator.pop(context, false);
+    //             },
+    //           ),
+    //           FlatButton(
+    //             child: const Text('OK'),
+    //             onPressed: () {
+    //               Navigator.pop(context, true);
+    //             },
+    //           )
+    //         ],
+    //       );
+    //     },
+    //   );
   }
 
   Future<T> showDialogOptions<T>(
@@ -332,69 +320,45 @@ class ThemeModel with ChangeNotifier {
     }
   }
 
-  showSelector<T>({
-    @required BuildContext context,
-    @required Iterable<SelectorItem<T>> items,
-    @required T selected,
-  }) async {
-    switch (theme) {
-      case AppThemeType.cupertino:
-      default:
-        return showMenu<T>(
-          context: context,
-          initialValue: selected,
-          items: items
-              .map((item) =>
-                  PopupMenuItem(value: item.value, child: Text(item.text)))
-              .toList(),
-          position: RelativeRect.fromLTRB(1, 10, 0, 0),
-        );
-    }
-  }
-
   static Timer _debounce;
   String _selectedItem;
 
   showPicker(BuildContext context, PickerGroupItem<String> groupItem) async {
-    switch (theme) {
-      case AppThemeType.cupertino:
-      default:
-        await showCupertinoModalPopup(
-          context: context,
-          builder: (context) {
-            return Container(
-              height: 216,
-              child: CupertinoPicker(
-                backgroundColor: palette.background,
-                children: <Widget>[
-                  for (var v in groupItem.items)
-                    Text(v.text, style: TextStyle(color: palette.text)),
-                ],
-                itemExtent: 40,
-                scrollController: FixedExtentScrollController(
-                    initialItem: groupItem.items
-                        .toList()
-                        .indexWhere((v) => v.value == groupItem.value)),
-                onSelectedItemChanged: (index) {
-                  _selectedItem = groupItem.items[index].value;
+    await showCupertinoModalPopup(
+      context: context,
+      builder: (context) {
+        return Container(
+          height: 216,
+          child: CupertinoPicker(
+            backgroundColor: palette.background,
+            children: <Widget>[
+              for (var v in groupItem.items)
+                Text(v.text, style: TextStyle(color: palette.text)),
+            ],
+            itemExtent: 40,
+            scrollController: FixedExtentScrollController(
+                initialItem: groupItem.items
+                    .toList()
+                    .indexWhere((v) => v.value == groupItem.value)),
+            onSelectedItemChanged: (index) {
+              _selectedItem = groupItem.items[index].value;
 
-                  if (groupItem.onChange != null) {
-                    if (_debounce?.isActive ?? false) {
-                      _debounce.cancel();
-                    }
+              if (groupItem.onChange != null) {
+                if (_debounce?.isActive ?? false) {
+                  _debounce.cancel();
+                }
 
-                    _debounce = Timer(const Duration(milliseconds: 500), () {
-                      groupItem.onChange(_selectedItem);
-                    });
-                  }
-                },
-              ),
-            );
-          },
+                _debounce = Timer(const Duration(milliseconds: 500), () {
+                  groupItem.onChange(_selectedItem);
+                });
+              }
+            },
+          ),
         );
-        if (groupItem.onClose != null) {
-          groupItem.onClose(_selectedItem);
-        }
+      },
+    );
+    if (groupItem.onClose != null) {
+      groupItem.onClose(_selectedItem);
     }
   }
 
