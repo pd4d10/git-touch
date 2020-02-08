@@ -306,7 +306,7 @@ class AuthModel with ChangeNotifier {
     // Read accounts
     try {
       String str = prefs.getString(StorageKeys.accounts);
-      Fimber.d('read accounts: $str');
+      // Fimber.d('read accounts: $str');
       _accounts = (json.decode(str ?? '[]') as List)
           .map((item) => Account.fromJson(item))
           .toList();
