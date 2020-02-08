@@ -8,6 +8,7 @@ import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/entry_item.dart';
 import 'package:git_touch/widgets/label.dart';
+import 'package:git_touch/widgets/language_bar.dart';
 import 'package:git_touch/widgets/mutation_button.dart';
 import 'package:git_touch/widgets/markdown_view.dart';
 import 'package:git_touch/widgets/repo_header.dart';
@@ -33,53 +34,6 @@ class GhRepoScreen extends StatelessWidget {
                 branchSpecified: branch != null,
                 branch: branch ?? '')));
     return res.data.repository;
-  }
-
-  Widget _buildLanguages(BuildContext context, GhRepoRepository repo) {
-    final theme = Provider.of<ThemeModel>(context);
-    return Container(
-      color: theme.palette.background,
-      padding: CommonStyle.padding,
-      height: 300,
-      child: SingleChildScrollView(
-        child: Table(children: [
-          for (final edge in repo.languages.edges)
-            TableRow(children: [
-              Container(
-                padding: CommonStyle.padding,
-                child: Row(children: <Widget>[
-                  Container(
-                    width: 18,
-                    height: 18,
-                    decoration: BoxDecoration(
-                      color: convertColor(edge.node.color),
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-                  SizedBox(width: 8),
-                  Text(
-                    edge.node.name,
-                    style: TextStyle(
-                      color: theme.palette.text,
-                      fontSize: 18,
-                    ),
-                  ),
-                ]),
-              ),
-              Container(
-                padding: CommonStyle.padding,
-                child: Text(
-                  '${(edge.size / repo.languages.totalSize * 100).toStringAsFixed(1)}%',
-                  style: TextStyle(
-                    color: theme.palette.secondaryText,
-                    fontSize: 18,
-                  ),
-                ),
-              ),
-            ])
-        ]),
-      ),
-    );
   }
 
   String _buildWatchState(GhRepoSubscriptionState state) {
@@ -154,13 +108,6 @@ class GhRepoScreen extends StatelessWidget {
         final repo = data.item1;
         final readme = data.item2;
         final ref = branch == null ? repo.defaultBranchRef : repo.ref;
-
-        final langWidth = MediaQuery.of(context).size.width -
-            CommonStyle.padding.left -
-            CommonStyle.padding.right -
-            repo.languages.edges.length +
-            1;
-
         final license = repo.licenseInfo?.spdxId ?? repo.licenseInfo?.name;
 
         return Column(
@@ -282,38 +229,14 @@ class GhRepoScreen extends StatelessWidget {
             ),
             if (repo.languages.edges.isNotEmpty) ...[
               CommonStyle.border,
-              CupertinoButton(
-                padding: EdgeInsets.zero,
-                minSize: 0,
-                onPressed: () {
-                  showCupertinoModalPopup(
-                    context: context,
-                    builder: (context) => _buildLanguages(context, repo),
-                  );
-                },
-                child: Container(
-                  // color: theme.palette.background,
-                  padding: CommonStyle.padding.copyWith(top: 8, bottom: 8),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(5),
-                    child: SizedBox(
-                      height: 10,
-                      child: Row(
-                        children: join(
-                          SizedBox(width: 1),
-                          repo.languages.edges
-                              .map((lang) => Container(
-                                  color: convertColor(lang.node.color),
-                                  width: langWidth *
-                                      lang.size /
-                                      repo.languages.totalSize))
-                              .toList(),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              LanguageBar([
+                for (var edge in repo.languages.edges)
+                  LanguageBarItem(
+                    name: edge.node.name,
+                    ratio: edge.size / repo.languages.totalSize,
+                    hexColor: edge.node.color,
+                  )
+              ]),
             ],
             TableView(
               hasIcon: true,
