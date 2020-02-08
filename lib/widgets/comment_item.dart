@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/theme.dart';
@@ -38,17 +39,23 @@ class _GhEmojiActionState extends State<GhEmojiAction> {
     final isRemove = _hasReacted(emojiKey);
     var id = payload['id'] as String;
     var operation = isRemove ? 'remove' : 'add';
-    await Provider.of<AuthModel>(context).query('''
+
+    try {
+      await Provider.of<AuthModel>(context).query('''
 mutation {
   ${operation}Reaction(input: {subjectId: "$id", content: $emojiKey}) {
     clientMutationId
   }
 }
     ''');
-    setState(() {
-      payload[emojiKey]['totalCount'] += isRemove ? -1 : 1;
-      payload[emojiKey]['viewerHasReacted'] = !isRemove;
-    });
+      setState(() {
+        payload[emojiKey]['totalCount'] += isRemove ? -1 : 1;
+        payload[emojiKey]['viewerHasReacted'] = !isRemove;
+      });
+    } catch (e) {
+      final theme = Provider.of<ThemeModel>(context);
+      theme.showWarning(context, e);
+    }
   }
 
   bool _hasReacted(String emojiKey) {
