@@ -386,29 +386,32 @@ fragment ReactableParts on Reactable {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      Avatar(
-                        url: p['repository']['owner']['avatarUrl'],
-                        size: AvatarSize.extraSmall,
-                      ),
-                      SizedBox(width: 4),
-                      Text(
-                        '$owner / $name',
-                        style: TextStyle(
-                          fontSize: 17,
-                          color: theme.palette.secondaryText,
+                  Link(
+                    url: '/$owner/$name',
+                    child: Row(
+                      children: <Widget>[
+                        Avatar(
+                          url: p['repository']['owner']['avatarUrl'],
+                          size: AvatarSize.extraSmall,
                         ),
-                      ),
-                      SizedBox(width: 4),
-                      Text(
-                        '#$number',
-                        style: TextStyle(
-                          fontSize: 17,
-                          color: theme.palette.tertiaryText,
+                        SizedBox(width: 4),
+                        Text(
+                          '$owner / $name',
+                          style: TextStyle(
+                            fontSize: 17,
+                            color: theme.palette.secondaryText,
+                          ),
                         ),
-                      ),
-                    ],
+                        SizedBox(width: 4),
+                        Text(
+                          '#$number',
+                          style: TextStyle(
+                            fontSize: 17,
+                            color: theme.palette.tertiaryText,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   SizedBox(height: 8),
                   Text(
