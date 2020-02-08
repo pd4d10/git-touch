@@ -24,6 +24,10 @@ Android users can also download APK file from [release page](https://github.com/
   <img src="assets/screenshot-light.png" alt="Light screenshot" width="400" />
 </p>
 
+## Contributing
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md).
+
 ## Contributors
 
 ![](https://sourcerer.io/fame/pd4d10/pd4d10/git-touch/images/0)
