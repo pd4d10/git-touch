@@ -265,11 +265,20 @@ class EventItem extends StatelessWidget {
           context: context,
           spans: <InlineSpan>[
             TextSpan(
-                text: ' created ${e.payload.refType} ${e.payload.ref} at '),
+                text: ' created a ${e.payload.refType} '),
             _buildRepo(context),
           ],
         );
       case 'DeleteEvent':
+        return _buildItem(
+          context: context,
+          spans: <InlineSpan>[
+            TextSpan(
+              text: ' deleted ${e.payload.refType} '
+            ),
+            _buildRepo(context),
+          ],
+        );
       case 'DeploymentEvent':
       case 'DeploymentStatusEvent':
       case 'DownloadEvent':
@@ -332,7 +341,45 @@ class EventItem extends StatelessWidget {
         );
       case 'LabelEvent':
       case 'MarketplacePurchaseEvent':
+        final action = e.payload.action;
+        var messageToDisplay;
+        switch(action) {
+          case "purchased": 
+            messageToDisplay = "purchased a Marketplace Plan";
+              break;
+          case "cancelled":
+            messageToDisplay = "cancelled their Marketplace Plan";
+              break;
+          case "pending_change":
+            messageToDisplay = " Marketplace Plan is pending change";
+              break;
+          case "pending_change_cancelled":
+            messageToDisplay = " Pending Marketplace Plan was cancelled";
+              break;
+          case "changed":
+            messageToDisplay = " changed their Marketplace Plan";
+              break;
+        }
+        return _buildItem(
+          context: context,
+          spans: [
+            TextSpan(
+              text: ' $messageToDisplay ',
+            ),
+            _buildRepo(context),
+          ],
+        );
       case 'MemberEvent':
+        final action = e.payload.action;
+        return _buildItem(
+
+          context: context,
+          spans: [
+            TextSpan(
+              text: ' was ${e.payload.action} ${action == 'added' ? 'to' : 'from' } '),
+            _buildRepo(context),
+          ],
+        );
       case 'MembershipEvent':
       case 'MilestoneEvent':
       case 'OrganizationEvent':
@@ -342,8 +389,14 @@ class EventItem extends StatelessWidget {
       case 'ProjectColumnEvent':
       case 'ProjectEvent':
       case 'PublicEvent':
-        // TODO:
-        return _buildDefaultItem(context);
+        return _buildItem(
+        context: context,
+        spans: [
+          TextSpan(text: ' made '),
+          _buildRepo(context),
+          TextSpan(text: ' public'),
+        ],
+        );
       case 'PullRequestEvent':
         final pr = e.payload.pullRequest;
         return _buildItem(
