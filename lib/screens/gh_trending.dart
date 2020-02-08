@@ -5,6 +5,7 @@ import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/tab_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
+import 'package:git_touch/widgets/link.dart';
 import 'package:git_touch/widgets/user_item.dart';
 import 'package:http/http.dart' as http;
 import 'package:git_touch/widgets/repository_item.dart';
@@ -50,16 +51,25 @@ class GhTrendingScreen extends StatelessWidget {
                     login: item.username,
                     // name: item.name,
                     avatarUrl: item.avatar,
-                    bio: Row(
-                      children: <Widget>[
-                        Icon(
-                          Octicons.repo,
-                          size: 15,
-                          color: theme.palette.secondaryText,
-                        ),
-                        SizedBox(width: 2),
-                        Text(item.repo.name)
-                      ],
+                    bio: Link(
+                      url: '/${item.username}/${item.repo.name}',
+                      child: Row(
+                        children: <Widget>[
+                          Icon(
+                            Octicons.repo,
+                            size: 17,
+                            color: theme.palette.secondaryText,
+                          ),
+                          SizedBox(width: 4),
+                          Text(
+                            '${item.username} / ${item.repo.name}',
+                            style: TextStyle(
+                              fontSize: 17,
+                              color: theme.palette.secondaryText,
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   );
                 default:
