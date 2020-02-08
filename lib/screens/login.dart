@@ -246,7 +246,17 @@ class _LoginScreenState extends State<LoginScreen> {
                                 placeholder: 'App password',
                                 controller: _passwordController),
                             SizedBox(height: 8),
-                            // TODO: permissions
+                            Text(
+                              'GitTouch needs these permissions',
+                              style: TextStyle(
+                                  fontSize: 14, fontWeight: FontWeight.w400),
+                            ),
+                            SizedBox(height: 8),
+                            Text(
+                              'Account: read\nTeam membership: read\nProjects: read\nRepositories: read\nPull requests: read\nIssues: read\nSnippets: read',
+                              style: TextStyle(
+                                  fontSize: 16, color: theme.palette.primary),
+                            )
                           ],
                         ),
                       );
