@@ -30,12 +30,6 @@ class GhEmojiAction extends StatefulWidget {
 }
 
 class _GhEmojiActionState extends State<GhEmojiAction> {
-  Decoration _getDecorationByKey(String emojiKey) {
-    return BoxDecoration(
-      color: _hasReacted(emojiKey) ? PrimerColors.blue000 : Colors.transparent,
-    );
-  }
-
   get payload => widget.payload;
 
   onReaction(String emojiKey) async {
@@ -81,7 +75,13 @@ mutation {
             },
             child: Container(
               padding: EdgeInsets.all(4),
-              decoration: _getDecorationByKey(emojiKey),
+              decoration: BoxDecoration(
+                color: _hasReacted(emojiKey)
+                    ? (theme.brightness == Brightness.dark
+                        ? PrimerColors.blue900
+                        : PrimerColors.blue000)
+                    : Colors.transparent,
+              ),
               child: Wrap(
                 crossAxisAlignment: WrapCrossAlignment.center,
                 children: <Widget>[
