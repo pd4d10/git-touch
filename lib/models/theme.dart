@@ -262,64 +262,6 @@ class ThemeModel with ChangeNotifier {
     //   );
   }
 
-  Future<T> showDialogOptions<T>(
-      BuildContext context, List<DialogOption<T>> options) {
-    var title = Text('Pick your reaction');
-    var cancelWidget = Text('Cancel');
-
-    switch (theme) {
-      case AppThemeType.cupertino:
-        return showCupertinoDialog<T>(
-          context: context,
-          builder: (BuildContext context) {
-            return CupertinoAlertDialog(
-              title: title,
-              actions: options.map((option) {
-                return CupertinoDialogAction(
-                  child: option.widget,
-                  onPressed: () {
-                    Navigator.pop(context, option.value);
-                  },
-                );
-              }).toList()
-                ..add(
-                  CupertinoDialogAction(
-                    child: cancelWidget,
-                    isDestructiveAction: true,
-                    onPressed: () {
-                      Navigator.pop(context, null);
-                    },
-                  ),
-                ),
-            );
-          },
-        );
-      default:
-        return showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return SimpleDialog(
-              title: title,
-              children: options.map<Widget>((option) {
-                return SimpleDialogOption(
-                  child: option.widget,
-                  onPressed: () {
-                    Navigator.pop(context, option.value);
-                  },
-                );
-              }).toList()
-                ..add(SimpleDialogOption(
-                  child: cancelWidget,
-                  onPressed: () {
-                    Navigator.pop(context, null);
-                  },
-                )),
-            );
-          },
-        );
-    }
-  }
-
   static Timer _debounce;
   String _selectedItem;
 

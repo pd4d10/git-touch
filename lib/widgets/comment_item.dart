@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/theme.dart';
+import 'package:git_touch/widgets/action_button.dart';
 import 'package:git_touch/widgets/markdown_view.dart';
 import 'package:provider/provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -37,9 +38,10 @@ class _GhEmojiActionState extends State<GhEmojiAction> {
 
   get payload => widget.payload;
 
-  onReaction(String emojiKey, bool isRemove) async {
+  onReaction(String emojiKey) async {
     if (emojiKey == null) return;
 
+    final isRemove = _hasReacted(emojiKey);
     var id = payload['id'] as String;
     var operation = isRemove ? 'remove' : 'add';
     await Provider.of<AuthModel>(context).query('''
@@ -75,7 +77,7 @@ mutation {
 
           return Link(
             onTap: () {
-              onReaction(emojiKey, _hasReacted(emojiKey));
+              onReaction(emojiKey);
             },
             child: Container(
               padding: EdgeInsets.all(4),
@@ -95,20 +97,18 @@ mutation {
         }),
         Link(
           onTap: () async {
-            final result = await theme.showDialogOptions(
+            await theme.showActions(
               context,
               emojiMap.entries.map((entry) {
-                var emojiKey = entry.key;
-                return DialogOption(
-                  value: emojiKey,
-                  widget: Container(
-                    decoration: _getDecorationByKey(emojiKey),
-                    child: Text(emojiKey + ' ' + entry.value),
-                  ),
+                final emojiKey = entry.key;
+                return ActionItem(
+                  text: emojiKey + ' ' + entry.value,
+                  onTap: (_) {
+                    onReaction(emojiKey);
+                  },
                 );
               }).toList(),
             );
-            onReaction(result, _hasReacted(result));
           },
           child: Container(
             padding: EdgeInsets.all(4),
