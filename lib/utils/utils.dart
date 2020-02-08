@@ -37,7 +37,7 @@ class CommonStyle {
 
 Color convertColor(String cssHex) {
   if (cssHex == null) {
-    return Color(0xffcccccc); // Default color
+    return Color(0xffededed); // Default color
   }
 
   if (cssHex.startsWith('#')) {

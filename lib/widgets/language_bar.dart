@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:provider/provider.dart';
+import 'package:github/src/const/language_color.dart';
 
 class LanguageBarItem {
   String name;
@@ -10,9 +11,9 @@ class LanguageBarItem {
   double ratio;
   LanguageBarItem({
     @required this.name,
-    this.hexColor,
     @required this.ratio,
-  });
+    String hexColor,
+  }) : hexColor = hexColor ?? languagesColor[name];
 }
 
 class LanguageBar extends StatelessWidget {

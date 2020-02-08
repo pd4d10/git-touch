@@ -8,6 +8,7 @@ import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/entry_item.dart';
+import 'package:git_touch/widgets/language_bar.dart';
 import 'package:git_touch/widgets/markdown_view.dart';
 import 'package:git_touch/widgets/repo_header.dart';
 import 'package:git_touch/widgets/table_view.dart';
@@ -57,11 +58,6 @@ class GlProjectScreen extends StatelessWidget {
         );
       },
       bodyBuilder: (t, _) {
-        // final langWidth = MediaQuery.of(context).size.width -
-        //     CommonStyle.padding.left -
-        //     CommonStyle.padding.right -
-        //     data.languages.length +
-        //     1;
         final p = t.item1;
         final langs = t.item2;
         final badges = t.item3;
@@ -107,6 +103,13 @@ class GlProjectScreen extends StatelessWidget {
                 ),
               ],
             ),
+            if (langs.isNotEmpty) ...[
+              CommonStyle.border,
+              LanguageBar([
+                for (var e in langs.entries)
+                  LanguageBarItem(name: e.key, ratio: e.value / 100)
+              ]),
+            ],
             CommonStyle.border,
             TableView(
               hasIcon: true,
