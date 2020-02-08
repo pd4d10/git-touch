@@ -4,10 +4,8 @@ import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/avatar.dart';
 import 'package:git_touch/widgets/comment_item.dart';
-import 'package:git_touch/widgets/markdown_view.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/models/auth.dart';
-import 'package:timeago/timeago.dart' as timeago;
 import 'package:tuple/tuple.dart';
 
 class GlIssueScreen extends StatelessWidget {

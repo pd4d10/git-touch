@@ -10,8 +10,6 @@ import 'package:git_touch/screens/gt_orgs.dart';
 import 'package:git_touch/screens/gt_user.dart';
 import 'package:git_touch/screens/gl_explore.dart';
 import 'package:git_touch/screens/gl_groups.dart';
-import 'package:git_touch/screens/gl_project.dart';
-import 'package:git_touch/screens/gl_todos.dart';
 import 'package:git_touch/screens/gl_user.dart';
 import 'package:git_touch/screens/login.dart';
 import 'package:git_touch/screens/gh_notification.dart';

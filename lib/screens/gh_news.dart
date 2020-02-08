@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:git_touch/models/github.dart';
 import 'package:git_touch/models/notification.dart';
-import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/list_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
-import 'package:git_touch/widgets/action_entry.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:provider/provider.dart';
-import '../widgets/event_item.dart';
+import 'package:git_touch/widgets/event_item.dart';
 import 'package:git_touch/models/auth.dart';
 
 class GhNewsScreen extends StatefulWidget {
@@ -52,17 +50,6 @@ class GhNewsScreenState extends State<GhNewsScreen> {
   Widget build(context) {
     return ListStatefulScaffold<GithubEvent, int>(
       title: AppBarTitle('News'),
-      // actionBuilder: () {
-      //   return ActionEntry(
-      //     iconData:
-      //         Provider.of<ThemeModel>(context).brightness == Brightness.dark
-      //             ? Ionicons.md_sunny
-      //             : Ionicons.md_moon,
-      //     onTap: () {
-      //       Provider.of<ThemeModel>(context).toggleBrightness();
-      //     },
-      //   );
-      // },
       itemBuilder: (payload) => EventItem(payload),
       onRefresh: fetchEvents,
       onLoadMore: (page) => fetchEvents(page),

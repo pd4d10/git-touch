@@ -213,7 +213,7 @@ class ThemeModel with ChangeNotifier {
     }
   }
 
-  Future<void> showWarning(BuildContext context, String message) {
+  Future<void> showWarning(BuildContext context, String message) async {
     showCupertinoDialog(
       context: context,
       builder: (context) {

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:git_touch/models/theme.dart';
-import 'package:provider/provider.dart';
 
 class Loading extends StatelessWidget {
   final bool more;
