@@ -1,6 +1,6 @@
 # GitTouch
 
-Open source mobile client for GitHub, GitLab and Gitea, built with Flutter
+Open source mobile client for GitHub, GitLab, Bitbucket and Gitea, built with Flutter
 
 <p>
   <a href="https://itunes.apple.com/us/app/gittouch/id1452042346">
@@ -30,9 +30,15 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ## Contributors
 
+[
 ![](https://sourcerer.io/fame/pd4d10/pd4d10/git-touch/images/0)
 ![](https://sourcerer.io/fame/pd4d10/pd4d10/git-touch/images/1)
 ![](https://sourcerer.io/fame/pd4d10/pd4d10/git-touch/images/2)
+![](https://sourcerer.io/fame/pd4d10/pd4d10/git-touch/images/3)
+![](https://sourcerer.io/fame/pd4d10/pd4d10/git-touch/images/4)
+![](https://sourcerer.io/fame/pd4d10/pd4d10/git-touch/images/5)
+![](https://sourcerer.io/fame/pd4d10/pd4d10/git-touch/images/6)
+](https://github.com/pd4d10/git-touch/graphs/contributors)
 
 ## License
 
