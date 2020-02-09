@@ -112,10 +112,16 @@ class _GhSearchScreenState extends State<GhSearchScreen> {
   }
 
   Widget _buildInput() {
+    final theme = Provider.of<ThemeModel>(context); 
+    final brightnessType = theme.brighnessValue;
+    var color = Colors.black;
+    if(brightnessType == AppBrightnessType.light) {
+      color = Colors.white;
+    }
     switch (Provider.of<ThemeModel>(context).theme) {
       case AppThemeType.cupertino:
         return Container(
-          color: Colors.white,
+          color: color,
           child: CupertinoTextField(
             prefix: Row(
               children: <Widget>[
