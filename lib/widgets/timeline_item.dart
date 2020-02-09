@@ -128,6 +128,11 @@ class TimelineItem extends StatelessWidget {
           p: p,
         );
       case 'SubscribedEvent':
+        return TimelineEventItem(
+          actor: p['actor']['login'],
+          textSpan: TextSpan(text: ' subscribed to this issue '),
+          p: p,
+        );
       case 'UnsubscribedEvent':
         return defaultItem; // TODO:
       case 'ReferencedEvent':
@@ -257,6 +262,18 @@ class TimelineItem extends StatelessWidget {
             TextSpan(text: p['mergeRefName']),
           ]),
           p: p,
+        );
+      case 'MentionedEvent':
+        return TimelineEventItem(
+          actor: p['actor']['login'],
+          iconData: Octicons.bookmark,
+          textSpan: TextSpan(text: ' mentioned this issue '),
+        );
+      case 'PinnedEvent':
+        return TimelineEventItem(
+          actor: p['actor']['login'],
+          iconData: Octicons.pin,
+          textSpan: TextSpan(text: ' pinned this issue '),
         );
       case 'DeployedEvent':
       case 'DeploymentEnvironmentChangedEvent':
