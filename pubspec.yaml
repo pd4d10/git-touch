@@ -40,7 +40,7 @@ dependencies:
   gql_link: ^0.2.0
   fluro: ^1.5.1
   package_info: ^0.4.0
-  github: ^6.1.1
+  github: ^6.1.2
   # git:
   #   url: git://github.com/pd4d10/github.dart.git
   #   ref: patch-1
