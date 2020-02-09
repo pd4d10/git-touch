@@ -267,7 +267,7 @@ class TimelineItem extends StatelessWidget {
         return TimelineEventItem(
           actor: p['actor']['login'],
           iconData: Octicons.bookmark,
-          textSpan: TextSpan(text: ' mentioned this issue '),
+          textSpan: TextSpan(text: ' was mentioned '),
         );
       case 'PinnedEvent':
         return TimelineEventItem(
