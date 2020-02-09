@@ -1,26 +1,25 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:git_touch/models/github.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/tab_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/link.dart';
 import 'package:git_touch/widgets/user_item.dart';
-import 'package:http/http.dart' as http;
+import 'package:github_trending/github_trending.dart';
 import 'package:git_touch/widgets/repository_item.dart';
 import 'package:provider/provider.dart';
 
 class GhTrendingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
-    return TabStatefulScaffold<Iterable>(
+    return TabStatefulScaffold<List>(
       title: AppBarTitle('Trending'),
       tabs: ['Repositories', 'Developers'],
       fetchData: (tabIndex) async {
-        final uri = Uri.parse('https://github-trending-api.now.sh')
-            .resolve(tabIndex == 1 ? '/developers' : '/');
-        final res = await http.get(uri);
-        return json.decode(res.body) as List;
+        if (tabIndex == 0) {
+          return getTrendingRepositories();
+        } else {
+          return getTrendingDevelopers();
+        }
       },
       bodyBuilder: (payload, activeTab) {
         final theme = Provider.of<ThemeModel>(context);
@@ -28,54 +27,51 @@ class GhTrendingScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: join(
             CommonStyle.border,
-            payload.map<Widget>((v) {
-              switch (activeTab) {
-                case 0:
-                  final item = GithubTrendingItem.fromJson(v);
-                  return RepositoryItem.gh(
-                    owner: item.author,
-                    avatarUrl: item.avatar,
-                    name: item.name,
-                    description: item.description,
-                    starCount: item.stars ?? 0,
-                    forkCount: item.forks ?? 0,
-                    primaryLanguageName: item.language,
-                    primaryLanguageColor: item.languageColor,
-                    note: '${item.currentPeriodStars} stars today',
-                    isPrivate: false,
-                    isFork: false, // TODO:
-                  );
-                case 1:
-                  final item = GithubTrendingUser.fromJson(v);
-                  return UserItem.gh(
-                    login: item.username,
-                    // name: item.name,
-                    avatarUrl: item.avatar,
-                    bio: Link(
-                      url: '/${item.username}/${item.repo.name}',
-                      child: Row(
-                        children: <Widget>[
-                          Icon(
-                            Octicons.repo,
-                            size: 17,
-                            color: theme.palette.secondaryText,
+            activeTab == 0
+                ? [
+                    for (var v in payload.cast<GithubTrendingRepository>())
+                      RepositoryItem.gh(
+                        owner: v.author,
+                        avatarUrl: v.avatar,
+                        name: v.name,
+                        description: v.description,
+                        starCount: v.stars ?? 0,
+                        forkCount: v.forks ?? 0,
+                        primaryLanguageName: v.language,
+                        primaryLanguageColor: v.languageColor,
+                        note: '${v.currentPeriodStars} stars today',
+                        isPrivate: false,
+                        isFork: false, // TODO:
+                      )
+                  ]
+                : [
+                    for (var v in payload.cast<GithubTrendingDeveloper>())
+                      UserItem.gh(
+                        login: v.username,
+                        // name: v.name,
+                        avatarUrl: v.avatar,
+                        bio: Link(
+                          url: '/${v.username}/${v.repo.name}',
+                          child: Row(
+                            children: <Widget>[
+                              Icon(
+                                Octicons.repo,
+                                size: 17,
+                                color: theme.palette.secondaryText,
+                              ),
+                              SizedBox(width: 4),
+                              Text(
+                                '${v.username} / ${v.repo.name}',
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  color: theme.palette.secondaryText,
+                                ),
+                              )
+                            ],
                           ),
-                          SizedBox(width: 4),
-                          Text(
-                            '${item.username} / ${item.repo.name}',
-                            style: TextStyle(
-                              fontSize: 17,
-                              color: theme.palette.secondaryText,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  );
-                default:
-                  throw '';
-              }
-            }).toList(),
+                        ),
+                      )
+                  ],
           ),
         );
       },

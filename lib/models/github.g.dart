@@ -221,64 +221,6 @@ Map<String, dynamic> _$GithubNotificationItemRepoToJson(
       'full_name': instance.fullName,
     };
 
-GithubTrendingItem _$GithubTrendingItemFromJson(Map<String, dynamic> json) {
-  return GithubTrendingItem()
-    ..author = json['author'] as String
-    ..name = json['name'] as String
-    ..avatar = json['avatar'] as String
-    ..description = json['description'] as String
-    ..language = json['language'] as String
-    ..languageColor = json['languageColor'] as String
-    ..stars = json['stars'] as int
-    ..forks = json['forks'] as int
-    ..currentPeriodStars = json['currentPeriodStars'] as int;
-}
-
-Map<String, dynamic> _$GithubTrendingItemToJson(GithubTrendingItem instance) =>
-    <String, dynamic>{
-      'author': instance.author,
-      'name': instance.name,
-      'avatar': instance.avatar,
-      'description': instance.description,
-      'language': instance.language,
-      'languageColor': instance.languageColor,
-      'stars': instance.stars,
-      'forks': instance.forks,
-      'currentPeriodStars': instance.currentPeriodStars,
-    };
-
-GithubTrendingUser _$GithubTrendingUserFromJson(Map<String, dynamic> json) {
-  return GithubTrendingUser()
-    ..username = json['username'] as String
-    ..name = json['name'] as String
-    ..avatar = json['avatar'] as String
-    ..repo = json['repo'] == null
-        ? null
-        : GithubTrendingUserRepo.fromJson(json['repo'] as Map<String, dynamic>);
-}
-
-Map<String, dynamic> _$GithubTrendingUserToJson(GithubTrendingUser instance) =>
-    <String, dynamic>{
-      'username': instance.username,
-      'name': instance.name,
-      'avatar': instance.avatar,
-      'repo': instance.repo,
-    };
-
-GithubTrendingUserRepo _$GithubTrendingUserRepoFromJson(
-    Map<String, dynamic> json) {
-  return GithubTrendingUserRepo()
-    ..name = json['name'] as String
-    ..description = json['description'] as String;
-}
-
-Map<String, dynamic> _$GithubTrendingUserRepoToJson(
-        GithubTrendingUserRepo instance) =>
-    <String, dynamic>{
-      'name': instance.name,
-      'description': instance.description,
-    };
-
 GithubTreeItem _$GithubTreeItemFromJson(Map<String, dynamic> json) {
   return GithubTreeItem()
     ..name = json['name'] as String

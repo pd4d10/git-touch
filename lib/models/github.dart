@@ -193,49 +193,6 @@ class GithubNotificationItemRepo {
       _$GithubNotificationItemRepoFromJson(json);
 }
 
-// Trending
-@JsonSerializable()
-class GithubTrendingItem {
-  String author;
-  String name;
-  String avatar;
-  String description;
-  String language;
-  String languageColor;
-  int stars;
-  int forks;
-  int currentPeriodStars;
-
-  GithubTrendingItem();
-
-  factory GithubTrendingItem.fromJson(Map<String, dynamic> json) =>
-      _$GithubTrendingItemFromJson(json);
-}
-
-@JsonSerializable()
-class GithubTrendingUser {
-  String username;
-  String name;
-  String avatar;
-  GithubTrendingUserRepo repo;
-
-  GithubTrendingUser();
-
-  factory GithubTrendingUser.fromJson(Map<String, dynamic> json) =>
-      _$GithubTrendingUserFromJson(json);
-}
-
-@JsonSerializable()
-class GithubTrendingUserRepo {
-  String name;
-  String description;
-
-  GithubTrendingUserRepo();
-
-  factory GithubTrendingUserRepo.fromJson(Map<String, dynamic> json) =>
-      _$GithubTrendingUserRepoFromJson(json);
-}
-
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GithubTreeItem {
   String name;
