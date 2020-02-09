@@ -194,6 +194,24 @@ __typename
     login
   }
 }
+... on SubscribedEvent {
+  createdAt
+  actor {
+    login
+  }
+}
+... on MentionedEvent {
+  createdAt
+  actor {
+    login
+  }
+}
+... on PinnedEvent {
+  createdAt
+  actor {
+    login
+  }
+}
 ''';
 
     if (isPullRequest) {
