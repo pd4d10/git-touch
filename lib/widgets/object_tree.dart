@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/table_view.dart';
 import 'package:primer/primer.dart';
-import 'package:seti/seti.dart';
+import 'package:file_icon/file_icon.dart';
 
 class ObjectTreeItem {
   final String url;
@@ -29,7 +29,7 @@ class ObjectTree extends StatelessWidget {
       case 'blob': // github gql, gitlab
       case 'file': // github rest, gitea
       case 'commit_file': // bitbucket
-        return SetiIcon(item.name, size: 36);
+        return FileIcon(item.name, size: 36);
       case 'tree': // github gql, gitlab
       case 'dir': // github rest, gitea
       case 'commit_directory': // bitbucket
