@@ -1,24 +1,27 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/notification.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/screens/bb_explore.dart';
 import 'package:git_touch/screens/bb_teams.dart';
 import 'package:git_touch/screens/bb_user.dart';
-import 'package:git_touch/screens/gt_orgs.dart';
-import 'package:git_touch/screens/gt_user.dart';
+import 'package:git_touch/screens/gh_news.dart';
+import 'package:git_touch/screens/gh_notification.dart';
+import 'package:git_touch/screens/gh_search.dart';
+import 'package:git_touch/screens/gh_trending.dart';
+import 'package:git_touch/screens/gh_user.dart';
 import 'package:git_touch/screens/gl_explore.dart';
 import 'package:git_touch/screens/gl_groups.dart';
 import 'package:git_touch/screens/gl_user.dart';
+import 'package:git_touch/screens/gt_orgs.dart';
+import 'package:git_touch/screens/gt_user.dart';
 import 'package:git_touch/screens/login.dart';
-import 'package:git_touch/screens/gh_notification.dart';
-import 'package:git_touch/screens/gh_user.dart';
 import 'package:git_touch/utils/utils.dart';
+import 'package:git_touch/widgets/account_switcher.dart';
 import 'package:provider/provider.dart';
-import 'package:git_touch/screens/gh_news.dart';
-import 'package:git_touch/screens/gh_search.dart';
-import 'package:git_touch/screens/gh_trending.dart';
+
+import 'utils/utils.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -97,13 +100,24 @@ class _HomeState extends State<Home> {
         Positioned(
             right: -2,
             top: -2,
-            child: Icon(Octicons.primitive_dot,
-                color: theme.palette.primary, size: 14))
+            child: Icon(Octicons.primitive_dot, color: theme.palette.primary, size: 14))
       ],
     );
   }
 
   List<BottomNavigationBarItem> get _navigationItems {
+    final meItem = BottomNavigationBarItem(
+      icon: GestureDetector(
+          onLongPress: () {
+            _showAccountSwitcher();
+          },
+          child: Icon(Icons.person)),
+      title: GestureDetector(
+          onLongPress: () {
+            _showAccountSwitcher();
+          },
+          child: Text('Me')),
+    );
     switch (Provider.of<AuthModel>(context).activeAccount.platform) {
       case PlatformType.github:
         return [
@@ -113,7 +127,6 @@ class _HomeState extends State<Home> {
           ),
           BottomNavigationBarItem(
             icon: _buildNotificationIcon(context, false),
-            activeIcon: _buildNotificationIcon(context, true),
             title: Text('Notification'),
           ),
           BottomNavigationBarItem(
@@ -124,11 +137,7 @@ class _HomeState extends State<Home> {
             icon: Icon(Icons.search),
             title: Text('Search'),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            activeIcon: Icon(Icons.person),
-            title: Text('Me'),
-          ),
+          meItem,
         ];
       case PlatformType.gitlab:
         return [
@@ -140,10 +149,7 @@ class _HomeState extends State<Home> {
             icon: Icon(Icons.group),
             title: Text('Groups'),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            title: Text('Me'),
-          ),
+          meItem,
         ];
       case PlatformType.bitbucket:
         return [
@@ -155,10 +161,7 @@ class _HomeState extends State<Home> {
             icon: Icon(Icons.group),
             title: Text('Teams'),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            title: Text('Me'),
-          ),
+          meItem,
         ];
       case PlatformType.gitea:
         return [
@@ -166,10 +169,7 @@ class _HomeState extends State<Home> {
             icon: Icon(Icons.group),
             title: Text('Organizations'),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            title: Text('Me'),
-          ),
+          meItem,
         ];
     }
   }
@@ -185,7 +185,9 @@ class _HomeState extends State<Home> {
     switch (theme.theme) {
       case AppThemeType.cupertino:
         return CupertinoTabScaffold(
-          tabBar: CupertinoTabBar(items: _navigationItems),
+          tabBar: CupertinoTabBar(
+            items: _navigationItems,
+          ),
           tabBuilder: (context, index) {
             return CupertinoTabView(builder: (context) {
               return _buildScreen(index);
@@ -208,5 +210,13 @@ class _HomeState extends State<Home> {
           ),
         );
     }
+  }
+
+  void _showAccountSwitcher() {
+    showCupertinoModalPopup(
+        context: context,
+        builder: (context) {
+          return AccountSwitcher();
+        });
   }
 }
