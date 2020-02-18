@@ -168,7 +168,6 @@ GithubNotificationItem _$GithubNotificationItemFromJson(
     Map<String, dynamic> json) {
   return GithubNotificationItem()
     ..id = json['id'] as String
-    ..htmlUrl = json['html_url'] as String
     ..subject = json['subject'] == null
         ? null
         : GithubNotificationItemSubject.fromJson(
@@ -187,7 +186,6 @@ Map<String, dynamic> _$GithubNotificationItemToJson(
         GithubNotificationItem instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'html_url': instance.htmlUrl,
       'subject': instance.subject,
       'updated_at': instance.updatedAt?.toIso8601String(),
       'repository': instance.repository,

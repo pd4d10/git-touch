@@ -22,7 +22,8 @@ class GhNewsScreenState extends State<GhNewsScreen> {
       // Check if there are unread notification items.
       // 1 item is enough since count is not displayed for now.
       var items = await Provider.of<AuthModel>(context)
-          .getWithCredentials('/notifications?per_page=1');
+          .ghClient
+          .getJSON('/notifications?per_page=1');
 
       if (items is List && items.isNotEmpty) {
         Provider.of<NotificationModel>(context).setCount(1);
@@ -33,15 +34,14 @@ class GhNewsScreenState extends State<GhNewsScreen> {
   Future<ListPayload<GithubEvent, int>> fetchEvents([int page = 1]) async {
     final auth = Provider.of<AuthModel>(context);
     final login = auth.activeAccount.login;
-    List data = await auth.getWithCredentials(
-        '/users/$login/received_events?page=$page&per_page=$pageSize');
-    // Fimber.d(data.length);
-    var hasMore = data.length == pageSize;
-    var events = data.map((item) => GithubEvent.fromJson(item)).toList();
 
+    final events = await auth.ghClient.getJSON(
+      '/users/$login/received_events?page=$page&per_page=$pageSize',
+      convert: (vs) => [for (var v in vs) GithubEvent.fromJson(v)],
+    );
     return ListPayload(
       cursor: page + 1,
-      hasMore: hasMore,
+      hasMore: events.length == pageSize,
       items: events,
     );
   }

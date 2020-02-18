@@ -394,17 +394,6 @@ class AuthModel with ChangeNotifier {
     return data['data'];
   }
 
-  Future<dynamic> getWithCredentials(String url) async {
-    final res = await http
-        .get(_apiPrefix + url, headers: _headers)
-        .timeout(_timeoutDuration);
-    final data = json.decode(res.body);
-    if (res.statusCode >= 400) {
-      throw data['message'];
-    }
-    return data;
-  }
-
   String _oauthState;
   void redirectToGithubOauth() {
     _oauthState = nanoid();

@@ -131,7 +131,6 @@ class GithubEventRelease {
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GithubNotificationItem {
   String id;
-  String htmlUrl;
   GithubNotificationItemSubject subject;
   DateTime updatedAt;
   GithubNotificationItemRepo repository;

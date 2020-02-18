@@ -21,11 +21,11 @@ class GhNotificationScreen extends StatefulWidget {
 
 class GhNotificationScreenState extends State<GhNotificationScreen> {
   Future<Map<String, NotificationGroup>> fetchNotifications(int index) async {
-    List items = await Provider.of<AuthModel>(context).getWithCredentials(
-        '/notifications?all=${index == 2}&participating=${index == 1}');
-    final ns =
-        items.map((item) => GithubNotificationItem.fromJson(item)).toList();
-
+    final ns = await Provider.of<AuthModel>(context).ghClient.getJSON(
+          '/notifications?all=${index == 2}&participating=${index == 1}',
+          convert: (vs) =>
+              [for (var v in vs) GithubNotificationItem.fromJson(v)],
+        );
     if (index == 0) {
       Provider.of<NotificationModel>(context).setCount(ns.length);
     }
