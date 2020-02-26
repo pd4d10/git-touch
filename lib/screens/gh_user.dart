@@ -119,6 +119,7 @@ class GhUserScreen extends StatelessWidget {
         ]),
         CommonStyle.border,
         Container(
+          alignment: Alignment.center,
           padding: CommonStyle.padding,
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
