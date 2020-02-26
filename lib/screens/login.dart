@@ -276,7 +276,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     text: 'Gitea Account',
                     brand: Octicons.git_branch, // TODO: brand icon
                     onTap: () async {
-                      _domainController.text = 'https://try.gitea.io';
+                      _domainController.text = 'https://gitea.com';
                       final result = await theme.showConfirm(
                         context,
                         _buildPopup(context, showDomain: true),
