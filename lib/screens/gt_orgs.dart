@@ -11,10 +11,11 @@ class GtOrgsScreen extends StatelessWidget {
   Future<ListPayload<GiteaOrg, int>> _query(BuildContext context,
       [int page = 1]) async {
     final auth = Provider.of<AuthModel>(context);
-    final res = await auth.fetchGiteaWithPage('/orgs?limit=20');
+    final res = await auth.fetchGiteaWithPage('/orgs?limit=20&page=$page');
+    // TODO: https://github.com/go-gitea/gitea/issues/10199
     return ListPayload(
-      cursor: res.cursor,
-      hasMore: res.hasMore,
+      cursor: page + 1,
+      hasMore: (res.data as List).length == 20,
       items: (res.data as List).map((v) => GiteaOrg.fromJson(v)).toList(),
     );
   }
