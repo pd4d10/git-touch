@@ -3,10 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:git_touch/models/bitbucket.dart';
 import 'package:git_touch/models/gitlab.dart';
 import 'package:git_touch/models/theme.dart';
+import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/avatar.dart';
+import 'package:git_touch/widgets/link.dart';
 import 'package:provider/provider.dart';
-import '../utils/utils.dart';
-import 'link.dart';
+import 'package:github/src/const/language_color.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class RepositoryItem extends StatelessWidget {
@@ -190,7 +191,8 @@ class RepositoryItem extends StatelessWidget {
                             width: 12,
                             height: 12,
                             decoration: BoxDecoration(
-                              color: convertColor(primaryLanguageColor),
+                              color: convertColor(primaryLanguageColor ??
+                                  languagesColor[primaryLanguageName]),
                               shape: BoxShape.circle,
                             ),
                           ),
