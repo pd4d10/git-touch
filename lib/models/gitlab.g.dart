@@ -309,6 +309,20 @@ Map<String, dynamic> _$GitlabCommitToJson(GitlabCommit instance) =>
       'message': instance.message,
     };
 
+GitlabDiff _$GitlabDiffFromJson(Map<String, dynamic> json) {
+  return GitlabDiff()
+    ..diff = json['diff'] as String
+    ..newPath = json['new_path'] as String
+    ..oldPath = json['old_path'] as String;
+}
+
+Map<String, dynamic> _$GitlabDiffToJson(GitlabDiff instance) =>
+    <String, dynamic>{
+      'diff': instance.diff,
+      'new_path': instance.newPath,
+      'old_path': instance.oldPath,
+    };
+
 GitlabIssue _$GitlabIssueFromJson(Map<String, dynamic> json) {
   return GitlabIssue()
     ..title = json['title'] as String

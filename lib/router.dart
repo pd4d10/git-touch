@@ -6,6 +6,7 @@ import 'package:git_touch/screens/bb_user.dart';
 import 'package:git_touch/screens/code_theme.dart';
 import 'package:git_touch/screens/gh_commits.dart';
 import 'package:git_touch/screens/gh_org_repos.dart';
+import 'package:git_touch/screens/gl_commit.dart';
 import 'package:git_touch/screens/gt_commits.dart';
 import 'package:git_touch/screens/gt_issues.dart';
 import 'package:git_touch/screens/gt_object.dart';
@@ -146,6 +147,7 @@ class GitlabRouter {
     GitlabRouter.issues,
     GitlabRouter.mergeRequests,
     GitlabRouter.commits,
+    GitlabRouter.commit,
     GitlabRouter.projectMembers,
     GitlabRouter.groupMembers,
     GitlabRouter.issue,
@@ -182,6 +184,10 @@ class GitlabRouter {
       '/projects/:id/commits',
       (context, params) =>
           GlCommitsScreen(params['id'].first, prefix: params['prefix'].first));
+  static final commit = RouterScreen(
+      '/projects/:id/commit/:sha',
+      (context, params) =>
+          GlCommitScreen(params['id'].first, sha: params['sha'].first));
   static final projectMembers = RouterScreen(
       '/projects/:id/members',
       (context, parameters) =>
