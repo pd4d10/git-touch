@@ -107,7 +107,7 @@ class GhUsersScreen extends StatelessWidget {
             color: theme.palette.secondaryText,
           ),
           SizedBox(width: 4),
-          Text(company),
+          Expanded(child: Text(company, overflow: TextOverflow.ellipsis)),
         ],
       );
     }
@@ -120,7 +120,7 @@ class GhUsersScreen extends StatelessWidget {
             color: theme.palette.secondaryText,
           ),
           SizedBox(width: 4),
-          Text(location),
+          Expanded(child: Text(location, overflow: TextOverflow.ellipsis)),
         ],
       );
     }
@@ -132,7 +132,9 @@ class GhUsersScreen extends StatelessWidget {
           color: theme.palette.secondaryText,
         ),
         SizedBox(width: 4),
-        Text('Joined on ${dateFormat.format(createdAt)}'),
+        Expanded(
+            child: Text('Joined on ${dateFormat.format(createdAt)}',
+                overflow: TextOverflow.ellipsis)),
       ],
     );
   }
