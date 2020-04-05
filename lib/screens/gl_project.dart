@@ -114,12 +114,13 @@ class GlProjectScreen extends StatelessWidget {
             TableView(
               hasIcon: true,
               items: [
-                TableViewItem(
-                  leftIconData: Octicons.code,
-                  text: Text(langs.keys.isEmpty ? 'Code' : langs.keys.first),
-                  rightWidget: Text(filesize(p.statistics.repositorySize)),
-                  url: '/gitlab/projects/$id/tree/${p.defaultBranch}',
-                ),
+                if (p.statistics != null)
+                  TableViewItem(
+                    leftIconData: Octicons.code,
+                    text: Text(langs.keys.isEmpty ? 'Code' : langs.keys.first),
+                    rightWidget: Text(filesize(p.statistics.repositorySize)),
+                    url: '/gitlab/projects/$id/tree/${p.defaultBranch}',
+                  ),
                 if (p.issuesEnabled)
                   TableViewItem(
                     leftIconData: Octicons.issue_opened,
@@ -133,12 +134,13 @@ class GlProjectScreen extends StatelessWidget {
                     text: Text('Merge requests'),
                     url: '/gitlab/projects/$id/merge_requests?prefix=$prefix',
                   ),
-                TableViewItem(
-                  leftIconData: Octicons.history,
-                  text: Text('Commits'),
-                  rightWidget: Text(p.statistics.commitCount.toString()),
-                  url: '/gitlab/projects/$id/commits?prefix=$prefix',
-                ),
+                if (p.statistics != null)
+                  TableViewItem(
+                    leftIconData: Octicons.history,
+                    text: Text('Commits'),
+                    rightWidget: Text(p.statistics.commitCount.toString()),
+                    url: '/gitlab/projects/$id/commits?prefix=$prefix',
+                  ),
               ],
             ),
             CommonStyle.verticalGap,
