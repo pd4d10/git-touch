@@ -2309,7 +2309,19 @@ class GhUsersQuery extends GraphQLQuery<GhUsers, GhUsersArguments> {
                           value: IntValueNode(value: '30')),
                       ArgumentNode(
                           name: NameNode(value: 'after'),
-                          value: VariableNode(name: NameNode(value: 'after')))
+                          value: VariableNode(name: NameNode(value: 'after'))),
+                      ArgumentNode(
+                          name: NameNode(value: 'orderBy'),
+                          value: ObjectValueNode(fields: [
+                            ObjectFieldNode(
+                                name: NameNode(value: 'field'),
+                                value: EnumValueNode(
+                                    name: NameNode(value: 'STARRED_AT'))),
+                            ObjectFieldNode(
+                                name: NameNode(value: 'direction'),
+                                value: EnumValueNode(
+                                    name: NameNode(value: 'DESC')))
+                          ]))
                     ],
                     directives: [
                       DirectiveNode(
