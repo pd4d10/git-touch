@@ -1,6 +1,6 @@
 # GitTouch
 
-Open source mobile client for GitHub, GitLab, Bitbucket and Gitea, built with Flutter
+An open-source mobile app for Git services including GitHub, GitLaab, Bitbucket and Gitea, built with Flutter
 
 <p>
   <a href="https://itunes.apple.com/us/app/gittouch/id1452042346">
@@ -24,21 +24,29 @@ Android users can also download APK file from [release page](https://github.com/
   <img src="assets/screenshot-light.png" alt="Light screenshot" width="400" />
 </p>
 
+## Supported platforms
+
+https://github.com/git-touch/git-touch/issues/29
+
+✅: Done\
+🚧: Working in progress\
+💬: In review
+
+| Platform | Public service | API documentation | Status | Custom domain |
+| --- | --- | --- | --- | --- |
+| GitHub | https://github.com | [v3(RESTful)](https://developer.github.com/v3/), [v4(GraphQL)](https://developer.github.com/v4/) | ✅ | 💬 |
+| GitLab | https://gitlab.com | [GitLab API v4](https://docs.gitlab.com/ee/api/) | ✅ | ✅ |
+| BitBucket | https://bitbucket.org | [BitBucket API](https://developer.atlassian.com/bitbucket/api/2/reference) | ✅ | ✅ |
+| Gogs | https://try.gogs.io/ | [Gogs API](https://github.com/gogs/docs-api) | 🚧 | ✅ |
+| Gitea | https://gitea.com/ | [Gitea API](https://try.gitea.io/api/swagger#/) | ✅ | ✅ |
+
 ## Contributing
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ## Contributors
 
-[
-![](https://sourcerer.io/fame/pd4d10/pd4d10/git-touch/images/0)
-![](https://sourcerer.io/fame/pd4d10/pd4d10/git-touch/images/1)
-![](https://sourcerer.io/fame/pd4d10/pd4d10/git-touch/images/2)
-![](https://sourcerer.io/fame/pd4d10/pd4d10/git-touch/images/3)
-![](https://sourcerer.io/fame/pd4d10/pd4d10/git-touch/images/4)
-![](https://sourcerer.io/fame/pd4d10/pd4d10/git-touch/images/5)
-![](https://sourcerer.io/fame/pd4d10/pd4d10/git-touch/images/6)
-](https://github.com/pd4d10/git-touch/graphs/contributors)
+[ ![](https://sourcerer.io/fame/pd4d10/pd4d10/git-touch/images/0) ![](https://sourcerer.io/fame/pd4d10/pd4d10/git-touch/images/1) ![](https://sourcerer.io/fame/pd4d10/pd4d10/git-touch/images/2) ![](https://sourcerer.io/fame/pd4d10/pd4d10/git-touch/images/3) ![](https://sourcerer.io/fame/pd4d10/pd4d10/git-touch/images/4) ![](https://sourcerer.io/fame/pd4d10/pd4d10/git-touch/images/5) ![](https://sourcerer.io/fame/pd4d10/pd4d10/git-touch/images/6) ![](https://sourcerer.io/fame/pd4d10/pd4d10/git-touch/images/7) ](https://github.com/pd4d10/git-touch/graphs/contributors)
 
 ## License
 
