@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:filesize/filesize.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -46,19 +48,6 @@ class GhRepoScreen extends StatelessWidget {
         return 'Not watching';
       default:
         return 'Unknown';
-    }
-  }
-
-  String _buildWatchSelectState(GhWatchSubscriptionState state) {
-    switch (state) {
-      case GhWatchSubscriptionState.IGNORED:
-        return 'Ignoring';
-      case GhWatchSubscriptionState.SUBSCRIBED:
-        return 'Watching';
-      case GhWatchSubscriptionState.UNSUBSCRIBED:
-        return 'Not watching';
-      default:
-        return '';
     }
   }
 
@@ -128,40 +117,70 @@ class GhRepoScreen extends StatelessWidget {
                           GhRepoSubscriptionState.SUBSCRIBED,
                       text: _buildWatchState(repo.viewerSubscription),
                       onPressed: () async {
-                        final vs = GhWatchSubscriptionState.values.where((v) =>
-                            v != GhWatchSubscriptionState.ARTEMIS_UNKNOWN);
+                        final vs = GhRepoSubscriptionState.values.where((v) =>
+                            v != GhRepoSubscriptionState.ARTEMIS_UNKNOWN);
                         theme.showActions(context, [
                           for (var v in vs)
                             ActionItem(
-                              text: _buildWatchSelectState(v),
+                              text: _buildWatchState(v),
                               onTap: (_) async {
-                                final res = await auth.gqlClient.execute(
-                                  GhWatchQuery(
-                                    variables: GhWatchArguments(
-                                      id: repo.id,
-                                      state: v,
-                                    ),
-                                  ),
-                                );
-                                setState(() {
-                                  final r = res.data.updateSubscription
-                                      .subscribable as GhWatchRepository;
-                                  switch (r.viewerSubscription) {
-                                    case GhWatchSubscriptionState.IGNORED:
-                                      repo.viewerSubscription =
-                                          GhRepoSubscriptionState.IGNORED;
-                                      break;
-                                    case GhWatchSubscriptionState.SUBSCRIBED:
-                                      repo.viewerSubscription =
-                                          GhRepoSubscriptionState.SUBSCRIBED;
-                                      break;
-                                    case GhWatchSubscriptionState.UNSUBSCRIBED:
+                                switch (v) {
+                                  case GhRepoSubscriptionState.SUBSCRIBED:
+                                  case GhRepoSubscriptionState.IGNORED:
+                                    // TODO: https://github.com/SpinlockLabs/github.dart/pull/215
+                                    // final res = await auth.ghClient.activity
+                                    //     .setRepositorySubscription(
+                                    //   RepositorySlug(
+                                    //     repo.owner.login,
+                                    //     repo.name,
+                                    //   ),
+                                    //   subscribed: v ==
+                                    //       GhRepoSubscriptionState.SUBSCRIBED,
+                                    //   ignored:
+                                    //       v == GhRepoSubscriptionState.IGNORED,
+                                    // );
+                                    final slug = RepositorySlug(
+                                        repo.owner.login, repo.name);
+                                    final response =
+                                        await auth.ghClient.request(
+                                      'PUT',
+                                      '/repos/${slug.fullName}/subscription',
+                                      statusCode: StatusCodes.OK,
+                                      body: json.encode({
+                                        'subscribed': v ==
+                                            GhRepoSubscriptionState.SUBSCRIBED,
+                                        'ignored':
+                                            v == GhRepoSubscriptionState.IGNORED
+                                      }),
+                                    );
+                                    final res = RepositorySubscription.fromJson(
+                                        jsonDecode(response.body)
+                                            as Map<String, dynamic>);
+                                    setState(() {
+                                      if (res.subscribed) {
+                                        repo.viewerSubscription =
+                                            GhRepoSubscriptionState.SUBSCRIBED;
+                                      } else if (res.ignored) {
+                                        repo.viewerSubscription =
+                                            GhRepoSubscriptionState.IGNORED;
+                                      }
+                                    });
+                                    break;
+                                  case GhRepoSubscriptionState.UNSUBSCRIBED:
+                                    await auth.ghClient.activity
+                                        .deleteRepositorySubscription(
+                                      RepositorySlug(
+                                        repo.owner.login,
+                                        repo.name,
+                                      ),
+                                    );
+                                    setState(() {
                                       repo.viewerSubscription =
                                           GhRepoSubscriptionState.UNSUBSCRIBED;
-                                      break;
-                                    default:
-                                  }
-                                });
+                                    });
+                                    break;
+                                  default:
+                                }
                               },
                             )
                         ]);
@@ -172,18 +191,15 @@ class GhRepoScreen extends StatelessWidget {
                       active: repo.viewerHasStarred,
                       text: repo.viewerHasStarred ? 'Unstar' : 'Star',
                       onPressed: () async {
-                        final res = await auth.gqlClient.execute(
-                          GhStarQuery(
-                            variables: GhStarArguments(
-                              id: repo.id,
-                              flag: !repo.viewerHasStarred,
-                            ),
-                          ),
-                        );
+                        if (repo.viewerHasStarred) {
+                          await auth.ghClient.activity.unstar(
+                              RepositorySlug(repo.owner.login, repo.name));
+                        } else {
+                          await auth.ghClient.activity.star(
+                              RepositorySlug(repo.owner.login, repo.name));
+                        }
                         setState(() {
-                          repo.viewerHasStarred = res.data.removeStar?.starrable
-                                  ?.viewerHasStarred ??
-                              res.data.addStar.starrable.viewerHasStarred;
+                          repo.viewerHasStarred = !repo.viewerHasStarred;
                         });
                       },
                     ),
