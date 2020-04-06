@@ -77,18 +77,17 @@ class GhUserScreen extends StatelessWidget {
                   active: p.viewerIsFollowing,
                   text: p.viewerIsFollowing ? 'Unfollow' : 'Follow',
                   onPressed: () async {
-                    final res = await auth.gqlClient.execute(
-                      GhFollowQuery(
-                        variables: GhFollowArguments(
-                          id: p.id,
-                          flag: !p.viewerIsFollowing,
-                        ),
-                      ),
-                    );
+                    if (p.viewerIsFollowing) {
+                      await auth.ghClient.users.unfollowUser(p.login);
+                    } else {
+                      // TODO: https://github.com/SpinlockLabs/github.dart/pull/216
+                      // await auth.ghClient.users.followUser(p.login);
+                      await auth.ghClient.request(
+                          'PUT', '/user/following/${p.login}',
+                          statusCode: 204);
+                    }
                     setState(() {
-                      p.viewerIsFollowing =
-                          res.data.unfollowUser?.user?.viewerIsFollowing ??
-                              res.data.followUser.user.viewerIsFollowing;
+                      p.viewerIsFollowing = !p.viewerIsFollowing;
                     });
                   },
                 )
