@@ -1,10 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:git_touch/graphql/gh.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/common.dart';
 import 'package:git_touch/utils/utils.dart';
+import 'package:github/github.dart';
 import 'package:provider/provider.dart';
 
 class GhIssueFormScreen extends StatefulWidget {
@@ -57,20 +59,23 @@ class _GhIssueFormScreenState extends State<GhIssueFormScreen> {
             onPressed: () async {
               final auth = Provider.of<AuthModel>(context);
               final theme = Provider.of<ThemeModel>(context);
-              final r0 = await auth.gqlClient.execute(
-                GhRepoIdQuery(
-                  variables:
-                      GhRepoIdArguments(owner: widget.owner, name: widget.name),
-                ),
+
+              final slug = RepositorySlug(widget.owner, widget.name);
+
+              // TODO: https://github.com/SpinlockLabs/github.dart/issues/211
+              // final res = await auth.ghClient.issues
+              //     .create(slug, IssueRequest(title: _title, body: _body));
+
+              final response = await auth.ghClient.request(
+                'POST',
+                '/repos/${slug.fullName}/issues',
+                body: jsonEncode({'title': _title, 'body': _body}),
               );
-              final res = await auth.gqlClient.execute(GhCreateIssueQuery(
-                variables: GhCreateIssueArguments(
-                    repoId: r0.data.repository.id, title: _title, body: _body),
-              ));
-              final issue = res.data.createIssue.issue;
+              final res = Issue.fromJson(
+                  jsonDecode(response.body) as Map<String, dynamic>);
               await theme.push(
                 context,
-                '/${issue.repository.owner.login}/${issue.repository.name}/issues/${issue.number}',
+                '/${widget.owner}/${widget.name}/issues/${res.number}',
                 replace: true,
               );
             },
