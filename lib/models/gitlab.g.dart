@@ -348,3 +348,19 @@ Map<String, dynamic> _$GitlabIssueToJson(GitlabIssue instance) =>
       'updated_at': instance.updatedAt?.toIso8601String(),
       'labels': instance.labels,
     };
+
+GitlabStarrer _$GitlabStarrerFromJson(Map<String, dynamic> json) {
+  return GitlabStarrer()
+    ..starredSince = json['starred_since'] == null
+        ? null
+        : DateTime.parse(json['starred_since'] as String)
+    ..user = json['user'] == null
+        ? null
+        : GitlabUser.fromJson(json['user'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$GitlabStarrerToJson(GitlabStarrer instance) =>
+    <String, dynamic>{
+      'starred_since': instance.starredSince?.toIso8601String(),
+      'user': instance.user,
+    };

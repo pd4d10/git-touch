@@ -96,6 +96,7 @@ class GlProjectScreen extends StatelessWidget {
                 EntryItem(
                   count: p.starCount,
                   text: 'Stars',
+                  url: '/gitlab/projects/$id/starrers',
                 ),
                 EntryItem(
                   count: p.forksCount,

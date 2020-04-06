@@ -7,6 +7,7 @@ import 'package:git_touch/screens/code_theme.dart';
 import 'package:git_touch/screens/gh_commits.dart';
 import 'package:git_touch/screens/gh_org_repos.dart';
 import 'package:git_touch/screens/gl_commit.dart';
+import 'package:git_touch/screens/gl_starrers.dart';
 import 'package:git_touch/screens/gt_commits.dart';
 import 'package:git_touch/screens/gt_issues.dart';
 import 'package:git_touch/screens/gt_object.dart';
@@ -144,6 +145,7 @@ class GitlabRouter {
     GitlabRouter.blob,
     GitlabRouter.tree,
     GitlabRouter.project,
+    GitlabRouter.starrers,
     GitlabRouter.issues,
     GitlabRouter.mergeRequests,
     GitlabRouter.commits,
@@ -168,6 +170,8 @@ class GitlabRouter {
           path: params['path']?.first));
   static final project = RouterScreen('/projects/:id',
       (context, params) => GlProjectScreen(int.parse(params['id'].first)));
+  static final starrers = RouterScreen('/projects/:id/starrers',
+      (context, params) => GlStarrersScreen(int.parse(params['id'].first)));
   static final issues = RouterScreen(
       '/projects/:id/issues',
       (context, params) => GlIssuesScreen(

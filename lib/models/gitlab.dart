@@ -201,3 +201,12 @@ class GitlabIssue {
   factory GitlabIssue.fromJson(Map<String, dynamic> json) =>
       _$GitlabIssueFromJson(json);
 }
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GitlabStarrer {
+  DateTime starredSince;
+  GitlabUser user;
+  GitlabStarrer();
+  factory GitlabStarrer.fromJson(Map<String, dynamic> json) =>
+      _$GitlabStarrerFromJson(json);
+}
