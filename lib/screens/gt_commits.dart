@@ -34,6 +34,7 @@ class GtCommitsScreen extends StatelessWidget {
         return CommitItem(
           author: c.author?.login ?? c.commit.author.name,
           avatarUrl: null,
+          avatarLink: null,
           createdAt: c.commit.author.date,
           message: c.commit.message,
           url: c.htmlUrl,

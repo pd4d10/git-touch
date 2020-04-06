@@ -37,6 +37,7 @@ class BbCommitsScreen extends StatelessWidget {
         return CommitItem(
           url: '${auth.activeAccount.domain}/$owner/$name/commits/${v.hash}',
           avatarUrl: v.author.user?.avatarUrl,
+          avatarLink: null,
           author: v.author.raw.replaceFirst(RegExp(r' <.*>'), ''),
           createdAt: v.date,
           message: v.message,

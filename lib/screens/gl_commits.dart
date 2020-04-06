@@ -34,9 +34,11 @@ class GlCommitsScreen extends StatelessWidget {
         return CommitItem(
           author: c.authorName,
           avatarUrl: null,
+          avatarLink: null,
           createdAt: c.createdAt,
           message: c.message,
           url: '$prefix/commit/${c.id}', // TODO:
+          // url: '/gitlab/projects/$id/commit/${c.id}', // TODO:
         );
       },
     );

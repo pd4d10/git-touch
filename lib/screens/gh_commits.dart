@@ -51,11 +51,13 @@ class GhCommitsScreen extends StatelessWidget {
       onRefresh: () => _query(context),
       onLoadMore: (cursor) => _query(context, cursor),
       itemBuilder: (payload) {
+        final login = payload.author?.user?.login;
         return CommitItem(
           url: payload.url,
           avatarUrl: payload.author?.avatarUrl,
+          avatarLink: login == null ? null : '/$login',
           message: payload.messageHeadline,
-          author: payload.author?.user?.login ?? payload.author.name,
+          author: login ?? payload.author.name,
           createdAt: payload.committedDate,
           widgets: payload.status == null
               ? null

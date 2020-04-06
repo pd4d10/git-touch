@@ -9,6 +9,7 @@ import 'package:timeago/timeago.dart' as timeago;
 class CommitItem extends StatelessWidget {
   final String url;
   final String avatarUrl;
+  final String avatarLink;
   final String message;
   final String author;
   final DateTime createdAt;
@@ -16,6 +17,7 @@ class CommitItem extends StatelessWidget {
   CommitItem({
     @required this.url,
     @required this.avatarUrl,
+    @required this.avatarLink,
     @required this.message,
     @required this.author,
     @required this.createdAt,
@@ -31,7 +33,7 @@ class CommitItem extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Avatar(url: avatarUrl),
+            Avatar(url: avatarUrl, linkUrl: avatarLink),
             SizedBox(width: 10),
             Expanded(
               child: Column(
