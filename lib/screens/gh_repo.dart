@@ -310,7 +310,7 @@ class GhRepoScreen extends StatelessWidget {
                             items: refs
                                 .map((b) => PickerItem(b.name, text: b.name))
                                 .toList(),
-                            onChange: (ref) {
+                            onClose: (ref) {
                               if (ref != branch) {
                                 theme.push(context, '/$owner/$name?ref=$ref',
                                     replace: true);
