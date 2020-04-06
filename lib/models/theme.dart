@@ -201,11 +201,9 @@ class ThemeModel with ChangeNotifier {
       return router.navigateTo(
         context,
         url,
-        transition: replace
-            ? TransitionType.fadeIn
-            : theme == AppThemeType.cupertino
-                ? TransitionType.cupertino
-                : TransitionType.material,
+        transition: theme == AppThemeType.cupertino
+            ? TransitionType.cupertino
+            : TransitionType.material,
         replace: replace,
       );
     } else {
