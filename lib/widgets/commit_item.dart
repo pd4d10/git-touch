@@ -51,7 +51,9 @@ class CommitItem extends StatelessWidget {
                   SizedBox(height: 4),
                   Row(
                     children: <Widget>[
-                      Text(author, style: TextStyle(fontSize: 15)),
+                      Text(author,
+                          style: TextStyle(
+                              fontSize: 15, color: theme.palette.primary)),
                       Text(
                         ' committed ${timeago.format(createdAt)}',
                         style: TextStyle(
