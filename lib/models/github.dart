@@ -67,7 +67,15 @@ class GithubEventPayload {
   String head;
   List<GithubEventCommit> commits;
   Map<String, dynamic> forkee;
-
+  List<GithubPagesItem> pages;
+  GithubSecurityItem securityAdvisory;
+  GithubAlertItem alert;
+  GithubProjectItem project;
+  GithubProjectColumnItem projectColumn;
+  GithubInstallationRepositoriesItem installation;
+  GithubCheckrunItem checkRun;
+  GithubCheckSuiteItem checkSuite;
+  GithubContentReferenceItem contentReference;
   GithubEventPayload();
 
   factory GithubEventPayload.fromJson(Map<String, dynamic> json) =>
@@ -204,3 +212,92 @@ class GithubTreeItem {
   factory GithubTreeItem.fromJson(Map<String, dynamic> json) =>
       _$GithubTreeItemFromJson(json);
 }
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GithubPagesItem {
+  String pageName;
+  String title;
+  String action;
+  GithubPagesItem();
+  factory GithubPagesItem.fromJson(Map<String, dynamic> json) => 
+      _$GithubPagesItemFromJson(json);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GithubSecurityItem {
+  String summary;
+  String description;
+  String severity;
+  GithubSecurityItem();
+  factory GithubSecurityItem.fromJson(Map<String, dynamic> json) => 
+      _$GithubSecurityItemFromJson(json);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GithubAlertItem {
+  String affectedPackageName;
+  String affectedRange;
+  GithubAlertItem();
+  factory GithubAlertItem.fromJson(Map<String, dynamic> json) =>
+      _$GithubAlertItemFromJson(json);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GithubProjectItem {
+  String name;
+  String state;
+  String body;
+  String htmlUrl;
+  GithubProjectItem();
+  factory GithubProjectItem.fromJson(Map<String, dynamic> json) =>
+      _$GithubProjectItemFromJson(json);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GithubProjectColumnItem {
+  String htmlUrl;
+  String columnsUrl;
+  String name;
+  GithubProjectColumnItem();
+  factory GithubProjectColumnItem.fromJson(Map<String, dynamic> json) =>
+      _$GithubProjectColumnItemFromJson(json); 
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GithubInstallationRepositoriesItem {
+  List<GithubNotificationItemRepo> repositoriesAdded, repositoriesRemoved;
+  String repositoriesSelection;
+  int id;
+  GithubInstallationRepositoriesItem();
+  factory GithubInstallationRepositoriesItem.fromJson(Map<String, dynamic> json) => 
+      _$GithubInstallationRepositoriesItemFromJson(json);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GithubCheckrunItem {
+  String status;
+  String name;
+  int id;
+  GithubCheckrunItem();
+  factory GithubCheckrunItem.fromJson(Map<String, dynamic> json) =>
+      _$GithubCheckrunItemFromJson(json);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GithubCheckSuiteItem {
+  String status;
+  String conclusion;
+  GithubCheckSuiteItem();
+  factory GithubCheckSuiteItem.fromJson(Map<String, dynamic> json) => 
+      _$GithubCheckSuiteItemFromJson(json);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GithubContentReferenceItem {
+  int id;
+  String reference;
+  GithubContentReferenceItem();
+  factory GithubContentReferenceItem.fromJson(Map<String, dynamic> json) =>
+      _$GithubContentReferenceItemFromJson(json);
+}
+

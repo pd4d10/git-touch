@@ -78,7 +78,37 @@ GithubEventPayload _$GithubEventPayloadFromJson(Map<String, dynamic> json) {
             ? null
             : GithubEventCommit.fromJson(e as Map<String, dynamic>))
         ?.toList()
-    ..forkee = json['forkee'] as Map<String, dynamic>;
+    ..forkee = json['forkee'] as Map<String, dynamic>
+    ..pages = (json['pages'] as List)
+        ?.map((e) => e == null
+            ? null
+            : GithubPagesItem.fromJson(e as Map<String, dynamic>))
+        ?.toList()
+    ..securityAdvisory = json['security_advisory'] == null
+        ? null
+        : GithubSecurityItem.fromJson(
+            json['security_advisory'] as Map<String, dynamic>)
+    ..alert = json['alert'] == null
+        ? null
+        : GithubAlertItem.fromJson(json['alert'] as Map<String, dynamic>)
+    ..project = json['project'] == null
+        ? null
+        : GithubProjectItem.fromJson(json['project'] as Map<String, dynamic>)
+    ..projectColumn = json['project_column'] == null
+        ? null
+        : GithubProjectColumnItem.fromJson(
+            json['project_column'] as Map<String, dynamic>)
+    ..installation = json['installation'] == null
+        ? null
+        : GithubInstallationRepositoriesItem.fromJson(
+            json['installation'] as Map<String, dynamic>)
+    ..checkRun = json['check_run'] == null
+        ? null
+        : GithubCheckrunItem.fromJson(json['check_run'] as Map<String, dynamic>)
+    ..checkSuite = json['check_suite'] == null
+        ? null
+        : GithubCheckSuiteItem.fromJson(
+            json['check_suite'] as Map<String, dynamic>);
 }
 
 Map<String, dynamic> _$GithubEventPayloadToJson(GithubEventPayload instance) =>
@@ -94,6 +124,14 @@ Map<String, dynamic> _$GithubEventPayloadToJson(GithubEventPayload instance) =>
       'head': instance.head,
       'commits': instance.commits,
       'forkee': instance.forkee,
+      'pages': instance.pages,
+      'security_advisory': instance.securityAdvisory,
+      'alert': instance.alert,
+      'project': instance.project,
+      'project_column': instance.projectColumn,
+      'installation': instance.installation,
+      'check_run': instance.checkRun,
+      'check_suite': instance.checkSuite,
     };
 
 GithubEventIssue _$GithubEventIssueFromJson(Map<String, dynamic> json) {
@@ -237,4 +275,143 @@ Map<String, dynamic> _$GithubTreeItemToJson(GithubTreeItem instance) =>
       'type': instance.type,
       'download_url': instance.downloadUrl,
       'content': instance.content,
+    };
+
+GithubPagesItem _$GithubPagesItemFromJson(Map<String, dynamic> json) {
+  return GithubPagesItem()
+    ..pageName = json['page_name'] as String
+    ..title = json['title'] as String
+    ..action = json['action'] as String;
+}
+
+Map<String, dynamic> _$GithubPagesItemToJson(GithubPagesItem instance) =>
+    <String, dynamic>{
+      'page_name': instance.pageName,
+      'title': instance.title,
+      'action': instance.action,
+    };
+
+GithubSecurityItem _$GithubSecurityItemFromJson(Map<String, dynamic> json) {
+  return GithubSecurityItem()
+    ..summary = json['summary'] as String
+    ..description = json['description'] as String
+    ..severity = json['severity'] as String;
+}
+
+Map<String, dynamic> _$GithubSecurityItemToJson(GithubSecurityItem instance) =>
+    <String, dynamic>{
+      'summary': instance.summary,
+      'description': instance.description,
+      'severity': instance.severity,
+    };
+
+GithubAlertItem _$GithubAlertItemFromJson(Map<String, dynamic> json) {
+  return GithubAlertItem()
+    ..affectedPackageName = json['affected_package_name'] as String
+    ..affectedRange = json['affected_range'] as String;
+}
+
+Map<String, dynamic> _$GithubAlertItemToJson(GithubAlertItem instance) =>
+    <String, dynamic>{
+      'affected_package_name': instance.affectedPackageName,
+      'affected_range': instance.affectedRange,
+    };
+
+GithubProjectItem _$GithubProjectItemFromJson(Map<String, dynamic> json) {
+  return GithubProjectItem()
+    ..name = json['name'] as String
+    ..state = json['state'] as String
+    ..body = json['body'] as String
+    ..htmlUrl = json['html_url'] as String;
+}
+
+Map<String, dynamic> _$GithubProjectItemToJson(GithubProjectItem instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'state': instance.state,
+      'body': instance.body,
+      'html_url': instance.htmlUrl,
+    };
+
+GithubProjectColumnItem _$GithubProjectColumnItemFromJson(
+    Map<String, dynamic> json) {
+  return GithubProjectColumnItem()
+    ..htmlUrl = json['html_url'] as String
+    ..columnsUrl = json['columns_url'] as String
+    ..name = json['name'] as String;
+}
+
+Map<String, dynamic> _$GithubProjectColumnItemToJson(
+        GithubProjectColumnItem instance) =>
+    <String, dynamic>{
+      'html_url': instance.htmlUrl,
+      'columns_url': instance.columnsUrl,
+      'name': instance.name,
+    };
+
+GithubInstallationRepositoriesItem _$GithubInstallationRepositoriesItemFromJson(
+    Map<String, dynamic> json) {
+  return GithubInstallationRepositoriesItem()
+    ..repositoriesAdded = (json['repositories_added'] as List)
+        ?.map((e) => e == null
+            ? null
+            : GithubNotificationItemRepo.fromJson(e as Map<String, dynamic>))
+        ?.toList()
+    ..repositoriesRemoved = (json['repositories_removed'] as List)
+        ?.map((e) => e == null
+            ? null
+            : GithubNotificationItemRepo.fromJson(e as Map<String, dynamic>))
+        ?.toList()
+    ..repositoriesSelection = json['repositories_selection'] as String
+    ..id = json['id'] as int;
+}
+
+Map<String, dynamic> _$GithubInstallationRepositoriesItemToJson(
+        GithubInstallationRepositoriesItem instance) =>
+    <String, dynamic>{
+      'repositories_added': instance.repositoriesAdded,
+      'repositories_removed': instance.repositoriesRemoved,
+      'repositories_selection': instance.repositoriesSelection,
+      'id': instance.id,
+    };
+
+GithubCheckrunItem _$GithubCheckrunItemFromJson(Map<String, dynamic> json) {
+  return GithubCheckrunItem()
+    ..status = json['status'] as String
+    ..name = json['name'] as String
+    ..id = json['id'] as int;
+}
+
+Map<String, dynamic> _$GithubCheckrunItemToJson(GithubCheckrunItem instance) =>
+    <String, dynamic>{
+      'status': instance.status,
+      'name': instance.name,
+      'id': instance.id,
+    };
+
+GithubCheckSuiteItem _$GithubCheckSuiteItemFromJson(Map<String, dynamic> json) {
+  return GithubCheckSuiteItem()
+    ..status = json['status'] as String
+    ..conclusion = json['conclusion'] as String;
+}
+
+Map<String, dynamic> _$GithubCheckSuiteItemToJson(
+        GithubCheckSuiteItem instance) =>
+    <String, dynamic>{
+      'status': instance.status,
+      'conclusion': instance.conclusion,
+    };
+
+GithubContentReferenceItem _$GithubContentReferenceItemFromJson(
+    Map<String, dynamic> json) {
+  return GithubContentReferenceItem()
+    ..id = json['id'] as int
+    ..reference = json['reference'] as String;
+}
+
+Map<String, dynamic> _$GithubContentReferenceItemToJson(
+        GithubContentReferenceItem instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'reference': instance.reference,
     };
