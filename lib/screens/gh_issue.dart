@@ -172,6 +172,13 @@ __typename
   }
   milestoneTitle
 }
+... on DemilestonedEvent {
+  createdAt
+  actor {
+    login
+  }
+  milestoneTitle
+}
 ... on LockedEvent {
   createdAt
   actor {
@@ -190,12 +197,23 @@ __typename
   actor {
     login
   }
-  user {
+  assignee
+}
+... on UnassignedEvent {
+  createdAt
+  actor {
     login
   }
+  assignee
 }
 ... on SubscribedEvent {
   createdAt
+  actor {
+    login
+  }
+}
+... on UnsubscribedEvent {
+  createdAt 
   actor {
     login
   }
@@ -212,6 +230,18 @@ __typename
     login
   }
 }
+... on TransferredEvent {
+  createdAt
+  actor {
+    login
+  }
+  fromRepository {
+    owner {
+      login
+    }
+    name
+  }
+}
 ''';
 
     if (isPullRequest) {
@@ -225,6 +255,57 @@ __typename
         login
       }
     }
+  }
+}
+... on DeployedEvent {
+  createdAt
+  actor {
+    login
+  }
+  pullRequest {
+    headRef {
+      name
+    }
+  }
+}
+... on DeploymentEnvironmentChangedEvent {
+  createdAt
+  actor {
+    login
+  }
+  deploymentStatus {
+    deployment {
+      environment
+    }
+    description
+  }
+}
+... on HeadRefRestoredEvent {
+  createdAt
+  actor {
+    login
+  }
+  pullRequest {
+    headRef {
+      name
+    }
+  }
+}
+... on BaseRefForcePushedEvent {
+  createdAt
+  actor {
+    login
+  }
+  pullRequest {
+    baseRef {
+      name
+    }
+  }
+  beforeCommit {
+    oid
+  }
+  afterCommit {
+    oid
   }
 }
 ... on HeadRefForcePushedEvent {
@@ -251,6 +332,29 @@ __typename
   }
   requestedReviewer {
     ... on User {
+      login
+    }
+  }
+}
+... on ReviewRequestRemovedEvent {
+  createdAt
+  actor {
+    login
+  }
+  requestedReviewer {
+    ... on User {
+      login
+    }
+  }
+}
+... on ReviewDismissedEvent {
+  createdAt
+  actor {
+    login
+  }
+  dismissalMessage
+  pullRequest {
+    author {
       login
     }
   }
