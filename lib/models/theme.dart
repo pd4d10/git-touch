@@ -32,6 +32,59 @@ class AppBrightnessType {
   ];
 }
 
+class AppStartTabGh {
+  static const news = 0;
+  static const notification = 1;
+  static const trending = 2;
+  static const search = 3;
+  static const me = 4;
+  static const explore = 5;
+  static const groups = 6;
+  static const teams = 7;
+
+  static const values = [
+    AppStartTabGh.news,
+    AppStartTabGh.notification,
+    AppStartTabGh.trending,
+    AppStartTabGh.search,
+    AppStartTabGh.me,
+  ];
+}
+
+class AppStartTabGl {
+  static const explore = 0;
+  static const groups = 1;
+  static const me = 2;
+
+  static const values = [
+    AppStartTabGl.explore,
+    AppStartTabGl.groups,
+    AppStartTabGl.me,
+  ];
+}
+
+class AppStartTabBb {
+  static const explore = 0;
+  static const teams = 1;
+  static const me = 2;
+
+  static const values = [
+    AppStartTabBb.explore,
+    AppStartTabBb.teams,
+    AppStartTabBb.me,
+  ];
+}
+
+class AppStartTabGt {
+  static const orgs = 0;
+  static const me = 1;
+
+  static const values = [
+    AppStartTabGt.orgs,
+    AppStartTabGt.me,
+  ];
+}
+
 class PickerItem<T> {
   final T value;
   final String text;
@@ -116,6 +169,104 @@ class ThemeModel with ChangeNotifier {
   int _brightnessValue = AppBrightnessType.followSystem;
   int get brighnessValue => _brightnessValue;
 
+  int _defaultStartTabGh = AppStartTabGh.news;
+  int get defaultTabGh => _defaultStartTabGh;
+
+  int get startTabGl {
+    switch(_defaultStartTabGh) {
+      case AppStartTabGh.news:
+        return 0;
+      case AppStartTabGh.notification:
+        return 1;
+      case AppStartTabGh.trending:
+        return 2;
+      case AppStartTabGh.search:
+        return 3;
+      case AppStartTabGh.me:
+        return 4;
+      default:
+        return 0;
+    }
+  }
+
+  Future<void> setDefaultStartTabGh(int v) async {
+    _defaultStartTabGh = v;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt(StorageKeys.defaultStartTabGh, v);
+    Fimber.d('write default start tab for github: $v');
+    notifyListeners();
+  }
+
+  int _defaultStartTabGl = AppStartTabGl.explore;
+  int get defaultTabGl => _defaultStartTabGl;
+
+  int get startTab {
+    switch(_defaultStartTabGl) {
+      case AppStartTabGl.explore:
+        return 0;
+      case AppStartTabGl.groups:
+        return 1;
+      case AppStartTabGl.me:
+        return 2;
+      default:
+        return 0;
+    }
+  }
+
+  Future<void> setDefaultStartTabGl(int v) async {
+    _defaultStartTabGl = v;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt(StorageKeys.defaultStartTabGl, v);
+    Fimber.d('write default start tab for gitlab: $v');
+    notifyListeners();
+  }
+
+  int _defaultStartTabBb = AppStartTabBb.explore;
+  int get defaultTabBb => _defaultStartTabBb;
+
+  int get startTabBb {
+    switch(_defaultStartTabBb) {
+      case AppStartTabBb.explore:
+        return 0;
+      case AppStartTabBb.teams:
+        return 1;
+      case AppStartTabBb.me:
+        return 2;
+      default:
+        return 0;
+    }
+  }
+
+  Future<void> setDefaultStartTabBb(int v) async {
+    _defaultStartTabBb = v;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt(StorageKeys.defaultStartTabBb, v);
+    Fimber.d('write default start tab for bitbucket: $v');
+    notifyListeners();
+  }
+
+  int _defaultStartTabGt = AppStartTabGt.orgs;
+  int get defaultTabGt => _defaultStartTabGt;
+
+  int get startTabGt {
+    switch(_defaultStartTabGt) {
+      case AppStartTabGt.orgs:
+        return 0;
+      case AppStartTabGt.me:
+        return 1;
+      default:
+        return 0;
+    }
+  }
+
+  Future<void> setDefaultStartTabGt(int v) async {
+    _defaultStartTabGt = v;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt(StorageKeys.defaultStartTabGt, v);
+    Fimber.d('write default start tab for gitea: $v');
+    notifyListeners();
+  }
+
   // could be null
   Brightness get brightness {
     switch (_brightnessValue) {
@@ -182,6 +333,22 @@ class ThemeModel with ChangeNotifier {
     Fimber.d('read brightness: $b');
     if (AppBrightnessType.values.contains(b)) {
       _brightnessValue = b;
+    }
+    final dGh = prefs.getInt(StorageKeys.defaultStartTabGh);
+    if (AppStartTabGh.values.contains(dGh)) {
+      _defaultStartTabGh = dGh;
+    }
+    final dGl = prefs.getInt(StorageKeys.defaultStartTabGl);
+    if (AppStartTabGl.values.contains(dGl)) {
+      _defaultStartTabGh = dGl;
+    }
+    final dBb = prefs.getInt(StorageKeys.defaultStartTabBb);
+    if (AppStartTabBb.values.contains(dBb)) {
+      _defaultStartTabGh = dGh;
+    }
+    final dGt = prefs.getInt(StorageKeys.defaultStartTabGt);
+    if (AppStartTabGt.values.contains(dGt)) {
+      _defaultStartTabGh = dGh;
     }
 
     notifyListeners();

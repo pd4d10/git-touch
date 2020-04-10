@@ -42,6 +42,85 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final theme = Provider.of<ThemeModel>(context);
     final auth = Provider.of<AuthModel>(context);
     final code = Provider.of<CodeModel>(context);
+
+    List<Tuple2> defaultTabItems = List<Tuple2>();
+    String defaultTabSettingValue;
+    switch(auth.activeAccount.platform) {
+      case PlatformType.github:
+        switch(theme.defaultTabGh) {
+          case 0:
+            defaultTabSettingValue = 'News';
+            break;
+          case 1:
+            defaultTabSettingValue = 'Notifications';
+            break;
+          case 2:
+            defaultTabSettingValue = 'Trending';
+            break;
+          case 3: 
+            defaultTabSettingValue = 'Search';
+            break;
+          case 4: 
+            defaultTabSettingValue = 'Me';
+            break;
+        }
+        defaultTabItems.add(Tuple2('News', AppStartTabGh.news));
+        defaultTabItems.add(Tuple2('Notifications', AppStartTabGh.notification));
+        defaultTabItems.add(Tuple2('Trending', AppStartTabGh.trending));
+        defaultTabItems.add(Tuple2('Search', AppStartTabGh.search));
+        defaultTabItems.add(Tuple2('Me', AppStartTabGh.me));
+        break;
+      
+      case PlatformType.gitlab:
+        switch(theme.defaultTabGl) {
+          case 0:
+            defaultTabSettingValue = 'Explore';
+            break;
+          case 1:
+            defaultTabSettingValue = 'Groups';
+            break;
+          case 2:
+            defaultTabSettingValue = 'Me';
+            break;
+
+        }
+        defaultTabItems.add(Tuple2('Explore', AppStartTabGl.explore));
+        defaultTabItems.add(Tuple2('Groups', AppStartTabGl.groups));
+        defaultTabItems.add(Tuple2('User', AppStartTabGl.me));
+        break;
+      
+      case PlatformType.bitbucket:
+        switch(theme.defaultTabBb) {
+          case 0:
+            defaultTabSettingValue = 'Explore';
+            break;
+          case 1:
+            defaultTabSettingValue = 'Teams';
+            break;
+          case 2:
+            defaultTabSettingValue = 'Me';
+            break;
+
+        }
+        defaultTabItems.add(Tuple2('Explore', AppStartTabBb.explore));
+        defaultTabItems.add(Tuple2('Teams', AppStartTabBb.teams));
+        defaultTabItems.add(Tuple2('User', AppStartTabBb.me));
+        break;
+
+      case PlatformType.gitea:
+        switch(theme.defaultTabGt) {
+          case 0:
+            defaultTabSettingValue = 'Orgs';
+            break;
+          case 1:
+            defaultTabSettingValue = 'Me';
+            break;
+
+        }
+        defaultTabItems.add(Tuple2('Explore', AppStartTabGt.orgs));
+        defaultTabItems.add(Tuple2('Teams', AppStartTabGt.me)); 
+        break;
+    }
     return SingleScaffold(
       title: AppBarTitle('Settings'),
       body: Column(
@@ -114,6 +193,43 @@ class _SettingsScreenState extends State<SettingsScreen> {
               url: '/choose-code-theme',
               rightWidget: Text('${code.fontFamily}, ${code.fontSize}pt'),
             ),
+            TableViewItem( 
+              text: Text('Default Start Tab'),
+              rightWidget: Text(defaultTabSettingValue),
+              onTap: () {
+                
+                theme.showActions(context, [
+                  for (var t in defaultTabItems)
+                  ActionItem(
+                    text: t.item1,
+                    onTap: (_) {
+                      switch(auth.activeAccount.platform) {
+                        case PlatformType.github:
+                          if (theme.defaultTabGh != t.item2) {
+                            theme.setDefaultStartTabGh(t.item2);
+                          }
+                          break;
+                        case PlatformType.gitlab:
+                          if (theme.defaultTabGh != t.item2) {
+                            theme.setDefaultStartTabGl(t.item2);
+                          }
+                          break;
+                        case PlatformType.bitbucket:
+                          if (theme.defaultTabGh != t.item2) {
+                            theme.setDefaultStartTabBb(t.item2);
+                          }
+                          break;
+                        case PlatformType.gitea:
+                          if (theme.defaultTabGh != t.item2) {
+                            theme.setDefaultStartTabGt(t.item2);
+                          }
+                          break;
+                      }
+                    },
+                  )
+                ]);
+              }
+            )
           ]),
           CommonStyle.verticalGap,
           TableView(headerText: 'feedback', items: [

@@ -26,6 +26,10 @@ class StorageKeys {
   static const codeThemeDark = 'code-theme-dark';
   static const iCodeFontSize = 'code-font-size';
   static const codeFontFamily = 'code-font-family';
+  static const defaultStartTabGh = 'default-start-tab-github';
+  static const defaultStartTabGl = 'default-start-tab-gitlab';
+  static const defaultStartTabBb = 'default-start-tab-bitbucket';
+  static const defaultStartTabGt = 'default-start-tab-gitea';
 }
 
 class CommonStyle {

@@ -27,7 +27,31 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int active = 0;
+  int platformType = 0;
+  // int activeGh=0, activeGl=0, activeBb, activeGt;
 
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final theme = Provider.of<ThemeModel>(context);
+    final auth = Provider.of<AuthModel>(context);
+    if(auth.activeAccount != null)
+    switch(auth.activeAccount.platform) {
+      case PlatformType.github:
+        active = theme.defaultTabGh;
+        break;
+      case PlatformType.gitlab:
+        active = theme.defaultTabGl;
+        break;
+      case PlatformType.bitbucket:
+        active = theme.defaultTabBb;
+        break;
+      case PlatformType.gitea:
+        active = theme.defaultTabGt;
+        break;
+    }
+  }
+  
   _buildScreen(int index) {
     // return GlProjectScreen(32221);
     // return IssuesScreen('flutter', 'flutter', isPullRequest: true);
@@ -35,7 +59,6 @@ class _HomeState extends State<Home> {
     // return IssueScreen('reactjs', 'rfcs', 68, isPullRequest: true);
     // return Image.asset('images/spinner.webp', width: 32, height: 32);
     final auth = Provider.of<AuthModel>(context);
-
     switch (auth.activeAccount.platform) {
       case PlatformType.github:
         switch (index) {
@@ -185,7 +208,7 @@ class _HomeState extends State<Home> {
     switch (theme.theme) {
       case AppThemeType.cupertino:
         return CupertinoTabScaffold(
-          tabBar: CupertinoTabBar(items: _navigationItems),
+          tabBar: CupertinoTabBar(items: _navigationItems, currentIndex: active),
           tabBuilder: (context, index) {
             return CupertinoTabView(builder: (context) {
               return _buildScreen(index);
