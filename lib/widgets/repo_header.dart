@@ -43,12 +43,15 @@ class RepoHeader extends StatelessWidget {
                 linkUrl: avatarLink,
               ),
               SizedBox(width: 8),
-              Text(
-                '$owner / $name',
-                style: TextStyle(
-                  fontSize: 20,
-                  color: theme.palette.primary,
-                ),
+              Expanded(
+                child: Text(
+                    '$owner / $name',
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: theme.palette.primary,
+                    ),
+                    overflow: TextOverflow.visible,
+                  ),
               ),
             ],
           ),
