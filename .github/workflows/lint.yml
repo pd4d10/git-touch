@@ -12,9 +12,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: pub get
-      - run: \
-        output=$(dartfmt --dry-run lib/**/*.dart)
-        if [ -z $output]
-          then exit 0
-        else
-          exit 1
+      - run: |
+          output=$(dartfmt --dry-run lib/**/*.dart)
+          if [ -z $output]
+            then exit 0
+          else
+            exit 1
