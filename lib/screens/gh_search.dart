@@ -112,7 +112,7 @@ class _GhSearchScreenState extends State<GhSearchScreen> {
   }
 
   Widget _buildInput() {
-    final theme = Provider.of<ThemeModel>(context); 
+    final theme = Provider.of<ThemeModel>(context);
     switch (Provider.of<ThemeModel>(context).theme) {
       case AppThemeType.cupertino:
         return Container(

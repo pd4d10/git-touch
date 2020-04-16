@@ -26,7 +26,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
   // Created 5 different variables instead of a list as list doesn't work
   final GlobalKey<NavigatorState> tab1 = GlobalKey<NavigatorState>();
   final GlobalKey<NavigatorState> tab2 = GlobalKey<NavigatorState>();
@@ -185,16 +184,16 @@ class _HomeState extends State<Home> {
   }
 
   GlobalKey<NavigatorState> getNavigatorKey(int index) {
-    switch(index) {
+    switch (index) {
       case 0:
         return tab1;
       case 1:
         return tab2;
-      case 2: 
+      case 2:
         return tab3;
-      case 3: 
+      case 3:
         return tab4;
-      case 4: 
+      case 4:
         return tab5;
     }
     return tab1;
@@ -211,30 +210,31 @@ class _HomeState extends State<Home> {
 
     switch (theme.theme) {
       case AppThemeType.cupertino:
-        return WillPopScope( 
-          onWillPop: () async {
-            return !await getNavigatorKey(_controller.index).currentState.maybePop();
-          },
-          child: CupertinoTabScaffold(
-            controller: _controller,
-            tabBuilder: (context, index) {
-              return CupertinoTabView(
-                navigatorKey: getNavigatorKey(index), 
-                builder: (context) { 
-                  return _buildScreen(index);
-                }
-              );
+        return WillPopScope(
+            onWillPop: () async {
+              return !await getNavigatorKey(_controller.index)
+                  .currentState
+                  .maybePop();
             },
-            tabBar: CupertinoTabBar(items: _navigationItems,
-              onTap: (index) {
-                if(active == index) {
-                  getNavigatorKey(index).currentState.popUntil((route) => route.isFirst);
-                }
-                active = index;
-              }
-            )
-          )
-        );
+            child: CupertinoTabScaffold(
+                controller: _controller,
+                tabBuilder: (context, index) {
+                  return CupertinoTabView(
+                      navigatorKey: getNavigatorKey(index),
+                      builder: (context) {
+                        return _buildScreen(index);
+                      });
+                },
+                tabBar: CupertinoTabBar(
+                    items: _navigationItems,
+                    onTap: (index) {
+                      if (active == index) {
+                        getNavigatorKey(index)
+                            .currentState
+                            .popUntil((route) => route.isFirst);
+                      }
+                      active = index;
+                    })));
       default:
         return Scaffold(
           body: _buildScreen(active),
