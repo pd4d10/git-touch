@@ -34,6 +34,8 @@ class _HomeState extends State<Home> {
   final GlobalKey<NavigatorState> tab4 = GlobalKey<NavigatorState>();
   final GlobalKey<NavigatorState> tab5 = GlobalKey<NavigatorState>();
 
+  final List<Widget> screens = List<Widget>();
+
   int active = 0;
 
   _buildScreen(int index) {
@@ -183,59 +185,18 @@ class _HomeState extends State<Home> {
   }
 
   GlobalKey<NavigatorState> getNavigatorKey(int index) {
-    final auth = Provider.of<AuthModel>(context);
-
-    switch(auth.activeAccount.platform) {
-      case PlatformType.github: {
-        switch(index) {
-          case 0:
-            return tab1;
-          case 1:
-            return tab2;
-          case 2: 
-            return tab3;
-          case 3: 
-            return tab4;
-          case 4: 
-            return tab5;
-        }
-        break;
-      }
-
-      case PlatformType.gitlab: {
-        switch(index) {
-          case 0:
-            return tab1;
-          case 1: 
-            return tab2;
-          case 2:
-            return tab3;
-        }
-        break;
-      }
-
-      case PlatformType.bitbucket: {
-        switch(index) {
-          case 0: 
-            return tab1;
-          case 1: 
-            return tab2;
-          case 2: 
-            return tab3;
-        }
-        break;
-      }
-
-      case PlatformType.gitea: {
-        switch(index) {
-          case 0:
-            return tab1;
-          case 1:
-            return tab2;
-        }
-        break;
-      }
-    }      
+    switch(index) {
+      case 0:
+        return tab1;
+      case 1:
+        return tab2;
+      case 2: 
+        return tab3;
+      case 3: 
+        return tab4;
+      case 4: 
+        return tab5;
+    }
     return tab1;
   }
 
