@@ -11,10 +11,4 @@ jobs:
       image: google/dart:latest
     steps:
       - uses: actions/checkout@v2
-      - run: |
-          output=$(dartfmt --dry-run lib/**/*.dart)
-          if [ -z $output]
-            then exit 0
-          else
-            exit 1
-          fi
+      - run: dartfmt --dry-run --set-exit-if-changed lib/**/*.dart
