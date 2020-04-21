@@ -25,39 +25,87 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends State<Home> with WidgetsBindingObserver {
   // Created 5 different variables instead of a list as list doesn't work
   final GlobalKey<NavigatorState> tab1 = GlobalKey<NavigatorState>();
   final GlobalKey<NavigatorState> tab2 = GlobalKey<NavigatorState>();
   final GlobalKey<NavigatorState> tab3 = GlobalKey<NavigatorState>();
   final GlobalKey<NavigatorState> tab4 = GlobalKey<NavigatorState>();
   final GlobalKey<NavigatorState> tab5 = GlobalKey<NavigatorState>();
-
-  final List<Widget> screens = List<Widget>();
+  final CupertinoTabController _controller = CupertinoTabController();
 
   int active = 0;
-  int platformType = 0;
-  // int activeGh=0, activeGl=0, activeBb, activeGt;
+  bool firstLoad = false;
+  
+  @override 
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override 
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override 
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    final auth = Provider.of<AuthModel>(context);
+    final theme = Provider.of<ThemeModel>(context);
+    switch(auth.activeAccount.platform) {
+      case PlatformType.github:
+        if(theme.startTabGh != active) {
+          theme.setDefaultStartTabGh(active);
+        }
+        break;
+      case PlatformType.gitlab: 
+        if(theme.startTabGl != active) {
+          theme.setDefaultStartTabGl(active);
+        }
+        break;
+      case PlatformType.bitbucket:
+        if(theme.defaultTabBb != active) {
+          theme.setDefaultStartTabBb(active);
+        }
+        break;
+      case PlatformType.gitea:
+        if(theme.defaultTabGt != active) {
+          theme.setDefaultStartTabGt(active);
+        }
+        break;
+    }
+    
+    super.didChangeAppLifecycleState(state);
+  }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     final theme = Provider.of<ThemeModel>(context);
     final auth = Provider.of<AuthModel>(context);
-    if(auth.activeAccount != null)
-    switch(auth.activeAccount.platform) {
-      case PlatformType.github:
-        active = theme.defaultTabGh;
-        break;
-      case PlatformType.gitlab:
-        active = theme.defaultTabGl;
-        break;
-      case PlatformType.bitbucket:
-        active = theme.defaultTabBb;
-        break;
-      case PlatformType.gitea:
-        active = theme.defaultTabGt;
-        break;
+    if(auth.activeAccount != null) {
+      if(!firstLoad) {
+        switch(auth.activeAccount.platform) {
+          case PlatformType.github:
+            active = theme.startTabGh;
+            _controller.index = theme.startTabGh;
+            break;
+          case PlatformType.gitlab:
+            active = theme.startTabGl;
+            _controller.index = theme.startTabGl;
+            break;
+          case PlatformType.bitbucket:
+            active = theme.startTabBb;
+            _controller.index = theme.startTabBb;
+            break;
+          case PlatformType.gitea:
+            active = theme.startTabGt;
+            _controller.index = theme.startTabGt;
+            break;
+        }
+        firstLoad = true;
+      }
     }
   }
   
@@ -226,7 +274,6 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
     final auth = Provider.of<AuthModel>(context);
-    final CupertinoTabController _controller = CupertinoTabController();
     if (auth.activeAccount == null) {
       return LoginScreen();
     }
@@ -250,7 +297,7 @@ class _HomeState extends State<Home> {
                 },
                 tabBar: CupertinoTabBar(
                     items: _navigationItems,
-                    currentIndex: active,
+                    currentIndex: _controller.index,
                     onTap: (index) {
                       if (active == index) {
                         getNavigatorKey(index)

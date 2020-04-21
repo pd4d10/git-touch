@@ -193,43 +193,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
               url: '/choose-code-theme',
               rightWidget: Text('${code.fontFamily}, ${code.fontSize}pt'),
             ),
-            TableViewItem( 
-              text: Text('Default Start Tab'),
-              rightWidget: Text(defaultTabSettingValue),
-              onTap: () {
-                
-                theme.showActions(context, [
-                  for (var t in defaultTabItems)
-                  ActionItem(
-                    text: t.item1,
-                    onTap: (_) {
-                      switch(auth.activeAccount.platform) {
-                        case PlatformType.github:
-                          if (theme.defaultTabGh != t.item2) {
-                            theme.setDefaultStartTabGh(t.item2);
-                          }
-                          break;
-                        case PlatformType.gitlab:
-                          if (theme.defaultTabGh != t.item2) {
-                            theme.setDefaultStartTabGl(t.item2);
-                          }
-                          break;
-                        case PlatformType.bitbucket:
-                          if (theme.defaultTabGh != t.item2) {
-                            theme.setDefaultStartTabBb(t.item2);
-                          }
-                          break;
-                        case PlatformType.gitea:
-                          if (theme.defaultTabGh != t.item2) {
-                            theme.setDefaultStartTabGt(t.item2);
-                          }
-                          break;
-                      }
-                    },
-                  )
-                ]);
-              }
-            )
           ]),
           CommonStyle.verticalGap,
           TableView(headerText: 'feedback', items: [

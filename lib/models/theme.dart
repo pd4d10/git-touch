@@ -157,7 +157,6 @@ class ThemeModel with ChangeNotifier {
 
   Brightness systemBrightness = Brightness.light;
   void setSystemBrightness(Brightness v) {
-    // print('systemBrightness: $v');
     if (v != systemBrightness) {
       Future.microtask(() {
         systemBrightness = v;
@@ -172,7 +171,7 @@ class ThemeModel with ChangeNotifier {
   int _defaultStartTabGh = AppStartTabGh.news;
   int get defaultTabGh => _defaultStartTabGh;
 
-  int get startTabGl {
+  int get startTabGh {
     switch(_defaultStartTabGh) {
       case AppStartTabGh.news:
         return 0;
@@ -200,7 +199,7 @@ class ThemeModel with ChangeNotifier {
   int _defaultStartTabGl = AppStartTabGl.explore;
   int get defaultTabGl => _defaultStartTabGl;
 
-  int get startTab {
+  int get startTabGl {
     switch(_defaultStartTabGl) {
       case AppStartTabGl.explore:
         return 0;
@@ -340,15 +339,15 @@ class ThemeModel with ChangeNotifier {
     }
     final dGl = prefs.getInt(StorageKeys.defaultStartTabGl);
     if (AppStartTabGl.values.contains(dGl)) {
-      _defaultStartTabGh = dGl;
+      _defaultStartTabGl = dGl;
     }
     final dBb = prefs.getInt(StorageKeys.defaultStartTabBb);
     if (AppStartTabBb.values.contains(dBb)) {
-      _defaultStartTabGh = dGh;
+      _defaultStartTabBb = dBb;
     }
     final dGt = prefs.getInt(StorageKeys.defaultStartTabGt);
     if (AppStartTabGt.values.contains(dGt)) {
-      _defaultStartTabGh = dGh;
+      _defaultStartTabGt = dGt;
     }
 
     notifyListeners();
