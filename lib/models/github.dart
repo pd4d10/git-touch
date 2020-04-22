@@ -301,3 +301,14 @@ class GithubContentReferenceItem {
       _$GithubContentReferenceItemFromJson(json);
 }
 
+@JsonSerializable(fieldRename: FieldRename.snake) 
+class GithubContributorItem {
+  int id;
+  String login;
+  String avatarUrl;
+  String htmlUrl;
+  int contributions;
+  GithubContributorItem();
+  factory GithubContributorItem.fromJson(Map<String, dynamic> json) =>
+    _$GithubContributorItemFromJson(json);
+}

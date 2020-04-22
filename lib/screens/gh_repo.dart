@@ -51,6 +51,14 @@ class GhRepoScreen extends StatelessWidget {
     }
   }
 
+  Future<String> _fetchContributors(BuildContext context) async {
+    final auth = Provider.of<AuthModel>(context);
+    final res = await auth.ghClient.getJSON( 
+      '/repos/$owner/$name/contributors',
+    );
+      return res.length.toString();
+  }
+
   Future<String> _fetchReadme(BuildContext context) async {
     try {
       final auth = Provider.of<AuthModel>(context);
@@ -67,14 +75,16 @@ class GhRepoScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
     final auth = Provider.of<AuthModel>(context);
-    return RefreshStatefulScaffold<Tuple2<GhRepoRepository, String>>(
+    return RefreshStatefulScaffold<Tuple3<GhRepoRepository, String, String>>(
       title: AppBarTitle('Repository'),
       fetchData: () async {
         final rs = await Future.wait([
           _query(context),
           _fetchReadme(context),
+          _fetchContributors(context),
         ]);
-        return Tuple2(rs[0] as GhRepoRepository, rs[1] as String);
+
+        return Tuple3(rs[0] as GhRepoRepository, rs[1] as String, rs[2]);
       },
       actionBuilder: (data, setState) {
         final repo = data.item1;
@@ -96,6 +106,7 @@ class GhRepoScreen extends StatelessWidget {
       bodyBuilder: (data, setState) {
         final repo = data.item1;
         final readme = data.item2;
+        final contributorsCount = data.item3;
         final ref = branch == null ? repo.defaultBranchRef : repo.ref;
         final license = repo.licenseInfo?.spdxId ?? repo.licenseInfo?.name;
 
@@ -321,6 +332,12 @@ class GhRepoScreen extends StatelessWidget {
                       },
                     ),
                 ],
+                TableViewItem(  
+                  leftIconData: Octicons.organization,
+                  text: Text('Contributors'),
+                  rightWidget: Text(contributorsCount),
+                  url: '/$owner/$name/contributors',
+                )
               ],
             ),
             if (readme != null)
