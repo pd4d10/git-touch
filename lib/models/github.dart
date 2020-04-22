@@ -219,7 +219,7 @@ class GithubPagesItem {
   String title;
   String action;
   GithubPagesItem();
-  factory GithubPagesItem.fromJson(Map<String, dynamic> json) => 
+  factory GithubPagesItem.fromJson(Map<String, dynamic> json) =>
       _$GithubPagesItemFromJson(json);
 }
 
@@ -229,7 +229,7 @@ class GithubSecurityItem {
   String description;
   String severity;
   GithubSecurityItem();
-  factory GithubSecurityItem.fromJson(Map<String, dynamic> json) => 
+  factory GithubSecurityItem.fromJson(Map<String, dynamic> json) =>
       _$GithubSecurityItemFromJson(json);
 }
 
@@ -260,7 +260,7 @@ class GithubProjectColumnItem {
   String name;
   GithubProjectColumnItem();
   factory GithubProjectColumnItem.fromJson(Map<String, dynamic> json) =>
-      _$GithubProjectColumnItemFromJson(json); 
+      _$GithubProjectColumnItemFromJson(json);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
@@ -269,7 +269,8 @@ class GithubInstallationRepositoriesItem {
   String repositoriesSelection;
   int id;
   GithubInstallationRepositoriesItem();
-  factory GithubInstallationRepositoriesItem.fromJson(Map<String, dynamic> json) => 
+  factory GithubInstallationRepositoriesItem.fromJson(
+          Map<String, dynamic> json) =>
       _$GithubInstallationRepositoriesItemFromJson(json);
 }
 
@@ -288,7 +289,7 @@ class GithubCheckSuiteItem {
   String status;
   String conclusion;
   GithubCheckSuiteItem();
-  factory GithubCheckSuiteItem.fromJson(Map<String, dynamic> json) => 
+  factory GithubCheckSuiteItem.fromJson(Map<String, dynamic> json) =>
       _$GithubCheckSuiteItemFromJson(json);
 }
 
@@ -312,3 +313,4 @@ class GithubContributorItem {
   factory GithubContributorItem.fromJson(Map<String, dynamic> json) =>
     _$GithubContributorItemFromJson(json);
 }
+

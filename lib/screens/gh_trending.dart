@@ -61,15 +61,14 @@ class GhTrendingScreen extends StatelessWidget {
                               ),
                               SizedBox(width: 4),
                               Expanded(
-                                child: Text(
-                                  '${v.username} / ${v.repo.name}',
-                                  style: TextStyle(
-                                    fontSize: 17,
-                                    color: theme.palette.secondaryText,
-                                  ),
-                                  overflow: TextOverflow.ellipsis,
-                                )
-                              )
+                                  child: Text(
+                                '${v.username} / ${v.repo.name}',
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  color: theme.palette.secondaryText,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              ))
                             ],
                           ),
                         ),
