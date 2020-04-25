@@ -5,6 +5,7 @@ import 'package:git_touch/screens/bb_repo.dart';
 import 'package:git_touch/screens/bb_user.dart';
 import 'package:git_touch/screens/code_theme.dart';
 import 'package:git_touch/screens/gh_commits.dart';
+import 'package:git_touch/screens/gh_contributors.dart';
 import 'package:git_touch/screens/gh_org_repos.dart';
 import 'package:git_touch/screens/gl_commit.dart';
 import 'package:git_touch/screens/gl_starrers.dart';
@@ -71,6 +72,7 @@ class GithubRouter {
     GithubRouter.object,
     GithubRouter.stargazers,
     GithubRouter.watchers,
+    GithubRouter.contributors,
   ];
   static final user = RouterScreen('/:login', (_, p) {
     final login = p['login'].first;
@@ -134,6 +136,10 @@ class GithubRouter {
   static final watchers = RouterScreen('/:owner/:name/watchers', (_, p) {
     return GhUsersScreen(p['owner'].first, UsersScreenType.watch,
         repoName: p['name'].first);
+  });
+  static final contributors =
+      RouterScreen('/:owner/:name/contributors', (_, p) {
+    return GhContributorsScreen(p['owner'].first, p['name'].first);
   });
 }
 

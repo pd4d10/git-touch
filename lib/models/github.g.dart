@@ -108,7 +108,11 @@ GithubEventPayload _$GithubEventPayloadFromJson(Map<String, dynamic> json) {
     ..checkSuite = json['check_suite'] == null
         ? null
         : GithubCheckSuiteItem.fromJson(
-            json['check_suite'] as Map<String, dynamic>);
+            json['check_suite'] as Map<String, dynamic>)
+    ..contentReference = json['content_reference'] == null
+        ? null
+        : GithubContentReferenceItem.fromJson(
+            json['content_reference'] as Map<String, dynamic>);
 }
 
 Map<String, dynamic> _$GithubEventPayloadToJson(GithubEventPayload instance) =>
@@ -132,6 +136,7 @@ Map<String, dynamic> _$GithubEventPayloadToJson(GithubEventPayload instance) =>
       'installation': instance.installation,
       'check_run': instance.checkRun,
       'check_suite': instance.checkSuite,
+      'content_reference': instance.contentReference,
     };
 
 GithubEventIssue _$GithubEventIssueFromJson(Map<String, dynamic> json) {
@@ -414,4 +419,24 @@ Map<String, dynamic> _$GithubContentReferenceItemToJson(
     <String, dynamic>{
       'id': instance.id,
       'reference': instance.reference,
+    };
+
+GithubContributorItem _$GithubContributorItemFromJson(
+    Map<String, dynamic> json) {
+  return GithubContributorItem()
+    ..id = json['id'] as int
+    ..login = json['login'] as String
+    ..avatarUrl = json['avatar_url'] as String
+    ..htmlUrl = json['html_url'] as String
+    ..contributions = json['contributions'] as int;
+}
+
+Map<String, dynamic> _$GithubContributorItemToJson(
+        GithubContributorItem instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'login': instance.login,
+      'avatar_url': instance.avatarUrl,
+      'html_url': instance.htmlUrl,
+      'contributions': instance.contributions,
     };
