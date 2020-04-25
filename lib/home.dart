@@ -32,10 +32,7 @@ class _HomeState extends State<Home> {
   final GlobalKey<NavigatorState> tab3 = GlobalKey<NavigatorState>();
   final GlobalKey<NavigatorState> tab4 = GlobalKey<NavigatorState>();
   final GlobalKey<NavigatorState> tab5 = GlobalKey<NavigatorState>();
-
-  final List<Widget> screens = List<Widget>();
-
-  int active = 0;
+  final CupertinoTabController _controller = CupertinoTabController();
 
   _buildScreen(int index) {
     // return GlProjectScreen(32221);
@@ -44,7 +41,6 @@ class _HomeState extends State<Home> {
     // return IssueScreen('reactjs', 'rfcs', 68, isPullRequest: true);
     // return Image.asset('images/spinner.webp', width: 32, height: 32);
     final auth = Provider.of<AuthModel>(context);
-
     switch (auth.activeAccount.platform) {
       case PlatformType.github:
         switch (index) {
@@ -203,10 +199,27 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
     final auth = Provider.of<AuthModel>(context);
-    final CupertinoTabController _controller = CupertinoTabController();
+
     if (auth.activeAccount == null) {
       return LoginScreen();
     }
+
+    switch (auth.activeAccount.platform) {
+      case PlatformType.github:
+        theme.setActiveTab(theme.startTabGh);
+        break;
+      case PlatformType.gitlab:
+        theme.setActiveTab(theme.startTabGl);
+        break;
+      case PlatformType.bitbucket:
+        theme.setActiveTab(theme.startTabBb);
+        break;
+      case PlatformType.gitea:
+        theme.setActiveTab(theme.startTabGt);
+        break;
+    }
+
+    _controller.index = theme.active;
 
     switch (theme.theme) {
       case AppThemeType.cupertino:
@@ -227,25 +240,54 @@ class _HomeState extends State<Home> {
                 },
                 tabBar: CupertinoTabBar(
                     items: _navigationItems,
+                    currentIndex: _controller.index,
                     onTap: (index) {
-                      if (active == index) {
+                      if (theme.active == index) {
                         getNavigatorKey(index)
                             .currentState
                             .popUntil((route) => route.isFirst);
                       }
-                      active = index;
+                      theme.setActiveTab(index);
+                      switch (auth.activeAccount.platform) {
+                        case PlatformType.github:
+                          theme.setDefaultStartTabGh(index);
+                          break;
+                        case PlatformType.gitlab:
+                          theme.setDefaultStartTabGl(index);
+                          break;
+                        case PlatformType.bitbucket:
+                          theme.setDefaultStartTabBb(index);
+                          break;
+                        case PlatformType.gitea:
+                          theme.setDefaultStartTabGt(index);
+                          break;
+                      }
                     })));
       default:
         return Scaffold(
-          body: _buildScreen(active),
+          body: _buildScreen(theme.active),
           bottomNavigationBar: BottomNavigationBar(
             selectedItemColor: theme.palette.primary,
             items: _navigationItems,
-            currentIndex: active,
+            currentIndex: theme.active,
             type: BottomNavigationBarType.fixed,
             onTap: (int index) {
+              switch (auth.activeAccount.platform) {
+                case PlatformType.github:
+                  theme.setDefaultStartTabGh(index);
+                  break;
+                case PlatformType.gitlab:
+                  theme.setDefaultStartTabGl(index);
+                  break;
+                case PlatformType.bitbucket:
+                  theme.setDefaultStartTabBb(index);
+                  break;
+                case PlatformType.gitea:
+                  theme.setDefaultStartTabGt(index);
+                  break;
+              }
               setState(() {
-                active = index;
+                theme.setActiveTab(index);
               });
             },
           ),

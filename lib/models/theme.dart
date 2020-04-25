@@ -104,7 +104,6 @@ class ThemeModel with ChangeNotifier {
 
   Brightness systemBrightness = Brightness.light;
   void setSystemBrightness(Brightness v) {
-    // print('systemBrightness: $v');
     if (v != systemBrightness) {
       Future.microtask(() {
         systemBrightness = v;
@@ -115,6 +114,59 @@ class ThemeModel with ChangeNotifier {
 
   int _brightnessValue = AppBrightnessType.followSystem;
   int get brighnessValue => _brightnessValue;
+
+  Future<void> setActiveTab(int v) async {
+    _activeTab = v;
+    Fimber.d('write active tab: $v');
+    notifyListeners();
+  }
+
+  int _activeTab = 0;
+  int get active => _activeTab;
+
+  int _defaultStartTabGh = 0;
+  int get startTabGh => _defaultStartTabGh;
+
+  Future<void> setDefaultStartTabGh(int v) async {
+    _defaultStartTabGh = v;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt(StorageKeys.defaultStartTabGh, v);
+    Fimber.d('write default start tab for github: $v');
+    notifyListeners();
+  }
+
+  int _defaultStartTabGl = 0;
+  int get startTabGl => _defaultStartTabGl;
+
+  Future<void> setDefaultStartTabGl(int v) async {
+    _defaultStartTabGl = v;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt(StorageKeys.defaultStartTabGl, v);
+    Fimber.d('write default start tab for gitlab: $v');
+    notifyListeners();
+  }
+
+  int _defaultStartTabBb = 0;
+  int get startTabBb => _defaultStartTabBb;
+
+  Future<void> setDefaultStartTabBb(int v) async {
+    _defaultStartTabBb = v;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt(StorageKeys.defaultStartTabBb, v);
+    Fimber.d('write default start tab for bitbucket: $v');
+    notifyListeners();
+  }
+
+  int _defaultStartTabGt = 0;
+  int get startTabGt => _defaultStartTabGt;
+
+  Future<void> setDefaultStartTabGt(int v) async {
+    _defaultStartTabGt = v;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt(StorageKeys.defaultStartTabGt, v);
+    Fimber.d('write default start tab for gitea: $v');
+    notifyListeners();
+  }
 
   // could be null
   Brightness get brightness {
@@ -183,6 +235,14 @@ class ThemeModel with ChangeNotifier {
     if (AppBrightnessType.values.contains(b)) {
       _brightnessValue = b;
     }
+    final dGh = prefs.getInt(StorageKeys.defaultStartTabGh);
+    _defaultStartTabGh = dGh;
+    final dGl = prefs.getInt(StorageKeys.defaultStartTabGl);
+    _defaultStartTabGl = dGl;
+    final dBb = prefs.getInt(StorageKeys.defaultStartTabBb);
+    _defaultStartTabBb = dBb;
+    final dGt = prefs.getInt(StorageKeys.defaultStartTabGt);
+    _defaultStartTabGt = dGt;
 
     notifyListeners();
   }
