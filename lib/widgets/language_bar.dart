@@ -84,6 +84,8 @@ class LanguageBar extends StatelessWidget {
                     style: TextStyle(
                       color: theme.palette.text,
                       fontSize: 18,
+                      decoration: TextDecoration.underline,
+                      decorationColor: theme.palette.background,
                     ),
                   ),
                 ]),
@@ -95,6 +97,8 @@ class LanguageBar extends StatelessWidget {
                   style: TextStyle(
                     color: theme.palette.secondaryText,
                     fontSize: 18,
+                    decoration: TextDecoration.underline,
+                    decorationColor: theme.palette.background,
                   ),
                 ),
               ),
