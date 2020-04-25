@@ -25,7 +25,7 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> with WidgetsBindingObserver {
+class _HomeState extends State<Home> {
   // Created 5 different variables instead of a list as list doesn't work
   final GlobalKey<NavigatorState> tab1 = GlobalKey<NavigatorState>();
   final GlobalKey<NavigatorState> tab2 = GlobalKey<NavigatorState>();
@@ -34,81 +34,6 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
   final GlobalKey<NavigatorState> tab5 = GlobalKey<NavigatorState>();
   final CupertinoTabController _controller = CupertinoTabController();
 
-  int active = 0;
-  bool firstLoad = false;
-  
-  @override 
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
-  }
-
-  @override 
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
-  }
-
-  @override 
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    final auth = Provider.of<AuthModel>(context);
-    final theme = Provider.of<ThemeModel>(context);
-    switch(auth.activeAccount.platform) {
-      case PlatformType.github:
-        if(theme.startTabGh != active) {
-          theme.setDefaultStartTabGh(active);
-        }
-        break;
-      case PlatformType.gitlab: 
-        if(theme.startTabGl != active) {
-          theme.setDefaultStartTabGl(active);
-        }
-        break;
-      case PlatformType.bitbucket:
-        if(theme.defaultTabBb != active) {
-          theme.setDefaultStartTabBb(active);
-        }
-        break;
-      case PlatformType.gitea:
-        if(theme.defaultTabGt != active) {
-          theme.setDefaultStartTabGt(active);
-        }
-        break;
-    }
-    
-    super.didChangeAppLifecycleState(state);
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    final theme = Provider.of<ThemeModel>(context);
-    final auth = Provider.of<AuthModel>(context);
-    if(auth.activeAccount != null) {
-      if(!firstLoad) {
-        switch(auth.activeAccount.platform) {
-          case PlatformType.github:
-            active = theme.startTabGh;
-            _controller.index = theme.startTabGh;
-            break;
-          case PlatformType.gitlab:
-            active = theme.startTabGl;
-            _controller.index = theme.startTabGl;
-            break;
-          case PlatformType.bitbucket:
-            active = theme.startTabBb;
-            _controller.index = theme.startTabBb;
-            break;
-          case PlatformType.gitea:
-            active = theme.startTabGt;
-            _controller.index = theme.startTabGt;
-            break;
-        }
-        firstLoad = true;
-      }
-    }
-  }
-  
   _buildScreen(int index) {
     // return GlProjectScreen(32221);
     // return IssuesScreen('flutter', 'flutter', isPullRequest: true);
@@ -274,9 +199,27 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
     final auth = Provider.of<AuthModel>(context);
+
     if (auth.activeAccount == null) {
       return LoginScreen();
     }
+
+    switch (auth.activeAccount.platform) {
+      case PlatformType.github:
+        theme.setActiveTab(theme.startTabGh);
+        break;
+      case PlatformType.gitlab:
+        theme.setActiveTab(theme.startTabGl);
+        break;
+      case PlatformType.bitbucket:
+        theme.setActiveTab(theme.startTabBb);
+        break;
+      case PlatformType.gitea:
+        theme.setActiveTab(theme.startTabGt);
+        break;
+    }
+
+    _controller.index = theme.active;
 
     switch (theme.theme) {
       case AppThemeType.cupertino:
@@ -299,24 +242,52 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                     items: _navigationItems,
                     currentIndex: _controller.index,
                     onTap: (index) {
-                      if (active == index) {
+                      if (theme.active == index) {
                         getNavigatorKey(index)
                             .currentState
                             .popUntil((route) => route.isFirst);
                       }
-                      active = index;
+                      theme.setActiveTab(index);
+                      switch (auth.activeAccount.platform) {
+                        case PlatformType.github:
+                          theme.setDefaultStartTabGh(index);
+                          break;
+                        case PlatformType.gitlab:
+                          theme.setDefaultStartTabGl(index);
+                          break;
+                        case PlatformType.bitbucket:
+                          theme.setDefaultStartTabBb(index);
+                          break;
+                        case PlatformType.gitea:
+                          theme.setDefaultStartTabGt(index);
+                          break;
+                      }
                     })));
       default:
         return Scaffold(
-          body: _buildScreen(active),
+          body: _buildScreen(theme.active),
           bottomNavigationBar: BottomNavigationBar(
             selectedItemColor: theme.palette.primary,
             items: _navigationItems,
-            currentIndex: active,
+            currentIndex: theme.active,
             type: BottomNavigationBarType.fixed,
             onTap: (int index) {
+              switch (auth.activeAccount.platform) {
+                case PlatformType.github:
+                  theme.setDefaultStartTabGh(index);
+                  break;
+                case PlatformType.gitlab:
+                  theme.setDefaultStartTabGl(index);
+                  break;
+                case PlatformType.bitbucket:
+                  theme.setDefaultStartTabBb(index);
+                  break;
+                case PlatformType.gitea:
+                  theme.setDefaultStartTabGt(index);
+                  break;
+              }
               setState(() {
-                active = index;
+                theme.setActiveTab(index);
               });
             },
           ),

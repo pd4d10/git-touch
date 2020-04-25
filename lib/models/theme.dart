@@ -32,59 +32,6 @@ class AppBrightnessType {
   ];
 }
 
-class AppStartTabGh {
-  static const news = 0;
-  static const notification = 1;
-  static const trending = 2;
-  static const search = 3;
-  static const me = 4;
-  static const explore = 5;
-  static const groups = 6;
-  static const teams = 7;
-
-  static const values = [
-    AppStartTabGh.news,
-    AppStartTabGh.notification,
-    AppStartTabGh.trending,
-    AppStartTabGh.search,
-    AppStartTabGh.me,
-  ];
-}
-
-class AppStartTabGl {
-  static const explore = 0;
-  static const groups = 1;
-  static const me = 2;
-
-  static const values = [
-    AppStartTabGl.explore,
-    AppStartTabGl.groups,
-    AppStartTabGl.me,
-  ];
-}
-
-class AppStartTabBb {
-  static const explore = 0;
-  static const teams = 1;
-  static const me = 2;
-
-  static const values = [
-    AppStartTabBb.explore,
-    AppStartTabBb.teams,
-    AppStartTabBb.me,
-  ];
-}
-
-class AppStartTabGt {
-  static const orgs = 0;
-  static const me = 1;
-
-  static const values = [
-    AppStartTabGt.orgs,
-    AppStartTabGt.me,
-  ];
-}
-
 class PickerItem<T> {
   final T value;
   final String text;
@@ -168,25 +115,17 @@ class ThemeModel with ChangeNotifier {
   int _brightnessValue = AppBrightnessType.followSystem;
   int get brighnessValue => _brightnessValue;
 
-  int _defaultStartTabGh = AppStartTabGh.news;
-  int get defaultTabGh => _defaultStartTabGh;
-
-  int get startTabGh {
-    switch(_defaultStartTabGh) {
-      case AppStartTabGh.news:
-        return 0;
-      case AppStartTabGh.notification:
-        return 1;
-      case AppStartTabGh.trending:
-        return 2;
-      case AppStartTabGh.search:
-        return 3;
-      case AppStartTabGh.me:
-        return 4;
-      default:
-        return 0;
-    }
+  Future<void> setActiveTab(int v) async {
+    _activeTab = v;
+    Fimber.d('write active tab: $v');
+    notifyListeners();
   }
+
+  int _activeTab = 0;
+  int get active => _activeTab;
+
+  int _defaultStartTabGh = 0;
+  int get startTabGh => _defaultStartTabGh;
 
   Future<void> setDefaultStartTabGh(int v) async {
     _defaultStartTabGh = v;
@@ -196,21 +135,8 @@ class ThemeModel with ChangeNotifier {
     notifyListeners();
   }
 
-  int _defaultStartTabGl = AppStartTabGl.explore;
-  int get defaultTabGl => _defaultStartTabGl;
-
-  int get startTabGl {
-    switch(_defaultStartTabGl) {
-      case AppStartTabGl.explore:
-        return 0;
-      case AppStartTabGl.groups:
-        return 1;
-      case AppStartTabGl.me:
-        return 2;
-      default:
-        return 0;
-    }
-  }
+  int _defaultStartTabGl = 0;
+  int get startTabGl => _defaultStartTabGl;
 
   Future<void> setDefaultStartTabGl(int v) async {
     _defaultStartTabGl = v;
@@ -220,21 +146,8 @@ class ThemeModel with ChangeNotifier {
     notifyListeners();
   }
 
-  int _defaultStartTabBb = AppStartTabBb.explore;
-  int get defaultTabBb => _defaultStartTabBb;
-
-  int get startTabBb {
-    switch(_defaultStartTabBb) {
-      case AppStartTabBb.explore:
-        return 0;
-      case AppStartTabBb.teams:
-        return 1;
-      case AppStartTabBb.me:
-        return 2;
-      default:
-        return 0;
-    }
-  }
+  int _defaultStartTabBb = 0;
+  int get startTabBb => _defaultStartTabBb;
 
   Future<void> setDefaultStartTabBb(int v) async {
     _defaultStartTabBb = v;
@@ -244,19 +157,8 @@ class ThemeModel with ChangeNotifier {
     notifyListeners();
   }
 
-  int _defaultStartTabGt = AppStartTabGt.orgs;
-  int get defaultTabGt => _defaultStartTabGt;
-
-  int get startTabGt {
-    switch(_defaultStartTabGt) {
-      case AppStartTabGt.orgs:
-        return 0;
-      case AppStartTabGt.me:
-        return 1;
-      default:
-        return 0;
-    }
-  }
+  int _defaultStartTabGt = 0;
+  int get startTabGt => _defaultStartTabGt;
 
   Future<void> setDefaultStartTabGt(int v) async {
     _defaultStartTabGt = v;
@@ -334,21 +236,13 @@ class ThemeModel with ChangeNotifier {
       _brightnessValue = b;
     }
     final dGh = prefs.getInt(StorageKeys.defaultStartTabGh);
-    if (AppStartTabGh.values.contains(dGh)) {
-      _defaultStartTabGh = dGh;
-    }
+    _defaultStartTabGh = dGh;
     final dGl = prefs.getInt(StorageKeys.defaultStartTabGl);
-    if (AppStartTabGl.values.contains(dGl)) {
-      _defaultStartTabGl = dGl;
-    }
+    _defaultStartTabGl = dGl;
     final dBb = prefs.getInt(StorageKeys.defaultStartTabBb);
-    if (AppStartTabBb.values.contains(dBb)) {
-      _defaultStartTabBb = dBb;
-    }
+    _defaultStartTabBb = dBb;
     final dGt = prefs.getInt(StorageKeys.defaultStartTabGt);
-    if (AppStartTabGt.values.contains(dGt)) {
-      _defaultStartTabGt = dGt;
-    }
+    _defaultStartTabGt = dGt;
 
     notifyListeners();
   }
