@@ -137,7 +137,8 @@ class GithubRouter {
     return GhUsersScreen(p['owner'].first, UsersScreenType.watch,
         repoName: p['name'].first);
   });
-  static final contributors = RouterScreen('/:owner/:name/contributors', (_, p) {
+  static final contributors =
+      RouterScreen('/:owner/:name/contributors', (_, p) {
     return GhContributorsScreen(p['owner'].first, p['name'].first);
   });
 }

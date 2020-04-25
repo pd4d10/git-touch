@@ -53,10 +53,10 @@ class GhRepoScreen extends StatelessWidget {
 
   Future<String> _fetchContributors(BuildContext context) async {
     final auth = Provider.of<AuthModel>(context);
-    final res = await auth.ghClient.getJSON( 
-      '/repos/$owner/$name/contributors',
+    final res = await auth.ghClient.getJSON(
+      '/repos/$owner/$name/stats/contributors',
     );
-      return res.length.toString();
+    return res.length.toString();
   }
 
   Future<String> _fetchReadme(BuildContext context) async {
@@ -332,7 +332,7 @@ class GhRepoScreen extends StatelessWidget {
                       },
                     ),
                 ],
-                TableViewItem(  
+                TableViewItem(
                   leftIconData: Octicons.organization,
                   text: Text('Contributors'),
                   rightWidget: Text(contributorsCount),

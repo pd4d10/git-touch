@@ -302,7 +302,7 @@ class GithubContentReferenceItem {
       _$GithubContentReferenceItemFromJson(json);
 }
 
-@JsonSerializable(fieldRename: FieldRename.snake) 
+@JsonSerializable(fieldRename: FieldRename.snake)
 class GithubContributorItem {
   int id;
   String login;
@@ -311,6 +311,5 @@ class GithubContributorItem {
   int contributions;
   GithubContributorItem();
   factory GithubContributorItem.fromJson(Map<String, dynamic> json) =>
-    _$GithubContributorItemFromJson(json);
+      _$GithubContributorItemFromJson(json);
 }
-
