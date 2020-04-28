@@ -440,3 +440,23 @@ Map<String, dynamic> _$GithubContributorItemToJson(
       'html_url': instance.htmlUrl,
       'contributions': instance.contributions,
     };
+
+GithubUserOrganizationItem _$GithubUserOrganizationItemFromJson(
+    Map<String, dynamic> json) {
+  return GithubUserOrganizationItem()
+    ..id = json['id'] as int
+    ..login = json['login'] as String
+    ..avatarUrl = json['avatar_url'] as String
+    ..description = json['description'] as String
+    ..url = json['url'] as String;
+}
+
+Map<String, dynamic> _$GithubUserOrganizationItemToJson(
+        GithubUserOrganizationItem instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'login': instance.login,
+      'avatar_url': instance.avatarUrl,
+      'description': instance.description,
+      'url': instance.url,
+    };

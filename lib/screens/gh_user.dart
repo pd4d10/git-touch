@@ -62,7 +62,6 @@ class GhUserScreen extends StatelessWidget {
     final theme = Provider.of<ThemeModel>(context);
     final auth = Provider.of<AuthModel>(context);
     final login = p.login;
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
@@ -153,6 +152,11 @@ class GhUserScreen extends StatelessWidget {
         TableView(
           hasIcon: true,
           items: [
+            TableViewItem(
+              leftIconData: Octicons.home,
+              text: Text('Organizations'),
+              url: '/$login?tab=organizations',
+            ),
             if (isNotNullOrEmpty(p.company))
               TableViewItem(
                 leftIconData: Octicons.organization,

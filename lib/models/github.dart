@@ -313,3 +313,15 @@ class GithubContributorItem {
   factory GithubContributorItem.fromJson(Map<String, dynamic> json) =>
       _$GithubContributorItemFromJson(json);
 }
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GithubUserOrganizationItem {
+  int id;
+  String login;
+  String avatarUrl;
+  String description;
+  String url;
+  GithubUserOrganizationItem();
+  factory GithubUserOrganizationItem.fromJson(Map<String, dynamic> json) =>
+      _$GithubUserOrganizationItemFromJson(json);
+}

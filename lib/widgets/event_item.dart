@@ -308,8 +308,10 @@ class EventItem extends StatelessWidget {
         return _buildItem(
           context: context,
           spans: <InlineSpan>[
-            TextSpan(text: ' created ${e.payload.refType} '),
-            TextSpan(text: '${e.payload.ref} at '),
+            TextSpan(text: ' created a ${e.payload.refType}'),
+            TextSpan(
+                text:
+                    '${e.payload.ref == null ? '' : ' ' + e.payload.ref + 'at'} '),
             _buildRepo(context),
           ],
         );
@@ -317,8 +319,10 @@ class EventItem extends StatelessWidget {
         return _buildItem(
           context: context,
           spans: <InlineSpan>[
-            TextSpan(text: ' deleted ${e.payload.refType} '),
-            TextSpan(text: '${e.payload.ref} at '),
+            TextSpan(text: ' deleted the ${e.payload.refType}'),
+            TextSpan(
+                text:
+                    '${e.payload.ref == null ? '' : ' ' + e.payload.ref + 'at'} '),
             _buildRepo(context),
           ],
         );
