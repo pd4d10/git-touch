@@ -36,6 +36,7 @@ import 'package:git_touch/screens/gh_repo.dart';
 import 'package:git_touch/screens/settings.dart';
 import 'package:git_touch/screens/gh_user.dart';
 import 'package:git_touch/screens/gh_users.dart';
+import 'package:git_touch/screens/gh_user_organization.dart';
 
 class RouterScreen {
   String path;
@@ -90,6 +91,8 @@ class GithubRouter {
         return GhReposScreen(login);
       case 'orgrepo':
         return GhOrgReposScreen(login);
+      case 'organizations':
+        return GhUserOrganizationScreen(login);
       default:
         return GhUserScreen(login);
     }
