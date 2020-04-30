@@ -35,7 +35,8 @@ class GhFilesScreen extends StatelessWidget {
         return ActionButton(
           title: 'Actions',
           items: [
-            ...ActionItem.getUrlActions('https://github.com/'),
+            ...ActionItem.getUrlActions(
+                'https://github.com/$owner/$name/pull/$pullNumber/files'),
           ],
         );
       },
