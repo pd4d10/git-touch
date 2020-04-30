@@ -325,3 +325,28 @@ class GithubUserOrganizationItem {
   factory GithubUserOrganizationItem.fromJson(Map<String, dynamic> json) =>
       _$GithubUserOrganizationItemFromJson(json);
 }
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GithubGistsItem {
+  int id;
+  bool isFork;
+  bool isPublic;
+  String name;
+  DateTime updatedAt;
+  GithubGistsItem();
+  factory GithubGistsItem.fromJson(Map<String, dynamic> json) =>
+      _$GithubGistsItemFromJson(json);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GithubFilesItem {
+  String filename;
+  String status;
+  int additions;
+  int deletions;
+  int changes;
+  String patch;
+  GithubFilesItem();
+  factory GithubFilesItem.fromJson(Map<String, dynamic> json) =>
+      _$GithubFilesItemFromJson(json);
+}

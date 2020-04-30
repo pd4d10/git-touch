@@ -460,3 +460,43 @@ Map<String, dynamic> _$GithubUserOrganizationItemToJson(
       'description': instance.description,
       'url': instance.url,
     };
+
+GithubGistsItem _$GithubGistsItemFromJson(Map<String, dynamic> json) {
+  return GithubGistsItem()
+    ..id = json['id'] as int
+    ..isFork = json['is_fork'] as bool
+    ..isPublic = json['is_public'] as bool
+    ..name = json['name'] as String
+    ..updatedAt = json['updated_at'] == null
+        ? null
+        : DateTime.parse(json['updated_at'] as String);
+}
+
+Map<String, dynamic> _$GithubGistsItemToJson(GithubGistsItem instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'is_fork': instance.isFork,
+      'is_public': instance.isPublic,
+      'name': instance.name,
+      'updated_at': instance.updatedAt?.toIso8601String(),
+    };
+
+GithubFilesItem _$GithubFilesItemFromJson(Map<String, dynamic> json) {
+  return GithubFilesItem()
+    ..filename = json['filename'] as String
+    ..status = json['status'] as String
+    ..additions = json['additions'] as int
+    ..deletions = json['deletions'] as int
+    ..changes = json['changes'] as int
+    ..patch = json['patch'] as String;
+}
+
+Map<String, dynamic> _$GithubFilesItemToJson(GithubFilesItem instance) =>
+    <String, dynamic>{
+      'filename': instance.filename,
+      'status': instance.status,
+      'additions': instance.additions,
+      'deletions': instance.deletions,
+      'changes': instance.changes,
+      'patch': instance.patch,
+    };

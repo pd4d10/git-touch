@@ -6,6 +6,7 @@ import 'package:git_touch/screens/bb_user.dart';
 import 'package:git_touch/screens/code_theme.dart';
 import 'package:git_touch/screens/gh_commits.dart';
 import 'package:git_touch/screens/gh_contributors.dart';
+import 'package:git_touch/screens/gh_files.dart';
 import 'package:git_touch/screens/gh_org_repos.dart';
 import 'package:git_touch/screens/gl_commit.dart';
 import 'package:git_touch/screens/gl_starrers.dart';
@@ -37,6 +38,7 @@ import 'package:git_touch/screens/settings.dart';
 import 'package:git_touch/screens/gh_user.dart';
 import 'package:git_touch/screens/gh_users.dart';
 import 'package:git_touch/screens/gh_user_organization.dart';
+import 'package:git_touch/screens/gh_gists.dart';
 
 class RouterScreen {
   String path;
@@ -74,6 +76,7 @@ class GithubRouter {
     GithubRouter.stargazers,
     GithubRouter.watchers,
     GithubRouter.contributors,
+    GithubRouter.files,
   ];
   static final user = RouterScreen('/:login', (_, p) {
     final login = p['login'].first;
@@ -93,6 +96,8 @@ class GithubRouter {
         return GhOrgReposScreen(login);
       case 'organizations':
         return GhUserOrganizationScreen(login);
+      case 'gists':
+        return GhGistsScreen(login);
       default:
         return GhUserScreen(login);
     }
@@ -121,6 +126,13 @@ class GithubRouter {
       (context, p) => GhIssueScreen(
           p['owner'].first, p['name'].first, int.parse(p['number'].first),
           isPullRequest: true));
+  static final files = RouterScreen(
+      '/:owner/:name/pull/:number/files',
+      (context, p) => GhFilesScreen(
+            p['owner'].first,
+            p['name'].first,
+            int.parse(p['number'].first),
+          ));
   static final commits = RouterScreen('/:owner/:name/commits',
       (context, p) => GhCommitsScreen(p['owner'].first, p['name'].first));
   static final object = RouterScreen('/:owner/:name/blob/:ref', (_, p) {
