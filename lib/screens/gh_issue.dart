@@ -587,7 +587,7 @@ fragment ReactableParts on Reactable {
                           ],
                         ),
                       ),
-                      url: 'https://github.com/$owner/$name/pull/$number/files',
+                      url: '/$owner/$name/pull/$number/files',
                     ),
                     CommonStyle.border,
                   ],
