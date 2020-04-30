@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:git_touch/models/notification.dart';
 import 'package:fluro/fluro.dart';
 import 'package:fimber/fimber.dart';
+import 'package:flutter/services.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -61,6 +62,11 @@ void main() async {
     themeModel.router.define(GithubRouter.prefix + screen.path,
         handler: Handler(handlerFunc: screen.handler));
   });
+
+  // To match status bar color to app bar color
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+  ));
 
   runApp(MultiProvider(
     providers: [
