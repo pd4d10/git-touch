@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:git_touch/models/github.dart';
 import 'package:git_touch/scaffolds/list_stateful.dart';
+import 'package:git_touch/widgets/action_button.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/widgets/files_item.dart';
@@ -30,6 +31,14 @@ class GhFilesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GithubFilesItem, int>(
       title: AppBarTitle('Files'),
+      actionBuilder: () {
+        return ActionButton(
+          title: 'Actions',
+          items: [
+            ...ActionItem.getUrlActions('https://github.com/'),
+          ],
+        );
+      },
       onRefresh: () => _query(context),
       onLoadMore: (cursor) => _query(context, cursor),
       itemBuilder: (v) {
