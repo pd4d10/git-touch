@@ -32,7 +32,6 @@ class _HomeState extends State<Home> {
   final GlobalKey<NavigatorState> tab3 = GlobalKey<NavigatorState>();
   final GlobalKey<NavigatorState> tab4 = GlobalKey<NavigatorState>();
   final GlobalKey<NavigatorState> tab5 = GlobalKey<NavigatorState>();
-  final CupertinoTabController _controller = CupertinoTabController();
 
   _buildScreen(int index) {
     // return GlProjectScreen(32221);
@@ -204,91 +203,48 @@ class _HomeState extends State<Home> {
       return LoginScreen();
     }
 
-    switch (auth.activeAccount.platform) {
-      case PlatformType.github:
-        theme.setActiveTab(theme.startTabGh);
-        break;
-      case PlatformType.gitlab:
-        theme.setActiveTab(theme.startTabGl);
-        break;
-      case PlatformType.bitbucket:
-        theme.setActiveTab(theme.startTabBb);
-        break;
-      case PlatformType.gitea:
-        theme.setActiveTab(theme.startTabGt);
-        break;
-    }
-
-    _controller.index = theme.active;
-
     switch (theme.theme) {
       case AppThemeType.cupertino:
         return WillPopScope(
-            onWillPop: () async {
-              return !await getNavigatorKey(_controller.index)
-                  .currentState
-                  .maybePop();
-            },
-            child: CupertinoTabScaffold(
-                controller: _controller,
-                tabBuilder: (context, index) {
-                  return CupertinoTabView(
-                      navigatorKey: getNavigatorKey(index),
-                      builder: (context) {
-                        return _buildScreen(index);
-                      });
+          onWillPop: () async {
+            return !await getNavigatorKey(auth.activeTab)
+                .currentState
+                ?.maybePop();
+          },
+          child: CupertinoTabScaffold(
+            tabBuilder: (context, index) {
+              return CupertinoTabView(
+                navigatorKey: getNavigatorKey(index),
+                builder: (context) {
+                  return _buildScreen(index);
                 },
-                tabBar: CupertinoTabBar(
-                    items: _navigationItems,
-                    currentIndex: _controller.index,
-                    onTap: (index) {
-                      if (theme.active == index) {
-                        getNavigatorKey(index)
-                            .currentState
-                            .popUntil((route) => route.isFirst);
-                      }
-                      theme.setActiveTab(index);
-                      switch (auth.activeAccount.platform) {
-                        case PlatformType.github:
-                          theme.setDefaultStartTabGh(index);
-                          break;
-                        case PlatformType.gitlab:
-                          theme.setDefaultStartTabGl(index);
-                          break;
-                        case PlatformType.bitbucket:
-                          theme.setDefaultStartTabBb(index);
-                          break;
-                        case PlatformType.gitea:
-                          theme.setDefaultStartTabGt(index);
-                          break;
-                      }
-                    })));
+              );
+            },
+            tabBar: CupertinoTabBar(
+              items: _navigationItems,
+              currentIndex: auth.activeTab,
+              onTap: (index) {
+                if (auth.activeTab == index) {
+                  getNavigatorKey(index)
+                      .currentState
+                      ?.popUntil((route) => route.isFirst);
+                } else {
+                  auth.setActiveTab(index);
+                }
+              },
+            ),
+          ),
+        );
       default:
         return Scaffold(
-          body: _buildScreen(theme.active),
+          body: _buildScreen(auth.activeTab),
           bottomNavigationBar: BottomNavigationBar(
             selectedItemColor: theme.palette.primary,
             items: _navigationItems,
-            currentIndex: theme.active,
+            currentIndex: auth.activeTab,
             type: BottomNavigationBarType.fixed,
             onTap: (int index) {
-              switch (auth.activeAccount.platform) {
-                case PlatformType.github:
-                  theme.setDefaultStartTabGh(index);
-                  break;
-                case PlatformType.gitlab:
-                  theme.setDefaultStartTabGl(index);
-                  break;
-                case PlatformType.bitbucket:
-                  theme.setDefaultStartTabBb(index);
-                  break;
-                case PlatformType.gitea:
-                  theme.setDefaultStartTabGt(index);
-                  break;
-              }
-              setState(() {
-                theme.setActiveTab(index);
-              });
+              auth.setActiveTab(index);
             },
           ),
         );

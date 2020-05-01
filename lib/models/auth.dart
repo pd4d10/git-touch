@@ -325,10 +325,14 @@ class AuthModel with ChangeNotifier {
   }
 
   var rootKey = UniqueKey();
-  void setActiveAccountAndReload(int index) {
+  setActiveAccountAndReload(int index) async {
     // https://stackoverflow.com/a/50116077
     rootKey = UniqueKey();
     activeAccountIndex = index;
+    final prefs = await SharedPreferences.getInstance();
+    _activeTab = prefs.getInt(
+            StorageKeys.getDefaultStartTabKey(activeAccount.platform)) ??
+        0;
     _ghClient = null;
     _gqlClient = null;
     notifyListeners();
@@ -401,5 +405,17 @@ class AuthModel with ChangeNotifier {
     launchUrl(
       'https://github.com/login/oauth/authorize?client_id=$clientId&redirect_uri=gittouch://login&scope=$scope&state=$_oauthState',
     );
+  }
+
+  int _activeTab = 0;
+  int get activeTab => _activeTab;
+
+  Future<void> setActiveTab(int v) async {
+    _activeTab = v;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt(
+        StorageKeys.getDefaultStartTabKey(activeAccount.platform), v);
+    Fimber.d('write default start tab for ${activeAccount.platform}: $v');
+    notifyListeners();
   }
 }
