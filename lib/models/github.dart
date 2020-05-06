@@ -327,12 +327,46 @@ class GithubUserOrganizationItem {
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
+class GistFiles {
+  GistFiles({
+    this.filename,
+    this.size,
+    this.rawUrl,
+    this.type,
+    this.language,
+    this.truncated,
+    this.content,
+  });
+  String filename;
+  int size;
+  String rawUrl;
+  String type;
+  String language;
+  bool truncated;
+  String content;
+
+  factory GistFiles.fromJson(Map<String, dynamic> json) =>
+      _$GistFilesFromJson(json);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
 class GithubGistsItem {
-  int id;
-  bool isFork;
-  bool isPublic;
-  String name;
+  String id;
+  String description;
+  bool public;
+  Map<String, GistFiles> files;
+  GithubEventUser owner;
+  List<dynamic> get fileNames {
+    var filenames = [];
+    files.forEach((String key, GistFiles value) {
+      filenames.add(value);
+    });
+    return filenames;
+  }
+
+  DateTime createdAt;
   DateTime updatedAt;
+
   GithubGistsItem();
   factory GithubGistsItem.fromJson(Map<String, dynamic> json) =>
       _$GithubGistsItemFromJson(json);

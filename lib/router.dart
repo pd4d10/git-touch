@@ -7,6 +7,7 @@ import 'package:git_touch/screens/code_theme.dart';
 import 'package:git_touch/screens/gh_commits.dart';
 import 'package:git_touch/screens/gh_contributors.dart';
 import 'package:git_touch/screens/gh_files.dart';
+import 'package:git_touch/screens/gh_gists_files.dart';
 import 'package:git_touch/screens/gh_org_repos.dart';
 import 'package:git_touch/screens/gl_commit.dart';
 import 'package:git_touch/screens/gl_starrers.dart';
@@ -38,7 +39,7 @@ import 'package:git_touch/screens/settings.dart';
 import 'package:git_touch/screens/gh_user.dart';
 import 'package:git_touch/screens/gh_users.dart';
 import 'package:git_touch/screens/gh_user_organization.dart';
-// import 'package:git_touch/screens/gh_gists.dart';
+import 'package:git_touch/screens/gh_gists.dart';
 
 class RouterScreen {
   String path;
@@ -77,6 +78,7 @@ class GithubRouter {
     GithubRouter.watchers,
     GithubRouter.contributors,
     GithubRouter.files,
+    GithubRouter.gistFiles,
   ];
   static final user = RouterScreen('/:login', (_, p) {
     final login = p['login'].first;
@@ -97,7 +99,7 @@ class GithubRouter {
       case 'organizations':
         return GhUserOrganizationScreen(login);
       case 'gists':
-      // return GhGistsScreen(login);
+        return GhGistsScreen(login);
       default:
         return GhUserScreen(login);
     }
@@ -109,6 +111,9 @@ class GithubRouter {
       return GhRepoScreen(p['owner'].first, p['name'].first,
           branch: p['ref'].first);
     }
+  });
+  static final gistFiles = RouterScreen('/:login/gists/:id', (_, p) {
+    return GhGistsFilesScreen(p['id'].first);
   });
   static final issueAdd = RouterScreen('/:owner/:name/issues/new', (_, p) {
     return GhIssueFormScreen(p['owner'].first, p['name'].first);
