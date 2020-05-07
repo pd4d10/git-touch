@@ -14,7 +14,7 @@ class GistsItem extends StatelessWidget {
   final String description;
   final String login;
   final Map<String, GistFiles> files;
-  final List<dynamic> filenames;
+  final List<GistFiles> filenames;
   final String language;
   final String avatarUrl;
   final DateTime updatedAt;

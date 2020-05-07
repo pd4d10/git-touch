@@ -356,8 +356,8 @@ class GithubGistsItem {
   bool public;
   Map<String, GistFiles> files;
   GithubEventUser owner;
-  List<dynamic> get fileNames {
-    var filenames = [];
+  List<GistFiles> get fileNames {
+    List<GistFiles> filenames = [];
     files.forEach((String key, GistFiles value) {
       filenames.add(value);
     });
