@@ -68,7 +68,7 @@ class RepositoryItem extends StatelessWidget {
         url = '/gitlab/projects/${payload.id}',
         avatarLink = payload.namespace.kind == 'group'
             ? '/gitlab/group/${payload.namespace.id}'
-            : '/gitlab/user/${payload.owner.id}',
+            : '/gitlab/user/${payload.namespace.id}',
         iconData = _buildGlIconData(payload.visibility);
 
   RepositoryItem.gh({
