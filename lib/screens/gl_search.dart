@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/common.dart';
 import 'package:git_touch/utils/utils.dart';
-import 'package:git_touch/widgets/issue_item.dart';
 import 'package:git_touch/widgets/loading.dart';
 import 'package:git_touch/widgets/user_item.dart';
 import 'package:primer/primer.dart';
@@ -21,7 +20,8 @@ class GlSearchScreen extends StatefulWidget {
 class _GlSearchScreenState extends State<GlSearchScreen> {
   int _activeTab = 0;
   bool _loading = false;
-  List<List> _payloads = [[], []];
+  List<GitlabProject> _projects = List<GitlabProject>();
+  List<GitlabUser> _users = List<GitlabUser>();
 
   TextEditingController _controller;
 
@@ -51,8 +51,8 @@ class _GlSearchScreenState extends State<GlSearchScreen> {
           .fetchGitlabWithPage('/search?scope=projects&search=$keyword');
       final users = await Provider.of<AuthModel>(context)
           .fetchGitlabWithPage('/search?scope=users&search=$keyword');
-      _payloads[0] = [for (var v in projects.data) GitlabProject.fromJson(v)];
-      _payloads[1] = [for (var v in users.data) GitlabUser.fromJson(v)];
+      _projects = [for (var v in projects.data) GitlabProject.fromJson(v)];
+      _users = [for (var v in users.data) GitlabUser.fromJson(v)];
     } finally {
       setState(() {
         _loading = false;
@@ -94,7 +94,7 @@ class _GlSearchScreenState extends State<GlSearchScreen> {
     setState(() {
       _activeTab = index;
     });
-    if (_payloads[_activeTab].isEmpty) {
+    if(_projects.isEmpty || _users.isEmpty) {
       _query();
     }
   }
@@ -147,7 +147,10 @@ class _GlSearchScreenState extends State<GlSearchScreen> {
             if (_loading)
               Loading()
             else
-              ..._payloads[_activeTab].map(_buildItem).toList(),
+              if(_activeTab == 0) 
+                ..._projects.map(_buildItem).toList()
+              else 
+                ..._users.map(_buildItem).toList(),
           ],
         ),
       ),
