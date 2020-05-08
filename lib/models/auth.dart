@@ -148,8 +148,10 @@ class AuthModel with ChangeNotifier {
       if (info['message'] != null) {
         throw info['message'];
       }
+      if (info['username'] == null) {
+        throw "username returned is null. Make sure token is not being re-used";
+      }
       final user = GitlabUser.fromJson(info);
-
       await _addAccount(Account(
         platform: PlatformType.gitlab,
         domain: domain,
