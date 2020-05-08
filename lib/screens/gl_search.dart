@@ -94,7 +94,7 @@ class _GlSearchScreenState extends State<GlSearchScreen> {
     setState(() {
       _activeTab = index;
     });
-    if(_projects.isEmpty || _users.isEmpty) {
+    if (_projects.isEmpty || _users.isEmpty) {
       _query();
     }
   }
@@ -146,11 +146,10 @@ class _GlSearchScreenState extends State<GlSearchScreen> {
               ),
             if (_loading)
               Loading()
+            else if (_activeTab == 0)
+              ..._projects.map(_buildItem).toList()
             else
-              if(_activeTab == 0) 
-                ..._projects.map(_buildItem).toList()
-              else 
-                ..._users.map(_buildItem).toList(),
+              ..._users.map(_buildItem).toList(),
           ],
         ),
       ),
