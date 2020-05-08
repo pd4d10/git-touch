@@ -27,7 +27,7 @@ dependencies:
   flutter_markdown: ^0.3.3
   shared_preferences: ^0.5.6
   share: ^0.6.0
-  flutter_svg: ^0.13.0
+  flutter_svg: ^0.17.4
   launch_review: ^2.0.0
   timeago: ^2.0.18
   provider: ^3.1.0
