@@ -6,6 +6,7 @@ import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/screens/bb_explore.dart';
 import 'package:git_touch/screens/bb_teams.dart';
 import 'package:git_touch/screens/bb_user.dart';
+import 'package:git_touch/screens/gl_search.dart';
 import 'package:git_touch/screens/gt_orgs.dart';
 import 'package:git_touch/screens/gt_user.dart';
 import 'package:git_touch/screens/gl_explore.dart';
@@ -62,6 +63,8 @@ class _HomeState extends State<Home> {
           case 1:
             return GlGroupsScreenn();
           case 2:
+            return GlSearchScreen();
+          case 3:
             return GlUserScreen(null);
         }
         break;
@@ -143,6 +146,10 @@ class _HomeState extends State<Home> {
           BottomNavigationBarItem(
             icon: Icon(Icons.group),
             title: Text('Groups'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            title: Text('Search'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
