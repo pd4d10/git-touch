@@ -261,6 +261,7 @@ class AuthModel with ChangeNotifier {
         login: username,
         avatarUrl: user.avatarUrl,
         appPassword: appPassword,
+        accountId: user.accountId,
       ));
     } finally {
       loading = false;

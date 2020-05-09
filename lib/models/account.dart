@@ -12,6 +12,7 @@ class Account {
   String avatarUrl;
   int gitlabId; // For GitLab
   String appPassword; // For Bitbucket
+  String accountId; // For Bitbucket
 
   // equals(Account a) {
   //   final uri = Uri.parse(domain);
@@ -33,6 +34,7 @@ class Account {
     @required this.avatarUrl,
     this.gitlabId,
     this.appPassword,
+    this.accountId,
   });
 
   factory Account.fromJson(Map<String, dynamic> json) =>
