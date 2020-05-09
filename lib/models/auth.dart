@@ -149,11 +149,11 @@ class AuthModel with ChangeNotifier {
         throw info['message'];
       }
       if (info['error'] != null) {
-        throw info["error"] +
-            ". " +
-            (info["error_description"] != null
-                ? info["error_description"]
-                : "");
+        throw info['error'] +
+            '. ' +
+            (info['error_description'] != null
+                ? info['error_description']
+                : '');
       }
       final user = GitlabUser.fromJson(info);
       await _addAccount(Account(
