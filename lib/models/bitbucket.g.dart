@@ -50,7 +50,8 @@ BbUser _$BbUserFromJson(Map<String, dynamic> json) {
     ..isStaff = json['is_staff'] as bool
     ..createdOn = json['created_on'] == null
         ? null
-        : DateTime.parse(json['created_on'] as String);
+        : DateTime.parse(json['created_on'] as String)
+    ..accountId = json['account_id'] as String;
 }
 
 Map<String, dynamic> _$BbUserToJson(BbUser instance) => <String, dynamic>{
@@ -61,6 +62,7 @@ Map<String, dynamic> _$BbUserToJson(BbUser instance) => <String, dynamic>{
       'username': instance.username,
       'is_staff': instance.isStaff,
       'created_on': instance.createdOn?.toIso8601String(),
+      'account_id': instance.accountId,
     };
 
 BbRepo _$BbRepoFromJson(Map<String, dynamic> json) {
