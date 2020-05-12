@@ -350,3 +350,14 @@ class GithubFilesItem {
   factory GithubFilesItem.fromJson(Map<String, dynamic> json) =>
       _$GithubFilesItemFromJson(json);
 }
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GithubComparisonItem {
+  List<GithubFilesItem> files;
+  String status;
+  int aheadBy;
+  int behindBy;
+  GithubComparisonItem();
+  factory GithubComparisonItem.fromJson(Map<String, dynamic> json) =>
+      _$GithubComparisonItemFromJson(json);
+}
