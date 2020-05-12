@@ -38,7 +38,7 @@ class GhUserOrganizationScreen extends StatelessWidget {
         return UserOrganizationItem(
           avatarUrl: v.avatarUrl,
           login: v.login,
-          url: '/$login',
+          url: '/github/$login',
           description: v.description,
         );
       },

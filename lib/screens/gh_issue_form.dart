@@ -75,7 +75,7 @@ class _GhIssueFormScreenState extends State<GhIssueFormScreen> {
                   jsonDecode(response.body) as Map<String, dynamic>);
               await theme.push(
                 context,
-                '/${widget.owner}/${widget.name}/issues/${res.number}',
+                '/github/${widget.owner}/${widget.name}/issues/${res.number}',
                 replace: true,
               );
             },

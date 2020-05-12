@@ -84,8 +84,8 @@ class RepositoryItem extends StatelessWidget {
     @required bool isPrivate,
     @required bool isFork,
   })  : iconData = _buildIconData(isPrivate, isFork),
-        avatarLink = '/$owner',
-        url = '/$owner/$name';
+        avatarLink = '/github/$owner',
+        url = '/github/$owner/$name';
 
   static IconData _buildIconData(bool isPrivate, bool isFork) {
     if (isPrivate == true) return Octicons.lock;

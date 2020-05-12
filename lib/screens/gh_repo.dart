@@ -115,7 +115,7 @@ class GhRepoScreen extends StatelessWidget {
           children: <Widget>[
             RepoHeader(
               avatarUrl: repo.owner.avatarUrl,
-              avatarLink: '/${repo.owner.login}',
+              avatarLink: '/github/${repo.owner.login}',
               name: repo.name,
               owner: repo.owner.login,
               description: repo.description,
@@ -240,12 +240,12 @@ class GhRepoScreen extends StatelessWidget {
                 EntryItem(
                   count: repo.watchers.totalCount,
                   text: 'Watchers',
-                  url: '/$owner/$name/watchers',
+                  url: '/github/$owner/$name/watchers',
                 ),
                 EntryItem(
                   count: repo.stargazers.totalCount,
                   text: 'Stars',
-                  url: '/$owner/$name/stargazers',
+                  url: '/github/$owner/$name/stargazers',
                 ),
                 EntryItem(
                   count: repo.forks.totalCount,
@@ -276,7 +276,7 @@ class GhRepoScreen extends StatelessWidget {
                       (license == null ? '' : '$license • ') +
                           filesize(repo.diskUsage * 1000),
                     ),
-                    url: '/$owner/$name/blob/${ref.name}',
+                    url: '/github/$owner/$name/blob/${ref.name}',
                   ),
                 if (repo.hasIssuesEnabled)
                   TableViewItem(
@@ -284,14 +284,14 @@ class GhRepoScreen extends StatelessWidget {
                     text: Text('Issues'),
                     rightWidget:
                         Text(numberFormat.format(repo.issues.totalCount)),
-                    url: '/$owner/$name/issues',
+                    url: '/github/$owner/$name/issues',
                   ),
                 TableViewItem(
                   leftIconData: Octicons.git_pull_request,
                   text: Text('Pull requests'),
                   rightWidget:
                       Text(numberFormat.format(repo.pullRequests.totalCount)),
-                  url: '/$owner/$name/pulls',
+                  url: '/github/$owner/$name/pulls',
                 ),
                 TableViewItem(
                   leftIconData: Octicons.history,
@@ -300,7 +300,7 @@ class GhRepoScreen extends StatelessWidget {
                       .history
                       ?.totalCount
                       .toString()),
-                  url: '/$owner/$name/commits',
+                  url: '/github/$owner/$name/commits',
                 ),
                 if (ref != null) ...[
                   if (repo.refs != null)
@@ -323,7 +323,8 @@ class GhRepoScreen extends StatelessWidget {
                                 .toList(),
                             onClose: (ref) {
                               if (ref != branch) {
-                                theme.push(context, '/$owner/$name?ref=$ref',
+                                theme.push(
+                                    context, '/github/$owner/$name?ref=$ref',
                                     replace: true);
                               }
                             },
@@ -336,7 +337,7 @@ class GhRepoScreen extends StatelessWidget {
                   leftIconData: Octicons.organization,
                   text: Text('Contributors'),
                   rightWidget: Text(contributorsCount),
-                  url: '/$owner/$name/contributors',
+                  url: '/github/$owner/$name/contributors',
                 )
               ],
             ),

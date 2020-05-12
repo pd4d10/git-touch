@@ -58,7 +58,7 @@ class GhObjectScreen extends StatelessWidget {
             items: data.tree.map((v) {
               // if (item.type == 'commit') return null;
               final uri = Uri(
-                path: '/$owner/$name/blob/$ref',
+                path: '/github/$owner/$name/blob/$ref',
                 queryParameters: {
                   'path': v.path,
                   ...(v.downloadUrl == null ? {} : {'raw': v.downloadUrl}),

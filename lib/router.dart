@@ -63,7 +63,7 @@ class CommonRouter {
 }
 
 class GithubRouter {
-  static const prefix = ''; // TODO: '/github';
+  static const prefix = '/github';
   static final routes = [
     GithubRouter.user,
     GithubRouter.repo,
