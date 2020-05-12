@@ -97,22 +97,22 @@ class GhUserScreen extends StatelessWidget {
           EntryItem(
             count: p.repositories.totalCount,
             text: 'Repositories',
-            url: '/$login?tab=repositories',
+            url: '/github/$login?tab=repositories',
           ),
           EntryItem(
             count: p.starredRepositories.totalCount,
             text: 'Stars',
-            url: '/$login?tab=stars',
+            url: '/github/$login?tab=stars',
           ),
           EntryItem(
             count: p.followers.totalCount,
             text: 'Followers',
-            url: '/$login?tab=followers',
+            url: '/github/$login?tab=followers',
           ),
           EntryItem(
             count: p.following.totalCount,
             text: 'Following',
-            url: '/$login?tab=following',
+            url: '/github/$login?tab=following',
           ),
         ]),
         CommonStyle.border,
@@ -155,7 +155,7 @@ class GhUserScreen extends StatelessWidget {
             TableViewItem(
               leftIconData: Octicons.home,
               text: Text('Organizations'),
-              url: '/$login?tab=organizations',
+              url: '/github/$login?tab=organizations',
             ),
             if (isNotNullOrEmpty(p.company))
               TableViewItem(
@@ -241,12 +241,12 @@ class GhUserScreen extends StatelessWidget {
           EntryItem(
             count: p.pinnableItems.totalCount,
             text: 'Repositories',
-            url: '/${p.login}?tab=orgrepo',
+            url: '/github/${p.login}?tab=orgrepo',
           ),
           EntryItem(
             count: p.membersWithRole.totalCount,
             text: 'Members',
-            url: '/${p.login}?tab=people',
+            url: '/github/${p.login}?tab=people',
           ),
         ]),
         TableView(

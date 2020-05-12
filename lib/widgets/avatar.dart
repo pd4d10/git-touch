@@ -63,7 +63,7 @@ class GithubAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Avatar(url: url, size: size, linkUrl: '/$login');
+    return Avatar(url: url, size: size, linkUrl: '/github/$login');
   }
 }
 
@@ -83,7 +83,7 @@ class GitlabAvatar extends StatelessWidget {
     return Avatar(
       url: url,
       size: size,
-      linkUrl: '/user/$id',
+      linkUrl: '/gitlab/user/$id',
     );
   }
 }

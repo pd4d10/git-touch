@@ -51,7 +51,7 @@ class GhTrendingScreen extends StatelessWidget {
                         // name: v.name,
                         avatarUrl: v.avatar,
                         bio: Link(
-                          url: '/${v.username}/${v.repo.name}',
+                          url: '/github/${v.username}/${v.repo.name}',
                           child: Row(
                             children: <Widget>[
                               Icon(

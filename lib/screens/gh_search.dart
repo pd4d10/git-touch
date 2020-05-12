@@ -199,7 +199,7 @@ class _GhSearchScreenState extends State<GhSearchScreen> {
           number: p['number'],
           title: p['title'],
           updatedAt: DateTime.parse(p['updatedAt']),
-          url: Uri.parse(p['url']).path,
+          url: '/github' + Uri.parse(p['url']).path,
           isPr: p['__typename'] == 'PullRequest',
         );
     }

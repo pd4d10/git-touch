@@ -24,7 +24,7 @@ class UserItem extends StatelessWidget {
     // @required this.name,
     @required this.avatarUrl,
     @required this.bio,
-  }) : url = '/$login';
+  }) : url = '/github/$login';
 
   UserItem({
     @required this.login,

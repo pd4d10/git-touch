@@ -37,7 +37,7 @@ class GhIssuesScreen extends StatelessWidget {
       title: AppBarTitle('Issues'),
       actionBuilder: () => ActionEntry(
         iconData: Octicons.plus,
-        url: '/$owner/$name/issues/new',
+        url: '/github/$owner/$name/issues/new',
       ),
       onRefresh: () => _query(context),
       onLoadMore: (cursor) => _query(context, cursor),
@@ -55,7 +55,7 @@ class GhIssuesScreen extends StatelessWidget {
                   MyLabel(name: label.name, cssColor: label.color)
               ]),
         url:
-            '/${p.repository.owner.login}/${p.repository.name}/issues/${p.number}',
+            '/github/${p.repository.owner.login}/${p.repository.name}/issues/${p.number}',
       ),
     );
   }

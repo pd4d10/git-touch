@@ -55,7 +55,7 @@ class GhCommitsScreen extends StatelessWidget {
         return CommitItem(
           url: payload.url,
           avatarUrl: payload.author?.avatarUrl,
-          avatarLink: login == null ? null : '/$login',
+          avatarLink: login == null ? null : '/github/$login',
           message: payload.messageHeadline,
           author: login ?? payload.author.name,
           createdAt: payload.committedDate,

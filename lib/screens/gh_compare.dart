@@ -24,7 +24,6 @@ class GhComparisonScreen extends StatelessWidget {
           '/repos/$owner/$name/compare/$before...$head',
           convert: (vs) => GithubComparisonItem.fromJson(vs),
         );
-        print('/repos/$owner/$name/compare/$before...$head');
         return res.files;
       },
       actionBuilder: (v, _) {
