@@ -500,3 +500,24 @@ Map<String, dynamic> _$GithubFilesItemToJson(GithubFilesItem instance) =>
       'changes': instance.changes,
       'patch': instance.patch,
     };
+
+GithubComparisonItem _$GithubComparisonItemFromJson(Map<String, dynamic> json) {
+  return GithubComparisonItem()
+    ..files = (json['files'] as List)
+        ?.map((e) => e == null
+            ? null
+            : GithubFilesItem.fromJson(e as Map<String, dynamic>))
+        ?.toList()
+    ..status = json['status'] as String
+    ..aheadBy = json['ahead_by'] as int
+    ..behindBy = json['behind_by'] as int;
+}
+
+Map<String, dynamic> _$GithubComparisonItemToJson(
+        GithubComparisonItem instance) =>
+    <String, dynamic>{
+      'files': instance.files,
+      'status': instance.status,
+      'ahead_by': instance.aheadBy,
+      'behind_by': instance.behindBy,
+    };

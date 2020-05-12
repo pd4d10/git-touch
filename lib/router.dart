@@ -38,6 +38,7 @@ import 'package:git_touch/screens/settings.dart';
 import 'package:git_touch/screens/gh_user.dart';
 import 'package:git_touch/screens/gh_users.dart';
 import 'package:git_touch/screens/gh_user_organization.dart';
+import 'package:git_touch/screens/gh_compare.dart';
 // import 'package:git_touch/screens/gh_gists.dart';
 
 class RouterScreen {
@@ -77,6 +78,7 @@ class GithubRouter {
     GithubRouter.watchers,
     GithubRouter.contributors,
     GithubRouter.files,
+    GithubRouter.compare,
   ];
   static final user = RouterScreen('/:login', (_, p) {
     final login = p['login'].first;
@@ -133,6 +135,10 @@ class GithubRouter {
             p['name'].first,
             int.parse(p['number'].first),
           ));
+  static final compare = RouterScreen(
+      '/:owner/:name/compare/:before/:head',
+      (context, p) => GhComparisonScreen(p['owner'].first, p['name'].first,
+          p['before'].first, p['head'].first));
   static final commits = RouterScreen('/:owner/:name/commits',
       (context, p) => GhCommitsScreen(p['owner'].first, p['name'].first));
   static final object = RouterScreen('/:owner/:name/blob/:ref', (_, p) {

@@ -110,7 +110,7 @@ class EventItem extends StatelessWidget {
     final theme = Provider.of<ThemeModel>(context);
     return Link(
       url:
-          'https://github.com/${e.repoOwner}/${e.repoName}/compare/${e.payload.before}...${e.payload.head}',
+          '/${e.repoOwner}/${e.repoName}/compare/${e.payload.before}/${e.payload.head}',
       child: Container(
         padding: EdgeInsets.all(12),
         decoration: BoxDecoration(
