@@ -50,7 +50,7 @@ class GhPullsScreen extends StatelessWidget {
                   MyLabel(name: label.name, cssColor: label.color)
               ]),
         url:
-            '/${p.repository.owner.login}/${p.repository.name}/pull/${p.number}',
+            '/github/${p.repository.owner.login}/${p.repository.name}/pull/${p.number}',
       ),
     );
   }

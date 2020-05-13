@@ -148,8 +148,14 @@ class AuthModel with ChangeNotifier {
       if (info['message'] != null) {
         throw info['message'];
       }
+      if (info['error'] != null) {
+        throw info['error'] +
+            '. ' +
+            (info['error_description'] != null
+                ? info['error_description']
+                : '');
+      }
       final user = GitlabUser.fromJson(info);
-
       await _addAccount(Account(
         platform: PlatformType.gitlab,
         domain: domain,
@@ -261,6 +267,7 @@ class AuthModel with ChangeNotifier {
         login: username,
         avatarUrl: user.avatarUrl,
         appPassword: appPassword,
+        accountId: user.accountId,
       ));
     } finally {
       loading = false;

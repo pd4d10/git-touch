@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/common.dart';
 import 'package:git_touch/utils/utils.dart';
-import 'package:git_touch/widgets/issue_item.dart';
 import 'package:git_touch/widgets/loading.dart';
 import 'package:git_touch/widgets/user_item.dart';
 import 'package:primer/primer.dart';
@@ -11,16 +10,18 @@ import 'package:provider/provider.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/widgets/repository_item.dart';
 import 'package:timeago/timeago.dart' as timeago;
+import 'package:git_touch/models/gitlab.dart';
 
-class GhSearchScreen extends StatefulWidget {
+class GlSearchScreen extends StatefulWidget {
   @override
-  _GhSearchScreenState createState() => _GhSearchScreenState();
+  _GlSearchScreenState createState() => _GlSearchScreenState();
 }
 
-class _GhSearchScreenState extends State<GhSearchScreen> {
+class _GlSearchScreenState extends State<GlSearchScreen> {
   int _activeTab = 0;
   bool _loading = false;
-  List<List> _payloads = [[], [], []];
+  List<GitlabProject> _projects = List<GitlabProject>();
+  List<GitlabUser> _users = List<GitlabUser>();
 
   TextEditingController _controller;
 
@@ -46,64 +47,12 @@ class _GhSearchScreenState extends State<GhSearchScreen> {
       _loading = true;
     });
     try {
-      var data = await Provider.of<AuthModel>(context).query('''
-{
-  repository: search(first: $pageSize, type: REPOSITORY, query: "$keyword") {
-    nodes {
-      ... on Repository {
-        owner {
-          __typename
-          login
-          avatarUrl
-        }
-        name
-        description
-        isPrivate
-        isFork
-        updatedAt
-        stargazers {
-          totalCount
-        }
-        forks {
-          totalCount
-        }
-        primaryLanguage {
-          color
-          name
-        }
-      }
-    }
-  }
-  user: search(first: $pageSize, type: USER, query: "$keyword") {
-    nodes {
-      ... on Organization {
-        __typename
-        name
-        avatarUrl
-        bio: description
-        login
-      }
-      ... on User {
-        $userGqlChunk
-      }
-    }
-  }
-  issue: search(first: $pageSize, type: ISSUE, query: "$keyword") {
-    nodes {
-      ... on PullRequest {
-        __typename
-        $issueGqlChunk
-      }
-      ... on Issue {
-        $issueGqlChunk
-      }
-    }
-  }
-}
-        ''');
-      _payloads[0] = data['repository']['nodes'];
-      _payloads[1] = data['user']['nodes'];
-      _payloads[2] = data['issue']['nodes'];
+      final projects = await Provider.of<AuthModel>(context)
+          .fetchGitlabWithPage('/search?scope=projects&search=$keyword');
+      final users = await Provider.of<AuthModel>(context)
+          .fetchGitlabWithPage('/search?scope=users&search=$keyword');
+      _projects = [for (var v in projects.data) GitlabProject.fromJson(v)];
+      _users = [for (var v in users.data) GitlabUser.fromJson(v)];
     } finally {
       setState(() {
         _loading = false;
@@ -145,62 +94,27 @@ class _GhSearchScreenState extends State<GhSearchScreen> {
     setState(() {
       _activeTab = index;
     });
-    if (_payloads[_activeTab].isEmpty) {
+    if (_projects.isEmpty || _users.isEmpty) {
       _query();
     }
   }
 
-  static const tabs = ['Repositories', 'Users', 'Issues'];
-
-  static IconData _buildIconData(p) {
-    if (p['isPrivate']) {
-      return Octicons.lock;
-    }
-    if (p['isFork']) {
-      return Octicons.repo_forked;
-    }
-    return Octicons.repo;
-  }
+  static const tabs = ['Projects', 'Users'];
 
   Widget _buildItem(p) {
     switch (_activeTab) {
       case 0:
-        final updatedAt = timeago.format(DateTime.parse(p['updatedAt']));
-        return RepositoryItem.gh(
-          owner: p['owner']['login'],
-          avatarUrl: p['owner']['avatarUrl'],
-          name: p['name'],
-          description: p['description'],
-          starCount: p['stargazers']['totalCount'],
-          forkCount: p['forks']['totalCount'],
-          primaryLanguageName: p['primaryLanguage'] == null
-              ? null
-              : p['primaryLanguage']['name'],
-          primaryLanguageColor: p['primaryLanguage'] == null
-              ? null
-              : p['primaryLanguage']['color'],
+        final updatedAt = timeago.format(p.lastActivityAt);
+        return RepositoryItem.gl(
+          payload: p,
           note: 'Updated $updatedAt',
-          isPrivate: p['isPrivate'],
-          isFork: p['isFork'],
         );
       case 1:
-        return UserItem.gh(
-          login: p['login'],
-          // name: p['name'],
-          avatarUrl: p['avatarUrl'],
-          bio: Text(p['bio'] ?? ''),
-        );
-      case 2:
-      default:
-        return IssueItem(
-          author: p['author']['login'],
-          avatarUrl: p['author']['avatarUrl'],
-          commentCount: p['comments']['totalCount'],
-          number: p['number'],
-          title: p['title'],
-          updatedAt: DateTime.parse(p['updatedAt']),
-          url: '/github' + Uri.parse(p['url']).path,
-          isPr: p['__typename'] == 'PullRequest',
+        return UserItem(
+          login: p.username,
+          url: '/gitlab/user/${p.id}',
+          avatarUrl: p.avatarUrl,
+          bio: Text(p.bio ?? ''),
         );
     }
   }
@@ -232,8 +146,10 @@ class _GhSearchScreenState extends State<GhSearchScreen> {
               ),
             if (_loading)
               Loading()
+            else if (_activeTab == 0)
+              ..._projects.map(_buildItem).toList()
             else
-              ..._payloads[_activeTab].map(_buildItem).toList(),
+              ..._users.map(_buildItem).toList(),
           ],
         ),
       ),

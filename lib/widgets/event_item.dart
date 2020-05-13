@@ -29,13 +29,13 @@ class EventItem extends StatelessWidget {
 
   InlineSpan _buildRepo(BuildContext context, [String fullName]) {
     final name = fullName ?? e.repo.name;
-    return _buildLinkSpan(context, name, '/$name');
+    return _buildLinkSpan(context, name, '/github/$name');
   }
 
   InlineSpan _buildIssue(BuildContext context, int number,
       {bool isPullRequest = false}) {
     return _buildLinkSpan(context, '#$number',
-        '/${e.repoOwner}/${e.repoName}/${isPullRequest ? 'pull' : 'issues'}/$number');
+        '/github/${e.repoOwner}/${e.repoName}/${isPullRequest ? 'pull' : 'issues'}/$number');
   }
 
   Widget _buildItem({
@@ -52,7 +52,8 @@ class EventItem extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Avatar(url: e.actor.avatarUrl, linkUrl: '/' + e.actor.login),
+              Avatar(
+                  url: e.actor.avatarUrl, linkUrl: '/github/' + e.actor.login),
               SizedBox(width: 10),
               Expanded(
                 child: Column(
@@ -65,8 +66,8 @@ class EventItem extends StatelessWidget {
                           color: theme.palette.text,
                         ),
                         children: [
-                          _buildLinkSpan(
-                              context, e.actor.login, '/${e.actor.login}'),
+                          _buildLinkSpan(context, e.actor.login,
+                              '/github/${e.actor.login}'),
                           ...spans,
                         ],
                       ),
@@ -110,7 +111,7 @@ class EventItem extends StatelessWidget {
     final theme = Provider.of<ThemeModel>(context);
     return Link(
       url:
-          'https://github.com/${e.repoOwner}/${e.repoName}/compare/${e.payload.before}...${e.payload.head}',
+          '/github/${e.repoOwner}/${e.repoName}/compare/${e.payload.before}/${e.payload.head}',
       child: Container(
         padding: EdgeInsets.all(12),
         decoration: BoxDecoration(
@@ -186,7 +187,7 @@ class EventItem extends StatelessWidget {
 
     return Link(
       url:
-          '/${e.repoOwner}/${e.repoName}/${isPullRequest ? 'pull' : 'issues'}/${issue.number}',
+          '/github/${e.repoOwner}/${e.repoName}/${isPullRequest ? 'pull' : 'issues'}/${issue.number}',
       child: Container(
         padding: EdgeInsets.all(12),
         decoration: BoxDecoration(

@@ -102,14 +102,14 @@ class _NotificationItemState extends State<NotificationItem> {
     final fullName = payload.repository.fullName;
     switch (payload.subject.type) {
       case 'Issue':
-        return '/$fullName/issues/${payload.subject.number}';
+        return '/github/$fullName/issues/${payload.subject.number}';
       case 'PullRequest':
-        return '/$fullName/pull/${payload.subject.number}';
+        return '/github/$fullName/pull/${payload.subject.number}';
       case 'Release':
         return 'https://github.com/$fullName/releases';
       case 'Commit':
       case 'CheckSuite':
-        return '/$fullName';
+        return '/github/$fullName';
       default:
         return null;
     }

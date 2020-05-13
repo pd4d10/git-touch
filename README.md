@@ -17,6 +17,11 @@ Click badges above to install it from Apple App Store or Google Play.
 
 Android users can also download APK file from [release page](https://github.com/pd4d10/git-touch/releases) and install it manually.
 
+A beta channel is available if you want to get the latest features:
+
+- iOS: https://testflight.apple.com/join/hAYijLr5
+- Android: https://play.google.com/apps/testing/io.github.pd4d10.gittouch
+
 ## Screenshots
 
 <p>

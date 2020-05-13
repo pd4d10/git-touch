@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:git_touch/models/github.dart';
-import 'package:git_touch/models/notification.dart';
 import 'package:git_touch/scaffolds/list_stateful.dart';
-import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/contributor_item.dart';
-import 'package:github/github.dart';
 import 'package:provider/provider.dart';
-import 'package:git_touch/widgets/event_item.dart';
 import 'package:git_touch/models/auth.dart';
 
 class GhContributorsScreen extends StatelessWidget {
@@ -41,7 +37,7 @@ class GhContributorsScreen extends StatelessWidget {
           avatarUrl: v.avatarUrl,
           commits: v.contributions,
           login: v.login,
-          url: '/$login?tab=contributors',
+          url: '/github/$login?tab=contributors',
         );
       },
     );

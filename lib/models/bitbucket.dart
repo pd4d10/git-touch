@@ -30,6 +30,7 @@ class BbUser extends BbRepoOwner {
   String username;
   bool isStaff;
   DateTime createdOn;
+  String accountId;
   BbUser();
   factory BbUser.fromJson(Map<String, dynamic> json) => _$BbUserFromJson(json);
 }

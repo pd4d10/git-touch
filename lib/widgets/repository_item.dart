@@ -68,7 +68,7 @@ class RepositoryItem extends StatelessWidget {
         url = '/gitlab/projects/${payload.id}',
         avatarLink = payload.namespace.kind == 'group'
             ? '/gitlab/group/${payload.namespace.id}'
-            : '/gitlab/user/${payload.owner.id}',
+            : '/gitlab/user/${payload.namespace.id}',
         iconData = _buildGlIconData(payload.visibility);
 
   RepositoryItem.gh({
@@ -84,8 +84,8 @@ class RepositoryItem extends StatelessWidget {
     @required bool isPrivate,
     @required bool isFork,
   })  : iconData = _buildIconData(isPrivate, isFork),
-        avatarLink = '/$owner',
-        url = '/$owner/$name';
+        avatarLink = '/github/$owner',
+        url = '/github/$owner/$name';
 
   static IconData _buildIconData(bool isPrivate, bool isFork) {
     if (isPrivate == true) return Octicons.lock;

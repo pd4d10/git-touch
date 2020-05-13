@@ -41,6 +41,7 @@ import 'package:git_touch/screens/gh_users.dart';
 import 'package:git_touch/screens/gh_user_organization.dart';
 import 'package:git_touch/screens/gh_gists.dart';
 import 'package:git_touch/screens/gh_gist_object.dart';
+import 'package:git_touch/screens/gh_compare.dart';
 
 class RouterScreen {
   String path;
@@ -64,7 +65,7 @@ class CommonRouter {
 }
 
 class GithubRouter {
-  static const prefix = ''; // TODO: '/github';
+  static const prefix = '/github';
   static final routes = [
     GithubRouter.user,
     GithubRouter.repo,
@@ -81,6 +82,7 @@ class GithubRouter {
     GithubRouter.files,
     GithubRouter.gistFiles,
     GithubRouter.gistObject,
+    GithubRouter.compare,
   ];
   static final user = RouterScreen('/:login', (_, p) {
     final login = p['login'].first;
@@ -149,6 +151,10 @@ class GithubRouter {
             p['name'].first,
             int.parse(p['number'].first),
           ));
+  static final compare = RouterScreen(
+      '/:owner/:name/compare/:before/:head',
+      (context, p) => GhComparisonScreen(p['owner'].first, p['name'].first,
+          p['before'].first, p['head'].first));
   static final commits = RouterScreen('/:owner/:name/commits',
       (context, p) => GhCommitsScreen(p['owner'].first, p['name'].first));
   static final object = RouterScreen('/:owner/:name/blob/:ref', (_, p) {

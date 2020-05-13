@@ -509,7 +509,7 @@ fragment ReactableParts on Reactable {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Link(
-                    url: '/$owner/$name',
+                    url: '/github/$owner/$name',
                     child: Row(
                       children: <Widget>[
                         Avatar(
@@ -587,7 +587,7 @@ fragment ReactableParts on Reactable {
                           ],
                         ),
                       ),
-                      url: '/$owner/$name/pull/$number/files',
+                      url: '/github/$owner/$name/pull/$number/files',
                     ),
                     CommonStyle.border,
                   ],
