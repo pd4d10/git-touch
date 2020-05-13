@@ -6,7 +6,6 @@ import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/gists_item.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/models/auth.dart';
-import 'package:github/github.dart';
 
 class GhGistsScreen extends StatelessWidget {
   final String login;

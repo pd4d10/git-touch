@@ -40,6 +40,7 @@ import 'package:git_touch/screens/gh_user.dart';
 import 'package:git_touch/screens/gh_users.dart';
 import 'package:git_touch/screens/gh_user_organization.dart';
 import 'package:git_touch/screens/gh_gists.dart';
+import 'package:git_touch/screens/gh_gist_object.dart';
 
 class RouterScreen {
   String path;
@@ -79,6 +80,7 @@ class GithubRouter {
     GithubRouter.contributors,
     GithubRouter.files,
     GithubRouter.gistFiles,
+    GithubRouter.gistObject,
   ];
   static final user = RouterScreen('/:login', (_, p) {
     final login = p['login'].first;
@@ -112,8 +114,17 @@ class GithubRouter {
           branch: p['ref'].first);
     }
   });
+  static final gistObject = RouterScreen('/:login/gists/:id/:file', (_, p) {
+    return GistObjectScreen(
+      p['login'].first,
+      p['id'].first,
+      p['file'].first,
+      raw: p['raw']?.first,
+      content: p['content'].first,
+    );
+  });
   static final gistFiles = RouterScreen('/:login/gists/:id', (_, p) {
-    return GhGistsFilesScreen(p['id'].first);
+    return GhGistsFilesScreen(p['login'].first, p['id'].first);
   });
   static final issueAdd = RouterScreen('/:owner/:name/issues/new', (_, p) {
     return GhIssueFormScreen(p['owner'].first, p['name'].first);
