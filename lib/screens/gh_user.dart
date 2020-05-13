@@ -156,7 +156,7 @@ class GhUserScreen extends StatelessWidget {
             TableViewItem(
                 leftIconData: Octicons.book,
                 text: Text('Gists'),
-                url: '/$login?tab=gists'),
+                url: '/github/$login?tab=gists'),
             TableViewItem(
               leftIconData: Octicons.home,
               text: Text('Organizations'),

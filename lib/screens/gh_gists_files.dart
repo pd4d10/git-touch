@@ -28,7 +28,7 @@ class GhGistsFilesScreen extends StatelessWidget {
         return ObjectTree(
           items: payload.fileNames.map((v) {
             final uri = Uri(
-              path: '/$login/gists/$id/${v.filename}',
+              path: '/github/$login/gists/$id/${v.filename}',
               queryParameters: {
                 'content': v.content,
                 ...(v.rawUrl == null ? {} : {'raw': v.rawUrl}),

@@ -37,7 +37,7 @@ class GistsItem extends StatelessWidget {
     final theme = Provider.of<ThemeModel>(context);
     print(language);
     return Link(
-      url: '/$login/gists/$id',
+      url: '/github/$login/gists/$id',
       child: Container(
         padding: CommonStyle.padding,
         child: Row(
@@ -52,7 +52,7 @@ class GistsItem extends StatelessWidget {
                       Avatar(
                         url: avatarUrl,
                         size: AvatarSize.small,
-                        linkUrl: '/$login',
+                        linkUrl: '/github/$login',
                       ),
                       SizedBox(width: 8),
                       Expanded(
