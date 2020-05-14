@@ -461,12 +461,43 @@ Map<String, dynamic> _$GithubUserOrganizationItemToJson(
       'url': instance.url,
     };
 
+GistFiles _$GistFilesFromJson(Map<String, dynamic> json) {
+  return GistFiles(
+    filename: json['filename'] as String,
+    size: json['size'] as int,
+    rawUrl: json['raw_url'] as String,
+    type: json['type'] as String,
+    language: json['language'] as String,
+    truncated: json['truncated'] as bool,
+    content: json['content'] as String,
+  );
+}
+
+Map<String, dynamic> _$GistFilesToJson(GistFiles instance) => <String, dynamic>{
+      'filename': instance.filename,
+      'size': instance.size,
+      'raw_url': instance.rawUrl,
+      'type': instance.type,
+      'language': instance.language,
+      'truncated': instance.truncated,
+      'content': instance.content,
+    };
+
 GithubGistsItem _$GithubGistsItemFromJson(Map<String, dynamic> json) {
   return GithubGistsItem()
-    ..id = json['id'] as int
-    ..isFork = json['is_fork'] as bool
-    ..isPublic = json['is_public'] as bool
-    ..name = json['name'] as String
+    ..id = json['id'] as String
+    ..description = json['description'] as String
+    ..public = json['public'] as bool
+    ..files = (json['files'] as Map<String, dynamic>)?.map(
+      (k, e) => MapEntry(
+          k, e == null ? null : GistFiles.fromJson(e as Map<String, dynamic>)),
+    )
+    ..owner = json['owner'] == null
+        ? null
+        : GithubEventUser.fromJson(json['owner'] as Map<String, dynamic>)
+    ..createdAt = json['created_at'] == null
+        ? null
+        : DateTime.parse(json['created_at'] as String)
     ..updatedAt = json['updated_at'] == null
         ? null
         : DateTime.parse(json['updated_at'] as String);
@@ -475,9 +506,11 @@ GithubGistsItem _$GithubGistsItemFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$GithubGistsItemToJson(GithubGistsItem instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'is_fork': instance.isFork,
-      'is_public': instance.isPublic,
-      'name': instance.name,
+      'description': instance.description,
+      'public': instance.public,
+      'files': instance.files,
+      'owner': instance.owner,
+      'created_at': instance.createdAt?.toIso8601String(),
       'updated_at': instance.updatedAt?.toIso8601String(),
     };
 

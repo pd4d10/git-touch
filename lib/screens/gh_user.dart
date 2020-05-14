@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:git_touch/graphql/gh.dart';
+import 'package:git_touch/models/github.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
@@ -152,6 +153,10 @@ class GhUserScreen extends StatelessWidget {
         TableView(
           hasIcon: true,
           items: [
+            TableViewItem(
+                leftIconData: Octicons.book,
+                text: Text('Gists'),
+                url: '/github/$login?tab=gists'),
             TableViewItem(
               leftIconData: Octicons.home,
               text: Text('Organizations'),
