@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/github.dart';
-// import 'package:git_touch/models/github.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/avatar.dart';
 import 'package:git_touch/widgets/link.dart';
-import 'package:github/github.dart';
 import 'package:provider/provider.dart';
 import 'package:github/src/const/language_color.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -102,7 +100,7 @@ class GistsItem extends StatelessWidget {
                     style: TextStyle(color: theme.palette.text, fontSize: 14),
                     child: Row(
                       children: <Widget>[
-                        if(language != null)
+                        if (language != null)
                           Container(
                             width: 12,
                             height: 12,
