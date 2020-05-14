@@ -19,7 +19,6 @@ class GistsItem extends StatelessWidget {
   final String avatarUrl;
   final DateTime updatedAt;
   final String id;
-  // final DateTime createdAt;
 
   GistsItem({
     @required this.description,
@@ -35,7 +34,6 @@ class GistsItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
-    print(language);
     return Link(
       url: '/github/$login/gists/$id',
       child: Container(
@@ -72,7 +70,6 @@ class GistsItem extends StatelessWidget {
                                 color: theme.palette.primary,
                                 fontWeight: FontWeight.w600,
                               ),
-                              // overflow: TextOverflow.ellipsis,
                             ),
                           ]),
                           overflow: TextOverflow.ellipsis,
@@ -105,20 +102,21 @@ class GistsItem extends StatelessWidget {
                     style: TextStyle(color: theme.palette.text, fontSize: 14),
                     child: Row(
                       children: <Widget>[
-                        Container(
-                          width: 12,
-                          height: 12,
-                          decoration: BoxDecoration(
-                            // Error in color: convertColor(langauge ?? languagesColor[language]),
-                            color: convertColor(languagesColor[language]),
-                            shape: BoxShape.circle,
+                        if(language != null)
+                          Container(
+                            width: 12,
+                            height: 12,
+                            decoration: BoxDecoration(
+                              color: convertColor(languagesColor[language]),
+                              shape: BoxShape.circle,
+                            ),
                           ),
-                        ),
                         SizedBox(width: 4),
-                        Text(
-                          language,
-                          overflow: TextOverflow.ellipsis,
-                        ),
+                        if (language != null)
+                          Text(
+                            language,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         SizedBox(width: 24),
                       ],
                     ),
