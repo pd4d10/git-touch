@@ -166,3 +166,51 @@ Map<String, dynamic> _$BbCommitAuthorToJson(BbCommitAuthor instance) =>
       'raw': instance.raw,
       'user': instance.user,
     };
+
+BbIssues _$BbIssuesFromJson(Map<String, dynamic> json) {
+  return BbIssues()
+    ..priority = json['priority'] as String
+    ..state = json['state'] as String
+    ..repository = json['repository'] == null
+        ? null
+        : BbRepo.fromJson(json['repository'] as Map<String, dynamic>)
+    ..title = json['title'] as String
+    ..reporter = json['reporter'] == null
+        ? null
+        : BbRepoOwner.fromJson(json['reporter'] as Map<String, dynamic>)
+    ..createdOn = json['created_on'] == null
+        ? null
+        : DateTime.parse(json['created_on'] as String)
+    ..links = json['links'] as Map<String, dynamic>;
+}
+
+Map<String, dynamic> _$BbIssuesToJson(BbIssues instance) => <String, dynamic>{
+      'priority': instance.priority,
+      'state': instance.state,
+      'repository': instance.repository,
+      'title': instance.title,
+      'reporter': instance.reporter,
+      'created_on': instance.createdOn?.toIso8601String(),
+      'links': instance.links,
+    };
+
+BbPulls _$BbPullsFromJson(Map<String, dynamic> json) {
+  return BbPulls()
+    ..description = json['description'] as String
+    ..author = json['author'] == null
+        ? null
+        : BbRepoOwner.fromJson(json['author'] as Map<String, dynamic>)
+    ..title = json['title'] as String
+    ..links = json['links'] as Map<String, dynamic>
+    ..createdOn = json['created_on'] == null
+        ? null
+        : DateTime.parse(json['created_on'] as String);
+}
+
+Map<String, dynamic> _$BbPullsToJson(BbPulls instance) => <String, dynamic>{
+      'description': instance.description,
+      'author': instance.author,
+      'title': instance.title,
+      'links': instance.links,
+      'created_on': instance.createdOn?.toIso8601String(),
+    };

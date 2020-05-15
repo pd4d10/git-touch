@@ -58,6 +58,16 @@ class BbRepoScreen extends StatelessWidget {
                   url: '/bitbucket/$owner/$name/src/${p.mainbranch.name}',
                 ),
                 TableViewItem(
+                  leftIconData: Octicons.issue_opened,
+                  text: Text('Issues'),
+                  url: '/bitbucket/$owner/$name/issues/${p.mainbranch.name}',
+                ),
+                TableViewItem(
+                  leftIconData: Octicons.git_pull_request,
+                  text: Text('Pull requests'),
+                  url: '/bitbucket/$owner/$name/pulls/${p.mainbranch.name}',
+                ),
+                TableViewItem(
                   leftIconData: Octicons.history,
                   text: Text('Commits'),
                   url: '/bitbucket/$owner/$name/commits/${p.mainbranch.name}',
