@@ -164,6 +164,46 @@ class EventItem extends StatelessWidget {
     );
   }
 
+  // Todo: Add a screen for the url
+  Widget _buildCommitCommentCard(BuildContext context) {
+    final theme = Provider.of<ThemeModel>(context);
+    return Link(
+      url: e.payload.comment.htmlUrl,
+      child: Container(
+        padding: EdgeInsets.all(12),
+        decoration: BoxDecoration(
+            color: theme.palette.grayBackground,
+            borderRadius: BorderRadius.all(Radius.circular(4))),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: <Widget>[
+                Text(
+                  e.payload.comment.commitId.substring(0, 7),
+                  style: TextStyle(
+                    color: theme.palette.primary,
+                    fontSize: 15,
+                    fontFamily: CommonStyle.monospace,
+                  ),
+                ),
+                SizedBox(width: 6),
+                Expanded(
+                  child: Text(
+                    e.payload.comment.body,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    style: TextStyle(color: theme.palette.text, fontSize: 15),
+                  ),
+                )
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   Widget _buildIssueCard(
       BuildContext context, GithubEventIssue issue, String body,
       {isPullRequest = false}) {
@@ -293,11 +333,11 @@ class EventItem extends StatelessWidget {
         return _buildItem(
           context: context,
           spans: [
-            TextSpan(text: ' ${e.payload.action} a comment on the commit at '),
+            TextSpan(text: ' commented on a commit '),
+            TextSpan(text: ' at '),
             _buildRepo(context),
-            TextSpan(text: ' ${e.payload.comment.body} '),
           ],
-          card: _buildCommitsCard(context),
+          card: _buildCommitCommentCard(context),
         );
       case 'ContentReferenceEvent':
         return _buildItem(context: context, spans: [
