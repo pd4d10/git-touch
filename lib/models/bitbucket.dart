@@ -95,3 +95,31 @@ class BbCommitAuthor {
   factory BbCommitAuthor.fromJson(Map<String, dynamic> json) =>
       _$BbCommitAuthorFromJson(json);
 }
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class BbIssues {
+  String priority;
+  String state;
+  BbRepo repository;
+  String title;
+  BbRepoOwner reporter;
+  DateTime createdOn;
+  Map<String, dynamic> links;
+  String get issueLink => links['self']['href'];
+  BbIssues();
+  factory BbIssues.fromJson(Map<String, dynamic> json) =>
+      _$BbIssuesFromJson(json);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class BbPulls {
+  String description;
+  BbRepoOwner author;
+  String title;
+  Map<String, dynamic> links;
+  String get pullRequestLink => links['self']['href'];
+  DateTime createdOn;
+  BbPulls();
+  factory BbPulls.fromJson(Map<String, dynamic> json) =>
+      _$BbPullsFromJson(json);
+}

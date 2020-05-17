@@ -2,6 +2,8 @@ import 'package:fluro/fluro.dart';
 import 'package:git_touch/screens/bb_commits.dart';
 import 'package:git_touch/screens/bb_object.dart';
 import 'package:git_touch/screens/bb_repo.dart';
+import 'package:git_touch/screens/bb_issues.dart';
+import 'package:git_touch/screens/bb_pulls.dart';
 import 'package:git_touch/screens/bb_user.dart';
 import 'package:git_touch/screens/code_theme.dart';
 import 'package:git_touch/screens/gh_commits.dart';
@@ -298,6 +300,8 @@ class BitbucketRouter {
     BitbucketRouter.repo,
     BitbucketRouter.object,
     BitbucketRouter.commits,
+    BitbucketRouter.issues,
+    BitbucketRouter.pulls,
   ];
   static final user = RouterScreen(
       '/:login',
@@ -317,8 +321,16 @@ class BitbucketRouter {
       path: params['path']?.first,
     ),
   );
+  static final issues = RouterScreen(
+      '/:owner/:name/issues/:ref',
+      (_, p) =>
+          BbIssuesScreen(p['owner'].first, p['name'].first, p['ref'].first));
   static final commits = RouterScreen(
       '/:owner/:name/commits/:ref',
       (_, p) =>
           BbCommitsScreen(p['owner'].first, p['name'].first, p['ref'].first));
+  static final pulls = RouterScreen(
+      '/:owner/:name/pulls/:ref',
+      (_, p) =>
+          BbPullsScreen(p['owner'].first, p['name'].first, p['ref'].first));
 }

@@ -1,0 +1,51 @@
+import 'package:flutter/material.dart';
+import 'package:git_touch/models/auth.dart';
+import 'package:git_touch/models/bitbucket.dart';
+import 'package:git_touch/scaffolds/list_stateful.dart';
+import 'package:git_touch/widgets/app_bar_title.dart';
+import 'package:git_touch/widgets/issue_item.dart';
+import 'package:provider/provider.dart';
+
+class BbIssuesScreen extends StatelessWidget {
+  final String owner;
+  final String name;
+  final String ref;
+  BbIssuesScreen(this.owner, this.name, this.ref);
+
+  Future<ListPayload<BbIssues, String>> _query(BuildContext context,
+      [String nextUrl]) async {
+    final auth = Provider.of<AuthModel>(context);
+    final res = await auth
+        .fetchBbWithPage(nextUrl ?? '/repositories/$owner/$name/issues');
+    return ListPayload(
+      cursor: res.cursor,
+      hasMore: res.hasMore,
+      items: <BbIssues>[
+        for (var v in res.data) BbIssues.fromJson(v),
+      ],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final auth = Provider.of<AuthModel>(context);
+    return ListStatefulScaffold<BbIssues, String>(
+      title: AppBarTitle('Issues'),
+      onRefresh: () => _query(context),
+      onLoadMore: (page) => _query(context, page),
+      itemBuilder: (v) {
+        int issueNumber =
+            int.parse(v.issueLink.replaceFirst(RegExp(r'.*\/'), ''));
+        return IssueItem(
+          avatarUrl: v.reporter.avatarUrl,
+          author: v.reporter.displayName,
+          title: v.title,
+          number: issueNumber,
+          commentCount: 0,
+          updatedAt: v.createdOn,
+          url: '${auth.activeAccount.domain}/$owner/$name/issues/$issueNumber',
+        );
+      },
+    );
+  }
+}
