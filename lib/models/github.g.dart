@@ -174,13 +174,17 @@ GithubEventComment _$GithubEventCommentFromJson(Map<String, dynamic> json) {
     ..body = json['body'] as String
     ..user = json['user'] == null
         ? null
-        : GithubEventUser.fromJson(json['user'] as Map<String, dynamic>);
+        : GithubEventUser.fromJson(json['user'] as Map<String, dynamic>)
+    ..commitId = json['commit_id'] as String
+    ..htmlUrl = json['html_url'] as String;
 }
 
 Map<String, dynamic> _$GithubEventCommentToJson(GithubEventComment instance) =>
     <String, dynamic>{
       'body': instance.body,
       'user': instance.user,
+      'commit_id': instance.commitId,
+      'html_url': instance.htmlUrl,
     };
 
 GithubEventCommit _$GithubEventCommitFromJson(Map<String, dynamic> json) {

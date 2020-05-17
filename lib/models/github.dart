@@ -106,6 +106,8 @@ class GithubEventIssue {
 class GithubEventComment {
   String body;
   GithubEventUser user;
+  String commitId;
+  String htmlUrl;
 
   GithubEventComment();
 
