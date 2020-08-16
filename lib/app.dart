@@ -22,6 +22,11 @@ class MyApp extends StatelessWidget {
                 theme.brightness == Brightness.dark ? null : Colors.white,
             accentColor: theme.palette.primary,
             scaffoldBackgroundColor: theme.palette.background,
+            pageTransitionsTheme: PageTransitionsTheme(
+              builders: {
+                TargetPlatform.android: ZoomPageTransitionsBuilder(),
+              },
+            ),
           ),
           home: Home(),
         );
