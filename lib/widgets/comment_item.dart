@@ -185,8 +185,7 @@ class CommentItem extends StatelessWidget {
         SizedBox(height: 12),
         MarkdownView(body), // TODO: link
         SizedBox(height: 12),
-        if (widgets != null)
-          ...widgets
+        if (widgets != null) ...widgets
       ],
     );
   }
