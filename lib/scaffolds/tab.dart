@@ -34,9 +34,11 @@ class TabScaffold extends StatelessWidget {
             onValueChanged: onTabSwitch,
             children: tabs.asMap().map((key, text) => MapEntry(
                 key,
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: Text(text),
+                Container(
+                  width: 100,
+                  child: Center(
+                    child: Text(text),
+                  ),
                 ))),
           ),
         );
