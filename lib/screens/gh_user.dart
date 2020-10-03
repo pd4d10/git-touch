@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:git_touch/graphql/gh.dart';
-import 'package:git_touch/models/github.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
@@ -80,11 +79,7 @@ class GhUserScreen extends StatelessWidget {
                     if (p.viewerIsFollowing) {
                       await auth.ghClient.users.unfollowUser(p.login);
                     } else {
-                      // TODO: https://github.com/SpinlockLabs/github.dart/pull/216
-                      // await auth.ghClient.users.followUser(p.login);
-                      await auth.ghClient.request(
-                          'PUT', '/user/following/${p.login}',
-                          statusCode: 204);
+                      await auth.ghClient.users.followUser(p.login);
                     }
                     setState(() {
                       p.viewerIsFollowing = !p.viewerIsFollowing;

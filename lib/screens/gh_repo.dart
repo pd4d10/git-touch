@@ -138,35 +138,15 @@ class GhRepoScreen extends StatelessWidget {
                                 switch (v) {
                                   case GhRepoSubscriptionState.SUBSCRIBED:
                                   case GhRepoSubscriptionState.IGNORED:
-                                    // TODO: https://github.com/SpinlockLabs/github.dart/pull/215
-                                    // final res = await auth.ghClient.activity
-                                    //     .setRepositorySubscription(
-                                    //   RepositorySlug(
-                                    //     repo.owner.login,
-                                    //     repo.name,
-                                    //   ),
-                                    //   subscribed: v ==
-                                    //       GhRepoSubscriptionState.SUBSCRIBED,
-                                    //   ignored:
-                                    //       v == GhRepoSubscriptionState.IGNORED,
-                                    // );
-                                    final slug = RepositorySlug(
-                                        repo.owner.login, repo.name);
-                                    final response =
-                                        await auth.ghClient.request(
-                                      'PUT',
-                                      '/repos/${slug.fullName}/subscription',
-                                      statusCode: StatusCodes.OK,
-                                      body: json.encode({
-                                        'subscribed': v ==
-                                            GhRepoSubscriptionState.SUBSCRIBED,
-                                        'ignored':
-                                            v == GhRepoSubscriptionState.IGNORED
-                                      }),
+                                    final res = await auth.ghClient.activity
+                                        .setRepositorySubscription(
+                                      RepositorySlug(
+                                          repo.owner.login, repo.name),
+                                      subscribed: v ==
+                                          GhRepoSubscriptionState.SUBSCRIBED,
+                                      ignored:
+                                          v == GhRepoSubscriptionState.IGNORED,
                                     );
-                                    final res = RepositorySubscription.fromJson(
-                                        jsonDecode(response.body)
-                                            as Map<String, dynamic>);
                                     setState(() {
                                       if (res.subscribed) {
                                         repo.viewerSubscription =
