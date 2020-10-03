@@ -18,29 +18,27 @@ dependencies:
   flutter_vector_icons: ^0.2.1
   flutter_highlight: ^0.6.0
   primer: ^0.0.2
-  nanoid: ^0.0.6
+  nanoid: ^0.1.0
   file_icon: ^0.3.0
   http: ^0.12.0
   intl: ^0.16.0
   url_launcher: ^5.4.1
-  uni_links: ^0.2.0
-  flutter_markdown: ^0.3.3
+  uni_links: ^0.4.0
+  flutter_markdown: ^0.4.4
   shared_preferences: ^0.5.6
   share: ^0.6.0
-  flutter_svg: ^0.18.1
+  flutter_svg: ^0.19.0
   launch_review: ^2.0.0
   timeago: ^2.0.18
-  provider: ^3.1.0
+  provider: ^4.3.2+2
   filesize: ^1.0.4
   tuple: ^1.0.2
   uri: ^0.11.3
-  fimber: ^0.3.2
-  photo_view: ^0.7.0
+  fimber: ^0.4.4
   artemis: ^3.2.1
-  gql_link: ^0.2.0
   fluro: ^1.5.1
   package_info: ^0.4.0
-  github: ^6.1.2
+  github: ^7.0.2
   # git:
   #   url: git://github.com/pd4d10/github.dart.git
   #   ref: patch-1
@@ -48,13 +46,13 @@ dependencies:
   github_trending: ^0.2.0
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^0.1.2
+  cupertino_icons: ^1.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  build_runner: ^1.7.1
-  json_serializable: 3.2.3 # TODO:
+  build_runner: ^1.10.3
+  json_serializable: ^3.5.0
 
 # dependencies_overrides:
 #   flutter_highlight:
