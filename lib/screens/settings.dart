@@ -123,7 +123,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               url: (auth.activeAccount.platform == PlatformType.github
                       ? ''
                       : 'https://github.com') +
-                  '/pd4d10/git-touch/issues/new',
+                  '/github/pd4d10/git-touch/issues/new',
             ),
             TableViewItem(
               text: Text('Rate This App'),
@@ -148,7 +148,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               text: Text('Source Code'),
               rightWidget: Text('pd4d10/git-touch'),
               url: (auth.activeAccount.platform == PlatformType.github
-                      ? ''
+                      ? '/github'
                       : 'https://github.com') +
                   '/pd4d10/git-touch',
             ),
