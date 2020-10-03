@@ -50,28 +50,30 @@ class GhTrendingScreen extends StatelessWidget {
                         login: v.username,
                         // name: v.name,
                         avatarUrl: v.avatar,
-                        bio: Link(
-                          url: '/github/${v.username}/${v.repo.name}',
-                          child: Row(
-                            children: <Widget>[
-                              Icon(
-                                Octicons.repo,
-                                size: 17,
-                                color: theme.palette.secondaryText,
-                              ),
-                              SizedBox(width: 4),
-                              Expanded(
-                                  child: Text(
-                                '${v.username} / ${v.repo.name}',
-                                style: TextStyle(
-                                  fontSize: 17,
-                                  color: theme.palette.secondaryText,
+                        bio: v.repo == null
+                            ? null
+                            : Link(
+                                url: '/github/${v.username}/${v.repo.name}',
+                                child: Row(
+                                  children: <Widget>[
+                                    Icon(
+                                      Octicons.repo,
+                                      size: 17,
+                                      color: theme.palette.secondaryText,
+                                    ),
+                                    SizedBox(width: 4),
+                                    Expanded(
+                                        child: Text(
+                                      '${v.username} / ${v.repo.name}',
+                                      style: TextStyle(
+                                        fontSize: 17,
+                                        color: theme.palette.secondaryText,
+                                      ),
+                                      overflow: TextOverflow.ellipsis,
+                                    ))
+                                  ],
                                 ),
-                                overflow: TextOverflow.ellipsis,
-                              ))
-                            ],
-                          ),
-                        ),
+                              ),
                       )
                   ],
           ),
