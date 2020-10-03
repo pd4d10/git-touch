@@ -300,7 +300,6 @@ class GhUserScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthModel>(context);
-    final theme = Provider.of<ThemeModel>(context);
     return RefreshStatefulScaffold<GhUserRepositoryOwner>(
       fetchData: () async {
         final data = await auth.gqlClient.execute(GhUserQuery(

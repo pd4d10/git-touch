@@ -116,70 +116,70 @@ class _HomeState extends State<Home> {
         return [
           BottomNavigationBarItem(
             icon: Icon(Icons.rss_feed),
-            title: Text('News'),
+            label: 'News',
           ),
           BottomNavigationBarItem(
             icon: _buildNotificationIcon(context, false),
             activeIcon: _buildNotificationIcon(context, true),
-            title: Text('Notification'),
+            label: 'Notification',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.whatshot),
-            title: Text('Trending'),
+            label: 'Trending',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.search),
-            title: Text('Search'),
+            label: 'Search',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
             activeIcon: Icon(Icons.person),
-            title: Text('Me'),
+            label: 'Me',
           ),
         ];
       case PlatformType.gitlab:
         return [
           BottomNavigationBarItem(
             icon: Icon(Icons.explore),
-            title: Text('Explore'),
+            label: 'Explore',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.group),
-            title: Text('Groups'),
+            label: 'Groups',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.search),
-            title: Text('Search'),
+            label: 'Search',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            title: Text('Me'),
+            label: 'Me',
           ),
         ];
       case PlatformType.bitbucket:
         return [
           BottomNavigationBarItem(
             icon: Icon(Icons.explore),
-            title: Text('Explore'),
+            label: 'Explore',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.group),
-            title: Text('Teams'),
+            label: 'Teams',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            title: Text('Me'),
+            label: 'Me',
           ),
         ];
       case PlatformType.gitea:
         return [
           BottomNavigationBarItem(
             icon: Icon(Icons.group),
-            title: Text('Organizations'),
+            label: 'Organizations',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            title: Text('Me'),
+            label: 'Me',
           ),
         ];
     }

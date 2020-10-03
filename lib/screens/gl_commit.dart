@@ -8,7 +8,6 @@ import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
-import 'package:git_touch/widgets/diff_view.dart';
 import 'package:provider/provider.dart';
 
 // TODO:

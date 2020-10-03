@@ -345,9 +345,6 @@ class AuthModel with ChangeNotifier {
     notifyListeners();
   }
 
-  Map<String, String> get _headers =>
-      {HttpHeaders.authorizationHeader: 'token $token'};
-
   // http timeout
   var _timeoutDuration = Duration(seconds: 10);
   // var _timeoutDuration = Duration(seconds: 1);
