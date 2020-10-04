@@ -13,7 +13,7 @@ class MarkdownView extends StatelessWidget {
 
   MarkdownView(this.text, {this.basePaths});
 
-  Map<String, String> matchPattern(String url, String pattern) {
+  static Map<String, String> matchPattern(String url, String pattern) {
     var uri = Uri.parse(url);
     return UriParser(UriTemplate(pattern)).match(uri)?.parameters;
   }
@@ -46,26 +46,18 @@ class MarkdownView extends StatelessWidget {
 
         // TODO: Relative paths
         if (url.startsWith('https://github.com')) {
-          Map<String, String> m;
-
-          m = matchPattern(url, '/{owner}/{name}/pull/{number}');
-          if (m != null) {
-            return theme.push(context, url);
-          }
-
-          m = matchPattern(url, '/{owner}/{name}/issues/{number}');
-          if (m != null) {
-            return theme.push(context, url);
-          }
-
-          m = matchPattern(url, '/{owner}/{name}');
-          if (m != null) {
-            return theme.push(context, url);
-          }
-
-          m = matchPattern(url, '/{login}');
-          if (m != null) {
-            return theme.push(context, url);
+          const matchedPaths = [
+            '/{owner}/{name}/pull/{number}',
+            '/{owner}/{name}/issues/{number}',
+            '/{owner}/{name}',
+            '/{login}'
+          ];
+          for (var p in matchedPaths) {
+            final m = matchPattern(url, p);
+            if (m != null) {
+              return theme.push(context,
+                  url.replaceFirst(RegExp(r'https://github.com'), '/github'));
+            }
           }
         }
 
