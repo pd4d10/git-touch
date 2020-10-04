@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:git_touch/models/code.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/utils/utils.dart';
@@ -28,6 +29,19 @@ class MarkdownView extends StatelessWidget {
         _basicStyle.copyWith(fontWeight: FontWeight.w600, height: 1.25);
 
     return MarkdownBody(
+      data: text,
+      selectable: true,
+      imageBuilder: (uri, title, alt) {
+        if (uri.scheme == 'http' || uri.scheme == 'https') {
+          if (uri.path.endsWith('.svg')) {
+            return SvgPicture.network(uri.toString());
+          } else {
+            return Image.network(uri.toString());
+          }
+        } else {
+          return Container();
+        }
+      },
       onTapLink: (url) {
         final theme = context.read<ThemeModel>();
 
@@ -63,7 +77,6 @@ class MarkdownView extends StatelessWidget {
 
         launchUrl(url);
       },
-      data: text,
       styleSheet: MarkdownStyleSheet(
         a: _basicStyle.copyWith(color: theme.palette.primary),
         p: _basicStyle,
