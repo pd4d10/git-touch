@@ -14,7 +14,7 @@ class GlCommitsScreen extends StatelessWidget {
 
   Future<ListPayload<GitlabCommit, int>> _query(BuildContext context,
       [int page = 1]) async {
-    final auth = Provider.of<AuthModel>(context);
+    final auth = context.read<AuthModel>();
     final res = await auth
         .fetchGitlabWithPage('/projects/$id/repository/commits?page=$page');
     return ListPayload(

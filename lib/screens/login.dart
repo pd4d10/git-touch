@@ -127,8 +127,9 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void showError(err) {
-    final theme = Provider.of<ThemeModel>(context);
-    theme.showConfirm(context, Text('Something bad happens: $err'));
+    context
+        .read<ThemeModel>()
+        .showConfirm(context, Text('Something bad happens: $err'));
   }
 
   @override

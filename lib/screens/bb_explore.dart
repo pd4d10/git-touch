@@ -9,8 +9,7 @@ import 'package:provider/provider.dart';
 class BbExploreScreen extends StatelessWidget {
   Future<ListPayload<BbRepo, String>> _query(BuildContext context,
       [String nextUrl]) async {
-    final auth = Provider.of<AuthModel>(context);
-    final res = await auth.fetchBbWithPage(
+    final res = await context.read<AuthModel>().fetchBbWithPage(
         nextUrl ?? '/repositories?role=member&sort=-updated_on');
     return ListPayload(
       cursor: res.cursor,

@@ -21,7 +21,7 @@ class GtUserScreen extends StatelessWidget {
     return RefreshStatefulScaffold<Tuple2<GiteaUser, List<GiteaRepository>>>(
       title: Text(isViewer ? 'Me' : 'User'),
       fetchData: () async {
-        final auth = Provider.of<AuthModel>(context);
+        final auth = context.read<AuthModel>();
         final res = await Future.wait([
           auth.fetchGitea(isViewer ? '/user' : '/users/$login'),
           auth.fetchGitea(isViewer ? '/user/repos' : '/users/$login/repos'),

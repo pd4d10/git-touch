@@ -46,7 +46,8 @@ class _GhSearchScreenState extends State<GhSearchScreen> {
       _loading = true;
     });
     try {
-      var data = await Provider.of<AuthModel>(context).query('''
+      final auth = context.read<AuthModel>();
+      final data = await auth.query('''
 {
   repository: search(first: $pageSize, type: REPOSITORY, query: "$keyword") {
     nodes {

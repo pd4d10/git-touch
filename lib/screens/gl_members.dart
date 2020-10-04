@@ -13,7 +13,7 @@ class GlMembersScreen extends StatelessWidget {
 
   Future<ListPayload<GitlabUser, int>> _query(BuildContext context,
       [int page = 1]) async {
-    final auth = Provider.of<AuthModel>(context);
+    final auth = context.read<AuthModel>();
     final res = await auth.fetchGitlabWithPage('/$type/$id/members?page=$page');
     return ListPayload(
       cursor: res.cursor,

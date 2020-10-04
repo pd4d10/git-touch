@@ -23,7 +23,6 @@ class _GhIssueFormScreenState extends State<GhIssueFormScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
-    final auth = Provider.of<AuthModel>(context);
 
     return CommonScaffold(
       title: Text('Submit an issue'),
@@ -58,8 +57,10 @@ class _GhIssueFormScreenState extends State<GhIssueFormScreen> {
             child: Text('Submit'),
             onPressed: () async {
               final slug = RepositorySlug(widget.owner, widget.name);
-
-              final res = await auth.ghClient.issues
+              final res = await context
+                  .read<AuthModel>()
+                  .ghClient
+                  .issues
                   .create(slug, IssueRequest(title: _title, body: _body));
               await theme.push(
                 context,

@@ -14,8 +14,8 @@ class GtCommitsScreen extends StatelessWidget {
 
   Future<ListPayload<GiteaCommit, int>> _query(BuildContext context,
       [int page = 1]) async {
-    final auth = Provider.of<AuthModel>(context);
-    final res = await auth
+    final res = await context
+        .read<AuthModel>()
         .fetchGiteaWithPage('/repos/$owner/$name/commits?page=$page&limit=20');
     return ListPayload(
       cursor: res.cursor,

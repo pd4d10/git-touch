@@ -28,7 +28,7 @@ class GlProjectScreen extends StatelessWidget {
             int, String>>(
       title: AppBarTitle('Project'),
       fetchData: () async {
-        final auth = Provider.of<AuthModel>(context);
+        final auth = context.read<AuthModel>();
         final res = await Future.wait([
           auth.fetchGitlab('/projects/$id?statistics=1'),
           auth.fetchGitlab('/projects/$id/languages'),

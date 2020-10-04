@@ -30,7 +30,7 @@ dependencies:
   flutter_svg: ^0.19.0
   launch_review: ^2.0.0
   timeago: ^2.0.18
-  provider: ^3.2.0
+  provider: ^4.3.2
   filesize: ^1.0.4
   tuple: ^1.0.2
   uri: ^0.11.3

@@ -14,8 +14,8 @@ class BbCommitsScreen extends StatelessWidget {
 
   Future<ListPayload<BbCommit, String>> _query(BuildContext context,
       [String nextUrl]) async {
-    final auth = Provider.of<AuthModel>(context);
-    final res = await auth
+    final res = await context
+        .read<AuthModel>()
         .fetchBbWithPage(nextUrl ?? '/repositories/$owner/$name/commits/$ref');
     return ListPayload(
       cursor: res.cursor,

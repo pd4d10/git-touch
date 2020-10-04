@@ -21,7 +21,8 @@ class GtObjectScreen extends StatelessWidget {
       title: AppBarTitle(path ?? 'Files'),
       fetchData: () async {
         final suffix = path == null ? '' : '/$path';
-        final res = await Provider.of<AuthModel>(context)
+        final res = await context
+            .read<AuthModel>()
             .fetchGitea('/repos/$owner/$name/contents$suffix');
         return res;
       },

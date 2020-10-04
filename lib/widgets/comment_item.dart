@@ -41,7 +41,7 @@ class _GhEmojiActionState extends State<GhEmojiAction> {
     var operation = isRemove ? 'remove' : 'add';
 
     try {
-      await Provider.of<AuthModel>(context).query('''
+      await context.read<AuthModel>().query('''
 mutation {
   ${operation}Reaction(input: {subjectId: "$id", content: $emojiKey}) {
     clientMutationId
@@ -53,8 +53,7 @@ mutation {
         payload[emojiKey]['viewerHasReacted'] = !isRemove;
       });
     } catch (e) {
-      final theme = Provider.of<ThemeModel>(context);
-      theme.showWarning(context, e);
+      context.read<ThemeModel>().showWarning(context, e);
     }
   }
 

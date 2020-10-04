@@ -14,11 +14,14 @@ class GhContributorsScreen extends StatelessWidget {
 
   Future<ListPayload<GithubContributorItem, int>> _query(BuildContext context,
       [int page = 1]) async {
-    final auth = Provider.of<AuthModel>(context);
-    final res = await auth.ghClient.getJSON<List, List<GithubContributorItem>>(
-      '/repos/$owner/$name/contributors?page=$page',
-      convert: (vs) => [for (var v in vs) GithubContributorItem.fromJson(v)],
-    );
+    final res = await context
+        .read<AuthModel>()
+        .ghClient
+        .getJSON<List, List<GithubContributorItem>>(
+          '/repos/$owner/$name/contributors?page=$page',
+          convert: (vs) =>
+              [for (var v in vs) GithubContributorItem.fromJson(v)],
+        );
     return ListPayload(
       cursor: page + 1,
       items: res,

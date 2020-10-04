@@ -44,7 +44,7 @@ class Avatar extends StatelessWidget {
     return Link(
       child: widget,
       onTap: () {
-        Provider.of<ThemeModel>(context).push(context, linkUrl);
+        context.read<ThemeModel>().push(context, linkUrl);
       },
     );
   }

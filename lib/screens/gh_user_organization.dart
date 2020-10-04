@@ -14,7 +14,7 @@ class GhUserOrganizationScreen extends StatelessWidget {
   Future<ListPayload<GithubUserOrganizationItem, int>> _query(
       BuildContext context,
       [int page = 1]) async {
-    final auth = Provider.of<AuthModel>(context);
+    final auth = context.read<AuthModel>();
     final res =
         await auth.ghClient.getJSON<List, List<GithubUserOrganizationItem>>(
       '/users/$login/orgs?page=$page',

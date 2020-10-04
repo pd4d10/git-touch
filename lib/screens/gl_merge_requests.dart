@@ -14,7 +14,7 @@ class GlMergeRequestsScreen extends StatelessWidget {
 
   Future<ListPayload<GitlabIssue, int>> _query(BuildContext context,
       [int page = 1]) async {
-    final res = await Provider.of<AuthModel>(context).fetchGitlabWithPage(
+    final res = await context.read<AuthModel>().fetchGitlabWithPage(
         '/projects/$id/merge_requests?state=opened&page=$page');
     return ListPayload(
       cursor: res.cursor,

@@ -15,7 +15,7 @@ class GhCommitsScreen extends StatelessWidget {
 
   Future<ListPayload<GhCommitsCommit, String>> _query(BuildContext context,
       [String cursor]) async {
-    final res = await Provider.of<AuthModel>(context).gqlClient.execute(
+    final res = await context.read<AuthModel>().gqlClient.execute(
         GhCommitsQuery(
             variables: GhCommitsArguments(
                 owner: owner,

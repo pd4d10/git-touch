@@ -22,13 +22,11 @@ class GlIssueScreen extends StatelessWidget {
       title: Text('Issue #$iid'),
       fetchData: () async {
         final type = isMr ? 'merge_requests' : 'issues';
+        final auth = context.read<AuthModel>();
         final items = await Future.wait([
-          Provider.of<AuthModel>(context)
-              .fetchGitlab('/projects/$projectId/$type/$iid'),
-          Provider.of<AuthModel>(context)
-              .fetchGitlab('/projects/$projectId/$type/$iid/notes?sort=asc'),
-          Provider.of<AuthModel>(context)
-              .fetchGitlab('/projects/$projectId/$type/$iid/award_emoji'),
+          auth.fetchGitlab('/projects/$projectId/$type/$iid'),
+          auth.fetchGitlab('/projects/$projectId/$type/$iid/notes?sort=asc'),
+          auth.fetchGitlab('/projects/$projectId/$type/$iid/award_emoji'),
         ]);
         return Tuple3(
           GitlabTodoTarget.fromJson(items[0]),

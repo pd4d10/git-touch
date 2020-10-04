@@ -16,13 +16,12 @@ class GhIssuesScreen extends StatelessWidget {
 
   Future<ListPayload<GhIssuesIssue, String>> _query(BuildContext context,
       [String cursor]) async {
-    final res =
-        await Provider.of<AuthModel>(context).gqlClient.execute(GhIssuesQuery(
-                variables: GhIssuesArguments(
-              owner: owner,
-              name: name,
-              cursor: cursor,
-            )));
+    final res = await context.read<AuthModel>().gqlClient.execute(GhIssuesQuery(
+            variables: GhIssuesArguments(
+          owner: owner,
+          name: name,
+          cursor: cursor,
+        )));
     final issues = res.data.repository.issues;
     return ListPayload(
       cursor: issues.pageInfo.endCursor,

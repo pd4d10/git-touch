@@ -26,13 +26,12 @@ class GhRepoScreen extends StatelessWidget {
   GhRepoScreen(this.owner, this.name, {this.branch});
 
   Future<GhRepoRepository> _query(BuildContext context) async {
-    var res = await Provider.of<AuthModel>(context).gqlClient.execute(
-        GhRepoQuery(
-            variables: GhRepoArguments(
-                owner: owner,
-                name: name,
-                branchSpecified: branch != null,
-                branch: branch ?? '')));
+    var res = await context.read<AuthModel>().gqlClient.execute(GhRepoQuery(
+        variables: GhRepoArguments(
+            owner: owner,
+            name: name,
+            branchSpecified: branch != null,
+            branch: branch ?? '')));
     return res.data.repository;
   }
 
@@ -50,17 +49,19 @@ class GhRepoScreen extends StatelessWidget {
   }
 
   Future<String> _fetchContributors(BuildContext context) async {
-    final auth = Provider.of<AuthModel>(context);
-    final res = await auth.ghClient.getJSON(
-      '/repos/$owner/$name/stats/contributors',
-    );
+    final res = await context
+        .read<AuthModel>()
+        .ghClient
+        .getJSON('/repos/$owner/$name/stats/contributors');
     return res.length.toString();
   }
 
   Future<String> _fetchReadme(BuildContext context) async {
     try {
-      final auth = Provider.of<AuthModel>(context);
-      final res = await auth.ghClient.repositories
+      final res = await context
+          .read<AuthModel>()
+          .ghClient
+          .repositories
           .getReadme(RepositorySlug(owner, name));
       return res.text;
     } catch (e) {
@@ -72,7 +73,6 @@ class GhRepoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
-    final auth = Provider.of<AuthModel>(context);
     return RefreshStatefulScaffold<Tuple3<GhRepoRepository, String, String>>(
       title: AppBarTitle('Repository'),
       fetchData: () async {
@@ -136,15 +136,19 @@ class GhRepoScreen extends StatelessWidget {
                                 switch (v) {
                                   case GhRepoSubscriptionState.SUBSCRIBED:
                                   case GhRepoSubscriptionState.IGNORED:
-                                    final res = await auth.ghClient.activity
+                                    final res = await context
+                                        .read<AuthModel>()
+                                        .ghClient
+                                        .activity
                                         .setRepositorySubscription(
-                                      RepositorySlug(
-                                          repo.owner.login, repo.name),
-                                      subscribed: v ==
-                                          GhRepoSubscriptionState.SUBSCRIBED,
-                                      ignored:
-                                          v == GhRepoSubscriptionState.IGNORED,
-                                    );
+                                          RepositorySlug(
+                                              repo.owner.login, repo.name),
+                                          subscribed: v ==
+                                              GhRepoSubscriptionState
+                                                  .SUBSCRIBED,
+                                          ignored: v ==
+                                              GhRepoSubscriptionState.IGNORED,
+                                        );
                                     setState(() {
                                       if (res.subscribed) {
                                         repo.viewerSubscription =
@@ -156,13 +160,16 @@ class GhRepoScreen extends StatelessWidget {
                                     });
                                     break;
                                   case GhRepoSubscriptionState.UNSUBSCRIBED:
-                                    await auth.ghClient.activity
+                                    await context
+                                        .read<AuthModel>()
+                                        .ghClient
+                                        .activity
                                         .deleteRepositorySubscription(
-                                      RepositorySlug(
-                                        repo.owner.login,
-                                        repo.name,
-                                      ),
-                                    );
+                                          RepositorySlug(
+                                            repo.owner.login,
+                                            repo.name,
+                                          ),
+                                        );
                                     setState(() {
                                       repo.viewerSubscription =
                                           GhRepoSubscriptionState.UNSUBSCRIBED;
@@ -181,11 +188,19 @@ class GhRepoScreen extends StatelessWidget {
                       text: repo.viewerHasStarred ? 'Unstar' : 'Star',
                       onPressed: () async {
                         if (repo.viewerHasStarred) {
-                          await auth.ghClient.activity.unstar(
-                              RepositorySlug(repo.owner.login, repo.name));
+                          await context
+                              .read<AuthModel>()
+                              .ghClient
+                              .activity
+                              .unstar(
+                                  RepositorySlug(repo.owner.login, repo.name));
                         } else {
-                          await auth.ghClient.activity.star(
-                              RepositorySlug(repo.owner.login, repo.name));
+                          await context
+                              .read<AuthModel>()
+                              .ghClient
+                              .activity
+                              .star(
+                                  RepositorySlug(repo.owner.login, repo.name));
                         }
                         setState(() {
                           repo.viewerHasStarred = !repo.viewerHasStarred;

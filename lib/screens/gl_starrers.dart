@@ -13,9 +13,9 @@ class GlStarrersScreen extends StatelessWidget {
 
   Future<ListPayload<GitlabStarrer, int>> _query(BuildContext context,
       [int page = 1]) async {
-    final auth = Provider.of<AuthModel>(context);
-    final res =
-        await auth.fetchGitlabWithPage('/projects/$id/starrers?page=$page');
+    final res = await context
+        .read<AuthModel>()
+        .fetchGitlabWithPage('/projects/$id/starrers?page=$page');
     return ListPayload(
       cursor: res.cursor,
       hasMore: res.hasMore,

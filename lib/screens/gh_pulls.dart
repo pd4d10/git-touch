@@ -14,13 +14,12 @@ class GhPullsScreen extends StatelessWidget {
 
   Future<ListPayload<GhPullsPullRequest, String>> _query(BuildContext context,
       [String cursor]) async {
-    final res =
-        await Provider.of<AuthModel>(context).gqlClient.execute(GhPullsQuery(
-                variables: GhPullsArguments(
-              owner: owner,
-              name: name,
-              cursor: cursor,
-            )));
+    final res = await context.read<AuthModel>().gqlClient.execute(GhPullsQuery(
+            variables: GhPullsArguments(
+          owner: owner,
+          name: name,
+          cursor: cursor,
+        )));
     final pulls = res.data.repository.pullRequests;
     return ListPayload(
       cursor: pulls.pageInfo.endCursor,

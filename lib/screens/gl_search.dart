@@ -47,10 +47,11 @@ class _GlSearchScreenState extends State<GlSearchScreen> {
       _loading = true;
     });
     try {
-      final projects = await Provider.of<AuthModel>(context)
+      final auth = context.read<AuthModel>();
+      final projects = await auth
           .fetchGitlabWithPage('/search?scope=projects&search=$keyword');
-      final users = await Provider.of<AuthModel>(context)
-          .fetchGitlabWithPage('/search?scope=users&search=$keyword');
+      final users =
+          await auth.fetchGitlabWithPage('/search?scope=users&search=$keyword');
       _projects = [for (var v in projects.data) GitlabProject.fromJson(v)];
       _users = [for (var v in users.data) GitlabUser.fromJson(v)];
     } finally {

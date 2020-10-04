@@ -29,6 +29,8 @@ class MarkdownView extends StatelessWidget {
 
     return MarkdownBody(
       onTapLink: (url) {
+        final theme = context.read<ThemeModel>();
+
         if (basePaths != null &&
             !url.startsWith('https://') &&
             !url.startsWith('http://')) {
@@ -38,7 +40,7 @@ class MarkdownView extends StatelessWidget {
           var y = path.join(x, url);
           if (y.startsWith('/')) y = y.substring(1);
 
-          return Provider.of<ThemeModel>(context).push(context,
+          return theme.push(context,
               '/${basePaths[0]}/${basePaths[1]}/${basePaths[2]}?path=${y.urlencode}');
         }
 
@@ -48,22 +50,22 @@ class MarkdownView extends StatelessWidget {
 
           m = matchPattern(url, '/{owner}/{name}/pull/{number}');
           if (m != null) {
-            return Provider.of<ThemeModel>(context).push(context, url);
+            return theme.push(context, url);
           }
 
           m = matchPattern(url, '/{owner}/{name}/issues/{number}');
           if (m != null) {
-            return Provider.of<ThemeModel>(context).push(context, url);
+            return theme.push(context, url);
           }
 
           m = matchPattern(url, '/{owner}/{name}');
           if (m != null) {
-            return Provider.of<ThemeModel>(context).push(context, url);
+            return theme.push(context, url);
           }
 
           m = matchPattern(url, '/{login}');
           if (m != null) {
-            return Provider.of<ThemeModel>(context).push(context, url);
+            return theme.push(context, url);
           }
         }
 

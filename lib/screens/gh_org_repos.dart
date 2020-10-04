@@ -18,11 +18,13 @@ class GhOrgReposScreen extends StatelessWidget {
 
   Future<ListPayload<Repository, int>> _query(BuildContext context,
       [int page = 1]) async {
-    final auth = Provider.of<AuthModel>(context);
-    final rs = await auth.ghClient.getJSON<List, List<Repository>>(
-      '/orgs/$owner/repos?sort=updated&page=$page',
-      convert: (vs) => [for (var v in vs) Repository.fromJson(v)],
-    );
+    final rs = await context
+        .read<AuthModel>()
+        .ghClient
+        .getJSON<List, List<Repository>>(
+          '/orgs/$owner/repos?sort=updated&page=$page',
+          convert: (vs) => [for (var v in vs) Repository.fromJson(v)],
+        );
     return ListPayload(
       cursor: page + 1,
       items: rs,

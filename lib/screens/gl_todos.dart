@@ -64,7 +64,7 @@ class GlTodosScreen extends StatelessWidget {
     return RefreshStatefulScaffold<Iterable<GitlabTodo>>(
       title: Text('Todos'),
       fetchData: () async {
-        final vs = await Provider.of<AuthModel>(context).fetchGitlab('/todos');
+        final vs = await context.read<AuthModel>().fetchGitlab('/todos');
         return (vs as List).map((v) => GitlabTodo.fromJson(v));
       },
       bodyBuilder: (data, _) {

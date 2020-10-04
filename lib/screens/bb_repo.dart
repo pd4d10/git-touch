@@ -24,7 +24,7 @@ class BbRepoScreen extends StatelessWidget {
     return RefreshStatefulScaffold<Tuple2<BbRepo, String>>(
       title: AppBarTitle('Repository'),
       fetchData: () async {
-        final auth = Provider.of<AuthModel>(context);
+        final auth = context.read<AuthModel>();
         final r = await auth.fetchBbJson('/repositories/$owner/$name');
         final repo = BbRepo.fromJson(r);
         final res = await auth.fetchBb(

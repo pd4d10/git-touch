@@ -14,14 +14,12 @@ class GhGistsFilesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final auth = Provider.of<AuthModel>(context);
     return RefreshStatefulScaffold<GithubGistsItem>(
       title: AppBarTitle('Files'),
       fetchData: () async {
-        final data = await auth.ghClient.getJSON(
-          '/gists/$id',
-          convert: (vs) => GithubGistsItem.fromJson(vs),
-        );
+        final data = await context.read<AuthModel>().ghClient.getJSON(
+            '/gists/$id',
+            convert: (vs) => GithubGistsItem.fromJson(vs));
         return data;
       },
       bodyBuilder: (payload, _) {

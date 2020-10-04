@@ -21,10 +21,10 @@ class GhReposScreen extends StatelessWidget {
 
   Future<ListPayload<GhReposRepository, String>> _query(BuildContext context,
       [String cursor]) async {
-    final res = await Provider.of<AuthModel>(context).gqlClient.execute(
-        GhReposQuery(
-            variables:
-                GhReposArguments(owner: owner, isStar: isStar, after: cursor)));
+    final auth = context.read<AuthModel>();
+    final res = await auth.gqlClient.execute(GhReposQuery(
+        variables:
+            GhReposArguments(owner: owner, isStar: isStar, after: cursor)));
     final data = res.data.user;
     if (isStar) {
       return ListPayload(

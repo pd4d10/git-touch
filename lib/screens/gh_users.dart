@@ -42,17 +42,17 @@ class GhUsersScreen extends StatelessWidget {
 
   Future<ListPayload<GhUsersUser, String>> _queryUsers(BuildContext context,
       [String cursor]) async {
-    final res = await Provider.of<AuthModel>(context).gqlClient.execute(
-        GhUsersQuery(
-            variables: GhUsersArguments(
-                login: login,
-                repoName: repoName,
-                isFollowers: type == UsersScreenType.follower,
-                isFollowing: type == UsersScreenType.following,
-                isStar: type == UsersScreenType.star,
-                isWatch: type == UsersScreenType.watch,
-                isMember: type == UsersScreenType.member,
-                after: cursor)));
+    final auth = context.read<AuthModel>();
+    final res = await auth.gqlClient.execute(GhUsersQuery(
+        variables: GhUsersArguments(
+            login: login,
+            repoName: repoName,
+            isFollowers: type == UsersScreenType.follower,
+            isFollowing: type == UsersScreenType.following,
+            isStar: type == UsersScreenType.star,
+            isWatch: type == UsersScreenType.watch,
+            isMember: type == UsersScreenType.member,
+            after: cursor)));
 
     switch (type) {
       case UsersScreenType.follower:

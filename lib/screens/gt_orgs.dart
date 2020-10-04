@@ -10,8 +10,9 @@ class GtOrgsScreen extends StatelessWidget {
   // final String branch; // TODO:
   Future<ListPayload<GiteaOrg, int>> _query(BuildContext context,
       [int page = 1]) async {
-    final auth = Provider.of<AuthModel>(context);
-    final res = await auth.fetchGiteaWithPage('/orgs?limit=20&page=$page');
+    final res = await context
+        .read<AuthModel>()
+        .fetchGiteaWithPage('/orgs?limit=20&page=$page');
     // TODO: https://github.com/go-gitea/gitea/issues/10199
     return ListPayload(
       cursor: page + 1,

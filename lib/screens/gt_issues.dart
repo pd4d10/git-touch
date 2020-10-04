@@ -14,9 +14,8 @@ class GtIssuesScreen extends StatelessWidget {
 
   Future<ListPayload<GiteaIssue, int>> _query(BuildContext context,
       [int page = 1]) async {
-    final auth = Provider.of<AuthModel>(context);
     final type = isPr ? 'pulls' : 'issues';
-    final res = await auth.fetchGiteaWithPage(
+    final res = await context.read<AuthModel>().fetchGiteaWithPage(
         '/repos/$owner/$name/issues?state=open&page=$page&limit=20&type=$type');
     return ListPayload(
       cursor: res.cursor,

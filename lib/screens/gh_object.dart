@@ -34,8 +34,10 @@ class GhObjectScreen extends StatelessWidget {
         }
 
         final suffix = path == null ? '' : '/$path';
-        final auth = Provider.of<AuthModel>(context);
-        final res = await auth.ghClient.repositories
+        final res = await context
+            .read<AuthModel>()
+            .ghClient
+            .repositories
             .getContents(RepositorySlug(owner, name), suffix, ref: ref);
         if (res.isDirectory) {
           res.tree.sort((a, b) {

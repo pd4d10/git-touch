@@ -17,7 +17,7 @@ class GlCommitScreen extends StatelessWidget {
   GlCommitScreen(this.id, {this.sha});
 
   Future<List<GitlabDiff>> _query(BuildContext context, [int page = 1]) async {
-    final auth = Provider.of<AuthModel>(context);
+    final auth = context.read<AuthModel>();
     final res = await auth
         .fetchGitlabWithPage('/projects/$id/repository/commits/$sha/diff');
     return (res.data as List).map((v) => GitlabDiff.fromJson(v)).toList();

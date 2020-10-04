@@ -13,11 +13,13 @@ class GhGistsScreen extends StatelessWidget {
 
   Future<ListPayload<GithubGistsItem, int>> _query(BuildContext context,
       [int page = 1]) async {
-    final auth = Provider.of<AuthModel>(context);
-    final res = await auth.ghClient.getJSON<List, List<GithubGistsItem>>(
-      '/users/$login/gists?page=$page',
-      convert: (vs) => [for (var v in vs) GithubGistsItem.fromJson(v)],
-    );
+    final res = await context
+        .read<AuthModel>()
+        .ghClient
+        .getJSON<List, List<GithubGistsItem>>(
+          '/users/$login/gists?page=$page',
+          convert: (vs) => [for (var v in vs) GithubGistsItem.fromJson(v)],
+        );
     return ListPayload(
       cursor: page + 1,
       items: res,

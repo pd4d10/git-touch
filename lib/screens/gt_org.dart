@@ -19,7 +19,7 @@ class GtOrgScreen extends StatelessWidget {
     return RefreshStatefulScaffold<Tuple2<GiteaOrg, List<GiteaRepository>>>(
       title: Text(login),
       fetchData: () async {
-        final auth = Provider.of<AuthModel>(context);
+        final auth = context.read<AuthModel>();
         final res = await Future.wait([
           auth.fetchGitea('/orgs/$login'),
           auth.fetchGitea('/orgs/$login/repos'),

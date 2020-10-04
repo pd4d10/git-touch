@@ -16,7 +16,7 @@ class GlProjectActivityScreen extends StatelessWidget {
 
   Future<ListPayload<GitlabEvent, int>> _query(BuildContext context,
       [int page]) async {
-    final auth = Provider.of<AuthModel>(context);
+    final auth = context.read<AuthModel>();
     final vs = await auth.fetchGitlab('/projects/$id/events');
     final events = (vs as List).map((v) => GitlabEvent.fromJson(v)).toList();
     return ListPayload(cursor: page, items: events, hasMore: false);

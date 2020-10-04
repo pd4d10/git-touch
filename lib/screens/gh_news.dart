@@ -21,18 +21,19 @@ class GhNewsScreenState extends State<GhNewsScreen> {
     Future.microtask(() async {
       // Check if there are unread notification items.
       // 1 item is enough since count is not displayed for now.
-      var items = await Provider.of<AuthModel>(context)
+      var items = await context
+          .read<AuthModel>()
           .ghClient
           .getJSON('/notifications?per_page=1');
 
       if (items is List && items.isNotEmpty) {
-        Provider.of<NotificationModel>(context).setCount(1);
+        context.read<NotificationModel>().setCount(1);
       }
     });
   }
 
   Future<ListPayload<GithubEvent, int>> fetchEvents([int page = 1]) async {
-    final auth = Provider.of<AuthModel>(context);
+    final auth = context.read<AuthModel>();
     final login = auth.activeAccount.login;
 
     final events = await auth.ghClient.getJSON(
