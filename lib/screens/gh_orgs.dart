@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:git_touch/models/github.dart';
 import 'package:git_touch/scaffolds/list_stateful.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
-import 'package:git_touch/widgets/user_organizations.dart';
+import 'package:git_touch/widgets/user_item.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/models/auth.dart';
 
@@ -14,13 +14,14 @@ class GhUserOrganizationScreen extends StatelessWidget {
   Future<ListPayload<GithubUserOrganizationItem, int>> _query(
       BuildContext context,
       [int page = 1]) async {
-    final auth = context.read<AuthModel>();
-    final res =
-        await auth.ghClient.getJSON<List, List<GithubUserOrganizationItem>>(
-      '/users/$login/orgs?page=$page',
-      convert: (vs) =>
-          [for (var v in vs) GithubUserOrganizationItem.fromJson(v)],
-    );
+    final res = await context
+        .read<AuthModel>()
+        .ghClient
+        .getJSON<List, List<GithubUserOrganizationItem>>(
+          '/users/$login/orgs?page=$page',
+          convert: (vs) =>
+              [for (var v in vs) GithubUserOrganizationItem.fromJson(v)],
+        );
     return ListPayload(
       cursor: page + 1,
       items: res,
@@ -34,12 +35,10 @@ class GhUserOrganizationScreen extends StatelessWidget {
       onRefresh: () => _query(context),
       onLoadMore: (cursor) => _query(context, cursor),
       itemBuilder: (v) {
-        final String login = v.login;
-        return UserOrganizationItem(
+        return UserItem.gh(
           avatarUrl: v.avatarUrl,
           login: v.login,
-          url: '/github/$login',
-          description: v.description,
+          bio: v.description == null ? null : Text(v.description),
         );
       },
     );

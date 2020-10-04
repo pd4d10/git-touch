@@ -78,12 +78,13 @@ class _ListStatefulScaffoldState<T, K>
     }
   }
 
-  // FIXME: if items not enough, fetch next page
+  // if items not enough, fetch next page
   // This should be triggered after build
+  // TODO: disabled
   void _makeSureItemsFill() {
-    Future.delayed(Duration(milliseconds: 300)).then((_) {
-      onScroll();
-    });
+    // Future.delayed(Duration(milliseconds: 300)).then((_) {
+    //   onScroll();
+    // });
   }
 
   Future<void> _refresh({bool force = false}) async {

@@ -41,7 +41,7 @@ import 'package:git_touch/screens/gh_repo.dart';
 import 'package:git_touch/screens/settings.dart';
 import 'package:git_touch/screens/gh_user.dart';
 import 'package:git_touch/screens/gh_users.dart';
-import 'package:git_touch/screens/gh_user_organization.dart';
+import 'package:git_touch/screens/gh_orgs.dart';
 import 'package:git_touch/screens/gh_gists.dart';
 import 'package:git_touch/screens/gh_gist_object.dart';
 import 'package:git_touch/screens/gh_compare.dart';
