@@ -149,9 +149,15 @@ class GhUserScreen extends StatelessWidget {
           hasIcon: true,
           items: [
             TableViewItem(
-                leftIconData: Octicons.book,
-                text: Text('Gists'),
-                url: '/github/$login?tab=gists'),
+              leftIconData: Icons.rss_feed,
+              text: Text('Events'),
+              url: '/github/$login?tab=events',
+            ),
+            TableViewItem(
+              leftIconData: Octicons.book,
+              text: Text('Gists'),
+              url: '/github/$login?tab=gists',
+            ),
             TableViewItem(
               leftIconData: Octicons.home,
               text: Text('Organizations'),
@@ -252,6 +258,11 @@ class GhUserScreen extends StatelessWidget {
         TableView(
           hasIcon: true,
           items: [
+            TableViewItem(
+              leftIconData: Icons.rss_feed,
+              text: Text('Events'),
+              url: '/github/$login?tab=events',
+            ),
             if (isNotNullOrEmpty(p.location))
               TableViewItem(
                 leftIconData: Octicons.location,

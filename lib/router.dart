@@ -8,6 +8,7 @@ import 'package:git_touch/screens/bb_user.dart';
 import 'package:git_touch/screens/code_theme.dart';
 import 'package:git_touch/screens/gh_commits.dart';
 import 'package:git_touch/screens/gh_contributors.dart';
+import 'package:git_touch/screens/gh_events.dart';
 import 'package:git_touch/screens/gh_files.dart';
 import 'package:git_touch/screens/gh_gists_files.dart';
 import 'package:git_touch/screens/gh_org_repos.dart';
@@ -106,6 +107,8 @@ class GithubRouter {
         return GhUserOrganizationScreen(login);
       case 'gists':
         return GhGistsScreen(login);
+      case 'events':
+        return GhEventsScreen(login);
       default:
         return GhUserScreen(login);
     }
