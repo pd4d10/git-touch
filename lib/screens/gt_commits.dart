@@ -12,24 +12,21 @@ class GtCommitsScreen extends StatelessWidget {
   // final String branch; // TODO:
   GtCommitsScreen(this.owner, this.name);
 
-  Future<ListPayload<GiteaCommit, int>> _query(BuildContext context,
-      [int page = 1]) async {
-    final res = await context
-        .read<AuthModel>()
-        .fetchGiteaWithPage('/repos/$owner/$name/commits?page=$page&limit=20');
-    return ListPayload(
-      cursor: res.cursor,
-      hasMore: res.hasMore,
-      items: (res.data as List).map((v) => GiteaCommit.fromJson(v)).toList(),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GiteaCommit, int>(
       title: AppBarTitle('Commits'),
-      onRefresh: () => _query(context),
-      onLoadMore: (cursor) => _query(context, cursor),
+      onLoadMore: (page) async {
+        page = page ?? 1;
+        final res = await context.read<AuthModel>().fetchGiteaWithPage(
+            '/repos/$owner/$name/commits?page=$page&limit=20');
+        return ListPayload(
+          cursor: res.cursor,
+          hasMore: res.hasMore,
+          items:
+              (res.data as List).map((v) => GiteaCommit.fromJson(v)).toList(),
+        );
+      },
       itemBuilder: (c) {
         return CommitItem(
           author: c.author?.login ?? c.commit.author.name,

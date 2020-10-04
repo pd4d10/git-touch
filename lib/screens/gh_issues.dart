@@ -14,22 +14,6 @@ class GhIssuesScreen extends StatelessWidget {
   final String name;
   GhIssuesScreen(this.owner, this.name);
 
-  Future<ListPayload<GhIssuesIssue, String>> _query(BuildContext context,
-      [String cursor]) async {
-    final res = await context.read<AuthModel>().gqlClient.execute(GhIssuesQuery(
-            variables: GhIssuesArguments(
-          owner: owner,
-          name: name,
-          cursor: cursor,
-        )));
-    final issues = res.data.repository.issues;
-    return ListPayload(
-      cursor: issues.pageInfo.endCursor,
-      hasMore: issues.pageInfo.hasNextPage,
-      items: issues.nodes,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GhIssuesIssue, String>(
@@ -38,8 +22,21 @@ class GhIssuesScreen extends StatelessWidget {
         iconData: Octicons.plus,
         url: '/github/$owner/$name/issues/new',
       ),
-      onRefresh: () => _query(context),
-      onLoadMore: (cursor) => _query(context, cursor),
+      onLoadMore: (cursor) async {
+        final res =
+            await context.read<AuthModel>().gqlClient.execute(GhIssuesQuery(
+                    variables: GhIssuesArguments(
+                  owner: owner,
+                  name: name,
+                  cursor: cursor,
+                )));
+        final issues = res.data.repository.issues;
+        return ListPayload(
+          cursor: issues.pageInfo.endCursor,
+          hasMore: issues.pageInfo.hasNextPage,
+          items: issues.nodes,
+        );
+      },
       itemBuilder: (p) => IssueItem(
         author: p.author?.login,
         avatarUrl: p.author?.avatarUrl,

@@ -12,28 +12,25 @@ class GhPullsScreen extends StatelessWidget {
   final String name;
   GhPullsScreen(this.owner, this.name);
 
-  Future<ListPayload<GhPullsPullRequest, String>> _query(BuildContext context,
-      [String cursor]) async {
-    final res = await context.read<AuthModel>().gqlClient.execute(GhPullsQuery(
-            variables: GhPullsArguments(
-          owner: owner,
-          name: name,
-          cursor: cursor,
-        )));
-    final pulls = res.data.repository.pullRequests;
-    return ListPayload(
-      cursor: pulls.pageInfo.endCursor,
-      hasMore: pulls.pageInfo.hasNextPage,
-      items: pulls.nodes,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GhPullsPullRequest, String>(
       title: AppBarTitle('Pull requests'),
-      onRefresh: () => _query(context),
-      onLoadMore: (cursor) => _query(context, cursor),
+      onLoadMore: (cursor) async {
+        final res =
+            await context.read<AuthModel>().gqlClient.execute(GhPullsQuery(
+                    variables: GhPullsArguments(
+                  owner: owner,
+                  name: name,
+                  cursor: cursor,
+                )));
+        final pulls = res.data.repository.pullRequests;
+        return ListPayload(
+          cursor: pulls.pageInfo.endCursor,
+          hasMore: pulls.pageInfo.hasNextPage,
+          items: pulls.nodes,
+        );
+      },
       itemBuilder: (p) => IssueItem(
         isPr: true,
         author: p.author?.login,

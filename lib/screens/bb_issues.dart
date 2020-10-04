@@ -12,27 +12,23 @@ class BbIssuesScreen extends StatelessWidget {
   final String ref;
   BbIssuesScreen(this.owner, this.name, this.ref);
 
-  Future<ListPayload<BbIssues, String>> _query(BuildContext context,
-      [String nextUrl]) async {
-    final res = await context
-        .read<AuthModel>()
-        .fetchBbWithPage(nextUrl ?? '/repositories/$owner/$name/issues');
-    return ListPayload(
-      cursor: res.cursor,
-      hasMore: res.hasMore,
-      items: <BbIssues>[
-        for (var v in res.data) BbIssues.fromJson(v),
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthModel>(context);
     return ListStatefulScaffold<BbIssues, String>(
       title: AppBarTitle('Issues'),
-      onRefresh: () => _query(context),
-      onLoadMore: (page) => _query(context, page),
+      onLoadMore: (nextUrl) async {
+        final res = await context
+            .read<AuthModel>()
+            .fetchBbWithPage(nextUrl ?? '/repositories/$owner/$name/issues');
+        return ListPayload(
+          cursor: res.cursor,
+          hasMore: res.hasMore,
+          items: <BbIssues>[
+            for (var v in res.data) BbIssues.fromJson(v),
+          ],
+        );
+      },
       itemBuilder: (v) {
         int issueNumber =
             int.parse(v.issueLink.replaceFirst(RegExp(r'.*\/'), ''));

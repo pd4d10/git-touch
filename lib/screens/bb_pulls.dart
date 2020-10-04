@@ -12,27 +12,22 @@ class BbPullsScreen extends StatelessWidget {
   final String ref;
   BbPullsScreen(this.owner, this.name, this.ref);
 
-  Future<ListPayload<BbPulls, String>> _query(BuildContext context,
-      [String nextUrl]) async {
-    final res = await context
-        .read<AuthModel>()
-        .fetchBbWithPage(nextUrl ?? '/repositories/$owner/$name/pullrequests');
-    return ListPayload(
-      cursor: res.cursor,
-      hasMore: res.hasMore,
-      items: <BbPulls>[
-        for (var v in res.data) BbPulls.fromJson(v),
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthModel>(context);
     return ListStatefulScaffold<BbPulls, String>(
       title: AppBarTitle('Pull requests'),
-      onRefresh: () => _query(context),
-      onLoadMore: (page) => _query(context, page),
+      onLoadMore: (nextUrl) async {
+        final res = await context.read<AuthModel>().fetchBbWithPage(
+            nextUrl ?? '/repositories/$owner/$name/pullrequests');
+        return ListPayload(
+          cursor: res.cursor,
+          hasMore: res.hasMore,
+          items: <BbPulls>[
+            for (var v in res.data) BbPulls.fromJson(v),
+          ],
+        );
+      },
       itemBuilder: (v) {
         int pullNumber =
             int.parse(v.pullRequestLink.replaceFirst(RegExp(r'.*\/'), ''));

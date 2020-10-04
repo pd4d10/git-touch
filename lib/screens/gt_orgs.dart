@@ -7,26 +7,23 @@ import 'package:git_touch/widgets/user_item.dart';
 import 'package:provider/provider.dart';
 
 class GtOrgsScreen extends StatelessWidget {
-  // final String branch; // TODO:
-  Future<ListPayload<GiteaOrg, int>> _query(BuildContext context,
-      [int page = 1]) async {
-    final res = await context
-        .read<AuthModel>()
-        .fetchGiteaWithPage('/orgs?limit=20&page=$page');
-    // TODO: https://github.com/go-gitea/gitea/issues/10199
-    return ListPayload(
-      cursor: page + 1,
-      hasMore: (res.data as List).length == 20,
-      items: (res.data as List).map((v) => GiteaOrg.fromJson(v)).toList(),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GiteaOrg, int>(
       title: AppBarTitle('Organizations'),
-      onRefresh: () => _query(context),
-      onLoadMore: (cursor) => _query(context, cursor),
+      onLoadMore: (page) async {
+        // final String branch; // TODO:
+        page = page ?? 1;
+        final res = await context
+            .read<AuthModel>()
+            .fetchGiteaWithPage('/orgs?limit=20&page=$page');
+        // TODO: https://github.com/go-gitea/gitea/issues/10199
+        return ListPayload(
+          cursor: page + 1,
+          hasMore: (res.data as List).length == 20,
+          items: (res.data as List).map((v) => GiteaOrg.fromJson(v)).toList(),
+        );
+      },
       itemBuilder: (v) {
         return UserItem(
           avatarUrl: v.avatarUrl,

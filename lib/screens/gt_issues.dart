@@ -12,25 +12,22 @@ class GtIssuesScreen extends StatelessWidget {
   final bool isPr;
   GtIssuesScreen(this.owner, this.name, {this.isPr = false});
 
-  Future<ListPayload<GiteaIssue, int>> _query(BuildContext context,
-      [int page = 1]) async {
-    final type = isPr ? 'pulls' : 'issues';
-    final res = await context.read<AuthModel>().fetchGiteaWithPage(
-        '/repos/$owner/$name/issues?state=open&page=$page&limit=20&type=$type');
-    return ListPayload(
-      cursor: res.cursor,
-      hasMore: res.hasMore,
-      items: (res.data as List).map((v) => GiteaIssue.fromJson(v)).toList(),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GiteaIssue, int>(
       title: AppBarTitle(isPr ? 'Pull Requests' : 'Issues'),
       // TODO: create issue
-      onRefresh: () => _query(context),
-      onLoadMore: (cursor) => _query(context, cursor),
+      onLoadMore: (page) async {
+        page = page ?? 1;
+        final type = isPr ? 'pulls' : 'issues';
+        final res = await context.read<AuthModel>().fetchGiteaWithPage(
+            '/repos/$owner/$name/issues?state=open&page=$page&limit=20&type=$type');
+        return ListPayload(
+          cursor: res.cursor,
+          hasMore: res.hasMore,
+          items: (res.data as List).map((v) => GiteaIssue.fromJson(v)).toList(),
+        );
+      },
       itemBuilder: (p) => IssueItem(
         author: p.user.login,
         avatarUrl: p.user.avatarUrl,

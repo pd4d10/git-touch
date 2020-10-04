@@ -12,24 +12,22 @@ class GlCommitsScreen extends StatelessWidget {
   // final String branch; // TODO:
   GlCommitsScreen(this.id, {this.prefix});
 
-  Future<ListPayload<GitlabCommit, int>> _query(BuildContext context,
-      [int page = 1]) async {
-    final auth = context.read<AuthModel>();
-    final res = await auth
-        .fetchGitlabWithPage('/projects/$id/repository/commits?page=$page');
-    return ListPayload(
-      cursor: res.cursor,
-      hasMore: res.hasMore,
-      items: (res.data as List).map((v) => GitlabCommit.fromJson(v)).toList(),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GitlabCommit, int>(
       title: AppBarTitle('Commits'),
-      onRefresh: () => _query(context),
-      onLoadMore: (cursor) => _query(context, cursor),
+      onLoadMore: (page) async {
+        page = page ?? 1;
+        final auth = context.read<AuthModel>();
+        final res = await auth
+            .fetchGitlabWithPage('/projects/$id/repository/commits?page=$page');
+        return ListPayload(
+          cursor: res.cursor,
+          hasMore: res.hasMore,
+          items:
+              (res.data as List).map((v) => GitlabCommit.fromJson(v)).toList(),
+        );
+      },
       itemBuilder: (c) {
         return CommitItem(
           author: c.authorName,

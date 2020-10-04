@@ -11,26 +11,23 @@ class GlStarrersScreen extends StatelessWidget {
   final int id;
   GlStarrersScreen(this.id);
 
-  Future<ListPayload<GitlabStarrer, int>> _query(BuildContext context,
-      [int page = 1]) async {
-    final res = await context
-        .read<AuthModel>()
-        .fetchGitlabWithPage('/projects/$id/starrers?page=$page');
-    return ListPayload(
-      cursor: res.cursor,
-      hasMore: res.hasMore,
-      items: <GitlabStarrer>[
-        for (var v in res.data) GitlabStarrer.fromJson(v),
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GitlabStarrer, int>(
       title: AppBarTitle('Members'),
-      onRefresh: () => _query(context),
-      onLoadMore: (page) => _query(context, page),
+      onLoadMore: (page) async {
+        page = page ?? 1;
+        final res = await context
+            .read<AuthModel>()
+            .fetchGitlabWithPage('/projects/$id/starrers?page=$page');
+        return ListPayload(
+          cursor: res.cursor,
+          hasMore: res.hasMore,
+          items: <GitlabStarrer>[
+            for (var v in res.data) GitlabStarrer.fromJson(v),
+          ],
+        );
+      },
       itemBuilder: (v) {
         return UserItem(
           avatarUrl: v.user.avatarUrl,

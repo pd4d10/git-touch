@@ -11,29 +11,25 @@ class GhUserOrganizationScreen extends StatelessWidget {
   final String login;
   GhUserOrganizationScreen(this.login);
 
-  Future<ListPayload<GithubUserOrganizationItem, int>> _query(
-      BuildContext context,
-      [int page = 1]) async {
-    final res = await context
-        .read<AuthModel>()
-        .ghClient
-        .getJSON<List, List<GithubUserOrganizationItem>>(
-          '/users/$login/orgs?page=$page',
-          convert: (vs) =>
-              [for (var v in vs) GithubUserOrganizationItem.fromJson(v)],
-        );
-    return ListPayload(
-      cursor: page + 1,
-      items: res,
-      hasMore: res.isNotEmpty,
-    );
-  }
-
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GithubUserOrganizationItem, int>(
       title: AppBarTitle('Organizations'),
-      onRefresh: () => _query(context),
-      onLoadMore: (cursor) => _query(context, cursor),
+      onLoadMore: (page) async {
+        page = page ?? 1;
+        final res = await context
+            .read<AuthModel>()
+            .ghClient
+            .getJSON<List, List<GithubUserOrganizationItem>>(
+              '/users/$login/orgs?page=$page',
+              convert: (vs) =>
+                  [for (var v in vs) GithubUserOrganizationItem.fromJson(v)],
+            );
+        return ListPayload(
+          cursor: page + 1,
+          items: res,
+          hasMore: res.isNotEmpty,
+        );
+      },
       itemBuilder: (v) {
         return UserItem.gh(
           avatarUrl: v.avatarUrl,

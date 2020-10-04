@@ -26,13 +26,11 @@ class ListStatefulScaffold<T, K> extends StatefulWidget {
   final Widget title;
   final Widget Function() actionBuilder;
   final Widget Function(T payload) itemBuilder;
-  final Future<ListPayload<T, K>> Function() onRefresh;
   final Future<ListPayload<T, K>> Function(K cursor) onLoadMore;
 
   ListStatefulScaffold({
     @required this.title,
     @required this.itemBuilder,
-    @required this.onRefresh,
     @required this.onLoadMore,
     this.actionBuilder,
   });
@@ -97,7 +95,7 @@ class _ListStatefulScaffoldState<T, K>
       }
     });
     try {
-      var _payload = await widget.onRefresh();
+      var _payload = await widget.onLoadMore(null);
       items = _payload.items;
       cursor = _payload.cursor;
       hasMore = _payload.hasMore;

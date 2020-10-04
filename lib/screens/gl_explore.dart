@@ -8,26 +8,23 @@ import 'package:provider/provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class GlExploreScreen extends StatelessWidget {
-  Future<ListPayload<GitlabProject, int>> _query(BuildContext context,
-      [int page = 1]) async {
-    final auth = context.read<AuthModel>();
-    final res = await auth
-        .fetchGitlabWithPage('/projects?order_by=last_activity_at&page=$page');
-    return ListPayload(
-      cursor: res.cursor,
-      hasMore: res.hasMore,
-      items: <GitlabProject>[
-        for (var v in res.data) GitlabProject.fromJson(v),
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GitlabProject, int>(
       title: AppBarTitle('Explore'),
-      onRefresh: () => _query(context),
-      onLoadMore: (page) => _query(context, page),
+      onLoadMore: (page) async {
+        page = page ?? 1;
+        final auth = context.read<AuthModel>();
+        final res = await auth.fetchGitlabWithPage(
+            '/projects?order_by=last_activity_at&page=$page');
+        return ListPayload(
+          cursor: res.cursor,
+          hasMore: res.hasMore,
+          items: <GitlabProject>[
+            for (var v in res.data) GitlabProject.fromJson(v),
+          ],
+        );
+      },
       itemBuilder: (v) {
         return RepositoryItem.gl(
           payload: v,

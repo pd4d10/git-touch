@@ -32,28 +32,26 @@ class GhNewsScreenState extends State<GhNewsScreen> {
     });
   }
 
-  Future<ListPayload<GithubEvent, int>> fetchEvents([int page = 1]) async {
-    final auth = context.read<AuthModel>();
-    final login = auth.activeAccount.login;
-
-    final events = await auth.ghClient.getJSON(
-      '/users/$login/received_events?page=$page&per_page=$pageSize',
-      convert: (vs) => [for (var v in vs) GithubEvent.fromJson(v)],
-    );
-    return ListPayload(
-      cursor: page + 1,
-      hasMore: events.length == pageSize,
-      items: events,
-    );
-  }
-
   @override
   Widget build(context) {
     return ListStatefulScaffold<GithubEvent, int>(
       title: AppBarTitle('News'),
       itemBuilder: (payload) => EventItem(payload),
-      onRefresh: fetchEvents,
-      onLoadMore: (page) => fetchEvents(page),
+      onLoadMore: (page) async {
+        page = page ?? 1;
+        final auth = context.read<AuthModel>();
+        final login = auth.activeAccount.login;
+
+        final events = await auth.ghClient.getJSON(
+          '/users/$login/received_events?page=$page&per_page=$pageSize',
+          convert: (vs) => [for (var v in vs) GithubEvent.fromJson(v)],
+        );
+        return ListPayload(
+          cursor: page + 1,
+          hasMore: events.length == pageSize,
+          items: events,
+        );
+      },
     );
   }
 }
