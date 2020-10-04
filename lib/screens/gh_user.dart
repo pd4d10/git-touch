@@ -10,7 +10,7 @@ import 'package:git_touch/widgets/mutation_button.dart';
 import 'package:git_touch/widgets/entry_item.dart';
 import 'package:git_touch/widgets/repository_item.dart';
 import 'package:git_touch/widgets/table_view.dart';
-import 'package:git_touch/widgets/text_contains_organization.dart';
+import 'package:git_touch/widgets/text_with_at.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/widgets/user_header.dart';
 import 'package:provider/provider.dart';
@@ -166,8 +166,9 @@ class GhUserScreen extends StatelessWidget {
             if (isNotNullOrEmpty(p.company))
               TableViewItem(
                 leftIconData: Octicons.organization,
-                text: TextContainsOrganization(
-                  p.company,
+                text: TextWithAt(
+                  text: p.company,
+                  linkFactory: (text) => '/github/' + text.substring(1),
                   style: TextStyle(fontSize: 17, color: theme.palette.text),
                   oneLine: true,
                 ),
