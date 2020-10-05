@@ -17,7 +17,6 @@ import 'package:git_touch/screens/gl_starrers.dart';
 import 'package:git_touch/screens/gt_commits.dart';
 import 'package:git_touch/screens/gt_issues.dart';
 import 'package:git_touch/screens/gt_object.dart';
-import 'package:git_touch/screens/gt_org.dart';
 import 'package:git_touch/screens/gt_repo.dart';
 import 'package:git_touch/screens/gt_user.dart';
 import 'package:git_touch/screens/gl_blob.dart';
@@ -270,11 +269,7 @@ class GiteaRouter {
     GiteaRouter.pulls,
   ];
   static final user = RouterScreen(
-    '/:login',
-    (context, params) => params['org'].first == '1'
-        ? GtOrgScreen(params['login'].first)
-        : GtUserScreen(params['login'].first),
-  );
+      '/:login', (context, params) => GtUserScreen(params['login'].first));
   static final repo = RouterScreen(
     '/:owner/:name',
     (context, params) =>
