@@ -8,19 +8,21 @@ import 'package:git_touch/widgets/repository_item.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class GtReposScreen extends StatelessWidget {
-  final String owner;
   final String api;
   final String title;
 
-  GtReposScreen(this.owner)
+  GtReposScreen(String owner)
       : api = '/users/$owner/repos',
         title = 'Repositories';
-  GtReposScreen.star(this.owner)
+  GtReposScreen.star(String owner)
       : api = '/users/$owner/starred',
         title = 'Stars';
-  GtReposScreen.org(this.owner)
+  GtReposScreen.org(String owner)
       : api = '/orgs/$owner/repos',
         title = 'Repositories';
+  GtReposScreen.forks(String owner, String repo)
+      : api = '/repos/$owner/$repo/forks',
+        title = 'Forks';
 
   @override
   Widget build(BuildContext context) {

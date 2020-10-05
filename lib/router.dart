@@ -266,6 +266,9 @@ class GiteaRouter {
     GiteaRouter.user,
     GiteaRouter.repo,
     GiteaRouter.object,
+    GiteaRouter.stargazers,
+    GiteaRouter.watchers,
+    GiteaRouter.forks,
     GiteaRouter.commits,
     GiteaRouter.issues,
     GiteaRouter.pulls,
@@ -303,6 +306,15 @@ class GiteaRouter {
       path: params['path']?.first,
     ),
   );
+  static final stargazers = RouterScreen('/:owner/:name/stargazers', (_, p) {
+    return GtUsersScreen.stargazers(p['owner'].first, p['name'].first);
+  });
+  static final watchers = RouterScreen('/:owner/:name/watchers', (_, p) {
+    return GtUsersScreen.watchers(p['owner'].first, p['name'].first);
+  });
+  static final forks = RouterScreen('/:owner/:name/forks', (_, p) {
+    return GtReposScreen.forks(p['owner'].first, p['name'].first);
+  });
   static final commits = RouterScreen('/:owner/:name/commits',
       (_, p) => GtCommitsScreen(p['owner'].first, p['name'].first));
   static final issues = RouterScreen('/:owner/:name/issues',

@@ -51,12 +51,19 @@ class GtRepoScreen extends StatelessWidget {
             Row(
               children: <Widget>[
                 EntryItem(
+                  count: 0,
+                  text: 'Watchers',
+                  url: '/gitea/$owner/$name/watchers',
+                ),
+                EntryItem(
                   count: p.starsCount,
                   text: 'Stars',
+                  url: '/gitea/$owner/$name/stargazers',
                 ),
                 EntryItem(
                   count: p.forksCount,
-                  text: 'Forks', // TODO:
+                  text: 'Forks',
+                  url: '/gitea/$owner/$name/forks',
                 ),
               ],
             ),

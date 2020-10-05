@@ -8,19 +8,24 @@ import 'package:provider/provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class GtUsersScreen extends StatelessWidget {
-  final String login;
   final String api;
   final String title;
 
-  GtUsersScreen.followers(this.login)
+  GtUsersScreen.followers(String login)
       : api = '/users/$login/followers',
         title = 'Followers';
-  GtUsersScreen.following(this.login)
+  GtUsersScreen.following(String login)
       : api = '/users/$login/following',
         title = "Following";
-  GtUsersScreen.member(this.login)
+  GtUsersScreen.member(String login)
       : api = '/orgs/$login/members',
         title = "Members";
+  GtUsersScreen.stargazers(String owner, String repo)
+      : api = '/repos/$owner/$repo/stargazers',
+        title = 'Stargazers';
+  GtUsersScreen.watchers(String owner, String repo)
+      : api = '/repos/$owner/$repo/subscribers',
+        title = 'Watchers';
 
   @override
   Widget build(BuildContext context) {
