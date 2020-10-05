@@ -20,21 +20,20 @@ class GtUserScreenPayload {
 
 class GtUserScreen extends StatelessWidget {
   final String login;
-  GtUserScreen(this.login);
-  bool get isViewer => login == null;
+  final bool isViewer;
+  GtUserScreen(this.login, {this.isViewer = false});
 
   @override
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold<GtUserScreenPayload>(
-      title: Text(login ?? 'Me'),
+      title: Text(isViewer ? 'Me' : login),
       fetchData: () async {
         final auth = context.read<AuthModel>();
         final res = await Future.wait([
           auth.fetchGitea(isViewer ? '/user' : '/users/$login'),
           auth.fetchGitea(
               isViewer ? '/user/repos?limit=6' : '/users/$login/repos?limit=6'),
-          auth.fetchGitea(
-              '/users/${login ?? auth.activeAccount.login}/heatmap'),
+          auth.fetchGitea('/users/$login/heatmap'),
           auth.fetchGitea('/orgs/$login'),
           auth.fetchGitea('/orgs/$login/repos'),
         ]);

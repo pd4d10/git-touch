@@ -83,7 +83,7 @@ class _HomeState extends State<Home> {
           case 0:
             return GtOrgsScreen();
           case 1:
-            return GtUserScreen(null);
+            return GtUserScreen(auth.activeAccount.login, isViewer: true);
         }
         break;
     }
