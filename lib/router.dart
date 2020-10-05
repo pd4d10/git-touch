@@ -18,6 +18,7 @@ import 'package:git_touch/screens/gt_commits.dart';
 import 'package:git_touch/screens/gt_issues.dart';
 import 'package:git_touch/screens/gt_object.dart';
 import 'package:git_touch/screens/gt_repo.dart';
+import 'package:git_touch/screens/gt_repos.dart';
 import 'package:git_touch/screens/gt_user.dart';
 import 'package:git_touch/screens/gl_blob.dart';
 import 'package:git_touch/screens/gl_commits.dart';
@@ -268,8 +269,18 @@ class GiteaRouter {
     GiteaRouter.issues,
     GiteaRouter.pulls,
   ];
-  static final user = RouterScreen(
-      '/:login', (context, params) => GtUserScreen(params['login'].first));
+  static final user = RouterScreen('/:login', (context, p) {
+    final login = p['login'].first;
+    final tab = p['tab']?.first;
+    switch (tab) {
+      case 'stars':
+        return GtReposScreen.star(login);
+      case 'repositories':
+        return GtReposScreen(login);
+      default:
+        return GtUserScreen(login);
+    }
+  });
   static final repo = RouterScreen(
     '/:owner/:name',
     (context, params) =>

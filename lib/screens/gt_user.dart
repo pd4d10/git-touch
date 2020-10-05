@@ -6,6 +6,7 @@ import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/action_entry.dart';
 import 'package:git_touch/widgets/contribution.dart';
+import 'package:git_touch/widgets/entry_item.dart';
 import 'package:git_touch/widgets/repository_item.dart';
 import 'package:git_touch/widgets/user_header.dart';
 import 'package:provider/provider.dart';
@@ -30,7 +31,8 @@ class GtUserScreen extends StatelessWidget {
         final auth = context.read<AuthModel>();
         final res = await Future.wait([
           auth.fetchGitea(isViewer ? '/user' : '/users/$login'),
-          auth.fetchGitea(isViewer ? '/user/repos' : '/users/$login/repos'),
+          auth.fetchGitea(
+              isViewer ? '/user/repos?limit=6' : '/users/$login/repos?limit=6'),
           auth.fetchGitea(
               '/users/${login ?? auth.activeAccount.login}/heatmap'),
           auth.fetchGitea('/orgs/$login'),
@@ -103,6 +105,18 @@ class GtUserScreen extends StatelessWidget {
                 bio: '',
               ),
               CommonStyle.border,
+              Row(children: [
+                EntryItem(
+                  count: 0, // TODO: count
+                  text: 'Repositories',
+                  url: '/gitea/$login?tab=repositories',
+                ),
+                EntryItem(
+                  count: 0,
+                  text: 'Stars',
+                  url: '/gitea/$login?tab=stars',
+                ),
+              ]),
               ContributionWidget(weeks: heatmapWeeks),
               CommonStyle.border,
               Column(
