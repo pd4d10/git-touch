@@ -278,6 +278,8 @@ class GiteaRouter {
         return GtUsersScreen.followers(login);
       case 'following':
         return GtUsersScreen.following(login);
+      case 'people':
+        return GtUsersScreen.member(login);
       case 'stars':
         return GtReposScreen.star(login);
       case 'repositories':

@@ -10,14 +10,22 @@ import 'package:timeago/timeago.dart' as timeago;
 class GtUsersScreen extends StatelessWidget {
   final String login;
   final String api;
+  final String title;
 
-  GtUsersScreen.followers(this.login) : api = '/users/$login/followers';
-  GtUsersScreen.following(this.login) : api = '/users/$login/following';
+  GtUsersScreen.followers(this.login)
+      : api = '/users/$login/followers',
+        title = 'Followers';
+  GtUsersScreen.following(this.login)
+      : api = '/users/$login/following',
+        title = "Following";
+  GtUsersScreen.member(this.login)
+      : api = '/orgs/$login/members',
+        title = "Members";
 
   @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GiteaUser, int>(
-      title: AppBarTitle('_title'),
+      title: AppBarTitle(title),
       onLoadMore: (page) async {
         page = page ?? 1;
         final res = await context

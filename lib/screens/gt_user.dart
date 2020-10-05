@@ -162,7 +162,13 @@ class GtUserScreen extends StatelessWidget {
                   text: 'Repositories',
                   url: '/gitea/$login?tab=orgrepo',
                 ),
+                EntryItem(
+                  count: 0,
+                  text: 'Members',
+                  url: '/gitea/$login?tab=people',
+                ),
               ]),
+              CommonStyle.border,
             ],
           );
         } else {
