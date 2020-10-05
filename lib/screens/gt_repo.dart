@@ -51,7 +51,6 @@ class GtRepoScreen extends StatelessWidget {
             Row(
               children: <Widget>[
                 EntryItem(
-                  count: 0,
                   text: 'Watchers',
                   url: '/gitea/$owner/$name/watchers',
                 ),

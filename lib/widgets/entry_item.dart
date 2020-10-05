@@ -10,8 +10,8 @@ class EntryItem extends StatelessWidget {
   final String url;
 
   EntryItem({
-    @required this.count,
     @required this.text,
+    this.count,
     this.url,
   });
 
@@ -27,7 +27,7 @@ class EntryItem extends StatelessWidget {
           child: Column(
             children: <Widget>[
               Text(
-                numberFormat.format(count),
+                count == null ? '?' : numberFormat.format(count),
                 style: TextStyle(
                   fontSize: 17,
                   fontWeight: FontWeight.w600,

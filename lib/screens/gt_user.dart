@@ -103,22 +103,18 @@ class GtUserScreen extends StatelessWidget {
               CommonStyle.border,
               Row(children: [
                 EntryItem(
-                  count: 0, // TODO: count
                   text: 'Repositories',
                   url: '/gitea/$login?tab=repositories',
                 ),
                 EntryItem(
-                  count: 0,
                   text: 'Stars',
                   url: '/gitea/$login?tab=stars',
                 ),
                 EntryItem(
-                  count: 0,
                   text: 'Followers',
                   url: '/gitea/$login?tab=followers',
                 ),
                 EntryItem(
-                  count: 0,
                   text: 'Following',
                   url: '/gitea/$login?tab=following',
                 ),
@@ -158,12 +154,10 @@ class GtUserScreen extends StatelessWidget {
               CommonStyle.border,
               Row(children: [
                 EntryItem(
-                  count: 0,
                   text: 'Repositories',
                   url: '/gitea/$login?tab=orgrepo',
                 ),
                 EntryItem(
-                  count: 0,
                   text: 'Members',
                   url: '/gitea/$login?tab=people',
                 ),
