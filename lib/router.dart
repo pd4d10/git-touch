@@ -33,6 +33,7 @@ import 'package:git_touch/screens/gl_user.dart';
 import 'package:git_touch/screens/gh_issue.dart';
 import 'package:git_touch/screens/gh_issue_form.dart';
 import 'package:git_touch/screens/gh_issues.dart';
+import 'package:git_touch/screens/gt_users.dart';
 import 'package:git_touch/screens/login.dart';
 import 'package:git_touch/screens/gh_object.dart';
 import 'package:git_touch/screens/gh_pulls.dart';
@@ -273,6 +274,10 @@ class GiteaRouter {
     final login = p['login'].first;
     final tab = p['tab']?.first;
     switch (tab) {
+      case 'followers':
+        return GtUsersScreen.followers(login);
+      case 'following':
+        return GtUsersScreen.following(login);
       case 'stars':
         return GtReposScreen.star(login);
       case 'repositories':

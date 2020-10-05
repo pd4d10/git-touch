@@ -112,6 +112,16 @@ class GtUserScreen extends StatelessWidget {
                   text: 'Stars',
                   url: '/gitea/$login?tab=stars',
                 ),
+                EntryItem(
+                  count: 0,
+                  text: 'Followers',
+                  url: '/gitea/$login?tab=followers',
+                ),
+                EntryItem(
+                  count: 0,
+                  text: 'Following',
+                  url: '/gitea/$login?tab=following',
+                ),
               ]),
               ContributionWidget(weeks: heatmapWeeks),
               CommonStyle.border,
