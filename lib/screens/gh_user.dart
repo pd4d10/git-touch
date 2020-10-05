@@ -114,11 +114,14 @@ class GhUserScreen extends StatelessWidget {
         ]),
         CommonStyle.border,
         ContributionWidget(
-          weeks: p.contributionsCollection.contributionCalendar.weeks.map((e) {
-            return e.contributionDays.map((d) {
-              return ContributionDay(hexColor: d.color);
-            });
-          }),
+          weeks: [
+            for (final week
+                in p.contributionsCollection.contributionCalendar.weeks)
+              [
+                for (final day in week.contributionDays)
+                  ContributionDay(hexColor: day.color)
+              ]
+          ],
         ),
         CommonStyle.border,
         TableView(
