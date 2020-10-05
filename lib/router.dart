@@ -277,6 +277,8 @@ class GiteaRouter {
         return GtReposScreen.star(login);
       case 'repositories':
         return GtReposScreen(login);
+      case 'orgrepo':
+        return GtReposScreen.org(login);
       default:
         return GtUserScreen(login);
     }

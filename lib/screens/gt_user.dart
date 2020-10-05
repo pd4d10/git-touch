@@ -15,7 +15,7 @@ import 'package:timeago/timeago.dart' as timeago;
 
 class GtUserScreenPayload {
   Tuple3<GiteaUser, List<GiteaRepository>, List<List<ContributionDay>>> user;
-  Tuple2<GiteaOrg, List<GiteaRepository>> org;
+  GiteaOrg org;
 }
 
 class GtUserScreen extends StatelessWidget {
@@ -42,16 +42,12 @@ class GtUserScreen extends StatelessWidget {
         final userRepos = res[1];
         final userHeatmap = res[2];
         final org = res[3];
-        final orgRepos = res[4];
 
         final payload = GtUserScreenPayload();
         // user api also returns data for org, use org api here.
         if (org['message'] == null) {
           // org
-          payload.org = Tuple2(
-            GiteaOrg.fromJson(org),
-            [for (var v in orgRepos) GiteaRepository.fromJson(v)],
-          );
+          payload.org = GiteaOrg.fromJson(org);
         } else {
           // user
           final heatmapItems = [
@@ -138,8 +134,7 @@ class GtUserScreen extends StatelessWidget {
             ],
           );
         } else if (data.org != null) {
-          final org = data.org.item1;
-          final repos = data.org.item2;
+          final org = data.org;
 
           return Column(
             children: <Widget>[
@@ -151,22 +146,13 @@ class GtUserScreen extends StatelessWidget {
                 bio: org.description,
               ),
               CommonStyle.border,
-              Column(
-                children: <Widget>[
-                  for (var v in repos)
-                    RepositoryItem(
-                      owner: v.owner.login,
-                      avatarUrl: v.owner.avatarUrl,
-                      name: v.name,
-                      description: v.description,
-                      starCount: v.starsCount,
-                      forkCount: v.forksCount,
-                      note: 'Updated ${timeago.format(v.updatedAt)}',
-                      url: '/gitea/${v.owner.login}/${v.name}',
-                      avatarLink: '/gitea/${v.owner.login}',
-                    )
-                ],
-              )
+              Row(children: [
+                EntryItem(
+                  count: 0,
+                  text: 'Repositories',
+                  url: '/gitea/$login?tab=orgrepo',
+                ),
+              ]),
             ],
           );
         } else {

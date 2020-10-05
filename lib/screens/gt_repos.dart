@@ -18,6 +18,9 @@ class GtReposScreen extends StatelessWidget {
   GtReposScreen.star(this.owner)
       : api = '/users/$owner/starred',
         title = 'Stars';
+  GtReposScreen.org(this.owner)
+      : api = '/orgs/$owner/repos',
+        title = 'Repositories';
 
   @override
   Widget build(BuildContext context) {
