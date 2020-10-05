@@ -6,6 +6,7 @@ import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/action_entry.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
+import 'package:git_touch/widgets/contribution.dart';
 import 'package:git_touch/widgets/mutation_button.dart';
 import 'package:git_touch/widgets/entry_item.dart';
 import 'package:git_touch/widgets/repository_item.dart';
@@ -112,37 +113,12 @@ class GhUserScreen extends StatelessWidget {
           ),
         ]),
         CommonStyle.border,
-        Container(
-          alignment: Alignment.center,
-          padding: CommonStyle.padding,
-          child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            reverse: true,
-            child: Wrap(
-              spacing: 3,
-              children: p.contributionsCollection.contributionCalendar.weeks
-                  .map((week) {
-                return Wrap(
-                  direction: Axis.vertical,
-                  spacing: 3,
-                  children: week.contributionDays.map((day) {
-                    var color = convertColor(day.color);
-                    if (theme.brightness == Brightness.dark) {
-                      color = Color.fromRGBO(0xff - color.red,
-                          0xff - color.green, 0xff - color.blue, 1);
-                    }
-                    return SizedBox(
-                      width: 10,
-                      height: 10,
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(color: color),
-                      ),
-                    );
-                  }).toList(),
-                );
-              }).toList(),
-            ),
-          ),
+        ContributionWidget(
+          weeks: p.contributionsCollection.contributionCalendar.weeks.map((e) {
+            return e.contributionDays.map((d) {
+              return ContributionDay(hexColor: d.color);
+            });
+          }),
         ),
         CommonStyle.border,
         TableView(

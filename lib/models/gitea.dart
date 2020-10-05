@@ -111,3 +111,12 @@ class GiteaIssue {
   factory GiteaIssue.fromJson(Map<String, dynamic> json) =>
       _$GiteaIssueFromJson(json);
 }
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GiteaHeatmapItem {
+  int timestamp;
+  int contributions;
+  GiteaHeatmapItem();
+  factory GiteaHeatmapItem.fromJson(Map<String, dynamic> json) =>
+      _$GiteaHeatmapItemFromJson(json);
+}

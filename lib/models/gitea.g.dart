@@ -196,3 +196,15 @@ Map<String, dynamic> _$GiteaIssueToJson(GiteaIssue instance) =>
       'updated_at': instance.updatedAt?.toIso8601String(),
       'html_url': instance.htmlUrl,
     };
+
+GiteaHeatmapItem _$GiteaHeatmapItemFromJson(Map<String, dynamic> json) {
+  return GiteaHeatmapItem()
+    ..timestamp = json['timestamp'] as int
+    ..contributions = json['contributions'] as int;
+}
+
+Map<String, dynamic> _$GiteaHeatmapItemToJson(GiteaHeatmapItem instance) =>
+    <String, dynamic>{
+      'timestamp': instance.timestamp,
+      'contributions': instance.contributions,
+    };
