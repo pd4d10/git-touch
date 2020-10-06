@@ -250,16 +250,15 @@ class GhRepoScreen extends StatelessWidget {
                       Text(numberFormat.format(repo.pullRequests.totalCount)),
                   url: '/github/$owner/$name/pulls',
                 ),
-                TableViewItem(
-                  leftIconData: Octicons.history,
-                  text: Text('Commits'),
-                  rightWidget: Text((ref.target as GhRepoCommit)
-                      .history
-                      ?.totalCount
-                      .toString()),
-                  url: '/github/$owner/$name/commits',
-                ),
                 if (ref != null) ...[
+                  TableViewItem(
+                    leftIconData: Octicons.history,
+                    text: Text('Commits'),
+                    rightWidget: Text(
+                        ((ref.target as GhRepoCommit).history?.totalCount ?? 0)
+                            .toString()),
+                    url: '/github/$owner/$name/commits',
+                  ),
                   if (repo.refs != null)
                     TableViewItem(
                       leftIconData: Octicons.git_branch,
@@ -289,22 +288,22 @@ class GhRepoScreen extends StatelessWidget {
                         );
                       },
                     ),
+                  TableViewItem(
+                    leftIconData: Octicons.organization,
+                    text: Text('Contributors'),
+                    rightWidget: FutureBuilder<String>(
+                      future: context
+                          .read<AuthModel>()
+                          .ghClient
+                          .getJSON('/repos/$owner/$name/stats/contributors')
+                          .then((v) => v.length.toString()),
+                      builder: (context, snapshot) {
+                        return Text(snapshot.data ?? '');
+                      },
+                    ),
+                    url: '/github/$owner/$name/contributors',
+                  )
                 ],
-                TableViewItem(
-                  leftIconData: Octicons.organization,
-                  text: Text('Contributors'),
-                  rightWidget: FutureBuilder<String>(
-                    future: context
-                        .read<AuthModel>()
-                        .ghClient
-                        .getJSON('/repos/$owner/$name/stats/contributors')
-                        .then((v) => v.length.toString()),
-                    builder: (context, snapshot) {
-                      return Text(snapshot.data ?? '');
-                    },
-                  ),
-                  url: '/github/$owner/$name/contributors',
-                )
               ],
             ),
             FutureBuilder<String>(
