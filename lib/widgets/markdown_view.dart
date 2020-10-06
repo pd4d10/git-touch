@@ -81,6 +81,7 @@ class MarkdownView extends StatelessWidget {
         a: _basicStyle.copyWith(color: theme.palette.primary),
         p: _basicStyle,
         code: _basicStyle.copyWith(
+          backgroundColor: theme.palette.grayBackground,
           fontSize: 16 * 0.85,
           height: 1.45,
           fontFamily: code.fontFamilyUsed,
