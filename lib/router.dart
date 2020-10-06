@@ -20,6 +20,7 @@ import 'package:git_touch/screens/gt_object.dart';
 import 'package:git_touch/screens/gt_orgs.dart';
 import 'package:git_touch/screens/gt_repo.dart';
 import 'package:git_touch/screens/gt_repos.dart';
+import 'package:git_touch/screens/gt_status.dart';
 import 'package:git_touch/screens/gt_user.dart';
 import 'package:git_touch/screens/gl_blob.dart';
 import 'package:git_touch/screens/gl_commits.dart';
@@ -264,6 +265,7 @@ class GitlabRouter {
 class GiteaRouter {
   static const prefix = '/gitea';
   static final routes = [
+    GiteaRouter.status,
     GiteaRouter.user,
     GiteaRouter.repo,
     GiteaRouter.object,
@@ -274,6 +276,8 @@ class GiteaRouter {
     GiteaRouter.issues,
     GiteaRouter.pulls,
   ];
+  static final status =
+      RouterScreen('/status', (context, parameters) => GtStatusScreen());
   static final user = RouterScreen('/:login', (context, p) {
     final login = p['login'].first;
     final tab = p['tab']?.first;

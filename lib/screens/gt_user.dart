@@ -129,6 +129,17 @@ class GtUserScreen extends StatelessWidget {
               ]),
               ContributionWidget(weeks: p.userHeatmap),
               CommonStyle.border,
+              TableView(
+                hasIcon: true,
+                items: [
+                  TableViewItem(
+                    leftIconData: Octicons.home,
+                    text: Text('Organizations'),
+                    url: '/gitea/$login?tab=organizations',
+                  ),
+                ],
+              ),
+              CommonStyle.border,
               Column(
                 children: <Widget>[
                   for (var v in p.userRepos)
@@ -143,17 +154,6 @@ class GtUserScreen extends StatelessWidget {
                       url: '/gitea/${v.owner.login}/${v.name}',
                       avatarLink: '/gitea/${v.owner.login}',
                     )
-                ],
-              ),
-              CommonStyle.border,
-              TableView(
-                hasIcon: true,
-                items: [
-                  TableViewItem(
-                    leftIconData: Octicons.home,
-                    text: Text('Organizations'),
-                    url: '/gitea/$login?tab=organizations',
-                  ),
                 ],
               ),
             ],

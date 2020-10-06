@@ -19,18 +19,6 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  var _version = '';
-
-  @override
-  void initState() {
-    super.initState();
-    PackageInfo.fromPlatform().then((info) {
-      setState(() {
-        _version = info.version;
-      });
-    });
-  }
-
   Widget _buildRightWidget(BuildContext context, bool checked) {
     final theme = Provider.of<ThemeModel>(context);
     if (!checked) return null;
@@ -60,6 +48,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     'https://github.com/settings/connections/applications/$clientId',
                 rightWidget: Text(auth.activeAccount.login),
               ),
+            if (auth.activeAccount.platform == PlatformType.gitea)
+              TableViewItem(
+                leftIconData: Octicons.info,
+                text: Text('Gitea'),
+                url: '/gitea/status',
+                rightWidget: FutureBuilder<String>(
+                  future: auth.fetchGitea('/version').then((v) => v['version']),
+                  builder: (context, snapshot) {
+                    return Text(snapshot.data ?? '');
+                  },
+                ),
+              )
           ]),
           CommonStyle.verticalGap,
           TableView(headerText: 'theme', items: [
@@ -143,7 +143,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ]),
           CommonStyle.verticalGap,
           TableView(headerText: 'about', items: [
-            TableViewItem(text: Text('Version'), rightWidget: Text(_version)),
+            TableViewItem(
+                text: Text('Version'),
+                rightWidget: FutureBuilder<String>(
+                  future:
+                      PackageInfo.fromPlatform().then((info) => info.version),
+                  builder: (context, snapshot) {
+                    return Text(snapshot.data ?? '');
+                  },
+                )),
             TableViewItem(
               text: Text('Source Code'),
               rightWidget: Text('pd4d10/git-touch'),
