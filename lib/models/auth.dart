@@ -238,8 +238,13 @@ class AuthModel with ChangeNotifier {
     page = page ?? 1;
     limit = limit ?? pageSize;
 
-    final uri = Uri.parse('${activeAccount.domain}/api/v1$path').replace(
-      queryParameters: {'page': page.toString(), 'limit': limit.toString()},
+    var uri = Uri.parse('${activeAccount.domain}/api/v1$path');
+    uri = uri.replace(
+      queryParameters: {
+        'page': page.toString(),
+        'limit': limit.toString(),
+        ...uri.queryParameters,
+      },
     );
     final res = await http.get(uri, headers: {'Authorization': 'token $token'});
     final info = json.decode(utf8.decode(res.bodyBytes));
