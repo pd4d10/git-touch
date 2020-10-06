@@ -10,11 +10,13 @@ import 'package:git_touch/widgets/entry_item.dart';
 import 'package:git_touch/widgets/repository_item.dart';
 import 'package:git_touch/widgets/user_header.dart';
 import 'package:provider/provider.dart';
-import 'package:tuple/tuple.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class GtUserScreenPayload {
-  Tuple3<GiteaUser, List<GiteaRepository>, List<List<ContributionDay>>> user;
+  GiteaUser user;
+  List<GiteaRepository> userRepos;
+  int userRepoCount;
+  List<List<ContributionDay>> userHeatmap;
   GiteaOrg org;
 }
 
@@ -23,6 +25,29 @@ class GtUserScreen extends StatelessWidget {
   final bool isViewer;
   GtUserScreen(this.login, {this.isViewer = false});
 
+  static List<List<ContributionDay>> normalizeHeatmap(List userHeatmap) {
+    final heatmapItems = [
+      for (final v in userHeatmap) GiteaHeatmapItem.fromJson(v)
+    ];
+    List<List<ContributionDay>> heatmapWeeks = [[]];
+    for (var i = 0; i < heatmapItems.length; i++) {
+      if (i > 0 &&
+          heatmapItems[i].timestamp - heatmapItems[i - 1].timestamp > 86400) {
+        if (heatmapWeeks.last.length == 7) {
+          heatmapWeeks.add([]);
+        }
+        heatmapWeeks.last.add(ContributionDay(count: 0));
+      } else {
+        if (heatmapWeeks.last.length == 7) {
+          heatmapWeeks.add([]);
+        }
+        heatmapWeeks.last
+            .add(ContributionDay(count: heatmapItems[i].contributions));
+      }
+    }
+    return heatmapWeeks;
+  }
+
   @override
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold<GtUserScreenPayload>(
@@ -30,17 +55,15 @@ class GtUserScreen extends StatelessWidget {
       fetchData: () async {
         final auth = context.read<AuthModel>();
         final res = await Future.wait([
-          auth.fetchGitea(isViewer ? '/user' : '/users/$login'),
-          auth.fetchGitea(
-              isViewer ? '/user/repos?limit=6' : '/users/$login/repos?limit=6'),
-          auth.fetchGitea('/users/$login/heatmap'),
           auth.fetchGitea('/orgs/$login'),
           auth.fetchGitea('/orgs/$login/repos'),
+          auth.fetchGitea(isViewer ? '/user' : '/users/$login'),
+          auth.fetchGiteaWithPage(
+              isViewer ? '/user/repos' : '/users/$login/repos',
+              limit: 6),
+          auth.fetchGitea('/users/$login/heatmap'),
         ]);
-        final user = res[0];
-        final userRepos = res[1];
-        final userHeatmap = res[2];
-        final org = res[3];
+        final org = res[0];
 
         final payload = GtUserScreenPayload();
         // user api also returns data for org, use org api here.
@@ -49,32 +72,13 @@ class GtUserScreen extends StatelessWidget {
           payload.org = GiteaOrg.fromJson(org);
         } else {
           // user
-          final heatmapItems = [
-            for (final v in userHeatmap) GiteaHeatmapItem.fromJson(v)
+          payload.user = GiteaUser.fromJson(res[2]);
+          final userRepos = res[3] as DataWithPage;
+          payload.userRepos = [
+            for (var v in userRepos.data) GiteaRepository.fromJson(v)
           ];
-          List<List<ContributionDay>> heatmapWeeks = [[]];
-          for (var i = 0; i < heatmapItems.length; i++) {
-            if (i > 0 &&
-                heatmapItems[i].timestamp - heatmapItems[i - 1].timestamp >
-                    86400) {
-              if (heatmapWeeks.last.length == 7) {
-                heatmapWeeks.add([]);
-              }
-              heatmapWeeks.last.add(ContributionDay(count: 0));
-            } else {
-              if (heatmapWeeks.last.length == 7) {
-                heatmapWeeks.add([]);
-              }
-              heatmapWeeks.last
-                  .add(ContributionDay(count: heatmapItems[i].contributions));
-            }
-          }
-
-          payload.user = Tuple3(
-            GiteaUser.fromJson(user),
-            [for (var v in userRepos) GiteaRepository.fromJson(v)],
-            heatmapWeeks,
-          );
+          payload.userRepoCount = userRepos.total;
+          payload.userHeatmap = normalizeHeatmap(res[4]);
         }
         return payload;
       },
@@ -84,24 +88,21 @@ class GtUserScreen extends StatelessWidget {
               url: '/settings',
             )
           : null,
-      bodyBuilder: (data, _) {
-        if (data.user != null) {
-          final user = data.user.item1;
-          final repos = data.user.item2;
-          final heatmapWeeks = data.user.item3;
-
+      bodyBuilder: (p, _) {
+        if (p.user != null) {
           return Column(
             children: <Widget>[
               UserHeader(
-                login: user.login,
-                avatarUrl: user.avatarUrl,
-                name: user.fullName,
-                createdAt: user.created,
+                login: p.user.login,
+                avatarUrl: p.user.avatarUrl,
+                name: p.user.fullName,
+                createdAt: p.user.created,
                 bio: '',
               ),
               CommonStyle.border,
               Row(children: [
                 EntryItem(
+                  count: p.userRepoCount,
                   text: 'Repositories',
                   url: '/gitea/$login?tab=repositories',
                 ),
@@ -118,11 +119,11 @@ class GtUserScreen extends StatelessWidget {
                   url: '/gitea/$login?tab=following',
                 ),
               ]),
-              ContributionWidget(weeks: heatmapWeeks),
+              ContributionWidget(weeks: p.userHeatmap),
               CommonStyle.border,
               Column(
                 children: <Widget>[
-                  for (var v in repos)
+                  for (var v in p.userRepos)
                     RepositoryItem(
                       owner: v.owner.login,
                       avatarUrl: v.owner.avatarUrl,
@@ -138,17 +139,15 @@ class GtUserScreen extends StatelessWidget {
               )
             ],
           );
-        } else if (data.org != null) {
-          final org = data.org;
-
+        } else if (p.org != null) {
           return Column(
             children: <Widget>[
               UserHeader(
-                login: org.username,
-                avatarUrl: org.avatarUrl,
-                name: org.fullName,
+                login: p.org.username,
+                avatarUrl: p.org.avatarUrl,
+                name: p.org.fullName,
                 createdAt: null,
-                bio: org.description,
+                bio: p.org.description,
               ),
               CommonStyle.border,
               Row(children: [
