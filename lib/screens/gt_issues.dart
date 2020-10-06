@@ -18,10 +18,10 @@ class GtIssuesScreen extends StatelessWidget {
       title: AppBarTitle(isPr ? 'Pull Requests' : 'Issues'),
       // TODO: create issue
       onLoadMore: (page) async {
-        page = page ?? 1;
         final type = isPr ? 'pulls' : 'issues';
         final res = await context.read<AuthModel>().fetchGiteaWithPage(
-            '/repos/$owner/$name/issues?state=open&page=$page&limit=20&type=$type');
+            '/repos/$owner/$name/issues?state=open&type=$type',
+            page: page);
         return ListPayload(
           cursor: res.cursor,
           hasMore: res.hasMore,

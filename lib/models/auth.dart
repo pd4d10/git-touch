@@ -233,15 +233,22 @@ class AuthModel with ChangeNotifier {
     return info;
   }
 
-  Future<DataWithPage> fetchGiteaWithPage(String p) async {
-    final res = await http.get('${activeAccount.domain}/api/v1$p',
-        headers: {'Authorization': 'token $token'});
+  Future<DataWithPage> fetchGiteaWithPage(String path,
+      {int page, int limit}) async {
+    page = page ?? 1;
+    limit = limit ?? pageSize;
+
+    final uri = Uri.parse('${activeAccount.domain}/api/v1$path').replace(
+      queryParameters: {'page': page.toString(), 'limit': limit.toString()},
+    );
+    final res = await http.get(uri, headers: {'Authorization': 'token $token'});
     final info = json.decode(utf8.decode(res.bodyBytes));
+
     return DataWithPage(
       data: info,
-      cursor: int.tryParse(res.headers["x-page"] ?? ''),
-      hasMore: res.headers['x-hasmore'] == 'true',
-      total: int.tryParse(res.headers['x-total'] ?? ''),
+      cursor: page + 1,
+      hasMore: info is List && info.length > 0,
+      total: int.tryParse(res.headers['x-total-count'] ?? ''),
     );
   }
 

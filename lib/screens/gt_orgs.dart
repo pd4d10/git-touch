@@ -13,14 +13,13 @@ class GtOrgsScreen extends StatelessWidget {
       title: AppBarTitle('Organizations'),
       onLoadMore: (page) async {
         // final String branch; // TODO:
-        page = page ?? 1;
         final res = await context
             .read<AuthModel>()
-            .fetchGiteaWithPage('/orgs?limit=20&page=$page');
+            .fetchGiteaWithPage('/orgs', page: page);
         // TODO: https://github.com/go-gitea/gitea/issues/10199
         return ListPayload(
-          cursor: page + 1,
-          hasMore: (res.data as List).length == 20,
+          cursor: res.cursor,
+          hasMore: res.hasMore,
           items: (res.data as List).map((v) => GiteaOrg.fromJson(v)).toList(),
         );
       },

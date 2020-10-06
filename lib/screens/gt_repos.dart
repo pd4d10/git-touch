@@ -29,12 +29,10 @@ class GtReposScreen extends StatelessWidget {
     return ListStatefulScaffold<GiteaRepository, int>(
       title: AppBarTitle(title),
       onLoadMore: (page) async {
-        page = page ?? 1;
-        final res = await context
-            .read<AuthModel>()
-            .fetchGiteaWithPage('$api?page=$page');
+        final res =
+            await context.read<AuthModel>().fetchGiteaWithPage(api, page: page);
         return ListPayload(
-          cursor: page + 1,
+          cursor: res.cursor,
           hasMore: res.hasMore,
           items: [for (var v in res.data) GiteaRepository.fromJson(v)],
         );

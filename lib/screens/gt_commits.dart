@@ -17,9 +17,9 @@ class GtCommitsScreen extends StatelessWidget {
     return ListStatefulScaffold<GiteaCommit, int>(
       title: AppBarTitle('Commits'),
       onLoadMore: (page) async {
-        page = page ?? 1;
-        final res = await context.read<AuthModel>().fetchGiteaWithPage(
-            '/repos/$owner/$name/commits?page=$page&limit=20');
+        final res = await context
+            .read<AuthModel>()
+            .fetchGiteaWithPage('/repos/$owner/$name/commits', page: page);
         return ListPayload(
           cursor: res.cursor,
           hasMore: res.hasMore,

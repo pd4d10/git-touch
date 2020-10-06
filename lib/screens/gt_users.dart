@@ -32,10 +32,8 @@ class GtUsersScreen extends StatelessWidget {
     return ListStatefulScaffold<GiteaUser, int>(
       title: AppBarTitle(title),
       onLoadMore: (page) async {
-        page = page ?? 1;
-        final res = await context
-            .read<AuthModel>()
-            .fetchGiteaWithPage('$api?page=$page');
+        final res =
+            await context.read<AuthModel>().fetchGiteaWithPage(api, page: page);
         return ListPayload(
           cursor: res.cursor,
           hasMore: res.hasMore,
