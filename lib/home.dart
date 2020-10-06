@@ -6,6 +6,7 @@ import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/screens/bb_explore.dart';
 import 'package:git_touch/screens/bb_teams.dart';
 import 'package:git_touch/screens/bb_user.dart';
+import 'package:git_touch/screens/gh_repo.dart';
 import 'package:git_touch/screens/gl_search.dart';
 import 'package:git_touch/screens/gt_orgs.dart';
 import 'package:git_touch/screens/gt_user.dart';
@@ -40,6 +41,7 @@ class _HomeState extends State<Home> {
     // return IssueScreen('reactjs', 'rfcs', 29);
     // return IssueScreen('reactjs', 'rfcs', 68, isPullRequest: true);
     // return Image.asset('images/spinner.webp', width: 32, height: 32);
+    // return GhRepoScreen('shreyas1599', 'test');
     final auth = Provider.of<AuthModel>(context);
     switch (auth.activeAccount.platform) {
       case PlatformType.github:

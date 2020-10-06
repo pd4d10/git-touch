@@ -9,7 +9,6 @@ import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/entry_item.dart';
 import 'package:git_touch/widgets/label.dart';
 import 'package:git_touch/widgets/language_bar.dart';
-import 'package:git_touch/widgets/loading.dart';
 import 'package:git_touch/widgets/mutation_button.dart';
 import 'package:git_touch/widgets/markdown_view.dart';
 import 'package:git_touch/widgets/repo_header.dart';
@@ -17,6 +16,7 @@ import 'package:git_touch/widgets/table_view.dart';
 import 'package:github/github.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/models/theme.dart';
+import 'package:tuple/tuple.dart';
 import 'package:git_touch/widgets/action_button.dart';
 
 class GhRepoScreen extends StatelessWidget {
@@ -24,6 +24,16 @@ class GhRepoScreen extends StatelessWidget {
   final String name;
   final String branch;
   GhRepoScreen(this.owner, this.name, {this.branch});
+
+  Future<GhRepoRepository> _query(BuildContext context) async {
+    var res = await context.read<AuthModel>().gqlClient.execute(GhRepoQuery(
+        variables: GhRepoArguments(
+            owner: owner,
+            name: name,
+            branchSpecified: branch != null,
+            branch: branch ?? '')));
+    return res.data.repository;
+  }
 
   String _buildWatchState(GhRepoSubscriptionState state) {
     switch (state) {
@@ -38,21 +48,35 @@ class GhRepoScreen extends StatelessWidget {
     }
   }
 
+  Future<String> _fetchReadme(BuildContext context) async {
+    try {
+      final res = await context
+          .read<AuthModel>()
+          .ghClient
+          .repositories
+          .getReadme(RepositorySlug(owner, name));
+      return res.text;
+    } catch (e) {
+      // 404
+      return null;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
-    return RefreshStatefulScaffold<GhRepoRepository>(
+    return RefreshStatefulScaffold<Tuple2<GhRepoRepository, String>>(
       title: AppBarTitle('Repository'),
       fetch: () async {
-        var res = await context.read<AuthModel>().gqlClient.execute(GhRepoQuery(
-            variables: GhRepoArguments(
-                owner: owner,
-                name: name,
-                branchSpecified: branch != null,
-                branch: branch ?? '')));
-        return res.data.repository;
+        final rs = await Future.wait([
+          _query(context),
+          _fetchReadme(context),
+        ]);
+
+        return Tuple2(rs[0] as GhRepoRepository, rs[1] as String);
       },
-      actionBuilder: (repo, setState) {
+      actionBuilder: (data, setState) {
+        final repo = data.item1;
         return ActionButton(
           title: 'Repository Actions',
           items: [
@@ -68,7 +92,9 @@ class GhRepoScreen extends StatelessWidget {
           ],
         );
       },
-      bodyBuilder: (repo, setState) {
+      bodyBuilder: (data, setState) {
+        final repo = data.item1;
+        final readme = data.item2;
         final ref = branch == null ? repo.defaultBranchRef : repo.ref;
         final license = repo.licenseInfo?.spdxId ?? repo.licenseInfo?.name;
 
@@ -306,30 +332,15 @@ class GhRepoScreen extends StatelessWidget {
                 ],
               ],
             ),
-            FutureBuilder<String>(
-              future: context
-                  .read<AuthModel>()
-                  .ghClient
-                  .repositories
-                  .getReadme(RepositorySlug(owner, name))
-                  .then((file) => file.text),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Loading();
-                }
-                if (snapshot.hasData) {
-                  return Container(
-                    padding: CommonStyle.padding,
-                    color: theme.palette.background,
-                    child: MarkdownView(
-                      snapshot.data,
-                      basePaths: [owner, name, branch ?? 'master'], // TODO:
-                    ),
-                  );
-                }
-                return Container();
-              },
-            ),
+            if (readme != null)
+              Container(
+                padding: CommonStyle.padding,
+                color: theme.palette.background,
+                child: MarkdownView(
+                  readme,
+                  basePaths: [owner, name, branch ?? 'master'], // TODO:
+                ),
+              ),
             CommonStyle.verticalGap,
           ],
         );
