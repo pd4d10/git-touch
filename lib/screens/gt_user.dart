@@ -13,11 +13,13 @@ import 'package:provider/provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class GtUserScreenPayload {
+  GiteaOrg org;
+  List<GiteaRepository> orgRepos;
+  int orgRepoCount;
   GiteaUser user;
   List<GiteaRepository> userRepos;
   int userRepoCount;
   List<List<ContributionDay>> userHeatmap;
-  GiteaOrg org;
 }
 
 class GtUserScreen extends StatelessWidget {
@@ -56,7 +58,7 @@ class GtUserScreen extends StatelessWidget {
         final auth = context.read<AuthModel>();
         final res = await Future.wait([
           auth.fetchGitea('/orgs/$login'),
-          auth.fetchGitea('/orgs/$login/repos'),
+          auth.fetchGiteaWithPage('/orgs/$login/repos', limit: 6),
           auth.fetchGitea(isViewer ? '/user' : '/users/$login'),
           auth.fetchGiteaWithPage(
               isViewer ? '/user/repos' : '/users/$login/repos',
@@ -70,14 +72,19 @@ class GtUserScreen extends StatelessWidget {
         if (org['message'] == null) {
           // org
           payload.org = GiteaOrg.fromJson(org);
+          final orgReposData = res[3] as DataWithPage;
+          payload.orgRepos = [
+            for (var v in orgReposData.data) GiteaRepository.fromJson(v)
+          ];
+          payload.orgRepoCount = orgReposData.total;
         } else {
           // user
           payload.user = GiteaUser.fromJson(res[2]);
-          final userRepos = res[3] as DataWithPage;
+          final userRepoData = res[3] as DataWithPage;
           payload.userRepos = [
-            for (var v in userRepos.data) GiteaRepository.fromJson(v)
+            for (var v in userRepoData.data) GiteaRepository.fromJson(v)
           ];
-          payload.userRepoCount = userRepos.total;
+          payload.userRepoCount = userRepoData.total;
           payload.userHeatmap = normalizeHeatmap(res[4]);
         }
         return payload;
@@ -152,6 +159,7 @@ class GtUserScreen extends StatelessWidget {
               CommonStyle.border,
               Row(children: [
                 EntryItem(
+                  count: p.orgRepoCount,
                   text: 'Repositories',
                   url: '/gitea/$login?tab=orgrepo',
                 ),
@@ -161,6 +169,23 @@ class GtUserScreen extends StatelessWidget {
                 ),
               ]),
               CommonStyle.border,
+              CommonStyle.border,
+              Column(
+                children: <Widget>[
+                  for (var v in p.orgRepos)
+                    RepositoryItem(
+                      owner: v.owner.login,
+                      avatarUrl: v.owner.avatarUrl,
+                      name: v.name,
+                      description: v.description,
+                      starCount: v.starsCount,
+                      forkCount: v.forksCount,
+                      note: 'Updated ${timeago.format(v.updatedAt)}',
+                      url: '/gitea/${v.owner.login}/${v.name}',
+                      avatarLink: '/gitea/${v.owner.login}',
+                    )
+                ],
+              )
             ],
           );
         } else {
