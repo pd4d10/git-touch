@@ -13,12 +13,7 @@ import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
 
-class SettingsScreen extends StatefulWidget {
-  @override
-  _SettingsScreenState createState() => _SettingsScreenState();
-}
-
-class _SettingsScreenState extends State<SettingsScreen> {
+class SettingsScreen extends StatelessWidget {
   Widget _buildRightWidget(BuildContext context, bool checked) {
     final theme = Provider.of<ThemeModel>(context);
     if (!checked) return null;
@@ -35,23 +30,35 @@ class _SettingsScreenState extends State<SettingsScreen> {
       body: Column(
         children: <Widget>[
           CommonStyle.verticalGap,
-          TableView(headerText: 'accounts', items: [
-            TableViewItem(
-              text: Text('Switch Accounts'),
-              url: '/login',
-              rightWidget: Text(auth.activeAccount.login),
-            ),
-            if (auth.activeAccount.platform == PlatformType.github)
+          TableView(headerText: 'system', items: [
+            if (auth.activeAccount.platform == PlatformType.github) ...[
+              TableViewItem(
+                text: Text('GitHub status'),
+                url: 'https://www.githubstatus.com/',
+              ),
               TableViewItem(
                 text: Text('Review Permissions'),
                 url:
                     'https://github.com/settings/connections/applications/$clientId',
                 rightWidget: Text(auth.activeAccount.login),
               ),
+            ],
+            if (auth.activeAccount.platform == PlatformType.gitlab)
+              TableViewItem(
+                text: Text('GitLab status'),
+                url: '${auth.activeAccount.domain}/help',
+                rightWidget: FutureBuilder<String>(
+                  future:
+                      auth.fetchGitlab('/version').then((v) => v['version']),
+                  builder: (context, snapshot) {
+                    return Text(snapshot.data ?? '');
+                  },
+                ),
+              ),
             if (auth.activeAccount.platform == PlatformType.gitea)
               TableViewItem(
                 leftIconData: Octicons.info,
-                text: Text('Gitea'),
+                text: Text('Gitea status'),
                 url: '/gitea/status',
                 rightWidget: FutureBuilder<String>(
                   future: auth.fetchGitea('/version').then((v) => v['version']),
@@ -59,7 +66,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     return Text(snapshot.data ?? '');
                   },
                 ),
-              )
+              ),
+            TableViewItem(
+              text: Text('Switch accounts'),
+              url: '/login',
+              rightWidget: Text(auth.activeAccount.login),
+            ),
           ]),
           CommonStyle.verticalGap,
           TableView(headerText: 'theme', items: [
