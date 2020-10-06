@@ -142,7 +142,7 @@ class CommentItem extends StatelessWidget {
   CommentItem.gh(Map<String, dynamic> payload)
       : avatar = Avatar(
           url: payload['author']['avatarUrl'], // TODO: deleted user
-          linkUrl: '/' + payload['author']['login'],
+          linkUrl: '/github/' + payload['author']['login'],
         ),
         login = payload['author']['login'],
         createdAt = DateTime.parse(payload['createdAt']),
