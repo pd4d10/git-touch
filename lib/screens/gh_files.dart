@@ -26,7 +26,7 @@ class GhFilesScreen extends StatelessWidget {
           ],
         );
       },
-      onLoadMore: (page) async {
+      fetch: (page) async {
         page = page ?? 1;
         final res = await context
             .read<AuthModel>()

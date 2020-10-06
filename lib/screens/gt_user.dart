@@ -55,7 +55,7 @@ class GtUserScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold<GtUserScreenPayload>(
       title: Text(isViewer ? 'Me' : login),
-      fetchData: () async {
+      fetch: () async {
         final auth = context.read<AuthModel>();
         final res = await Future.wait([
           auth.fetchGitea('/orgs/$login'),

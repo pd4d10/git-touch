@@ -20,7 +20,7 @@ class GhOrgReposScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListStatefulScaffold<Repository, int>(
       title: AppBarTitle('Repositories'),
-      onLoadMore: (page) async {
+      fetch: (page) async {
         page = page ?? 1;
         final rs = await context
             .read<AuthModel>()

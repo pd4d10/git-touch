@@ -17,7 +17,7 @@ class BbPullsScreen extends StatelessWidget {
     final auth = Provider.of<AuthModel>(context);
     return ListStatefulScaffold<BbPulls, String>(
       title: AppBarTitle('Pull requests'),
-      onLoadMore: (nextUrl) async {
+      fetch: (nextUrl) async {
         final res = await context.read<AuthModel>().fetchBbWithPage(
             nextUrl ?? '/repositories/$owner/$name/pullrequests');
         return ListPayload(

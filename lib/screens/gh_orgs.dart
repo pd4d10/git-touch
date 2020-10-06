@@ -14,7 +14,7 @@ class GhUserOrganizationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GithubUserOrganizationItem, int>(
       title: AppBarTitle('Organizations'),
-      onLoadMore: (page) async {
+      fetch: (page) async {
         page = page ?? 1;
         final res = await context
             .read<AuthModel>()

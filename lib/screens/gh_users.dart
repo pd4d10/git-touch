@@ -88,7 +88,7 @@ class GhUsersScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GhUsersUser, String>(
       title: AppBarTitle(_title),
-      onLoadMore: (cursor) async {
+      fetch: (cursor) async {
         final auth = context.read<AuthModel>();
         final res = await auth.gqlClient.execute(GhUsersQuery(
             variables: GhUsersArguments(

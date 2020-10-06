@@ -30,7 +30,7 @@ class GlCommitScreen extends StatelessWidget {
 
     return RefreshStatefulScaffold<List<GitlabDiff>>(
       title: AppBarTitle('Commits'),
-      fetchData: () => _query(context),
+      fetch: () => _query(context),
       bodyBuilder: (items, _) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,

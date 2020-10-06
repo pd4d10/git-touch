@@ -18,7 +18,7 @@ class GlProjectActivityScreen extends StatelessWidget {
     final theme = Provider.of<ThemeModel>(context);
     return ListStatefulScaffold<GitlabEvent, int>(
       title: AppBarTitle('Activity'),
-      onLoadMore: (page) async {
+      fetch: (page) async {
         page = page ?? 1;
         final auth = context.read<AuthModel>();
         final vs = await auth.fetchGitlab('/projects/$id/events');

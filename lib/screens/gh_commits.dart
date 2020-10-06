@@ -29,7 +29,7 @@ class GhCommitsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GhCommitsCommit, String>(
       title: AppBarTitle('Commits'),
-      onLoadMore: (cursor) async {
+      fetch: (cursor) async {
         final res = await context.read<AuthModel>().gqlClient.execute(
             GhCommitsQuery(
                 variables: GhCommitsArguments(

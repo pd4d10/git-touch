@@ -11,7 +11,7 @@ class GlGroupsScreenn extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GitlabGroup, int>(
       title: AppBarTitle('Groups'),
-      onLoadMore: (page) async {
+      fetch: (page) async {
         page = page ?? 1;
         final auth = context.read<AuthModel>();
         final res = await auth.fetchGitlabWithPage('/groups?page=$page');

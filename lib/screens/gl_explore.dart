@@ -12,7 +12,7 @@ class GlExploreScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GitlabProject, int>(
       title: AppBarTitle('Explore'),
-      onLoadMore: (page) async {
+      fetch: (page) async {
         page = page ?? 1;
         final auth = context.read<AuthModel>();
         final res = await auth.fetchGitlabWithPage(

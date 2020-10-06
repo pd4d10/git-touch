@@ -16,7 +16,7 @@ class GlCommitsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GitlabCommit, int>(
       title: AppBarTitle('Commits'),
-      onLoadMore: (page) async {
+      fetch: (page) async {
         page = page ?? 1;
         final auth = context.read<AuthModel>();
         final res = await auth

@@ -12,7 +12,7 @@ class BbTeamsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListStatefulScaffold<BbUser, String>(
       title: AppBarTitle('Teams'),
-      onLoadMore: (nextUrl) async {
+      fetch: (nextUrl) async {
         final res = await context
             .read<AuthModel>()
             .fetchBbWithPage(nextUrl ?? '/teams?role=member');

@@ -15,7 +15,7 @@ class GtOrgsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GiteaOrg, int>(
       title: AppBarTitle('Organizations'),
-      onLoadMore: (page) async {
+      fetch: (page) async {
         final res =
             await context.read<AuthModel>().fetchGiteaWithPage(api, page: page);
         return ListPayload(

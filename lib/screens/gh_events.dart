@@ -17,7 +17,7 @@ class GhEventsScreen extends StatelessWidget {
     return ListStatefulScaffold<GithubEvent, int>(
       title: AppBarTitle('Events'),
       itemBuilder: (payload) => EventItem(payload),
-      onLoadMore: (page) async {
+      fetch: (page) async {
         page = page ?? 1;
         final events = await context.read<AuthModel>().ghClient.getJSON(
             '/users/$login/events?page=$page&per_page=$pageSize',

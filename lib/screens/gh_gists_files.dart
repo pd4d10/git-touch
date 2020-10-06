@@ -16,7 +16,7 @@ class GhGistsFilesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold<GithubGistsItem>(
       title: AppBarTitle('Files'),
-      fetchData: () async {
+      fetch: () async {
         final data = await context.read<AuthModel>().ghClient.getJSON(
             '/gists/$id',
             convert: (vs) => GithubGistsItem.fromJson(vs));

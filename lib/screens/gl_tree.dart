@@ -19,7 +19,7 @@ class GlTreeScreen extends StatelessWidget {
     final auth = Provider.of<AuthModel>(context);
     return RefreshStatefulScaffold<Iterable<GitlabTreeItem>>(
       title: AppBarTitle(path ?? 'Files'),
-      fetchData: () async {
+      fetch: () async {
         final uri = Uri(
           path: '/projects/$id/repository/tree',
           queryParameters: {

@@ -19,7 +19,7 @@ class GlGroupScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold<Tuple2<GitlabGroup, int>>(
       title: Text('Group'),
-      fetchData: () async {
+      fetch: () async {
         final auth = context.read<AuthModel>();
         final res = await Future.wait([
           auth.fetchGitlab('/groups/$id'),

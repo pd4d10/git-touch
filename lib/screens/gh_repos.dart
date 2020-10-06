@@ -23,7 +23,7 @@ class GhReposScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GhReposRepository, String>(
       title: AppBarTitle(title),
-      onLoadMore: (cursor) async {
+      fetch: (cursor) async {
         final auth = context.read<AuthModel>();
         final res = await auth.gqlClient.execute(GhReposQuery(
             variables:

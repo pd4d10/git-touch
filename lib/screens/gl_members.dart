@@ -24,7 +24,7 @@ class GlMembersScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GitlabUser, int>(
       title: AppBarTitle('Members'),
-      onLoadMore: (page) async {
+      fetch: (page) async {
         page = page ?? 1;
         final auth = context.read<AuthModel>();
         final res =

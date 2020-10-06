@@ -15,7 +15,7 @@ class GhGistsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GithubGistsItem, int>(
       title: AppBarTitle('Gists'),
-      onLoadMore: (page) async {
+      fetch: (page) async {
         page = page ?? 1;
         final res = await context
             .read<AuthModel>()

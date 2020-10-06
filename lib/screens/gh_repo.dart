@@ -43,7 +43,7 @@ class GhRepoScreen extends StatelessWidget {
     final theme = Provider.of<ThemeModel>(context);
     return RefreshStatefulScaffold<GhRepoRepository>(
       title: AppBarTitle('Repository'),
-      fetchData: () async {
+      fetch: () async {
         var res = await context.read<AuthModel>().gqlClient.execute(GhRepoQuery(
             variables: GhRepoArguments(
                 owner: owner,

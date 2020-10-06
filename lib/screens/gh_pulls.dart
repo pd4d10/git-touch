@@ -16,7 +16,7 @@ class GhPullsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GhPullsPullRequest, String>(
       title: AppBarTitle('Pull requests'),
-      onLoadMore: (cursor) async {
+      fetch: (cursor) async {
         final res =
             await context.read<AuthModel>().gqlClient.execute(GhPullsQuery(
                     variables: GhPullsArguments(

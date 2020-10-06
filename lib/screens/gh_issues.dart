@@ -22,7 +22,7 @@ class GhIssuesScreen extends StatelessWidget {
         iconData: Octicons.plus,
         url: '/github/$owner/$name/issues/new',
       ),
-      onLoadMore: (cursor) async {
+      fetch: (cursor) async {
         final res =
             await context.read<AuthModel>().gqlClient.execute(GhIssuesQuery(
                     variables: GhIssuesArguments(

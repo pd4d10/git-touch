@@ -15,7 +15,7 @@ class GlStarrersScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GitlabStarrer, int>(
       title: AppBarTitle('Members'),
-      onLoadMore: (page) async {
+      fetch: (page) async {
         page = page ?? 1;
         final res = await context
             .read<AuthModel>()

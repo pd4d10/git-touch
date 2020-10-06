@@ -11,7 +11,7 @@ class BbExploreScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListStatefulScaffold<BbRepo, String>(
       title: AppBarTitle('Explore'),
-      onLoadMore: (nextUrl) async {
+      fetch: (nextUrl) async {
         final res = await context.read<AuthModel>().fetchBbWithPage(
             nextUrl ?? '/repositories?role=member&sort=-updated_on');
         return ListPayload(

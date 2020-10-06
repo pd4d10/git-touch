@@ -15,7 +15,7 @@ class GhContributorsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GithubContributorItem, int>(
       title: AppBarTitle('Contributors'),
-      onLoadMore: (page) async {
+      fetch: (page) async {
         page = page ?? 1;
         final res = await context
             .read<AuthModel>()

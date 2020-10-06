@@ -28,7 +28,7 @@ class GtReposScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GiteaRepository, int>(
       title: AppBarTitle(title),
-      onLoadMore: (page) async {
+      fetch: (page) async {
         final res =
             await context.read<AuthModel>().fetchGiteaWithPage(api, page: page);
         return ListPayload(

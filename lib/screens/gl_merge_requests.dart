@@ -16,7 +16,7 @@ class GlMergeRequestsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GitlabIssue, int>(
       title: AppBarTitle('Merge Requests'),
-      onLoadMore: (page) async {
+      fetch: (page) async {
         page = page ?? 1;
         final res = await context.read<AuthModel>().fetchGitlabWithPage(
             '/projects/$id/merge_requests?state=opened&page=$page');

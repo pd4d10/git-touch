@@ -37,7 +37,7 @@ class GhNewsScreenState extends State<GhNewsScreen> {
     return ListStatefulScaffold<GithubEvent, int>(
       title: AppBarTitle('News'),
       itemBuilder: (payload) => EventItem(payload),
-      onLoadMore: (page) async {
+      fetch: (page) async {
         page = page ?? 1;
         final auth = context.read<AuthModel>();
         final login = auth.activeAccount.login;

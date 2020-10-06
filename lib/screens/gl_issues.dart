@@ -17,7 +17,7 @@ class GlIssuesScreen extends StatelessWidget {
     return ListStatefulScaffold<GitlabIssue, int>(
       title: AppBarTitle('Issues'),
       // TODO: create issue
-      onLoadMore: (page) async {
+      fetch: (page) async {
         page = page ?? 1;
         final auth = context.read<AuthModel>();
         final res = await auth.fetchGitlabWithPage(

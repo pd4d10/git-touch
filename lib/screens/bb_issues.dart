@@ -17,7 +17,7 @@ class BbIssuesScreen extends StatelessWidget {
     final auth = Provider.of<AuthModel>(context);
     return ListStatefulScaffold<BbIssues, String>(
       title: AppBarTitle('Issues'),
-      onLoadMore: (nextUrl) async {
+      fetch: (nextUrl) async {
         final res = await context
             .read<AuthModel>()
             .fetchBbWithPage(nextUrl ?? '/repositories/$owner/$name/issues');

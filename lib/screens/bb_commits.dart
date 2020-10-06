@@ -17,7 +17,7 @@ class BbCommitsScreen extends StatelessWidget {
     final auth = Provider.of<AuthModel>(context);
     return ListStatefulScaffold<BbCommit, String>(
       title: AppBarTitle('Commits'),
-      onLoadMore: (nextUrl) async {
+      fetch: (nextUrl) async {
         final res = await context.read<AuthModel>().fetchBbWithPage(
             nextUrl ?? '/repositories/$owner/$name/commits/$ref');
         return ListPayload(

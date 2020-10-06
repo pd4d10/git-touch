@@ -27,7 +27,7 @@ class BbUserScreen extends StatelessWidget {
           : isTeam
               ? 'Team'
               : 'User'),
-      fetchData: () async {
+      fetch: () async {
         final res = await Future.wait([
           auth.fetchBbJson('/${isTeam ? 'teams' : 'users'}/$_accountId'),
           auth.fetchBbWithPage('/repositories/$_login'),
