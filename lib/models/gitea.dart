@@ -21,6 +21,8 @@ class GiteaOrg {
   String fullName;
   String avatarUrl;
   String description;
+  String website;
+  String location;
   GiteaOrg();
   factory GiteaOrg.fromJson(Map<String, dynamic> json) =>
       _$GiteaOrgFromJson(json);

@@ -17,6 +17,7 @@ import 'package:git_touch/screens/gl_starrers.dart';
 import 'package:git_touch/screens/gt_commits.dart';
 import 'package:git_touch/screens/gt_issues.dart';
 import 'package:git_touch/screens/gt_object.dart';
+import 'package:git_touch/screens/gt_orgs.dart';
 import 'package:git_touch/screens/gt_repo.dart';
 import 'package:git_touch/screens/gt_repos.dart';
 import 'package:git_touch/screens/gt_user.dart';
@@ -289,6 +290,8 @@ class GiteaRouter {
         return GtReposScreen(login);
       case 'orgrepo':
         return GtReposScreen.org(login);
+      case 'organizations':
+        return GtOrgsScreen.ofUser(login);
       default:
         return GtUserScreen(login);
     }

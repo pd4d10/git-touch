@@ -31,7 +31,9 @@ GiteaOrg _$GiteaOrgFromJson(Map<String, dynamic> json) {
     ..username = json['username'] as String
     ..fullName = json['full_name'] as String
     ..avatarUrl = json['avatar_url'] as String
-    ..description = json['description'] as String;
+    ..description = json['description'] as String
+    ..website = json['website'] as String
+    ..location = json['location'] as String;
 }
 
 Map<String, dynamic> _$GiteaOrgToJson(GiteaOrg instance) => <String, dynamic>{
@@ -40,6 +42,8 @@ Map<String, dynamic> _$GiteaOrgToJson(GiteaOrg instance) => <String, dynamic>{
       'full_name': instance.fullName,
       'avatar_url': instance.avatarUrl,
       'description': instance.description,
+      'website': instance.website,
+      'location': instance.location,
     };
 
 GiteaRepository _$GiteaRepositoryFromJson(Map<String, dynamic> json) {

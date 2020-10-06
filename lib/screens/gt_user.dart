@@ -8,6 +8,7 @@ import 'package:git_touch/widgets/action_entry.dart';
 import 'package:git_touch/widgets/contribution.dart';
 import 'package:git_touch/widgets/entry_item.dart';
 import 'package:git_touch/widgets/repository_item.dart';
+import 'package:git_touch/widgets/table_view.dart';
 import 'package:git_touch/widgets/user_header.dart';
 import 'package:provider/provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -143,7 +144,18 @@ class GtUserScreen extends StatelessWidget {
                       avatarLink: '/gitea/${v.owner.login}',
                     )
                 ],
-              )
+              ),
+              CommonStyle.border,
+              TableView(
+                hasIcon: true,
+                items: [
+                  TableViewItem(
+                    leftIconData: Octicons.home,
+                    text: Text('Organizations'),
+                    url: '/gitea/$login?tab=organizations',
+                  ),
+                ],
+              ),
             ],
           );
         } else if (p.org != null) {
