@@ -110,81 +110,6 @@ class _HomeState extends State<Home> {
     );
   }
 
-  List<BottomNavigationBarItem> get _navigationItems {
-    switch (Provider.of<AuthModel>(context).activeAccount.platform) {
-      case PlatformType.github:
-        return [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.rss_feed),
-            label: 'News',
-          ),
-          BottomNavigationBarItem(
-            icon: _buildNotificationIcon(context, false),
-            activeIcon: _buildNotificationIcon(context, true),
-            label: 'Notification',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.whatshot),
-            label: 'Trending',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Search',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            activeIcon: Icon(Icons.person),
-            label: 'Me',
-          ),
-        ];
-      case PlatformType.gitlab:
-        return [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.explore),
-            label: 'Explore',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.group),
-            label: 'Groups',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Search',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Me',
-          ),
-        ];
-      case PlatformType.bitbucket:
-        return [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.explore),
-            label: 'Explore',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.group),
-            label: 'Teams',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Me',
-          ),
-        ];
-      case PlatformType.gitea:
-        return [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.group),
-            label: 'Organizations',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Me',
-          ),
-        ];
-    }
-  }
-
   GlobalKey<NavigatorState> getNavigatorKey(int index) {
     switch (index) {
       case 0:
@@ -210,6 +135,49 @@ class _HomeState extends State<Home> {
       return LoginScreen();
     }
 
+    List<BottomNavigationBarItem> navigationItems;
+
+    switch (auth.activeAccount.platform) {
+      case PlatformType.github:
+        navigationItems = [
+          BottomNavigationBarItem(icon: Icon(Icons.rss_feed), label: 'News'),
+          BottomNavigationBarItem(
+              icon: _buildNotificationIcon(context, false),
+              activeIcon: _buildNotificationIcon(context, true),
+              label: 'Notification'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.whatshot), label: 'Trending'),
+          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              activeIcon: Icon(Icons.person),
+              label: 'Me'),
+        ];
+        break;
+      case PlatformType.gitlab:
+        navigationItems = [
+          BottomNavigationBarItem(icon: Icon(Icons.explore), label: 'Explore'),
+          BottomNavigationBarItem(icon: Icon(Icons.group), label: 'Groups'),
+          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Me'),
+        ];
+        break;
+      case PlatformType.bitbucket:
+        navigationItems = [
+          BottomNavigationBarItem(icon: Icon(Icons.explore), label: 'Explore'),
+          BottomNavigationBarItem(icon: Icon(Icons.group), label: 'Teams'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Me'),
+        ];
+        break;
+      case PlatformType.gitea:
+        navigationItems = [
+          BottomNavigationBarItem(
+              icon: Icon(Icons.group), label: 'Organizations'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Me'),
+        ];
+        break;
+    }
+
     switch (theme.theme) {
       case AppThemeType.cupertino:
         return WillPopScope(
@@ -228,7 +196,7 @@ class _HomeState extends State<Home> {
               );
             },
             tabBar: CupertinoTabBar(
-              items: _navigationItems,
+              items: navigationItems,
               currentIndex: auth.activeTab,
               onTap: (index) {
                 if (auth.activeTab == index) {
@@ -244,10 +212,15 @@ class _HomeState extends State<Home> {
         );
       default:
         return Scaffold(
-          body: _buildScreen(auth.activeTab),
+          body: IndexedStack(
+            index: auth.activeTab,
+            children: [
+              for (var i = 0; i < navigationItems.length; i++) _buildScreen(i)
+            ],
+          ),
           bottomNavigationBar: BottomNavigationBar(
             selectedItemColor: theme.palette.primary,
-            items: _navigationItems,
+            items: navigationItems,
             currentIndex: auth.activeTab,
             type: BottomNavigationBarType.fixed,
             onTap: (int index) {
