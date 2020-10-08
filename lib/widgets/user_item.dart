@@ -79,11 +79,14 @@ class UserItem extends StatelessWidget {
                         ),
                         SizedBox(width: 8),
                       ],
-                      Text(
-                        login,
-                        style: TextStyle(
-                          color: theme.palette.text,
-                          fontSize: 16,
+                      Expanded(
+                        child: Text(
+                          login,
+                          style: TextStyle(
+                            color: theme.palette.text,
+                            fontSize: 16,
+                          ),
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                     ],
