@@ -41,11 +41,11 @@ class GtUsersScreen extends StatelessWidget {
         );
       },
       itemBuilder: (payload) {
-        return UserItem(
+        return UserItem.gitea(
           login: payload.login,
+          name: payload.fullName,
           avatarUrl: payload.avatarUrl,
           bio: Text('Joined on ${timeago.format(payload.created)}'),
-          url: '/gitea/${payload.login}',
         );
       },
     );

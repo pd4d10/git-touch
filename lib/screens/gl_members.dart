@@ -38,11 +38,12 @@ class GlMembersScreen extends StatelessWidget {
         );
       },
       itemBuilder: (v) {
-        return UserItem(
+        return UserItem.gitlab(
           avatarUrl: v.avatarUrl,
           login: v.username,
+          name: v.name,
           bio: Text(accessLevelMap[v.accessLevel] ?? ''),
-          url: '/gitlab/user/${v.id}',
+          id: v.id,
         );
       },
     );

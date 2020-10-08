@@ -24,11 +24,12 @@ class GlGroupsScreenn extends StatelessWidget {
         );
       },
       itemBuilder: (v) {
-        return UserItem(
+        return UserItem.gitlab(
           avatarUrl: v.avatarUrl,
           login: v.path,
+          name: v.name,
           bio: Text(v.description ?? ''),
-          url: '/gitlab/group/${v.id}',
+          id: v.id,
         );
       },
     );

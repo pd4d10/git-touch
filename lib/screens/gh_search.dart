@@ -185,9 +185,9 @@ class _GhSearchScreenState extends State<GhSearchScreen> {
           isFork: p['isFork'],
         );
       case 1:
-        return UserItem.gh(
+        return UserItem.github(
           login: p['login'],
-          // name: p['name'],
+          name: p['name'],
           avatarUrl: p['avatarUrl'],
           bio: Text(p['bio'] ?? ''),
         );

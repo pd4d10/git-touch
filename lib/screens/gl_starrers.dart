@@ -29,11 +29,12 @@ class GlStarrersScreen extends StatelessWidget {
         );
       },
       itemBuilder: (v) {
-        return UserItem(
+        return UserItem.gitlab(
           avatarUrl: v.user.avatarUrl,
           login: v.user.username,
+          name: v.user.name,
           bio: Text('Starred ' + timeago.format(v.starredSince)),
-          url: '/gitlab/user/${v.user.id}',
+          id: v.user.id,
         );
       },
     );

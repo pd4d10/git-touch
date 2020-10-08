@@ -25,11 +25,11 @@ class GtOrgsScreen extends StatelessWidget {
         );
       },
       itemBuilder: (v) {
-        return UserItem(
+        return UserItem.gitea(
           avatarUrl: v.avatarUrl,
           login: v.username,
+          name: v.fullName,
           bio: Text(v.description ?? v.website ?? v.location),
-          url: '/gitea/${v.username}?org=1',
         );
       },
     );

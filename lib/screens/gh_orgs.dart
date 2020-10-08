@@ -31,9 +31,10 @@ class GhUserOrganizationScreen extends StatelessWidget {
         );
       },
       itemBuilder: (v) {
-        return UserItem.gh(
+        return UserItem.github(
           avatarUrl: v.avatarUrl,
           login: v.login,
+          name: null, // TODO: organization name
           bio: v.description == null ? null : Text(v.description),
         );
       },

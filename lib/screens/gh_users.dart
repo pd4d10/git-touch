@@ -142,9 +142,9 @@ class GhUsersScreen extends StatelessWidget {
         }
       },
       itemBuilder: (payload) {
-        return UserItem.gh(
+        return UserItem.github(
           login: payload.login,
-          // name: payload.name,
+          name: payload.name,
           avatarUrl: payload.avatarUrl,
           bio: _buildBio(
               context, payload.company, payload.location, payload.createdAt),

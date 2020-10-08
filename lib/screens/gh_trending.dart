@@ -48,9 +48,9 @@ class GhTrendingScreen extends StatelessWidget {
                   ]
                 : [
                     for (var v in payload.cast<GithubTrendingDeveloper>())
-                      UserItem.gh(
+                      UserItem.github(
                         login: v.username,
-                        // name: v.name,
+                        name: v.name,
                         avatarUrl: v.avatar,
                         bio: v.repo == null
                             ? null

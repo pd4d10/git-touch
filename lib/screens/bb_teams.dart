@@ -25,9 +25,9 @@ class BbTeamsScreen extends StatelessWidget {
         );
       },
       itemBuilder: (v) {
-        return UserItem(
+        return UserItem.bitbucket(
           login: v.username,
-          url: '/bitbucket/${v.username}?team=1',
+          name: v.nickname,
           avatarUrl: v.avatarUrl,
           bio: Text('Created ${timeago.format(v.createdOn)}'),
         );
