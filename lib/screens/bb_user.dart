@@ -56,6 +56,7 @@ class BbUserScreen extends StatelessWidget {
               avatarUrl: user.avatarUrl,
               name: user.displayName,
               createdAt: user.createdOn,
+              isViewer: isViewer,
               bio: null,
             ),
             CommonStyle.border,

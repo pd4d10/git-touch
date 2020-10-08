@@ -50,6 +50,7 @@ class GlUserScreen extends StatelessWidget {
               name: user.name,
               createdAt: user.createdAt,
               bio: user.bio,
+              isViewer: isViewer,
             ),
             CommonStyle.border,
             Column(

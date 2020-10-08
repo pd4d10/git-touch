@@ -105,6 +105,7 @@ class GtUserScreen extends StatelessWidget {
                 avatarUrl: p.user.avatarUrl,
                 name: p.user.fullName,
                 createdAt: p.user.created,
+                isViewer: isViewer,
                 bio: '',
               ),
               CommonStyle.border,

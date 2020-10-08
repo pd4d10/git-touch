@@ -6,12 +6,14 @@ import 'package:provider/provider.dart';
 class MutationButton extends StatelessWidget {
   final bool active;
   final String text;
-  final VoidCallback onPressed;
+  final String url;
+  final VoidCallback onTap;
 
   MutationButton({
     @required this.active,
     @required this.text,
-    @required this.onPressed,
+    this.url,
+    this.onTap,
   });
 
   @override
@@ -21,7 +23,8 @@ class MutationButton extends StatelessWidget {
     final backgroundColor =
         active ? theme.palette.primary : theme.palette.background;
     return Link(
-      onTap: onPressed,
+      url: url,
+      onTap: onTap,
       child: Container(
         padding: EdgeInsets.symmetric(
           horizontal: 12,
