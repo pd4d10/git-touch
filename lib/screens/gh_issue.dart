@@ -197,14 +197,42 @@ __typename
   actor {
     login
   }
-  assignee
+  assignee {
+    __typename
+    ... on User {
+      login
+    }
+    ... on Bot {
+      login
+    }
+    ... on Organization {
+      login
+    }
+    ... on Mannequin {
+      login
+    }
+  }
 }
 ... on UnassignedEvent {
   createdAt
   actor {
     login
   }
-  assignee
+  assignee {
+    __typename
+    ... on User {
+      login
+    }
+    ... on Bot {
+      login
+    }
+    ... on Organization {
+      login
+    }
+    ... on Mannequin {
+      login
+    }
+  }
 }
 ... on SubscribedEvent {
   createdAt

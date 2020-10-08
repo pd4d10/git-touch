@@ -1,4 +1,5 @@
 import 'dart:core';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:git_touch/models/theme.dart';
@@ -173,9 +174,8 @@ class TimelineItem extends StatelessWidget {
           iconData: Octicons.key,
           textSpan: TextSpan(children: [
             TextSpan(text: ' assigned this to '),
-            // TextSpan(text: p['user']['login'])
-            // User field is depracated. Assignee should be used
-            TextSpan(text: p['assignee']),
+            createLinkSpan(context, p['assignee']['login'],
+                '/github/' + p['assignee']['login']),
           ]),
           p: p,
         );
@@ -185,7 +185,8 @@ class TimelineItem extends StatelessWidget {
           iconData: Octicons.key,
           textSpan: TextSpan(children: [
             TextSpan(text: ' unassigned this from '),
-            TextSpan(text: p['assignee']),
+            createLinkSpan(context, p['assignee']['login'],
+                '/github/' + p['assignee']['login']),
           ]),
           p: p,
         );
