@@ -103,12 +103,19 @@ class TimelineItem extends StatelessWidget {
       case 'IssueComment':
         return CommentItem.gh(p);
       case 'CrossReferencedEvent':
+        final number = p['source']['number'] as int;
+        final owner = p['source']['repository']['owner']['login'] as String;
+        final name = p['source']['repository']['name'] as String;
+        final prefix = p['source']['__typename'] == 'Issue' ? 'issues' : 'pull';
         return TimelineEventItem(
           actor: p['actor']['login'],
           iconData: Octicons.primitive_dot,
           iconColor: GithubPalette.open,
-          textSpan: TextSpan(
-              text: ' referenced this on #' + p['source']['number'].toString()),
+          textSpan: TextSpan(children: [
+            TextSpan(text: ' referenced this on '),
+            createLinkSpan(context, '$owner/$name#$number',
+                '/github/$owner/$name/$prefix/$number'),
+          ]),
           p: p,
         );
       case 'ClosedEvent':
