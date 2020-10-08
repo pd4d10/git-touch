@@ -1,7 +1,6 @@
 import 'package:filesize/filesize.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/gitlab.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
@@ -77,13 +76,13 @@ class GlProjectScreen extends StatelessWidget {
               owner: p.namespace.name,
               name: p.name,
               description: p.description,
-              trailings: <Widget>[
-                if (badges.isNotEmpty)
-                  Wrap(spacing: 4, runSpacing: 4, children: [
-                    for (var label in badges)
-                      SvgPicture.network(label.renderedImageUrl, height: 20),
-                  ])
-              ],
+              // trailings: <Widget>[
+              //   if (badges.isNotEmpty)
+              //     Wrap(spacing: 4, runSpacing: 4, children: [
+              //       for (var label in badges)
+              //         SvgPicture.network(label.renderedImageUrl, height: 20),
+              //     ])
+              // ],
             ),
             CommonStyle.border,
             Row(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:git_touch/models/code.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/utils/utils.dart';
@@ -33,13 +32,13 @@ class MarkdownView extends StatelessWidget {
       selectable: true,
       imageBuilder: (uri, title, alt) {
         if (uri.scheme == 'http' || uri.scheme == 'https') {
-          if (uri.path.endsWith('.svg')) {
-            return SvgPicture.network(uri.toString());
-          } else {
-            return Image.network(uri.toString());
-          }
+          // TODO: svg support
+          // if (uri.path.endsWith('.svg')) {
+          //   return SvgPicture.network(uri.toString());
+          // }
+          return Image.network(uri.toString());
         } else {
-          return Container();
+          return Container(); // TODO: relative path image
         }
       },
       onTapLink: (url) {
