@@ -22,8 +22,8 @@ class GtRepoScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold<Tuple2<GiteaRepository, String>>(
       title: AppBarTitle('Repository'),
-      fetchData: () async {
-        final auth = Provider.of<AuthModel>(context);
+      fetch: () async {
+        final auth = context.read<AuthModel>();
         final res = await Future.wait([
           auth.fetchGitea('/repos/$owner/$name'),
           auth.fetchGitea('/repos/$owner/$name/contents/README.md'),
@@ -51,12 +51,18 @@ class GtRepoScreen extends StatelessWidget {
             Row(
               children: <Widget>[
                 EntryItem(
+                  text: 'Watchers',
+                  url: '/gitea/$owner/$name/watchers',
+                ),
+                EntryItem(
                   count: p.starsCount,
                   text: 'Stars',
+                  url: '/gitea/$owner/$name/stargazers',
                 ),
                 EntryItem(
                   count: p.forksCount,
-                  text: 'Forks', // TODO:
+                  text: 'Forks',
+                  url: '/gitea/$owner/$name/forks',
                 ),
               ],
             ),

@@ -7,7 +7,7 @@ class RefreshStatefulScaffold<T> extends StatefulWidget {
   final Widget title;
   final Widget Function(T data, void Function(VoidCallback fn) setState)
       bodyBuilder;
-  final Future<T> Function() fetchData;
+  final Future<T> Function() fetch;
   final Widget Function(T data, void Function(VoidCallback fn) setState)
       actionBuilder;
   final Widget action;
@@ -16,7 +16,7 @@ class RefreshStatefulScaffold<T> extends StatefulWidget {
   RefreshStatefulScaffold({
     @required this.title,
     @required this.bodyBuilder,
-    @required this.fetchData,
+    @required this.fetch,
     this.actionBuilder,
     this.action,
     this.canRefresh = true,
@@ -46,7 +46,7 @@ class _RefreshStatefulScaffoldState<T>
         _error = '';
         _loading = true;
       });
-      _data = await widget.fetchData();
+      _data = await widget.fetch();
     } catch (err) {
       _error = err.toString();
       throw err;

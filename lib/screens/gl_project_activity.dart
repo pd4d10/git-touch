@@ -11,24 +11,21 @@ import 'package:provider/provider.dart';
 
 class GlProjectActivityScreen extends StatelessWidget {
   final int id;
-
   GlProjectActivityScreen(this.id);
-
-  Future<ListPayload<GitlabEvent, int>> _query(BuildContext context,
-      [int page]) async {
-    final auth = Provider.of<AuthModel>(context);
-    final vs = await auth.fetchGitlab('/projects/$id/events');
-    final events = (vs as List).map((v) => GitlabEvent.fromJson(v)).toList();
-    return ListPayload(cursor: page, items: events, hasMore: false);
-  }
 
   @override
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
     return ListStatefulScaffold<GitlabEvent, int>(
       title: AppBarTitle('Activity'),
-      onRefresh: () => _query(context),
-      onLoadMore: (int page) => _query(context, page),
+      fetch: (page) async {
+        page = page ?? 1;
+        final auth = context.read<AuthModel>();
+        final vs = await auth.fetchGitlab('/projects/$id/events');
+        final events =
+            (vs as List).map((v) => GitlabEvent.fromJson(v)).toList();
+        return ListPayload(cursor: page, items: events, hasMore: false);
+      },
       itemBuilder: (data) {
         return Link(
           url: '',

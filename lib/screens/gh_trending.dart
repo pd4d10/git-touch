@@ -10,15 +10,17 @@ import 'package:git_touch/widgets/repository_item.dart';
 import 'package:provider/provider.dart';
 
 class GhTrendingScreen extends StatelessWidget {
+  static final trending = GithubTrending(prefix: 'https://gtrend.yapie.me');
+
   Widget build(BuildContext context) {
     return TabStatefulScaffold<List>(
       title: AppBarTitle('Trending'),
       tabs: ['Repositories', 'Developers'],
       fetchData: (tabIndex) async {
         if (tabIndex == 0) {
-          return getTrendingRepositories();
+          return trending.getTrendingRepositories();
         } else {
-          return getTrendingDevelopers();
+          return trending.getTrendingDevelopers();
         }
       },
       bodyBuilder: (payload, activeTab) {
@@ -50,26 +52,30 @@ class GhTrendingScreen extends StatelessWidget {
                         login: v.username,
                         // name: v.name,
                         avatarUrl: v.avatar,
-                        bio: Link(
-                          url: '/${v.username}/${v.repo.name}',
-                          child: Row(
-                            children: <Widget>[
-                              Icon(
-                                Octicons.repo,
-                                size: 17,
-                                color: theme.palette.secondaryText,
-                              ),
-                              SizedBox(width: 4),
-                              Text(
-                                '${v.username} / ${v.repo.name}',
-                                style: TextStyle(
-                                  fontSize: 17,
-                                  color: theme.palette.secondaryText,
+                        bio: v.repo == null
+                            ? null
+                            : Link(
+                                url: '/github/${v.username}/${v.repo.name}',
+                                child: Row(
+                                  children: <Widget>[
+                                    Icon(
+                                      Octicons.repo,
+                                      size: 17,
+                                      color: theme.palette.secondaryText,
+                                    ),
+                                    SizedBox(width: 4),
+                                    Expanded(
+                                        child: Text(
+                                      '${v.username} / ${v.repo.name}',
+                                      style: TextStyle(
+                                        fontSize: 17,
+                                        color: theme.palette.secondaryText,
+                                      ),
+                                      overflow: TextOverflow.ellipsis,
+                                    ))
+                                  ],
                                 ),
-                              )
-                            ],
-                          ),
-                        ),
+                              ),
                       )
                   ],
           ),

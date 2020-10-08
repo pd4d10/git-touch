@@ -1,0 +1,14 @@
+name: lint
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: google/dart:latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: dartfmt --dry-run --set-exit-if-changed lib/**/*.dart

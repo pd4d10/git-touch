@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:git_touch/graphql/gh.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/common.dart';
 import 'package:git_touch/utils/utils.dart';
+import 'package:github/github.dart';
 import 'package:provider/provider.dart';
 
 class GhIssueFormScreen extends StatefulWidget {
@@ -23,6 +23,7 @@ class _GhIssueFormScreenState extends State<GhIssueFormScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
+
     return CommonScaffold(
       title: Text('Submit an issue'),
       body: Column(
@@ -55,22 +56,15 @@ class _GhIssueFormScreenState extends State<GhIssueFormScreen> {
           CupertinoButton.filled(
             child: Text('Submit'),
             onPressed: () async {
-              final auth = Provider.of<AuthModel>(context);
-              final theme = Provider.of<ThemeModel>(context);
-              final r0 = await auth.gqlClient.execute(
-                GhRepoIdQuery(
-                  variables:
-                      GhRepoIdArguments(owner: widget.owner, name: widget.name),
-                ),
-              );
-              final res = await auth.gqlClient.execute(GhCreateIssueQuery(
-                variables: GhCreateIssueArguments(
-                    repoId: r0.data.repository.id, title: _title, body: _body),
-              ));
-              final issue = res.data.createIssue.issue;
+              final slug = RepositorySlug(widget.owner, widget.name);
+              final res = await context
+                  .read<AuthModel>()
+                  .ghClient
+                  .issues
+                  .create(slug, IssueRequest(title: _title, body: _body));
               await theme.push(
                 context,
-                '/${issue.repository.owner.login}/${issue.repository.name}/issues/${issue.number}',
+                '/github/${widget.owner}/${widget.name}/issues/${res.number}',
                 replace: true,
               );
             },

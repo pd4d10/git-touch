@@ -8,25 +8,22 @@ import 'package:provider/provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class BbTeamsScreen extends StatelessWidget {
-  Future<ListPayload<BbUser, String>> _query(BuildContext context,
-      [String nextUrl]) async {
-    final auth = Provider.of<AuthModel>(context);
-    final res = await auth.fetchBbWithPage(nextUrl ?? '/teams?role=member');
-    return ListPayload(
-      cursor: res.cursor,
-      hasMore: res.hasMore,
-      items: <BbUser>[
-        for (var v in res.data) BbUser.fromJson(v),
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold<BbUser, String>(
       title: AppBarTitle('Teams'),
-      onRefresh: () => _query(context),
-      onLoadMore: (page) => _query(context, page),
+      fetch: (nextUrl) async {
+        final res = await context
+            .read<AuthModel>()
+            .fetchBbWithPage(nextUrl ?? '/teams?role=member');
+        return ListPayload(
+          cursor: res.cursor,
+          hasMore: res.hasMore,
+          items: <BbUser>[
+            for (var v in res.data) BbUser.fromJson(v),
+          ],
+        );
+      },
       itemBuilder: (v) {
         return UserItem(
           login: v.username,

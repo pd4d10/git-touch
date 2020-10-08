@@ -1,5 +1,6 @@
 name: git_touch
 description: A new Flutter project.
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -7,10 +8,10 @@ description: A new Flutter project.
 # Both the version and the builder number may be overridden in flutter
 # build by specifying --build-name and --build-number, respectively.
 # Read more about versioning at semver.org.
-version: 1.4.0+8
+version: 1.6.0+13
 
 environment:
-  sdk: ">=2.6.0 <3.0.0"
+  sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -18,43 +19,41 @@ dependencies:
   flutter_vector_icons: ^0.2.1
   flutter_highlight: ^0.6.0
   primer: ^0.0.2
-  nanoid: ^0.0.6
-  seti: ^0.2.0
+  nanoid: ^0.1.0
+  file_icon: ^0.3.0
   http: ^0.12.0
   intl: ^0.16.0
-  url_launcher: ^5.0.2
-  uni_links: ^0.2.0
-  flutter_markdown: ^0.3.3
+  url_launcher: ^5.4.1
+  uni_links: ^0.4.0
+  flutter_markdown: ^0.4.4
   shared_preferences: ^0.5.6
   share: ^0.6.0
-  flutter_svg: ^0.13.0
+  flutter_svg: ^0.19.0
   launch_review: ^2.0.0
   timeago: ^2.0.18
-  provider: ^3.1.0
+  provider: ^4.3.2
   filesize: ^1.0.4
   tuple: ^1.0.2
   uri: ^0.11.3
-  fimber: ^0.3.2
-  photo_view: ^0.7.0
+  fimber: ^0.4.4
   artemis: ^3.2.1
-  gql_link: ^0.2.0
   fluro: ^1.5.1
   package_info: ^0.4.0
-  github: ^6.1.2
+  github: ^7.0.3
   # git:
   #   url: git://github.com/pd4d10/github.dart.git
   #   ref: patch-1
   # path: ../../github/github.dart
-  github_trending: ^0.2.0
+  github_trending: ^0.3.0
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^0.1.2
+  cupertino_icons: ^1.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  build_runner: ^1.7.1
-  json_serializable: 3.2.3 # TODO:
+  build_runner: ^1.10.3
+  json_serializable: ^3.5.0
 
 # dependencies_overrides:
 #   flutter_highlight:

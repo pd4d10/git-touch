@@ -20,15 +20,14 @@ class UserItem extends StatelessWidget {
   final String url;
 
   UserItem.gh({
-    @required this.login,
-    // @required this.name,
     @required this.avatarUrl,
+    @required this.login,
     @required this.bio,
-  }) : url = '/$login';
+  }) : url = '/github/$login';
 
   UserItem({
-    @required this.login,
     @required this.avatarUrl,
+    @required this.login,
     @required this.bio,
     @required this.url,
   });

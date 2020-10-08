@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:git_touch/models/code.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/utils/utils.dart';
@@ -13,7 +14,7 @@ class MarkdownView extends StatelessWidget {
 
   MarkdownView(this.text, {this.basePaths});
 
-  Map<String, String> matchPattern(String url, String pattern) {
+  static Map<String, String> matchPattern(String url, String pattern) {
     var uri = Uri.parse(url);
     return UriParser(UriTemplate(pattern)).match(uri)?.parameters;
   }
@@ -28,7 +29,22 @@ class MarkdownView extends StatelessWidget {
         _basicStyle.copyWith(fontWeight: FontWeight.w600, height: 1.25);
 
     return MarkdownBody(
+      data: text,
+      selectable: true,
+      imageBuilder: (uri, title, alt) {
+        if (uri.scheme == 'http' || uri.scheme == 'https') {
+          if (uri.path.endsWith('.svg')) {
+            return SvgPicture.network(uri.toString());
+          } else {
+            return Image.network(uri.toString());
+          }
+        } else {
+          return Container();
+        }
+      },
       onTapLink: (url) {
+        final theme = context.read<ThemeModel>();
+
         if (basePaths != null &&
             !url.startsWith('https://') &&
             !url.startsWith('http://')) {
@@ -38,42 +54,34 @@ class MarkdownView extends StatelessWidget {
           var y = path.join(x, url);
           if (y.startsWith('/')) y = y.substring(1);
 
-          return Provider.of<ThemeModel>(context).push(context,
+          return theme.push(context,
               '/${basePaths[0]}/${basePaths[1]}/${basePaths[2]}?path=${y.urlencode}');
         }
 
         // TODO: Relative paths
         if (url.startsWith('https://github.com')) {
-          Map<String, String> m;
-
-          m = matchPattern(url, '/{owner}/{name}/pull/{number}');
-          if (m != null) {
-            return Provider.of<ThemeModel>(context).push(context, url);
-          }
-
-          m = matchPattern(url, '/{owner}/{name}/issues/{number}');
-          if (m != null) {
-            return Provider.of<ThemeModel>(context).push(context, url);
-          }
-
-          m = matchPattern(url, '/{owner}/{name}');
-          if (m != null) {
-            return Provider.of<ThemeModel>(context).push(context, url);
-          }
-
-          m = matchPattern(url, '/{login}');
-          if (m != null) {
-            return Provider.of<ThemeModel>(context).push(context, url);
+          const matchedPaths = [
+            '/{owner}/{name}/pull/{number}',
+            '/{owner}/{name}/issues/{number}',
+            '/{owner}/{name}',
+            '/{login}'
+          ];
+          for (var p in matchedPaths) {
+            final m = matchPattern(url, p);
+            if (m != null) {
+              return theme.push(context,
+                  url.replaceFirst(RegExp(r'https://github.com'), '/github'));
+            }
           }
         }
 
         launchUrl(url);
       },
-      data: text,
       styleSheet: MarkdownStyleSheet(
         a: _basicStyle.copyWith(color: theme.palette.primary),
         p: _basicStyle,
         code: _basicStyle.copyWith(
+          backgroundColor: theme.palette.grayBackground,
           fontSize: 16 * 0.85,
           height: 1.45,
           fontFamily: code.fontFamilyUsed,

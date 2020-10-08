@@ -7,7 +7,6 @@ import 'package:git_touch/widgets/loading.dart';
 import 'package:git_touch/widgets/markdown_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_highlight/flutter_highlight.dart';
-import 'package:photo_view/photo_view.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/utils/utils.dart';
 

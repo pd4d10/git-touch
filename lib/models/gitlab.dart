@@ -179,6 +179,16 @@ class GitlabCommit {
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
+class GitlabDiff {
+  String diff;
+  String newPath;
+  String oldPath;
+  GitlabDiff();
+  factory GitlabDiff.fromJson(Map<String, dynamic> json) =>
+      _$GitlabDiffFromJson(json);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
 class GitlabIssue {
   String title;
   int iid;
@@ -190,4 +200,13 @@ class GitlabIssue {
   GitlabIssue();
   factory GitlabIssue.fromJson(Map<String, dynamic> json) =>
       _$GitlabIssueFromJson(json);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GitlabStarrer {
+  DateTime starredSince;
+  GitlabUser user;
+  GitlabStarrer();
+  factory GitlabStarrer.fromJson(Map<String, dynamic> json) =>
+      _$GitlabStarrerFromJson(json);
 }

@@ -148,8 +148,14 @@ class AuthModel with ChangeNotifier {
       if (info['message'] != null) {
         throw info['message'];
       }
+      if (info['error'] != null) {
+        throw info['error'] +
+            '. ' +
+            (info['error_description'] != null
+                ? info['error_description']
+                : '');
+      }
       final user = GitlabUser.fromJson(info);
-
       await _addAccount(Account(
         platform: PlatformType.gitlab,
         domain: domain,
@@ -227,15 +233,27 @@ class AuthModel with ChangeNotifier {
     return info;
   }
 
-  Future<DataWithPage> fetchGiteaWithPage(String p) async {
-    final res = await http.get('${activeAccount.domain}/api/v1$p',
-        headers: {'Authorization': 'token $token'});
+  Future<DataWithPage> fetchGiteaWithPage(String path,
+      {int page, int limit}) async {
+    page = page ?? 1;
+    limit = limit ?? pageSize;
+
+    var uri = Uri.parse('${activeAccount.domain}/api/v1$path');
+    uri = uri.replace(
+      queryParameters: {
+        'page': page.toString(),
+        'limit': limit.toString(),
+        ...uri.queryParameters,
+      },
+    );
+    final res = await http.get(uri, headers: {'Authorization': 'token $token'});
     final info = json.decode(utf8.decode(res.bodyBytes));
+
     return DataWithPage(
       data: info,
-      cursor: int.tryParse(res.headers["x-page"] ?? ''),
-      hasMore: res.headers['x-hasmore'] == 'true',
-      total: int.tryParse(res.headers['x-total'] ?? ''),
+      cursor: page + 1,
+      hasMore: info is List && info.length > 0,
+      total: int.tryParse(res.headers['x-total-count'] ?? ''),
     );
   }
 
@@ -261,6 +279,7 @@ class AuthModel with ChangeNotifier {
         login: username,
         avatarUrl: user.avatarUrl,
         appPassword: appPassword,
+        accountId: user.accountId,
       ));
     } finally {
       loading = false;
@@ -325,17 +344,18 @@ class AuthModel with ChangeNotifier {
   }
 
   var rootKey = UniqueKey();
-  void setActiveAccountAndReload(int index) {
+  setActiveAccountAndReload(int index) async {
     // https://stackoverflow.com/a/50116077
     rootKey = UniqueKey();
     activeAccountIndex = index;
+    final prefs = await SharedPreferences.getInstance();
+    _activeTab = prefs.getInt(
+            StorageKeys.getDefaultStartTabKey(activeAccount.platform)) ??
+        0;
     _ghClient = null;
     _gqlClient = null;
     notifyListeners();
   }
-
-  Map<String, String> get _headers =>
-      {HttpHeaders.authorizationHeader: 'token $token'};
 
   // http timeout
   var _timeoutDuration = Duration(seconds: 10);
@@ -394,17 +414,6 @@ class AuthModel with ChangeNotifier {
     return data['data'];
   }
 
-  Future<dynamic> getWithCredentials(String url) async {
-    final res = await http
-        .get(_apiPrefix + url, headers: _headers)
-        .timeout(_timeoutDuration);
-    final data = json.decode(res.body);
-    if (res.statusCode >= 400) {
-      throw data['message'];
-    }
-    return data;
-  }
-
   String _oauthState;
   void redirectToGithubOauth() {
     _oauthState = nanoid();
@@ -412,5 +421,17 @@ class AuthModel with ChangeNotifier {
     launchUrl(
       'https://github.com/login/oauth/authorize?client_id=$clientId&redirect_uri=gittouch://login&scope=$scope&state=$_oauthState',
     );
+  }
+
+  int _activeTab = 0;
+  int get activeTab => _activeTab;
+
+  Future<void> setActiveTab(int v) async {
+    _activeTab = v;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt(
+        StorageKeys.getDefaultStartTabKey(activeAccount.platform), v);
+    Fimber.d('write default start tab for ${activeAccount.platform}: $v');
+    notifyListeners();
   }
 }

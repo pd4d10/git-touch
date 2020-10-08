@@ -18,8 +18,9 @@ class GlBlobScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold<GitlabBlob>(
       title: AppBarTitle(path ?? ''),
-      fetchData: () async {
-        final res = await Provider.of<AuthModel>(context).fetchGitlab(
+      fetch: () async {
+        final auth = context.read<AuthModel>();
+        final res = await auth.fetchGitlab(
             '/projects/$id/repository/files/${path.urlencode}?ref=$ref');
         return GitlabBlob.fromJson(res);
       },

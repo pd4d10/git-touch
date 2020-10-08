@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'dart:async';
 import 'package:fimber/fimber.dart';
-import 'package:fluro/fluro.dart';
+import 'package:fluro/fluro.dart' as fluro;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:git_touch/utils/utils.dart';
@@ -104,7 +104,6 @@ class ThemeModel with ChangeNotifier {
 
   Brightness systemBrightness = Brightness.light;
   void setSystemBrightness(Brightness v) {
-    // print('systemBrightness: $v');
     if (v != systemBrightness) {
       Future.microtask(() {
         systemBrightness = v;
@@ -136,7 +135,7 @@ class ThemeModel with ChangeNotifier {
     notifyListeners();
   }
 
-  final router = Router();
+  final router = fluro.Router();
 
   final paletteLight = Palette(
     primary: PrimerColors.blue500,
@@ -183,7 +182,6 @@ class ThemeModel with ChangeNotifier {
     if (AppBrightnessType.values.contains(b)) {
       _brightnessValue = b;
     }
-
     notifyListeners();
   }
 
@@ -201,11 +199,9 @@ class ThemeModel with ChangeNotifier {
       return router.navigateTo(
         context,
         url,
-        transition: replace
-            ? TransitionType.fadeIn
-            : theme == AppThemeType.cupertino
-                ? TransitionType.cupertino
-                : TransitionType.material,
+        transition: theme == AppThemeType.cupertino
+            ? fluro.TransitionType.cupertino
+            : fluro.TransitionType.material,
         replace: replace,
       );
     } else {

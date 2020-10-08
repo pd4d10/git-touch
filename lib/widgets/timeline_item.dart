@@ -1,4 +1,5 @@
 import 'dart:core';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:git_touch/models/theme.dart';
@@ -102,12 +103,19 @@ class TimelineItem extends StatelessWidget {
       case 'IssueComment':
         return CommentItem.gh(p);
       case 'CrossReferencedEvent':
+        final number = p['source']['number'] as int;
+        final owner = p['source']['repository']['owner']['login'] as String;
+        final name = p['source']['repository']['name'] as String;
+        final prefix = p['source']['__typename'] == 'Issue' ? 'issues' : 'pull';
         return TimelineEventItem(
           actor: p['actor']['login'],
           iconData: Octicons.primitive_dot,
           iconColor: GithubPalette.open,
-          textSpan: TextSpan(
-              text: ' referenced this on #' + p['source']['number'].toString()),
+          textSpan: TextSpan(children: [
+            TextSpan(text: ' referenced this on '),
+            createLinkSpan(context, '$owner/$name#$number',
+                '/github/$owner/$name/$prefix/$number'),
+          ]),
           p: p,
         );
       case 'ClosedEvent':
@@ -134,11 +142,28 @@ class TimelineItem extends StatelessWidget {
           p: p,
         );
       case 'UnsubscribedEvent':
-        return defaultItem; // TODO:
+        return TimelineEventItem(
+          actor: p['actor']['login'],
+          textSpan: TextSpan(text: ' unsubscribed from this issue '),
+          p: p,
+        );
       case 'ReferencedEvent':
         // TODO: isCrossRepository
         if (p['commit'] == null) {
           return Container();
+        }
+
+        if (p['isCrossRepository']) {
+          return TimelineEventItem(
+            actor: p['actor']['login'],
+            iconData: Octicons.bookmark,
+            textSpan: TextSpan(children: [
+              TextSpan(text: ' referenced this pull request from commit '),
+              TextSpan(text: p['commit']['oid'].substring(0, 8)),
+              TextSpan(text: ' from ' + p['commitRepository']['name']),
+            ]),
+            p: p,
+          );
         }
 
         return TimelineEventItem(
@@ -156,12 +181,22 @@ class TimelineItem extends StatelessWidget {
           iconData: Octicons.key,
           textSpan: TextSpan(children: [
             TextSpan(text: ' assigned this to '),
-            TextSpan(text: p['user']['login'])
+            createLinkSpan(context, p['assignee']['login'],
+                '/github/' + p['assignee']['login']),
           ]),
           p: p,
         );
       case 'UnassignedEvent':
-        return defaultItem; // TODO:
+        return TimelineEventItem(
+          actor: p['actor']['login'],
+          iconData: Octicons.key,
+          textSpan: TextSpan(children: [
+            TextSpan(text: ' unassigned this from '),
+            createLinkSpan(context, p['assignee']['login'],
+                '/github/' + p['assignee']['login']),
+          ]),
+          p: p,
+        );
       case 'LabeledEvent':
         return TimelineEventItem(
           actor: p['actor']['login'],
@@ -197,7 +232,16 @@ class TimelineItem extends StatelessWidget {
           p: p,
         );
       case 'DemilestonedEvent':
-        return defaultItem; // TODO:
+        return TimelineEventItem(
+          actor: p['actor']['login'],
+          iconData: Octicons.milestone,
+          textSpan: TextSpan(children: [
+            TextSpan(text: ' removed this from '),
+            TextSpan(text: p['milestoneTitle']),
+            TextSpan(text: ' milestone'),
+          ]),
+          p: p,
+        );
       case 'RenamedTitleEvent':
         return TimelineEventItem(
           actor: p['actor']['login'],
@@ -234,7 +278,16 @@ class TimelineItem extends StatelessWidget {
 
       // issue only types
       case 'TransferredEvent':
-        return defaultItem; // TODO:
+        return TimelineEventItem(
+          actor: p['actor']['login'],
+          textSpan: TextSpan(
+            children: [
+              TextSpan(
+                  text: ' transferred this issue from ' +
+                      p['fromRepository']['name'])
+            ],
+          ),
+        );
 
       // pull request only types
       case 'CommitCommentThread':
@@ -276,8 +329,18 @@ class TimelineItem extends StatelessWidget {
           textSpan: TextSpan(text: ' pinned this issue '),
         );
       case 'DeployedEvent':
+        return TimelineEventItem(
+          actor: p['actor']['login'],
+          textSpan: TextSpan(
+              text: ' deployed the pull request ' + p['pullRequest']['name']),
+        );
       case 'DeploymentEnvironmentChangedEvent':
-        return defaultItem; // TODO:
+        return TimelineEventItem(
+          actor: p['actor']['login'],
+          textSpan: TextSpan(
+              text: ' changed the deployment environment to ' +
+                  p['deploymentStatus']['deployment']['environment']),
+        );
       case 'HeadRefDeletedEvent':
         return TimelineEventItem(
           actor: p['actor']['login'],
@@ -290,6 +353,15 @@ class TimelineItem extends StatelessWidget {
           p: p,
         );
       case 'HeadRefRestoredEvent':
+        return TimelineEventItem(
+          actor: p['actor']['login'],
+          textSpan: TextSpan(children: [
+            TextSpan(text: ' restored the '),
+            WidgetSpan(
+                child: PrimerBranchName(p['pullRequest']['headRef']['name'])),
+            TextSpan(text: ' branch')
+          ]),
+        );
       case 'HeadRefForcePushedEvent':
         return TimelineEventItem(
           iconData: Octicons.repo_force_push,
@@ -314,7 +386,28 @@ class TimelineItem extends StatelessWidget {
           p: p,
         );
       case 'BaseRefForcePushedEvent':
-        return defaultItem; // TODO:
+        return TimelineEventItem(
+          iconData: Octicons.repo_force_push,
+          actor: p['actor']['login'],
+          textSpan: TextSpan(
+            children: [
+              TextSpan(text: ' force-pushed the '),
+              WidgetSpan(
+                  child: PrimerBranchName(p['pullRequest']['baseRef']['name'])),
+              TextSpan(text: ' branch from '),
+              TextSpan(
+                text: (p['beforeCommit']['oid'] as String).substring(0, 7),
+                style: TextStyle(color: theme.palette.primary),
+              ),
+              TextSpan(text: ' to '),
+              TextSpan(
+                text: (p['afterCommit']['oid'] as String).substring(0, 7),
+                style: TextStyle(color: theme.palette.primary),
+              ),
+            ],
+          ),
+          p: p,
+        );
       case 'ReviewRequestedEvent':
         return TimelineEventItem(
           iconData: Octicons.eye,
@@ -326,8 +419,25 @@ class TimelineItem extends StatelessWidget {
           p: p,
         );
       case 'ReviewRequestRemovedEvent':
+        return TimelineEventItem(
+          iconData: Octicons.eye,
+          actor: p['actor']['login'],
+          textSpan: TextSpan(children: [
+            TextSpan(text: ' removed '),
+            createUserSpan(context, p['requestedReviewer']['login']),
+            TextSpan(text: ' from the review request '),
+          ]),
+          p: p,
+        );
       case 'ReviewDismissedEvent':
-        return defaultItem; // TODO:
+        return TimelineEventItem(
+          iconData: Octicons.eye,
+          actor: p['actor']['login'],
+          textSpan: TextSpan(children: [
+            TextSpan(text: ' dismissed the pull request review requested by '),
+            createUserSpan(context, p['pullRequest']['author']['login'])
+          ]),
+        );
       default:
         return defaultItem;
     }

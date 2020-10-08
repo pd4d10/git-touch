@@ -26,13 +26,12 @@ class GhRepoScreen extends StatelessWidget {
   GhRepoScreen(this.owner, this.name, {this.branch});
 
   Future<GhRepoRepository> _query(BuildContext context) async {
-    var res = await Provider.of<AuthModel>(context).gqlClient.execute(
-        GhRepoQuery(
-            variables: GhRepoArguments(
-                owner: owner,
-                name: name,
-                branchSpecified: branch != null,
-                branch: branch ?? '')));
+    var res = await context.read<AuthModel>().gqlClient.execute(GhRepoQuery(
+        variables: GhRepoArguments(
+            owner: owner,
+            name: name,
+            branchSpecified: branch != null,
+            branch: branch ?? '')));
     return res.data.repository;
   }
 
@@ -49,23 +48,12 @@ class GhRepoScreen extends StatelessWidget {
     }
   }
 
-  String _buildWatchSelectState(GhWatchSubscriptionState state) {
-    switch (state) {
-      case GhWatchSubscriptionState.IGNORED:
-        return 'Ignoring';
-      case GhWatchSubscriptionState.SUBSCRIBED:
-        return 'Watching';
-      case GhWatchSubscriptionState.UNSUBSCRIBED:
-        return 'Not watching';
-      default:
-        return '';
-    }
-  }
-
   Future<String> _fetchReadme(BuildContext context) async {
     try {
-      final auth = Provider.of<AuthModel>(context);
-      final res = await auth.ghClient.repositories
+      final res = await context
+          .read<AuthModel>()
+          .ghClient
+          .repositories
           .getReadme(RepositorySlug(owner, name));
       return res.text;
     } catch (e) {
@@ -77,14 +65,14 @@ class GhRepoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
-    final auth = Provider.of<AuthModel>(context);
     return RefreshStatefulScaffold<Tuple2<GhRepoRepository, String>>(
       title: AppBarTitle('Repository'),
-      fetchData: () async {
+      fetch: () async {
         final rs = await Future.wait([
           _query(context),
           _fetchReadme(context),
         ]);
+
         return Tuple2(rs[0] as GhRepoRepository, rs[1] as String);
       },
       actionBuilder: (data, setState) {
@@ -115,7 +103,7 @@ class GhRepoScreen extends StatelessWidget {
           children: <Widget>[
             RepoHeader(
               avatarUrl: repo.owner.avatarUrl,
-              avatarLink: '/${repo.owner.login}',
+              avatarLink: '/github/${repo.owner.login}',
               name: repo.name,
               owner: repo.owner.login,
               description: repo.description,
@@ -128,40 +116,57 @@ class GhRepoScreen extends StatelessWidget {
                           GhRepoSubscriptionState.SUBSCRIBED,
                       text: _buildWatchState(repo.viewerSubscription),
                       onPressed: () async {
-                        final vs = GhWatchSubscriptionState.values.where((v) =>
-                            v != GhWatchSubscriptionState.ARTEMIS_UNKNOWN);
+                        final vs = GhRepoSubscriptionState.values.where((v) =>
+                            v != GhRepoSubscriptionState.ARTEMIS_UNKNOWN);
                         theme.showActions(context, [
                           for (var v in vs)
                             ActionItem(
-                              text: _buildWatchSelectState(v),
+                              text: _buildWatchState(v),
                               onTap: (_) async {
-                                final res = await auth.gqlClient.execute(
-                                  GhWatchQuery(
-                                    variables: GhWatchArguments(
-                                      id: repo.id,
-                                      state: v,
-                                    ),
-                                  ),
-                                );
-                                setState(() {
-                                  final r = res.data.updateSubscription
-                                      .subscribable as GhWatchRepository;
-                                  switch (r.viewerSubscription) {
-                                    case GhWatchSubscriptionState.IGNORED:
-                                      repo.viewerSubscription =
-                                          GhRepoSubscriptionState.IGNORED;
-                                      break;
-                                    case GhWatchSubscriptionState.SUBSCRIBED:
-                                      repo.viewerSubscription =
-                                          GhRepoSubscriptionState.SUBSCRIBED;
-                                      break;
-                                    case GhWatchSubscriptionState.UNSUBSCRIBED:
+                                switch (v) {
+                                  case GhRepoSubscriptionState.SUBSCRIBED:
+                                  case GhRepoSubscriptionState.IGNORED:
+                                    final res = await context
+                                        .read<AuthModel>()
+                                        .ghClient
+                                        .activity
+                                        .setRepositorySubscription(
+                                          RepositorySlug(
+                                              repo.owner.login, repo.name),
+                                          subscribed: v ==
+                                              GhRepoSubscriptionState
+                                                  .SUBSCRIBED,
+                                          ignored: v ==
+                                              GhRepoSubscriptionState.IGNORED,
+                                        );
+                                    setState(() {
+                                      if (res.subscribed) {
+                                        repo.viewerSubscription =
+                                            GhRepoSubscriptionState.SUBSCRIBED;
+                                      } else if (res.ignored) {
+                                        repo.viewerSubscription =
+                                            GhRepoSubscriptionState.IGNORED;
+                                      }
+                                    });
+                                    break;
+                                  case GhRepoSubscriptionState.UNSUBSCRIBED:
+                                    await context
+                                        .read<AuthModel>()
+                                        .ghClient
+                                        .activity
+                                        .deleteRepositorySubscription(
+                                          RepositorySlug(
+                                            repo.owner.login,
+                                            repo.name,
+                                          ),
+                                        );
+                                    setState(() {
                                       repo.viewerSubscription =
                                           GhRepoSubscriptionState.UNSUBSCRIBED;
-                                      break;
-                                    default:
-                                  }
-                                });
+                                    });
+                                    break;
+                                  default:
+                                }
                               },
                             )
                         ]);
@@ -172,18 +177,23 @@ class GhRepoScreen extends StatelessWidget {
                       active: repo.viewerHasStarred,
                       text: repo.viewerHasStarred ? 'Unstar' : 'Star',
                       onPressed: () async {
-                        final res = await auth.gqlClient.execute(
-                          GhStarQuery(
-                            variables: GhStarArguments(
-                              id: repo.id,
-                              flag: !repo.viewerHasStarred,
-                            ),
-                          ),
-                        );
+                        if (repo.viewerHasStarred) {
+                          await context
+                              .read<AuthModel>()
+                              .ghClient
+                              .activity
+                              .unstar(
+                                  RepositorySlug(repo.owner.login, repo.name));
+                        } else {
+                          await context
+                              .read<AuthModel>()
+                              .ghClient
+                              .activity
+                              .star(
+                                  RepositorySlug(repo.owner.login, repo.name));
+                        }
                         setState(() {
-                          repo.viewerHasStarred = res.data.removeStar?.starrable
-                                  ?.viewerHasStarred ??
-                              res.data.addStar.starrable.viewerHasStarred;
+                          repo.viewerHasStarred = !repo.viewerHasStarred;
                         });
                       },
                     ),
@@ -213,12 +223,12 @@ class GhRepoScreen extends StatelessWidget {
                 EntryItem(
                   count: repo.watchers.totalCount,
                   text: 'Watchers',
-                  url: '/$owner/$name/watchers',
+                  url: '/github/$owner/$name/watchers',
                 ),
                 EntryItem(
                   count: repo.stargazers.totalCount,
                   text: 'Stars',
-                  url: '/$owner/$name/stargazers',
+                  url: '/github/$owner/$name/stargazers',
                 ),
                 EntryItem(
                   count: repo.forks.totalCount,
@@ -249,7 +259,7 @@ class GhRepoScreen extends StatelessWidget {
                       (license == null ? '' : '$license • ') +
                           filesize(repo.diskUsage * 1000),
                     ),
-                    url: '/$owner/$name/blob/${ref.name}',
+                    url: '/github/$owner/$name/blob/${ref.name}',
                   ),
                 if (repo.hasIssuesEnabled)
                   TableViewItem(
@@ -257,25 +267,24 @@ class GhRepoScreen extends StatelessWidget {
                     text: Text('Issues'),
                     rightWidget:
                         Text(numberFormat.format(repo.issues.totalCount)),
-                    url: '/$owner/$name/issues',
+                    url: '/github/$owner/$name/issues',
                   ),
                 TableViewItem(
                   leftIconData: Octicons.git_pull_request,
                   text: Text('Pull requests'),
                   rightWidget:
                       Text(numberFormat.format(repo.pullRequests.totalCount)),
-                  url: '/$owner/$name/pulls',
-                ),
-                TableViewItem(
-                  leftIconData: Octicons.history,
-                  text: Text('Commits'),
-                  rightWidget: Text((ref.target as GhRepoCommit)
-                      .history
-                      ?.totalCount
-                      .toString()),
-                  url: '/$owner/$name/commits',
+                  url: '/github/$owner/$name/pulls',
                 ),
                 if (ref != null) ...[
+                  TableViewItem(
+                    leftIconData: Octicons.history,
+                    text: Text('Commits'),
+                    rightWidget: Text(
+                        ((ref.target as GhRepoCommit).history?.totalCount ?? 0)
+                            .toString()),
+                    url: '/github/$owner/$name/commits',
+                  ),
                   if (repo.refs != null)
                     TableViewItem(
                       leftIconData: Octicons.git_branch,
@@ -294,9 +303,10 @@ class GhRepoScreen extends StatelessWidget {
                             items: refs
                                 .map((b) => PickerItem(b.name, text: b.name))
                                 .toList(),
-                            onChange: (ref) {
+                            onClose: (ref) {
                               if (ref != branch) {
-                                theme.push(context, '/$owner/$name?ref=$ref',
+                                theme.push(
+                                    context, '/github/$owner/$name?ref=$ref',
                                     replace: true);
                               }
                             },
@@ -304,6 +314,21 @@ class GhRepoScreen extends StatelessWidget {
                         );
                       },
                     ),
+                  TableViewItem(
+                    leftIconData: Octicons.organization,
+                    text: Text('Contributors'),
+                    rightWidget: FutureBuilder<String>(
+                      future: context
+                          .read<AuthModel>()
+                          .ghClient
+                          .getJSON('/repos/$owner/$name/stats/contributors')
+                          .then((v) => v.length.toString()),
+                      builder: (context, snapshot) {
+                        return Text(snapshot.data ?? '');
+                      },
+                    ),
+                    url: '/github/$owner/$name/contributors',
+                  )
                 ],
               ],
             ),

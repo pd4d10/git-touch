@@ -309,6 +309,20 @@ Map<String, dynamic> _$GitlabCommitToJson(GitlabCommit instance) =>
       'message': instance.message,
     };
 
+GitlabDiff _$GitlabDiffFromJson(Map<String, dynamic> json) {
+  return GitlabDiff()
+    ..diff = json['diff'] as String
+    ..newPath = json['new_path'] as String
+    ..oldPath = json['old_path'] as String;
+}
+
+Map<String, dynamic> _$GitlabDiffToJson(GitlabDiff instance) =>
+    <String, dynamic>{
+      'diff': instance.diff,
+      'new_path': instance.newPath,
+      'old_path': instance.oldPath,
+    };
+
 GitlabIssue _$GitlabIssueFromJson(Map<String, dynamic> json) {
   return GitlabIssue()
     ..title = json['title'] as String
@@ -333,4 +347,20 @@ Map<String, dynamic> _$GitlabIssueToJson(GitlabIssue instance) =>
       'user_notes_count': instance.userNotesCount,
       'updated_at': instance.updatedAt?.toIso8601String(),
       'labels': instance.labels,
+    };
+
+GitlabStarrer _$GitlabStarrerFromJson(Map<String, dynamic> json) {
+  return GitlabStarrer()
+    ..starredSince = json['starred_since'] == null
+        ? null
+        : DateTime.parse(json['starred_since'] as String)
+    ..user = json['user'] == null
+        ? null
+        : GitlabUser.fromJson(json['user'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$GitlabStarrerToJson(GitlabStarrer instance) =>
+    <String, dynamic>{
+      'starred_since': instance.starredSince?.toIso8601String(),
+      'user': instance.user,
     };

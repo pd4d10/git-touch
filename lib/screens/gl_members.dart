@@ -11,19 +11,6 @@ class GlMembersScreen extends StatelessWidget {
   final String type;
   GlMembersScreen(this.id, this.type);
 
-  Future<ListPayload<GitlabUser, int>> _query(BuildContext context,
-      [int page = 1]) async {
-    final auth = Provider.of<AuthModel>(context);
-    final res = await auth.fetchGitlabWithPage('/$type/$id/members?page=$page');
-    return ListPayload(
-      cursor: res.cursor,
-      hasMore: res.hasMore,
-      items: <GitlabUser>[
-        for (var v in res.data) GitlabUser.fromJson(v),
-      ],
-    );
-  }
-
   // https://docs.gitlab.com/ee/api/access_requests.html#valid-access-levels
   static const accessLevelMap = {
     10: 'Guest',
@@ -37,8 +24,19 @@ class GlMembersScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GitlabUser, int>(
       title: AppBarTitle('Members'),
-      onRefresh: () => _query(context),
-      onLoadMore: (page) => _query(context, page),
+      fetch: (page) async {
+        page = page ?? 1;
+        final auth = context.read<AuthModel>();
+        final res =
+            await auth.fetchGitlabWithPage('/$type/$id/members?page=$page');
+        return ListPayload(
+          cursor: res.cursor,
+          hasMore: res.hasMore,
+          items: <GitlabUser>[
+            for (var v in res.data) GitlabUser.fromJson(v),
+          ],
+        );
+      },
       itemBuilder: (v) {
         return UserItem(
           avatarUrl: v.avatarUrl,

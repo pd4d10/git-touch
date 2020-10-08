@@ -46,7 +46,8 @@ class _GhSearchScreenState extends State<GhSearchScreen> {
       _loading = true;
     });
     try {
-      var data = await Provider.of<AuthModel>(context).query('''
+      final auth = context.read<AuthModel>();
+      final data = await auth.query('''
 {
   repository: search(first: $pageSize, type: REPOSITORY, query: "$keyword") {
     nodes {
@@ -112,7 +113,7 @@ class _GhSearchScreenState extends State<GhSearchScreen> {
   }
 
   Widget _buildInput() {
-    final theme = Provider.of<ThemeModel>(context); 
+    final theme = Provider.of<ThemeModel>(context);
     switch (Provider.of<ThemeModel>(context).theme) {
       case AppThemeType.cupertino:
         return Container(
@@ -199,7 +200,7 @@ class _GhSearchScreenState extends State<GhSearchScreen> {
           number: p['number'],
           title: p['title'],
           updatedAt: DateTime.parse(p['updatedAt']),
-          url: Uri.parse(p['url']).path,
+          url: '/github' + Uri.parse(p['url']).path,
           isPr: p['__typename'] == 'PullRequest',
         );
     }

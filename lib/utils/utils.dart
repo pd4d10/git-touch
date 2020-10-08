@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
@@ -26,6 +25,9 @@ class StorageKeys {
   static const codeThemeDark = 'code-theme-dark';
   static const iCodeFontSize = 'code-font-size';
   static const codeFontFamily = 'code-font-family';
+
+  static getDefaultStartTabKey(String platform) =>
+      'default-start-tab-$platform';
 }
 
 class CommonStyle {

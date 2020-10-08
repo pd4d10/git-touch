@@ -19,9 +19,10 @@ class GtObjectScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold(
       title: AppBarTitle(path ?? 'Files'),
-      fetchData: () async {
+      fetch: () async {
         final suffix = path == null ? '' : '/$path';
-        final res = await Provider.of<AuthModel>(context)
+        final res = await context
+            .read<AuthModel>()
             .fetchGitea('/repos/$owner/$name/contents$suffix');
         return res;
       },

@@ -21,13 +21,13 @@ class GhNotificationScreen extends StatefulWidget {
 
 class GhNotificationScreenState extends State<GhNotificationScreen> {
   Future<Map<String, NotificationGroup>> fetchNotifications(int index) async {
-    List items = await Provider.of<AuthModel>(context).getWithCredentials(
-        '/notifications?all=${index == 2}&participating=${index == 1}');
-    final ns =
-        items.map((item) => GithubNotificationItem.fromJson(item)).toList();
-
+    final ns = await context.read<AuthModel>().ghClient.getJSON(
+          '/notifications?all=${index == 2}&participating=${index == 1}',
+          convert: (vs) =>
+              [for (var v in vs) GithubNotificationItem.fromJson(v)],
+        );
     if (index == 0) {
-      Provider.of<NotificationModel>(context).setCount(ns.length);
+      context.read<NotificationModel>().setCount(ns.length);
     }
 
     Map<String, NotificationGroup> _groupMap = {};
@@ -82,7 +82,7 @@ ${item.key}: pullRequest(number: ${item.subject.number}) {
       if (schema == '{}') return _groupMap;
 
       // Fimber.d(schema);
-      var data = await Provider.of<AuthModel>(context).query(schema);
+      var data = await context.read<AuthModel>().query(schema);
       _groupMap.forEach((repo, group) {
         group.items.forEach((item) {
           var groupData = data[group.key];
@@ -121,9 +121,12 @@ ${item.key}: pullRequest(number: ${item.subject.number}) {
           ),
           GestureDetector(
             onTap: () async {
-              final auth = Provider.of<AuthModel>(context);
-              await auth.ghClient.activity.markRepositoryNotificationsRead(
-                  RepositorySlug.full(group.fullName));
+              await context
+                  .read<AuthModel>()
+                  .ghClient
+                  .activity
+                  .markRepositoryNotificationsRead(
+                      RepositorySlug.full(group.fullName));
               // await _onSwitchTab(); // TODO:
             },
             child: Icon(
@@ -171,10 +174,12 @@ ${item.key}: pullRequest(number: ${item.subject.number}) {
       actionBuilder: (_, refresh) => ActionEntry(
         iconData: Icons.done_all,
         onTap: () async {
-          var value = await Provider.of<ThemeModel>(context)
+          final value = await context
+              .read<ThemeModel>()
               .showConfirm(context, Text('Mark all as read?'));
           if (value) {
-            await Provider.of<AuthModel>(context)
+            await context
+                .read<AuthModel>()
                 .ghClient
                 .activity
                 .markNotificationsRead();

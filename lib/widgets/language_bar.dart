@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:provider/provider.dart';
-import 'package:github/src/const/language_color.dart';
+import 'package:github/github.dart' as github;
 
 class LanguageBarItem {
   String name;
@@ -13,7 +13,7 @@ class LanguageBarItem {
     @required this.name,
     @required this.ratio,
     String hexColor,
-  }) : hexColor = hexColor ?? languagesColor[name];
+  }) : hexColor = hexColor ?? github.languageColors[name];
 }
 
 class LanguageBar extends StatelessWidget {
@@ -84,6 +84,8 @@ class LanguageBar extends StatelessWidget {
                     style: TextStyle(
                       color: theme.palette.text,
                       fontSize: 18,
+                      decoration: TextDecoration.underline,
+                      decorationColor: theme.palette.background,
                     ),
                   ),
                 ]),
@@ -95,6 +97,8 @@ class LanguageBar extends StatelessWidget {
                   style: TextStyle(
                     color: theme.palette.secondaryText,
                     fontSize: 18,
+                    decoration: TextDecoration.underline,
+                    decorationColor: theme.palette.background,
                   ),
                 ),
               ),

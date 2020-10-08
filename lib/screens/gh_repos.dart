@@ -19,34 +19,30 @@ class GhReposScreen extends StatelessWidget {
       : title = 'Stars',
         isStar = true;
 
-  Future<ListPayload<GhReposRepository, String>> _query(BuildContext context,
-      [String cursor]) async {
-    final res = await Provider.of<AuthModel>(context).gqlClient.execute(
-        GhReposQuery(
-            variables:
-                GhReposArguments(owner: owner, isStar: isStar, after: cursor)));
-    final data = res.data.user;
-    if (isStar) {
-      return ListPayload(
-        cursor: data.starredRepositories.pageInfo.endCursor,
-        items: data.starredRepositories.nodes,
-        hasMore: data.starredRepositories.pageInfo.hasNextPage,
-      );
-    } else {
-      return ListPayload(
-        cursor: data.repositories.pageInfo.endCursor,
-        items: data.repositories.nodes,
-        hasMore: data.repositories.pageInfo.hasNextPage,
-      );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GhReposRepository, String>(
       title: AppBarTitle(title),
-      onRefresh: () => _query(context),
-      onLoadMore: (cursor) => _query(context, cursor),
+      fetch: (cursor) async {
+        final auth = context.read<AuthModel>();
+        final res = await auth.gqlClient.execute(GhReposQuery(
+            variables:
+                GhReposArguments(owner: owner, isStar: isStar, after: cursor)));
+        final data = res.data.user;
+        if (isStar) {
+          return ListPayload(
+            cursor: data.starredRepositories.pageInfo.endCursor,
+            items: data.starredRepositories.nodes,
+            hasMore: data.starredRepositories.pageInfo.hasNextPage,
+          );
+        } else {
+          return ListPayload(
+            cursor: data.repositories.pageInfo.endCursor,
+            items: data.repositories.nodes,
+            hasMore: data.repositories.pageInfo.hasNextPage,
+          );
+        }
+      },
       itemBuilder: (v) {
         return RepositoryItem.gh(
           owner: v.owner.login,

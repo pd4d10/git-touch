@@ -21,6 +21,8 @@ class GiteaOrg {
   String fullName;
   String avatarUrl;
   String description;
+  String website;
+  String location;
   GiteaOrg();
   factory GiteaOrg.fromJson(Map<String, dynamic> json) =>
       _$GiteaOrgFromJson(json);
@@ -110,4 +112,13 @@ class GiteaIssue {
   GiteaIssue();
   factory GiteaIssue.fromJson(Map<String, dynamic> json) =>
       _$GiteaIssueFromJson(json);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GiteaHeatmapItem {
+  int timestamp;
+  int contributions;
+  GiteaHeatmapItem();
+  factory GiteaHeatmapItem.fromJson(Map<String, dynamic> json) =>
+      _$GiteaHeatmapItemFromJson(json);
 }

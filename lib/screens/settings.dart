@@ -13,24 +13,7 @@ import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
 
-class SettingsScreen extends StatefulWidget {
-  @override
-  _SettingsScreenState createState() => _SettingsScreenState();
-}
-
-class _SettingsScreenState extends State<SettingsScreen> {
-  var _version = '';
-
-  @override
-  void initState() {
-    super.initState();
-    PackageInfo.fromPlatform().then((info) {
-      setState(() {
-        _version = info.version;
-      });
-    });
-  }
-
+class SettingsScreen extends StatelessWidget {
   Widget _buildRightWidget(BuildContext context, bool checked) {
     final theme = Provider.of<ThemeModel>(context);
     if (!checked) return null;
@@ -47,19 +30,48 @@ class _SettingsScreenState extends State<SettingsScreen> {
       body: Column(
         children: <Widget>[
           CommonStyle.verticalGap,
-          TableView(headerText: 'accounts', items: [
-            TableViewItem(
-              text: Text('Switch Accounts'),
-              url: '/login',
-              rightWidget: Text(auth.activeAccount.login),
-            ),
-            if (auth.activeAccount.platform == PlatformType.github)
+          TableView(headerText: 'system', items: [
+            if (auth.activeAccount.platform == PlatformType.github) ...[
+              TableViewItem(
+                text: Text('GitHub status'),
+                url: 'https://www.githubstatus.com/',
+              ),
               TableViewItem(
                 text: Text('Review Permissions'),
                 url:
                     'https://github.com/settings/connections/applications/$clientId',
                 rightWidget: Text(auth.activeAccount.login),
               ),
+            ],
+            if (auth.activeAccount.platform == PlatformType.gitlab)
+              TableViewItem(
+                text: Text('GitLab status'),
+                url: '${auth.activeAccount.domain}/help',
+                rightWidget: FutureBuilder<String>(
+                  future:
+                      auth.fetchGitlab('/version').then((v) => v['version']),
+                  builder: (context, snapshot) {
+                    return Text(snapshot.data ?? '');
+                  },
+                ),
+              ),
+            if (auth.activeAccount.platform == PlatformType.gitea)
+              TableViewItem(
+                leftIconData: Octicons.info,
+                text: Text('Gitea status'),
+                url: '/gitea/status',
+                rightWidget: FutureBuilder<String>(
+                  future: auth.fetchGitea('/version').then((v) => v['version']),
+                  builder: (context, snapshot) {
+                    return Text(snapshot.data ?? '');
+                  },
+                ),
+              ),
+            TableViewItem(
+              text: Text('Switch accounts'),
+              url: '/login',
+              rightWidget: Text(auth.activeAccount.login),
+            ),
           ]),
           CommonStyle.verticalGap,
           TableView(headerText: 'theme', items: [
@@ -123,7 +135,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               url: (auth.activeAccount.platform == PlatformType.github
                       ? ''
                       : 'https://github.com') +
-                  '/pd4d10/git-touch/issues/new',
+                  '/github/pd4d10/git-touch/issues/new',
             ),
             TableViewItem(
               text: Text('Rate This App'),
@@ -143,12 +155,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ]),
           CommonStyle.verticalGap,
           TableView(headerText: 'about', items: [
-            TableViewItem(text: Text('Version'), rightWidget: Text(_version)),
+            TableViewItem(
+                text: Text('Version'),
+                rightWidget: FutureBuilder<String>(
+                  future:
+                      PackageInfo.fromPlatform().then((info) => info.version),
+                  builder: (context, snapshot) {
+                    return Text(snapshot.data ?? '');
+                  },
+                )),
             TableViewItem(
               text: Text('Source Code'),
               rightWidget: Text('pd4d10/git-touch'),
               url: (auth.activeAccount.platform == PlatformType.github
-                      ? ''
+                      ? '/github'
                       : 'https://github.com') +
                   '/pd4d10/git-touch',
             ),

@@ -29,15 +29,21 @@ class TabScaffold extends StatelessWidget {
       case AppThemeType.cupertino:
         return DefaultTextStyle(
           style: DefaultTextStyle.of(context).style.copyWith(fontSize: 14),
-          child: CupertinoSlidingSegmentedControl(
-            groupValue: activeTab,
-            onValueChanged: onTabSwitch,
-            children: tabs.asMap().map((key, text) => MapEntry(
-                key,
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: Text(text),
-                ))),
+          child: Row(
+            children: [
+              Expanded(
+                child: CupertinoSlidingSegmentedControl(
+                  groupValue: activeTab,
+                  onValueChanged: onTabSwitch,
+                  children: tabs.asMap().map((key, text) => MapEntry(
+                      key,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: Text(text),
+                      ))),
+                ),
+              ),
+            ],
           ),
         );
       default:

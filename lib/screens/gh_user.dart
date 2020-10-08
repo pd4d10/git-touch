@@ -6,11 +6,12 @@ import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/action_entry.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
+import 'package:git_touch/widgets/contribution.dart';
 import 'package:git_touch/widgets/mutation_button.dart';
 import 'package:git_touch/widgets/entry_item.dart';
 import 'package:git_touch/widgets/repository_item.dart';
 import 'package:git_touch/widgets/table_view.dart';
-import 'package:git_touch/widgets/text_contains_organization.dart';
+import 'package:git_touch/widgets/text_with_at.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/widgets/user_header.dart';
 import 'package:provider/provider.dart';
@@ -62,7 +63,6 @@ class GhUserScreen extends StatelessWidget {
     final theme = Provider.of<ThemeModel>(context);
     final auth = Provider.of<AuthModel>(context);
     final login = p.login;
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
@@ -77,18 +77,13 @@ class GhUserScreen extends StatelessWidget {
                   active: p.viewerIsFollowing,
                   text: p.viewerIsFollowing ? 'Unfollow' : 'Follow',
                   onPressed: () async {
-                    final res = await auth.gqlClient.execute(
-                      GhFollowQuery(
-                        variables: GhFollowArguments(
-                          id: p.id,
-                          flag: !p.viewerIsFollowing,
-                        ),
-                      ),
-                    );
+                    if (p.viewerIsFollowing) {
+                      await auth.ghClient.users.unfollowUser(p.login);
+                    } else {
+                      await auth.ghClient.users.followUser(p.login);
+                    }
                     setState(() {
-                      p.viewerIsFollowing =
-                          res.data.unfollowUser?.user?.viewerIsFollowing ??
-                              res.data.followUser.user.viewerIsFollowing;
+                      p.viewerIsFollowing = !p.viewerIsFollowing;
                     });
                   },
                 )
@@ -99,65 +94,60 @@ class GhUserScreen extends StatelessWidget {
           EntryItem(
             count: p.repositories.totalCount,
             text: 'Repositories',
-            url: '/$login?tab=repositories',
+            url: '/github/$login?tab=repositories',
           ),
           EntryItem(
             count: p.starredRepositories.totalCount,
             text: 'Stars',
-            url: '/$login?tab=stars',
+            url: '/github/$login?tab=stars',
           ),
           EntryItem(
             count: p.followers.totalCount,
             text: 'Followers',
-            url: '/$login?tab=followers',
+            url: '/github/$login?tab=followers',
           ),
           EntryItem(
             count: p.following.totalCount,
             text: 'Following',
-            url: '/$login?tab=following',
+            url: '/github/$login?tab=following',
           ),
         ]),
         CommonStyle.border,
-        Container(
-          padding: CommonStyle.padding,
-          child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            reverse: true,
-            child: Wrap(
-              spacing: 3,
-              children: p.contributionsCollection.contributionCalendar.weeks
-                  .map((week) {
-                return Wrap(
-                  direction: Axis.vertical,
-                  spacing: 3,
-                  children: week.contributionDays.map((day) {
-                    var color = convertColor(day.color);
-                    if (theme.brightness == Brightness.dark) {
-                      color = Color.fromRGBO(0xff - color.red,
-                          0xff - color.green, 0xff - color.blue, 1);
-                    }
-                    return SizedBox(
-                      width: 10,
-                      height: 10,
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(color: color),
-                      ),
-                    );
-                  }).toList(),
-                );
-              }).toList(),
-            ),
-          ),
+        ContributionWidget(
+          weeks: [
+            for (final week
+                in p.contributionsCollection.contributionCalendar.weeks)
+              [
+                for (final day in week.contributionDays)
+                  ContributionDay(hexColor: day.color)
+              ]
+          ],
         ),
         CommonStyle.border,
         TableView(
           hasIcon: true,
           items: [
+            TableViewItem(
+              leftIconData: Icons.rss_feed,
+              text: Text('Events'),
+              url: '/github/$login?tab=events',
+            ),
+            TableViewItem(
+              leftIconData: Octicons.book,
+              text: Text('Gists'),
+              url: '/github/$login?tab=gists',
+            ),
+            TableViewItem(
+              leftIconData: Octicons.home,
+              text: Text('Organizations'),
+              url: '/github/$login?tab=organizations',
+            ),
             if (isNotNullOrEmpty(p.company))
               TableViewItem(
                 leftIconData: Octicons.organization,
-                text: TextContainsOrganization(
-                  p.company,
+                text: TextWithAt(
+                  text: p.company,
+                  linkFactory: (text) => '/github/' + text.substring(1),
                   style: TextStyle(fontSize: 17, color: theme.palette.text),
                   oneLine: true,
                 ),
@@ -237,17 +227,22 @@ class GhUserScreen extends StatelessWidget {
           EntryItem(
             count: p.pinnableItems.totalCount,
             text: 'Repositories',
-            url: '/${p.login}?tab=orgrepo',
+            url: '/github/${p.login}?tab=orgrepo',
           ),
           EntryItem(
             count: p.membersWithRole.totalCount,
             text: 'Members',
-            url: '/${p.login}?tab=people',
+            url: '/github/${p.login}?tab=people',
           ),
         ]),
         TableView(
           hasIcon: true,
           items: [
+            TableViewItem(
+              leftIconData: Icons.rss_feed,
+              text: Text('Events'),
+              url: '/github/$login?tab=events',
+            ),
             if (isNotNullOrEmpty(p.location))
               TableViewItem(
                 leftIconData: Octicons.location,
@@ -296,9 +291,8 @@ class GhUserScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthModel>(context);
-    final theme = Provider.of<ThemeModel>(context);
     return RefreshStatefulScaffold<GhUserRepositoryOwner>(
-      fetchData: () async {
+      fetch: () async {
         final data = await auth.gqlClient.execute(GhUserQuery(
             variables:
                 GhUserArguments(login: login ?? '', isViewer: isViewer)));

@@ -79,7 +79,11 @@ query GhUsers(
         createdAt
       }
     }
-    stargazers(first: 30, after: $after) @include(if: $isStar) {
+    stargazers(
+      first: 30
+      after: $after
+      orderBy: { field: STARRED_AT, direction: DESC }
+    ) @include(if: $isStar) {
       pageInfo {
         hasNextPage
         endCursor

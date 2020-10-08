@@ -2,15 +2,25 @@ import 'package:fluro/fluro.dart';
 import 'package:git_touch/screens/bb_commits.dart';
 import 'package:git_touch/screens/bb_object.dart';
 import 'package:git_touch/screens/bb_repo.dart';
+import 'package:git_touch/screens/bb_issues.dart';
+import 'package:git_touch/screens/bb_pulls.dart';
 import 'package:git_touch/screens/bb_user.dart';
 import 'package:git_touch/screens/code_theme.dart';
 import 'package:git_touch/screens/gh_commits.dart';
+import 'package:git_touch/screens/gh_contributors.dart';
+import 'package:git_touch/screens/gh_events.dart';
+import 'package:git_touch/screens/gh_files.dart';
+import 'package:git_touch/screens/gh_gists_files.dart';
 import 'package:git_touch/screens/gh_org_repos.dart';
+import 'package:git_touch/screens/gl_commit.dart';
+import 'package:git_touch/screens/gl_starrers.dart';
 import 'package:git_touch/screens/gt_commits.dart';
 import 'package:git_touch/screens/gt_issues.dart';
 import 'package:git_touch/screens/gt_object.dart';
-import 'package:git_touch/screens/gt_org.dart';
+import 'package:git_touch/screens/gt_orgs.dart';
 import 'package:git_touch/screens/gt_repo.dart';
+import 'package:git_touch/screens/gt_repos.dart';
+import 'package:git_touch/screens/gt_status.dart';
 import 'package:git_touch/screens/gt_user.dart';
 import 'package:git_touch/screens/gl_blob.dart';
 import 'package:git_touch/screens/gl_commits.dart';
@@ -25,6 +35,7 @@ import 'package:git_touch/screens/gl_user.dart';
 import 'package:git_touch/screens/gh_issue.dart';
 import 'package:git_touch/screens/gh_issue_form.dart';
 import 'package:git_touch/screens/gh_issues.dart';
+import 'package:git_touch/screens/gt_users.dart';
 import 'package:git_touch/screens/login.dart';
 import 'package:git_touch/screens/gh_object.dart';
 import 'package:git_touch/screens/gh_pulls.dart';
@@ -33,6 +44,10 @@ import 'package:git_touch/screens/gh_repo.dart';
 import 'package:git_touch/screens/settings.dart';
 import 'package:git_touch/screens/gh_user.dart';
 import 'package:git_touch/screens/gh_users.dart';
+import 'package:git_touch/screens/gh_orgs.dart';
+import 'package:git_touch/screens/gh_gists.dart';
+import 'package:git_touch/screens/gh_gist_object.dart';
+import 'package:git_touch/screens/gh_compare.dart';
 
 class RouterScreen {
   String path;
@@ -56,7 +71,7 @@ class CommonRouter {
 }
 
 class GithubRouter {
-  static const prefix = ''; // TODO: '/github';
+  static const prefix = '/github';
   static final routes = [
     GithubRouter.user,
     GithubRouter.repo,
@@ -69,6 +84,11 @@ class GithubRouter {
     GithubRouter.object,
     GithubRouter.stargazers,
     GithubRouter.watchers,
+    GithubRouter.contributors,
+    GithubRouter.files,
+    GithubRouter.gistFiles,
+    GithubRouter.gistObject,
+    GithubRouter.compare,
   ];
   static final user = RouterScreen('/:login', (_, p) {
     final login = p['login'].first;
@@ -86,6 +106,12 @@ class GithubRouter {
         return GhReposScreen(login);
       case 'orgrepo':
         return GhOrgReposScreen(login);
+      case 'organizations':
+        return GhUserOrganizationScreen(login);
+      case 'gists':
+        return GhGistsScreen(login);
+      case 'events':
+        return GhEventsScreen(login);
       default:
         return GhUserScreen(login);
     }
@@ -97,6 +123,18 @@ class GithubRouter {
       return GhRepoScreen(p['owner'].first, p['name'].first,
           branch: p['ref'].first);
     }
+  });
+  static final gistObject = RouterScreen('/:login/gists/:id/:file', (_, p) {
+    return GistObjectScreen(
+      p['login'].first,
+      p['id'].first,
+      p['file'].first,
+      raw: p['raw']?.first,
+      content: p['content'].first,
+    );
+  });
+  static final gistFiles = RouterScreen('/:login/gists/:id', (_, p) {
+    return GhGistsFilesScreen(p['login'].first, p['id'].first);
   });
   static final issueAdd = RouterScreen('/:owner/:name/issues/new', (_, p) {
     return GhIssueFormScreen(p['owner'].first, p['name'].first);
@@ -114,6 +152,17 @@ class GithubRouter {
       (context, p) => GhIssueScreen(
           p['owner'].first, p['name'].first, int.parse(p['number'].first),
           isPullRequest: true));
+  static final files = RouterScreen(
+      '/:owner/:name/pull/:number/files',
+      (context, p) => GhFilesScreen(
+            p['owner'].first,
+            p['name'].first,
+            int.parse(p['number'].first),
+          ));
+  static final compare = RouterScreen(
+      '/:owner/:name/compare/:before/:head',
+      (context, p) => GhComparisonScreen(p['owner'].first, p['name'].first,
+          p['before'].first, p['head'].first));
   static final commits = RouterScreen('/:owner/:name/commits',
       (context, p) => GhCommitsScreen(p['owner'].first, p['name'].first));
   static final object = RouterScreen('/:owner/:name/blob/:ref', (_, p) {
@@ -133,6 +182,10 @@ class GithubRouter {
     return GhUsersScreen(p['owner'].first, UsersScreenType.watch,
         repoName: p['name'].first);
   });
+  static final contributors =
+      RouterScreen('/:owner/:name/contributors', (_, p) {
+    return GhContributorsScreen(p['owner'].first, p['name'].first);
+  });
 }
 
 class GitlabRouter {
@@ -143,9 +196,11 @@ class GitlabRouter {
     GitlabRouter.blob,
     GitlabRouter.tree,
     GitlabRouter.project,
+    GitlabRouter.starrers,
     GitlabRouter.issues,
     GitlabRouter.mergeRequests,
     GitlabRouter.commits,
+    GitlabRouter.commit,
     GitlabRouter.projectMembers,
     GitlabRouter.groupMembers,
     GitlabRouter.issue,
@@ -166,6 +221,8 @@ class GitlabRouter {
           path: params['path']?.first));
   static final project = RouterScreen('/projects/:id',
       (context, params) => GlProjectScreen(int.parse(params['id'].first)));
+  static final starrers = RouterScreen('/projects/:id/starrers',
+      (context, params) => GlStarrersScreen(int.parse(params['id'].first)));
   static final issues = RouterScreen(
       '/projects/:id/issues',
       (context, params) => GlIssuesScreen(
@@ -182,6 +239,10 @@ class GitlabRouter {
       '/projects/:id/commits',
       (context, params) =>
           GlCommitsScreen(params['id'].first, prefix: params['prefix'].first));
+  static final commit = RouterScreen(
+      '/projects/:id/commit/:sha',
+      (context, params) =>
+          GlCommitScreen(params['id'].first, sha: params['sha'].first));
   static final projectMembers = RouterScreen(
       '/projects/:id/members',
       (context, parameters) =>
@@ -204,19 +265,41 @@ class GitlabRouter {
 class GiteaRouter {
   static const prefix = '/gitea';
   static final routes = [
+    GiteaRouter.status,
     GiteaRouter.user,
     GiteaRouter.repo,
     GiteaRouter.object,
+    GiteaRouter.stargazers,
+    GiteaRouter.watchers,
+    GiteaRouter.forks,
     GiteaRouter.commits,
     GiteaRouter.issues,
     GiteaRouter.pulls,
   ];
-  static final user = RouterScreen(
-    '/:login',
-    (context, params) => params['org'].first == '1'
-        ? GtOrgScreen(params['login'].first)
-        : GtUserScreen(params['login'].first),
-  );
+  static final status =
+      RouterScreen('/status', (context, parameters) => GtStatusScreen());
+  static final user = RouterScreen('/:login', (context, p) {
+    final login = p['login'].first;
+    final tab = p['tab']?.first;
+    switch (tab) {
+      case 'followers':
+        return GtUsersScreen.followers(login);
+      case 'following':
+        return GtUsersScreen.following(login);
+      case 'people':
+        return GtUsersScreen.member(login);
+      case 'stars':
+        return GtReposScreen.star(login);
+      case 'repositories':
+        return GtReposScreen(login);
+      case 'orgrepo':
+        return GtReposScreen.org(login);
+      case 'organizations':
+        return GtOrgsScreen.ofUser(login);
+      default:
+        return GtUserScreen(login);
+    }
+  });
   static final repo = RouterScreen(
     '/:owner/:name',
     (context, params) =>
@@ -230,6 +313,15 @@ class GiteaRouter {
       path: params['path']?.first,
     ),
   );
+  static final stargazers = RouterScreen('/:owner/:name/stargazers', (_, p) {
+    return GtUsersScreen.stargazers(p['owner'].first, p['name'].first);
+  });
+  static final watchers = RouterScreen('/:owner/:name/watchers', (_, p) {
+    return GtUsersScreen.watchers(p['owner'].first, p['name'].first);
+  });
+  static final forks = RouterScreen('/:owner/:name/forks', (_, p) {
+    return GtReposScreen.forks(p['owner'].first, p['name'].first);
+  });
   static final commits = RouterScreen('/:owner/:name/commits',
       (_, p) => GtCommitsScreen(p['owner'].first, p['name'].first));
   static final issues = RouterScreen('/:owner/:name/issues',
@@ -245,6 +337,8 @@ class BitbucketRouter {
     BitbucketRouter.repo,
     BitbucketRouter.object,
     BitbucketRouter.commits,
+    BitbucketRouter.issues,
+    BitbucketRouter.pulls,
   ];
   static final user = RouterScreen(
       '/:login',
@@ -264,8 +358,16 @@ class BitbucketRouter {
       path: params['path']?.first,
     ),
   );
+  static final issues = RouterScreen(
+      '/:owner/:name/issues/:ref',
+      (_, p) =>
+          BbIssuesScreen(p['owner'].first, p['name'].first, p['ref'].first));
   static final commits = RouterScreen(
       '/:owner/:name/commits/:ref',
       (_, p) =>
           BbCommitsScreen(p['owner'].first, p['name'].first, p['ref'].first));
+  static final pulls = RouterScreen(
+      '/:owner/:name/pulls/:ref',
+      (_, p) =>
+          BbPullsScreen(p['owner'].first, p['name'].first, p['ref'].first));
 }

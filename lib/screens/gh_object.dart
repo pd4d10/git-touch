@@ -23,7 +23,7 @@ class GhObjectScreen extends StatelessWidget {
     return RefreshStatefulScaffold<RepositoryContents>(
       // canRefresh: !_isImage, // TODO:
       title: AppBarTitle(path == null ? 'Files' : path),
-      fetchData: () async {
+      fetch: () async {
         // Do not request again for images
         if (path != null &&
             raw != null &&
@@ -34,8 +34,10 @@ class GhObjectScreen extends StatelessWidget {
         }
 
         final suffix = path == null ? '' : '/$path';
-        final auth = Provider.of<AuthModel>(context);
-        final res = await auth.ghClient.repositories
+        final res = await context
+            .read<AuthModel>()
+            .ghClient
+            .repositories
             .getContents(RepositorySlug(owner, name), suffix, ref: ref);
         if (res.isDirectory) {
           res.tree.sort((a, b) {
@@ -58,7 +60,7 @@ class GhObjectScreen extends StatelessWidget {
             items: data.tree.map((v) {
               // if (item.type == 'commit') return null;
               final uri = Uri(
-                path: '/$owner/$name/blob/$ref',
+                path: '/github/$owner/$name/blob/$ref',
                 queryParameters: {
                   'path': v.path,
                   ...(v.downloadUrl == null ? {} : {'raw': v.downloadUrl}),

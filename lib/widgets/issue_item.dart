@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/widgets/avatar.dart';
-import 'package:git_touch/widgets/label.dart';
 import 'package:provider/provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import '../utils/utils.dart';

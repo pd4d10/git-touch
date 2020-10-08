@@ -23,8 +23,8 @@ class BbRepoScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold<Tuple2<BbRepo, String>>(
       title: AppBarTitle('Repository'),
-      fetchData: () async {
-        final auth = Provider.of<AuthModel>(context);
+      fetch: () async {
+        final auth = context.read<AuthModel>();
         final r = await auth.fetchBbJson('/repositories/$owner/$name');
         final repo = BbRepo.fromJson(r);
         final res = await auth.fetchBb(
@@ -56,6 +56,16 @@ class BbRepoScreen extends StatelessWidget {
                   text: Text('Code'),
                   rightWidget: Text(filesize(p.size)),
                   url: '/bitbucket/$owner/$name/src/${p.mainbranch.name}',
+                ),
+                TableViewItem(
+                  leftIconData: Octicons.issue_opened,
+                  text: Text('Issues'),
+                  url: '/bitbucket/$owner/$name/issues/${p.mainbranch.name}',
+                ),
+                TableViewItem(
+                  leftIconData: Octicons.git_pull_request,
+                  text: Text('Pull requests'),
+                  url: '/bitbucket/$owner/$name/pulls/${p.mainbranch.name}',
                 ),
                 TableViewItem(
                   leftIconData: Octicons.history,

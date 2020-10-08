@@ -27,8 +27,8 @@ class GlProjectScreen extends StatelessWidget {
         Tuple5<GitlabProject, Map<String, double>, List<GitlabProjectBadge>,
             int, String>>(
       title: AppBarTitle('Project'),
-      fetchData: () async {
-        final auth = Provider.of<AuthModel>(context);
+      fetch: () async {
+        final auth = context.read<AuthModel>();
         final res = await Future.wait([
           auth.fetchGitlab('/projects/$id?statistics=1'),
           auth.fetchGitlab('/projects/$id/languages'),
@@ -96,6 +96,7 @@ class GlProjectScreen extends StatelessWidget {
                 EntryItem(
                   count: p.starCount,
                   text: 'Stars',
+                  url: '/gitlab/projects/$id/starrers',
                 ),
                 EntryItem(
                   count: p.forksCount,
@@ -117,7 +118,9 @@ class GlProjectScreen extends StatelessWidget {
                 TableViewItem(
                   leftIconData: Octicons.code,
                   text: Text(langs.keys.isEmpty ? 'Code' : langs.keys.first),
-                  rightWidget: Text(filesize(p.statistics.repositorySize)),
+                  rightWidget: p.statistics == null
+                      ? null
+                      : Text(filesize(p.statistics.repositorySize)),
                   url: '/gitlab/projects/$id/tree/${p.defaultBranch}',
                 ),
                 if (p.issuesEnabled)
@@ -136,7 +139,9 @@ class GlProjectScreen extends StatelessWidget {
                 TableViewItem(
                   leftIconData: Octicons.history,
                   text: Text('Commits'),
-                  rightWidget: Text(p.statistics.commitCount.toString()),
+                  rightWidget: p.statistics == null
+                      ? null
+                      : Text(p.statistics.commitCount.toString()),
                   url: '/gitlab/projects/$id/commits?prefix=$prefix',
                 ),
               ],

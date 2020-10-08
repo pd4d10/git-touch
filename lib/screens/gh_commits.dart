@@ -13,25 +13,6 @@ class GhCommitsScreen extends StatelessWidget {
   final String branch;
   GhCommitsScreen(this.owner, this.name, {this.branch});
 
-  Future<ListPayload<GhCommitsCommit, String>> _query(BuildContext context,
-      [String cursor]) async {
-    final res = await Provider.of<AuthModel>(context).gqlClient.execute(
-        GhCommitsQuery(
-            variables: GhCommitsArguments(
-                owner: owner,
-                name: name,
-                hasRef: branch != null,
-                ref: branch ?? '',
-                after: cursor)));
-    final ref = res.data.repository.defaultBranchRef ?? res.data.repository.ref;
-    final history = (ref.target as GhCommitsCommit).history;
-    return ListPayload(
-      cursor: history.pageInfo.endCursor,
-      hasMore: history.pageInfo.hasNextPage,
-      items: history.nodes,
-    );
-  }
-
   Widget _buildStatus(GhCommitsStatusState state) {
     const size = 18.0;
     switch (state) {
@@ -48,14 +29,32 @@ class GhCommitsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GhCommitsCommit, String>(
       title: AppBarTitle('Commits'),
-      onRefresh: () => _query(context),
-      onLoadMore: (cursor) => _query(context, cursor),
+      fetch: (cursor) async {
+        final res = await context.read<AuthModel>().gqlClient.execute(
+            GhCommitsQuery(
+                variables: GhCommitsArguments(
+                    owner: owner,
+                    name: name,
+                    hasRef: branch != null,
+                    ref: branch ?? '',
+                    after: cursor)));
+        final ref =
+            res.data.repository.defaultBranchRef ?? res.data.repository.ref;
+        final history = (ref.target as GhCommitsCommit).history;
+        return ListPayload(
+          cursor: history.pageInfo.endCursor,
+          hasMore: history.pageInfo.hasNextPage,
+          items: history.nodes,
+        );
+      },
       itemBuilder: (payload) {
+        final login = payload.author?.user?.login;
         return CommitItem(
           url: payload.url,
           avatarUrl: payload.author?.avatarUrl,
+          avatarLink: login == null ? null : '/github/$login',
           message: payload.messageHeadline,
-          author: payload.author?.user?.login ?? payload.author.name,
+          author: login ?? payload.author.name,
           createdAt: payload.committedDate,
           widgets: payload.status == null
               ? null

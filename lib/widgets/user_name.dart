@@ -12,7 +12,7 @@ class UserName extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
     return Link(
-      url: '/$login',
+      url: '/github/$login',
       child: Container(
         // padding: EdgeInsets.all(2),
         decoration: BoxDecoration(

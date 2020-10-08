@@ -12,29 +12,25 @@ class GhPullsScreen extends StatelessWidget {
   final String name;
   GhPullsScreen(this.owner, this.name);
 
-  Future<ListPayload<GhPullsPullRequest, String>> _query(BuildContext context,
-      [String cursor]) async {
-    final res =
-        await Provider.of<AuthModel>(context).gqlClient.execute(GhPullsQuery(
-                variables: GhPullsArguments(
-              owner: owner,
-              name: name,
-              cursor: cursor,
-            )));
-    final pulls = res.data.repository.pullRequests;
-    return ListPayload(
-      cursor: pulls.pageInfo.endCursor,
-      hasMore: pulls.pageInfo.hasNextPage,
-      items: pulls.nodes,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GhPullsPullRequest, String>(
       title: AppBarTitle('Pull requests'),
-      onRefresh: () => _query(context),
-      onLoadMore: (cursor) => _query(context, cursor),
+      fetch: (cursor) async {
+        final res =
+            await context.read<AuthModel>().gqlClient.execute(GhPullsQuery(
+                    variables: GhPullsArguments(
+                  owner: owner,
+                  name: name,
+                  cursor: cursor,
+                )));
+        final pulls = res.data.repository.pullRequests;
+        return ListPayload(
+          cursor: pulls.pageInfo.endCursor,
+          hasMore: pulls.pageInfo.hasNextPage,
+          items: pulls.nodes,
+        );
+      },
       itemBuilder: (p) => IssueItem(
         isPr: true,
         author: p.author?.login,
@@ -50,7 +46,7 @@ class GhPullsScreen extends StatelessWidget {
                   MyLabel(name: label.name, cssColor: label.color)
               ]),
         url:
-            '/${p.repository.owner.login}/${p.repository.name}/pull/${p.number}',
+            '/github/${p.repository.owner.login}/${p.repository.name}/pull/${p.number}',
       ),
     );
   }

@@ -14,8 +14,7 @@ class GithubRequestSerializer extends RequestSerializer {
       // "operationName": request.operation.operationName,
       "variables": request.variables,
       "query": printNode(request.operation.document),
-      if (thunk != null)
-        "extensions": thunk.getRequestExtensions(request),
+      if (thunk != null) "extensions": thunk.getRequestExtensions(request),
     };
   }
 }
