@@ -7,8 +7,8 @@ import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/avatar.dart';
 import 'package:git_touch/widgets/link.dart';
 import 'package:provider/provider.dart';
-import 'package:github/src/const/language_color.dart';
 import 'package:timeago/timeago.dart' as timeago;
+import 'package:github/github.dart' as github;
 
 class RepositoryItem extends StatelessWidget {
   final String owner;
@@ -192,7 +192,7 @@ class RepositoryItem extends StatelessWidget {
                             height: 12,
                             decoration: BoxDecoration(
                               color: convertColor(primaryLanguageColor ??
-                                  languagesColor[primaryLanguageName]),
+                                  github.languageColors[primaryLanguageName]),
                               shape: BoxShape.circle,
                             ),
                           ),

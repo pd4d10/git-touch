@@ -39,7 +39,7 @@ dependencies:
   artemis: ^3.2.1
   fluro: ^1.5.1
   package_info: ^0.4.0
-  github: ^7.0.2
+  github: ^7.0.3
   # git:
   #   url: git://github.com/pd4d10/github.dart.git
   #   ref: patch-1

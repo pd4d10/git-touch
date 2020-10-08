@@ -5,8 +5,8 @@ import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/avatar.dart';
 import 'package:git_touch/widgets/link.dart';
 import 'package:provider/provider.dart';
-import 'package:github/src/const/language_color.dart';
 import 'package:timeago/timeago.dart' as timeago;
+import 'package:github/github.dart' as github;
 
 class GistsItem extends StatelessWidget {
   final String description;
@@ -105,7 +105,8 @@ class GistsItem extends StatelessWidget {
                             width: 12,
                             height: 12,
                             decoration: BoxDecoration(
-                              color: convertColor(languagesColor[language]),
+                              color:
+                                  convertColor(github.languageColors[language]),
                               shape: BoxShape.circle,
                             ),
                           ),
