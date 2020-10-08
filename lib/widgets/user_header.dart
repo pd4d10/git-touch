@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/avatar.dart';
+import 'package:git_touch/widgets/mutation_button.dart';
 import 'package:provider/provider.dart';
 
 class UserHeader extends StatelessWidget {
@@ -10,7 +11,7 @@ class UserHeader extends StatelessWidget {
   final String login;
   final DateTime createdAt;
   final String bio;
-  final Widget followWidget;
+  final List<Widget> rightWidgets;
 
   UserHeader({
     @required this.avatarUrl,
@@ -18,8 +19,17 @@ class UserHeader extends StatelessWidget {
     @required this.login,
     @required this.createdAt,
     @required this.bio,
-    this.followWidget,
-  });
+    bool isViewer = false,
+    List<Widget> rightWidgets,
+  }) : this.rightWidgets = [
+          ...(rightWidgets ?? []),
+          if (isViewer)
+            MutationButton(
+              active: false,
+              text: 'Switch accounts',
+              url: '/login',
+            )
+        ];
 
   @override
   Widget build(BuildContext context) {
@@ -32,9 +42,9 @@ class UserHeader extends StatelessWidget {
           Row(
             children: <Widget>[
               Avatar(url: avatarUrl, size: AvatarSize.extraLarge),
-              if (followWidget != null) ...[
+              if (rightWidgets?.isNotEmpty) ...[
                 Expanded(child: Container()),
-                followWidget,
+                ...rightWidgets,
               ]
             ],
           ),

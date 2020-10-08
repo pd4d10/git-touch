@@ -115,7 +115,7 @@ class GhRepoScreen extends StatelessWidget {
                       active: repo.viewerSubscription ==
                           GhRepoSubscriptionState.SUBSCRIBED,
                       text: _buildWatchState(repo.viewerSubscription),
-                      onPressed: () async {
+                      onTap: () async {
                         final vs = GhRepoSubscriptionState.values.where((v) =>
                             v != GhRepoSubscriptionState.ARTEMIS_UNKNOWN);
                         theme.showActions(context, [
@@ -176,7 +176,7 @@ class GhRepoScreen extends StatelessWidget {
                     MutationButton(
                       active: repo.viewerHasStarred,
                       text: repo.viewerHasStarred ? 'Unstar' : 'Star',
-                      onPressed: () async {
+                      onTap: () async {
                         if (repo.viewerHasStarred) {
                           await context
                               .read<AuthModel>()

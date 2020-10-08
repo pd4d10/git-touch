@@ -72,22 +72,24 @@ class GhUserScreen extends StatelessWidget {
           login: p.login,
           createdAt: p.createdAt,
           bio: p.bio,
-          followWidget: p.viewerCanFollow == true
-              ? MutationButton(
-                  active: p.viewerIsFollowing,
-                  text: p.viewerIsFollowing ? 'Unfollow' : 'Follow',
-                  onPressed: () async {
-                    if (p.viewerIsFollowing) {
-                      await auth.ghClient.users.unfollowUser(p.login);
-                    } else {
-                      await auth.ghClient.users.followUser(p.login);
-                    }
-                    setState(() {
-                      p.viewerIsFollowing = !p.viewerIsFollowing;
-                    });
-                  },
-                )
-              : null,
+          isViewer: isViewer,
+          rightWidgets: [
+            if (p.viewerCanFollow)
+              MutationButton(
+                active: p.viewerIsFollowing,
+                text: p.viewerIsFollowing ? 'Unfollow' : 'Follow',
+                onTap: () async {
+                  if (p.viewerIsFollowing) {
+                    await auth.ghClient.users.unfollowUser(p.login);
+                  } else {
+                    await auth.ghClient.users.followUser(p.login);
+                  }
+                  setState(() {
+                    p.viewerIsFollowing = !p.viewerIsFollowing;
+                  });
+                },
+              )
+          ],
         ),
         CommonStyle.border,
         Row(children: [
