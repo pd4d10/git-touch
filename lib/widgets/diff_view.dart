@@ -67,7 +67,9 @@ class DiffView extends StatelessWidget {
                     style: TextStyle(
                       backgroundColor: l.type == '-'
                           ? Color(0x00fbe9eb)
-                          : l.type == '+' ? Color(0xffecfdf0) : null,
+                          : l.type == '+'
+                              ? Color(0xffecfdf0)
+                              : null,
                     ),
                   ),
               ],
