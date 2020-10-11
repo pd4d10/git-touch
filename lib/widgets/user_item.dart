@@ -32,6 +32,14 @@ class UserItem extends StatelessWidget {
     @required this.avatarUrl,
     @required this.bio,
     @required int id,
+  }) : url = '/gitlab/user/$id';
+
+  UserItem.gitlabGroup({
+    @required this.login,
+    @required this.name,
+    @required this.avatarUrl,
+    @required this.bio,
+    @required int id,
   }) : url = '/gitlab/group/$id';
 
   UserItem.gitea({

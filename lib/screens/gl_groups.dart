@@ -24,7 +24,7 @@ class GlGroupsScreenn extends StatelessWidget {
         );
       },
       itemBuilder: (v) {
-        return UserItem.gitlab(
+        return UserItem.gitlabGroup(
           avatarUrl: v.avatarUrl,
           login: v.path,
           name: v.name,
