@@ -314,9 +314,7 @@ __typename
     login
   }
   pullRequest {
-    headRef {
-      name
-    }
+    headRefName
   }
 }
 ... on BaseRefForcePushedEvent {
@@ -342,9 +340,7 @@ __typename
     login
   }
   pullRequest {
-    headRef {
-      name
-    }
+    headRefName
   }
   beforeCommit {
     oid

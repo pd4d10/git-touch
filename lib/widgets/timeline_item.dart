@@ -358,7 +358,7 @@ class TimelineItem extends StatelessWidget {
           textSpan: TextSpan(children: [
             TextSpan(text: ' restored the '),
             WidgetSpan(
-                child: PrimerBranchName(p['pullRequest']['headRef']['name'])),
+                child: PrimerBranchName(p['pullRequest']['headRefName'])),
             TextSpan(text: ' branch')
           ]),
         );
@@ -370,7 +370,7 @@ class TimelineItem extends StatelessWidget {
             children: [
               TextSpan(text: ' force-pushed the '),
               WidgetSpan(
-                  child: PrimerBranchName(p['pullRequest']['headRef']['name'])),
+                  child: PrimerBranchName(p['pullRequest']['headRefName'])),
               TextSpan(text: ' branch from '),
               TextSpan(
                 text: (p['beforeCommit']['oid'] as String).substring(0, 7),
