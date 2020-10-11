@@ -33,8 +33,10 @@ class CommitItem extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Avatar(url: avatarUrl, linkUrl: avatarLink),
-            SizedBox(width: 10),
+            if (avatarUrl != null) ...[
+              Avatar(url: avatarUrl, linkUrl: avatarLink),
+              SizedBox(width: 10),
+            ],
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
