@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:async';
 import 'package:git_touch/models/bitbucket.dart';
 import 'package:git_touch/models/gitea.dart';
+import 'package:git_touch/models/gitee.dart';
 import 'package:git_touch/utils/request_serilizer.dart';
 import 'package:github/github.dart';
 import 'package:gql_http_link/gql_http_link.dart';
@@ -26,6 +27,7 @@ class PlatformType {
   static const gitlab = 'gitlab';
   static const bitbucket = 'bitbucket';
   static const gitea = 'gitea';
+  static const gitee = 'gitee';
 }
 
 class DataWithPage<T> {
@@ -312,6 +314,32 @@ class AuthModel with ChangeNotifier {
       data: v.values,
       hasMore: v.next != null,
     );
+  }
+
+  Future loginToGitee(String token) async {
+    token = token.trim();
+    try {
+      loading = true;
+      notifyListeners();
+      final res = await http.get('https://gitee.com/api/v5/user',
+          headers: {'Authorization': 'token $token'});
+      final info = json.decode(res.body);
+      if (info['message'] != null) {
+        throw info['message'];
+      }
+      final user = GiteeUser.fromJson(info);
+
+      await _addAccount(Account(
+        platform: PlatformType.gitea,
+        domain: 'https://gitee.com',
+        token: token,
+        login: user.login,
+        avatarUrl: user.avatarUrl,
+      ));
+    } finally {
+      loading = false;
+      notifyListeners();
+    }
   }
 
   Future<void> init() async {

@@ -293,6 +293,24 @@ class _LoginScreenState extends State<LoginScreen> {
                       }
                     },
                   ),
+                  _buildAddItem(
+                    text: 'Gitee Account',
+                    brand: Octicons.git_branch, // TODO: brand icon
+                    onTap: () async {
+                      final result = await theme.showConfirm(
+                        context,
+                        _buildPopup(context),
+                      );
+                      if (result == true) {
+                        try {
+                          await auth.loginToGitee(_tokenController.text);
+                          _tokenController.clear();
+                        } catch (err) {
+                          showError(err);
+                        }
+                      }
+                    },
+                  ),
                   Container(
                     padding: CommonStyle.padding,
                     child: Text(
