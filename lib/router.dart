@@ -8,6 +8,7 @@ import 'package:git_touch/screens/bb_user.dart';
 import 'package:git_touch/screens/code_theme.dart';
 import 'package:git_touch/screens/ge_repos.dart';
 import 'package:git_touch/screens/ge_user.dart';
+import 'package:git_touch/screens/ge_users.dart';
 import 'package:git_touch/screens/gh_commits.dart';
 import 'package:git_touch/screens/gh_contributors.dart';
 import 'package:git_touch/screens/gh_events.dart';
@@ -383,9 +384,11 @@ class GiteeRouter {
     final login = p['login'].first;
     final tab = p['tab']?.first;
     switch (tab) {
-      case 'followers': //
-      case 'following': //
-      case 'people': //
+      case 'followers':
+        return GeUsersScreen.followers(login);
+      case 'following':
+        return GeUsersScreen.following(login);
+      // case 'people':
       case 'stars':
         return GeReposScreen.star(login);
       case 'repositories':

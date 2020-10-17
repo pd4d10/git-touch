@@ -22,6 +22,17 @@ class GiteeUser {
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
+class GiteeListUser {
+  String login;
+  String avatarUrl;
+  String name;
+  String htmlUrl;
+  GiteeListUser();
+  factory GiteeListUser.fromJson(Map<String, dynamic> json) =>
+      _$GiteeListUserFromJson(json);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
 class GiteeRepo {
   GiteeRepoOwner owner;
   String path;

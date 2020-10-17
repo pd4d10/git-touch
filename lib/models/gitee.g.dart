@@ -39,6 +39,22 @@ Map<String, dynamic> _$GiteeUserToJson(GiteeUser instance) => <String, dynamic>{
       'created_at': instance.createdAt?.toIso8601String(),
     };
 
+GiteeListUser _$GiteeListUserFromJson(Map<String, dynamic> json) {
+  return GiteeListUser()
+    ..login = json['login'] as String
+    ..avatarUrl = json['avatar_url'] as String
+    ..name = json['name'] as String
+    ..htmlUrl = json['html_url'] as String;
+}
+
+Map<String, dynamic> _$GiteeListUserToJson(GiteeListUser instance) =>
+    <String, dynamic>{
+      'login': instance.login,
+      'avatar_url': instance.avatarUrl,
+      'name': instance.name,
+      'html_url': instance.htmlUrl,
+    };
+
 GiteeRepo _$GiteeRepoFromJson(Map<String, dynamic> json) {
   return GiteeRepo()
     ..owner = json['owner'] == null

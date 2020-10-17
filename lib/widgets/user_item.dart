@@ -49,6 +49,13 @@ class UserItem extends StatelessWidget {
     @required this.bio,
   }) : url = '/gitea/$login';
 
+  UserItem.gitee({
+    @required this.login,
+    @required this.name,
+    @required this.avatarUrl,
+    @required this.bio,
+  }) : url = '/gitee/$login';
+
   UserItem.bitbucket({
     @required this.login,
     @required this.name,
