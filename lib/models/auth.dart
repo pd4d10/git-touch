@@ -282,11 +282,14 @@ class AuthModel with ChangeNotifier {
     final res = await http.get(uri, headers: {'Authorization': 'token $token'});
     final info = json.decode(utf8.decode(res.bodyBytes));
 
+    final totalPage = int.tryParse(res.headers['total_page'] ?? '');
+    final totalCount = int.tryParse(res.headers['total_count'] ?? '');
+
     return DataWithPage(
       data: info,
       cursor: page + 1,
-      hasMore: int.tryParse(res.headers['total_page']) > page,
-      total: int.tryParse(res.headers['total_count'] ?? ''),
+      hasMore: totalPage == null ? info.length > limit : totalPage > page,
+      total: totalCount,
     );
   }
 

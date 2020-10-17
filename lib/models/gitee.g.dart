@@ -120,3 +120,56 @@ Map<String, dynamic> _$GiteeRepoNamespaceToJson(GiteeRepoNamespace instance) =>
     <String, dynamic>{
       'path': instance.path,
     };
+
+GiteeCommit _$GiteeCommitFromJson(Map<String, dynamic> json) {
+  return GiteeCommit()
+    ..author = json['author'] == null
+        ? null
+        : GiteeUser.fromJson(json['author'] as Map<String, dynamic>)
+    ..commit = json['commit'] == null
+        ? null
+        : GiteeCommitDetail.fromJson(json['commit'] as Map<String, dynamic>)
+    ..sha = json['sha'] as String
+    ..htmlUrl = json['html_url'] as String;
+}
+
+Map<String, dynamic> _$GiteeCommitToJson(GiteeCommit instance) =>
+    <String, dynamic>{
+      'author': instance.author,
+      'commit': instance.commit,
+      'sha': instance.sha,
+      'html_url': instance.htmlUrl,
+    };
+
+GiteeCommitDetail _$GiteeCommitDetailFromJson(Map<String, dynamic> json) {
+  return GiteeCommitDetail()
+    ..message = json['message'] as String
+    ..author = json['author'] == null
+        ? null
+        : GiteeCommitAuthor.fromJson(json['author'] as Map<String, dynamic>)
+    ..committer = json['committer'] == null
+        ? null
+        : GiteeCommitAuthor.fromJson(json['committer'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$GiteeCommitDetailToJson(GiteeCommitDetail instance) =>
+    <String, dynamic>{
+      'message': instance.message,
+      'author': instance.author,
+      'committer': instance.committer,
+    };
+
+GiteeCommitAuthor _$GiteeCommitAuthorFromJson(Map<String, dynamic> json) {
+  return GiteeCommitAuthor()
+    ..name = json['name'] as String
+    ..email = json['email'] as String
+    ..date =
+        json['date'] == null ? null : DateTime.parse(json['date'] as String);
+}
+
+Map<String, dynamic> _$GiteeCommitAuthorToJson(GiteeCommitAuthor instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'email': instance.email,
+      'date': instance.date?.toIso8601String(),
+    };

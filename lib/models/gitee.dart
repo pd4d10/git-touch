@@ -71,3 +71,34 @@ class GiteeRepoNamespace {
   factory GiteeRepoNamespace.fromJson(Map<String, dynamic> json) =>
       _$GiteeRepoNamespaceFromJson(json);
 }
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GiteeCommit {
+  GiteeUser author;
+  GiteeCommitDetail commit;
+  String sha;
+  String htmlUrl;
+  GiteeCommit();
+  factory GiteeCommit.fromJson(Map<String, dynamic> json) =>
+      _$GiteeCommitFromJson(json);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GiteeCommitDetail {
+  String message;
+  GiteeCommitAuthor author;
+  GiteeCommitAuthor committer;
+  GiteeCommitDetail();
+  factory GiteeCommitDetail.fromJson(Map<String, dynamic> json) =>
+      _$GiteeCommitDetailFromJson(json);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GiteeCommitAuthor {
+  String name;
+  String email;
+  DateTime date;
+  GiteeCommitAuthor();
+  factory GiteeCommitAuthor.fromJson(Map<String, dynamic> json) =>
+      _$GiteeCommitAuthorFromJson(json);
+}

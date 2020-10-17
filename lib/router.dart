@@ -6,6 +6,7 @@ import 'package:git_touch/screens/bb_issues.dart';
 import 'package:git_touch/screens/bb_pulls.dart';
 import 'package:git_touch/screens/bb_user.dart';
 import 'package:git_touch/screens/code_theme.dart';
+import 'package:git_touch/screens/ge_commits.dart';
 import 'package:git_touch/screens/ge_repo.dart';
 import 'package:git_touch/screens/ge_repos.dart';
 import 'package:git_touch/screens/ge_user.dart';
@@ -384,6 +385,7 @@ class GiteeRouter {
     GiteeRouter.stargazers,
     GiteeRouter.watchers,
     GiteeRouter.forks,
+    GiteeRouter.commits,
   ];
   static final user = RouterScreen('/:login', (context, p) {
     final login = p['login'].first;
@@ -416,4 +418,8 @@ class GiteeRouter {
   static final forks = RouterScreen('/:owner/:name/forks', (_, p) {
     return GeReposScreen.forks(p['owner'].first, p['name'].first);
   });
+  static final commits = RouterScreen(
+    '/:owner/:name/commits',
+    (_, p) => GeCommitsScreen(p['owner'].first, p['name'].first),
+  );
 }
