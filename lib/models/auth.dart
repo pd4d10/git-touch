@@ -266,6 +266,30 @@ class AuthModel with ChangeNotifier {
     return info;
   }
 
+  Future<DataWithPage> fetchGiteeWithPage(String path,
+      {int page, int limit}) async {
+    page = page ?? 1;
+    limit = limit ?? pageSize;
+
+    var uri = Uri.parse('${activeAccount.domain}/api/v5$path');
+    uri = uri.replace(
+      queryParameters: {
+        'page': page.toString(),
+        'per_page': limit.toString(),
+        ...uri.queryParameters,
+      },
+    );
+    final res = await http.get(uri, headers: {'Authorization': 'token $token'});
+    final info = json.decode(utf8.decode(res.bodyBytes));
+
+    return DataWithPage(
+      data: info,
+      cursor: page + 1,
+      hasMore: int.tryParse(res.headers['total_page']) > page,
+      total: int.tryParse(res.headers['total_count'] ?? ''),
+    );
+  }
+
   Future loginToBb(String domain, String username, String appPassword) async {
     domain = domain.trim();
     username = username.trim();
