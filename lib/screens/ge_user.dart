@@ -92,7 +92,7 @@ class GeUserScreen extends StatelessWidget {
             //     TableViewItem(
             //       leftIconData: Octicons.home,
             //       text: Text('Organizations'),
-            //       url: '/gitea/$login?tab=organizations',
+            //       url: '/gitee/$login?tab=organizations',
             //     ),
             //   ],
             // ),
@@ -101,15 +101,15 @@ class GeUserScreen extends StatelessWidget {
               children: <Widget>[
                 for (var v in repos)
                   RepositoryItem(
-                    owner: v.owner.login,
+                    owner: v.namespace.path,
                     avatarUrl: v.owner.avatarUrl,
                     name: v.path,
                     description: v.description,
                     starCount: v.stargazersCount,
                     forkCount: v.forksCount,
                     note: 'Updated ${timeago.format(v.updatedAt)}',
-                    url: '/gitea/${v.owner.login}/${v.path}',
-                    avatarLink: '/gitea/${v.owner.login}',
+                    url: '/gitee/${v.namespace.path}/${v.path}',
+                    avatarLink: '/gitee/${v.namespace.path}',
                     // iconData: , TODO:
                   )
               ],

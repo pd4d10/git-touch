@@ -17,6 +17,9 @@ class GeReposScreen extends StatelessWidget {
   GeReposScreen.star(String owner)
       : api = '/users/$owner/starred',
         title = 'Stars';
+  GeReposScreen.forks(String owner, String name)
+      : api = '/repos/$owner/$name/forks',
+        title = 'Forks';
 
   @override
   Widget build(BuildContext context) {

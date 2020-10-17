@@ -34,6 +34,7 @@ class GiteeListUser {
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GiteeRepo {
+  GiteeRepoNamespace namespace;
   GiteeRepoOwner owner;
   String path;
   String description;
@@ -45,6 +46,10 @@ class GiteeRepo {
   int stargazersCount;
   int watchersCount;
   DateTime updatedAt;
+  String license;
+  String homepage;
+  int openIssuesCount;
+  bool pullRequestsEnabled;
   GiteeRepo();
   factory GiteeRepo.fromJson(Map<String, dynamic> json) =>
       _$GiteeRepoFromJson(json);
@@ -57,4 +62,12 @@ class GiteeRepoOwner {
   GiteeRepoOwner();
   factory GiteeRepoOwner.fromJson(Map<String, dynamic> json) =>
       _$GiteeRepoOwnerFromJson(json);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GiteeRepoNamespace {
+  String path;
+  GiteeRepoNamespace();
+  factory GiteeRepoNamespace.fromJson(Map<String, dynamic> json) =>
+      _$GiteeRepoNamespaceFromJson(json);
 }

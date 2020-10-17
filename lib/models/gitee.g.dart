@@ -57,6 +57,9 @@ Map<String, dynamic> _$GiteeListUserToJson(GiteeListUser instance) =>
 
 GiteeRepo _$GiteeRepoFromJson(Map<String, dynamic> json) {
   return GiteeRepo()
+    ..namespace = json['namespace'] == null
+        ? null
+        : GiteeRepoNamespace.fromJson(json['namespace'] as Map<String, dynamic>)
     ..owner = json['owner'] == null
         ? null
         : GiteeRepoOwner.fromJson(json['owner'] as Map<String, dynamic>)
@@ -71,10 +74,15 @@ GiteeRepo _$GiteeRepoFromJson(Map<String, dynamic> json) {
     ..watchersCount = json['watchers_count'] as int
     ..updatedAt = json['updated_at'] == null
         ? null
-        : DateTime.parse(json['updated_at'] as String);
+        : DateTime.parse(json['updated_at'] as String)
+    ..license = json['license'] as String
+    ..homepage = json['homepage'] as String
+    ..openIssuesCount = json['open_issues_count'] as int
+    ..pullRequestsEnabled = json['pull_requests_enabled'] as bool;
 }
 
 Map<String, dynamic> _$GiteeRepoToJson(GiteeRepo instance) => <String, dynamic>{
+      'namespace': instance.namespace,
       'owner': instance.owner,
       'path': instance.path,
       'description': instance.description,
@@ -86,6 +94,10 @@ Map<String, dynamic> _$GiteeRepoToJson(GiteeRepo instance) => <String, dynamic>{
       'stargazers_count': instance.stargazersCount,
       'watchers_count': instance.watchersCount,
       'updated_at': instance.updatedAt?.toIso8601String(),
+      'license': instance.license,
+      'homepage': instance.homepage,
+      'open_issues_count': instance.openIssuesCount,
+      'pull_requests_enabled': instance.pullRequestsEnabled,
     };
 
 GiteeRepoOwner _$GiteeRepoOwnerFromJson(Map<String, dynamic> json) {
@@ -98,4 +110,13 @@ Map<String, dynamic> _$GiteeRepoOwnerToJson(GiteeRepoOwner instance) =>
     <String, dynamic>{
       'login': instance.login,
       'avatar_url': instance.avatarUrl,
+    };
+
+GiteeRepoNamespace _$GiteeRepoNamespaceFromJson(Map<String, dynamic> json) {
+  return GiteeRepoNamespace()..path = json['path'] as String;
+}
+
+Map<String, dynamic> _$GiteeRepoNamespaceToJson(GiteeRepoNamespace instance) =>
+    <String, dynamic>{
+      'path': instance.path,
     };

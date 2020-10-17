@@ -6,6 +6,7 @@ import 'package:git_touch/screens/bb_issues.dart';
 import 'package:git_touch/screens/bb_pulls.dart';
 import 'package:git_touch/screens/bb_user.dart';
 import 'package:git_touch/screens/code_theme.dart';
+import 'package:git_touch/screens/ge_repo.dart';
 import 'package:git_touch/screens/ge_repos.dart';
 import 'package:git_touch/screens/ge_user.dart';
 import 'package:git_touch/screens/ge_users.dart';
@@ -379,6 +380,10 @@ class GiteeRouter {
   static const prefix = '/gitee';
   static final routes = [
     GiteeRouter.user,
+    GiteeRouter.repo,
+    GiteeRouter.stargazers,
+    GiteeRouter.watchers,
+    GiteeRouter.forks,
   ];
   static final user = RouterScreen('/:login', (context, p) {
     final login = p['login'].first;
@@ -396,5 +401,19 @@ class GiteeRouter {
       default:
         return GeUserScreen(login);
     }
+  });
+  static final repo = RouterScreen(
+    '/:owner/:name',
+    (context, params) =>
+        GeRepoScreen(params['owner'].first, params['name'].first),
+  );
+  static final stargazers = RouterScreen('/:owner/:name/stargazers', (_, p) {
+    return GeUsersScreen.stargazers(p['owner'].first, p['name'].first);
+  });
+  static final watchers = RouterScreen('/:owner/:name/watchers', (_, p) {
+    return GeUsersScreen.watchers(p['owner'].first, p['name'].first);
+  });
+  static final forks = RouterScreen('/:owner/:name/forks', (_, p) {
+    return GeReposScreen.forks(p['owner'].first, p['name'].first);
   });
 }
