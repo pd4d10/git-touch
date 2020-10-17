@@ -6,6 +6,7 @@ import 'package:git_touch/screens/bb_issues.dart';
 import 'package:git_touch/screens/bb_pulls.dart';
 import 'package:git_touch/screens/bb_user.dart';
 import 'package:git_touch/screens/code_theme.dart';
+import 'package:git_touch/screens/ge_user.dart';
 import 'package:git_touch/screens/gh_commits.dart';
 import 'package:git_touch/screens/gh_contributors.dart';
 import 'package:git_touch/screens/gh_events.dart';
@@ -370,4 +371,15 @@ class BitbucketRouter {
       '/:owner/:name/pulls/:ref',
       (_, p) =>
           BbPullsScreen(p['owner'].first, p['name'].first, p['ref'].first));
+}
+
+class GiteeRouter {
+  static const prefix = '/gitee';
+  static final routes = [
+    GiteeRouter.user,
+  ];
+  static final user = RouterScreen(
+    '/:login',
+    (context, params) => GeUserScreen(params['login'].first),
+  );
 }

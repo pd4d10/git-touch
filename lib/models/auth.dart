@@ -259,6 +259,13 @@ class AuthModel with ChangeNotifier {
     );
   }
 
+  Future fetchGitee(String p) async {
+    final res = await http.get('${activeAccount.domain}/api/v5$p',
+        headers: {'Authorization': 'token $token'});
+    final info = json.decode(utf8.decode(res.bodyBytes));
+    return info;
+  }
+
   Future loginToBb(String domain, String username, String appPassword) async {
     domain = domain.trim();
     username = username.trim();

@@ -6,7 +6,7 @@ import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/screens/bb_explore.dart';
 import 'package:git_touch/screens/bb_teams.dart';
 import 'package:git_touch/screens/bb_user.dart';
-import 'package:git_touch/screens/gh_repo.dart';
+import 'package:git_touch/screens/ge_user.dart';
 import 'package:git_touch/screens/gl_search.dart';
 import 'package:git_touch/screens/gt_orgs.dart';
 import 'package:git_touch/screens/gt_user.dart';
@@ -86,6 +86,13 @@ class _HomeState extends State<Home> {
             return GtOrgsScreen();
           case 1:
             return GtUserScreen(auth.activeAccount.login, isViewer: true);
+        }
+        break;
+      case PlatformType.gitee:
+        switch (index) {
+          case 0:
+          case 1:
+            return GeUserScreen(auth.activeAccount.login, isViewer: true);
         }
         break;
     }
@@ -172,6 +179,13 @@ class _HomeState extends State<Home> {
         ];
         break;
       case PlatformType.gitea:
+        navigationItems = [
+          BottomNavigationBarItem(
+              icon: Icon(Icons.group), label: 'Organizations'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Me'),
+        ];
+        break;
+      case PlatformType.gitee:
         navigationItems = [
           BottomNavigationBarItem(
               icon: Icon(Icons.group), label: 'Organizations'),
