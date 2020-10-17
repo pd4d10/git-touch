@@ -40,14 +40,12 @@ dependencies:
   fluro: ^1.5.1
   package_info: ^0.4.0
   github: ^7.0.3
-  # git:
-  #   url: git://github.com/pd4d10/github.dart.git
-  #   ref: patch-1
   # path: ../../github/github.dart
   github_trending: ^0.3.0
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.0
+  universal_io: ^1.0.1
 
 dev_dependencies:
   flutter_test:

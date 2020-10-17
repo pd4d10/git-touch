@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'package:universal_io/io.dart';
 import 'dart:async';
 import 'package:fimber/fimber.dart';
 import 'package:fluro/fluro.dart' as fluro;

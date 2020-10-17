@@ -1,6 +1,6 @@
-import 'dart:io';
 import 'dart:convert';
 import 'dart:async';
+import 'package:universal_io/io.dart';
 import 'package:git_touch/models/bitbucket.dart';
 import 'package:git_touch/models/gitea.dart';
 import 'package:git_touch/models/gitee.dart';
