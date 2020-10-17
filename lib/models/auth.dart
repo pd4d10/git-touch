@@ -330,7 +330,7 @@ class AuthModel with ChangeNotifier {
       final user = GiteeUser.fromJson(info);
 
       await _addAccount(Account(
-        platform: PlatformType.gitea,
+        platform: PlatformType.gitee,
         domain: 'https://gitee.com',
         token: token,
         login: user.login,
