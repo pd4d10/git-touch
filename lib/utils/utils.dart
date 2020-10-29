@@ -48,7 +48,7 @@ Color convertColor(String cssHex) {
   if (cssHex.length == 3) {
     cssHex = cssHex.split('').map((char) => char + char).join('');
   }
-  return Color(int.parse('ff' + cssHex, radix: 16));
+  return Color(int.tryParse('ff' + cssHex, radix: 16) ?? 0);
 }
 
 Color getFontColorByBrightness(Color color) {
