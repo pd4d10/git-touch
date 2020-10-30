@@ -7,8 +7,8 @@ import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/entry_item.dart';
+import 'package:git_touch/widgets/html_view.dart';
 import 'package:git_touch/widgets/language_bar.dart';
-import 'package:git_touch/widgets/markdown_view.dart';
 import 'package:git_touch/widgets/repo_header.dart';
 import 'package:git_touch/widgets/table_view.dart';
 import 'package:provider/provider.dart';
@@ -37,8 +37,16 @@ class GlProjectScreen extends StatelessWidget {
         final p = GitlabProject.fromJson(res[0]);
         String readme;
         if (p.readmeUrl != null) {
-          readme = await auth.fetchWithGitlabToken(
+          // we should get the markdown content, then render it
+          // https://gitlab.com/gitlab-org/gitlab/-/issues/16335
+          final md = await auth.fetchWithGitlabToken(
               p.readmeUrl.replaceFirst(r'/blob/', '/raw/'));
+          final res = await auth.fetchGitlab('/markdown', isPost: true, body: {
+            'text': md,
+            'gfm': true,
+            'project': '${p.namespace.name}/${p.name}'
+          });
+          readme = '<div class="markdown-body">' + res['html'] + '</div>';
         }
         return Tuple5(
           p,
@@ -146,13 +154,7 @@ class GlProjectScreen extends StatelessWidget {
               ],
             ),
             CommonStyle.verticalGap,
-            if (t.item5 != null)
-              Container(
-                padding: CommonStyle.padding,
-                color: theme.palette.background,
-                child: MarkdownView(t.item5),
-              ),
-            CommonStyle.verticalGap,
+            if (t.item5 != null) MarkdownHtmlView(t.item5)
           ],
         );
       },

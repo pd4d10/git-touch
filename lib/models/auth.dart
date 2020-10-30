@@ -177,9 +177,22 @@ class AuthModel with ChangeNotifier {
     return res.body;
   }
 
-  Future fetchGitlab(String p) async {
-    final res = await http.get('${activeAccount.domain}/api/v4$p',
-        headers: {'Private-Token': token});
+  Future fetchGitlab(String p,
+      {isPost = false, Map<String, dynamic> body = const {}}) async {
+    http.Response res;
+    if (isPost) {
+      res = await http.post(
+        '${activeAccount.domain}/api/v4$p',
+        headers: {
+          'Private-Token': token,
+          HttpHeaders.contentTypeHeader: 'application/json'
+        },
+        body: jsonEncode(body),
+      );
+    } else {
+      res = await http.get('${activeAccount.domain}/api/v4$p',
+          headers: {'Private-Token': token});
+    }
     final info = json.decode(utf8.decode(res.bodyBytes));
     if (info is Map && info['message'] != null) throw info['message'];
     return info;
