@@ -8,6 +8,7 @@ import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/action_button.dart';
 import 'package:primer/primer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/services.dart';
 
 class DialogOption<T> {
   final T value;
@@ -102,6 +103,8 @@ class ThemeModel with ChangeNotifier {
   int get theme => _theme;
   bool get ready => _theme != null;
 
+  String markdownCss;
+
   Brightness systemBrightness = Brightness.light;
   void setSystemBrightness(Brightness v) {
     if (v != systemBrightness) {
@@ -182,6 +185,9 @@ class ThemeModel with ChangeNotifier {
     if (AppBrightnessType.values.contains(b)) {
       _brightnessValue = b;
     }
+
+    markdownCss = await rootBundle.loadString('images/github-markdown.css');
+
     notifyListeners();
   }
 

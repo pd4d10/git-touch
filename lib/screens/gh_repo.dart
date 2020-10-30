@@ -7,10 +7,10 @@ import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/entry_item.dart';
+import 'package:git_touch/widgets/html_view.dart';
 import 'package:git_touch/widgets/label.dart';
 import 'package:git_touch/widgets/language_bar.dart';
 import 'package:git_touch/widgets/mutation_button.dart';
-import 'package:git_touch/widgets/markdown_view.dart';
 import 'package:git_touch/widgets/repo_header.dart';
 import 'package:git_touch/widgets/table_view.dart';
 import 'package:github/github.dart';
@@ -18,6 +18,7 @@ import 'package:provider/provider.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:tuple/tuple.dart';
 import 'package:git_touch/widgets/action_button.dart';
+import 'package:universal_io/prefer_universal/io.dart';
 
 class GhRepoScreen extends StatelessWidget {
   final String owner;
@@ -50,12 +51,11 @@ class GhRepoScreen extends StatelessWidget {
 
   Future<String> _fetchReadme(BuildContext context) async {
     try {
-      final res = await context
-          .read<AuthModel>()
-          .ghClient
-          .repositories
-          .getReadme(RepositorySlug(owner, name));
-      return res.text;
+      final res = await context.read<AuthModel>().ghClient.request(
+          'GET', '/repos/$owner/$name/readme', headers: {
+        HttpHeaders.acceptHeader: 'application/vnd.github.v3.html'
+      });
+      return res.body;
     } catch (e) {
       // 404
       return null;
@@ -332,16 +332,7 @@ class GhRepoScreen extends StatelessWidget {
                 ],
               ],
             ),
-            if (readme != null)
-              Container(
-                padding: CommonStyle.padding,
-                color: theme.palette.background,
-                child: MarkdownView(
-                  readme,
-                  basePaths: [owner, name, branch ?? 'master'], // TODO:
-                ),
-              ),
-            CommonStyle.verticalGap,
+            if (readme != null) MarkdownHtmlView(readme)
           ],
         );
       },
