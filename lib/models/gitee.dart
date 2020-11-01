@@ -50,6 +50,7 @@ class GiteeRepo {
   String homepage;
   int openIssuesCount;
   bool pullRequestsEnabled;
+  String defaultBranch;
   GiteeRepo();
   factory GiteeRepo.fromJson(Map<String, dynamic> json) =>
       _$GiteeRepoFromJson(json);
@@ -101,4 +102,15 @@ class GiteeCommitAuthor {
   GiteeCommitAuthor();
   factory GiteeCommitAuthor.fromJson(Map<String, dynamic> json) =>
       _$GiteeCommitAuthorFromJson(json);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GiteeTreeItem {
+  String path;
+  String type;
+  String sha;
+  int size;
+  GiteeTreeItem();
+  factory GiteeTreeItem.fromJson(Map<String, dynamic> json) =>
+      _$GiteeTreeItemFromJson(json);
 }

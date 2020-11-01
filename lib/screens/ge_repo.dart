@@ -73,7 +73,7 @@ class GeRepoScreen extends StatelessWidget {
                   leftIconData: Octicons.code,
                   text: Text('Code'),
                   rightWidget: Text(p.license ?? ''),
-                  url: '/gitee/$owner/$name/blob',
+                  url: '/gitee/$owner/$name/tree/${p.defaultBranch}',
                 ),
                 TableViewItem(
                   leftIconData: Octicons.issue_opened,

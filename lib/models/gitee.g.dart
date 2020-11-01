@@ -78,7 +78,8 @@ GiteeRepo _$GiteeRepoFromJson(Map<String, dynamic> json) {
     ..license = json['license'] as String
     ..homepage = json['homepage'] as String
     ..openIssuesCount = json['open_issues_count'] as int
-    ..pullRequestsEnabled = json['pull_requests_enabled'] as bool;
+    ..pullRequestsEnabled = json['pull_requests_enabled'] as bool
+    ..defaultBranch = json['default_branch'] as String;
 }
 
 Map<String, dynamic> _$GiteeRepoToJson(GiteeRepo instance) => <String, dynamic>{
@@ -98,6 +99,7 @@ Map<String, dynamic> _$GiteeRepoToJson(GiteeRepo instance) => <String, dynamic>{
       'homepage': instance.homepage,
       'open_issues_count': instance.openIssuesCount,
       'pull_requests_enabled': instance.pullRequestsEnabled,
+      'default_branch': instance.defaultBranch,
     };
 
 GiteeRepoOwner _$GiteeRepoOwnerFromJson(Map<String, dynamic> json) {
@@ -172,4 +174,20 @@ Map<String, dynamic> _$GiteeCommitAuthorToJson(GiteeCommitAuthor instance) =>
       'name': instance.name,
       'email': instance.email,
       'date': instance.date?.toIso8601String(),
+    };
+
+GiteeTreeItem _$GiteeTreeItemFromJson(Map<String, dynamic> json) {
+  return GiteeTreeItem()
+    ..path = json['path'] as String
+    ..type = json['type'] as String
+    ..sha = json['sha'] as String
+    ..size = json['size'] as int;
+}
+
+Map<String, dynamic> _$GiteeTreeItemToJson(GiteeTreeItem instance) =>
+    <String, dynamic>{
+      'path': instance.path,
+      'type': instance.type,
+      'sha': instance.sha,
+      'size': instance.size,
     };
