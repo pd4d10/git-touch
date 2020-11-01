@@ -16,7 +16,7 @@ Android users can also download APK file from [release page](https://github.com/
 ## Screenshots
 
 <p>
-  <img src="https://raw.githubusercontent.com/pd4d10/git-touch/main/assets/screenshot-dark.png" alt="Dark screenshot" width="400" /><img src="https://raw.githubusercontent.com/pd4d10/git-touch/main/assets/screenshot-light.png" alt="Light screenshot" width="320" />
+  <img src="https://raw.githubusercontent.com/pd4d10/git-touch/main/assets/screenshot-dark.png" alt="Dark screenshot" width="400" /><img src="https://raw.githubusercontent.com/pd4d10/git-touch/main/assets/screenshot-light.png" alt="Light screenshot" width="400" />
 </p>
 
 ## Supported platforms
