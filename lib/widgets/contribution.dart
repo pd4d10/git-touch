@@ -5,6 +5,9 @@ import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:provider/provider.dart';
 
+const contributionEmptyColor = '#ebedf0';
+const contributionColors = ['#9be9a8', '#40c463', '#30a14e', '#216e39'];
+
 class ContributionDay {
   String hexColor;
   int count;
@@ -28,10 +31,10 @@ class ContributionWidget extends StatelessWidget {
             }
           }
           if (day.count == 0) {
-            day.hexColor = emptyColor;
+            day.hexColor = contributionEmptyColor;
           } else {
             final level = (day.count * 4) ~/ (maxCount + 1);
-            day.hexColor = colors[level];
+            day.hexColor = contributionColors[level];
           }
         }
         if (day.hexColor != null) {
@@ -40,9 +43,6 @@ class ContributionWidget extends StatelessWidget {
       }
     }
   }
-
-  static const emptyColor = '#ebedf0';
-  static const colors = ['#9be9a8', '#40c463', '#30a14e', '#216e39'];
 
   static Color _revert(Color color) {
     return Color.fromRGBO(
