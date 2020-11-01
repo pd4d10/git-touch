@@ -46,7 +46,7 @@ class GlProjectScreen extends StatelessWidget {
             'gfm': true,
             'project': '${p.namespace.name}/${p.name}'
           });
-          readme = '<div class="markdown-body">' + res['html'] + '</div>';
+          readme = (res['html'] as String).normalizedHtml;
         }
         return Tuple5(
           p,

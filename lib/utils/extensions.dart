@@ -18,4 +18,8 @@ extension MyString<T extends String> on String {
     if (dotext.isEmpty) return null;
     return dotext.substring(1);
   }
+
+  String get normalizedHtml {
+    return '<div class="markdown-body">' + this + '</div>';
+  }
 }

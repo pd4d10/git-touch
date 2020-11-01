@@ -1,16 +1,18 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/gitee.dart';
-import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/entry_item.dart';
-import 'package:git_touch/widgets/markdown_view.dart';
+import 'package:git_touch/widgets/html_view.dart';
 import 'package:git_touch/widgets/repo_header.dart';
 import 'package:git_touch/widgets/table_view.dart';
 import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
+import 'package:http/http.dart' as http;
 
 class GeRepoScreen extends StatelessWidget {
   final String owner;
@@ -27,13 +29,17 @@ class GeRepoScreen extends StatelessWidget {
           auth.fetchGitee('/repos/$owner/$name'),
           auth.fetchGitee('/repos/$owner/$name/readme'),
         ]);
-        return Tuple2(
-          GiteeRepo.fromJson(res[0]),
-          (res[1]['content'] as String)?.base64ToUtf8,
-        );
+        final md = (res[1]['content'] as String)?.base64ToUtf8;
+
+        final html = await http.post(
+          '${auth.activeAccount.domain}/api/v5/markdown',
+          headers: {'Authorization': 'token ${auth.token}'},
+          body: {'text': md},
+        ).then((res) => utf8.decode(res.bodyBytes));
+
+        return Tuple2(GiteeRepo.fromJson(res[0]), html.normalizedHtml);
       },
       bodyBuilder: (t, setState) {
-        final theme = Provider.of<ThemeModel>(context);
         final p = t.item1;
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -95,13 +101,7 @@ class GeRepoScreen extends StatelessWidget {
               ],
             ),
             CommonStyle.verticalGap,
-            if (t.item2 != null)
-              Container(
-                padding: CommonStyle.padding,
-                color: theme.palette.background,
-                child: MarkdownView(t.item2),
-              ),
-            CommonStyle.verticalGap,
+            if (t.item2 != null) MarkdownHtmlView(t.item2)
           ],
         );
       },
