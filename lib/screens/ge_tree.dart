@@ -40,9 +40,9 @@ class GeTreeScreen extends StatelessWidget {
                 url: (() {
                   switch (item.type) {
                     case 'tree':
-                      return '/gitee/$owner/$name/tree/${item.sha}';
+                      return '/gitee/$owner/$name/tree/${item.sha}?path=${item.path.urlencode}';
                     case 'blob':
-                      return '/gitee/$owner/$name/blob/${item.sha}';
+                      return '/gitee/$owner/$name/blob/${item.sha}?path=${item.path.urlencode}';
                     default:
                       return null;
                   }

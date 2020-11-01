@@ -6,6 +6,7 @@ import 'package:git_touch/screens/bb_issues.dart';
 import 'package:git_touch/screens/bb_pulls.dart';
 import 'package:git_touch/screens/bb_user.dart';
 import 'package:git_touch/screens/code_theme.dart';
+import 'package:git_touch/screens/ge_blob.dart';
 import 'package:git_touch/screens/ge_commits.dart';
 import 'package:git_touch/screens/ge_repo.dart';
 import 'package:git_touch/screens/ge_repos.dart';
@@ -388,6 +389,7 @@ class GiteeRouter {
     GiteeRouter.forks,
     GiteeRouter.commits,
     GiteeRouter.tree,
+    GiteeRouter.blob,
   ];
   static final user = RouterScreen('/:login', (context, p) {
     final login = p['login'].first;
@@ -429,6 +431,17 @@ class GiteeRouter {
     (context, parameters) {
       return GeTreeScreen(parameters['owner'].first, parameters['name'].first,
           parameters['sha'].first);
+    },
+  );
+  static final blob = RouterScreen(
+    '/:owner/:name/blob/:sha',
+    (context, parameters) {
+      return GeBlobScreen(
+        parameters['owner'].first,
+        parameters['name'].first,
+        parameters['sha'].first,
+        parameters['path'].first,
+      );
     },
   );
 }

@@ -191,3 +191,11 @@ Map<String, dynamic> _$GiteeTreeItemToJson(GiteeTreeItem instance) =>
       'sha': instance.sha,
       'size': instance.size,
     };
+
+GiteeBlob _$GiteeBlobFromJson(Map<String, dynamic> json) {
+  return GiteeBlob()..content = json['content'] as String;
+}
+
+Map<String, dynamic> _$GiteeBlobToJson(GiteeBlob instance) => <String, dynamic>{
+      'content': instance.content,
+    };

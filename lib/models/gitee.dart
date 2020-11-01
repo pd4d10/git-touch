@@ -114,3 +114,11 @@ class GiteeTreeItem {
   factory GiteeTreeItem.fromJson(Map<String, dynamic> json) =>
       _$GiteeTreeItemFromJson(json);
 }
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GiteeBlob {
+  String content;
+  GiteeBlob();
+  factory GiteeBlob.fromJson(Map<String, dynamic> json) =>
+      _$GiteeBlobFromJson(json);
+}
