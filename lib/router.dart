@@ -10,6 +10,7 @@ import 'package:git_touch/screens/ge_blob.dart';
 import 'package:git_touch/screens/ge_commits.dart';
 import 'package:git_touch/screens/ge_repo.dart';
 import 'package:git_touch/screens/ge_repos.dart';
+import 'package:git_touch/screens/ge_search.dart';
 import 'package:git_touch/screens/ge_tree.dart';
 import 'package:git_touch/screens/ge_user.dart';
 import 'package:git_touch/screens/ge_users.dart';
@@ -382,6 +383,7 @@ class BitbucketRouter {
 class GiteeRouter {
   static const prefix = '/gitee';
   static final routes = [
+    GiteeRouter.search,
     GiteeRouter.user,
     GiteeRouter.repo,
     GiteeRouter.stargazers,
@@ -391,6 +393,9 @@ class GiteeRouter {
     GiteeRouter.tree,
     GiteeRouter.blob,
   ];
+  static final search = RouterScreen('/search', (context, parameters) {
+    return GeSearchScreen();
+  });
   static final user = RouterScreen('/:login', (context, p) {
     final login = p['login'].first;
     final tab = p['tab']?.first;

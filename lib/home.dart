@@ -21,6 +21,7 @@ import 'package:provider/provider.dart';
 import 'package:git_touch/screens/gh_news.dart';
 import 'package:git_touch/screens/gh_search.dart';
 import 'package:git_touch/screens/gh_trending.dart';
+import 'package:git_touch/screens/ge_search.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -91,6 +92,7 @@ class _HomeState extends State<Home> {
       case PlatformType.gitee:
         switch (index) {
           case 0:
+            return GeSearchScreen();
           case 1:
             return GeUserScreen(auth.activeAccount.login, isViewer: true);
         }
@@ -187,8 +189,7 @@ class _HomeState extends State<Home> {
         break;
       case PlatformType.gitee:
         navigationItems = [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.group), label: 'Organizations'),
+          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Me'),
         ];
         break;
