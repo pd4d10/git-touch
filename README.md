@@ -4,7 +4,7 @@ An open-source mobile app for Git services including GitHub, GitLab, Bitbucket a
 
 <p>
   <a href="https://apps.apple.com/us/app/gittouch/id1452042346?itsct=apps_box&itscg=30200"><img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-US" alt="Download on the App Store" height="60"></a>
-  <a href="https://play.google.com/store/apps/details?id=io.github.pd4d10.gittouch"><img alt="Get it on Google Play" title="Google Play" src="https://raw.githubusercontent.com/pd4d10/git-touch/master/assets/google-play-badge.png" height="60" /></a>
+  <a href="https://play.google.com/store/apps/details?id=io.github.pd4d10.gittouch"><img alt="Get it on Google Play" title="Google Play" src="https://raw.githubusercontent.com/pd4d10/git-touch/main/assets/google-play-badge.png" height="60" /></a>
 </p>
 
 ## Installation
