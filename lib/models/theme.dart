@@ -1,7 +1,7 @@
 import 'package:universal_io/io.dart';
 import 'dart:async';
 import 'package:fimber/fimber.dart';
-import 'package:fluro/fluro.dart' as fluro;
+import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:git_touch/utils/utils.dart';
@@ -138,7 +138,7 @@ class ThemeModel with ChangeNotifier {
     notifyListeners();
   }
 
-  final router = fluro.Router();
+  final router = FluroRouter();
 
   final paletteLight = Palette(
     primary: PrimerColors.blue500,
@@ -206,8 +206,8 @@ class ThemeModel with ChangeNotifier {
         context,
         url,
         transition: theme == AppThemeType.cupertino
-            ? fluro.TransitionType.cupertino
-            : fluro.TransitionType.material,
+            ? TransitionType.cupertino
+            : TransitionType.material,
         replace: replace,
       );
     } else {

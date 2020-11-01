@@ -37,7 +37,7 @@ dependencies:
   uri: ^0.11.3
   fimber: ^0.4.4
   artemis: ^3.2.1
-  fluro: ^1.5.1
+  fluro: ^1.7.7
   package_info: ^0.4.0
   github: ^7.0.3
   # path: ../../github/github.dart
