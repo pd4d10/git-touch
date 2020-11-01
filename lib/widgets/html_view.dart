@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/theme.dart';
+import 'package:git_touch/utils/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -33,6 +34,7 @@ class HtmlView extends StatefulWidget {
 class _HtmlViewState extends State<HtmlView> {
   double height;
   WebViewController controller;
+  var loaded = false;
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +57,15 @@ class _HtmlViewState extends State<HtmlView> {
           setState(() {
             height = double.parse(res);
           });
+        },
+        navigationDelegate: (request) {
+          if (loaded) {
+            launchUrl(request.url); // TODO:
+            return NavigationDecision.prevent;
+          } else {
+            loaded = true;
+            return NavigationDecision.navigate;
+          }
         },
       ),
     );
