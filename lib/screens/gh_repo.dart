@@ -49,31 +49,33 @@ class GhRepoScreen extends StatelessWidget {
     }
   }
 
-  Future<String> _fetchReadme(BuildContext context) async {
-    try {
-      final res = await context.read<AuthModel>().ghClient.request(
-          'GET', '/repos/$owner/$name/readme', headers: {
-        HttpHeaders.acceptHeader: 'application/vnd.github.v3.html'
-      });
-      return res.body;
-    } catch (e) {
-      // 404
-      return null;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
-    return RefreshStatefulScaffold<Tuple2<GhRepoRepository, String>>(
+    return RefreshStatefulScaffold<
+        Tuple3<GhRepoRepository, Future<int>, Future<String>>>(
       title: AppBarTitle('Repository'),
       fetch: () async {
-        final rs = await Future.wait([
-          _query(context),
-          _fetchReadme(context),
-        ]);
+        final ghClient = context.read<AuthModel>().ghClient;
 
-        return Tuple2(rs[0] as GhRepoRepository, rs[1] as String);
+        final repo = await _query(context);
+
+        final countFuture = ghClient
+            .getJSON('/repos/$owner/$name/stats/contributors')
+            .then((v) => (v as List).length);
+
+        final readmeFuture = ghClient.request(
+          'GET',
+          '/repos/$owner/$name/readme',
+          headers: {HttpHeaders.acceptHeader: 'application/vnd.github.v3.html'},
+        ).then((res) {
+          return res.body;
+        }).catchError((err) {
+          // 404
+          return null;
+        });
+
+        return Tuple3(repo, countFuture, readmeFuture);
       },
       actionBuilder: (data, setState) {
         final repo = data.item1;
@@ -94,7 +96,9 @@ class GhRepoScreen extends StatelessWidget {
       },
       bodyBuilder: (data, setState) {
         final repo = data.item1;
-        final readme = data.item2;
+        final contributionFuture = data.item2;
+        final readmeFuture = data.item3;
+
         final ref = branch == null ? repo.defaultBranchRef : repo.ref;
         final license = repo.licenseInfo?.spdxId ?? repo.licenseInfo?.name;
 
@@ -317,14 +321,10 @@ class GhRepoScreen extends StatelessWidget {
                   TableViewItem(
                     leftIconData: Octicons.organization,
                     text: Text('Contributors'),
-                    rightWidget: FutureBuilder<String>(
-                      future: context
-                          .read<AuthModel>()
-                          .ghClient
-                          .getJSON('/repos/$owner/$name/stats/contributors')
-                          .then((v) => v.length.toString()),
+                    rightWidget: FutureBuilder<int>(
+                      future: contributionFuture,
                       builder: (context, snapshot) {
-                        return Text(snapshot.data ?? '');
+                        return Text(snapshot.data?.toString() ?? '');
                       },
                     ),
                     url: '/github/$owner/$name/contributors',
@@ -332,7 +332,16 @@ class GhRepoScreen extends StatelessWidget {
                 ],
               ],
             ),
-            if (readme != null) MarkdownHtmlView(readme)
+            FutureBuilder<String>(
+              future: readmeFuture,
+              builder: (context, snapshot) {
+                if (snapshot.data == null) {
+                  return Container();
+                } else {
+                  return MarkdownHtmlView(snapshot.data);
+                }
+              },
+            )
           ],
         );
       },
