@@ -1,20 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/utils/utils.dart';
-import 'package:provider/provider.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-
-class MarkdownHtmlView extends StatelessWidget {
-  final String html;
-  MarkdownHtmlView(this.html);
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Provider.of<ThemeModel>(context);
-    return HtmlView(html, cssText: theme.markdownCss);
-  }
-}
 
 class HtmlView extends StatefulWidget {
   final String html;

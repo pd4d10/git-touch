@@ -7,7 +7,7 @@ import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/entry_item.dart';
-import 'package:git_touch/widgets/html_view.dart';
+import 'package:git_touch/widgets/markdown_view.dart';
 import 'package:git_touch/widgets/repo_header.dart';
 import 'package:git_touch/widgets/table_view.dart';
 import 'package:provider/provider.dart';
@@ -101,7 +101,7 @@ class GeRepoScreen extends StatelessWidget {
               ],
             ),
             CommonStyle.verticalGap,
-            if (t.item2 != null) MarkdownHtmlView(t.item2)
+            if (t.item2 != null) MarkdownWebView(t.item2)
           ],
         );
       },

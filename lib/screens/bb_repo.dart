@@ -79,7 +79,7 @@ class BbRepoScreen extends StatelessWidget {
               Container(
                 padding: CommonStyle.padding,
                 color: theme.palette.background,
-                child: MarkdownView(t.item2),
+                child: MarkdownFlutterView(t.item2),
               ),
             CommonStyle.verticalGap,
           ],

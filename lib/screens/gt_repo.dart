@@ -96,12 +96,7 @@ class GtRepoScreen extends StatelessWidget {
               ],
             ),
             CommonStyle.verticalGap,
-            if (t.item2 != null)
-              Container(
-                padding: CommonStyle.padding,
-                color: theme.palette.background,
-                child: MarkdownView(t.item2),
-              ),
+            if (t.item2 != null) MarkdownFlutterView(t.item2),
             CommonStyle.verticalGap,
           ],
         );

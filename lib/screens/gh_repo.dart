@@ -7,7 +7,7 @@ import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/entry_item.dart';
-import 'package:git_touch/widgets/html_view.dart';
+import 'package:git_touch/widgets/markdown_view.dart';
 import 'package:git_touch/widgets/label.dart';
 import 'package:git_touch/widgets/language_bar.dart';
 import 'package:git_touch/widgets/mutation_button.dart';
@@ -338,7 +338,7 @@ class GhRepoScreen extends StatelessWidget {
                 if (snapshot.data == null) {
                   return Container();
                 } else {
-                  return MarkdownHtmlView(snapshot.data);
+                  return MarkdownWebView(snapshot.data);
                 }
               },
             )

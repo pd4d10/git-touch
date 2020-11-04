@@ -51,10 +51,7 @@ class BlobView extends StatelessWidget {
             : Image.memory(base64.decode(base64Text));
       case 'md':
       case 'markdown':
-        return Padding(
-          padding: CommonStyle.padding,
-          child: MarkdownView(_text), // TODO: basePath
-        );
+        return MarkdownFlutterView(_text);
       default:
         return SingleChildScrollView(
           scrollDirection: Axis.horizontal,
