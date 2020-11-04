@@ -23,38 +23,43 @@ class GlProjectScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold<
-        Tuple5<GitlabProject, Map<String, double>, List<GitlabProjectBadge>,
-            int, String>>(
+        Tuple4<GitlabProject, Future<Map<String, double>>, Future<int>,
+            Future<String>>>(
       title: AppBarTitle('Project'),
       fetch: () async {
         final auth = context.read<AuthModel>();
-        final res = await Future.wait([
-          auth.fetchGitlab('/projects/$id?statistics=1'),
-          auth.fetchGitlab('/projects/$id/languages'),
-          auth.fetchGitlab('/projects/$id/badges'),
-          auth.fetchGitlabWithPage('/projects/$id/members?per_page=1')
-        ]);
-        final p = GitlabProject.fromJson(res[0]);
-        String readme;
-        if (p.readmeUrl != null) {
-          // we should get the markdown content, then render it
-          // https://gitlab.com/gitlab-org/gitlab/-/issues/16335
-          final md = await auth.fetchWithGitlabToken(
-              p.readmeUrl.replaceFirst(r'/blob/', '/raw/'));
-          final res = await auth.fetchGitlab('/markdown', isPost: true, body: {
-            'text': md,
-            'gfm': true,
-            'project': '${p.namespace.name}/${p.name}'
-          });
-          readme = (res['html'] as String).normalizedHtml;
-        }
-        return Tuple5(
-          p,
-          Map<String, double>.from(res[1]),
-          (res[2] as List).map((v) => GitlabProjectBadge.fromJson(v)).toList(),
-          (res[3] as DataWithPage).total,
-          readme,
-        );
+        final p =
+            await auth.fetchGitlab('/projects/$id?statistics=1').then((res) {
+          return GitlabProject.fromJson(res);
+        });
+
+        final langFuture =
+            auth.fetchGitlab('/projects/$id/languages').then((v) {
+          return Map<String, double>.from(v);
+        });
+        // auth.fetchGitlab('/projects/$id/badges') // badges
+        final memberCountFuture = auth
+            .fetchGitlabWithPage('/projects/$id/members?per_page=1')
+            .then((v) => v.total);
+        final readmeFuture = p.readmeUrl == null
+            ? Future.sync(() => null)
+            : auth
+                .fetchWithGitlabToken(
+                    p.readmeUrl.replaceFirst(r'/blob/', '/raw/'))
+                .then((md) async {
+                // we should get the markdown content, then render it
+                // https://gitlab.com/gitlab-org/gitlab/-/issues/16335
+                final res = await auth.fetchGitlab('/markdown',
+                    isPost: true,
+                    body: {
+                      'text': md,
+                      'gfm': true,
+                      'project': '${p.namespace.name}/${p.name}'
+                    });
+                return (res['html'] as String).normalizedHtml;
+              });
+
+        return Tuple4(p, langFuture, memberCountFuture, readmeFuture);
       },
       actionBuilder: (t, setState) {
         return ActionButton(
@@ -66,8 +71,10 @@ class GlProjectScreen extends StatelessWidget {
       },
       bodyBuilder: (t, _) {
         final p = t.item1;
-        final langs = t.item2;
-        final badges = t.item3;
+        final langFuture = t.item2;
+        final memberCountFuture = t.item3;
+        final readmeFuture = t.item4;
+
         final theme = Provider.of<ThemeModel>(context);
         final auth = Provider.of<AuthModel>(context);
         final prefix =
@@ -95,10 +102,15 @@ class GlProjectScreen extends StatelessWidget {
             CommonStyle.border,
             Row(
               children: <Widget>[
-                EntryItem(
-                  count: t.item4,
-                  text: 'Members',
-                  url: '/gitlab/projects/$id/members',
+                FutureBuilder<int>(
+                  future: memberCountFuture,
+                  builder: (context, snapshot) {
+                    return EntryItem(
+                      count: snapshot.data,
+                      text: 'Members',
+                      url: '/gitlab/projects/$id/members',
+                    );
+                  },
                 ),
                 EntryItem(
                   count: p.starCount,
@@ -111,20 +123,39 @@ class GlProjectScreen extends StatelessWidget {
                 ),
               ],
             ),
-            if (langs.isNotEmpty) ...[
-              CommonStyle.border,
-              LanguageBar([
-                for (var e in langs.entries)
-                  LanguageBarItem(name: e.key, ratio: e.value / 100)
-              ]),
-            ],
+            CommonStyle.border,
+            FutureBuilder<Map<String, double>>(
+              future: langFuture,
+              builder: (context, snapshot) {
+                if (snapshot.data == null) {
+                  return LanguageBar([
+                    LanguageBarItem(name: '', ratio: 1),
+                  ]);
+                } else {
+                  return LanguageBar([
+                    for (var e in snapshot.data?.entries ?? [])
+                      LanguageBarItem(name: e.key, ratio: e.value / 100)
+                  ]);
+                }
+              },
+            ),
             CommonStyle.border,
             TableView(
               hasIcon: true,
               items: [
                 TableViewItem(
                   leftIconData: Octicons.code,
-                  text: Text(langs.keys.isEmpty ? 'Code' : langs.keys.first),
+                  text: FutureBuilder<Map<String, double>>(
+                    future: langFuture,
+                    builder: (context, snapshot) {
+                      if (snapshot.data == null) {
+                        return Text('');
+                      } else {
+                        final langs = snapshot.data.keys;
+                        return Text(langs.isEmpty ? 'Code' : langs.first);
+                      }
+                    },
+                  ),
                   rightWidget: p.statistics == null
                       ? null
                       : Text(filesize(p.statistics.repositorySize)),
@@ -154,7 +185,16 @@ class GlProjectScreen extends StatelessWidget {
               ],
             ),
             CommonStyle.verticalGap,
-            if (t.item5 != null) MarkdownHtmlView(t.item5)
+            FutureBuilder<String>(
+              future: readmeFuture,
+              builder: (context, snapshot) {
+                if (snapshot.data == null) {
+                  return Container();
+                } else {
+                  return MarkdownHtmlView(snapshot.data);
+                }
+              },
+            ),
           ],
         );
       },
