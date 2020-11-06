@@ -24,7 +24,7 @@ class GlProjectScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold<
         Tuple4<GitlabProject, Future<Map<String, double>>, Future<int>,
-            Future<String>>>(
+            MarkdownViewData>>(
       title: AppBarTitle('Project'),
       fetch: () async {
         final auth = context.read<AuthModel>();
@@ -41,25 +41,29 @@ class GlProjectScreen extends StatelessWidget {
         final memberCountFuture = auth
             .fetchGitlabWithPage('/projects/$id/members?per_page=1')
             .then((v) => v.total);
-        final readmeFuture = p.readmeUrl == null
-            ? Future.sync(() => null)
-            : auth
-                .fetchWithGitlabToken(
-                    p.readmeUrl.replaceFirst(r'/blob/', '/raw/'))
-                .then((md) async {
-                // we should get the markdown content, then render it
-                // https://gitlab.com/gitlab-org/gitlab/-/issues/16335
-                final res = await auth.fetchGitlab('/markdown',
-                    isPost: true,
-                    body: {
-                      'text': md,
-                      'gfm': true,
-                      'project': '${p.namespace.name}/${p.name}'
-                    });
-                return (res['html'] as String).normalizedHtml;
-              });
 
-        return Tuple4(p, langFuture, memberCountFuture, readmeFuture);
+        MarkdownViewData readmeData;
+        if (p.readmeUrl != null) {
+          final md = () => auth.fetchWithGitlabToken(
+              p.readmeUrl.replaceFirst(r'/blob/', '/raw/'));
+          readmeData = MarkdownViewData(
+            context,
+            md: md,
+            html: () => md().then((md) async {
+              // we should get the markdown content, then render it
+              // https://gitlab.com/gitlab-org/gitlab/-/issues/16335
+              final res = await auth.fetchGitlab('/markdown',
+                  isPost: true,
+                  body: {
+                    'text': md,
+                    'gfm': true,
+                    'project': '${p.namespace.name}/${p.name}'
+                  });
+              return (res['html'] as String).normalizedHtml;
+            }),
+          );
+        }
+        return Tuple4(p, langFuture, memberCountFuture, readmeData);
       },
       actionBuilder: (t, setState) {
         return ActionButton(
@@ -73,7 +77,7 @@ class GlProjectScreen extends StatelessWidget {
         final p = t.item1;
         final langFuture = t.item2;
         final memberCountFuture = t.item3;
-        final readmeFuture = t.item4;
+        final readmeData = t.item4;
 
         final theme = Provider.of<ThemeModel>(context);
         final auth = Provider.of<AuthModel>(context);
@@ -185,16 +189,7 @@ class GlProjectScreen extends StatelessWidget {
               ],
             ),
             CommonStyle.verticalGap,
-            FutureBuilder<String>(
-              future: readmeFuture,
-              builder: (context, snapshot) {
-                if (snapshot.data == null) {
-                  return Container();
-                } else {
-                  return MarkdownWebView(snapshot.data);
-                }
-              },
-            ),
+            MarkdownView(readmeData),
           ],
         );
       },

@@ -8,6 +8,54 @@ import 'package:provider/provider.dart';
 import 'package:uri/uri.dart';
 import 'package:path/path.dart' as path;
 
+class MarkdownViewData {
+  final Future<String> future;
+  MarkdownViewData(
+    BuildContext context, {
+    @required Future<String> Function() md,
+    @required Future<String> Function() html,
+  }) : future = context.read<ThemeModel>().markdown == AppMarkdownType.flutter
+            ? md()
+            : html();
+}
+
+class MarkdownView extends StatelessWidget {
+  final MarkdownViewData data;
+  MarkdownView(this.data);
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Provider.of<ThemeModel>(context);
+
+    if (data?.future == null) return Container();
+
+    switch (theme.markdown) {
+      case AppMarkdownType.flutter:
+        return FutureBuilder<String>(
+          future: data.future,
+          builder: (context, snapshot) {
+            if (snapshot.data == null) {
+              return Container();
+            } else {
+              return MarkdownFlutterView(snapshot.data);
+            }
+          },
+        );
+      default:
+        return FutureBuilder<String>(
+          future: data.future,
+          builder: (context, snapshot) {
+            if (snapshot.data == null) {
+              return Container();
+            } else {
+              return MarkdownWebView(snapshot.data);
+            }
+          },
+        );
+    }
+  }
+}
+
 class MarkdownWebView extends StatelessWidget {
   final String html;
   MarkdownWebView(this.html);

@@ -53,7 +53,7 @@ class GhRepoScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
     return RefreshStatefulScaffold<
-        Tuple3<GhRepoRepository, Future<int>, Future<String>>>(
+        Tuple3<GhRepoRepository, Future<int>, MarkdownViewData>>(
       title: AppBarTitle('Repository'),
       fetch: () async {
         final ghClient = context.read<AuthModel>().ghClient;
@@ -64,18 +64,27 @@ class GhRepoScreen extends StatelessWidget {
             .getJSON('/repos/$owner/$name/stats/contributors')
             .then((v) => (v as List).length);
 
-        final readmeFuture = ghClient.request(
-          'GET',
-          '/repos/$owner/$name/readme',
-          headers: {HttpHeaders.acceptHeader: 'application/vnd.github.v3.html'},
-        ).then((res) {
-          return res.body;
-        }).catchError((err) {
-          // 404
-          return null;
-        });
+        final readmeFactory = (String acceptHeader) {
+          return () {
+            return ghClient.request(
+              'GET',
+              '/repos/$owner/$name/readme',
+              headers: {HttpHeaders.acceptHeader: acceptHeader},
+            ).then((res) {
+              return res.body;
+            }).catchError((err) {
+              // 404
+              return null;
+            });
+          };
+        };
+        final readmeData = MarkdownViewData(
+          context,
+          md: readmeFactory('application/vnd.github.v3.raw'),
+          html: readmeFactory('application/vnd.github.v3.html'),
+        );
 
-        return Tuple3(repo, countFuture, readmeFuture);
+        return Tuple3(repo, countFuture, readmeData);
       },
       actionBuilder: (data, setState) {
         final repo = data.item1;
@@ -97,7 +106,7 @@ class GhRepoScreen extends StatelessWidget {
       bodyBuilder: (data, setState) {
         final repo = data.item1;
         final contributionFuture = data.item2;
-        final readmeFuture = data.item3;
+        final readmeData = data.item3;
 
         final ref = branch == null ? repo.defaultBranchRef : repo.ref;
         final license = repo.licenseInfo?.spdxId ?? repo.licenseInfo?.name;
@@ -332,16 +341,7 @@ class GhRepoScreen extends StatelessWidget {
                 ],
               ],
             ),
-            FutureBuilder<String>(
-              future: readmeFuture,
-              builder: (context, snapshot) {
-                if (snapshot.data == null) {
-                  return Container();
-                } else {
-                  return MarkdownWebView(snapshot.data);
-                }
-              },
-            )
+            MarkdownView(readmeData),
           ],
         );
       },

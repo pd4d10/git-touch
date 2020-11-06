@@ -126,6 +126,28 @@ class SettingsScreen extends StatelessWidget {
               url: '/choose-code-theme',
               rightWidget: Text('${code.fontFamily}, ${code.fontSize}pt'),
             ),
+            TableViewItem(
+              text: Text('Markdown Render Engine'),
+              rightWidget: Text(theme.markdown == AppMarkdownType.flutter
+                  ? 'Flutter'
+                  : 'WebView'),
+              onTap: () {
+                theme.showActions(context, [
+                  for (var t in [
+                    Tuple2('Flutter', AppMarkdownType.flutter),
+                    Tuple2('WebView', AppMarkdownType.webview),
+                  ])
+                    ActionItem(
+                      text: t.item1,
+                      onTap: (_) {
+                        if (theme.markdown != t.item2) {
+                          theme.setMarkdown(t.item2);
+                        }
+                      },
+                    )
+                ]);
+              },
+            ),
           ]),
           CommonStyle.verticalGap,
           TableView(headerText: 'feedback', items: [

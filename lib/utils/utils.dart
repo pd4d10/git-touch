@@ -25,6 +25,7 @@ class StorageKeys {
   static const codeThemeDark = 'code-theme-dark';
   static const iCodeFontSize = 'code-font-size';
   static const codeFontFamily = 'code-font-family';
+  static const markdown = 'markdown';
 
   static getDefaultStartTabKey(String platform) =>
       'default-start-tab-$platform';

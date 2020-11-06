@@ -33,6 +33,12 @@ class AppBrightnessType {
   ];
 }
 
+class AppMarkdownType {
+  static const flutter = 0;
+  static const webview = 1;
+  static const values = [AppMarkdownType.flutter, AppMarkdownType.webview];
+}
+
 class PickerItem<T> {
   final T value;
   final String text;
@@ -99,11 +105,11 @@ class Palette {
 }
 
 class ThemeModel with ChangeNotifier {
+  String markdownCss;
+
   int _theme;
   int get theme => _theme;
   bool get ready => _theme != null;
-
-  String markdownCss;
 
   Brightness systemBrightness = Brightness.light;
   void setSystemBrightness(Brightness v) {
@@ -138,6 +144,30 @@ class ThemeModel with ChangeNotifier {
     notifyListeners();
   }
 
+  // markdown render engine
+  int _markdown;
+  int get markdown => _markdown;
+  Future<void> setMarkdown(int v) async {
+    _markdown = v;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt(StorageKeys.markdown, v);
+    Fimber.d('write markdown engine: $v');
+    notifyListeners();
+  }
+
+  Future<String> getMarkdownFuture(
+    BuildContext context, {
+    @required Future<String> Function() md,
+    @required Future<String> Function() html,
+  }) {
+    switch (markdown) {
+      case AppMarkdownType.webview:
+        return html();
+      default:
+        return md();
+    }
+  }
+
   final router = FluroRouter();
 
   final paletteLight = Palette(
@@ -170,7 +200,10 @@ class ThemeModel with ChangeNotifier {
   }
 
   Future<void> init() async {
+    markdownCss = await rootBundle.loadString('images/github-markdown.css');
+
     final prefs = await SharedPreferences.getInstance();
+
     final v = prefs.getInt(StorageKeys.iTheme);
     Fimber.d('read theme: $v');
     if (AppThemeType.values.contains(v)) {
@@ -185,8 +218,10 @@ class ThemeModel with ChangeNotifier {
     if (AppBrightnessType.values.contains(b)) {
       _brightnessValue = b;
     }
-
-    markdownCss = await rootBundle.loadString('images/github-markdown.css');
+    final m = prefs.getInt(StorageKeys.markdown);
+    if (AppMarkdownType.values.contains(m)) {
+      _markdown = m;
+    }
 
     notifyListeners();
   }
