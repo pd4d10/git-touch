@@ -21,23 +21,29 @@ class GeRepoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RefreshStatefulScaffold<Tuple2<GiteeRepo, String>>(
+    return RefreshStatefulScaffold<Tuple2<GiteeRepo, MarkdownViewData>>(
       title: AppBarTitle('Repository'),
       fetch: () async {
         final auth = context.read<AuthModel>();
-        final res = await Future.wait([
-          auth.fetchGitee('/repos/$owner/$name'),
-          auth.fetchGitee('/repos/$owner/$name/readme'),
-        ]);
-        final md = (res[1]['content'] as String)?.base64ToUtf8;
+        final repo = await auth.fetchGitee('/repos/$owner/$name').then((v) {
+          return GiteeRepo.fromJson(v);
+        });
 
-        final html = await http.post(
-          '${auth.activeAccount.domain}/api/v5/markdown',
-          headers: {'Authorization': 'token ${auth.token}'},
-          body: {'text': md},
-        ).then((res) => utf8.decode(res.bodyBytes));
+        final md =
+            () => auth.fetchGitee('/repos/$owner/$name/readme').then((v) {
+                  return (v['content'] as String)?.base64ToUtf8;
+                });
+        final html = () => md().then((v) async {
+              final res = await http.post(
+                '${auth.activeAccount.domain}/api/v5/markdown',
+                headers: {'Authorization': 'token ${auth.token}'},
+                body: {'text': v},
+              );
+              return utf8.decode(res.bodyBytes).normalizedHtml;
+            });
+        final readmeData = MarkdownViewData(context, md: md, html: html);
 
-        return Tuple2(GiteeRepo.fromJson(res[0]), html.normalizedHtml);
+        return Tuple2(repo, readmeData);
       },
       bodyBuilder: (t, setState) {
         final p = t.item1;
@@ -101,7 +107,7 @@ class GeRepoScreen extends StatelessWidget {
               ],
             ),
             CommonStyle.verticalGap,
-            if (t.item2 != null) MarkdownWebView(t.item2)
+            MarkdownView(t.item2)
           ],
         );
       },

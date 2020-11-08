@@ -182,7 +182,7 @@ class CommentItem extends StatelessWidget {
           ),
         ]),
         SizedBox(height: 12),
-        MarkdownFlutterView(body), // TODO: link
+        MarkdownFlutterView(body, padding: EdgeInsets.zero), // TODO: link
         SizedBox(height: 12),
         if (widgets != null) ...widgets
       ],

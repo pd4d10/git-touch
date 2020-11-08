@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:filesize/filesize.dart';
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/auth.dart';
@@ -12,6 +14,7 @@ import 'package:git_touch/widgets/repo_header.dart';
 import 'package:git_touch/widgets/table_view.dart';
 import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
+import 'package:http/http.dart' as http;
 
 class GtRepoScreen extends StatelessWidget {
   final String owner;
@@ -20,18 +23,29 @@ class GtRepoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RefreshStatefulScaffold<Tuple2<GiteaRepository, String>>(
+    return RefreshStatefulScaffold<Tuple2<GiteaRepository, MarkdownViewData>>(
       title: AppBarTitle('Repository'),
       fetch: () async {
         final auth = context.read<AuthModel>();
-        final res = await Future.wait([
-          auth.fetchGitea('/repos/$owner/$name'),
-          auth.fetchGitea('/repos/$owner/$name/contents/README.md'),
-        ]);
-        return Tuple2(
-          GiteaRepository.fromJson(res[0]),
-          (res[1]['content'] as String)?.base64ToUtf8,
-        );
+        final repo = await auth.fetchGitea('/repos/$owner/$name').then((v) {
+          return GiteaRepository.fromJson(v);
+        });
+
+        final md = () =>
+            auth.fetchGitea('/repos/$owner/$name/contents/README.md').then((v) {
+              return (v['content'] as String)?.base64ToUtf8;
+            });
+        final html = () => md().then((v) async {
+              final res = await http.post(
+                '${auth.activeAccount.domain}/api/v1/markdown/raw',
+                headers: {'Authorization': 'token ${auth.token}'},
+                body: v,
+              );
+              return utf8.decode(res.bodyBytes).normalizedHtml;
+            });
+        final readmeData = MarkdownViewData(context, md: md, html: html);
+
+        return Tuple2(repo, readmeData);
       },
       bodyBuilder: (t, setState) {
         final theme = Provider.of<ThemeModel>(context);
@@ -96,8 +110,7 @@ class GtRepoScreen extends StatelessWidget {
               ],
             ),
             CommonStyle.verticalGap,
-            if (t.item2 != null) MarkdownFlutterView(t.item2),
-            CommonStyle.verticalGap,
+            MarkdownView(t.item2),
           ],
         );
       },
