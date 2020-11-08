@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:git_touch/utils/utils.dart';
@@ -19,9 +20,25 @@ class HtmlView extends StatefulWidget {
 }
 
 class _HtmlViewState extends State<HtmlView> {
+  Timer timer;
   double height;
   WebViewController controller;
   var loaded = false;
+
+  updateHeight() async {
+    final value = await controller
+        .evaluateJavascript("document.documentElement.scrollHeight;");
+    // print(value);
+    setState(() {
+      height = double.parse(value);
+    });
+  }
+
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,19 +48,20 @@ class _HtmlViewState extends State<HtmlView> {
       encoding: Encoding.getByName('utf-8'),
     );
     return Container(
-      height: height ?? 600,
+      height:
+          height ?? 0.01, // 0 would return the wrong height on page finished.
       child: WebView(
         initialUrl: uri.toString(),
         javascriptMode: JavascriptMode.unrestricted,
         onWebViewCreated: (c) async {
           controller = c;
+          timer = Timer.periodic(Duration(milliseconds: 300), (t) {
+            updateHeight();
+          });
         },
         onPageFinished: (some) async {
-          final res = await controller
-              .evaluateJavascript("document.documentElement.scrollHeight;");
-          setState(() {
-            height = double.parse(res);
-          });
+          timer.cancel();
+          updateHeight();
         },
         navigationDelegate: (request) {
           if (loaded) {
