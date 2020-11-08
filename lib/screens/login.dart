@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/theme.dart';
@@ -246,6 +247,26 @@ class _LoginScreenState extends State<LoginScreen> {
                             MyTextField(
                                 placeholder: 'App password',
                                 controller: _passwordController),
+                            SizedBox(height: 8),
+                            Text.rich(
+                              TextSpan(children: [
+                                TextSpan(
+                                  text:
+                                      'Note: App password is different with the password. Follow ',
+                                ),
+                                TextSpan(
+                                  text: 'this guide',
+                                  style:
+                                      TextStyle(color: theme.palette.primary),
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () {
+                                      theme.push(context,
+                                          'https://support.atlassian.com/bitbucket-cloud/docs/app-passwords/');
+                                    },
+                                ),
+                                TextSpan(text: ' to create one.')
+                              ]),
+                            ),
                             SizedBox(height: 8),
                             Text(
                               'GitTouch needs these permissions',
