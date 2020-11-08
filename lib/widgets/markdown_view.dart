@@ -63,7 +63,21 @@ class MarkdownWebView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
-    return HtmlView(html, cssText: theme.markdownCss);
+    var css = theme.markdownCss;
+    if (theme.brightness == Brightness.dark) {
+      css += '''
+html {
+  background-color: #000;
+}
+.markdown-body {
+  filter:invert(100%);
+}
+.markdown-body img {
+  filter:invert(100%);
+}'
+''';
+    }
+    return HtmlView(html, cssText: css);
   }
 }
 
