@@ -1,5 +1,4 @@
 import 'dart:core';
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:git_touch/models/theme.dart';
@@ -7,6 +6,10 @@ import 'package:git_touch/widgets/label.dart';
 import 'package:provider/provider.dart';
 import '../utils/utils.dart';
 import 'comment_item.dart';
+
+TextSpan createUserSpan(BuildContext context, String login) {
+  return createLinkSpan(context, login, '/github/$login');
+}
 
 class TimelineEventItem extends StatelessWidget {
   final String actor;

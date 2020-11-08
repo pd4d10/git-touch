@@ -79,10 +79,6 @@ TextSpan createLinkSpan(
   );
 }
 
-TextSpan createUserSpan(BuildContext context, String login) {
-  return createLinkSpan(context, login, '/$login');
-}
-
 Tuple2<String, String> parseRepositoryFullName(String fullName) {
   final ls = fullName.split('/');
   assert(ls.length == 2);
