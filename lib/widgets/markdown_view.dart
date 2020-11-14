@@ -14,7 +14,7 @@ class MarkdownViewData {
     BuildContext context, {
     @required Future<String> Function() md,
     @required Future<String> Function() html,
-  }) : future = context.read<ThemeModel>().markdown == AppMarkdownType.flutter
+  }) : future = context.read<ThemeModel>().shouldUseMarkdownFlutterView
             ? md()
             : html();
 }
@@ -29,29 +29,28 @@ class MarkdownView extends StatelessWidget {
 
     if (data?.future == null) return Container();
 
-    switch (theme.markdown) {
-      case AppMarkdownType.flutter:
-        return FutureBuilder<String>(
-          future: data.future,
-          builder: (context, snapshot) {
-            if (snapshot.data == null) {
-              return Container();
-            } else {
-              return MarkdownFlutterView(snapshot.data);
-            }
-          },
-        );
-      default:
-        return FutureBuilder<String>(
-          future: data.future,
-          builder: (context, snapshot) {
-            if (snapshot.data == null) {
-              return Container();
-            } else {
-              return MarkdownWebView(snapshot.data);
-            }
-          },
-        );
+    if (theme.shouldUseMarkdownFlutterView) {
+      return FutureBuilder<String>(
+        future: data.future,
+        builder: (context, snapshot) {
+          if (snapshot.data == null) {
+            return Container();
+          } else {
+            return MarkdownFlutterView(snapshot.data);
+          }
+        },
+      );
+    } else {
+      return FutureBuilder<String>(
+        future: data.future,
+        builder: (context, snapshot) {
+          if (snapshot.data == null) {
+            return Container();
+          } else {
+            return MarkdownWebView(snapshot.data);
+          }
+        },
+      );
     }
   }
 }

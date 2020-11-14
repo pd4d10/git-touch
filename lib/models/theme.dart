@@ -155,17 +155,9 @@ class ThemeModel with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<String> getMarkdownFuture(
-    BuildContext context, {
-    @required Future<String> Function() md,
-    @required Future<String> Function() html,
-  }) {
-    switch (markdown) {
-      case AppMarkdownType.webview:
-        return html();
-      default:
-        return md();
-    }
+  bool get shouldUseMarkdownFlutterView {
+    // WebView on macOS not working
+    return Platform.isMacOS || markdown == AppMarkdownType.flutter;
   }
 
   final router = FluroRouter();
@@ -208,7 +200,7 @@ class ThemeModel with ChangeNotifier {
     Fimber.d('read theme: $v');
     if (AppThemeType.values.contains(v)) {
       _theme = v;
-    } else if (Platform.isIOS) {
+    } else if (Platform.isIOS || Platform.isMacOS) {
       _theme = AppThemeType.cupertino;
     } else {
       _theme = AppThemeType.material;

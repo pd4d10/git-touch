@@ -5,10 +5,10 @@
 // 'flutter create' template.
 
 // The application's name. By default this is also the title of the Flutter window.
-PRODUCT_NAME = Flutter
+PRODUCT_NAME = git_touch
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.example.Flutter
+PRODUCT_BUNDLE_IDENTIFIER = io.github.pd4d10.gitTouch
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2020 com.example. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2020 io.github.pd4d10. All rights reserved.
