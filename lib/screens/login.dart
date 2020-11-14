@@ -315,7 +315,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                   ),
                   _buildAddItem(
-                    text: 'Gitee Account',
+                    text: 'Gitee Account(码云)',
                     brand: Octicons.git_branch, // TODO: brand icon
                     onTap: () async {
                       final result = await theme.showConfirm(

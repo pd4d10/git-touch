@@ -1,6 +1,6 @@
 # GitTouch
 
-An open-source mobile app for Git services including [GitHub](https://github.com/), [GitLab](https://gitlab.com/), [Bitbucket](https://bitbucket.org/), [Gitea](https://gitea.com/) and [Gitee](https://gitee.com/), built with Flutter
+An open-source mobile app for Git services including [GitHub](https://github.com/), [GitLab](https://gitlab.com/), [Bitbucket](https://bitbucket.org/), [Gitea](https://gitea.com/) and [Gitee(码云)](https://gitee.com/), built with Flutter
 
 <p>
   <a href="https://apps.apple.com/us/app/gittouch/id1452042346?itsct=apps_box&itscg=30200"><img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-US" alt="Download on the App Store" height="60"></a>
