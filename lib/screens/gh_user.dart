@@ -122,18 +122,7 @@ class GhUserScreen extends StatelessWidget {
               [
                 //  https://github.com/git-touch/git-touch/issues/122
                 for (final day in week.contributionDays)
-                  if (day.color.startsWith('#'))
-                    ContributionDay(hexColor: day.color)
-                  else if (day.color.contains('L1'))
-                    ContributionDay(hexColor: contributionColors[0])
-                  else if (day.color.contains('L2'))
-                    ContributionDay(hexColor: contributionColors[1])
-                  else if (day.color.contains('L3'))
-                    ContributionDay(hexColor: contributionColors[2])
-                  else if (day.color.contains('L4'))
-                    ContributionDay(hexColor: contributionColors[3])
-                  else
-                    ContributionDay(hexColor: contributionEmptyColor)
+                  ContributionDay(hexColor: day.color)
               ]
           ],
         ),

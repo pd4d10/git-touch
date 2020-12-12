@@ -8,12 +8,19 @@ import 'package:provider/provider.dart';
 const contributionEmptyColor = '#ebedf0';
 const contributionColors = ['#9be9a8', '#40c463', '#30a14e', '#216e39'];
 
+const darkMapper = {
+  '#ebedf0': '#161b22',
+  '#9be9a8': '#01311f',
+  '#40c463': '#034525',
+  '#30a14e': '#0f6d31',
+  '#216e39': '#00c647'
+};
+
 class ContributionDay {
   String hexColor;
   int count;
-  Color color;
-  ContributionDay({this.hexColor, this.count, this.color})
-      : assert(hexColor != null || count != null || color != null);
+  ContributionDay({this.hexColor, this.count})
+      : assert(hexColor != null || count != null);
 }
 
 class ContributionWidget extends StatelessWidget {
@@ -33,20 +40,13 @@ class ContributionWidget extends StatelessWidget {
           if (day.count == 0) {
             day.hexColor = contributionEmptyColor;
           } else {
+            // TODO: algorithm
             final level = (day.count * 4) ~/ (maxCount + 1);
             day.hexColor = contributionColors[level];
           }
         }
-        if (day.hexColor != null) {
-          day.color = convertColor(day.hexColor);
-        }
       }
     }
-  }
-
-  static Color _revert(Color color) {
-    return Color.fromRGBO(
-        0xff - color.red, 0xff - color.green, 0xff - color.blue, 1);
   }
 
   @override
@@ -72,9 +72,12 @@ class ContributionWidget extends StatelessWidget {
                       height: 10,
                       child: DecoratedBox(
                         decoration: BoxDecoration(
-                            color: theme.brightness == Brightness.dark
-                                ? _revert(day.color)
-                                : day.color),
+                            color: convertColor(
+                              theme.brightness == Brightness.dark
+                                  ? darkMapper[day.hexColor]
+                                  : day.hexColor,
+                            ),
+                            borderRadius: BorderRadius.circular(2)),
                       ),
                     )
                 ],
