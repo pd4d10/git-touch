@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:async';
+import 'package:in_app_review/in_app_review.dart';
 import 'package:universal_io/io.dart';
 import 'package:git_touch/models/bitbucket.dart';
 import 'package:git_touch/models/gitea.dart';
@@ -58,6 +59,9 @@ class BbPagePayload<T> {
 
 class AuthModel with ChangeNotifier {
   static const _apiPrefix = 'https://api.github.com';
+
+  static final inAppReview = InAppReview.instance;
+  var hasRequestedReview = false;
 
   List<Account> _accounts;
   int activeAccountIndex;
@@ -430,6 +434,16 @@ class AuthModel with ChangeNotifier {
     _ghClient = null;
     _gqlClient = null;
     notifyListeners();
+
+    // waiting for 1min to request review
+    if (!hasRequestedReview) {
+      hasRequestedReview = true;
+      Timer(Duration(minutes: 1), () async {
+        if (await inAppReview.isAvailable()) {
+          inAppReview.requestReview();
+        }
+      });
+    }
   }
 
   // http timeout
