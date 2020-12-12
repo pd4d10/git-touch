@@ -55,6 +55,7 @@ class MarkdownView extends StatelessWidget {
   }
 }
 
+// TODO: Safari table width
 class MarkdownWebView extends StatelessWidget {
   final String html;
   MarkdownWebView(this.html);
@@ -73,7 +74,7 @@ html {
 }
 .markdown-body img {
   filter:invert(100%);
-}'
+}
 ''';
     }
     return HtmlView(html, cssText: css);

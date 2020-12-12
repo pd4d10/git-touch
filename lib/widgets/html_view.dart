@@ -55,7 +55,7 @@ class _HtmlViewState extends State<HtmlView> {
         javascriptMode: JavascriptMode.unrestricted,
         onWebViewCreated: (c) async {
           controller = c;
-          timer = Timer.periodic(Duration(milliseconds: 300), (t) {
+          timer = Timer.periodic(Duration(milliseconds: 1000), (t) {
             updateHeight();
           });
         },
