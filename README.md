@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/icons/icon.png" width="64" align="center">
+  <img src="https://raw.githubusercontent.com/pd4d10/git-touch/main/assets/icons/icon.png" width="128">
 </p>
 <h2 align="center">GitTouch</h2>
 <p align="center">
@@ -11,7 +11,7 @@
   <a href="https://gitee.com/">Gitee(码云)</a>, built with Flutter
 </p>
 <p align="center">
-  <a href="https://apps.apple.com/us/app/gittouch/id1452042346?itsct=apps_box&itscg=30200"><img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-US" alt="Download on the App Store" height="48"></a>
+  <a href="https://apps.apple.com/us/app/gittouch/id1452042346"><img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-US" alt="Download on the App Store" height="48"></a>
   <a href="https://play.google.com/store/apps/details?id=io.github.pd4d10.gittouch"><img alt="Get it on Google Play" title="Google Play" src="https://raw.githubusercontent.com/pd4d10/git-touch/main/assets/google-play-badge.png" height="48" /></a>
 </p>
 
