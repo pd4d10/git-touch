@@ -48,8 +48,8 @@ class _HtmlViewState extends State<HtmlView> {
       encoding: Encoding.getByName('utf-8'),
     );
     return Container(
-      height:
-          height ?? 0.01, // 0 would return the wrong height on page finished.
+      height: height ??
+          1, // must be integer(android). 0 would return the wrong height on page finished.
       child: WebView(
         initialUrl: uri.toString(),
         javascriptMode: JavascriptMode.unrestricted,
