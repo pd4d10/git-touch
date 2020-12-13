@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/pd4d10/git-touch/main/assets/icons/icon.png" width="128">
+  <img src="https://raw.githubusercontent.com/pd4d10/git-touch/main/assets/icons/icon.png" width="72">
 </p>
 <h2 align="center">GitTouch</h2>
 <p align="center">
