@@ -435,15 +435,16 @@ class AuthModel with ChangeNotifier {
     _gqlClient = null;
     notifyListeners();
 
+    // TODO: strategy
     // waiting for 1min to request review
-    if (!hasRequestedReview) {
-      hasRequestedReview = true;
-      Timer(Duration(minutes: 1), () async {
-        if (await inAppReview.isAvailable()) {
-          inAppReview.requestReview();
-        }
-      });
-    }
+    // if (!hasRequestedReview) {
+    //   hasRequestedReview = true;
+    //   Timer(Duration(minutes: 1), () async {
+    //     if (await inAppReview.isAvailable()) {
+    //       inAppReview.requestReview();
+    //     }
+    //   });
+    // }
   }
 
   // http timeout
