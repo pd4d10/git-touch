@@ -81,6 +81,7 @@ class UserItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Row(
+                    textBaseline: TextBaseline.alphabetic,
                     crossAxisAlignment: CrossAxisAlignment.baseline,
                     children: <Widget>[
                       if (name != null && name.isNotEmpty) ...[
