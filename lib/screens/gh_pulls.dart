@@ -6,6 +6,7 @@ import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/issue_item.dart';
 import 'package:git_touch/widgets/label.dart';
 import 'package:provider/provider.dart';
+import '../generated/l10n.dart';
 
 class GhPullsScreen extends StatelessWidget {
   final String owner;
@@ -15,7 +16,7 @@ class GhPullsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GhPullsPullRequest, String>(
-      title: AppBarTitle('Pull requests'),
+      title: AppBarTitle(S.of(context).pullRequests),
       fetch: (cursor) async {
         final res =
             await context.read<AuthModel>().gqlClient.execute(GhPullsQuery(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:git_touch/generated/l10n.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/gitea.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
@@ -18,7 +19,7 @@ class GtObjectScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold(
-      title: AppBarTitle(path ?? 'Files'),
+      title: AppBarTitle(path ?? S.of(context).files),
       fetch: () async {
         final suffix = path == null ? '' : '/$path';
         final res = await context

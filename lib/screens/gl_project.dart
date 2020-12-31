@@ -15,6 +15,7 @@ import 'package:provider/provider.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/widgets/action_button.dart';
 import 'package:tuple/tuple.dart';
+import '../generated/l10n.dart';
 
 class GlProjectScreen extends StatelessWidget {
   final int id;
@@ -25,7 +26,7 @@ class GlProjectScreen extends StatelessWidget {
     return RefreshStatefulScaffold<
         Tuple4<GitlabProject, Future<Map<String, double>>, Future<int>,
             MarkdownViewData>>(
-      title: AppBarTitle('Project'),
+      title: AppBarTitle(S.of(context).project),
       fetch: () async {
         final auth = context.read<AuthModel>();
         final p =
@@ -67,7 +68,7 @@ class GlProjectScreen extends StatelessWidget {
       },
       actionBuilder: (t, setState) {
         return ActionButton(
-          title: 'Project Actions',
+          title: S.of(context).projectActions,
           items: [
             ...ActionItem.getUrlActions(t.item1.webUrl),
           ],
@@ -111,19 +112,19 @@ class GlProjectScreen extends StatelessWidget {
                   builder: (context, snapshot) {
                     return EntryItem(
                       count: snapshot.data,
-                      text: 'Members',
+                      text: S.of(context).members,
                       url: '/gitlab/projects/$id/members',
                     );
                   },
                 ),
                 EntryItem(
                   count: p.starCount,
-                  text: 'Stars',
+                  text: S.of(context).stars,
                   url: '/gitlab/projects/$id/starrers',
                 ),
                 EntryItem(
                   count: p.forksCount,
-                  text: 'Forks', // TODO:
+                  text: S.of(context).forks, // TODO:
                 ),
               ],
             ),
@@ -156,7 +157,8 @@ class GlProjectScreen extends StatelessWidget {
                         return Text('');
                       } else {
                         final langs = snapshot.data.keys;
-                        return Text(langs.isEmpty ? 'Code' : langs.first);
+                        return Text(
+                            langs.isEmpty ? S.of(context).code : langs.first);
                       }
                     },
                   ),
@@ -168,19 +170,19 @@ class GlProjectScreen extends StatelessWidget {
                 if (p.issuesEnabled)
                   TableViewItem(
                     leftIconData: Octicons.issue_opened,
-                    text: Text('Issues'),
+                    text: Text(S.of(context).issues),
                     rightWidget: Text(numberFormat.format(p.openIssuesCount)),
                     url: '/gitlab/projects/$id/issues?prefix=$prefix',
                   ),
                 if (p.mergeRequestsEnabled)
                   TableViewItem(
                     leftIconData: Octicons.git_pull_request,
-                    text: Text('Merge requests'),
+                    text: Text(S.of(context).mergeRequests),
                     url: '/gitlab/projects/$id/merge_requests?prefix=$prefix',
                   ),
                 TableViewItem(
                   leftIconData: Octicons.history,
-                  text: Text('Commits'),
+                  text: Text(S.of(context).commits),
                   rightWidget: p.statistics == null
                       ? null
                       : Text(p.statistics.commitCount.toString()),

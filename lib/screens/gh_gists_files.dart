@@ -6,6 +6,7 @@ import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/object_tree.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/models/auth.dart';
+import '../generated/l10n.dart';
 
 class GhGistsFilesScreen extends StatelessWidget {
   final String id;
@@ -15,7 +16,7 @@ class GhGistsFilesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold<GithubGistsItem>(
-      title: AppBarTitle('Files'),
+      title: AppBarTitle(S.of(context).files),
       fetch: () async {
         final data = await context.read<AuthModel>().ghClient.getJSON(
             '/gists/$id',

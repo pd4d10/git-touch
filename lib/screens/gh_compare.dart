@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:git_touch/widgets/files_item.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/widgets/action_button.dart';
+import '../generated/l10n.dart';
 
 class GhComparisonScreen extends StatelessWidget {
   final String owner;
@@ -17,7 +18,7 @@ class GhComparisonScreen extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold(
-      title: AppBarTitle('Files'),
+      title: AppBarTitle(S.of(context).files),
       fetch: () async {
         final res = await context.read<AuthModel>().ghClient.getJSON(
             '/repos/$owner/$name/compare/$before...$head',
@@ -26,7 +27,7 @@ class GhComparisonScreen extends StatelessWidget {
       },
       actionBuilder: (v, _) {
         return ActionButton(
-          title: 'Actions',
+          title: S.of(context).actions,
           items: [
             ...ActionItem.getUrlActions(
                 'https://github.com/$owner/$name/compare/$before...$head'),

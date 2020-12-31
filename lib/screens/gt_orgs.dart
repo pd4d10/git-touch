@@ -5,6 +5,7 @@ import 'package:git_touch/scaffolds/list_stateful.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/user_item.dart';
 import 'package:provider/provider.dart';
+import '../generated/l10n.dart';
 
 class GtOrgsScreen extends StatelessWidget {
   final String api;
@@ -14,7 +15,7 @@ class GtOrgsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GiteaOrg, int>(
-      title: AppBarTitle('Organizations'),
+      title: AppBarTitle(S.of(context).organizations),
       fetch: (page) async {
         final res =
             await context.read<AuthModel>().fetchGiteaWithPage(api, page: page);

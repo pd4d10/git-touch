@@ -6,6 +6,7 @@ import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/issue_item.dart';
 import 'package:git_touch/widgets/label.dart';
 import 'package:provider/provider.dart';
+import '../generated/l10n.dart';
 
 class GlIssuesScreen extends StatelessWidget {
   final String id;
@@ -15,7 +16,7 @@ class GlIssuesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GitlabIssue, int>(
-      title: AppBarTitle('Issues'),
+      title: AppBarTitle(S.of(context).issues),
       // TODO: create issue
       fetch: (page) async {
         page = page ?? 1;

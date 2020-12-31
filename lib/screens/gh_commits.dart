@@ -6,6 +6,7 @@ import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/commit_item.dart';
 import 'package:provider/provider.dart';
+import '../generated/l10n.dart';
 
 class GhCommitsScreen extends StatelessWidget {
   final String owner;
@@ -28,7 +29,7 @@ class GhCommitsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GhCommitsCommit, String>(
-      title: AppBarTitle('Commits'),
+      title: AppBarTitle(S.of(context).commits),
       fetch: (cursor) async {
         final res = await context.read<AuthModel>().gqlClient.execute(
             GhCommitsQuery(

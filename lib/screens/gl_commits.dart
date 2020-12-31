@@ -5,6 +5,7 @@ import 'package:git_touch/scaffolds/list_stateful.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/commit_item.dart';
 import 'package:provider/provider.dart';
+import '../generated/l10n.dart';
 
 class GlCommitsScreen extends StatelessWidget {
   final String id;
@@ -15,7 +16,7 @@ class GlCommitsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GitlabCommit, int>(
-      title: AppBarTitle('Commits'),
+      title: AppBarTitle(S.of(context).commits),
       fetch: (page) async {
         page = page ?? 1;
         final auth = context.read<AuthModel>();

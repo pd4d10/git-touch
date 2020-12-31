@@ -13,6 +13,7 @@ import '../widgets/notification_item.dart';
 import '../widgets/list_group.dart';
 import '../widgets/empty.dart';
 import '../utils/utils.dart';
+import '../generated/l10n.dart';
 
 class GhNotificationScreen extends StatefulWidget {
   @override
@@ -156,8 +157,12 @@ ${item.key}: pullRequest(number: ${item.subject.number}) {
   @override
   Widget build(context) {
     return TabStatefulScaffold(
-      title: AppBarTitle('Notifications'),
-      tabs: ['Unread', 'Participating', 'All'],
+      title: AppBarTitle(S.of(context).notification),
+      tabs: [
+        S.of(context).unread,
+        S.of(context).participating,
+        S.of(context).all
+      ],
       fetchData: fetchNotifications,
       bodyBuilder: (groupMap, activeTab) {
         if (groupMap.isEmpty) return EmptyWidget();

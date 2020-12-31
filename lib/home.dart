@@ -22,6 +22,7 @@ import 'package:git_touch/screens/gh_news.dart';
 import 'package:git_touch/screens/gh_search.dart';
 import 'package:git_touch/screens/gh_trending.dart';
 import 'package:git_touch/screens/ge_search.dart';
+import 'generated/l10n.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -151,46 +152,58 @@ class _HomeState extends State<Home> {
     switch (auth.activeAccount.platform) {
       case PlatformType.github:
         navigationItems = [
-          BottomNavigationBarItem(icon: Icon(Icons.rss_feed), label: 'News'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.rss_feed), label: S.of(context).news),
           BottomNavigationBarItem(
               icon: _buildNotificationIcon(context, false),
               activeIcon: _buildNotificationIcon(context, true),
-              label: 'Notification'),
+              label: S.of(context).notification),
           BottomNavigationBarItem(
-              icon: Icon(Icons.whatshot), label: 'Trending'),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
+              icon: Icon(Icons.whatshot), label: S.of(context).trending),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.search), label: S.of(context).search),
           BottomNavigationBarItem(
               icon: Icon(Icons.person),
               activeIcon: Icon(Icons.person),
-              label: 'Me'),
+              label: S.of(context).me),
         ];
         break;
       case PlatformType.gitlab:
         navigationItems = [
-          BottomNavigationBarItem(icon: Icon(Icons.explore), label: 'Explore'),
-          BottomNavigationBarItem(icon: Icon(Icons.group), label: 'Groups'),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Me'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.explore), label: S.of(context).explore),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.group), label: S.of(context).groups),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.search), label: S.of(context).search),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.person), label: S.of(context).me),
         ];
         break;
       case PlatformType.bitbucket:
         navigationItems = [
-          BottomNavigationBarItem(icon: Icon(Icons.explore), label: 'Explore'),
-          BottomNavigationBarItem(icon: Icon(Icons.group), label: 'Teams'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Me'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.explore), label: S.of(context).explore),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.group), label: S.of(context).teams),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.person), label: S.of(context).me),
         ];
         break;
       case PlatformType.gitea:
         navigationItems = [
           BottomNavigationBarItem(
-              icon: Icon(Icons.group), label: 'Organizations'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Me'),
+              icon: Icon(Icons.group), label: S.of(context).organizations),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.person), label: S.of(context).me),
         ];
         break;
       case PlatformType.gitee:
         navigationItems = [
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Me'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.search), label: S.of(context).search),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.person), label: S.of(context).me),
         ];
         break;
     }

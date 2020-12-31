@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:timeago/timeago.dart' as timeago;
+import '../generated/l10n.dart';
 
 class GlGroupScreen extends StatelessWidget {
   final int id;
@@ -18,7 +19,7 @@ class GlGroupScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold<Tuple2<GitlabGroup, int>>(
-      title: Text('Group'),
+      title: Text(S.of(context).group),
       fetch: () async {
         final auth = context.read<AuthModel>();
         final res = await Future.wait([

@@ -5,6 +5,7 @@ import 'package:git_touch/scaffolds/list_stateful.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/issue_item.dart';
 import 'package:provider/provider.dart';
+import '../generated/l10n.dart';
 
 class BbIssuesScreen extends StatelessWidget {
   final String owner;
@@ -16,7 +17,7 @@ class BbIssuesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthModel>(context);
     return ListStatefulScaffold<BbIssues, String>(
-      title: AppBarTitle('Issues'),
+      title: AppBarTitle(S.of(context).issues),
       fetch: (nextUrl) async {
         final res = await context
             .read<AuthModel>()

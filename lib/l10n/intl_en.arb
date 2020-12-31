@@ -1,0 +1,354 @@
+{
+  "helloWorld": "Hello World!",
+  "@helloWorld": {
+    "description": "The conventional newborn programmer greeting"
+  },
+  "news": "News",
+  "@news": {
+    "description": "The News tab"
+  },
+  "notification": "Notification",
+  "@notification": {
+    "description": "The Notification tab"
+  },
+  "trending": "Trending",
+  "@trending": {
+    "description": "Trending"
+  },
+  "search": "Search",
+  "@search": {
+    "description": "The Search tab"
+  },
+  "me": "Me",
+  "@me": {
+    "description": "The Me tab"
+  },
+  "participating": "Participating",
+  "@participating": {
+    "description": "The participating Tab"
+  },
+  "repositories": "Repositories",
+  "@repositories": {
+    "description": "repository text"
+  },
+  "unfollow": "Unfollow",
+  "@unfollow": {
+    "description": "unfollow someone"
+  },
+  "follow": "Follow",
+  "@follow": {
+    "description": "follow someone"
+  },
+  "stars": "Stars",
+  "@stars": {
+    "description": "stars on a repo"
+  },
+  "followers": "Followers",
+  "@followers": {
+    "description": "followers for a person"
+  },
+  "following": "Following",
+  "@following": {
+    "description": "people followed by a person"
+  },
+  "events": "Events",
+  "@events": {
+    "description": "events for a user"
+  },
+  "gists": "Gists",
+  "@gists": {
+    "description": "gists for a user"
+  },
+  "organizations": "Organizations",
+  "@organizations": {
+    "description": "organizations for a user"
+  },
+  "members": "Members",
+  "@members": {
+    "description": "members of an organization"
+  },
+  "popularRepositories": "popular repositories",
+  "@popularRepositories": {
+    "description": "popular repositories"
+  },
+  "pinnedRepositories": "pinned repositories",
+  "@pinnedRepositories": {
+    "description": "pinned repositories"
+  },
+  "settings": "Settings",
+  "@settings": {
+    "description": "settings"
+  },
+  "system": "system",
+  "@system": {
+    "description": "system"
+  },
+  "githubStatus": "GitHub status",
+  "@githubStatus": {
+    "description": "github status"
+  },
+  "reviewPermissions": "Review Permissions",
+  "@reviewPermissions": {
+    "description": "review Permissions"
+  },
+  "gitlabStatus": "GitLab status",
+  "@gitlabStatus": {
+    "description": "GitLab status"
+  },
+  "giteaStatus": "Gitea status",
+  "@giteaStatus": {
+    "description": "Gitea status"
+  },
+  "switchAccounts": "Switch accounts",
+  "@switchAccounts": {
+    "description": "Switch accounts"
+  },
+  "brightness": "Brightness",
+  "@brightness": {
+    "description": "brightness"
+  },
+  "followSystem": "Follow System",
+  "@followSystem": {
+    "description": "follow systems setting"
+  },
+  "light": "Light",
+  "@light": {
+    "description": "light mode"
+  },
+  "dark": "Dark",
+  "@dark": {
+    "description": "dark mode"
+  },
+  "scaffoldTheme": "Scaffold Theme",
+  "@scaffoldTheme": {
+    "description": "Kind of theme - cupertino or material"
+  },
+  "cupertino": "Cupertino",
+  "@cupertino": {
+    "description": "Cupertino scaffold theme"
+  },
+  "material": "Material",
+  "@material": {
+    "description": "Material scaffold theme"
+  },
+  "codeTheme": "Code Theme",
+  "@codeTheme": {
+    "description": "code theme"
+  },
+  "markdownRenderEngine": "Markdown Render Engine",
+  "@markdownRenderEngine": {
+    "description": "flutter or webview rendering for markdown"
+  },
+  "flutter": "Flutter",
+  "@flutter": {
+    "description": "render flutter for markdown"
+  },
+  "webview": "WebView",
+  "@webview": {
+    "description": "render webview for markdown"
+  },
+  "feedback": "feedback",
+  "@feedback": {
+    "description": "provide feedback"
+  },
+  "submitAnIssue": "Submit an issue",
+  "@submitAnIssue": {
+    "description": "submit issue for app"
+  },
+  "rateThisApp": "Rate This App",
+  "@rateThisApp": {
+    "description": "rate the app"
+  },
+  "email": "Email",
+  "@email": {
+    "description": "Email to report issues"
+  },
+  "about": "about",
+  "@about": {
+    "description": "about section"
+  },
+  "version": "Version",
+  "@version": {
+    "description": "app version"
+  },
+  "sourceCode": "Source Code",
+  "@sourceCode": {
+    "description": "source code for app"
+  },
+  "repository": "Repository",
+  "@repository": {
+    "description": "Repository screen title"
+  },
+  "repositoryActions": "Repository Actions",
+  "@repositoryActions": {
+    "description": "Repository Actions"
+  },
+  "projects": "Projects",
+  "@projects": {
+    "description": "projects"
+  },
+  "releases": "Releases",
+  "@releases": {
+    "description": "releases"
+  },
+  "watchers": "Watchers",
+  "@watchers": {
+    "description": "watchers"
+  },
+  "forks": "Forks",
+  "@forks": {
+    "description": "forks"
+  },
+  "issues": "Issues",
+  "@issues": {
+    "description": "issues"
+  },
+  "pullRequests": "Pull requests",
+  "@pullRequests": {
+    "description": "Pull Requests"
+  },
+  "commits": "Commits",
+  "@commits": {
+    "description": "Commits"
+  },
+  "branches": "Branches",
+  "@branches": {
+    "description": "branches"
+  },
+  "contributors": "Contributors",
+  "@contributors": {
+    "description": "contributors"
+  },
+  "unread": "Unread",
+  "@unread": {
+    "description": "unread"
+  },
+  "all": "All",
+  "@all": {
+    "description": "all"
+  },
+  "developers": "Developers",
+  "@developers": {
+    "description": "developers"
+  },
+  "explore": "Explore",
+  "@explore": {
+    "description": "explore"
+  },
+  "teams": "Teams",
+  "@teams": {
+    "description": "teams"
+  },
+  "file": "File",
+  "@file": {
+    "description": "file"
+  },
+  "files": "Files",
+  "@files": {
+    "description": "file plural"
+  },
+  "actions": "Actions",
+  "@actions": {
+    "description": "actions"
+  },
+  "groups": "Groups",
+  "@groups": {
+    "description": "groups"
+  },
+  "mergeRequests": "Merge Requests",
+  "@mergeRequests": {
+    "description": "Merge request"
+  },
+  "activity": "Activity",
+  "@activity": {
+    "description": "activity"
+  },
+  "project": "Project",
+  "@project": {
+    "description": "project"
+  },
+  "selectAccount": "Select account",
+  "@selectAccount": {
+    "description": "select account message"
+  },
+  "removeAccount": "Remove account",
+  "@removeAccount": {
+    "description": "remove account"
+  },
+  "somethingBadHappens": "Something bad happens:",
+  "@somethingBadHappens": {
+    "description": "error message"
+  },
+  "githubAccount": "GitHub Account",
+  "@githubAccount": {
+    "description": "Gitea Account"
+  },
+  "permissionRequiredMessage": "GitTouch needs these permissions",
+  "@permissionRequiredMessage": {
+    "description": "Permission Required Message"
+  },
+  "notFoundMessage": "Not Found",
+  "@notFoundMessage": {
+    "description": "Not found page header"
+  },
+  "notFoundTextDisplay": "Woops, This page is not implemented yet",
+  "@notFoundTextDisplay": {
+    "description": "Not found error message"
+  },
+  "gitlabAccount": "GitLab Account",
+  "@gitlabAccount": {
+    "description": "Gitlab Account"
+  },
+  "bitbucketAccount": "Bitbucket Account",
+  "@bitbucketAccount": {
+    "description": "Bitbucket Account"
+  },
+  "longPressToRemoveAccount": "Long Press to remove account",
+  "@longPressToRemoveAccount": {
+    "description": "Long Press to remove account"
+  },
+  "giteaAccount": "Gitee Account",
+  "@giteaAccount": {
+    "description": "Gitea Account"
+  },
+  "giteeAccount": "Gitee Account",
+  "@giteeAccount": {
+    "description": "Gitee Account"
+  },
+  "user": "User",
+  "@user": {
+    "description": "user"
+  },
+  "group": "Group",
+  "@group": {
+    "description": "group"
+  },
+  "issue": "Issue",
+  "@issue": {
+    "description": "issue"
+  },
+  "code": "Code",
+  "@code": {
+    "description": "Code"
+  },
+  "projectActions": "Project Actions",
+  "@projectActions": {
+    "description": "Project Actions"
+  },
+  "syntaxHighlighting": "SYNTAX HIGHLIGHTING",
+  "@syntaxHighlighting": {
+    "description": "Syntax Highlighting"
+  },
+  "fontFamily": "Font Family",
+  "@fontFamily": {
+    "description": "Font Family"
+  },
+  "fontSize": "Font Size",
+  "@fontSize": {
+    "description": "font size"
+  },
+  "fontStyle": "FONT STYLE",
+  "@fontStyle": {
+    "description": "font style"
+  }
+}
