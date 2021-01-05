@@ -17,7 +17,12 @@ class MyApp extends StatelessWidget {
           home: Home(),
           localeResolutionCallback:
               (Locale locale, Iterable<Locale> supportedLocales) {
-            return locale;
+            for (final supportedLocale in supportedLocales) {
+              if (locale.languageCode == supportedLocale.languageCode) {
+                return supportedLocale;
+              }
+            }
+            return supportedLocales.first;
           },
           localizationsDelegates: [
             S.delegate,
@@ -47,7 +52,12 @@ class MyApp extends StatelessWidget {
           home: Home(),
           localeResolutionCallback:
               (Locale locale, Iterable<Locale> supportedLocales) {
-            return locale;
+            for (final supportedLocale in supportedLocales) {
+              if (locale.languageCode == supportedLocale.languageCode) {
+                return supportedLocale;
+              }
+            }
+            return supportedLocales.first;
           },
           localizationsDelegates: [
             S.delegate,
