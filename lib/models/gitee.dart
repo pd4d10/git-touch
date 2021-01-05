@@ -133,6 +133,7 @@ class GiteeIssue {
   String body;
   String bodyHtml;
   String title;
+  String state;
   GiteeRepoOwner user;
   String number;
   int id;

@@ -16,8 +16,9 @@ class GeIssueScreen extends StatelessWidget {
   final String owner;
   final String name;
   final String number;
+  final bool isPr;
 
-  GeIssueScreen(this.owner, this.name, this.number);
+  GeIssueScreen(this.owner, this.name, this.number, {this.isPr: false});
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +32,15 @@ class GeIssueScreen extends StatelessWidget {
         ]);
         return Tuple2(GiteeIssue.fromJson(items[0]),
             [for (var v in items[1]) GiteeComment.fromJson(v)]);
+      },
+      actionBuilder: (data, _) {
+        return ActionButton(
+          title: 'Actions',
+          items: [
+            ...ActionItem.getUrlActions(
+                'https://gitee.com/$owner/$name/issues/$number'),
+          ],
+        );
       },
       bodyBuilder: (data, _) {
         final issue = data.item1;
@@ -78,7 +88,11 @@ class GeIssueScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 8),
-                  StateLabel(StateLabelStatus.issueOpened, small: true),
+                  StateLabel(
+                      issue.state == 'open'
+                          ? StateLabelStatus.issueOpened
+                          : StateLabelStatus.issueClosed,
+                      small: true),
                   SizedBox(height: 16),
                   CommonStyle.border,
                 ],

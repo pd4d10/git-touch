@@ -465,7 +465,8 @@ class GiteeRouter {
   static final issue =
       RouterScreen('/:owner/:name/issues/:number', (context, parameters) {
     return GeIssueScreen(parameters['owner'].first, parameters['name'].first,
-        parameters['number'].first);
+        parameters['number'].first,
+        isPr: false);
   });
   static final pulls = RouterScreen(
     '/:owner/:name/pulls',

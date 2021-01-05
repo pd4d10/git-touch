@@ -12,7 +12,6 @@ class UserName extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
-    print(login);
     return Link(
       url: '/$prefix/$login',
       child: Container(
