@@ -9,6 +9,7 @@ import 'package:git_touch/screens/code_theme.dart';
 import 'package:git_touch/screens/ge_blob.dart';
 import 'package:git_touch/screens/ge_commits.dart';
 import 'package:git_touch/screens/ge_issue.dart';
+import 'package:git_touch/screens/ge_issue_form.dart';
 import 'package:git_touch/screens/ge_issues.dart';
 import 'package:git_touch/screens/ge_pulls.dart';
 import 'package:git_touch/screens/ge_repo.dart';
@@ -397,7 +398,8 @@ class GiteeRouter {
     GiteeRouter.blob,
     GiteeRouter.issues,
     GiteeRouter.pulls,
-    GiteeRouter.issue,
+    GiteeRouter.issueAdd, // issueAdd should be above issue
+    GiteeRouter.issue, // Due to similarity of uris
   ];
   static final search = RouterScreen('/search', (context, parameters) {
     return GeSearchScreen();
@@ -475,4 +477,9 @@ class GiteeRouter {
           isPr: true);
     },
   );
+  static final issueAdd =
+      RouterScreen('/:owner/:name/issues/new', (context, parameters) {
+    return GeIssueFormScreen(
+        parameters['owner'].first, parameters['name'].first);
+  });
 }

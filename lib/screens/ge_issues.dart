@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/gitee.dart';
 import 'package:git_touch/scaffolds/list_stateful.dart';
+import 'package:git_touch/utils/utils.dart';
+import 'package:git_touch/widgets/action_entry.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/issue_item.dart';
 import 'package:provider/provider.dart';
@@ -26,6 +28,10 @@ class GeIssuesScreen extends StatelessWidget {
           items: [for (var v in res.data) GiteeIssue.fromJson(v)],
         );
       },
+      actionBuilder: () => ActionEntry(
+        iconData: Octicons.plus,
+        url: '/gitee/$owner/$name/issues/new',
+      ),
       itemBuilder: (p) => IssueItem(
         author: p.user.login,
         avatarUrl: p.user.avatarUrl,
