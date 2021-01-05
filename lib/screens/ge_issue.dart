@@ -117,6 +117,5 @@ class GeIssueScreen extends StatelessWidget {
         ]);
       },
     );
-    // return Container(child: Text("Hello"));
   }
 }
