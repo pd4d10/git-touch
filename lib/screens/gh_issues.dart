@@ -8,6 +8,7 @@ import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/issue_item.dart';
 import 'package:git_touch/widgets/label.dart';
 import 'package:provider/provider.dart';
+import '../generated/l10n.dart';
 
 class GhIssuesScreen extends StatelessWidget {
   final String owner;
@@ -17,7 +18,7 @@ class GhIssuesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GhIssuesIssue, String>(
-      title: AppBarTitle('Issues'),
+      title: AppBarTitle(S.of(context).issues),
       actionBuilder: () => ActionEntry(
         iconData: Octicons.plus,
         url: '/github/$owner/$name/issues/new',

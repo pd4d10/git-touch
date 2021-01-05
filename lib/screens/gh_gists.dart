@@ -6,6 +6,7 @@ import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/gists_item.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/models/auth.dart';
+import '../generated/l10n.dart';
 
 class GhGistsScreen extends StatelessWidget {
   final String login;
@@ -14,7 +15,7 @@ class GhGistsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GithubGistsItem, int>(
-      title: AppBarTitle('Gists'),
+      title: AppBarTitle(S.of(context).gists),
       fetch: (page) async {
         page = page ?? 1;
         final res = await context

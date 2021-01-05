@@ -6,6 +6,7 @@ import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/issue_item.dart';
 import 'package:git_touch/widgets/label.dart';
 import 'package:provider/provider.dart';
+import '../generated/l10n.dart';
 
 class GlMergeRequestsScreen extends StatelessWidget {
   final String id;
@@ -15,7 +16,7 @@ class GlMergeRequestsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GitlabIssue, int>(
-      title: AppBarTitle('Merge Requests'),
+      title: AppBarTitle(S.of(context).mergeRequests),
       fetch: (page) async {
         page = page ?? 1;
         final res = await context.read<AuthModel>().fetchGitlabWithPage(

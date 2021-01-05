@@ -16,6 +16,7 @@ import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/widgets/user_header.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/widgets/action_button.dart';
+import '../generated/l10n.dart';
 
 class GhUserScreen extends StatelessWidget {
   final String login;
@@ -77,7 +78,9 @@ class GhUserScreen extends StatelessWidget {
             if (p.viewerCanFollow)
               MutationButton(
                 active: p.viewerIsFollowing,
-                text: p.viewerIsFollowing ? 'Unfollow' : 'Follow',
+                text: p.viewerIsFollowing
+                    ? S.of(context).unfollow
+                    : S.of(context).follow,
                 onTap: () async {
                   if (p.viewerIsFollowing) {
                     await auth.ghClient.users.unfollowUser(p.login);
@@ -95,22 +98,22 @@ class GhUserScreen extends StatelessWidget {
         Row(children: [
           EntryItem(
             count: p.repositories.totalCount,
-            text: 'Repositories',
+            text: S.of(context).repositories,
             url: '/github/$login?tab=repositories',
           ),
           EntryItem(
             count: p.starredRepositories.totalCount,
-            text: 'Stars',
+            text: S.of(context).stars,
             url: '/github/$login?tab=stars',
           ),
           EntryItem(
             count: p.followers.totalCount,
-            text: 'Followers',
+            text: S.of(context).followers,
             url: '/github/$login?tab=followers',
           ),
           EntryItem(
             count: p.following.totalCount,
-            text: 'Following',
+            text: S.of(context).following,
             url: '/github/$login?tab=following',
           ),
         ]),
@@ -132,17 +135,17 @@ class GhUserScreen extends StatelessWidget {
           items: [
             TableViewItem(
               leftIconData: Icons.rss_feed,
-              text: Text('Events'),
+              text: Text(S.of(context).events),
               url: '/github/$login?tab=events',
             ),
             TableViewItem(
               leftIconData: Octicons.book,
-              text: Text('Gists'),
+              text: Text(S.of(context).gists),
               url: '/github/$login?tab=gists',
             ),
             TableViewItem(
               leftIconData: Octicons.home,
-              text: Text('Organizations'),
+              text: Text(S.of(context).organizations),
               url: '/github/$login?tab=organizations',
             ),
             if (isNotNullOrEmpty(p.company))
@@ -229,12 +232,12 @@ class GhUserScreen extends StatelessWidget {
         Row(children: [
           EntryItem(
             count: p.pinnableItems.totalCount,
-            text: 'Repositories',
+            text: S.of(context).repositories,
             url: '/github/${p.login}?tab=orgrepo',
           ),
           EntryItem(
             count: p.membersWithRole.totalCount,
-            text: 'Members',
+            text: S.of(context).members,
             url: '/github/${p.login}?tab=people',
           ),
         ]),
@@ -243,7 +246,7 @@ class GhUserScreen extends StatelessWidget {
           items: [
             TableViewItem(
               leftIconData: Icons.rss_feed,
-              text: Text('Events'),
+              text: Text(S.of(context).events),
               url: '/github/$login?tab=events',
             ),
             if (isNotNullOrEmpty(p.location))
@@ -301,7 +304,7 @@ class GhUserScreen extends StatelessWidget {
                 GhUserArguments(login: login ?? '', isViewer: isViewer)));
         return isViewer ? data.data.viewer : data.data.repositoryOwner;
       },
-      title: AppBarTitle(isViewer ? 'Me' : login),
+      title: AppBarTitle(isViewer ? S.of(context).me : login),
       action: isViewer
           ? ActionEntry(
               iconData: Icons.settings,

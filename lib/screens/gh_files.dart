@@ -7,6 +7,7 @@ import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/widgets/files_item.dart';
 import 'package:git_touch/models/auth.dart';
+import '../generated/l10n.dart';
 
 class GhFilesScreen extends StatelessWidget {
   final String owner;
@@ -16,7 +17,7 @@ class GhFilesScreen extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GithubFilesItem, int>(
-      title: AppBarTitle('Files'),
+      title: AppBarTitle(S.of(context).files),
       actionBuilder: () {
         return ActionButton(
           title: 'Actions',

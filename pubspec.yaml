@@ -46,6 +46,8 @@ dependencies:
   uri: ^0.11.3
   url_launcher: ^5.4.1
   webview_flutter: ^1.0.5
+  flutter_localizations:
+    sdk: flutter
 
 dev_dependencies:
   flutter_test:
@@ -60,6 +62,7 @@ dev_dependencies:
 # following page: https://www.dartlang.org/tools/pub/pubspec
 # The following section is specific to Flutter.
 flutter:
+  generate: true
   uses-material-design: true
   assets:
     - images/
@@ -110,3 +113,5 @@ flutter:
         - asset: fonts/JetBrainsMono-Bold-Italic.ttf
           style: italic
           weight: 700
+flutter_intl:
+  enabled: true

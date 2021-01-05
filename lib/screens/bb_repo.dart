@@ -13,6 +13,7 @@ import 'package:git_touch/widgets/repo_header.dart';
 import 'package:git_touch/widgets/table_view.dart';
 import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
+import '../generated/l10n.dart';
 
 class BbRepoScreen extends StatelessWidget {
   final String owner;
@@ -22,7 +23,7 @@ class BbRepoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold<Tuple2<BbRepo, String>>(
-      title: AppBarTitle('Repository'),
+      title: AppBarTitle(S.of(context).repository),
       fetch: () async {
         final auth = context.read<AuthModel>();
         final r = await auth.fetchBbJson('/repositories/$owner/$name');

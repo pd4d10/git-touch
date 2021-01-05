@@ -6,12 +6,13 @@ import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/user_item.dart';
 import 'package:provider/provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
+import '../generated/l10n.dart';
 
 class BbTeamsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold<BbUser, String>(
-      title: AppBarTitle('Teams'),
+      title: AppBarTitle(S.of(context).teams),
       fetch: (nextUrl) async {
         final res = await context
             .read<AuthModel>()

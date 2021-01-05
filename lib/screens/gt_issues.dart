@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:git_touch/generated/l10n.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/gitea.dart';
 import 'package:git_touch/scaffolds/list_stateful.dart';
@@ -15,7 +16,8 @@ class GtIssuesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GiteaIssue, int>(
-      title: AppBarTitle(isPr ? 'Pull Requests' : 'Issues'),
+      title:
+          AppBarTitle(isPr ? S.of(context).pullRequests : S.of(context).issues),
       // TODO: create issue
       fetch: (page) async {
         final type = isPr ? 'pulls' : 'issues';

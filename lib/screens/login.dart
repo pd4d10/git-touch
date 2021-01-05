@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 import '../widgets/link.dart';
 import '../widgets/loading.dart';
 import '../widgets/avatar.dart';
+import '../generated/l10n.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -45,7 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
       onLongPress: () {
         theme.showActions(context, [
           ActionItem(
-            text: 'Remove account',
+            text: S.of(context).removeAccount,
             isDestructiveAction: true,
             onTap: (_) {
               auth.removeAccount(index);
@@ -130,7 +131,7 @@ class _LoginScreenState extends State<LoginScreen> {
   void showError(err) {
     context
         .read<ThemeModel>()
-        .showConfirm(context, Text('Something bad happens: $err'));
+        .showConfirm(context, Text(S.of(context).somethingBadHappens + '$err'));
   }
 
   @override
@@ -138,7 +139,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final auth = Provider.of<AuthModel>(context);
     final theme = Provider.of<ThemeModel>(context);
     return SingleScaffold(
-      title: AppBarTitle('Select account'),
+      title: AppBarTitle(S.of(context).selectAccount),
       body: auth.loading
           ? Center(child: Loading())
           : Container(
@@ -146,7 +147,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   ...List.generate(auth.accounts.length, _buildAccountItem),
                   _buildAddItem(
-                    text: 'GitHub Account',
+                    text: S.of(context).githubAccount,
                     brand: FontAwesome5Brands.github,
                     onTap: () async {
                       theme.showActions(context, [
@@ -163,7 +164,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               context,
                               _buildPopup(context, notes: [
                                 Text(
-                                  'GitTouch needs these permissions',
+                                  S.of(context).permissionRequiredMessage,
                                   style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w400),
@@ -192,7 +193,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                   ),
                   _buildAddItem(
-                    text: 'GitLab Account',
+                    text: S.of(context).gitlabAccount,
                     brand: FontAwesome5Brands.gitlab,
                     onTap: () async {
                       _domainController.text = 'https://gitlab.com';
@@ -203,7 +204,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           showDomain: true,
                           notes: [
                             Text(
-                              'GitTouch needs these permissions',
+                              S.of(context).permissionRequiredMessage,
                               style: TextStyle(
                                   fontSize: 14, fontWeight: FontWeight.w400),
                             ),
@@ -228,7 +229,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                   ),
                   _buildAddItem(
-                    text: 'Bitbucket Account',
+                    text: S.of(context).bitbucketAccount,
                     brand: FontAwesome5Brands.bitbucket,
                     onTap: () async {
                       _domainController.text = 'https://bitbucket.org';
@@ -269,7 +270,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             SizedBox(height: 8),
                             Text(
-                              'GitTouch needs these permissions',
+                              S.of(context).permissionRequiredMessage,
                               style: TextStyle(
                                   fontSize: 14, fontWeight: FontWeight.w400),
                             ),
@@ -295,7 +296,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                   ),
                   _buildAddItem(
-                    text: 'Gitea Account',
+                    text: S.of(context).giteaAccount,
                     brand: Octicons.git_branch, // TODO: brand icon
                     onTap: () async {
                       _domainController.text = 'https://gitea.com';
@@ -315,7 +316,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                   ),
                   _buildAddItem(
-                    text: 'Gitee Account(码云)',
+                    text: S.of(context).giteeAccount + '(码云)',
                     brand: Octicons.git_branch, // TODO: brand icon
                     onTap: () async {
                       final result = await theme.showConfirm(
@@ -335,7 +336,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Container(
                     padding: CommonStyle.padding,
                     child: Text(
-                      'Note: Long press to remove account',
+                      S.of(context).longPressToRemoveAccount,
                       style: TextStyle(
                         fontSize: 16,
                         color: theme.palette.secondaryText,

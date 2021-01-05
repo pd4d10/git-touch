@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/utils/utils.dart';
+import '../generated/l10n.dart';
 
 class GlTreeScreen extends StatelessWidget {
   final int id;
@@ -18,7 +19,7 @@ class GlTreeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthModel>(context);
     return RefreshStatefulScaffold<Iterable<GitlabTreeItem>>(
-      title: AppBarTitle(path ?? 'Files'),
+      title: AppBarTitle(path ?? S.of(context).files),
       fetch: () async {
         final uri = Uri(
           path: '/projects/$id/repository/tree',

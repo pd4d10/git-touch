@@ -9,6 +9,7 @@ import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/table_view.dart';
 import 'package:provider/provider.dart';
+import '../generated/l10n.dart';
 
 class CodeThemeScreen extends StatelessWidget {
   String _getCode(bool isDark) => '''// ${isDark ? 'Dark' : 'Light'} Mode
@@ -38,16 +39,16 @@ class MyApp extends StatelessWidget {
     var theme = Provider.of<ThemeModel>(context);
 
     return SingleScaffold(
-      title: AppBarTitle('Code theme'),
+      title: AppBarTitle(S.of(context).codeTheme),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           CommonStyle.verticalGap,
           TableView(
-            headerText: 'FONT STYLE',
+            headerText: S.of(context).fontStyle,
             items: [
               TableViewItem(
-                text: Text('Font Size'),
+                text: Text(S.of(context).fontSize),
                 rightWidget: Text(codeProvider.fontSize.toString()),
                 onTap: () {
                   theme.showPicker(
@@ -66,7 +67,7 @@ class MyApp extends StatelessWidget {
                 },
               ),
               TableViewItem(
-                text: Text('Font Family'),
+                text: Text(S.of(context).fontFamily),
                 rightWidget: Text(codeProvider.fontFamily),
                 onTap: () {
                   theme.showPicker(
@@ -87,10 +88,10 @@ class MyApp extends StatelessWidget {
           ),
           CommonStyle.verticalGap,
           TableView(
-            headerText: 'SYNTAX HIGHLIGHTING',
+            headerText: S.of(context).syntaxHighlighting,
             items: [
               TableViewItem(
-                text: Text('Light Mode'),
+                text: Text(S.of(context).light),
                 rightWidget: Text(codeProvider.theme),
                 onTap: () {
                   theme.showPicker(
@@ -108,7 +109,7 @@ class MyApp extends StatelessWidget {
                 },
               ),
               TableViewItem(
-                text: Text('Dark Mode'),
+                text: Text(S.of(context).dark),
                 rightWidget: Text(codeProvider.themeDark),
                 onTap: () {
                   theme.showPicker(
