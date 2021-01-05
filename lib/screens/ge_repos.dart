@@ -43,8 +43,8 @@ class GeReposScreen extends StatelessWidget {
           starCount: v.stargazersCount,
           forkCount: v.forksCount,
           note: 'Updated ${timeago.format(v.updatedAt)}',
-          url: '/gitea/${v.namespace.path}/${v.path}',
-          avatarLink: '/gitea/${v.namespace.path}',
+          url: '/gitee/${v.namespace.path}/${v.path}',
+          avatarLink: '/gitee/${v.namespace.path}',
         );
       },
     );
