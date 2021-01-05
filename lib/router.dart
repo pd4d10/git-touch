@@ -8,6 +8,9 @@ import 'package:git_touch/screens/bb_user.dart';
 import 'package:git_touch/screens/code_theme.dart';
 import 'package:git_touch/screens/ge_blob.dart';
 import 'package:git_touch/screens/ge_commits.dart';
+import 'package:git_touch/screens/ge_issue.dart';
+import 'package:git_touch/screens/ge_issues.dart';
+import 'package:git_touch/screens/ge_pulls.dart';
 import 'package:git_touch/screens/ge_repo.dart';
 import 'package:git_touch/screens/ge_repos.dart';
 import 'package:git_touch/screens/ge_search.dart';
@@ -392,6 +395,9 @@ class GiteeRouter {
     GiteeRouter.commits,
     GiteeRouter.tree,
     GiteeRouter.blob,
+    GiteeRouter.issues,
+    GiteeRouter.pulls,
+    GiteeRouter.issue,
   ];
   static final search = RouterScreen('/search', (context, parameters) {
     return GeSearchScreen();
@@ -447,6 +453,25 @@ class GiteeRouter {
         parameters['sha'].first,
         parameters['path'].first,
       );
+    },
+  );
+  static final issues = RouterScreen(
+    '/:owner/:name/issues',
+    (context, parameters) {
+      return GeIssuesScreen(parameters['owner'].first, parameters['name'].first,
+          isPr: false);
+    },
+  );
+  static final issue =
+      RouterScreen('/:owner/:name/issues/:number', (context, parameters) {
+    return GeIssueScreen(parameters['owner'].first, parameters['name'].first,
+        parameters['number'].first);
+  });
+  static final pulls = RouterScreen(
+    '/:owner/:name/pulls',
+    (context, parameters) {
+      return GePullsScreen(parameters['owner'].first, parameters['name'].first,
+          isPr: true);
     },
   );
 }

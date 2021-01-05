@@ -41,7 +41,7 @@ class GhIssuesScreen extends StatelessWidget {
         author: p.author?.login,
         avatarUrl: p.author?.avatarUrl,
         commentCount: p.comments.totalCount,
-        number: p.number,
+        subtitle: p.number.toString(),
         title: p.title,
         updatedAt: p.updatedAt,
         labels: p.labels.nodes.isEmpty

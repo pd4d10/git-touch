@@ -91,13 +91,13 @@ class GeRepoScreen extends StatelessWidget {
                   leftIconData: Octicons.issue_opened,
                   text: Text('Issues'),
                   rightWidget: Text(numberFormat.format(p.openIssuesCount)),
-                  url: 'https://gitee.com/$owner/$name/issues', // TODO:
+                  url: '/gitee/$owner/$name/issues',
                 ),
                 if (p.pullRequestsEnabled)
                   TableViewItem(
                     leftIconData: Octicons.git_pull_request,
                     text: Text('Pull requests'),
-                    url: 'https://gitee.com/$owner/$name/pulls', // TODO:
+                    url: '/gitee/$owner/$name/pulls',
                   ),
                 TableViewItem(
                   leftIconData: Octicons.history,

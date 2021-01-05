@@ -34,7 +34,7 @@ comments {
 
 class IssueItem extends StatelessWidget {
   final String url;
-  final int number;
+  final String subtitle;
   final String title;
   final int commentCount;
   final DateTime updatedAt;
@@ -45,7 +45,7 @@ class IssueItem extends StatelessWidget {
 
   IssueItem({
     @required this.url,
-    @required this.number,
+    @required this.subtitle,
     @required this.title,
     @required this.commentCount,
     @required this.updatedAt,
@@ -83,7 +83,7 @@ class IssueItem extends StatelessWidget {
                             children: [
                               TextSpan(text: '$title '),
                               TextSpan(
-                                text: '#$number',
+                                text: '#$subtitle',
                                 style: TextStyle(
                                   color: theme.palette.tertiaryText,
                                   fontWeight: FontWeight.normal,

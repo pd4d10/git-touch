@@ -1,41 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/auth.dart';
-import 'package:git_touch/models/gitea.dart';
+import 'package:git_touch/models/gitee.dart';
 import 'package:git_touch/scaffolds/list_stateful.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/issue_item.dart';
 import 'package:provider/provider.dart';
 
-class GtIssuesScreen extends StatelessWidget {
+class GeIssuesScreen extends StatelessWidget {
   final String owner;
   final String name;
   final bool isPr;
-  GtIssuesScreen(this.owner, this.name, {this.isPr = false});
+  GeIssuesScreen(this.owner, this.name, {this.isPr = false});
 
   @override
   Widget build(BuildContext context) {
-    return ListStatefulScaffold<GiteaIssue, int>(
+    return ListStatefulScaffold<GiteeIssue, int>(
       title: AppBarTitle(isPr ? 'Pull Requests' : 'Issues'),
-      // TODO: create issue
       fetch: (page) async {
-        final type = isPr ? 'pulls' : 'issues';
-        final res = await context.read<AuthModel>().fetchGiteaWithPage(
-            '/repos/$owner/$name/issues?state=open&type=$type',
-            page: page);
+        final res = await context
+            .read<AuthModel>()
+            .fetchGiteeWithPage('/repos/$owner/$name/issues', page: page);
         return ListPayload(
           cursor: res.cursor,
           hasMore: res.hasMore,
-          items: (res.data as List).map((v) => GiteaIssue.fromJson(v)).toList(),
+          items: [for (var v in res.data) GiteeIssue.fromJson(v)],
         );
       },
       itemBuilder: (p) => IssueItem(
         author: p.user.login,
         avatarUrl: p.user.avatarUrl,
         commentCount: p.comments,
-        subtitle: p.number.toString(),
+        subtitle: p.number,
         title: p.title,
-        updatedAt: p.updatedAt,
-        url: p.htmlUrl,
+        updatedAt: DateTime.parse(p.updatedAt),
+        url: '/gitee/$owner/$name/issues/${p.number}',
       ),
     );
   }

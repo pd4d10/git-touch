@@ -5,14 +5,16 @@ import 'package:provider/provider.dart';
 
 class UserName extends StatelessWidget {
   final String login;
+  final String prefix;
 
-  UserName(this.login);
+  UserName(this.login, this.prefix);
 
   @override
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
+    print(login);
     return Link(
-      url: '/github/$login',
+      url: '/$prefix/$login',
       child: Container(
         // padding: EdgeInsets.all(2),
         decoration: BoxDecoration(

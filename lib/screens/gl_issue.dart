@@ -51,6 +51,7 @@ class GlIssueScreen extends StatelessWidget {
                 createdAt: issue.createdAt,
                 body: issue.description,
                 login: issue.author.username,
+                prefix: 'gitlab',
               ),
             ),
             CommonStyle.border,
@@ -79,6 +80,7 @@ class GlIssueScreen extends StatelessWidget {
                         createdAt: note.createdAt,
                         body: note.body,
                         login: note.author.username,
+                        prefix: 'gitlab',
                       ),
                     )
               ],

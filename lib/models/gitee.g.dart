@@ -199,3 +199,80 @@ GiteeBlob _$GiteeBlobFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$GiteeBlobToJson(GiteeBlob instance) => <String, dynamic>{
       'content': instance.content,
     };
+
+GiteeIssue _$GiteeIssueFromJson(Map<String, dynamic> json) {
+  return GiteeIssue()
+    ..comments = json['comments'] as int
+    ..commentsUrl = json['comments_url'] as String
+    ..createdAt = json['created_at'] as String
+    ..htmlUrl = json['html_url'] as String
+    ..updatedAt = json['updated_at'] as String
+    ..body = json['body'] as String
+    ..bodyHtml = json['body_html'] as String
+    ..title = json['title'] as String
+    ..user = json['user'] == null
+        ? null
+        : GiteeRepoOwner.fromJson(json['user'] as Map<String, dynamic>)
+    ..number = json['number'] as String
+    ..id = json['id'] as int;
+}
+
+Map<String, dynamic> _$GiteeIssueToJson(GiteeIssue instance) =>
+    <String, dynamic>{
+      'comments': instance.comments,
+      'comments_url': instance.commentsUrl,
+      'created_at': instance.createdAt,
+      'html_url': instance.htmlUrl,
+      'updated_at': instance.updatedAt,
+      'body': instance.body,
+      'body_html': instance.bodyHtml,
+      'title': instance.title,
+      'user': instance.user,
+      'number': instance.number,
+      'id': instance.id,
+    };
+
+GiteePull _$GiteePullFromJson(Map<String, dynamic> json) {
+  return GiteePull()
+    ..commentsUrl = json['comments_url'] as String
+    ..createdAt = json['created_at'] as String
+    ..htmlUrl = json['html_url'] as String
+    ..updatedAt = json['updated_at'] as String
+    ..body = json['body'] as String
+    ..bodyHtml = json['body_html'] as String
+    ..title = json['title'] as String
+    ..user = json['user'] == null
+        ? null
+        : GiteeRepoOwner.fromJson(json['user'] as Map<String, dynamic>)
+    ..number = json['number'] as int
+    ..id = json['id'] as int;
+}
+
+Map<String, dynamic> _$GiteePullToJson(GiteePull instance) => <String, dynamic>{
+      'comments_url': instance.commentsUrl,
+      'created_at': instance.createdAt,
+      'html_url': instance.htmlUrl,
+      'updated_at': instance.updatedAt,
+      'body': instance.body,
+      'body_html': instance.bodyHtml,
+      'title': instance.title,
+      'user': instance.user,
+      'number': instance.number,
+      'id': instance.id,
+    };
+
+GiteeComment _$GiteeCommentFromJson(Map<String, dynamic> json) {
+  return GiteeComment()
+    ..body = json['body'] as String
+    ..createdAt = json['created_at'] as String
+    ..user = json['user'] == null
+        ? null
+        : GiteeRepoOwner.fromJson(json['user'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$GiteeCommentToJson(GiteeComment instance) =>
+    <String, dynamic>{
+      'body': instance.body,
+      'created_at': instance.createdAt,
+      'user': instance.user,
+    };

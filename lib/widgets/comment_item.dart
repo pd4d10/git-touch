@@ -137,6 +137,7 @@ class CommentItem extends StatelessWidget {
   final String login;
   final DateTime createdAt;
   final String body;
+  final String prefix;
   final List<Widget> widgets;
 
   CommentItem.gh(Map<String, dynamic> payload)
@@ -147,13 +148,15 @@ class CommentItem extends StatelessWidget {
         login = payload['author']['login'],
         createdAt = DateTime.parse(payload['createdAt']),
         body = payload['body'],
-        widgets = [GhEmojiAction(payload)];
+        widgets = [GhEmojiAction(payload)],
+        prefix = 'github';
 
   CommentItem({
     @required this.avatar,
     @required this.login,
     @required this.createdAt,
     @required this.body,
+    @required this.prefix,
     this.widgets,
   });
 
@@ -170,7 +173,7 @@ class CommentItem extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                UserName(login),
+                UserName(login, prefix),
                 SizedBox(height: 2),
                 Text(
                   timeago.format(createdAt),
