@@ -356,7 +356,11 @@ class AuthModel with ChangeNotifier {
     }
   }
 
-  Future<http.Response> fetchBb(String p) async {
+  Future<http.Response> fetchBb(
+    String p, {
+    isPost = false,
+    Map<String, dynamic> body = const {},
+  }) async {
     if (p.startsWith('/') && !p.startsWith('/api')) p = '/api/2.0$p';
     final input = Uri.parse(p);
     final uri = Uri.parse(activeAccount.domain).replace(
@@ -364,11 +368,26 @@ class AuthModel with ChangeNotifier {
       path: input.path,
       query: input.query,
     );
+    if (isPost) {
+      return http.post(
+        uri,
+        headers: {HttpHeaders.contentTypeHeader: 'application/json'},
+        body: jsonEncode(body),
+      );
+    }
     return http.get(uri);
   }
 
-  Future fetchBbJson(String p) async {
-    final res = await fetchBb(p);
+  Future fetchBbJson(
+    String p, {
+    isPost = false,
+    Map<String, dynamic> body = const {},
+  }) async {
+    final res = await fetchBb(
+      p,
+      isPost: isPost,
+      body: body,
+    );
     return json.decode(utf8.decode(res.bodyBytes));
   }
 

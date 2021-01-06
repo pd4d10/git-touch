@@ -1,5 +1,6 @@
 import 'package:fluro/fluro.dart';
 import 'package:git_touch/screens/bb_commits.dart';
+import 'package:git_touch/screens/bb_issue_form.dart';
 import 'package:git_touch/screens/bb_object.dart';
 import 'package:git_touch/screens/bb_repo.dart';
 import 'package:git_touch/screens/bb_issues.dart';
@@ -350,6 +351,7 @@ class BitbucketRouter {
     BitbucketRouter.repo,
     BitbucketRouter.object,
     BitbucketRouter.commits,
+    BitbucketRouter.issueAdd,
     BitbucketRouter.issues,
     BitbucketRouter.pulls,
   ];
@@ -383,6 +385,8 @@ class BitbucketRouter {
       '/:owner/:name/pulls/:ref',
       (_, p) =>
           BbPullsScreen(p['owner'].first, p['name'].first, p['ref'].first));
+  static final issueAdd = RouterScreen('/:owner/:name/issues/new',
+      (_, p) => BbIssueFormScreen(p['owner'].first, p['name'].first));
 }
 
 class GiteeRouter {
