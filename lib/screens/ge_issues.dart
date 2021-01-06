@@ -36,7 +36,7 @@ class GeIssuesScreen extends StatelessWidget {
         author: p.user.login,
         avatarUrl: p.user.avatarUrl,
         commentCount: p.comments,
-        subtitle: p.number,
+        subtitle: '#' + p.number,
         title: p.title,
         updatedAt: DateTime.parse(p.updatedAt),
         url: '/gitee/$owner/$name/issues/${p.number}',

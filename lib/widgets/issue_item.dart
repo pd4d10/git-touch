@@ -83,7 +83,7 @@ class IssueItem extends StatelessWidget {
                             children: [
                               TextSpan(text: '$title '),
                               TextSpan(
-                                text: '#$subtitle',
+                                text: '$subtitle',
                                 style: TextStyle(
                                   color: theme.palette.tertiaryText,
                                   fontWeight: FontWeight.normal,

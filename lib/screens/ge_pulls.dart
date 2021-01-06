@@ -30,7 +30,7 @@ class GePullsScreen extends StatelessWidget {
         author: p.user.login,
         avatarUrl: p.user.avatarUrl,
         commentCount: 0, // fix this
-        subtitle: p.number.toString(),
+        subtitle: '#' + p.number.toString(),
         title: p.title,
         updatedAt: DateTime.parse(p.updatedAt),
         url: p.htmlUrl,

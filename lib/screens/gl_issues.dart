@@ -33,7 +33,7 @@ class GlIssuesScreen extends StatelessWidget {
         author: p.author.username,
         avatarUrl: p.author.avatarUrl,
         commentCount: p.userNotesCount,
-        subtitle: p.iid.toString(),
+        subtitle: '#' + p.iid.toString(),
         title: p.title,
         updatedAt: p.updatedAt,
         labels: p.labels.isEmpty

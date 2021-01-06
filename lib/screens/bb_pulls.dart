@@ -35,7 +35,7 @@ class BbPullsScreen extends StatelessWidget {
           avatarUrl: v.author.avatarUrl,
           author: v.author.displayName,
           title: v.title,
-          subtitle: pullNumber.toString(),
+          subtitle: '#' + pullNumber.toString(),
           commentCount: 0,
           updatedAt: v.createdOn,
           url: '${auth.activeAccount.domain}/$owner/$name/issues/$pullNumber',

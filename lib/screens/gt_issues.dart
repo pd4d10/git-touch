@@ -32,7 +32,7 @@ class GtIssuesScreen extends StatelessWidget {
         author: p.user.login,
         avatarUrl: p.user.avatarUrl,
         commentCount: p.comments,
-        subtitle: p.number.toString(),
+        subtitle: '#' + p.number.toString(),
         title: p.title,
         updatedAt: p.updatedAt,
         url: p.htmlUrl,

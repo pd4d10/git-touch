@@ -36,7 +36,7 @@ class GhPullsScreen extends StatelessWidget {
         author: p.author?.login,
         avatarUrl: p.author?.avatarUrl,
         commentCount: p.comments.totalCount,
-        subtitle: p.number.toString(),
+        subtitle: '#' + p.number.toString(),
         title: p.title,
         updatedAt: p.updatedAt,
         labels: p.labels.nodes.isEmpty
