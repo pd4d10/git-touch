@@ -118,7 +118,15 @@ class IssueItem extends StatelessWidget {
                                   style: TextStyle(fontWeight: FontWeight.w600),
                                 ),
                               ],
-                              Text(' opened ' + timeago.format(updatedAt)),
+                              Expanded(
+                                  child: Text(
+                                ' opened ' + timeago.format(updatedAt),
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  color: theme.palette.secondaryText,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              )),
                               if (commentCount > 0) ...[
                                 Expanded(child: SizedBox()),
                                 Icon(Octicons.comment,
