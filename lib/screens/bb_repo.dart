@@ -66,7 +66,7 @@ class BbRepoScreen extends StatelessWidget {
                 TableViewItem(
                   leftIconData: Octicons.git_pull_request,
                   text: Text('Pull requests'),
-                  url: '/bitbucket/$owner/$name/pulls/${p.mainbranch.name}',
+                  url: '/bitbucket/$owner/$name/pulls',
                 ),
                 TableViewItem(
                   leftIconData: Octicons.history,

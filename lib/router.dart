@@ -383,10 +383,8 @@ class BitbucketRouter {
       '/:owner/:name/commits/:ref',
       (_, p) =>
           BbCommitsScreen(p['owner'].first, p['name'].first, p['ref'].first));
-  static final pulls = RouterScreen(
-      '/:owner/:name/pulls/:ref',
-      (_, p) =>
-          BbPullsScreen(p['owner'].first, p['name'].first, p['ref'].first));
+  static final pulls = RouterScreen('/:owner/:name/pulls',
+      (_, p) => BbPullsScreen(p['owner'].first, p['name'].first));
   static final issueAdd = RouterScreen('/:owner/:name/issues/new',
       (_, p) => BbIssueFormScreen(p['owner'].first, p['name'].first));
   static final issue = RouterScreen(
