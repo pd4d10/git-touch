@@ -37,7 +37,7 @@ class BbIssuesScreen extends StatelessWidget {
           avatarUrl: v.reporter.avatarUrl,
           author: v.reporter.displayName,
           title: v.title,
-          number: issueNumber,
+          subtitle: '#' + issueNumber.toString(),
           commentCount: 0,
           updatedAt: v.createdOn,
           url: '${auth.activeAccount.domain}/$owner/$name/issues/$issueNumber',

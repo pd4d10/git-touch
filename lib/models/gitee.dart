@@ -122,3 +122,49 @@ class GiteeBlob {
   factory GiteeBlob.fromJson(Map<String, dynamic> json) =>
       _$GiteeBlobFromJson(json);
 }
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GiteeIssue {
+  int comments;
+  String commentsUrl;
+  String createdAt;
+  String htmlUrl;
+  String updatedAt;
+  String body;
+  String bodyHtml;
+  String title;
+  String state;
+  GiteeRepoOwner user;
+  String number;
+  int id;
+  GiteeIssue();
+  factory GiteeIssue.fromJson(Map<String, dynamic> json) =>
+      _$GiteeIssueFromJson(json);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GiteePull {
+  String commentsUrl;
+  String createdAt;
+  String htmlUrl;
+  String updatedAt;
+  String body;
+  String bodyHtml;
+  String title;
+  GiteeRepoOwner user;
+  int number;
+  int id;
+  GiteePull();
+  factory GiteePull.fromJson(Map<String, dynamic> json) =>
+      _$GiteePullFromJson(json);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GiteeComment {
+  String body;
+  String createdAt;
+  GiteeRepoOwner user;
+  GiteeComment();
+  factory GiteeComment.fromJson(Map<String, dynamic> json) =>
+      _$GiteeCommentFromJson(json);
+}

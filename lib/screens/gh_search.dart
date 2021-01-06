@@ -198,7 +198,7 @@ class _GhSearchScreenState extends State<GhSearchScreen> {
           author: p['author']['login'],
           avatarUrl: p['author']['avatarUrl'],
           commentCount: p['comments']['totalCount'],
-          number: p['number'],
+          subtitle: '#' + p['number'].toString(),
           title: p['title'],
           updatedAt: DateTime.parse(p['updatedAt']),
           url: '/github' + Uri.parse(p['url']).path,

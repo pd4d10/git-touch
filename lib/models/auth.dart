@@ -276,9 +276,25 @@ class AuthModel with ChangeNotifier {
     );
   }
 
-  Future fetchGitee(String p) async {
-    final res = await http.get('${activeAccount.domain}/api/v5$p',
-        headers: {'Authorization': 'token $token'});
+  Future fetchGitee(
+    String p, {
+    isPost = false,
+    Map<String, dynamic> body = const {},
+  }) async {
+    http.Response res;
+    if (isPost) {
+      res = await http.post(
+        '${activeAccount.domain}/api/v5$p',
+        headers: {
+          'Authorization': 'token $token',
+          HttpHeaders.contentTypeHeader: 'application/json'
+        },
+        body: jsonEncode(body),
+      );
+    } else {
+      res = await http.get('${activeAccount.domain}/api/v5$p',
+          headers: {'Authorization': 'token $token'});
+    }
     final info = json.decode(utf8.decode(res.bodyBytes));
     return info;
   }
