@@ -1,23 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/auth.dart';
-import 'package:git_touch/models/bitbucket.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/common.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:provider/provider.dart';
 
-class BbIssueFormScreen extends StatefulWidget {
+class BbIssueCommentScreen extends StatefulWidget {
   final String owner;
   final String name;
-  BbIssueFormScreen(this.owner, this.name);
+  final String number;
+  BbIssueCommentScreen(this.owner, this.name, this.number);
 
   @override
-  _BbIssueFormScreenState createState() => _BbIssueFormScreenState();
+  _BbIssueCommentScreenState createState() => _BbIssueCommentScreenState();
 }
 
-class _BbIssueFormScreenState extends State<BbIssueFormScreen> {
-  var _title = '';
+class _BbIssueCommentScreenState extends State<BbIssueCommentScreen> {
   var _body = '';
 
   @override
@@ -25,21 +24,9 @@ class _BbIssueFormScreenState extends State<BbIssueFormScreen> {
     final theme = Provider.of<ThemeModel>(context);
     final auth = Provider.of<AuthModel>(context);
     return CommonScaffold(
-      title: Text('Submit an issue'),
+      title: Text('New Comment'),
       body: Column(
         children: <Widget>[
-          Padding(
-            padding: CommonStyle.padding,
-            child: CupertinoTextField(
-              style: TextStyle(color: theme.palette.text),
-              placeholder: 'Title',
-              onChanged: (v) {
-                setState(() {
-                  _title = v;
-                });
-              },
-            ),
-          ),
           Padding(
             padding: CommonStyle.padding,
             child: CupertinoTextField(
@@ -54,19 +41,19 @@ class _BbIssueFormScreenState extends State<BbIssueFormScreen> {
             ),
           ),
           CupertinoButton.filled(
-            child: Text('Submit'),
+            child: Text('Comment'),
             onPressed: () async {
-              final res = await auth.fetchBbJson(
-                '/repositories/${widget.owner}/${widget.name}/issues',
+              final res = await auth.fetchBb(
+                '/repositories/${widget.owner}/${widget.name}/issues/${widget.number}/comments',
                 isPost: true,
-                body: {'body': _body, 'title': _title},
-              ).then((v) {
-                return BbIssues.fromJson(v);
-              });
+                body: {
+                  'content': {'raw': _body}
+                },
+              );
               Navigator.pop(context, true);
               await theme.push(
                 context,
-                '/bitbucket/${widget.owner}/${widget.name}/issues',
+                '/bitbucket/${widget.owner}/${widget.name}/issues/${widget.number}',
                 replace: true,
               );
             },

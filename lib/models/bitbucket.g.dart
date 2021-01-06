@@ -214,3 +214,36 @@ Map<String, dynamic> _$BbPullsToJson(BbPulls instance) => <String, dynamic>{
       'links': instance.links,
       'created_on': instance.createdOn?.toIso8601String(),
     };
+
+BbCommentContent _$BbCommentContentFromJson(Map<String, dynamic> json) {
+  return BbCommentContent()
+    ..raw = json['raw'] as String
+    ..markup = json['markup'] as String
+    ..html = json['html'] as String;
+}
+
+Map<String, dynamic> _$BbCommentContentToJson(BbCommentContent instance) =>
+    <String, dynamic>{
+      'raw': instance.raw,
+      'markup': instance.markup,
+      'html': instance.html,
+    };
+
+BbComment _$BbCommentFromJson(Map<String, dynamic> json) {
+  return BbComment()
+    ..createdOn = json['created_on'] as String
+    ..updatedOn = json['updated_on'] as String
+    ..content = json['content'] == null
+        ? null
+        : BbCommentContent.fromJson(json['content'] as Map<String, dynamic>)
+    ..user = json['user'] == null
+        ? null
+        : BbRepoOwner.fromJson(json['user'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$BbCommentToJson(BbComment instance) => <String, dynamic>{
+      'created_on': instance.createdOn,
+      'updated_on': instance.updatedOn,
+      'content': instance.content,
+      'user': instance.user,
+    };

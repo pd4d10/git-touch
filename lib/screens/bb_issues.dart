@@ -12,8 +12,7 @@ import '../generated/l10n.dart';
 class BbIssuesScreen extends StatelessWidget {
   final String owner;
   final String name;
-  final String ref;
-  BbIssuesScreen(this.owner, this.name, this.ref);
+  BbIssuesScreen(this.owner, this.name);
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +45,7 @@ class BbIssuesScreen extends StatelessWidget {
           subtitle: '#' + issueNumber.toString(),
           commentCount: 0,
           updatedAt: v.createdOn,
-          url: '${auth.activeAccount.domain}/$owner/$name/issues/$issueNumber',
+          url: '/bitbucket/$owner/$name/issues/$issueNumber',
         );
       },
     );

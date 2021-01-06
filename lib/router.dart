@@ -1,5 +1,7 @@
 import 'package:fluro/fluro.dart';
 import 'package:git_touch/screens/bb_commits.dart';
+import 'package:git_touch/screens/bb_issue.dart';
+import 'package:git_touch/screens/bb_issue_comment.dart';
 import 'package:git_touch/screens/bb_issue_form.dart';
 import 'package:git_touch/screens/bb_object.dart';
 import 'package:git_touch/screens/bb_repo.dart';
@@ -352,6 +354,8 @@ class BitbucketRouter {
     BitbucketRouter.object,
     BitbucketRouter.commits,
     BitbucketRouter.issueAdd,
+    BitbucketRouter.issueComment,
+    BitbucketRouter.issue,
     BitbucketRouter.issues,
     BitbucketRouter.pulls,
   ];
@@ -373,10 +377,8 @@ class BitbucketRouter {
       path: params['path']?.first,
     ),
   );
-  static final issues = RouterScreen(
-      '/:owner/:name/issues/:ref',
-      (_, p) =>
-          BbIssuesScreen(p['owner'].first, p['name'].first, p['ref'].first));
+  static final issues = RouterScreen('/:owner/:name/issues',
+      (_, p) => BbIssuesScreen(p['owner'].first, p['name'].first));
   static final commits = RouterScreen(
       '/:owner/:name/commits/:ref',
       (_, p) =>
@@ -387,6 +389,14 @@ class BitbucketRouter {
           BbPullsScreen(p['owner'].first, p['name'].first, p['ref'].first));
   static final issueAdd = RouterScreen('/:owner/:name/issues/new',
       (_, p) => BbIssueFormScreen(p['owner'].first, p['name'].first));
+  static final issue = RouterScreen(
+      '/:owner/:name/issues/:number',
+      (_, p) =>
+          BbIssueScreen(p['owner'].first, p['name'].first, p['number'].first));
+  static final issueComment = RouterScreen(
+      '/:owner/:name/issues/:number/comment',
+      (_, p) => BbIssueCommentScreen(
+          p['owner'].first, p['name'].first, p['number'].first));
 }
 
 class GiteeRouter {
