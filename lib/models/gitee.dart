@@ -134,6 +134,7 @@ class GiteeIssue {
   String bodyHtml;
   String title;
   String state;
+  GiteeRepo repository;
   GiteeRepoOwner user;
   String number;
   int id;

@@ -211,6 +211,9 @@ GiteeIssue _$GiteeIssueFromJson(Map<String, dynamic> json) {
     ..bodyHtml = json['body_html'] as String
     ..title = json['title'] as String
     ..state = json['state'] as String
+    ..repository = json['repository'] == null
+        ? null
+        : GiteeRepo.fromJson(json['repository'] as Map<String, dynamic>)
     ..user = json['user'] == null
         ? null
         : GiteeRepoOwner.fromJson(json['user'] as Map<String, dynamic>)
@@ -229,6 +232,7 @@ Map<String, dynamic> _$GiteeIssueToJson(GiteeIssue instance) =>
       'body_html': instance.bodyHtml,
       'title': instance.title,
       'state': instance.state,
+      'repository': instance.repository,
       'user': instance.user,
       'number': instance.number,
       'id': instance.id,
