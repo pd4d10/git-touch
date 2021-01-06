@@ -10,8 +10,7 @@ import '../generated/l10n.dart';
 class BbPullsScreen extends StatelessWidget {
   final String owner;
   final String name;
-  final String ref;
-  BbPullsScreen(this.owner, this.name, this.ref);
+  BbPullsScreen(this.owner, this.name);
 
   @override
   Widget build(BuildContext context) {

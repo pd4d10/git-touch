@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/bitbucket.dart';
 import 'package:git_touch/scaffolds/list_stateful.dart';
+import 'package:git_touch/utils/utils.dart';
+import 'package:git_touch/widgets/action_entry.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/issue_item.dart';
 import 'package:provider/provider.dart';
@@ -10,14 +12,17 @@ import '../generated/l10n.dart';
 class BbIssuesScreen extends StatelessWidget {
   final String owner;
   final String name;
-  final String ref;
-  BbIssuesScreen(this.owner, this.name, this.ref);
+  BbIssuesScreen(this.owner, this.name);
 
   @override
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthModel>(context);
     return ListStatefulScaffold<BbIssues, String>(
       title: AppBarTitle(S.of(context).issues),
+      actionBuilder: () {
+        return ActionEntry(
+            iconData: Octicons.plus, url: '/bitbucket/$owner/$name/issues/new');
+      },
       fetch: (nextUrl) async {
         final res = await context
             .read<AuthModel>()
@@ -40,7 +45,7 @@ class BbIssuesScreen extends StatelessWidget {
           subtitle: '#' + issueNumber.toString(),
           commentCount: 0,
           updatedAt: v.createdOn,
-          url: '${auth.activeAccount.domain}/$owner/$name/issues/$issueNumber',
+          url: '/bitbucket/$owner/$name/issues/$issueNumber',
         );
       },
     );

@@ -123,3 +123,24 @@ class BbPulls {
   factory BbPulls.fromJson(Map<String, dynamic> json) =>
       _$BbPullsFromJson(json);
 }
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class BbCommentContent {
+  String raw;
+  String markup;
+  String html;
+  BbCommentContent();
+  factory BbCommentContent.fromJson(Map<String, dynamic> json) =>
+      _$BbCommentContentFromJson(json);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class BbComment {
+  String createdOn;
+  String updatedOn;
+  BbCommentContent content;
+  BbRepoOwner user;
+  BbComment();
+  factory BbComment.fromJson(Map<String, dynamic> json) =>
+      _$BbCommentFromJson(json);
+}
