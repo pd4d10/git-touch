@@ -23,19 +23,22 @@ class GePullScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold<
-        Tuple3<GiteePull, List<GiteeComment>, List<GiteeFile>>>(
+        Tuple4<GiteePull, List<GiteeComment>, List<GiteePullFile>,
+            List<GiteeCommit>>>(
       title: Text("Pull Request: #$number"),
       fetch: () async {
         final auth = context.read<AuthModel>();
         final items = await Future.wait([
           auth.fetchGitee('/repos/$owner/$name/pulls/$number'),
           auth.fetchGitee('/repos/$owner/$name/pulls/$number/comments'),
-          auth.fetchGitee('/repos/$owner/$name/pulls/$number/files')
+          auth.fetchGitee('/repos/$owner/$name/pulls/$number/files'),
+          auth.fetchGitee('/repos/$owner/$name/pulls/$number/commits'),
         ]);
-        return Tuple3(
+        return Tuple4(
             GiteePull.fromJson(items[0]),
             [for (var v in items[1]) GiteeComment.fromJson(v)],
-            [for (var v in items[2]) GiteeFile.fromJson(v)]);
+            [for (var v in items[2]) GiteePullFile.fromJson(v)],
+            [for (var v in items[3]) GiteeCommit.fromJson(v)]);
       },
       actionBuilder: (data, _) => ActionEntry(
         iconData: Octicons.plus,
@@ -45,6 +48,7 @@ class GePullScreen extends StatelessWidget {
         final pull = data.item1;
         final comments = data.item2;
         final files = data.item3;
+        final commits = data.item4;
         final theme = context.read<ThemeModel>();
         var additions = 0;
         var deletions = 0;
@@ -150,9 +154,47 @@ class GePullScreen extends StatelessWidget {
                                 ),
                               ),
                             ),
+                            CommonStyle.border,
+                            ListTileTheme(
+                                contentPadding: EdgeInsets.zero,
+                                child: ExpansionTile(
+                                  title: Text(
+                                    'Commits',
+                                    style: TextStyle(
+                                      color: theme.palette.primary,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  children: [
+                                    for (var commit in commits) ...[
+                                      Link(
+                                        url:
+                                            '/gitee/$owner/$name/commits/${commit.sha}',
+                                        child: Container(
+                                          padding:
+                                              EdgeInsets.symmetric(vertical: 8),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: <Widget>[
+                                              Text(
+                                                '${commit.sha.substring(0, 8)}',
+                                                style: TextStyle(
+                                                  color: theme
+                                                      .palette.secondaryText,
+                                                  fontSize: 17,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      )
+                                    ]
+                                  ],
+                                )),
                           ]),
                     ),
-                    // url: '/gitee/$owner/$name/pull/$number/files',
                     url: '/gitee/$owner/$name',
                   ),
                   CommonStyle.border,

@@ -16,7 +16,7 @@ class GeFilesScreen extends StatelessWidget {
   GeFilesScreen(this.owner, this.name, this.pullNumber);
 
   Widget build(BuildContext context) {
-    return ListStatefulScaffold<GiteeFile, int>(
+    return ListStatefulScaffold<GiteePullFile, int>(
       title: AppBarTitle(S.of(context).files),
       actionBuilder: () {
         return ActionButton(
@@ -35,7 +35,7 @@ class GeFilesScreen extends StatelessWidget {
               '/repos/$owner/$name/pulls/$pullNumber/files?page=$page',
             )
             .then((v) {
-          return [for (var file in v.data) GiteeFile.fromJson(file)];
+          return [for (var file in v.data) GiteePullFile.fromJson(file)];
         });
         return ListPayload(
           cursor: page + 1,

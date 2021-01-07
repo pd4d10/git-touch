@@ -34,7 +34,7 @@ class GeCommitsScreen extends StatelessWidget {
           avatarLink: '/gitee/${c.author.login}',
           createdAt: c.commit.author.date,
           message: c.commit.message,
-          url: c.htmlUrl,
+          url: '/gitee/$owner/$name/commits/${c.sha}',
         );
       },
     );

@@ -132,7 +132,12 @@ GiteeCommit _$GiteeCommitFromJson(Map<String, dynamic> json) {
         ? null
         : GiteeCommitDetail.fromJson(json['commit'] as Map<String, dynamic>)
     ..sha = json['sha'] as String
-    ..htmlUrl = json['html_url'] as String;
+    ..htmlUrl = json['html_url'] as String
+    ..files = (json['files'] as List)
+        ?.map((e) => e == null
+            ? null
+            : GiteeCommitFile.fromJson(e as Map<String, dynamic>))
+        ?.toList();
 }
 
 Map<String, dynamic> _$GiteeCommitToJson(GiteeCommit instance) =>
@@ -141,6 +146,7 @@ Map<String, dynamic> _$GiteeCommitToJson(GiteeCommit instance) =>
       'commit': instance.commit,
       'sha': instance.sha,
       'html_url': instance.htmlUrl,
+      'files': instance.files,
     };
 
 GiteeCommitDetail _$GiteeCommitDetailFromJson(Map<String, dynamic> json) {
@@ -294,8 +300,8 @@ Map<String, dynamic> _$GiteePatchToJson(GiteePatch instance) =>
       'diff': instance.diff,
     };
 
-GiteeFile _$GiteeFileFromJson(Map<String, dynamic> json) {
-  return GiteeFile()
+GiteePullFile _$GiteePullFileFromJson(Map<String, dynamic> json) {
+  return GiteePullFile()
     ..additions = json['additions'] as String
     ..deletions = json['deletions'] as String
     ..blobUrl = json['blob_url'] as String
@@ -307,9 +313,34 @@ GiteeFile _$GiteeFileFromJson(Map<String, dynamic> json) {
         : GiteePatch.fromJson(json['patch'] as Map<String, dynamic>);
 }
 
-Map<String, dynamic> _$GiteeFileToJson(GiteeFile instance) => <String, dynamic>{
+Map<String, dynamic> _$GiteePullFileToJson(GiteePullFile instance) =>
+    <String, dynamic>{
       'additions': instance.additions,
       'deletions': instance.deletions,
+      'blob_url': instance.blobUrl,
+      'filename': instance.filename,
+      'sha': instance.sha,
+      'status': instance.status,
+      'patch': instance.patch,
+    };
+
+GiteeCommitFile _$GiteeCommitFileFromJson(Map<String, dynamic> json) {
+  return GiteeCommitFile()
+    ..additions = json['additions'] as int
+    ..deletions = json['deletions'] as int
+    ..changes = json['changes'] as int
+    ..blobUrl = json['blob_url'] as String
+    ..filename = json['filename'] as String
+    ..sha = json['sha'] as String
+    ..status = json['status'] as String
+    ..patch = json['patch'] as String;
+}
+
+Map<String, dynamic> _$GiteeCommitFileToJson(GiteeCommitFile instance) =>
+    <String, dynamic>{
+      'additions': instance.additions,
+      'deletions': instance.deletions,
+      'changes': instance.changes,
       'blob_url': instance.blobUrl,
       'filename': instance.filename,
       'sha': instance.sha,
