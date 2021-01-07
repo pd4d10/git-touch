@@ -285,6 +285,15 @@ Map<String, dynamic> _$GiteeCommentToJson(GiteeComment instance) =>
       'user': instance.user,
     };
 
+GiteePatch _$GiteePatchFromJson(Map<String, dynamic> json) {
+  return GiteePatch()..diff = json['diff'] as String;
+}
+
+Map<String, dynamic> _$GiteePatchToJson(GiteePatch instance) =>
+    <String, dynamic>{
+      'diff': instance.diff,
+    };
+
 GiteeFile _$GiteeFileFromJson(Map<String, dynamic> json) {
   return GiteeFile()
     ..additions = json['additions'] as String
@@ -292,7 +301,10 @@ GiteeFile _$GiteeFileFromJson(Map<String, dynamic> json) {
     ..blobUrl = json['blob_url'] as String
     ..filename = json['filename'] as String
     ..sha = json['sha'] as String
-    ..status = json['status'] as String;
+    ..status = json['status'] as String
+    ..patch = json['patch'] == null
+        ? null
+        : GiteePatch.fromJson(json['patch'] as Map<String, dynamic>);
 }
 
 Map<String, dynamic> _$GiteeFileToJson(GiteeFile instance) => <String, dynamic>{
@@ -302,4 +314,5 @@ Map<String, dynamic> _$GiteeFileToJson(GiteeFile instance) => <String, dynamic>{
       'filename': instance.filename,
       'sha': instance.sha,
       'status': instance.status,
+      'patch': instance.patch,
     };

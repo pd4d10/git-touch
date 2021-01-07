@@ -42,7 +42,6 @@ class GhComparisonScreen extends StatelessWidget {
                     additions: vs.additions,
                     deletions: vs.deletions,
                     status: vs.status,
-                    changes: vs.changes,
                     patch: vs.patch,
                   ))
               .toList(),

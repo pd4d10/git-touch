@@ -109,47 +109,47 @@ class GePullScreen extends StatelessWidget {
                             CommonStyle.border,
                             CommonStyle.border,
                             Link(
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(vertical: 8),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: <Widget>[
-                                      Text(
-                                        '${files.length} files changed',
-                                        style: TextStyle(
-                                          color: theme.palette.secondaryText,
-                                          fontSize: 17,
-                                        ),
+                              url: '/gitee/$owner/$name/pulls/$number/files',
+                              child: Container(
+                                padding: EdgeInsets.symmetric(vertical: 8),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Text(
+                                      '${files.length} files changed',
+                                      style: TextStyle(
+                                        color: theme.palette.secondaryText,
+                                        fontSize: 17,
                                       ),
-                                      Row(
-                                        children: <Widget>[
-                                          Text(
-                                            '+$additions',
-                                            style: TextStyle(
-                                              color: Colors.green,
-                                              fontSize: 15,
-                                            ),
+                                    ),
+                                    Row(
+                                      children: <Widget>[
+                                        Text(
+                                          '+$additions',
+                                          style: TextStyle(
+                                            color: Colors.green,
+                                            fontSize: 15,
                                           ),
-                                          SizedBox(width: 2),
-                                          Text(
-                                            '-$deletions',
-                                            style: TextStyle(
-                                              color: Colors.red,
-                                              fontSize: 15,
-                                            ),
+                                        ),
+                                        SizedBox(width: 2),
+                                        Text(
+                                          '-$deletions',
+                                          style: TextStyle(
+                                            color: Colors.red,
+                                            fontSize: 15,
                                           ),
-                                          Icon(
-                                            Icons.chevron_right,
-                                            color: theme.palette.border,
-                                          ),
-                                        ],
-                                      )
-                                    ],
-                                  ),
+                                        ),
+                                        Icon(
+                                          Icons.chevron_right,
+                                          color: theme.palette.border,
+                                        ),
+                                      ],
+                                    )
+                                  ],
                                 ),
-                                // url: '/gitee/$owner/$name/pull/$number/files',
-                                url: 'https://gitee.com'),
+                              ),
+                            ),
                           ]),
                     ),
                     // url: '/gitee/$owner/$name/pull/$number/files',

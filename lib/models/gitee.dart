@@ -172,6 +172,14 @@ class GiteeComment {
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
+class GiteePatch {
+  String diff;
+  GiteePatch();
+  factory GiteePatch.fromJson(Map<String, dynamic> json) =>
+      _$GiteePatchFromJson(json);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
 class GiteeFile {
   String additions;
   String deletions;
@@ -179,6 +187,7 @@ class GiteeFile {
   String filename;
   String sha;
   String status;
+  GiteePatch patch;
   GiteeFile();
   factory GiteeFile.fromJson(Map<String, dynamic> json) =>
       _$GiteeFileFromJson(json);

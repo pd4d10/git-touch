@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:git_touch/models/github.dart';
+import 'package:git_touch/models/gitee.dart';
 import 'package:git_touch/scaffolds/list_stateful.dart';
 import 'package:git_touch/widgets/action_button.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
@@ -9,21 +9,21 @@ import 'package:git_touch/widgets/files_item.dart';
 import 'package:git_touch/models/auth.dart';
 import '../generated/l10n.dart';
 
-class GhFilesScreen extends StatelessWidget {
+class GeFilesScreen extends StatelessWidget {
   final String owner;
   final String name;
-  final int pullNumber;
-  GhFilesScreen(this.owner, this.name, this.pullNumber);
+  final String pullNumber;
+  GeFilesScreen(this.owner, this.name, this.pullNumber);
 
   Widget build(BuildContext context) {
-    return ListStatefulScaffold<GithubFilesItem, int>(
+    return ListStatefulScaffold<GiteeFile, int>(
       title: AppBarTitle(S.of(context).files),
       actionBuilder: () {
         return ActionButton(
           title: 'Actions',
           items: [
             ...ActionItem.getUrlActions(
-                'https://github.com/$owner/$name/pull/$pullNumber/files'),
+                'https://gitee.com/$owner/$name/pulls/$pullNumber/files'),
           ],
         );
       },
@@ -31,11 +31,12 @@ class GhFilesScreen extends StatelessWidget {
         page = page ?? 1;
         final res = await context
             .read<AuthModel>()
-            .ghClient
-            .getJSON<List, List<GithubFilesItem>>(
+            .fetchGiteeWithPage(
               '/repos/$owner/$name/pulls/$pullNumber/files?page=$page',
-              convert: (vs) => [for (var v in vs) GithubFilesItem.fromJson(v)],
-            );
+            )
+            .then((v) {
+          return [for (var file in v.data) GiteeFile.fromJson(file)];
+        });
         return ListPayload(
           cursor: page + 1,
           items: res,
@@ -45,10 +46,10 @@ class GhFilesScreen extends StatelessWidget {
       itemBuilder: (v) {
         return FilesItem(
           filename: v.filename,
-          additions: v.additions,
-          deletions: v.deletions,
+          additions: int.parse(v.additions),
+          deletions: int.parse(v.deletions),
           status: v.status,
-          patch: v.patch,
+          patch: v.patch.diff,
         );
       },
     );
