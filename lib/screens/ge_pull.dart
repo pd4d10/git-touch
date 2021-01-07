@@ -179,11 +179,12 @@ class GePullScreen extends StatelessWidget {
                                                 MainAxisAlignment.spaceBetween,
                                             children: <Widget>[
                                               Text(
-                                                '${commit.sha.substring(0, 8)}',
+                                                '${commit.sha.substring(0, 7)}',
                                                 style: TextStyle(
-                                                  color: theme
-                                                      .palette.secondaryText,
+                                                  color: theme.palette.primary,
                                                   fontSize: 17,
+                                                  fontFamily:
+                                                      CommonStyle.monospace,
                                                 ),
                                               ),
                                             ],

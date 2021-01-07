@@ -20,7 +20,7 @@ class GeCommitScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = context.watch<ThemeModel>();
     return RefreshStatefulScaffold<GiteeCommit>(
-      title: Text("Commit: ${sha.substring(0, 8)}"),
+      title: Text("Commit: ${sha.substring(0, 7)}"),
       fetch: () async {
         final auth = context.read<AuthModel>();
         final items = await auth.fetchGitee('/repos/$owner/$name/commits/$sha');
@@ -54,7 +54,7 @@ class GeCommitScreen extends StatelessWidget {
                         ),
                         SizedBox(width: 4),
                         Text(
-                          '${sha.substring(0, 8)}',
+                          '${sha.substring(0, 7)}',
                           style: TextStyle(
                             fontSize: 17,
                             color: theme.palette.tertiaryText,
