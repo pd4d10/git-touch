@@ -152,6 +152,7 @@ class GiteePull {
   String body;
   String bodyHtml;
   String title;
+  String state;
   GiteeRepoOwner user;
   int number;
   int id;
@@ -168,4 +169,17 @@ class GiteeComment {
   GiteeComment();
   factory GiteeComment.fromJson(Map<String, dynamic> json) =>
       _$GiteeCommentFromJson(json);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GiteeFile {
+  String additions;
+  String deletions;
+  String blobUrl;
+  String filename;
+  String sha;
+  String status;
+  GiteeFile();
+  factory GiteeFile.fromJson(Map<String, dynamic> json) =>
+      _$GiteeFileFromJson(json);
 }

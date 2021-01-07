@@ -15,6 +15,7 @@ import 'package:git_touch/screens/ge_issue.dart';
 import 'package:git_touch/screens/ge_issue_comment.dart';
 import 'package:git_touch/screens/ge_issue_form.dart';
 import 'package:git_touch/screens/ge_issues.dart';
+import 'package:git_touch/screens/ge_pull.dart';
 import 'package:git_touch/screens/ge_pulls.dart';
 import 'package:git_touch/screens/ge_repo.dart';
 import 'package:git_touch/screens/ge_repos.dart';
@@ -414,6 +415,8 @@ class GiteeRouter {
     GiteeRouter.issueAdd, // issueAdd should be above issue
     GiteeRouter.issue, // Due to similarity of uris
     GiteeRouter.issueComment,
+    GiteeRouter.pull,
+    GiteeRouter.pullComment,
   ];
   static final search = RouterScreen('/search', (context, parameters) {
     return GeSearchScreen();
@@ -499,6 +502,21 @@ class GiteeRouter {
   static final issueComment = RouterScreen(
       '/:owner/:name/issues/:number/comment', (context, parameters) {
     return GeIssueCommentScreen(parameters['owner'].first,
-        parameters['name'].first, parameters['number'].first);
+        parameters['name'].first, parameters['number'].first,
+        isPr: false);
+  });
+  static final pull = RouterScreen(
+    '/:owner/:name/pulls/:number',
+    (context, parameters) {
+      return GePullScreen(parameters['owner'].first, parameters['name'].first,
+          parameters['number'].first,
+          isPr: true);
+    },
+  );
+  static final pullComment = RouterScreen('/:owner/:name/pulls/:number/comment',
+      (context, parameters) {
+    return GeIssueCommentScreen(parameters['owner'].first,
+        parameters['name'].first, parameters['number'].first,
+        isPr: true);
   });
 }

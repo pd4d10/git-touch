@@ -247,6 +247,7 @@ GiteePull _$GiteePullFromJson(Map<String, dynamic> json) {
     ..body = json['body'] as String
     ..bodyHtml = json['body_html'] as String
     ..title = json['title'] as String
+    ..state = json['state'] as String
     ..user = json['user'] == null
         ? null
         : GiteeRepoOwner.fromJson(json['user'] as Map<String, dynamic>)
@@ -262,6 +263,7 @@ Map<String, dynamic> _$GiteePullToJson(GiteePull instance) => <String, dynamic>{
       'body': instance.body,
       'body_html': instance.bodyHtml,
       'title': instance.title,
+      'state': instance.state,
       'user': instance.user,
       'number': instance.number,
       'id': instance.id,
@@ -281,4 +283,23 @@ Map<String, dynamic> _$GiteeCommentToJson(GiteeComment instance) =>
       'body': instance.body,
       'created_at': instance.createdAt,
       'user': instance.user,
+    };
+
+GiteeFile _$GiteeFileFromJson(Map<String, dynamic> json) {
+  return GiteeFile()
+    ..additions = json['additions'] as String
+    ..deletions = json['deletions'] as String
+    ..blobUrl = json['blob_url'] as String
+    ..filename = json['filename'] as String
+    ..sha = json['sha'] as String
+    ..status = json['status'] as String;
+}
+
+Map<String, dynamic> _$GiteeFileToJson(GiteeFile instance) => <String, dynamic>{
+      'additions': instance.additions,
+      'deletions': instance.deletions,
+      'blob_url': instance.blobUrl,
+      'filename': instance.filename,
+      'sha': instance.sha,
+      'status': instance.status,
     };
