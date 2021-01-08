@@ -68,12 +68,18 @@ class ActionButton extends StatelessWidget {
                   title: Text(title),
                   actions: items.asMap().entries.map((entry) {
                     return CupertinoActionSheetAction(
-                      child: Text(
-                        entry.value.text,
-                        style: TextStyle(
-                            fontWeight: selected == entry.key
-                                ? FontWeight.w500
-                                : FontWeight.w400),
+                      child: Row(
+                        children: [
+                          Icon(entry.value.iconData),
+                          SizedBox(width: 10),
+                          Text(
+                            entry.value.text,
+                            style: TextStyle(
+                                fontWeight: selected == entry.key
+                                    ? FontWeight.w500
+                                    : FontWeight.w400),
+                          ),
+                        ],
                       ),
                       onPressed: () {
                         Navigator.pop(context, entry.key);
@@ -106,7 +112,13 @@ class ActionButton extends StatelessWidget {
             return items.asMap().entries.map((entry) {
               return PopupMenuItem(
                 value: entry.key,
-                child: Text(entry.value.text),
+                child: Row(
+                  children: [
+                    Icon(entry.value.iconData),
+                    SizedBox(width: 10),
+                    Text(entry.value.text)
+                  ],
+                ),
               );
             }).toList();
           },

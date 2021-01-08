@@ -24,7 +24,6 @@ class GeCommitScreen extends StatelessWidget {
       fetch: () async {
         final auth = context.read<AuthModel>();
         final items = await auth.fetchGitee('/repos/$owner/$name/commits/$sha');
-        print(GiteeCommit.fromJson(items));
         return GiteeCommit.fromJson(items);
       },
       actionBuilder: (data, _) => ActionButton(

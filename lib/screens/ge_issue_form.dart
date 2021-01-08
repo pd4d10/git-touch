@@ -58,7 +58,7 @@ class _GeIssueFormScreenState extends State<GeIssueFormScreen> {
             onPressed: () async {
               final res = await auth.fetchGitee(
                 '/repos/${widget.owner}/issues',
-                isPost: true,
+                requestType: 'POST',
                 body: {'body': _body, 'title': _title, 'repo': widget.name},
               ).then((v) {
                 return GiteeIssue.fromJson(v);

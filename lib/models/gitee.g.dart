@@ -277,6 +277,7 @@ Map<String, dynamic> _$GiteePullToJson(GiteePull instance) => <String, dynamic>{
 
 GiteeComment _$GiteeCommentFromJson(Map<String, dynamic> json) {
   return GiteeComment()
+    ..id = json['id'] as int
     ..body = json['body'] as String
     ..createdAt = json['created_at'] as String
     ..user = json['user'] == null
@@ -286,6 +287,7 @@ GiteeComment _$GiteeCommentFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$GiteeCommentToJson(GiteeComment instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'body': instance.body,
       'created_at': instance.createdAt,
       'user': instance.user,
