@@ -125,6 +125,15 @@ class GiteeBlob {
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
+class GiteeLabel {
+  String color;
+  String name;
+  GiteeLabel();
+  factory GiteeLabel.fromJson(Map<String, dynamic> json) =>
+      _$GiteeLabelFromJson(json);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
 class GiteeIssue {
   int comments;
   String commentsUrl;
@@ -138,6 +147,7 @@ class GiteeIssue {
   GiteeRepo repository;
   GiteeRepoOwner user;
   String number;
+  List<GiteeLabel> labels;
   int id;
   GiteeIssue();
   factory GiteeIssue.fromJson(Map<String, dynamic> json) =>
@@ -155,6 +165,7 @@ class GiteePull {
   String title;
   String state;
   GiteeRepoOwner user;
+  List<GiteeLabel> labels;
   int number;
   int id;
   GiteePull();
@@ -209,4 +220,13 @@ class GiteeCommitFile {
   GiteeCommitFile();
   factory GiteeCommitFile.fromJson(Map<String, dynamic> json) =>
       _$GiteeCommitFileFromJson(json);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GiteeContributor {
+  String name;
+  int contributions;
+  GiteeContributor();
+  factory GiteeContributor.fromJson(Map<String, dynamic> json) =>
+      _$GiteeContributorFromJson(json);
 }

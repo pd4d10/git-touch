@@ -12,6 +12,7 @@ import 'package:git_touch/screens/code_theme.dart';
 import 'package:git_touch/screens/ge_blob.dart';
 import 'package:git_touch/screens/ge_commit.dart';
 import 'package:git_touch/screens/ge_commits.dart';
+import 'package:git_touch/screens/ge_contributors.dart';
 import 'package:git_touch/screens/ge_files.dart';
 import 'package:git_touch/screens/ge_issue.dart';
 import 'package:git_touch/screens/ge_issue_comment.dart';
@@ -421,6 +422,7 @@ class GiteeRouter {
     GiteeRouter.pullComment,
     GiteeRouter.files,
     GiteeRouter.commit,
+    GiteeRouter.contributors,
   ];
   static final search = RouterScreen('/search', (context, parameters) {
     return GeSearchScreen();
@@ -532,5 +534,10 @@ class GiteeRouter {
     '/:owner/:name/commits/:sha',
     (context, parameters) => GeCommitScreen(parameters['owner'].first,
         parameters['name'].first, parameters['sha'].first),
+  );
+  static final contributors = RouterScreen(
+    '/:owner/:name/contributors',
+    (context, parameters) => GeContributorsScreen(
+        parameters['owner'].first, parameters['name'].first),
   );
 }

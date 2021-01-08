@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/gitee.dart';
@@ -105,6 +104,10 @@ class GeRepoScreen extends StatelessWidget {
                   text: Text('Commits'),
                   url: '/gitee/$owner/$name/commits',
                 ),
+                TableViewItem(
+                    leftIconData: Octicons.organization,
+                    text: Text('Contributors'),
+                    url: '/gitee/$owner/$name/contributors'),
               ],
             ),
             CommonStyle.verticalGap,

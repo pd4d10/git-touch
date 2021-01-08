@@ -206,6 +206,18 @@ Map<String, dynamic> _$GiteeBlobToJson(GiteeBlob instance) => <String, dynamic>{
       'content': instance.content,
     };
 
+GiteeLabel _$GiteeLabelFromJson(Map<String, dynamic> json) {
+  return GiteeLabel()
+    ..color = json['color'] as String
+    ..name = json['name'] as String;
+}
+
+Map<String, dynamic> _$GiteeLabelToJson(GiteeLabel instance) =>
+    <String, dynamic>{
+      'color': instance.color,
+      'name': instance.name,
+    };
+
 GiteeIssue _$GiteeIssueFromJson(Map<String, dynamic> json) {
   return GiteeIssue()
     ..comments = json['comments'] as int
@@ -224,6 +236,10 @@ GiteeIssue _$GiteeIssueFromJson(Map<String, dynamic> json) {
         ? null
         : GiteeRepoOwner.fromJson(json['user'] as Map<String, dynamic>)
     ..number = json['number'] as String
+    ..labels = (json['labels'] as List)
+        ?.map((e) =>
+            e == null ? null : GiteeLabel.fromJson(e as Map<String, dynamic>))
+        ?.toList()
     ..id = json['id'] as int;
 }
 
@@ -241,6 +257,7 @@ Map<String, dynamic> _$GiteeIssueToJson(GiteeIssue instance) =>
       'repository': instance.repository,
       'user': instance.user,
       'number': instance.number,
+      'labels': instance.labels,
       'id': instance.id,
     };
 
@@ -257,6 +274,10 @@ GiteePull _$GiteePullFromJson(Map<String, dynamic> json) {
     ..user = json['user'] == null
         ? null
         : GiteeRepoOwner.fromJson(json['user'] as Map<String, dynamic>)
+    ..labels = (json['labels'] as List)
+        ?.map((e) =>
+            e == null ? null : GiteeLabel.fromJson(e as Map<String, dynamic>))
+        ?.toList()
     ..number = json['number'] as int
     ..id = json['id'] as int;
 }
@@ -271,6 +292,7 @@ Map<String, dynamic> _$GiteePullToJson(GiteePull instance) => <String, dynamic>{
       'title': instance.title,
       'state': instance.state,
       'user': instance.user,
+      'labels': instance.labels,
       'number': instance.number,
       'id': instance.id,
     };
@@ -346,4 +368,16 @@ Map<String, dynamic> _$GiteeCommitFileToJson(GiteeCommitFile instance) =>
       'sha': instance.sha,
       'status': instance.status,
       'patch': instance.patch,
+    };
+
+GiteeContributor _$GiteeContributorFromJson(Map<String, dynamic> json) {
+  return GiteeContributor()
+    ..name = json['name'] as String
+    ..contributions = json['contributions'] as int;
+}
+
+Map<String, dynamic> _$GiteeContributorToJson(GiteeContributor instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'contributions': instance.contributions,
     };
