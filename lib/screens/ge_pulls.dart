@@ -33,7 +33,7 @@ class GePullsScreen extends StatelessWidget {
         subtitle: '#' + p.number.toString(),
         title: p.title,
         updatedAt: DateTime.parse(p.updatedAt),
-        url: p.htmlUrl,
+        url: '/gitee/$owner/$name/pulls/${p.number}',
       ),
     );
   }

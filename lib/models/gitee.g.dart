@@ -132,7 +132,12 @@ GiteeCommit _$GiteeCommitFromJson(Map<String, dynamic> json) {
         ? null
         : GiteeCommitDetail.fromJson(json['commit'] as Map<String, dynamic>)
     ..sha = json['sha'] as String
-    ..htmlUrl = json['html_url'] as String;
+    ..htmlUrl = json['html_url'] as String
+    ..files = (json['files'] as List)
+        ?.map((e) => e == null
+            ? null
+            : GiteeCommitFile.fromJson(e as Map<String, dynamic>))
+        ?.toList();
 }
 
 Map<String, dynamic> _$GiteeCommitToJson(GiteeCommit instance) =>
@@ -141,6 +146,7 @@ Map<String, dynamic> _$GiteeCommitToJson(GiteeCommit instance) =>
       'commit': instance.commit,
       'sha': instance.sha,
       'html_url': instance.htmlUrl,
+      'files': instance.files,
     };
 
 GiteeCommitDetail _$GiteeCommitDetailFromJson(Map<String, dynamic> json) {
@@ -247,6 +253,7 @@ GiteePull _$GiteePullFromJson(Map<String, dynamic> json) {
     ..body = json['body'] as String
     ..bodyHtml = json['body_html'] as String
     ..title = json['title'] as String
+    ..state = json['state'] as String
     ..user = json['user'] == null
         ? null
         : GiteeRepoOwner.fromJson(json['user'] as Map<String, dynamic>)
@@ -262,6 +269,7 @@ Map<String, dynamic> _$GiteePullToJson(GiteePull instance) => <String, dynamic>{
       'body': instance.body,
       'body_html': instance.bodyHtml,
       'title': instance.title,
+      'state': instance.state,
       'user': instance.user,
       'number': instance.number,
       'id': instance.id,
@@ -281,4 +289,61 @@ Map<String, dynamic> _$GiteeCommentToJson(GiteeComment instance) =>
       'body': instance.body,
       'created_at': instance.createdAt,
       'user': instance.user,
+    };
+
+GiteePatch _$GiteePatchFromJson(Map<String, dynamic> json) {
+  return GiteePatch()..diff = json['diff'] as String;
+}
+
+Map<String, dynamic> _$GiteePatchToJson(GiteePatch instance) =>
+    <String, dynamic>{
+      'diff': instance.diff,
+    };
+
+GiteePullFile _$GiteePullFileFromJson(Map<String, dynamic> json) {
+  return GiteePullFile()
+    ..additions = json['additions'] as String
+    ..deletions = json['deletions'] as String
+    ..blobUrl = json['blob_url'] as String
+    ..filename = json['filename'] as String
+    ..sha = json['sha'] as String
+    ..status = json['status'] as String
+    ..patch = json['patch'] == null
+        ? null
+        : GiteePatch.fromJson(json['patch'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$GiteePullFileToJson(GiteePullFile instance) =>
+    <String, dynamic>{
+      'additions': instance.additions,
+      'deletions': instance.deletions,
+      'blob_url': instance.blobUrl,
+      'filename': instance.filename,
+      'sha': instance.sha,
+      'status': instance.status,
+      'patch': instance.patch,
+    };
+
+GiteeCommitFile _$GiteeCommitFileFromJson(Map<String, dynamic> json) {
+  return GiteeCommitFile()
+    ..additions = json['additions'] as int
+    ..deletions = json['deletions'] as int
+    ..changes = json['changes'] as int
+    ..blobUrl = json['blob_url'] as String
+    ..filename = json['filename'] as String
+    ..sha = json['sha'] as String
+    ..status = json['status'] as String
+    ..patch = json['patch'] as String;
+}
+
+Map<String, dynamic> _$GiteeCommitFileToJson(GiteeCommitFile instance) =>
+    <String, dynamic>{
+      'additions': instance.additions,
+      'deletions': instance.deletions,
+      'changes': instance.changes,
+      'blob_url': instance.blobUrl,
+      'filename': instance.filename,
+      'sha': instance.sha,
+      'status': instance.status,
+      'patch': instance.patch,
     };

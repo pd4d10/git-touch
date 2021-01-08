@@ -9,7 +9,6 @@ import 'package:flutter_highlight/theme_map.dart';
 class FilesItem extends StatelessWidget {
   final String filename;
   final String status;
-  final int changes;
   final int additions;
   final int deletions;
   final String patch;
@@ -17,7 +16,6 @@ class FilesItem extends StatelessWidget {
   FilesItem({
     @required this.filename,
     @required this.status,
-    @required this.changes,
     @required this.deletions,
     @required this.additions,
     @required this.patch,

@@ -79,6 +79,7 @@ class GiteeCommit {
   GiteeCommitDetail commit;
   String sha;
   String htmlUrl;
+  List<GiteeCommitFile> files;
   GiteeCommit();
   factory GiteeCommit.fromJson(Map<String, dynamic> json) =>
       _$GiteeCommitFromJson(json);
@@ -152,6 +153,7 @@ class GiteePull {
   String body;
   String bodyHtml;
   String title;
+  String state;
   GiteeRepoOwner user;
   int number;
   int id;
@@ -168,4 +170,43 @@ class GiteeComment {
   GiteeComment();
   factory GiteeComment.fromJson(Map<String, dynamic> json) =>
       _$GiteeCommentFromJson(json);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GiteePatch {
+  String diff;
+  GiteePatch();
+  factory GiteePatch.fromJson(Map<String, dynamic> json) =>
+      _$GiteePatchFromJson(json);
+}
+
+// Two different classes because of variable type mismatch
+// for additions, deletions, patch
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GiteePullFile {
+  String additions;
+  String deletions;
+  String blobUrl;
+  String filename;
+  String sha;
+  String status;
+  GiteePatch patch;
+  GiteePullFile();
+  factory GiteePullFile.fromJson(Map<String, dynamic> json) =>
+      _$GiteePullFileFromJson(json);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GiteeCommitFile {
+  int additions;
+  int deletions;
+  int changes;
+  String blobUrl;
+  String filename;
+  String sha;
+  String status;
+  String patch;
+  GiteeCommitFile();
+  factory GiteeCommitFile.fromJson(Map<String, dynamic> json) =>
+      _$GiteeCommitFileFromJson(json);
 }
