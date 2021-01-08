@@ -352,7 +352,7 @@ class EventItem extends StatelessWidget {
             TextSpan(text: ' created a ${e.payload.refType}'),
             TextSpan(
                 text:
-                    '${e.payload.ref == null ? '' : ' ' + e.payload.ref + 'at'} '),
+                    '${e.payload.ref == null ? '' : ' ' + e.payload.ref + ' at'} '),
             _buildRepo(context),
           ],
         );
@@ -363,7 +363,7 @@ class EventItem extends StatelessWidget {
             TextSpan(text: ' deleted the ${e.payload.refType}'),
             TextSpan(
                 text:
-                    '${e.payload.ref == null ? '' : ' ' + e.payload.ref + 'at'} '),
+                    '${e.payload.ref == null ? '' : ' ' + e.payload.ref + ' at'} '),
             _buildRepo(context),
           ],
         );
