@@ -24,12 +24,14 @@ class ActionItem {
     return [
       ActionItem(
         text: 'Share',
+        iconData: Octicons.rocket,
         onTap: (_) {
           Share.share(url);
         },
       ),
       ActionItem(
         text: 'Open in Browser',
+        iconData: Octicons.globe,
         onTap: (_) {
           launchUrl(url);
         },
