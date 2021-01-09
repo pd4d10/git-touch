@@ -53,53 +53,25 @@ class _GeIssueCommentScreenState extends State<GeIssueCommentScreen> {
           CupertinoButton.filled(
             child: Text('Comment'),
             onPressed: () async {
-              if (!widget.isPr) {
-                if (!isEdit) {
-                  final res = await auth.fetchGitee(
-                    '/repos/${widget.owner}/${widget.name}/issues/${widget.number}/comments',
-                    requestType: 'POST',
-                    body: {'body': _controller.text, 'repo': widget.name},
-                  );
-                } else {
-                  final res = await auth.fetchGitee(
-                    '/repos/${widget.owner}/${widget.name}/issues/comments/${int.parse(widget.id)}',
-                    requestType: 'PATCH',
-                    body: {'body': _controller.text, 'repo': widget.name},
-                  );
-                }
-                Navigator.pop(context, '');
-                await theme.push(
-                  context,
-                  '/gitee/${widget.owner}/${widget.name}/issues/${widget.number}',
-                  replace: true,
+              if (!isEdit) {
+                final res = await auth.fetchGitee(
+                  '/repos/${widget.owner}/${widget.name}/${widget.isPr ? 'pulls' : 'issues'}/${widget.number}/comments',
+                  requestType: 'POST',
+                  body: {'body': _controller.text, 'repo': widget.name},
                 );
               } else {
-                if (!isEdit) {
-                  final res = await auth.fetchGitee(
-                    '/repos/${widget.owner}/${widget.name}/pulls/${widget.number}/comments',
-                    requestType: 'POST',
-                    body: {'body': _controller.text, 'repo': widget.name},
-                  );
-                  Navigator.pop(context, '');
-                  await theme.push(
-                    context,
-                    '/gitee/${widget.owner}/${widget.name}/pulls/${widget.number}',
-                    replace: true,
-                  );
-                } else {
-                  final res = await auth.fetchGitee(
-                    '/repos/${widget.owner}/${widget.name}/pulls/comments/${int.parse(widget.id)}',
-                    requestType: 'PATCH',
-                    body: {'body': _controller.text, 'repo': widget.name},
-                  );
-                }
-                Navigator.pop(context, '');
-                await theme.push(
-                  context,
-                  '/gitee/${widget.owner}/${widget.name}/pulls/${widget.number}',
-                  replace: true,
+                final res = await auth.fetchGitee(
+                  '/repos/${widget.owner}/${widget.name}/${widget.isPr ? 'pulls' : 'issues'}/comments/${int.parse(widget.id)}',
+                  requestType: 'PATCH',
+                  body: {'body': _controller.text, 'repo': widget.name},
                 );
               }
+              Navigator.pop(context, '');
+              await theme.push(
+                context,
+                '/gitee/${widget.owner}/${widget.name}/${widget.isPr ? 'pulls' : 'issues'}/${widget.number}',
+                replace: true,
+              );
             },
           ),
         ],

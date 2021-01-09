@@ -55,13 +55,13 @@ class _GtIssueCommentScreenState extends State<GtIssueCommentScreen> {
             onPressed: () async {
               if (!isEdit) {
                 final res = await auth.fetchGitea(
-                  '/repos/${widget.owner}/${widget.name}/${widget.isPr ? 'issues' : 'pulls'}/${widget.number}/comments',
+                  '/repos/${widget.owner}/${widget.name}/${widget.isPr ? 'pulls' : 'issues'}/${widget.number}/comments',
                   requestType: 'POST',
                   body: {'body': _controller.text, 'repo': widget.name},
                 );
               } else {
                 final res = await auth.fetchGitea(
-                  '/repos/${widget.owner}/${widget.name}/${widget.isPr ? 'issues' : 'pulls'}/comments/${int.parse(widget.id)}',
+                  '/repos/${widget.owner}/${widget.name}/${widget.isPr ? 'pulls' : 'issues'}/comments/${int.parse(widget.id)}',
                   requestType: 'PATCH',
                   body: {'body': _controller.text, 'repo': widget.name},
                 );
@@ -69,7 +69,7 @@ class _GtIssueCommentScreenState extends State<GtIssueCommentScreen> {
               Navigator.pop(context, '');
               await theme.push(
                 context,
-                '/gitea/${widget.owner}/${widget.name}/${widget.isPr ? 'issues' : 'pulls'}/${widget.number}',
+                '/gitea/${widget.owner}/${widget.name}/${widget.isPr ? 'pulls' : 'issues'}/${widget.number}',
                 replace: true,
               );
             },
