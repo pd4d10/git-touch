@@ -1,0 +1,12 @@
+Open source mobile client for GitHub, GitLab, Bitbucket, Gitea, and Gitee(码云), built with Flutter
+
+https://github.com/git-touch/git-touch
+
+Features:
+- View code with syntax highlighting
+- View Github trending
+- View repositories and users
+- View pull requests and issues
+- View notifications
+- Star and unstar repositories
+- Follow and unfollow users
