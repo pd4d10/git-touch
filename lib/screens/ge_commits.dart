@@ -10,17 +10,17 @@ import '../generated/l10n.dart';
 class GeCommitsScreen extends StatelessWidget {
   final String owner;
   final String name;
-  // final String branch; // TODO:
-  GeCommitsScreen(this.owner, this.name);
+  final String branch;
+  GeCommitsScreen(this.owner, this.name, {this.branch});
 
   @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GiteeCommit, int>(
       title: AppBarTitle(S.of(context).commits),
       fetch: (page) async {
-        final res = await context
-            .read<AuthModel>()
-            .fetchGiteeWithPage('/repos/$owner/$name/commits', page: page);
+        final res = await context.read<AuthModel>().fetchGiteeWithPage(
+            '/repos/$owner/$name/commits?sha=$branch',
+            page: page);
         return ListPayload(
           cursor: res.cursor,
           hasMore: res.hasMore,

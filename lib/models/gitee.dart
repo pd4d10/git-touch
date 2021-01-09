@@ -230,3 +230,11 @@ class GiteeContributor {
   factory GiteeContributor.fromJson(Map<String, dynamic> json) =>
       _$GiteeContributorFromJson(json);
 }
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GiteeBranch {
+  String name;
+  GiteeBranch();
+  factory GiteeBranch.fromJson(Map<String, dynamic> json) =>
+      _$GiteeBranchFromJson(json);
+}

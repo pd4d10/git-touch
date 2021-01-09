@@ -381,3 +381,12 @@ Map<String, dynamic> _$GiteeContributorToJson(GiteeContributor instance) =>
       'name': instance.name,
       'contributions': instance.contributions,
     };
+
+GiteeBranch _$GiteeBranchFromJson(Map<String, dynamic> json) {
+  return GiteeBranch()..name = json['name'] as String;
+}
+
+Map<String, dynamic> _$GiteeBranchToJson(GiteeBranch instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+    };

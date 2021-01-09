@@ -446,8 +446,15 @@ class GiteeRouter {
   });
   static final repo = RouterScreen(
     '/:owner/:name',
-    (context, params) =>
-        GeRepoScreen(params['owner'].first, params['name'].first),
+    (context, parameters) {
+      if (parameters['branch'] == null) {
+        return GeRepoScreen(
+            parameters['owner'].first, parameters['name'].first);
+      } else {
+        return GeRepoScreen(parameters['owner'].first, parameters['name'].first,
+            branch: parameters['branch'].first);
+      }
+    },
   );
   static final stargazers = RouterScreen('/:owner/:name/stargazers', (_, p) {
     return GeUsersScreen.stargazers(p['owner'].first, p['name'].first);
@@ -460,7 +467,8 @@ class GiteeRouter {
   });
   static final commits = RouterScreen(
     '/:owner/:name/commits',
-    (_, p) => GeCommitsScreen(p['owner'].first, p['name'].first),
+    (_, p) => GeCommitsScreen(p['owner'].first, p['name'].first,
+        branch: p['branch'] != null ? p['branch'].first : null),
   );
   static final tree = RouterScreen(
     '/:owner/:name/tree/:sha',
