@@ -110,9 +110,19 @@ class GiteaIssue {
   DateTime updatedAt;
   String state;
   String htmlUrl;
+  List<GiteaLabel> labels;
   GiteaIssue();
   factory GiteaIssue.fromJson(Map<String, dynamic> json) =>
       _$GiteaIssueFromJson(json);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GiteaLabel {
+  String color;
+  String name;
+  GiteaLabel();
+  factory GiteaLabel.fromJson(Map<String, dynamic> json) =>
+      _$GiteaLabelFromJson(json);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)

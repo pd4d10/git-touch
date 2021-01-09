@@ -7,6 +7,7 @@ import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/action_entry.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/issue_item.dart';
+import 'package:git_touch/widgets/label.dart';
 import 'package:provider/provider.dart';
 
 class GtIssuesScreen extends StatelessWidget {
@@ -47,6 +48,14 @@ class GtIssuesScreen extends StatelessWidget {
         url: isPr
             ? p.htmlUrl // TODO: PR endpoints are not complete in Gitea
             : '/gitea/$owner/$name/issues/${p.number}',
+        labels: isPr
+            ? null
+            : p.labels.isEmpty
+                ? null
+                : Wrap(spacing: 4, runSpacing: 4, children: [
+                    for (var label in p.labels)
+                      MyLabel(name: label.name, cssColor: label.color)
+                  ]),
       ),
     );
   }
