@@ -317,39 +317,80 @@ class ThemeModel with ChangeNotifier {
     await showCupertinoModalPopup(
       context: context,
       builder: (context) {
-        return Container(
-          height: 216,
-          child: CupertinoPicker(
-            backgroundColor: palette.background,
-            children: <Widget>[
-              for (var v in groupItem.items)
-                Text(v.text, style: TextStyle(color: palette.text)),
-            ],
-            itemExtent: 40,
-            scrollController: FixedExtentScrollController(
-                initialItem: groupItem.items
-                    .toList()
-                    .indexWhere((v) => v.value == groupItem.value)),
-            onSelectedItemChanged: (index) {
-              _selectedItem = groupItem.items[index].value;
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Container(
+              alignment: Alignment.bottomCenter,
+              decoration: BoxDecoration(
+                color: palette.background,
+                border: Border(
+                  bottom: BorderSide(
+                    color: palette.grayBackground,
+                    width: 0.0,
+                  ),
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  CupertinoButton(
+                    child: Text('Cancel'),
+                    onPressed: () {
+                      Navigator.pop(context);
+                      _selectedItem = groupItem.value;
+                    },
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                      vertical: 5.0,
+                    ),
+                  ),
+                  CupertinoButton(
+                    child: Text('Confirm'),
+                    onPressed: () {
+                      Navigator.pop(context);
+                      groupItem.onClose(_selectedItem);
+                    },
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                      vertical: 5.0,
+                    ),
+                  )
+                ],
+              ),
+            ),
+            Container(
+              height: 216,
+              child: CupertinoPicker(
+                backgroundColor: palette.background,
+                children: <Widget>[
+                  for (var v in groupItem.items)
+                    Text(v.text, style: TextStyle(color: palette.text)),
+                ],
+                itemExtent: 40,
+                scrollController: FixedExtentScrollController(
+                    initialItem: groupItem.items
+                        .toList()
+                        .indexWhere((v) => v.value == groupItem.value)),
+                onSelectedItemChanged: (index) {
+                  _selectedItem = groupItem.items[index].value;
 
-              if (groupItem.onChange != null) {
-                if (_debounce?.isActive ?? false) {
-                  _debounce.cancel();
-                }
+                  if (groupItem.onChange != null) {
+                    if (_debounce?.isActive ?? false) {
+                      _debounce.cancel();
+                    }
 
-                _debounce = Timer(const Duration(milliseconds: 500), () {
-                  groupItem.onChange(_selectedItem);
-                });
-              }
-            },
-          ),
+                    _debounce = Timer(const Duration(milliseconds: 500), () {
+                      groupItem.onChange(_selectedItem);
+                    });
+                  }
+                },
+              ),
+            )
+          ],
         );
       },
     );
-    if (groupItem.onClose != null) {
-      groupItem.onClose(_selectedItem);
-    }
   }
 
   showActions(BuildContext context, List<ActionItem> actionItems) async {

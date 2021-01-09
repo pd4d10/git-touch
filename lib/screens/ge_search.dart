@@ -131,7 +131,7 @@ class _GeSearchScreenState extends State<GeSearchScreen> {
           login: p.login,
           name: p.name,
           avatarUrl: p.avatarUrl,
-          bio: Text(p.htmlUrl),
+          bio: Text(p.bio != null ? p.bio : p.htmlUrl),
         );
       default:
         return IssueItem(

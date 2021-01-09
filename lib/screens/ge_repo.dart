@@ -1,8 +1,8 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/gitee.dart';
+import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
@@ -18,11 +18,13 @@ import '../generated/l10n.dart';
 class GeRepoScreen extends StatelessWidget {
   final String owner;
   final String name;
-  GeRepoScreen(this.owner, this.name);
+  final String branch;
+  GeRepoScreen(this.owner, this.name, {this.branch});
 
   @override
   Widget build(BuildContext context) {
-    return RefreshStatefulScaffold<Tuple2<GiteeRepo, MarkdownViewData>>(
+    return RefreshStatefulScaffold<
+        Tuple3<GiteeRepo, MarkdownViewData, List<GiteeBranch>>>(
       title: AppBarTitle(S.of(context).repository),
       fetch: () async {
         final auth = context.read<AuthModel>();
@@ -43,11 +45,16 @@ class GeRepoScreen extends StatelessWidget {
               return utf8.decode(res.bodyBytes).normalizedHtml;
             });
         final readmeData = MarkdownViewData(context, md: md, html: html);
-
-        return Tuple2(repo, readmeData);
+        final branches =
+            await auth.fetchGitee('/repos/$owner/$name/branches').then((v) {
+          return [for (var branch in v) GiteeBranch.fromJson(branch)];
+        });
+        return Tuple3(repo, readmeData, branches);
       },
       bodyBuilder: (t, setState) {
         final p = t.item1;
+        final branches = t.item3;
+        final theme = context.read<ThemeModel>();
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
@@ -86,7 +93,8 @@ class GeRepoScreen extends StatelessWidget {
                   leftIconData: Octicons.code,
                   text: Text('Code'),
                   rightWidget: Text(p.license ?? ''),
-                  url: '/gitee/$owner/$name/tree/${p.defaultBranch}',
+                  url:
+                      '/gitee/$owner/$name/tree/${branch == null ? p.defaultBranch : branch}',
                 ),
                 TableViewItem(
                   leftIconData: Octicons.issue_opened,
@@ -103,8 +111,42 @@ class GeRepoScreen extends StatelessWidget {
                 TableViewItem(
                   leftIconData: Octicons.history,
                   text: Text('Commits'),
-                  url: '/gitee/$owner/$name/commits',
+                  url:
+                      '/gitee/$owner/$name/commits?branch=${branch == null ? p.defaultBranch : branch}',
                 ),
+                if (branches != null)
+                  TableViewItem(
+                    leftIconData: Octicons.git_branch,
+                    text: Text(S.of(context).branches),
+                    rightWidget: Text(
+                        (branch == null ? p.defaultBranch : branch) +
+                            ' • ' +
+                            branches.length.toString()),
+                    onTap: () async {
+                      if (branches.length < 2) return;
+
+                      await theme.showPicker(
+                        context,
+                        PickerGroupItem(
+                          value: branch,
+                          items: branches
+                              .map((b) => PickerItem(b.name, text: b.name))
+                              .toList(),
+                          onClose: (ref) {
+                            if (ref != branch) {
+                              theme.push(
+                                  context, '/gitee/$owner/$name?branch=$ref',
+                                  replace: true);
+                            }
+                          },
+                        ),
+                      );
+                    },
+                  ),
+                TableViewItem(
+                    leftIconData: Octicons.organization,
+                    text: Text('Contributors'),
+                    url: '/gitee/$owner/$name/contributors'),
               ],
             ),
             CommonStyle.verticalGap,

@@ -12,6 +12,7 @@ import 'package:git_touch/screens/code_theme.dart';
 import 'package:git_touch/screens/ge_blob.dart';
 import 'package:git_touch/screens/ge_commit.dart';
 import 'package:git_touch/screens/ge_commits.dart';
+import 'package:git_touch/screens/ge_contributors.dart';
 import 'package:git_touch/screens/ge_files.dart';
 import 'package:git_touch/screens/ge_issue.dart';
 import 'package:git_touch/screens/ge_issue_comment.dart';
@@ -81,10 +82,12 @@ class CommonRouter {
     CommonRouter.login,
     CommonRouter.settings
   ];
-  static final codeTheme = RouterScreen('/choose-code-theme', (context, p) {
+  static final codeTheme =
+      RouterScreen('/choose-code-theme', (context, parameters) {
     return CodeThemeScreen();
   });
-  static final login = RouterScreen('/login', (context, p) => LoginScreen());
+  static final login =
+      RouterScreen('/login', (context, parameters) => LoginScreen());
   static final settings =
       RouterScreen('/settings', (context, parameters) => SettingsScreen());
 }
@@ -109,9 +112,9 @@ class GithubRouter {
     GithubRouter.gistObject,
     GithubRouter.compare,
   ];
-  static final user = RouterScreen('/:login', (_, p) {
-    final login = p['login'].first;
-    final tab = p['tab']?.first;
+  static final user = RouterScreen('/:login', (context, parameters) {
+    final login = parameters['login'].first;
+    final tab = parameters['tab']?.first;
     switch (tab) {
       case 'followers':
         return GhUsersScreen(login, UsersScreenType.follower);
@@ -135,75 +138,93 @@ class GithubRouter {
         return GhUserScreen(login);
     }
   });
-  static final repo = RouterScreen('/:owner/:name', (_, p) {
-    if (p['ref'] == null) {
-      return GhRepoScreen(p['owner'].first, p['name'].first);
+  static final repo = RouterScreen('/:owner/:name', (context, parameters) {
+    if (parameters['ref'] == null) {
+      return GhRepoScreen(parameters['owner'].first, parameters['name'].first);
     } else {
-      return GhRepoScreen(p['owner'].first, p['name'].first,
-          branch: p['ref'].first);
+      return GhRepoScreen(parameters['owner'].first, parameters['name'].first,
+          branch: parameters['ref'].first);
     }
   });
-  static final gistObject = RouterScreen('/:login/gists/:id/:file', (_, p) {
+  static final gistObject =
+      RouterScreen('/:login/gists/:id/:file', (context, parameters) {
     return GistObjectScreen(
-      p['login'].first,
-      p['id'].first,
-      p['file'].first,
-      raw: p['raw']?.first,
-      content: p['content'].first,
+      parameters['login'].first,
+      parameters['id'].first,
+      parameters['file'].first,
+      raw: parameters['raw']?.first,
+      content: parameters['content'].first,
     );
   });
-  static final gistFiles = RouterScreen('/:login/gists/:id', (_, p) {
-    return GhGistsFilesScreen(p['login'].first, p['id'].first);
+  static final gistFiles =
+      RouterScreen('/:login/gists/:id', (context, parameters) {
+    return GhGistsFilesScreen(
+        parameters['login'].first, parameters['id'].first);
   });
-  static final issueAdd = RouterScreen('/:owner/:name/issues/new', (_, p) {
-    return GhIssueFormScreen(p['owner'].first, p['name'].first);
+  static final issueAdd =
+      RouterScreen('/:owner/:name/issues/new', (context, parameters) {
+    return GhIssueFormScreen(
+        parameters['owner'].first, parameters['name'].first);
   });
-  static final issues = RouterScreen('/:owner/:name/issues',
-      (context, p) => GhIssuesScreen(p['owner'].first, p['name'].first));
-  static final pulls = RouterScreen('/:owner/:name/pulls',
-      (context, p) => GhPullsScreen(p['owner'].first, p['name'].first));
+  static final issues = RouterScreen(
+      '/:owner/:name/issues',
+      (context, parameters) =>
+          GhIssuesScreen(parameters['owner'].first, parameters['name'].first));
+  static final pulls = RouterScreen(
+      '/:owner/:name/pulls',
+      (context, parameters) =>
+          GhPullsScreen(parameters['owner'].first, parameters['name'].first));
   static final issue = RouterScreen(
       '/:owner/:name/issues/:number',
-      (context, p) => GhIssueScreen(
-          p['owner'].first, p['name'].first, int.parse(p['number'].first)));
+      (context, parameters) => GhIssueScreen(parameters['owner'].first,
+          parameters['name'].first, int.parse(parameters['number'].first)));
   static final pull = RouterScreen(
       '/:owner/:name/pull/:number',
-      (context, p) => GhIssueScreen(
-          p['owner'].first, p['name'].first, int.parse(p['number'].first),
+      (context, parameters) => GhIssueScreen(parameters['owner'].first,
+          parameters['name'].first, int.parse(parameters['number'].first),
           isPullRequest: true));
   static final files = RouterScreen(
       '/:owner/:name/pull/:number/files',
-      (context, p) => GhFilesScreen(
-            p['owner'].first,
-            p['name'].first,
-            int.parse(p['number'].first),
+      (context, parameters) => GhFilesScreen(
+            parameters['owner'].first,
+            parameters['name'].first,
+            int.parse(parameters['number'].first),
           ));
   static final compare = RouterScreen(
       '/:owner/:name/compare/:before/:head',
-      (context, p) => GhComparisonScreen(p['owner'].first, p['name'].first,
-          p['before'].first, p['head'].first));
-  static final commits = RouterScreen('/:owner/:name/commits',
-      (context, p) => GhCommitsScreen(p['owner'].first, p['name'].first));
-  static final object = RouterScreen('/:owner/:name/blob/:ref', (_, p) {
+      (context, parameters) => GhComparisonScreen(
+          parameters['owner'].first,
+          parameters['name'].first,
+          parameters['before'].first,
+          parameters['head'].first));
+  static final commits = RouterScreen(
+      '/:owner/:name/commits',
+      (context, parameters) =>
+          GhCommitsScreen(parameters['owner'].first, parameters['name'].first));
+  static final object =
+      RouterScreen('/:owner/:name/blob/:ref', (context, parameters) {
     return GhObjectScreen(
-      p['owner'].first,
-      p['name'].first,
-      p['ref'].first,
-      path: p['path']?.first,
-      raw: p['raw']?.first,
+      parameters['owner'].first,
+      parameters['name'].first,
+      parameters['ref'].first,
+      path: parameters['path']?.first,
+      raw: parameters['raw']?.first,
     );
   });
-  static final stargazers = RouterScreen('/:owner/:name/stargazers', (_, p) {
-    return GhUsersScreen(p['owner'].first, UsersScreenType.star,
-        repoName: p['name'].first);
+  static final stargazers =
+      RouterScreen('/:owner/:name/stargazers', (context, parameters) {
+    return GhUsersScreen(parameters['owner'].first, UsersScreenType.star,
+        repoName: parameters['name'].first);
   });
-  static final watchers = RouterScreen('/:owner/:name/watchers', (_, p) {
-    return GhUsersScreen(p['owner'].first, UsersScreenType.watch,
-        repoName: p['name'].first);
+  static final watchers =
+      RouterScreen('/:owner/:name/watchers', (context, parameters) {
+    return GhUsersScreen(parameters['owner'].first, UsersScreenType.watch,
+        repoName: parameters['name'].first);
   });
   static final contributors =
-      RouterScreen('/:owner/:name/contributors', (_, p) {
-    return GhContributorsScreen(p['owner'].first, p['name'].first);
+      RouterScreen('/:owner/:name/contributors', (context, parameters) {
+    return GhContributorsScreen(
+        parameters['owner'].first, parameters['name'].first);
   });
 }
 
@@ -224,44 +245,50 @@ class GitlabRouter {
     GitlabRouter.groupMembers,
     GitlabRouter.issue,
   ];
-  static final user = RouterScreen(
-      '/user/:id', (context, p) => GlUserScreen(int.parse(p['id'].first)));
+  static final user = RouterScreen('/user/:id',
+      (context, parameters) => GlUserScreen(int.parse(parameters['id'].first)));
   static final group = RouterScreen(
-      '/group/:id', (context, p) => GlGroupScreen(int.parse(p['id'].first)));
+      '/group/:id',
+      (context, parameters) =>
+          GlGroupScreen(int.parse(parameters['id'].first)));
   static final blob = RouterScreen(
       '/projects/:id/blob/:ref',
-      (context, params) => GlBlobScreen(
-          int.parse(params['id'].first), params['ref'].first,
-          path: params['path']?.first));
+      (context, parameters) => GlBlobScreen(
+          int.parse(parameters['id'].first), parameters['ref'].first,
+          path: parameters['path']?.first));
   static final tree = RouterScreen(
       '/projects/:id/tree/:ref',
-      (context, params) => GlTreeScreen(
-          int.parse(params['id'].first), params['ref'].first,
-          path: params['path']?.first));
-  static final project = RouterScreen('/projects/:id',
-      (context, params) => GlProjectScreen(int.parse(params['id'].first)));
-  static final starrers = RouterScreen('/projects/:id/starrers',
-      (context, params) => GlStarrersScreen(int.parse(params['id'].first)));
+      (context, parameters) => GlTreeScreen(
+          int.parse(parameters['id'].first), parameters['ref'].first,
+          path: parameters['path']?.first));
+  static final project = RouterScreen(
+      '/projects/:id',
+      (context, parameters) =>
+          GlProjectScreen(int.parse(parameters['id'].first)));
+  static final starrers = RouterScreen(
+      '/projects/:id/starrers',
+      (context, parameters) =>
+          GlStarrersScreen(int.parse(parameters['id'].first)));
   static final issues = RouterScreen(
       '/projects/:id/issues',
-      (context, params) => GlIssuesScreen(
-            params['id'].first,
-            prefix: params['prefix'].first,
+      (context, parameters) => GlIssuesScreen(
+            parameters['id'].first,
+            prefix: parameters['prefix'].first,
           ));
   static final mergeRequests = RouterScreen(
       '/projects/:id/merge_requests',
-      (context, params) => GlMergeRequestsScreen(
-            params['id'].first,
-            prefix: params['prefix'].first,
+      (context, parameters) => GlMergeRequestsScreen(
+            parameters['id'].first,
+            prefix: parameters['prefix'].first,
           ));
   static final commits = RouterScreen(
       '/projects/:id/commits',
-      (context, params) =>
-          GlCommitsScreen(params['id'].first, prefix: params['prefix'].first));
+      (context, parameters) => GlCommitsScreen(parameters['id'].first,
+          prefix: parameters['prefix'].first));
   static final commit = RouterScreen(
       '/projects/:id/commit/:sha',
-      (context, params) =>
-          GlCommitScreen(params['id'].first, sha: params['sha'].first));
+      (context, parameters) =>
+          GlCommitScreen(parameters['id'].first, sha: parameters['sha'].first));
   static final projectMembers = RouterScreen(
       '/projects/:id/members',
       (context, parameters) =>
@@ -272,10 +299,10 @@ class GitlabRouter {
           GlMembersScreen(int.parse(parameters['id'].first), 'groups'));
   static final issue = RouterScreen(
     '/gitlab/projects/:id/issues/:iid',
-    (context, params) {
+    (context, parameters) {
       return GlIssueScreen(
-        int.parse(params['id'].first),
-        int.parse(params['iid'].first),
+        int.parse(parameters['id'].first),
+        int.parse(parameters['iid'].first),
       );
     },
   );
@@ -297,9 +324,9 @@ class GiteaRouter {
   ];
   static final status =
       RouterScreen('/status', (context, parameters) => GtStatusScreen());
-  static final user = RouterScreen('/:login', (context, p) {
-    final login = p['login'].first;
-    final tab = p['tab']?.first;
+  static final user = RouterScreen('/:login', (context, parameters) {
+    final login = parameters['login'].first;
+    final tab = parameters['tab']?.first;
     switch (tab) {
       case 'followers':
         return GtUsersScreen.followers(login);
@@ -321,32 +348,45 @@ class GiteaRouter {
   });
   static final repo = RouterScreen(
     '/:owner/:name',
-    (context, params) =>
-        GtRepoScreen(params['owner'].first, params['name'].first),
+    (context, parameters) =>
+        GtRepoScreen(parameters['owner'].first, parameters['name'].first),
   );
   static final object = RouterScreen(
     '/:owner/:name/blob',
-    (context, params) => GtObjectScreen(
-      params['owner'].first,
-      params['name'].first,
-      path: params['path']?.first,
+    (context, parameters) => GtObjectScreen(
+      parameters['owner'].first,
+      parameters['name'].first,
+      path: parameters['path']?.first,
     ),
   );
-  static final stargazers = RouterScreen('/:owner/:name/stargazers', (_, p) {
-    return GtUsersScreen.stargazers(p['owner'].first, p['name'].first);
+  static final stargazers =
+      RouterScreen('/:owner/:name/stargazers', (context, parameters) {
+    return GtUsersScreen.stargazers(
+        parameters['owner'].first, parameters['name'].first);
   });
-  static final watchers = RouterScreen('/:owner/:name/watchers', (_, p) {
-    return GtUsersScreen.watchers(p['owner'].first, p['name'].first);
+  static final watchers =
+      RouterScreen('/:owner/:name/watchers', (context, parameters) {
+    return GtUsersScreen.watchers(
+        parameters['owner'].first, parameters['name'].first);
   });
-  static final forks = RouterScreen('/:owner/:name/forks', (_, p) {
-    return GtReposScreen.forks(p['owner'].first, p['name'].first);
+  static final forks =
+      RouterScreen('/:owner/:name/forks', (context, parameters) {
+    return GtReposScreen.forks(
+        parameters['owner'].first, parameters['name'].first);
   });
-  static final commits = RouterScreen('/:owner/:name/commits',
-      (_, p) => GtCommitsScreen(p['owner'].first, p['name'].first));
-  static final issues = RouterScreen('/:owner/:name/issues',
-      (_, p) => GtIssuesScreen(p['owner'].first, p['name'].first));
-  static final pulls = RouterScreen('/:owner/:name/pulls',
-      (_, p) => GtIssuesScreen(p['owner'].first, p['name'].first, isPr: true));
+  static final commits = RouterScreen(
+      '/:owner/:name/commits',
+      (context, parameters) =>
+          GtCommitsScreen(parameters['owner'].first, parameters['name'].first));
+  static final issues = RouterScreen(
+      '/:owner/:name/issues',
+      (context, parameters) =>
+          GtIssuesScreen(parameters['owner'].first, parameters['name'].first));
+  static final pulls = RouterScreen(
+      '/:owner/:name/pulls',
+      (context, parameters) => GtIssuesScreen(
+          parameters['owner'].first, parameters['name'].first,
+          isPr: true));
 }
 
 class BitbucketRouter {
@@ -364,40 +404,46 @@ class BitbucketRouter {
   ];
   static final user = RouterScreen(
       '/:login',
-      (context, params) => BbUserScreen(params['login'].first,
-          isTeam: params['team'].first == '1'));
+      (context, parameters) => BbUserScreen(parameters['login'].first,
+          isTeam: parameters['team'].first == '1'));
   static final repo = RouterScreen(
     '/:owner/:name',
-    (context, params) =>
-        BbRepoScreen(params['owner'].first, params['name'].first),
+    (context, parameters) =>
+        BbRepoScreen(parameters['owner'].first, parameters['name'].first),
   );
   static final object = RouterScreen(
     '/:owner/:name/src/:ref',
-    (context, params) => BbObjectScreen(
-      params['owner'].first,
-      params['name'].first,
-      params['ref'].first,
-      path: params['path']?.first,
+    (context, parameters) => BbObjectScreen(
+      parameters['owner'].first,
+      parameters['name'].first,
+      parameters['ref'].first,
+      path: parameters['path']?.first,
     ),
   );
-  static final issues = RouterScreen('/:owner/:name/issues',
-      (_, p) => BbIssuesScreen(p['owner'].first, p['name'].first));
+  static final issues = RouterScreen(
+      '/:owner/:name/issues',
+      (context, parameters) =>
+          BbIssuesScreen(parameters['owner'].first, parameters['name'].first));
   static final commits = RouterScreen(
       '/:owner/:name/commits/:ref',
-      (_, p) =>
-          BbCommitsScreen(p['owner'].first, p['name'].first, p['ref'].first));
-  static final pulls = RouterScreen('/:owner/:name/pulls',
-      (_, p) => BbPullsScreen(p['owner'].first, p['name'].first));
-  static final issueAdd = RouterScreen('/:owner/:name/issues/new',
-      (_, p) => BbIssueFormScreen(p['owner'].first, p['name'].first));
+      (context, parameters) => BbCommitsScreen(parameters['owner'].first,
+          parameters['name'].first, parameters['ref'].first));
+  static final pulls = RouterScreen(
+      '/:owner/:name/pulls',
+      (context, parameters) =>
+          BbPullsScreen(parameters['owner'].first, parameters['name'].first));
+  static final issueAdd = RouterScreen(
+      '/:owner/:name/issues/new',
+      (context, parameters) => BbIssueFormScreen(
+          parameters['owner'].first, parameters['name'].first));
   static final issue = RouterScreen(
       '/:owner/:name/issues/:number',
-      (_, p) =>
-          BbIssueScreen(p['owner'].first, p['name'].first, p['number'].first));
+      (context, parameters) => BbIssueScreen(parameters['owner'].first,
+          parameters['name'].first, parameters['number'].first));
   static final issueComment = RouterScreen(
       '/:owner/:name/issues/:number/comment',
-      (_, p) => BbIssueCommentScreen(
-          p['owner'].first, p['name'].first, p['number'].first));
+      (context, parameters) => BbIssueCommentScreen(parameters['owner'].first,
+          parameters['name'].first, parameters['number'].first));
 }
 
 class GiteeRouter {
@@ -421,13 +467,14 @@ class GiteeRouter {
     GiteeRouter.pullComment,
     GiteeRouter.files,
     GiteeRouter.commit,
+    GiteeRouter.contributors,
   ];
   static final search = RouterScreen('/search', (context, parameters) {
     return GeSearchScreen();
   });
-  static final user = RouterScreen('/:login', (context, p) {
-    final login = p['login'].first;
-    final tab = p['tab']?.first;
+  static final user = RouterScreen('/:login', (context, parameters) {
+    final login = parameters['login'].first;
+    final tab = parameters['tab']?.first;
     switch (tab) {
       case 'followers':
         return GeUsersScreen.followers(login);
@@ -444,21 +491,37 @@ class GiteeRouter {
   });
   static final repo = RouterScreen(
     '/:owner/:name',
-    (context, params) =>
-        GeRepoScreen(params['owner'].first, params['name'].first),
+    (context, parameters) {
+      if (parameters['branch'] == null) {
+        return GeRepoScreen(
+            parameters['owner'].first, parameters['name'].first);
+      } else {
+        return GeRepoScreen(parameters['owner'].first, parameters['name'].first,
+            branch: parameters['branch'].first);
+      }
+    },
   );
-  static final stargazers = RouterScreen('/:owner/:name/stargazers', (_, p) {
-    return GeUsersScreen.stargazers(p['owner'].first, p['name'].first);
+  static final stargazers =
+      RouterScreen('/:owner/:name/stargazers', (context, parameters) {
+    return GeUsersScreen.stargazers(
+        parameters['owner'].first, parameters['name'].first);
   });
-  static final watchers = RouterScreen('/:owner/:name/watchers', (_, p) {
-    return GeUsersScreen.watchers(p['owner'].first, p['name'].first);
+  static final watchers =
+      RouterScreen('/:owner/:name/watchers', (context, parameters) {
+    return GeUsersScreen.watchers(
+        parameters['owner'].first, parameters['name'].first);
   });
-  static final forks = RouterScreen('/:owner/:name/forks', (_, p) {
-    return GeReposScreen.forks(p['owner'].first, p['name'].first);
+  static final forks =
+      RouterScreen('/:owner/:name/forks', (context, parameters) {
+    return GeReposScreen.forks(
+        parameters['owner'].first, parameters['name'].first);
   });
   static final commits = RouterScreen(
     '/:owner/:name/commits',
-    (_, p) => GeCommitsScreen(p['owner'].first, p['name'].first),
+    (context, parameters) => GeCommitsScreen(
+        parameters['owner'].first, parameters['name'].first,
+        branch:
+            parameters['branch'] != null ? parameters['branch'].first : null),
   );
   static final tree = RouterScreen(
     '/:owner/:name/tree/:sha',
@@ -542,5 +605,10 @@ class GiteeRouter {
     '/:owner/:name/commits/:sha',
     (context, parameters) => GeCommitScreen(parameters['owner'].first,
         parameters['name'].first, parameters['sha'].first),
+  );
+  static final contributors = RouterScreen(
+    '/:owner/:name/contributors',
+    (context, parameters) => GeContributorsScreen(
+        parameters['owner'].first, parameters['name'].first),
   );
 }
