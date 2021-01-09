@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:git_touch/models/gitee.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
+import 'package:git_touch/widgets/action_button.dart';
 import 'package:git_touch/widgets/action_entry.dart';
 import 'package:git_touch/widgets/avatar.dart';
 import 'package:git_touch/widgets/link.dart';
@@ -19,6 +20,38 @@ class GePullScreen extends StatelessWidget {
   final bool isPr;
 
   GePullScreen(this.owner, this.name, this.number, {this.isPr: false});
+
+  List<ActionItem> _buildCommentActionItem(
+      BuildContext context, GiteeComment comment) {
+    final auth = context.read<AuthModel>();
+    final theme = context.read<ThemeModel>();
+    return [
+      ActionItem(
+          iconData: Octicons.pencil,
+          text: 'Edit',
+          onTap: (_) {
+            final uri = Uri(
+              path: '/gitee/$owner/$name/pulls/$number/comment',
+              queryParameters: {
+                'body': comment.body,
+                'id': comment.id.toString(),
+              },
+            ).toString();
+            theme.push(context, uri);
+          }),
+      ActionItem(
+        iconData: Octicons.trashcan,
+        text: 'Delete',
+        onTap: (_) async {
+          await auth.fetchGitee(
+              '/repos/$owner/$name/pulls/comments/${comment.id}',
+              requestType: 'DELETE');
+          await theme.push(context, '/gitee/$owner/$name/pulls/$number',
+              replace: true);
+        },
+      ),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -206,14 +239,17 @@ class GePullScreen extends StatelessWidget {
               Padding(
                   padding: EdgeInsets.only(left: 10),
                   child: CommentItem(
-                      avatar: Avatar(
-                        url: comment.user.avatarUrl,
-                        linkUrl: '/gitee/${comment.user.login}',
-                      ),
-                      createdAt: DateTime.parse(comment.createdAt),
-                      body: comment.body,
-                      login: comment.user.login,
-                      prefix: 'gitee')),
+                    avatar: Avatar(
+                      url: comment.user.avatarUrl,
+                      linkUrl: '/gitee/${comment.user.login}',
+                    ),
+                    createdAt: DateTime.parse(comment.createdAt),
+                    body: comment.body,
+                    login: comment.user.login,
+                    prefix: 'gitee',
+                    commentActionItemList:
+                        _buildCommentActionItem(context, comment),
+                  )),
               CommonStyle.border,
               SizedBox(height: 16),
             ],

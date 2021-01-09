@@ -139,6 +139,7 @@ class CommentItem extends StatelessWidget {
   final String body;
   final String prefix;
   final List<Widget> widgets;
+  final List<ActionItem> commentActionItemList;
 
   CommentItem.gh(Map<String, dynamic> payload)
       : avatar = Avatar(
@@ -149,7 +150,8 @@ class CommentItem extends StatelessWidget {
         createdAt = DateTime.parse(payload['createdAt']),
         body = payload['body'],
         widgets = [GhEmojiAction(payload)],
-        prefix = 'github';
+        prefix = 'github',
+        commentActionItemList = []; // TODO
 
   CommentItem({
     @required this.avatar,
@@ -158,6 +160,7 @@ class CommentItem extends StatelessWidget {
     @required this.body,
     @required this.prefix,
     this.widgets,
+    this.commentActionItemList,
   });
 
   @override
@@ -183,6 +186,15 @@ class CommentItem extends StatelessWidget {
               ],
             ),
           ),
+          Align(
+              alignment: Alignment.centerRight,
+              child: ActionButton(
+                iconData: Octicons.kebab_horizontal,
+                title: 'Comment Actions',
+                items: [
+                  if (commentActionItemList != null) ...commentActionItemList
+                ],
+              )),
         ]),
         SizedBox(height: 12),
         MarkdownFlutterView(body, padding: EdgeInsets.zero), // TODO: link

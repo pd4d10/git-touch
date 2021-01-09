@@ -164,6 +164,7 @@ class GiteePull {
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GiteeComment {
+  int id;
   String body;
   String createdAt;
   GiteeRepoOwner user;

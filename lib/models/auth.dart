@@ -278,25 +278,53 @@ class AuthModel with ChangeNotifier {
 
   Future fetchGitee(
     String p, {
-    isPost = false,
+    requestType = 'GET',
     Map<String, dynamic> body = const {},
   }) async {
     http.Response res;
-    if (isPost) {
-      res = await http.post(
-        '${activeAccount.domain}/api/v5$p',
-        headers: {
-          'Authorization': 'token $token',
-          HttpHeaders.contentTypeHeader: 'application/json'
-        },
-        body: jsonEncode(body),
-      );
-    } else {
-      res = await http.get('${activeAccount.domain}/api/v5$p',
-          headers: {'Authorization': 'token $token'});
+    Map<String, String> headers = {
+      'Authorization': 'token $token',
+      HttpHeaders.contentTypeHeader: 'application/json'
+    };
+    switch (requestType) {
+      case 'DELETE':
+        {
+          await http.delete(
+            '${activeAccount.domain}/api/v5$p',
+            headers: headers,
+          );
+          break;
+        }
+      case 'POST':
+        {
+          res = await http.post(
+            '${activeAccount.domain}/api/v5$p',
+            headers: headers,
+            body: jsonEncode(body),
+          );
+          break;
+        }
+      case 'PATCH':
+        {
+          res = await http.patch(
+            '${activeAccount.domain}/api/v5$p',
+            headers: headers,
+            body: jsonEncode(body),
+          );
+          break;
+        }
+      default:
+        {
+          res = await http.get('${activeAccount.domain}/api/v5$p',
+              headers: headers);
+          break;
+        }
     }
-    final info = json.decode(utf8.decode(res.bodyBytes));
-    return info;
+    if (requestType != 'DELETE') {
+      final info = json.decode(utf8.decode(res.bodyBytes));
+      return info;
+    }
+    return;
   }
 
   Future<DataWithPage> fetchGiteeWithPage(String path,

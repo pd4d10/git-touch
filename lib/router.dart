@@ -505,9 +505,14 @@ class GiteeRouter {
   });
   static final issueComment = RouterScreen(
       '/:owner/:name/issues/:number/comment', (context, parameters) {
-    return GeIssueCommentScreen(parameters['owner'].first,
-        parameters['name'].first, parameters['number'].first,
-        isPr: false);
+    return GeIssueCommentScreen(
+      parameters['owner'].first,
+      parameters['name'].first,
+      parameters['number'].first,
+      isPr: false,
+      body: parameters['body'] != null ? parameters['body'].first : '',
+      id: parameters['id'] != null ? parameters['id'].first : '',
+    );
   });
   static final pull = RouterScreen(
     '/:owner/:name/pulls/:number',
@@ -519,9 +524,14 @@ class GiteeRouter {
   );
   static final pullComment = RouterScreen('/:owner/:name/pulls/:number/comment',
       (context, parameters) {
-    return GeIssueCommentScreen(parameters['owner'].first,
-        parameters['name'].first, parameters['number'].first,
-        isPr: true);
+    return GeIssueCommentScreen(
+      parameters['owner'].first,
+      parameters['name'].first,
+      parameters['number'].first,
+      isPr: true,
+      body: parameters['body'] != null ? parameters['body'].first : '',
+      id: parameters['id'] != null ? parameters['id'].first : '',
+    );
   });
   static final files =
       RouterScreen('/:owner/:name/pulls/:number/files', (context, parameters) {
