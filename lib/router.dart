@@ -35,6 +35,9 @@ import 'package:git_touch/screens/gh_org_repos.dart';
 import 'package:git_touch/screens/gl_commit.dart';
 import 'package:git_touch/screens/gl_starrers.dart';
 import 'package:git_touch/screens/gt_commits.dart';
+import 'package:git_touch/screens/gt_issue.dart';
+import 'package:git_touch/screens/gt_issue_comment.dart';
+import 'package:git_touch/screens/gt_issue_form.dart';
 import 'package:git_touch/screens/gt_issues.dart';
 import 'package:git_touch/screens/gt_object.dart';
 import 'package:git_touch/screens/gt_orgs.dart';
@@ -321,6 +324,9 @@ class GiteaRouter {
     GiteaRouter.commits,
     GiteaRouter.issues,
     GiteaRouter.pulls,
+    GiteaRouter.issueAdd,
+    GiteaRouter.issue,
+    GiteaRouter.issueComment,
   ];
   static final status =
       RouterScreen('/status', (context, parameters) => GtStatusScreen());
@@ -387,6 +393,20 @@ class GiteaRouter {
       (context, parameters) => GtIssuesScreen(
           parameters['owner'].first, parameters['name'].first,
           isPr: true));
+  static final issueAdd = RouterScreen(
+      '/:owner/:name/issues/new',
+      (context, parameters) => GtIssueFormScreen(
+          parameters['owner'].first, parameters['name'].first));
+  static final issue = RouterScreen(
+      '/:owner/:name/issues/:number',
+      (context, parameters) => GtIssueScreen(parameters['owner'].first,
+          parameters['name'].first, parameters['number'].first));
+  static final issueComment = RouterScreen(
+      '/:owner/:name/issues/:number/comment',
+      (context, parameters) => GtIssueCommentScreen(parameters['owner'].first,
+          parameters['name'].first, parameters['number'].first,
+          body: parameters['body'] != null ? parameters['body'].first : '',
+          id: parameters['id'] != null ? parameters['id'].first : ''));
 }
 
 class BitbucketRouter {

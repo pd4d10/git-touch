@@ -245,11 +245,55 @@ class AuthModel with ChangeNotifier {
     }
   }
 
-  Future fetchGitea(String p) async {
-    final res = await http.get('${activeAccount.domain}/api/v1$p',
-        headers: {'Authorization': 'token $token'});
-    final info = json.decode(utf8.decode(res.bodyBytes));
-    return info;
+  Future fetchGitea(
+    String p, {
+    requestType = 'GET',
+    Map<String, dynamic> body = const {},
+  }) async {
+    http.Response res;
+    Map<String, String> headers = {
+      'Authorization': 'token $token',
+      HttpHeaders.contentTypeHeader: 'application/json'
+    };
+    switch (requestType) {
+      case 'DELETE':
+        {
+          await http.delete(
+            '${activeAccount.domain}/api/v1$p',
+            headers: headers,
+          );
+          break;
+        }
+      case 'POST':
+        {
+          res = await http.post(
+            '${activeAccount.domain}/api/v1$p',
+            headers: headers,
+            body: jsonEncode(body),
+          );
+          break;
+        }
+      case 'PATCH':
+        {
+          res = await http.patch(
+            '${activeAccount.domain}/api/v1$p',
+            headers: headers,
+            body: jsonEncode(body),
+          );
+          break;
+        }
+      default:
+        {
+          res = await http.get('${activeAccount.domain}/api/v1$p',
+              headers: headers);
+          break;
+        }
+    }
+    if (requestType != 'DELETE') {
+      final info = json.decode(utf8.decode(res.bodyBytes));
+      return info;
+    }
+    return;
   }
 
   Future<DataWithPage> fetchGiteaWithPage(String path,
