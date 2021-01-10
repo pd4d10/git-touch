@@ -157,9 +157,9 @@ class SettingsScreen extends StatelessWidget {
               text: Text(S.of(context).submitAnIssue),
               rightWidget: Text('pd4d10/git-touch'),
               url: (auth.activeAccount.platform == PlatformType.github
-                      ? ''
+                      ? '/github'
                       : 'https://github.com') +
-                  '/github/pd4d10/git-touch/issues/new',
+                  '/pd4d10/git-touch/issues/new',
             ),
             TableViewItem(
               text: Text(S.of(context).rateThisApp),
