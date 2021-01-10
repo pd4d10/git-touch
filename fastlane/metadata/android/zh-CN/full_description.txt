@@ -1,0 +1,12 @@
+GitHub, GitLab, Bitbucket, Gitea, 和 Gitee(码云) 的开源移动客户端，使用 Flutter 构建
+
+https://github.com/git-touch/git-touch
+
+功能：
+- 查看代码，支持语法高亮
+- 查看 Github 趋势
+- 查看存储库和用户
+- 查看拉取请求和议题
+- 查看通知
+- 标星和取消标星存储库
+- 关注和取消关注用户
