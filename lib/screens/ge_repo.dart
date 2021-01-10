@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/gitee.dart';
@@ -8,6 +9,7 @@ import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/entry_item.dart';
 import 'package:git_touch/widgets/markdown_view.dart';
+import 'package:git_touch/widgets/mutation_button.dart';
 import 'package:git_touch/widgets/repo_header.dart';
 import 'package:git_touch/widgets/table_view.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +25,8 @@ class GeRepoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isWatching;
+    bool isStarred;
     return RefreshStatefulScaffold<
         Tuple3<GiteeRepo, MarkdownViewData, List<GiteeBranch>>>(
       title: AppBarTitle(S.of(context).repository),
@@ -49,6 +53,13 @@ class GeRepoScreen extends StatelessWidget {
             await auth.fetchGitee('/repos/$owner/$name/branches').then((v) {
           return [for (var branch in v) GiteeBranch.fromJson(branch)];
         });
+        isStarred = await auth
+            .fetchGitee('/user/starred/$owner/$name', requestType: 'NO CONTENT')
+            .then((v) => v.statusCode == HttpStatus.noContent);
+        isWatching = await auth
+            .fetchGitee('/user/subscriptions/$owner/$name',
+                requestType: 'NO CONTENT')
+            .then((v) => v.statusCode == HttpStatus.noContent);
         return Tuple3(repo, readmeData, branches);
       },
       bodyBuilder: (t, setState) {
@@ -59,17 +70,49 @@ class GeRepoScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             RepoHeader(
-              avatarUrl: p.owner.avatarUrl,
-              avatarLink: '/gitee/${p.namespace.path}',
-              owner: p.namespace.path,
-              name: p.path,
-              description: p.description,
-              homepageUrl: p.homepage,
-            ),
-            CommonStyle.border,
+                avatarUrl: p.owner.avatarUrl,
+                avatarLink: '/gitee/${p.namespace.path}',
+                owner: p.namespace.path,
+                name: p.path,
+                description: p.description,
+                homepageUrl: p.homepage,
+                actions: [
+                  Row(children: <Widget>[
+                    MutationButton(
+                      active: isWatching,
+                      text: isWatching ? 'Ignore' : 'Watch',
+                      onTap: () async {
+                        final String watchType =
+                            isWatching ? 'ignoring' : 'watching';
+                        await context.read<AuthModel>().fetchGitee(
+                            '/user/subscriptions/$owner/$name?watch_type=$watchType',
+                            requestType: isWatching ? 'DELETE' : 'PUT');
+
+                        setState(() {
+                          isWatching = !isWatching;
+                        });
+                      },
+                    ),
+                    SizedBox(width: 8),
+                    MutationButton(
+                      active: isStarred,
+                      text: isStarred ? 'Unstar' : 'Star',
+                      onTap: () async {
+                        await context.read<AuthModel>().fetchGitee(
+                            '/user/starred/$owner/$name',
+                            requestType: isStarred ? 'DELETE' : 'PUT');
+
+                        setState(() {
+                          isStarred = !isStarred;
+                        });
+                      },
+                    )
+                  ])
+                ]),
             Row(
               children: <Widget>[
                 EntryItem(
+                  count: p.watchersCount,
                   text: 'Watchers',
                   url: '/gitee/$owner/$name/watchers',
                 ),
