@@ -6,21 +6,21 @@ import 'package:git_touch/scaffolds/common.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:provider/provider.dart';
 
-class GeIssueCommentScreen extends StatefulWidget {
+class GtIssueCommentScreen extends StatefulWidget {
   final String owner;
   final String name;
   final String number;
   final bool isPr;
   final String body;
   final String id;
-  GeIssueCommentScreen(this.owner, this.name, this.number,
+  GtIssueCommentScreen(this.owner, this.name, this.number,
       {this.isPr: false, this.body: '', this.id: ''});
 
   @override
-  _GeIssueCommentScreenState createState() => _GeIssueCommentScreenState();
+  _GtIssueCommentScreenState createState() => _GtIssueCommentScreenState();
 }
 
-class _GeIssueCommentScreenState extends State<GeIssueCommentScreen> {
+class _GtIssueCommentScreenState extends State<GtIssueCommentScreen> {
   bool isEdit = false;
   TextEditingController _controller = new TextEditingController();
 
@@ -54,13 +54,13 @@ class _GeIssueCommentScreenState extends State<GeIssueCommentScreen> {
             child: Text('Comment'),
             onPressed: () async {
               if (!isEdit) {
-                final res = await auth.fetchGitee(
+                final res = await auth.fetchGitea(
                   '/repos/${widget.owner}/${widget.name}/${widget.isPr ? 'pulls' : 'issues'}/${widget.number}/comments',
                   requestType: 'POST',
                   body: {'body': _controller.text, 'repo': widget.name},
                 );
               } else {
-                final res = await auth.fetchGitee(
+                final res = await auth.fetchGitea(
                   '/repos/${widget.owner}/${widget.name}/${widget.isPr ? 'pulls' : 'issues'}/comments/${int.parse(widget.id)}',
                   requestType: 'PATCH',
                   body: {'body': _controller.text, 'repo': widget.name},
@@ -69,7 +69,7 @@ class _GeIssueCommentScreenState extends State<GeIssueCommentScreen> {
               Navigator.pop(context, '');
               await theme.push(
                 context,
-                '/gitee/${widget.owner}/${widget.name}/${widget.isPr ? 'pulls' : 'issues'}/${widget.number}',
+                '/gitea/${widget.owner}/${widget.name}/${widget.isPr ? 'pulls' : 'issues'}/${widget.number}',
                 replace: true,
               );
             },

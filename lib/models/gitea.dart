@@ -108,10 +108,21 @@ class GiteaIssue {
   GiteaUser user;
   int comments;
   DateTime updatedAt;
+  String state;
   String htmlUrl;
+  List<GiteaLabel> labels;
   GiteaIssue();
   factory GiteaIssue.fromJson(Map<String, dynamic> json) =>
       _$GiteaIssueFromJson(json);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GiteaLabel {
+  String color;
+  String name;
+  GiteaLabel();
+  factory GiteaLabel.fromJson(Map<String, dynamic> json) =>
+      _$GiteaLabelFromJson(json);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
@@ -121,4 +132,18 @@ class GiteaHeatmapItem {
   GiteaHeatmapItem();
   factory GiteaHeatmapItem.fromJson(Map<String, dynamic> json) =>
       _$GiteaHeatmapItemFromJson(json);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GiteaComment {
+  String body;
+  DateTime createdAt;
+  String htmlUrl;
+  String originalAuthor;
+  DateTime updatedAt;
+  int id;
+  GiteaUser user;
+  GiteaComment();
+  factory GiteaComment.fromJson(Map<String, dynamic> json) =>
+      _$GiteaCommentFromJson(json);
 }

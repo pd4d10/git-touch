@@ -3,8 +3,11 @@ import 'package:git_touch/generated/l10n.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/gitea.dart';
 import 'package:git_touch/scaffolds/list_stateful.dart';
+import 'package:git_touch/utils/utils.dart';
+import 'package:git_touch/widgets/action_entry.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/issue_item.dart';
+import 'package:git_touch/widgets/label.dart';
 import 'package:provider/provider.dart';
 
 class GtIssuesScreen extends StatelessWidget {
@@ -18,7 +21,6 @@ class GtIssuesScreen extends StatelessWidget {
     return ListStatefulScaffold<GiteaIssue, int>(
       title:
           AppBarTitle(isPr ? S.of(context).pullRequests : S.of(context).issues),
-      // TODO: create issue
       fetch: (page) async {
         final type = isPr ? 'pulls' : 'issues';
         final res = await context.read<AuthModel>().fetchGiteaWithPage(
@@ -30,6 +32,12 @@ class GtIssuesScreen extends StatelessWidget {
           items: (res.data as List).map((v) => GiteaIssue.fromJson(v)).toList(),
         );
       },
+      actionBuilder: () => ActionEntry(
+        iconData: isPr ? null : Octicons.plus,
+        url: isPr
+            ? '/gitea/$owner/$name/pulls/new'
+            : '/gitea/$owner/$name/issues/new',
+      ),
       itemBuilder: (p) => IssueItem(
         author: p.user.login,
         avatarUrl: p.user.avatarUrl,
@@ -37,7 +45,17 @@ class GtIssuesScreen extends StatelessWidget {
         subtitle: '#' + p.number.toString(),
         title: p.title,
         updatedAt: p.updatedAt,
-        url: p.htmlUrl,
+        url: isPr
+            ? p.htmlUrl // TODO: PR endpoints are not complete in Gitea
+            : '/gitea/$owner/$name/issues/${p.number}',
+        labels: isPr
+            ? null
+            : p.labels.isEmpty
+                ? null
+                : Wrap(spacing: 4, runSpacing: 4, children: [
+                    for (var label in p.labels)
+                      MyLabel(name: label.name, cssColor: label.color)
+                  ]),
       ),
     );
   }
