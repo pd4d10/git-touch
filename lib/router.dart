@@ -406,11 +406,14 @@ class BitbucketRouter {
       '/:login',
       (context, parameters) => BbUserScreen(parameters['login'].first,
           isTeam: parameters['team'].first == '1'));
-  static final repo = RouterScreen(
-    '/:owner/:name',
-    (context, parameters) =>
-        BbRepoScreen(parameters['owner'].first, parameters['name'].first),
-  );
+  static final repo = RouterScreen('/:owner/:name', (context, parameters) {
+    if (parameters['branch'] == null) {
+      return BbRepoScreen(parameters['owner'].first, parameters['name'].first);
+    } else {
+      return BbRepoScreen(parameters['owner'].first, parameters['name'].first,
+          branch: parameters['branch'].first);
+    }
+  });
   static final object = RouterScreen(
     '/:owner/:name/src/:ref',
     (context, parameters) => BbObjectScreen(

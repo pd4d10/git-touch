@@ -247,3 +247,14 @@ Map<String, dynamic> _$BbCommentToJson(BbComment instance) => <String, dynamic>{
       'content': instance.content,
       'user': instance.user,
     };
+
+BbBranch _$BbBranchFromJson(Map<String, dynamic> json) {
+  return BbBranch()
+    ..name = json['name'] as String
+    ..type = json['type'] as String;
+}
+
+Map<String, dynamic> _$BbBranchToJson(BbBranch instance) => <String, dynamic>{
+      'name': instance.name,
+      'type': instance.type,
+    };
