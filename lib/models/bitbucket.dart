@@ -144,3 +144,12 @@ class BbComment {
   factory BbComment.fromJson(Map<String, dynamic> json) =>
       _$BbCommentFromJson(json);
 }
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class BbBranch {
+  String name;
+  String type;
+  BbBranch();
+  factory BbBranch.fromJson(Map<String, dynamic> json) =>
+      _$BbBranchFromJson(json);
+}

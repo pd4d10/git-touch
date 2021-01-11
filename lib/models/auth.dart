@@ -337,7 +337,15 @@ class AuthModel with ChangeNotifier {
             '${activeAccount.domain}/api/v5$p',
             headers: headers,
           );
-          break;
+          return;
+        }
+      case 'PUT':
+        {
+          await http.put(
+            '${activeAccount.domain}/api/v5$p',
+            headers: headers,
+          );
+          return;
         }
       case 'POST':
         {
@@ -357,6 +365,12 @@ class AuthModel with ChangeNotifier {
           );
           break;
         }
+      case 'NO CONTENT':
+        {
+          res = await http.get('${activeAccount.domain}/api/v5$p',
+              headers: headers);
+          return res;
+        }
       default:
         {
           res = await http.get('${activeAccount.domain}/api/v5$p',
@@ -364,11 +378,8 @@ class AuthModel with ChangeNotifier {
           break;
         }
     }
-    if (requestType != 'DELETE') {
-      final info = json.decode(utf8.decode(res.bodyBytes));
-      return info;
-    }
-    return;
+    final info = json.decode(utf8.decode(res.bodyBytes));
+    return info;
   }
 
   Future<DataWithPage> fetchGiteeWithPage(String path,

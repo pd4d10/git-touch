@@ -18,11 +18,12 @@ import '../generated/l10n.dart';
 class BbRepoScreen extends StatelessWidget {
   final String owner;
   final String name;
-  BbRepoScreen(this.owner, this.name);
+  final String branch;
+  BbRepoScreen(this.owner, this.name, {this.branch});
 
   @override
   Widget build(BuildContext context) {
-    return RefreshStatefulScaffold<Tuple2<BbRepo, String>>(
+    return RefreshStatefulScaffold<Tuple3<BbRepo, String, List<BbBranch>>>(
       title: AppBarTitle(S.of(context).repository),
       fetch: () async {
         final auth = context.read<AuthModel>();
@@ -32,11 +33,17 @@ class BbRepoScreen extends StatelessWidget {
             '/repositories/$owner/$name/src/${repo.mainbranch.name}/README.md');
         final readme =
             res.statusCode >= 400 ? null : utf8.decode(res.bodyBytes);
-        return Tuple2(repo, readme);
+        final branches = await auth
+            .fetchBbWithPage('/repositories/$owner/$name/refs/branches')
+            .then((v) {
+          return [for (var branch in v.data) BbBranch.fromJson(branch)];
+        });
+        return Tuple3(repo, readme, branches);
       },
       bodyBuilder: (t, setState) {
         final theme = Provider.of<ThemeModel>(context);
         final p = t.item1;
+        final branches = t.item3;
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
@@ -56,7 +63,8 @@ class BbRepoScreen extends StatelessWidget {
                   leftIconData: Octicons.code,
                   text: Text('Code'),
                   rightWidget: Text(filesize(p.size)),
-                  url: '/bitbucket/$owner/$name/src/${p.mainbranch.name}',
+                  url:
+                      '/bitbucket/$owner/$name/src/${branch == null ? p.mainbranch.name : branch}',
                 ),
                 TableViewItem(
                   leftIconData: Octicons.issue_opened,
@@ -71,8 +79,38 @@ class BbRepoScreen extends StatelessWidget {
                 TableViewItem(
                   leftIconData: Octicons.history,
                   text: Text('Commits'),
-                  url: '/bitbucket/$owner/$name/commits/${p.mainbranch.name}',
+                  url:
+                      '/bitbucket/$owner/$name/commits/${branch == null ? p.mainbranch.name : branch}',
                 ),
+                if (branches != null)
+                  TableViewItem(
+                    leftIconData: Octicons.git_branch,
+                    text: Text(S.of(context).branches),
+                    rightWidget: Text(
+                        (branch == null ? p.mainbranch.name : branch) +
+                            ' • ' +
+                            branches.length.toString()),
+                    onTap: () async {
+                      if (branches.length < 2) return;
+
+                      await theme.showPicker(
+                        context,
+                        PickerGroupItem(
+                          value: branch,
+                          items: branches
+                              .map((b) => PickerItem(b.name, text: b.name))
+                              .toList(),
+                          onClose: (ref) {
+                            if (ref != branch) {
+                              theme.push(context,
+                                  '/bitbucket/$owner/$name?branch=$ref',
+                                  replace: true);
+                            }
+                          },
+                        ),
+                      );
+                    },
+                  ),
               ],
             ),
             CommonStyle.verticalGap,
