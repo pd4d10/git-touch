@@ -264,10 +264,14 @@ class GitlabRouter {
       (context, parameters) => GlTreeScreen(
           int.parse(parameters['id'].first), parameters['ref'].first,
           path: parameters['path']?.first));
-  static final project = RouterScreen(
-      '/projects/:id',
-      (context, parameters) =>
-          GlProjectScreen(int.parse(parameters['id'].first)));
+  static final project = RouterScreen('/projects/:id', (context, parameters) {
+    if (parameters['branch'] == null) {
+      return GlProjectScreen(int.parse(parameters['id'].first));
+    } else {
+      return GlProjectScreen(int.parse(parameters['id'].first),
+          branch: parameters['branch'].first);
+    }
+  });
   static final starrers = RouterScreen(
       '/projects/:id/starrers',
       (context, parameters) =>
@@ -284,10 +288,17 @@ class GitlabRouter {
             parameters['id'].first,
             prefix: parameters['prefix'].first,
           ));
-  static final commits = RouterScreen(
-      '/projects/:id/commits',
-      (context, parameters) => GlCommitsScreen(parameters['id'].first,
-          prefix: parameters['prefix'].first));
+  static final commits =
+      RouterScreen('/projects/:id/commits', (context, parameters) {
+    if (parameters['branch'] == null) {
+      return GlCommitsScreen(parameters['id'].first,
+          prefix: parameters['prefix'].first);
+    } else {
+      return GlCommitsScreen(parameters['id'].first,
+          prefix: parameters['prefix'].first,
+          branch: parameters['branch'].first);
+    }
+  });
   static final commit = RouterScreen(
       '/projects/:id/commit/:sha',
       (context, parameters) =>
