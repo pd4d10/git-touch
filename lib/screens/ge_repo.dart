@@ -17,6 +17,12 @@ import 'package:tuple/tuple.dart';
 import 'package:http/http.dart' as http;
 import '../generated/l10n.dart';
 
+class StatusPayload {
+  bool isWatching;
+  bool isStarred;
+  StatusPayload(this.isWatching, this.isStarred);
+}
+
 class GeRepoScreen extends StatelessWidget {
   final String owner;
   final String name;
@@ -26,8 +32,7 @@ class GeRepoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold<
-        Tuple4<GiteeRepo, MarkdownViewData, List<GiteeBranch>,
-            Map<String, bool>>>(
+        Tuple4<GiteeRepo, MarkdownViewData, List<GiteeBranch>, StatusPayload>>(
       title: AppBarTitle(S.of(context).repository),
       fetch: () async {
         final auth = context.read<AuthModel>();
@@ -59,11 +64,8 @@ class GeRepoScreen extends StatelessWidget {
             .fetchGitee('/user/subscriptions/$owner/$name',
                 requestType: 'NO CONTENT')
             .then((v) => v.statusCode == HttpStatus.noContent);
-        Map<String, bool> watchAndStar = {
-          "isWatching": isWatching,
-          "isStarred": isStarred
-        };
-        return Tuple4(repo, readmeData, branches, watchAndStar);
+        StatusPayload statusPayload = StatusPayload(isWatching, isStarred);
+        return Tuple4(repo, readmeData, branches, statusPayload);
       },
       bodyBuilder: (t, setState) {
         final p = t.item1;
@@ -82,32 +84,30 @@ class GeRepoScreen extends StatelessWidget {
                 actions: [
                   Row(children: <Widget>[
                     MutationButton(
-                      active: t.item4['isWatching'],
-                      text: t.item4['isWatching'] ? 'Ignore' : 'Watch',
+                      active: t.item4.isWatching,
+                      text: t.item4.isWatching ? 'Ignore' : 'Watch',
                       onTap: () async {
                         final String watchType =
-                            t.item4['isWatching'] ? 'ignoring' : 'watching';
+                            t.item4.isWatching ? 'ignoring' : 'watching';
                         await context.read<AuthModel>().fetchGitee(
                             '/user/subscriptions/$owner/$name?watch_type=$watchType',
-                            requestType:
-                                t.item4['isWatching'] ? 'DELETE' : 'PUT');
+                            requestType: t.item4.isWatching ? 'DELETE' : 'PUT');
                         setState(() {
-                          t.item4['isWatching'] = !t.item4['isWatching'];
+                          t.item4.isWatching = !t.item4.isWatching;
                         });
                       },
                     ),
                     SizedBox(width: 8),
                     MutationButton(
-                      active: t.item4['isStarred'],
-                      text: t.item4['isStarred'] ? 'Unstar' : 'Star',
+                      active: t.item4.isStarred,
+                      text: t.item4.isStarred ? 'Unstar' : 'Star',
                       onTap: () async {
                         await context.read<AuthModel>().fetchGitee(
                             '/user/starred/$owner/$name',
-                            requestType:
-                                t.item4['isStarred'] ? 'DELETE' : 'PUT');
+                            requestType: t.item4.isStarred ? 'DELETE' : 'PUT');
 
                         setState(() {
-                          t.item4['isStarred'] = !t.item4['isStarred'];
+                          t.item4.isStarred = !t.item4.isStarred;
                         });
                       },
                     )
