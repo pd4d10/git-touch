@@ -33,6 +33,7 @@ import 'package:git_touch/screens/gh_files.dart';
 import 'package:git_touch/screens/gh_gists_files.dart';
 import 'package:git_touch/screens/gh_org_repos.dart';
 import 'package:git_touch/screens/gl_commit.dart';
+import 'package:git_touch/screens/gl_issue_form.dart';
 import 'package:git_touch/screens/gl_starrers.dart';
 import 'package:git_touch/screens/gt_commits.dart';
 import 'package:git_touch/screens/gt_issue.dart';
@@ -246,6 +247,7 @@ class GitlabRouter {
     GitlabRouter.commit,
     GitlabRouter.projectMembers,
     GitlabRouter.groupMembers,
+    GitlabRouter.issueAdd,
     GitlabRouter.issue,
   ];
   static final user = RouterScreen('/user/:id',
@@ -312,7 +314,7 @@ class GitlabRouter {
       (context, parameters) =>
           GlMembersScreen(int.parse(parameters['id'].first), 'groups'));
   static final issue = RouterScreen(
-    '/gitlab/projects/:id/issues/:iid',
+    '/projects/:id/issues/:iid',
     (context, parameters) {
       return GlIssueScreen(
         int.parse(parameters['id'].first),
@@ -320,6 +322,10 @@ class GitlabRouter {
       );
     },
   );
+  static final issueAdd =
+      RouterScreen('/projects/:id/issues/new', (context, parameters) {
+    return GlIssueFormScreen(int.parse(parameters['id'].first));
+  });
 }
 
 class GiteaRouter {
