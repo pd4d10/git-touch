@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:git_touch/graphql/gh.dart';
+import 'package:git_touch/graphql/github.data.gql.dart';
+import 'package:git_touch/graphql/github.req.gql.dart';
 import 'package:git_touch/scaffolds/list_stateful.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/models/auth.dart';
@@ -7,56 +8,61 @@ import 'package:provider/provider.dart';
 import 'package:git_touch/widgets/repository_item.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
-class GhReposScreen extends StatelessWidget {
-  final String owner;
-  final String title;
-  final bool isStar;
-
-  GhReposScreen(this.owner)
-      : title = 'Repositories',
-        isStar = false;
-  GhReposScreen.stars(this.owner)
-      : title = 'Stars',
-        isStar = true;
+class GhRepos extends StatelessWidget {
+  final String login;
+  GhRepos(this.login);
 
   @override
   Widget build(BuildContext context) {
-    return ListStatefulScaffold<GhReposRepository, String>(
-      title: AppBarTitle(title),
+    return ListStatefulScaffold<GReposRepoItem, String>(
+      title: AppBarTitle('Repositories'),
       fetch: (cursor) async {
         final auth = context.read<AuthModel>();
-        final res = await auth.gqlClient.execute(GhReposQuery(
-            variables:
-                GhReposArguments(owner: owner, isStar: isStar, after: cursor)));
-        final data = res.data.user;
-        if (isStar) {
-          return ListPayload(
-            cursor: data.starredRepositories.pageInfo.endCursor,
-            items: data.starredRepositories.nodes,
-            hasMore: data.starredRepositories.pageInfo.hasNextPage,
-          );
-        } else {
-          return ListPayload(
-            cursor: data.repositories.pageInfo.endCursor,
-            items: data.repositories.nodes,
-            hasMore: data.repositories.pageInfo.hasNextPage,
-          );
-        }
-      },
-      itemBuilder: (v) {
-        return RepositoryItem.gh(
-          owner: v.owner.login,
-          avatarUrl: v.owner.avatarUrl,
-          name: v.name,
-          description: v.description,
-          starCount: v.stargazers.totalCount,
-          forkCount: v.forks.totalCount,
-          primaryLanguageName: v.primaryLanguage?.name,
-          primaryLanguageColor: v.primaryLanguage?.color,
-          note: 'Updated ${timeago.format(v.updatedAt)}',
-          isPrivate: v.isPrivate,
-          isFork: v.isFork,
+        final req = GReposReq((b) {
+          b.vars.login = login;
+          b.vars.after = cursor;
+        });
+        final res = await auth.gqlClient.request(req).first;
+        final p = res.data.user.repositories;
+        return ListPayload(
+          cursor: p.pageInfo.endCursor,
+          hasMore: p.pageInfo.hasNextPage,
+          items: p.nodes,
         );
+      },
+      itemBuilder: (p) {
+        return RepositoryItem.gql(p,
+            note: 'Updated ${timeago.format(p.updatedAt)}');
+      },
+    );
+  }
+}
+
+class GhStars extends StatelessWidget {
+  final String login;
+  GhStars(this.login);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListStatefulScaffold<GReposRepoItem, String>(
+      title: AppBarTitle('Stars'),
+      fetch: (cursor) async {
+        final auth = context.read<AuthModel>();
+        final req = GStarsReq((b) {
+          b.vars.login = login;
+          b.vars.after = cursor;
+        });
+        final res = await auth.gqlClient.request(req).first;
+        final p = res.data.user.starredRepositories;
+        return ListPayload(
+          cursor: p.pageInfo.endCursor,
+          hasMore: p.pageInfo.hasNextPage,
+          items: p.nodes,
+        );
+      },
+      itemBuilder: (p) {
+        return RepositoryItem.gql(p,
+            note: 'Updated ${timeago.format(p.updatedAt)}');
       },
     );
   }

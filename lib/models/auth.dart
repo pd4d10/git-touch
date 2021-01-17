@@ -1,14 +1,14 @@
 import 'dart:convert';
 import 'dart:async';
+import 'package:ferry/ferry.dart';
+import 'package:git_touch/utils/nil_store.dart';
 // import 'package:in_app_review/in_app_review.dart';
 import 'package:universal_io/io.dart';
 import 'package:git_touch/models/bitbucket.dart';
 import 'package:git_touch/models/gitea.dart';
 import 'package:git_touch/models/gitee.dart';
-import 'package:git_touch/utils/request_serilizer.dart';
 import 'package:github/github.dart';
 import 'package:gql_http_link/gql_http_link.dart';
-import 'package:artemis/artemis.dart';
 import 'package:fimber/fimber.dart';
 import 'package:http/http.dart' as http;
 import 'package:uni_links/uni_links.dart';
@@ -683,17 +683,17 @@ class AuthModel with ChangeNotifier {
     return _ghClient;
   }
 
-  ArtemisClient _gqlClient;
-  ArtemisClient get gqlClient {
+  Client _gqlClient;
+  Client get gqlClient {
     if (token == null) return null;
 
     if (_gqlClient == null) {
-      _gqlClient = ArtemisClient.fromLink(
-        HttpLink(
+      _gqlClient = Client(
+        link: HttpLink(
           _apiPrefix + '/graphql',
           defaultHeaders: {HttpHeaders.authorizationHeader: 'token $token'},
-          serializer: GithubRequestSerializer(),
         ),
+        cache: Cache(store: NilStore()),
       );
     }
 

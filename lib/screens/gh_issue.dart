@@ -1,664 +1,249 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:git_touch/graphql/gh.dart';
+import 'package:git_touch/graphql/github.data.gql.dart';
+import 'package:git_touch/graphql/github.req.gql.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/action_button.dart';
 import 'package:git_touch/widgets/avatar.dart';
 import 'package:git_touch/widgets/link.dart';
+import 'package:git_touch/widgets/timeline_item.dart';
 import 'package:primer/primer.dart';
 import 'package:provider/provider.dart';
+import 'package:github/github.dart' as github;
 import '../scaffolds/long_list.dart';
-import '../widgets/timeline_item.dart';
 import '../widgets/comment_item.dart';
 
-final reactionChunk = emojiMap.entries.map((entry) {
-  var key = entry.key;
-  return '''
-$key: reactions(content: $key) {
-  totalCount
-  viewerHasReacted
-}''';
-}).join('\n');
-
-/// Screen for issue and pull request
-class GhIssueScreen extends StatefulWidget {
+class GhIssueScreen extends StatelessWidget {
   final String owner;
   final String name;
   final int number;
-  final bool isPullRequest;
+  GhIssueScreen(this.owner, this.name, this.number);
 
-  GhIssueScreen(this.owner, this.name, this.number,
-      {this.isPullRequest = false});
-
-  @override
-  _GhIssueScreenState createState() => _GhIssueScreenState();
-}
-
-class _GhIssueScreenState extends State<GhIssueScreen> {
-  String get owner => widget.owner;
-  String get name => widget.name;
-  int get number => widget.number;
-  bool get isPullRequest => widget.isPullRequest;
-
-  String get resource => isPullRequest ? 'pullRequest' : 'issue';
-
-  String get issueChunk {
-    var base = '''
-  repository {
-    owner {
-      avatarUrl
-    }
-  }
-  title
-  closed
-  url
-  viewerCanReact
-  viewerCanUpdate
-  ...CommentParts
-  ...ReactableParts
-''';
-
-    if (isPullRequest) {
-      base += '''
-merged
-additions
-deletions
-changedFiles
-commits {
-  totalCount
-}
-''';
-    }
-    return base;
-  }
-
-  String get timelineChunk {
-    var base = '''
-__typename
-... on IssueComment {
-  ...CommentParts
-  ...ReactableParts
-}
-... on ReferencedEvent {
-  createdAt
-  isCrossRepository
-  actor {
-    login
-  }
-  commit {
-    oid
-    url
-  }
-  commitRepository {
-    owner {
-      login
-    }
-    name
-  }
-}
-... on RenamedTitleEvent {
-  createdAt
-  previousTitle
-  currentTitle
-  actor {
-    login
-  }
-}
-... on ClosedEvent {
-  createdAt
-  actor {
-    login
-  }
-}
-... on ReopenedEvent {
-  createdAt
-  actor {
-    login
-  }
-}
-... on CrossReferencedEvent {
-  createdAt
-  actor {
-    login
-  }
-  source {
-    __typename
-    ... on Issue {
-      number
-      repository {
-        owner {
-          login
-        }
-        name
-      }
-    }
-    ... on PullRequest {
-      number
-      repository {
-        owner {
-          login
-        }
-        name
-      }
-    }
-  }
-}
-... on LabeledEvent {
-  createdAt
-  actor {
-    login
-  }
-  label {
-    name
-    color
-  }
-}
-... on UnlabeledEvent {
-  createdAt
-  actor {
-    login
-  }
-  label {
-    name
-    color
-  }
-}
-... on MilestonedEvent {
-  createdAt
-  actor {
-    login
-  }
-  milestoneTitle
-}
-... on DemilestonedEvent {
-  createdAt
-  actor {
-    login
-  }
-  milestoneTitle
-}
-... on LockedEvent {
-  createdAt
-  actor {
-    login
-  }
-  lockReason
-}
-... on UnlockedEvent {
-  createdAt
-  actor {
-    login
-  }
-}
-... on AssignedEvent {
-  createdAt
-  actor {
-    login
-  }
-  assignee {
-    __typename
-    ... on User {
-      login
-    }
-    ... on Bot {
-      login
-    }
-    ... on Organization {
-      login
-    }
-    ... on Mannequin {
-      login
-    }
-  }
-}
-... on UnassignedEvent {
-  createdAt
-  actor {
-    login
-  }
-  assignee {
-    __typename
-    ... on User {
-      login
-    }
-    ... on Bot {
-      login
-    }
-    ... on Organization {
-      login
-    }
-    ... on Mannequin {
-      login
-    }
-  }
-}
-... on SubscribedEvent {
-  createdAt
-  actor {
-    login
-  }
-}
-... on UnsubscribedEvent {
-  createdAt 
-  actor {
-    login
-  }
-}
-... on MentionedEvent {
-  createdAt
-  actor {
-    login
-  }
-}
-... on PinnedEvent {
-  createdAt
-  actor {
-    login
-  }
-}
-... on TransferredEvent {
-  createdAt
-  actor {
-    login
-  }
-  fromRepository {
-    owner {
-      login
-    }
-    name
-  }
-}
-''';
-
-    if (isPullRequest) {
-      base += '''
-... on PullRequestCommit {
-  prCommit: commit {
-    committedDate
-    oid
-    author {
-      user {
-        login
-      }
-    }
-  }
-}
-... on DeployedEvent {
-  createdAt
-  actor {
-    login
-  }
-  pullRequest {
-    headRef {
-      name
-    }
-  }
-}
-... on DeploymentEnvironmentChangedEvent {
-  createdAt
-  actor {
-    login
-  }
-  deploymentStatus {
-    deployment {
-      environment
-    }
-    description
-  }
-}
-... on HeadRefRestoredEvent {
-  createdAt
-  actor {
-    login
-  }
-  pullRequest {
-    headRefName
-  }
-}
-... on BaseRefForcePushedEvent {
-  createdAt
-  actor {
-    login
-  }
-  pullRequest {
-    baseRef {
-      name
-    }
-  }
-  beforeCommit {
-    oid
-  }
-  afterCommit {
-    oid
-  }
-}
-... on HeadRefForcePushedEvent {
-  createdAt
-  actor {
-    login
-  }
-  pullRequest {
-    headRefName
-  }
-  beforeCommit {
-    oid
-  }
-  afterCommit {
-    oid
-  }
-}
-... on ReviewRequestedEvent {
-  createdAt
-  actor {
-    login
-  }
-  requestedReviewer {
-    ... on User {
-      login
-    }
-  }
-}
-... on ReviewRequestRemovedEvent {
-  createdAt
-  actor {
-    login
-  }
-  requestedReviewer {
-    ... on User {
-      login
-    }
-  }
-}
-... on ReviewDismissedEvent {
-  createdAt
-  actor {
-    login
-  }
-  dismissalMessage
-  pullRequest {
-    author {
-      login
-    }
-  }
-}
-... on PullRequestReview {
-  createdAt
-  state
-  author {
-    login
-  }
-  comments(first: 10) {
-    nodes {
-      ...CommentParts
-      ...ReactableParts
-    }
-  }
-}
-... on MergedEvent {
-  createdAt
-  mergeRefName
-  actor {
-    login
-  }
-  commit {
-    oid
-    url
-  }
-}
-... on HeadRefDeletedEvent {
-  createdAt
-  actor {
-    login
-  }
-  headRefName
-}
-''';
-    }
-
-    return base;
+  Widget _buildHeader(
+    BuildContext context, {
+    @required String avatarUrl,
+    @required String title,
+    @required StateLabelStatus status,
+    @required GCommentParts comment,
+    Iterable<Widget> extraWidgets = const [],
+  }) {
+    final theme = Provider.of<ThemeModel>(context);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: <Widget>[
+        Container(
+          padding: CommonStyle.padding,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Link(
+                url: '/github/$owner/$name',
+                child: Row(
+                  children: <Widget>[
+                    Avatar(url: avatarUrl, size: AvatarSize.extraSmall),
+                    SizedBox(width: 4),
+                    Text(
+                      '$owner / $name',
+                      style: TextStyle(
+                        fontSize: 17,
+                        color: theme.palette.secondaryText,
+                      ),
+                    ),
+                    SizedBox(width: 4),
+                    Text(
+                      '#$number',
+                      style: TextStyle(
+                        fontSize: 17,
+                        color: theme.palette.tertiaryText,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 8),
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              SizedBox(height: 8),
+              StateLabel(status, small: true),
+              SizedBox(height: 8),
+              CommonStyle.border,
+              ...extraWidgets,
+              SizedBox(height: 8),
+              CommentItem.gql(comment),
+            ],
+          ),
+        ),
+        CommonStyle.border,
+      ],
+    );
   }
 
-  Future _queryIssue({String cursor, bool trailing = false}) async {
-    String timelineParams;
-    if (trailing) {
-      timelineParams = 'last: $pageSize';
-    } else {
-      timelineParams = 'first: $pageSize';
-      if (cursor != null) {
-        timelineParams += ', after: "$cursor"';
-      }
-    }
-
-    var data = await context.read<AuthModel>().query('''
-fragment CommentParts on Comment {
-  id
-  createdAt
-  body
-  author {
-    login
-    avatarUrl
-  }
-}
-
-fragment ReactableParts on Reactable {
-  $reactionChunk
-}
-
-{
-  repository(owner: "$owner", name: "$name") {
-    $resource(number: $number) {
-      $issueChunk
-      timelineItems($timelineParams) {
-        totalCount
-        pageInfo {
-          hasNextPage
-          endCursor
-        }
-        nodes {
-          $timelineChunk
-        }
-      }
-    }
-  }
-}
-''');
-    return data['repository'][resource];
-  }
-
-  StateLabelStatus _getLabelStatus(payload) {
-    StateLabelStatus status;
-
-    if (isPullRequest) {
-      if (payload['merged']) {
-        status = StateLabelStatus.pullMerged;
-      } else if (payload['closed']) {
-        status = StateLabelStatus.pullClosed;
-      } else {
-        status = StateLabelStatus.pullOpened;
-      }
-    } else {
-      if (payload['closed']) {
-        status = StateLabelStatus.issueClosed;
-      } else {
-        status = StateLabelStatus.issueOpened;
-      }
-    }
-
-    return status;
+  Future<GIssueData_repository> _queryIssue(BuildContext context,
+      {String cursor}) async {
+    final req = GIssueReq((b) {
+      b.vars.owner = owner;
+      b.vars.name = name;
+      b.vars.number = number;
+    });
+    var res = await context.read<AuthModel>().gqlClient.request(req).first;
+    return res.data.repository;
   }
 
   @override
   Widget build(BuildContext context) {
-    return LongListStatefulScaffold(
-      title: Text(isPullRequest ? 'Pull Request' : 'Issue'),
-      trailingBuilder: (payload, setState) {
-        return ActionButton(
-          title: (isPullRequest ? 'Pull Request' : 'Issue') + ' Actions',
-          items: [
-            if (payload != null) ...[
-              if (!isPullRequest && payload['viewerCanUpdate'])
+    return LongListStatefulScaffold<GIssueData_repository, dynamic>(
+      title: Text('$owner/$name #$number'),
+      trailingBuilder: (p) {
+        if (p.issueOrPullRequest.G__typename == 'Issue') {
+          final d = p.issueOrPullRequest
+              as GIssueData_repository_issueOrPullRequest__asIssue;
+          return ActionButton(
+            title: 'Actions',
+            items: [
+              if (!d.viewerCanUpdate)
                 ActionItem(
-                  text: payload['closed'] ? 'Reopen issue' : 'Close issue',
+                  text: d.closed ? 'Reopen issue' : 'Close issue',
                   onTap: (_) async {
-                    final res = await context
-                        .read<AuthModel>()
-                        .gqlClient
-                        .execute(GhOpenIssueQuery(
-                          variables: GhOpenIssueArguments(
-                            id: payload['id'],
-                            open: payload['closed'],
-                          ),
-                        ));
-                    setState(() {
-                      payload['closed'] = res.data.reopenIssue?.issue?.closed ??
-                          res.data.closeIssue.issue.closed;
-                    });
+                    await context.read<AuthModel>().ghClient.issues.edit(
+                        github.RepositorySlug(owner, name),
+                        number,
+                        github.IssueRequest(
+                            state: d.closed ? 'open' : 'closed'));
                   },
                 ),
-              ...ActionItem.getUrlActions(payload['url'] as String),
+              ...ActionItem.getUrlActions(d.url),
             ],
-          ],
-        );
+          );
+        } else {
+          final d = p.issueOrPullRequest
+              as GIssueData_repository_issueOrPullRequest__asPullRequest;
+          return ActionButton(
+            title: 'Actions',
+            items: [
+              ...ActionItem.getUrlActions(d.url),
+            ],
+          );
+        }
       },
       headerBuilder: (p) {
         final theme = Provider.of<ThemeModel>(context);
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Container(
-              padding: CommonStyle.padding,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Link(
-                    url: '/github/$owner/$name',
-                    child: Row(
-                      children: <Widget>[
-                        Avatar(
-                          url: p['repository']['owner']['avatarUrl'],
-                          size: AvatarSize.extraSmall,
-                        ),
-                        SizedBox(width: 4),
-                        Text(
-                          '$owner / $name',
+        if (p.issueOrPullRequest.G__typename == 'Issue') {
+          final issue = p.issueOrPullRequest
+              as GIssueData_repository_issueOrPullRequest__asIssue;
+          return _buildHeader(
+            context,
+            avatarUrl: issue.author.avatarUrl,
+            title: issue.title,
+            status: issue.closed
+                ? StateLabelStatus.issueClosed
+                : StateLabelStatus.issueOpened,
+            comment: issue,
+          );
+        } else {
+          final pr = p.issueOrPullRequest
+              as GIssueData_repository_issueOrPullRequest__asPullRequest;
+          return _buildHeader(
+            context,
+            avatarUrl: pr.author.avatarUrl,
+            title: pr.title,
+            status: pr.merged
+                ? StateLabelStatus.pullMerged
+                : pr.closed
+                    ? StateLabelStatus.pullClosed
+                    : StateLabelStatus.pullOpened,
+            comment: pr,
+            extraWidgets: [
+              Link(
+                child: Container(
+                  padding: EdgeInsets.symmetric(vertical: 8),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text('${pr.changedFiles} files changed',
                           style: TextStyle(
-                            fontSize: 17,
                             color: theme.palette.secondaryText,
-                          ),
-                        ),
-                        SizedBox(width: 4),
-                        Text(
-                          '#$number',
-                          style: TextStyle(
                             fontSize: 17,
-                            color: theme.palette.tertiaryText,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    p['title'],
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  StateLabel(_getLabelStatus(p), small: true),
-                  SizedBox(height: 8),
-                  CommonStyle.border,
-                  if (isPullRequest) ...[
-                    Link(
-                      child: Container(
-                        padding: EdgeInsets.symmetric(vertical: 8),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Text(
-                              '${p['changedFiles']} files changed',
+                          )),
+                      Row(
+                        children: <Widget>[
+                          Text('+${pr.additions}',
                               style: TextStyle(
-                                color: theme.palette.secondaryText,
-                                fontSize: 17,
-                              ),
-                            ),
-                            Row(
-                              children: <Widget>[
-                                Text(
-                                  '+${p['additions']}',
-                                  style: TextStyle(
-                                    color: Colors.green,
-                                    fontSize: 15,
-                                  ),
-                                ),
-                                SizedBox(width: 2),
-                                Text(
-                                  '-${p['deletions']}',
-                                  style: TextStyle(
-                                    color: Colors.red,
-                                    fontSize: 15,
-                                  ),
-                                ),
-                                Icon(
-                                  Icons.chevron_right,
-                                  color: theme.palette.border,
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                      url: '/github/$owner/$name/pull/$number/files',
-                    ),
-                    CommonStyle.border,
-                  ],
-                  SizedBox(height: 8),
-                  CommentItem.gh(p),
-                ],
+                                color: Colors.green,
+                                fontSize: 15,
+                              )),
+                          SizedBox(width: 2),
+                          Text('-${pr.deletions}',
+                              style: TextStyle(
+                                color: Colors.red,
+                                fontSize: 15,
+                              )),
+                          Icon(Icons.chevron_right,
+                              color: theme.palette.border),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+                url: '/github/$owner/$name/pull/$number/files',
               ),
-            ),
-            CommonStyle.border,
-          ],
-        );
-      },
-      itemBuilder: (itemPayload) => TimelineItem(itemPayload),
-      onRefresh: () async {
-        var res = await _queryIssue();
-        int totalCount = res['timelineItems']['totalCount'];
-        String cursor = res['timelineItems']['pageInfo']['endCursor'];
-        List leadingItems = res['timelineItems']['nodes'];
-
-        var payload = LongListPayload(
-          header: res,
-          totalCount: totalCount,
-          cursor: cursor,
-          leadingItems: leadingItems,
-          trailingItems: [],
-        );
-
-        if (totalCount > 2 * pageSize) {
-          var res = await _queryIssue(trailing: true);
-          payload.trailingItems = res['timelineItems']['nodes'];
+              CommonStyle.border,
+            ],
+          );
         }
-
-        return payload;
       },
-      onLoadMore: (String _cursor) async {
-        var res = await _queryIssue(cursor: _cursor);
-        int totalCount = res['timelineItems']['totalCount'];
-        String cursor = res['timelineItems']['pageInfo']['endCursor'];
-        List leadingItems = res['timelineItems']['nodes'];
-
-        var payload = LongListPayload(
-          totalCount: totalCount,
-          cursor: cursor,
-          leadingItems: leadingItems,
-        );
-
-        return payload;
+      itemBuilder: (p) => TimelineItem(p),
+      onRefresh: () async {
+        final res = await _queryIssue(context);
+        if (res.issueOrPullRequest.G__typename == 'Issue') {
+          final issue = res.issueOrPullRequest
+              as GIssueData_repository_issueOrPullRequest__asIssue;
+          return LongListPayload(
+            header: res,
+            totalCount: issue.timelineItems.totalCount,
+            cursor: issue.timelineItems.pageInfo.endCursor,
+            leadingItems: issue.timelineItems.nodes.toList(),
+            trailingItems: [],
+          );
+        } else {
+          final pr = res.issueOrPullRequest
+              as GIssueData_repository_issueOrPullRequest__asPullRequest;
+          return LongListPayload(
+            header: res,
+            totalCount: pr.timelineItems.totalCount,
+            cursor: pr.timelineItems.pageInfo.endCursor,
+            leadingItems: pr.timelineItems.nodes.toList(),
+            trailingItems: [],
+          );
+        }
+      },
+      onLoadMore: (_cursor) async {
+        final res = await _queryIssue(context, cursor: _cursor);
+        if (res.issueOrPullRequest.G__typename == 'Issue') {
+          final issue = res.issueOrPullRequest
+              as GIssueData_repository_issueOrPullRequest__asIssue;
+          return LongListPayload(
+            header: res,
+            totalCount: issue.timelineItems.totalCount,
+            cursor: issue.timelineItems.pageInfo.endCursor,
+            leadingItems: issue.timelineItems.nodes.toList(),
+          );
+        } else {
+          final pr = res.issueOrPullRequest
+              as GIssueData_repository_issueOrPullRequest__asPullRequest;
+          return LongListPayload(
+            header: res,
+            totalCount: pr.timelineItems.totalCount,
+            cursor: pr.timelineItems.pageInfo.endCursor,
+            leadingItems: pr.timelineItems.nodes.toList(),
+          );
+        }
       },
     );
   }

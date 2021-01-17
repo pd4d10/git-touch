@@ -129,15 +129,15 @@ class GithubRouter {
     final tab = parameters['tab']?.first;
     switch (tab) {
       case 'followers':
-        return GhUsersScreen(login, UsersScreenType.follower);
+        return GhFollowers(login);
       case 'following':
-        return GhUsersScreen(login, UsersScreenType.following);
+        return GhFollowing(login);
       case 'people':
-        return GhUsersScreen(login, UsersScreenType.member);
+        return GhMembers(login);
       case 'stars':
-        return GhReposScreen.stars(login);
+        return GhStars(login);
       case 'repositories':
-        return GhReposScreen(login);
+        return GhRepos(login);
       case 'orgrepo':
         return GhOrgReposScreen(login);
       case 'organizations':
@@ -147,7 +147,7 @@ class GithubRouter {
       case 'events':
         return GhEventsScreen(login);
       default:
-        return GhUserScreen(login);
+        return GhUser(login);
     }
   });
   static final repo = RouterScreen('/:owner/:name', (context, parameters) {
@@ -193,8 +193,7 @@ class GithubRouter {
   static final pull = RouterScreen(
       '/:owner/:name/pull/:number',
       (context, parameters) => GhIssueScreen(parameters['owner'].first,
-          parameters['name'].first, int.parse(parameters['number'].first),
-          isPullRequest: true));
+          parameters['name'].first, int.parse(parameters['number'].first)));
   static final files = RouterScreen(
       '/:owner/:name/pull/:number/files',
       (context, parameters) => GhFilesScreen(
@@ -212,7 +211,7 @@ class GithubRouter {
   static final commits = RouterScreen(
       '/:owner/:name/commits',
       (context, parameters) =>
-          GhCommitsScreen(parameters['owner'].first, parameters['name'].first));
+          GhCommits(parameters['owner'].first, parameters['name'].first));
   static final object =
       RouterScreen('/:owner/:name/blob/:ref', (context, parameters) {
     return GhObjectScreen(
@@ -225,13 +224,11 @@ class GithubRouter {
   });
   static final stargazers =
       RouterScreen('/:owner/:name/stargazers', (context, parameters) {
-    return GhUsersScreen(parameters['owner'].first, UsersScreenType.star,
-        repoName: parameters['name'].first);
+    return GhStargazers(parameters['owner'].first, parameters['name'].first);
   });
   static final watchers =
       RouterScreen('/:owner/:name/watchers', (context, parameters) {
-    return GhUsersScreen(parameters['owner'].first, UsersScreenType.watch,
-        repoName: parameters['name'].first);
+    return GhWachers(parameters['owner'].first, parameters['name'].first);
   });
   static final contributors =
       RouterScreen('/:owner/:name/contributors', (context, parameters) {

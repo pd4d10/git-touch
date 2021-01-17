@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:git_touch/graphql/gh.dart';
+import 'package:git_touch/graphql/github.data.gql.dart';
+import 'package:git_touch/graphql/github.req.gql.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
@@ -18,52 +19,54 @@ import 'package:provider/provider.dart';
 import 'package:git_touch/widgets/action_button.dart';
 import '../generated/l10n.dart';
 
-class GhUserScreen extends StatelessWidget {
-  final String login;
-  GhUserScreen(this.login);
-  bool get isViewer => login == null;
+class _Repos extends StatelessWidget {
+  final String title;
+  final Iterable<GRepoItem> repos;
 
-  Iterable<Widget> _buildPinnedItems(Iterable<GhUserRepository> pinnedItems,
-      Iterable<GhUserRepository> repositories) {
-    String title;
-    Iterable<GhUserRepository> items = [];
+  _Repos(final Iterable<GRepoItem> pinned, final Iterable<GRepoItem> repos)
+      : title =
+            pinned.isNotEmpty ? 'pinned repositories' : 'popular repositories',
+        repos = pinned.isNotEmpty ? pinned : repos;
 
-    if (pinnedItems.isNotEmpty) {
-      title = 'pinned repositories';
-      items = pinnedItems;
-    } else if (repositories.isNotEmpty) {
-      title = 'popular repositories';
-      items = repositories;
-    }
-    if (items.isEmpty) return [];
-
-    return [
-      if (title != null) TableViewHeader(title),
-      ...join(
-        CommonStyle.border,
-        items.map((v) {
-          return RepositoryItem.gh(
-            owner: v.owner.login,
-            avatarUrl: v.owner.avatarUrl,
-            name: v.name,
-            description: v.description,
-            starCount: v.stargazers.totalCount,
-            forkCount: v.forks.totalCount,
-            primaryLanguageName: v.primaryLanguage?.name,
-            primaryLanguageColor: v.primaryLanguage?.color,
-            isPrivate: v.isPrivate,
-            isFork: v.isFork,
-          );
-        }).toList(),
-      ),
-    ];
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        TableViewHeader(title),
+        ...join(
+          CommonStyle.border,
+          repos.map((v) {
+            return RepositoryItem.gh(
+              owner: v.owner.login,
+              avatarUrl: v.owner.avatarUrl,
+              name: v.name,
+              description: v.description,
+              starCount: v.stargazers.totalCount,
+              forkCount: v.forks.totalCount,
+              primaryLanguageName: v.primaryLanguage?.name,
+              primaryLanguageColor: v.primaryLanguage?.color,
+              isPrivate: v.isPrivate,
+              isFork: v.isFork,
+            );
+          }).toList(),
+        ),
+      ],
+    );
   }
+}
 
-  Widget _buildUser(BuildContext context, GhUserUser p,
-      void Function(void Function()) setState) {
+class _User extends StatelessWidget {
+  final GUserParts p;
+  final bool isViewer;
+  const _User(this.p, {this.isViewer = false});
+
+  @override
+  Widget build(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
     final auth = Provider.of<AuthModel>(context);
     final login = p.login;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
@@ -87,9 +90,9 @@ class GhUserScreen extends StatelessWidget {
                   } else {
                     await auth.ghClient.users.followUser(p.login);
                   }
-                  setState(() {
-                    p.viewerIsFollowing = !p.viewerIsFollowing;
-                  });
+                  // setState(() {
+                  //   // p.viewerIsFollowing = !p.viewerIsFollowing;
+                  // });
                 },
               )
           ],
@@ -190,34 +193,22 @@ class GhUserScreen extends StatelessWidget {
           ],
         ),
         CommonStyle.verticalGap,
-        // if (isViewer)
-        //   TableView(
-        //     hasIcon: true,
-        //     items: [
-        //       TableViewItem(
-        //         leftIconData: Icons.settings,
-        //         text: Text('Settings'),
-        //         url: '/settings',
-        //       ),
-        //       TableViewItem(
-        //         leftIconData: Icons.info_outline,
-        //         text: Text('About'),
-        //         url: '/about',
-        //       ),
-        //     ],
-        //   )
-        // else
-        ..._buildPinnedItems(
-            p.pinnedItems.nodes
-                .where((n) => n is GhUserRepository)
-                .cast<GhUserRepository>(),
-            p.repositories.nodes),
+        _Repos(
+          p.pinnedItems.nodes.whereType<GRepoItem>(),
+          p.repositories.nodes,
+        ),
         CommonStyle.verticalGap,
       ],
     );
   }
+}
 
-  Widget _buildOrganization(BuildContext context, GhUserOrganization p) {
+class _Org extends StatelessWidget {
+  final GUserData_repositoryOwner__asOrganization p;
+  _Org(this.p);
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
@@ -247,7 +238,7 @@ class GhUserScreen extends StatelessWidget {
             TableViewItem(
               leftIconData: Icons.rss_feed,
               text: Text(S.of(context).events),
-              url: '/github/$login?tab=events',
+              url: '/github/${p.login}?tab=events',
             ),
             if (isNotNullOrEmpty(p.location))
               TableViewItem(
@@ -281,69 +272,64 @@ class GhUserScreen extends StatelessWidget {
           ],
         ),
         CommonStyle.verticalGap,
-        ..._buildPinnedItems(
-          p.pinnedItems.nodes
-              .where((n) => n is GhUserRepository)
-              .cast<GhUserRepository>(),
-          p.pinnableItems.nodes
-              .where((n) => n is GhUserRepository)
-              .cast<GhUserRepository>(),
+        _Repos(
+          p.pinnedItems.nodes.whereType<GRepoItem>(),
+          p.pinnableItems.nodes.whereType<GRepoItem>(),
         ),
         CommonStyle.verticalGap,
       ],
     );
   }
+}
+
+class GhViewer extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final auth = Provider.of<AuthModel>(context);
+    return RefreshStatefulScaffold<GUserParts>(
+      fetch: () async {
+        final req = GViewerReq();
+        final res = await auth.gqlClient.request(req).first;
+        return res.data.viewer;
+      },
+      title: AppBarTitle(S.of(context).me),
+      action: ActionEntry(
+        iconData: Icons.settings,
+        url: '/settings',
+      ),
+      bodyBuilder: (p, setState) {
+        return _User(p, isViewer: true);
+      },
+    );
+  }
+}
+
+class GhUser extends StatelessWidget {
+  final String login;
+  GhUser(this.login);
 
   @override
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthModel>(context);
-    return RefreshStatefulScaffold<GhUserRepositoryOwner>(
+    return RefreshStatefulScaffold<GUserData>(
       fetch: () async {
-        final data = await auth.gqlClient.execute(GhUserQuery(
-            variables:
-                GhUserArguments(login: login ?? '', isViewer: isViewer)));
-        return isViewer ? data.data.viewer : data.data.repositoryOwner;
+        final req = GUserReq((b) => b..vars.login = login);
+        final res = await auth.gqlClient.request(req).first;
+        return res.data;
       },
-      title: AppBarTitle(isViewer ? S.of(context).me : login),
-      action: isViewer
-          ? ActionEntry(
-              iconData: Icons.settings,
-              url: '/settings',
-            )
-          : null,
-      actionBuilder: isViewer
-          ? null
-          : (payload, setState) {
-              switch (payload.resolveType) {
-                case 'User':
-                  final user = payload as GhUserUser;
-                  return ActionButton(
-                    title: 'User Actions',
-                    items: [...ActionItem.getUrlActions(user.url)],
-                  );
-                case 'Organization':
-                  final organization = payload as GhUserOrganization;
-                  return ActionButton(
-                    title: 'Organization Actions',
-                    items: [
-                      ...ActionItem.getUrlActions(organization.url),
-                    ],
-                  );
-                default:
-                  return null;
-              }
-            },
-      bodyBuilder: (payload, setState) {
-        if (isViewer) {
-          return _buildUser(context, payload as GhUserUser, setState);
-        }
-        switch (payload.resolveType) {
-          case 'User':
-            return _buildUser(context, payload as GhUserUser, setState);
-          case 'Organization':
-            return _buildOrganization(context, payload as GhUserOrganization);
-          default:
-            return null;
+      title: AppBarTitle(login),
+      actionBuilder: (payload, setState) {
+        return ActionButton(
+          title: 'User Actions',
+          items: ActionItem.getUrlActions(payload.repositoryOwner.url),
+        );
+      },
+      bodyBuilder: (p, setState) {
+        if (p.repositoryOwner.G__typename == 'User') {
+          return _User(p.repositoryOwner as GUserData_repositoryOwner__asUser);
+        } else {
+          return _Org(
+              p.repositoryOwner as GUserData_repositoryOwner__asOrganization);
         }
       },
     );

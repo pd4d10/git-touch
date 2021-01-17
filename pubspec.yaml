@@ -16,8 +16,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  artemis: ^3.2.1
   cupertino_icons: ^1.0.0
+  ferry: ^0.9.2
+  ferry_flutter: ^0.3.2
   file_icon: ^0.3.0
   filesize: ^1.0.4
   fimber: ^0.4.4
@@ -26,8 +27,9 @@ dependencies:
   flutter_markdown: ^0.4.4
   flutter_svg: ^0.19.0
   flutter_vector_icons: ^0.2.1
-  github: ^7.0.3
+  github: ^7.0.4
   github_trending: ^1.0.0
+  gql_http_link: ^0.3.2
   http: ^0.12.0
   # in_app_review: ^1.0.4
   intl: ^0.16.0
@@ -52,7 +54,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  build_runner: ^1.10.3
+  build_runner: ^1.10.0
+  ferry_generator: ^0.3.3
   json_serializable: ^3.5.1
 
 # dependencies_overrides:
