@@ -11,7 +11,7 @@ import '../widgets/empty.dart';
 
 class ListPayload<T, K> {
   K cursor;
-  List<T> items;
+  Iterable<T> items;
   bool hasMore;
 
   ListPayload({
@@ -95,8 +95,8 @@ class _ListStatefulScaffoldState<T, K>
       }
     });
     try {
-      var _payload = await widget.fetch(null);
-      items = _payload.items;
+      final _payload = await widget.fetch(null);
+      items = _payload.items.toList();
       cursor = _payload.cursor;
       hasMore = _payload.hasMore;
     } catch (err) {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:git_touch/graphql/github.data.gql.dart';
 import 'package:git_touch/models/bitbucket.dart';
 import 'package:git_touch/models/gitlab.dart';
 import 'package:git_touch/models/theme.dart';
@@ -86,6 +87,22 @@ class RepositoryItem extends StatelessWidget {
   })  : iconData = _buildIconData(isPrivate, isFork),
         avatarLink = '/github/$owner',
         url = '/github/$owner/$name';
+
+  factory RepositoryItem.gql(GRepoItem v, {@required note}) {
+    return RepositoryItem.gh(
+      owner: v.owner.login,
+      avatarUrl: v.owner.avatarUrl,
+      name: v.name,
+      description: v.description,
+      starCount: v.stargazers.totalCount,
+      forkCount: v.forks.totalCount,
+      primaryLanguageName: v.primaryLanguage?.name,
+      primaryLanguageColor: v.primaryLanguage?.color,
+      note: note,
+      isPrivate: v.isPrivate,
+      isFork: v.isFork,
+    );
+  }
 
   static IconData _buildIconData(bool isPrivate, bool isFork) {
     if (isPrivate == true) return Octicons.lock;

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:git_touch/graphql/github.data.gql.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/widgets/action_button.dart';
@@ -140,6 +141,18 @@ class CommentItem extends StatelessWidget {
   final String prefix;
   final List<Widget> widgets;
   final List<ActionItem> commentActionItemList;
+
+  CommentItem.gql(GCommentParts p)
+      : avatar = Avatar(
+          url: p.author.avatarUrl, // TODO: deleted user
+          linkUrl: '/github/' + p.author.login,
+        ),
+        login = p.author.login,
+        createdAt = p.createdAt,
+        body = p.body,
+        widgets = [], // [GhEmojiAction(payload)], // TODO:
+        prefix = 'github',
+        commentActionItemList = []; // TODO
 
   CommentItem.gh(Map<String, dynamic> payload)
       : avatar = Avatar(

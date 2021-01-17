@@ -39,9 +39,9 @@ class _HomeState extends State<Home> {
 
   _buildScreen(int index) {
     // return GlProjectScreen(32221);
-    // return IssuesScreen('flutter', 'flutter', isPullRequest: true);
-    // return IssueScreen('reactjs', 'rfcs', 29);
-    // return IssueScreen('reactjs', 'rfcs', 68, isPullRequest: true);
+    // return GhIssuesScreen('flutter', 'flutter', isPullRequest: true);
+    // return GhIssueScreen('reactjs', 'rfcs', 29);
+    // return GhIssueScreen('reactjs', 'rfcs', 68);
     // return Image.asset('images/spinner.webp', width: 32, height: 32);
     // return GhRepoScreen('shreyas1599', 'test');
     final auth = Provider.of<AuthModel>(context);
@@ -57,7 +57,7 @@ class _HomeState extends State<Home> {
           case 3:
             return GhSearchScreen();
           case 4:
-            return GhUserScreen(null);
+            return GhViewer();
         }
         break;
       case PlatformType.gitlab:

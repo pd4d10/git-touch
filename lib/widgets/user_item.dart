@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:git_touch/graphql/github.data.gql.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/avatar.dart';
@@ -11,6 +12,56 @@ const userGqlChunk = '''
   avatarUrl
   bio
 ''';
+
+class GhBioWidget extends StatelessWidget {
+  final GUserItem p;
+  const GhBioWidget(this.p);
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Provider.of<ThemeModel>(context);
+
+    if (isNotNullOrEmpty(p.company)) {
+      return Row(
+        children: <Widget>[
+          Icon(
+            Octicons.organization,
+            size: 15,
+            color: theme.palette.secondaryText,
+          ),
+          SizedBox(width: 4),
+          Expanded(child: Text(p.company, overflow: TextOverflow.ellipsis)),
+        ],
+      );
+    }
+    if (isNotNullOrEmpty(p.location)) {
+      return Row(
+        children: <Widget>[
+          Icon(
+            Octicons.location,
+            size: 15,
+            color: theme.palette.secondaryText,
+          ),
+          SizedBox(width: 4),
+          Expanded(child: Text(p.location, overflow: TextOverflow.ellipsis)),
+        ],
+      );
+    }
+    return Row(
+      children: <Widget>[
+        Icon(
+          Octicons.clock,
+          size: 15,
+          color: theme.palette.secondaryText,
+        ),
+        SizedBox(width: 4),
+        Expanded(
+            child: Text('Joined on ${dateFormat.format(p.createdAt)}',
+                overflow: TextOverflow.ellipsis)),
+      ],
+    );
+  }
+}
 
 class UserItem extends StatelessWidget {
   final String login;
@@ -25,6 +76,13 @@ class UserItem extends StatelessWidget {
     @required this.avatarUrl,
     @required this.bio,
   }) : url = '/github/$login';
+
+  UserItem.gql(GUserItem p)
+      : login = p.login,
+        name = p.name,
+        avatarUrl = p.avatarUrl,
+        url = '/github/' + p.login,
+        bio = GhBioWidget(p);
 
   UserItem.gitlab({
     @required this.login,

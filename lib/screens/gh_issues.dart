@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:git_touch/graphql/gh.dart';
+import 'package:git_touch/graphql/github.data.gql.dart';
+import 'package:git_touch/graphql/github.req.gql.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/scaffolds/list_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
@@ -17,43 +18,44 @@ class GhIssuesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListStatefulScaffold<GhIssuesIssue, String>(
+    return ListStatefulScaffold<GIssuesData_repository_issues_nodes, String>(
       title: AppBarTitle(S.of(context).issues),
       actionBuilder: () => ActionEntry(
         iconData: Octicons.plus,
         url: '/github/$owner/$name/issues/new',
       ),
       fetch: (cursor) async {
+        final req = GIssuesReq((b) {
+          b.vars.owner = owner;
+          b.vars.name = name;
+          b.vars.cursor = cursor;
+        });
         final res =
-            await context.read<AuthModel>().gqlClient.execute(GhIssuesQuery(
-                    variables: GhIssuesArguments(
-                  owner: owner,
-                  name: name,
-                  cursor: cursor,
-                )));
+            await context.read<AuthModel>().gqlClient.request(req).first;
         final issues = res.data.repository.issues;
         return ListPayload(
           cursor: issues.pageInfo.endCursor,
           hasMore: issues.pageInfo.hasNextPage,
-          items: issues.nodes,
+          items: issues.nodes.toList(),
         );
       },
-      itemBuilder: (p) => IssueItem(
-        author: p.author?.login,
-        avatarUrl: p.author?.avatarUrl,
-        commentCount: p.comments.totalCount,
-        subtitle: '#' + p.number.toString(),
-        title: p.title,
-        updatedAt: p.updatedAt,
-        labels: p.labels.nodes.isEmpty
-            ? null
-            : Wrap(spacing: 4, runSpacing: 4, children: [
-                for (var label in p.labels.nodes)
-                  MyLabel(name: label.name, cssColor: label.color)
-              ]),
-        url:
-            '/github/${p.repository.owner.login}/${p.repository.name}/issues/${p.number}',
-      ),
+      itemBuilder: (p) {
+        return IssueItem(
+          author: p.author?.login,
+          avatarUrl: p.author?.avatarUrl,
+          commentCount: p.comments.totalCount,
+          subtitle: '#' + p.number.toString(),
+          title: p.title,
+          updatedAt: p.updatedAt,
+          labels: p.labels.nodes.isEmpty
+              ? null
+              : Wrap(spacing: 4, runSpacing: 4, children: [
+                  for (var label in p.labels.nodes)
+                    MyLabel(name: label.name, cssColor: label.color)
+                ]),
+          url: '/github/$owner/$name/issues/${p.number}',
+        );
+      },
     );
   }
 }

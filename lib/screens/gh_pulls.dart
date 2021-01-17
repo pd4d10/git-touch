@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:git_touch/graphql/gh.dart';
+import 'package:git_touch/graphql/github.data.gql.dart';
+import 'package:git_touch/graphql/github.req.gql.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/scaffolds/list_stateful.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
@@ -15,21 +16,22 @@ class GhPullsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListStatefulScaffold<GhPullsPullRequest, String>(
+    return ListStatefulScaffold<GPullsData_repository_pullRequests_nodes,
+        String>(
       title: AppBarTitle(S.of(context).pullRequests),
       fetch: (cursor) async {
+        final req = GPullsReq((b) {
+          b.vars.owner = owner;
+          b.vars.name = name;
+          b.vars.cursor = cursor;
+        });
         final res =
-            await context.read<AuthModel>().gqlClient.execute(GhPullsQuery(
-                    variables: GhPullsArguments(
-                  owner: owner,
-                  name: name,
-                  cursor: cursor,
-                )));
+            await context.read<AuthModel>().gqlClient.request(req).first;
         final pulls = res.data.repository.pullRequests;
         return ListPayload(
           cursor: pulls.pageInfo.endCursor,
           hasMore: pulls.pageInfo.hasNextPage,
-          items: pulls.nodes,
+          items: pulls.nodes.toList(),
         );
       },
       itemBuilder: (p) => IssueItem(
@@ -46,8 +48,7 @@ class GhPullsScreen extends StatelessWidget {
                 for (var label in p.labels.nodes)
                   MyLabel(name: label.name, cssColor: label.color)
               ]),
-        url:
-            '/github/${p.repository.owner.login}/${p.repository.name}/pull/${p.number}',
+        url: '/github/$owner/$name/pull/${p.number}',
       ),
     );
   }

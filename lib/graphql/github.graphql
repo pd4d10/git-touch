@@ -1,0 +1,1020 @@
+# common
+fragment PageInfoParts on PageInfo {
+  hasNextPage
+  endCursor
+}
+fragment RepoItem on Repository {
+  owner {
+    login
+    avatarUrl
+  }
+  name
+  description
+  isPrivate
+  isFork
+  stargazers {
+    totalCount
+  }
+  forks {
+    totalCount
+  }
+  primaryLanguage {
+    color
+    name
+  }
+}
+fragment UserItem on User {
+  login
+  name
+  avatarUrl
+  company
+  location
+  createdAt
+}
+
+# users
+query Followers($login: String!, $after: String) {
+  user(login: $login) {
+    followers(first: 30, after: $after) {
+      pageInfo {
+        ...PageInfoParts
+      }
+      nodes {
+        ...UserItem
+      }
+    }
+  }
+}
+query Following($login: String!, $after: String) {
+  user(login: $login) {
+    following(first: 30, after: $after) {
+      pageInfo {
+        ...PageInfoParts
+      }
+      nodes {
+        ...UserItem
+      }
+    }
+  }
+}
+query Members($login: String!, $after: String) {
+  organization(login: $login) {
+    membersWithRole(first: 30, after: $after) {
+      pageInfo {
+        ...PageInfoParts
+      }
+      nodes {
+        ...UserItem
+      }
+    }
+  }
+}
+query Watchers($owner: String!, $name: String!, $after: String) {
+  repository(owner: $owner, name: $name) {
+    watchers(first: 30, after: $after) {
+      pageInfo {
+        ...PageInfoParts
+      }
+      nodes {
+        ...UserItem
+      }
+    }
+  }
+}
+query Stargazers($owner: String!, $name: String!, $after: String) {
+  repository(owner: $owner, name: $name) {
+    stargazers(
+      first: 30
+      after: $after
+      orderBy: { field: STARRED_AT, direction: DESC }
+    ) {
+      pageInfo {
+        ...PageInfoParts
+      }
+      nodes {
+        ...UserItem
+      }
+    }
+  }
+}
+
+# repos
+fragment ReposRepoItem on Repository {
+  ...RepoItem
+  updatedAt
+}
+query Repos($login: String!, $after: String) {
+  user(login: $login) {
+    repositories(
+      first: 30
+      after: $after
+      orderBy: { field: UPDATED_AT, direction: DESC }
+    ) {
+      pageInfo {
+        ...PageInfoParts
+      }
+      nodes {
+        ...ReposRepoItem
+      }
+    }
+  }
+}
+query Stars($login: String!, $after: String) {
+  user(login: $login) {
+    starredRepositories(
+      first: 30
+      after: $after
+      orderBy: { field: STARRED_AT, direction: DESC }
+    ) {
+      pageInfo {
+        ...PageInfoParts
+      }
+      nodes {
+        ...ReposRepoItem
+      }
+    }
+  }
+}
+
+# user
+fragment UserParts on User {
+  login
+  avatarUrl
+  name
+  bio
+  company
+  location
+  email
+  createdAt
+  websiteUrl
+  viewerCanFollow # TODO: remove in viewer query
+  viewerIsFollowing
+  starredRepositories {
+    totalCount
+  }
+  followers {
+    totalCount
+  }
+  following {
+    totalCount
+  }
+  contributionsCollection {
+    contributionCalendar {
+      weeks {
+        contributionDays {
+          color
+        }
+      }
+    }
+  }
+  repositories(
+    first: 6
+    ownerAffiliations: OWNER
+    orderBy: { field: STARGAZERS, direction: DESC }
+  ) {
+    totalCount
+    nodes {
+      ...RepoItem
+    }
+  }
+  pinnedItems(first: 6) {
+    nodes {
+      ... on Repository {
+        ...RepoItem
+      }
+    }
+  }
+}
+query Viewer {
+  viewer {
+    ...UserParts
+  }
+}
+query User($login: String!) {
+  repositoryOwner(login: $login) {
+    url
+    ... on User {
+      ...UserParts
+    }
+    ... on Organization {
+      login
+      avatarUrl
+      name
+      description
+      location
+      email
+      websiteUrl
+      createdAt
+      membersWithRole {
+        totalCount
+      }
+      pinnedItems(first: 6) {
+        nodes {
+          ... on Repository {
+            ...RepoItem
+          }
+        }
+      }
+      pinnableItems(first: 6, types: [REPOSITORY]) {
+        totalCount
+        nodes {
+          ... on Repository {
+            ...RepoItem
+          }
+        }
+      }
+    }
+  }
+}
+
+# repo
+fragment RepoCommit on Commit {
+  history {
+    totalCount
+  }
+}
+fragment RepoRef on Ref {
+  name
+  target {
+    ... on Commit {
+      ...RepoCommit
+    }
+  }
+}
+query Repo(
+  $owner: String!
+  $name: String!
+  $branchSpecified: Boolean!
+  $branch: String!
+) {
+  repository(owner: $owner, name: $name) {
+    owner {
+      login
+      avatarUrl
+    }
+    name
+    description
+    homepageUrl
+    isPrivate
+    isFork
+    diskUsage
+    hasIssuesEnabled
+    url
+    viewerHasStarred
+    viewerSubscription
+    projectsUrl
+    primaryLanguage {
+      color
+      name
+    }
+    stargazers {
+      totalCount
+    }
+    forks {
+      totalCount
+    }
+    watchers {
+      totalCount
+    }
+    issues(states: OPEN) {
+      totalCount
+    }
+    pullRequests(states: OPEN) {
+      totalCount
+    }
+    projects {
+      totalCount
+    }
+    releases {
+      totalCount
+    }
+    languages(first: 10, orderBy: { field: SIZE, direction: DESC }) {
+      totalSize
+      edges {
+        size
+        node {
+          name
+          color
+        }
+      }
+    }
+    defaultBranchRef @skip(if: $branchSpecified) {
+      ...RepoRef
+    }
+    ref(qualifiedName: $branch) @include(if: $branchSpecified) {
+      ...RepoRef
+    }
+    refs(first: 100, refPrefix: "refs/heads/") {
+      totalCount
+      nodes {
+        name
+      }
+    }
+    licenseInfo {
+      name
+      spdxId
+    }
+    repositoryTopics(first: 10) {
+      nodes {
+        url
+        topic {
+          name
+        }
+      }
+    }
+  }
+}
+
+# commits
+fragment CommitsRefCommit on Commit {
+  history(first: 30, after: $after) {
+    pageInfo {
+      ...PageInfoParts
+    }
+    nodes {
+      url
+      messageHeadline
+      committedDate
+      author {
+        name
+        avatarUrl
+        user {
+          login
+        }
+      }
+      status {
+        state
+      }
+    }
+  }
+}
+fragment CommitsRef on Ref {
+  target {
+    ... on Commit {
+      ...CommitsRefCommit
+    }
+  }
+}
+query Commits(
+  $owner: String!
+  $name: String!
+  $ref: String!
+  $hasRef: Boolean!
+  $after: String
+) {
+  repository(owner: $owner, name: $name) {
+    defaultBranchRef @skip(if: $hasRef) {
+      ...CommitsRef
+    }
+    ref(qualifiedName: $ref) @include(if: $hasRef) {
+      ...CommitsRef
+    }
+  }
+}
+
+# issues
+query Issues($owner: String!, $name: String!, $cursor: String) {
+  repository(owner: $owner, name: $name) {
+    issues(
+      states: OPEN
+      orderBy: { field: CREATED_AT, direction: DESC }
+      first: 30
+      after: $cursor
+    ) {
+      pageInfo {
+        ...PageInfoParts
+      }
+      nodes {
+        number
+        title
+        updatedAt
+        author {
+          login
+          avatarUrl
+        }
+        labels(first: 10) {
+          nodes {
+            name
+            color
+          }
+        }
+        comments {
+          totalCount
+        }
+      }
+    }
+  }
+}
+
+## pulls
+query Pulls($owner: String!, $name: String!, $cursor: String) {
+  repository(owner: $owner, name: $name) {
+    pullRequests(
+      states: OPEN
+      orderBy: { field: CREATED_AT, direction: DESC }
+      first: 30
+      after: $cursor
+    ) {
+      pageInfo {
+        ...PageInfoParts
+      }
+      nodes {
+        number
+        title
+        updatedAt
+        author {
+          login
+          avatarUrl
+        }
+        labels(first: 10) {
+          nodes {
+            name
+            color
+          }
+        }
+        comments {
+          totalCount
+        }
+      }
+    }
+  }
+}
+
+# issue
+fragment CommentParts on Comment {
+  id
+  createdAt
+  body
+  author {
+    login
+    avatarUrl
+  }
+}
+fragment ReactableParts on Reactable {
+  THUMBS_UP: reactions(content: THUMBS_UP) {
+    totalCount
+    viewerHasReacted
+  }
+  THUMBS_DOWN: reactions(content: THUMBS_DOWN) {
+    totalCount
+    viewerHasReacted
+  }
+  LAUGH: reactions(content: LAUGH) {
+    totalCount
+    viewerHasReacted
+  }
+  HOORAY: reactions(content: HOORAY) {
+    totalCount
+    viewerHasReacted
+  }
+  CONFUSED: reactions(content: CONFUSED) {
+    totalCount
+    viewerHasReacted
+  }
+  HEART: reactions(content: HEART) {
+    totalCount
+    viewerHasReacted
+  }
+  ROCKET: reactions(content: ROCKET) {
+    totalCount
+    viewerHasReacted
+  }
+  EYES: reactions(content: EYES) {
+    totalCount
+    viewerHasReacted
+  }
+}
+fragment ReferencedEventParts on ReferencedEvent {
+  createdAt
+  isCrossRepository
+  actor {
+    login
+  }
+  commit {
+    oid
+    url
+  }
+  commitRepository {
+    owner {
+      login
+    }
+    name
+  }
+}
+fragment RenamedTitleEventParts on RenamedTitleEvent {
+  createdAt
+  previousTitle
+  currentTitle
+  actor {
+    login
+  }
+}
+fragment ClosedEventParts on ClosedEvent {
+  createdAt
+  actor {
+    login
+  }
+}
+fragment ReopenedEventParts on ReopenedEvent {
+  createdAt
+  actor {
+    login
+  }
+}
+fragment CrossReferencedEventParts on CrossReferencedEvent {
+  createdAt
+  actor {
+    login
+  }
+  source {
+    __typename
+    ... on Issue {
+      number
+      repository {
+        owner {
+          login
+        }
+        name
+      }
+    }
+    ... on PullRequest {
+      number
+      repository {
+        owner {
+          login
+        }
+        name
+      }
+    }
+  }
+}
+fragment LabeledEventParts on LabeledEvent {
+  createdAt
+  actor {
+    login
+  }
+  label {
+    name
+    color
+  }
+}
+fragment UnlabeledEventParts on UnlabeledEvent {
+  createdAt
+  actor {
+    login
+  }
+  label {
+    name
+    color
+  }
+}
+fragment MilestonedEventParts on MilestonedEvent {
+  createdAt
+  actor {
+    login
+  }
+  milestoneTitle
+}
+fragment DemilestonedEventParts on DemilestonedEvent {
+  createdAt
+  actor {
+    login
+  }
+  milestoneTitle
+}
+fragment LockedEventParts on LockedEvent {
+  createdAt
+  actor {
+    login
+  }
+  lockReason
+}
+fragment UnlockedEventParts on UnlockedEvent {
+  createdAt
+  actor {
+    login
+  }
+}
+fragment AssignedEventParts on AssignedEvent {
+  createdAt
+  actor {
+    login
+  }
+  assignee {
+    __typename
+    ... on User {
+      login
+    }
+    ... on Bot {
+      login
+    }
+    ... on Organization {
+      login
+    }
+    ... on Mannequin {
+      login
+    }
+  }
+}
+fragment UnassignedEventParts on UnassignedEvent {
+  createdAt
+  actor {
+    login
+  }
+  assignee {
+    __typename
+    ... on User {
+      login
+    }
+    ... on Bot {
+      login
+    }
+    ... on Organization {
+      login
+    }
+    ... on Mannequin {
+      login
+    }
+  }
+}
+fragment SubscribedEventParts on SubscribedEvent {
+  createdAt
+  actor {
+    login
+  }
+}
+fragment UnsubscribedEventParts on UnsubscribedEvent {
+  createdAt
+  actor {
+    login
+  }
+}
+fragment MentionedEventParts on MentionedEvent {
+  createdAt
+  actor {
+    login
+  }
+}
+fragment PinnedEventParts on PinnedEvent {
+  createdAt
+  actor {
+    login
+  }
+}
+fragment TransferredEventParts on TransferredEvent {
+  createdAt
+  actor {
+    login
+  }
+  fromRepository {
+    owner {
+      login
+    }
+    name
+  }
+}
+fragment PullRequestCommitParts on PullRequestCommit {
+  commit {
+    committedDate
+    oid
+    author {
+      user {
+        login
+      }
+    }
+  }
+}
+fragment DeployedEventParts on DeployedEvent {
+  createdAt
+  actor {
+    login
+  }
+  pullRequest {
+    headRef {
+      name
+    }
+  }
+}
+fragment DeploymentEnvironmentChangedEventParts on DeploymentEnvironmentChangedEvent {
+  createdAt
+  actor {
+    login
+  }
+  deploymentStatus {
+    deployment {
+      environment
+    }
+    description
+  }
+}
+fragment HeadRefRestoredEventParts on HeadRefRestoredEvent {
+  createdAt
+  actor {
+    login
+  }
+  pullRequest {
+    headRefName
+  }
+}
+fragment BaseRefForcePushedEventParts on BaseRefForcePushedEvent {
+  createdAt
+  actor {
+    login
+  }
+  pullRequest {
+    baseRef {
+      name
+    }
+  }
+  beforeCommit {
+    oid
+  }
+  afterCommit {
+    oid
+  }
+}
+fragment HeadRefForcePushedEventParts on HeadRefForcePushedEvent {
+  createdAt
+  actor {
+    login
+  }
+  pullRequest {
+    headRefName
+  }
+  beforeCommit {
+    oid
+  }
+  afterCommit {
+    oid
+  }
+}
+fragment ReviewRequestedEventParts on ReviewRequestedEvent {
+  createdAt
+  actor {
+    login
+  }
+  requestedReviewer {
+    ... on User {
+      login
+    }
+  }
+}
+fragment ReviewRequestRemovedEventParts on ReviewRequestRemovedEvent {
+  createdAt
+  actor {
+    login
+  }
+  requestedReviewer {
+    ... on User {
+      login
+    }
+  }
+}
+fragment ReviewDismissedEventParts on ReviewDismissedEvent {
+  createdAt
+  dismissalMessage
+  actor {
+    login
+  }
+  pullRequest {
+    author {
+      login
+    }
+  }
+}
+fragment PullRequestReviewParts on PullRequestReview {
+  createdAt
+  state
+  author {
+    login
+  }
+  comments(first: 10) {
+    nodes {
+      ...CommentParts
+      ...ReactableParts
+    }
+  }
+}
+fragment MergedEventParts on MergedEvent {
+  createdAt
+  mergeRefName
+  actor {
+    login
+  }
+  commit {
+    oid
+    url
+  }
+}
+fragment HeadRefDeletedEventParts on HeadRefDeletedEvent {
+  createdAt
+  headRefName
+  actor {
+    login
+  }
+}
+query Issue($owner: String!, $name: String!, $number: Int!, $cursor: String) {
+  repository(owner: $owner, name: $name) {
+    owner {
+      avatarUrl
+    }
+    issueOrPullRequest(number: $number) {
+      ... on Issue {
+        ...CommentParts
+        ...ReactableParts
+        title
+        closed
+        url
+        viewerCanReact
+        viewerCanUpdate
+        timelineItems(first: 30, after: $cursor) {
+          totalCount
+          pageInfo {
+            hasNextPage
+            endCursor
+          }
+          nodes {
+            ... on IssueComment {
+              ...CommentParts
+              ...ReactableParts
+            }
+            ... on ReferencedEvent {
+              ...ReferencedEventParts
+            }
+            ... on RenamedTitleEvent {
+              ...RenamedTitleEventParts
+            }
+            ... on ClosedEvent {
+              ...ClosedEventParts
+            }
+            ... on ReopenedEvent {
+              ...ReopenedEventParts
+            }
+            ... on CrossReferencedEvent {
+              ...CrossReferencedEventParts
+            }
+            ... on LabeledEvent {
+              ...LabeledEventParts
+            }
+            ... on UnlabeledEvent {
+              ...UnlabeledEventParts
+            }
+            ... on MilestonedEvent {
+              ...MilestonedEventParts
+            }
+            ... on DemilestonedEvent {
+              ...DemilestonedEventParts
+            }
+            ... on LockedEvent {
+              ...LockedEventParts
+            }
+            ... on UnlockedEvent {
+              ...UnlockedEventParts
+            }
+            ... on AssignedEvent {
+              ...AssignedEventParts
+            }
+            ... on UnassignedEvent {
+              ...UnassignedEventParts
+            }
+            ... on SubscribedEvent {
+              ...SubscribedEventParts
+            }
+            ... on UnsubscribedEvent {
+              ...UnsubscribedEventParts
+            }
+            ... on MentionedEvent {
+              ...MentionedEventParts
+            }
+            ... on PinnedEvent {
+              ...PinnedEventParts
+            }
+            ... on TransferredEvent {
+              ...TransferredEventParts
+            }
+          }
+        }
+      }
+      ... on PullRequest {
+        ...CommentParts
+        ...ReactableParts
+        title
+        closed
+        url
+        viewerCanReact
+        viewerCanUpdate
+        merged
+        additions
+        deletions
+        changedFiles
+        commits {
+          totalCount
+        }
+        timelineItems(first: 30, after: $cursor) {
+          totalCount
+          pageInfo {
+            hasNextPage
+            endCursor
+          }
+          nodes {
+            ... on IssueComment {
+              ...CommentParts
+              ...ReactableParts
+            }
+            ... on ReferencedEvent {
+              ...ReferencedEventParts
+            }
+            ... on RenamedTitleEvent {
+              ...RenamedTitleEventParts
+            }
+            ... on ClosedEvent {
+              ...ClosedEventParts
+            }
+            ... on ReopenedEvent {
+              ...ReopenedEventParts
+            }
+            ... on CrossReferencedEvent {
+              ...CrossReferencedEventParts
+            }
+            ... on LabeledEvent {
+              ...LabeledEventParts
+            }
+            ... on UnlabeledEvent {
+              ...UnlabeledEventParts
+            }
+            ... on MilestonedEvent {
+              ...MilestonedEventParts
+            }
+            ... on DemilestonedEvent {
+              ...DemilestonedEventParts
+            }
+            ... on LockedEvent {
+              ...LockedEventParts
+            }
+            ... on UnlockedEvent {
+              ...UnlockedEventParts
+            }
+            ... on AssignedEvent {
+              ...AssignedEventParts
+            }
+            ... on UnassignedEvent {
+              ...UnassignedEventParts
+            }
+            ... on SubscribedEvent {
+              ...SubscribedEventParts
+            }
+            ... on UnsubscribedEvent {
+              ...UnsubscribedEventParts
+            }
+            ... on MentionedEvent {
+              ...MentionedEventParts
+            }
+            ... on PinnedEvent {
+              ...PinnedEventParts
+            }
+            ... on TransferredEvent {
+              ...TransferredEventParts
+            }
+            # pull request only
+            ... on PullRequestCommit {
+              ...PullRequestCommitParts
+            }
+            ... on DeployedEvent {
+              ...DeployedEventParts
+            }
+            ... on DeploymentEnvironmentChangedEvent {
+              ...DeploymentEnvironmentChangedEventParts
+            }
+            ... on HeadRefRestoredEvent {
+              ...HeadRefRestoredEventParts
+            }
+            ... on BaseRefForcePushedEvent {
+              ...BaseRefForcePushedEventParts
+            }
+            ... on HeadRefForcePushedEvent {
+              ...HeadRefForcePushedEventParts
+            }
+            ... on ReviewRequestedEvent {
+              ...ReviewRequestedEventParts
+            }
+            ... on ReviewRequestRemovedEvent {
+              ...ReviewRequestRemovedEventParts
+            }
+            ... on ReviewDismissedEvent {
+              ...ReviewDismissedEventParts
+            }
+            ... on PullRequestReview {
+              ...PullRequestReviewParts
+            }
+            ... on MergedEvent {
+              ...MergedEventParts
+            }
+            ... on HeadRefDeletedEvent {
+              ...HeadRefDeletedEventParts
+            }
+          }
+        }
+      }
+    }
+  }
+}

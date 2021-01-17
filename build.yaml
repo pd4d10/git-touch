@@ -1,36 +1,56 @@
 targets:
   $default:
     builders:
-      json_serializable:
+      gql_build|ast_builder:
+        enabled: true
+      gql_build|schema_builder:
+        enabled: true
         options:
-          # Options configure how source code is generated for every
-          # `@JsonSerializable`-annotated class in the package.
-          #
-          # The default value for each is listed.
-          #
-          # For usage information, reference the corresponding field in
-          # `JsonSerializableGenerator`.
-          # any_map: false
-          # checked: false
-          # create_factory: true
-          # create_to_json: true
-          # disallow_unrecognized_keys: false
-          # explicit_to_json: false
-          # field_rename: snake
-          # generate_to_json_function: true
-          # include_if_null: true
-          # nullable: true
-          # use_wrappers: false
-      artemis:
+          schema: git_touch|lib/graphql/schema.graphql
+          type_overrides:
+            DateTime:
+              name: DateTime
+            URI:
+              name: String
+            GitObjectID:
+              name: String
+      gql_build|data_builder:
+        enabled: true
         options:
-          schema_mapping:
-            - schema: lib/github.schema.json
-              output: lib/graphql/gh.dart
-              queries_glob: lib/graphql/gh_*.graphql
-              resolve_type_field: __typename
-              add_query_prefix: true
-          scalar_mapping:
-            - graphql_type: URI
-              dart_type: String
-            - graphql_type: GitObjectID
-              dart_type: String
+          schema: git_touch|lib/graphql/schema.graphql
+          type_overrides:
+            DateTime:
+              name: DateTime
+            URI:
+              name: String
+            GitObjectID:
+              name: String
+      gql_build|var_builder:
+        enabled: true
+        options:
+          schema: git_touch|lib/graphql/schema.graphql
+          type_overrides:
+            DateTime:
+              name: DateTime
+            URI:
+              name: String
+            GitObjectID:
+              name: String
+      gql_build|serializer_builder:
+        enabled: true
+        options:
+          schema: git_touch|lib/graphql/schema.graphql
+          custom_serializers:
+            - import: package:git_touch/utils/date_time_serializer.dart
+              name: DateTimeSerializer
+      ferry_generator|req_builder:
+        enabled: true
+        options:
+          schema: git_touch|lib/graphql/schema.graphql
+          type_overrides:
+            DateTime:
+              name: DateTime
+            URI:
+              name: String
+            GitObjectID:
+              name: String
