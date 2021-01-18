@@ -33,6 +33,7 @@ import 'package:git_touch/screens/gh_files.dart';
 import 'package:git_touch/screens/gh_gists_files.dart';
 import 'package:git_touch/screens/gh_org_repos.dart';
 import 'package:git_touch/screens/gl_commit.dart';
+import 'package:git_touch/screens/gl_issue_form.dart';
 import 'package:git_touch/screens/gl_starrers.dart';
 import 'package:git_touch/screens/gt_commits.dart';
 import 'package:git_touch/screens/gt_issue.dart';
@@ -246,6 +247,7 @@ class GitlabRouter {
     GitlabRouter.commit,
     GitlabRouter.projectMembers,
     GitlabRouter.groupMembers,
+    GitlabRouter.issueAdd,
     GitlabRouter.issue,
   ];
   static final user = RouterScreen('/user/:id',
@@ -264,10 +266,14 @@ class GitlabRouter {
       (context, parameters) => GlTreeScreen(
           int.parse(parameters['id'].first), parameters['ref'].first,
           path: parameters['path']?.first));
-  static final project = RouterScreen(
-      '/projects/:id',
-      (context, parameters) =>
-          GlProjectScreen(int.parse(parameters['id'].first)));
+  static final project = RouterScreen('/projects/:id', (context, parameters) {
+    if (parameters['branch'] == null) {
+      return GlProjectScreen(int.parse(parameters['id'].first));
+    } else {
+      return GlProjectScreen(int.parse(parameters['id'].first),
+          branch: parameters['branch'].first);
+    }
+  });
   static final starrers = RouterScreen(
       '/projects/:id/starrers',
       (context, parameters) =>
@@ -284,10 +290,17 @@ class GitlabRouter {
             parameters['id'].first,
             prefix: parameters['prefix'].first,
           ));
-  static final commits = RouterScreen(
-      '/projects/:id/commits',
-      (context, parameters) => GlCommitsScreen(parameters['id'].first,
-          prefix: parameters['prefix'].first));
+  static final commits =
+      RouterScreen('/projects/:id/commits', (context, parameters) {
+    if (parameters['branch'] == null) {
+      return GlCommitsScreen(parameters['id'].first,
+          prefix: parameters['prefix'].first);
+    } else {
+      return GlCommitsScreen(parameters['id'].first,
+          prefix: parameters['prefix'].first,
+          branch: parameters['branch'].first);
+    }
+  });
   static final commit = RouterScreen(
       '/projects/:id/commit/:sha',
       (context, parameters) =>
@@ -301,7 +314,7 @@ class GitlabRouter {
       (context, parameters) =>
           GlMembersScreen(int.parse(parameters['id'].first), 'groups'));
   static final issue = RouterScreen(
-    '/gitlab/projects/:id/issues/:iid',
+    '/projects/:id/issues/:iid',
     (context, parameters) {
       return GlIssueScreen(
         int.parse(parameters['id'].first),
@@ -309,6 +322,10 @@ class GitlabRouter {
       );
     },
   );
+  static final issueAdd =
+      RouterScreen('/projects/:id/issues/new', (context, parameters) {
+    return GlIssueFormScreen(int.parse(parameters['id'].first));
+  });
 }
 
 class GiteaRouter {

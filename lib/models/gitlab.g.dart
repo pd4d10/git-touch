@@ -364,3 +364,15 @@ Map<String, dynamic> _$GitlabStarrerToJson(GitlabStarrer instance) =>
       'starred_since': instance.starredSince?.toIso8601String(),
       'user': instance.user,
     };
+
+GitlabBranch _$GitlabBranchFromJson(Map<String, dynamic> json) {
+  return GitlabBranch()
+    ..name = json['name'] as String
+    ..merged = json['merged'] as bool;
+}
+
+Map<String, dynamic> _$GitlabBranchToJson(GitlabBranch instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'merged': instance.merged,
+    };

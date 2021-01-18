@@ -10,8 +10,8 @@ import '../generated/l10n.dart';
 class GlCommitsScreen extends StatelessWidget {
   final String id;
   final String prefix;
-  // final String branch; // TODO:
-  GlCommitsScreen(this.id, {this.prefix});
+  final String branch;
+  GlCommitsScreen(this.id, {this.prefix, this.branch});
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +20,8 @@ class GlCommitsScreen extends StatelessWidget {
       fetch: (page) async {
         page = page ?? 1;
         final auth = context.read<AuthModel>();
-        final res = await auth
-            .fetchGitlabWithPage('/projects/$id/repository/commits?page=$page');
+        final res = await auth.fetchGitlabWithPage(
+            '/projects/$id/repository/commits?ref_name=$branch&page=$page');
         return ListPayload(
           cursor: res.cursor,
           hasMore: res.hasMore,

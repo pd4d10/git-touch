@@ -210,3 +210,12 @@ class GitlabStarrer {
   factory GitlabStarrer.fromJson(Map<String, dynamic> json) =>
       _$GitlabStarrerFromJson(json);
 }
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class GitlabBranch {
+  String name;
+  bool merged;
+  GitlabBranch();
+  factory GitlabBranch.fromJson(Map<String, dynamic> json) =>
+      _$GitlabBranchFromJson(json);
+}

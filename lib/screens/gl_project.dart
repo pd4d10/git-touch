@@ -19,13 +19,14 @@ import '../generated/l10n.dart';
 
 class GlProjectScreen extends StatelessWidget {
   final int id;
-  GlProjectScreen(this.id);
+  final String branch;
+  GlProjectScreen(this.id, {this.branch});
 
   @override
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold<
-        Tuple4<GitlabProject, Future<Map<String, double>>, Future<int>,
-            MarkdownViewData>>(
+        Tuple5<GitlabProject, Future<Map<String, double>>, Future<int>,
+            MarkdownViewData, List<GitlabBranch>>>(
       title: AppBarTitle(S.of(context).project),
       fetch: () async {
         final auth = context.read<AuthModel>();
@@ -64,7 +65,14 @@ class GlProjectScreen extends StatelessWidget {
             }),
           );
         }
-        return Tuple4(p, langFuture, memberCountFuture, readmeData);
+
+        final branches = await auth
+            .fetchGitlab('/projects/$id/repository/branches')
+            .then((v) {
+          return [for (var branch in v) GitlabBranch.fromJson(branch)];
+        });
+
+        return Tuple5(p, langFuture, memberCountFuture, readmeData, branches);
       },
       actionBuilder: (t, setState) {
         return ActionButton(
@@ -79,6 +87,7 @@ class GlProjectScreen extends StatelessWidget {
         final langFuture = t.item2;
         final memberCountFuture = t.item3;
         final readmeData = t.item4;
+        final branches = t.item5;
 
         final theme = Provider.of<ThemeModel>(context);
         final auth = Provider.of<AuthModel>(context);
@@ -165,7 +174,8 @@ class GlProjectScreen extends StatelessWidget {
                   rightWidget: p.statistics == null
                       ? null
                       : Text(filesize(p.statistics.repositorySize)),
-                  url: '/gitlab/projects/$id/tree/${p.defaultBranch}',
+                  url:
+                      '/gitlab/projects/$id/tree/${branch == null ? p.defaultBranch : branch}',
                 ),
                 if (p.issuesEnabled)
                   TableViewItem(
@@ -186,8 +196,38 @@ class GlProjectScreen extends StatelessWidget {
                   rightWidget: p.statistics == null
                       ? null
                       : Text(p.statistics.commitCount.toString()),
-                  url: '/gitlab/projects/$id/commits?prefix=$prefix',
+                  url:
+                      '/gitlab/projects/$id/commits?prefix=$prefix&branch=${branch == null ? p.defaultBranch : branch}', // EDIT
                 ),
+                if (branches != null)
+                  TableViewItem(
+                    leftIconData: Octicons.git_branch,
+                    text: Text(S.of(context).branches),
+                    rightWidget: Text(
+                        (branch == null ? p.defaultBranch : branch) +
+                            ' • ' +
+                            branches.length.toString()),
+                    onTap: () async {
+                      if (branches.length < 2) return;
+
+                      await theme.showPicker(
+                        context,
+                        PickerGroupItem(
+                          value: branch,
+                          items: branches
+                              .map((b) => PickerItem(b.name, text: b.name))
+                              .toList(),
+                          onClose: (ref) {
+                            if (ref != branch) {
+                              theme.push(
+                                  context, '/gitlab/projects/$id?branch=$ref',
+                                  replace: true);
+                            }
+                          },
+                        ),
+                      );
+                    },
+                  ),
               ],
             ),
             CommonStyle.verticalGap,
