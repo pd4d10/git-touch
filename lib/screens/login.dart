@@ -301,9 +301,24 @@ class _LoginScreenState extends State<LoginScreen> {
                     onTap: () async {
                       _domainController.text = 'https://gitea.com';
                       final result = await theme.showConfirm(
-                        context,
-                        _buildPopup(context, showDomain: true),
-                      );
+                          context,
+                          Column(
+                            children: [
+                              _buildPopup(context, showDomain: true),
+                              Text.rich(TextSpan(children: [
+                                TextSpan(
+                                  text:
+                                      'Note: To login with Codeberg change the domain name to: ',
+                                ),
+                              ])),
+                              SizedBox(height: 8),
+                              Text(
+                                'https://codeberg.org',
+                                style: TextStyle(
+                                    fontSize: 16, color: theme.palette.primary),
+                              ),
+                            ],
+                          ));
                       if (result == true) {
                         try {
                           await auth.loginToGitea(
