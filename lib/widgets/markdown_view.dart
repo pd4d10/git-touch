@@ -230,12 +230,15 @@ class MarkdownFlutterView extends StatelessWidget {
 }
 
 class UserProfileLink extends md.InlineSyntax {
-  UserProfileLink() : super(r'[^\s]+ ', startCharacter: $at);
+  // github username regex format
+  UserProfileLink()
+      : super(r'\B@([a-z0-9](?:-?[a-z0-9]){0,38})', startCharacter: $at);
 
   @override
   bool onMatch(md.InlineParser parser, Match match) {
-    var alias = match[0].substring(1, match[0].length).trim();
-    parser.addNode(md.Element.text("userProfileLink", alias));
+    var login = match[0].substring(1, match[0].length).trim();
+    md.Node el = md.Element.text("userProfileLink", login);
+    parser.addNode(el);
     return true;
   }
 }
@@ -245,8 +248,6 @@ class UserProfileLinkElementBuilder extends MarkdownElementBuilder {
   Widget visitElementAfter(md.Element element, TextStyle prefferedStyle) {
     return Link(
         url: '/github/${element.textContent}',
-        child: Text(
-          '@' + element.textContent,
-        ));
+        child: Text('@' + element.textContent));
   }
 }
