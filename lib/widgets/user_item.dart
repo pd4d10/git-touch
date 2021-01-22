@@ -63,6 +63,13 @@ class UserItem extends StatelessWidget {
     @required this.bio,
   }) : url = '/bitbucket/$login?team=1';
 
+  UserItem.gogs({
+    @required this.login,
+    @required this.name,
+    @required this.avatarUrl,
+    @required this.bio,
+  }) : url = '/gogs/$login';
+
   @override
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);

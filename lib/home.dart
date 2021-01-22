@@ -8,6 +8,8 @@ import 'package:git_touch/screens/bb_teams.dart';
 import 'package:git_touch/screens/bb_user.dart';
 import 'package:git_touch/screens/ge_user.dart';
 import 'package:git_touch/screens/gl_search.dart';
+import 'package:git_touch/screens/go_search.dart';
+import 'package:git_touch/screens/go_user.dart';
 import 'package:git_touch/screens/gt_orgs.dart';
 import 'package:git_touch/screens/gt_user.dart';
 import 'package:git_touch/screens/gl_explore.dart';
@@ -98,6 +100,13 @@ class _HomeState extends State<Home> {
             return GeUserScreen(auth.activeAccount.login, isViewer: true);
         }
         break;
+      case PlatformType.gogs:
+        switch (index) {
+          case 0:
+            return GoSearchScreen();
+          case 1:
+            return GoUserScreen(auth.activeAccount.login, isViewer: true);
+        }
     }
   }
 
@@ -199,6 +208,14 @@ class _HomeState extends State<Home> {
         ];
         break;
       case PlatformType.gitee:
+        navigationItems = [
+          BottomNavigationBarItem(
+              icon: Icon(Icons.search), label: S.of(context).search),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.person), label: S.of(context).me),
+        ];
+        break;
+      case PlatformType.gogs:
         navigationItems = [
           BottomNavigationBarItem(
               icon: Icon(Icons.search), label: S.of(context).search),

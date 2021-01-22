@@ -333,6 +333,26 @@ class _LoginScreenState extends State<LoginScreen> {
                       }
                     },
                   ),
+                  _buildAddItem(
+                    text: 'Gogs Account',
+                    brand: Octicons.git_branch, // TODO: brand icon
+                    onTap: () async {
+                      _domainController.text = 'https://gogs.com';
+                      final result = await theme.showConfirm(
+                        context,
+                        _buildPopup(context, showDomain: true),
+                      );
+                      if (result == true) {
+                        try {
+                          await auth.loginToGogs(
+                              _domainController.text, _tokenController.text);
+                          _tokenController.clear();
+                        } catch (err) {
+                          showError(err);
+                        }
+                      }
+                    },
+                  ),
                   Container(
                     padding: CommonStyle.padding,
                     child: Text(
