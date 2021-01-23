@@ -66,7 +66,10 @@ void main() async {
     themeModel.router.define(GiteeRouter.prefix + screen.path,
         handler: Handler(handlerFunc: screen.handler));
   });
-
+  GogsRouter.routes.forEach((screen) {
+    themeModel.router.define(GogsRouter.prefix + screen.path,
+        handler: Handler(handlerFunc: screen.handler));
+  });
   // To match status bar color to app bar color
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,

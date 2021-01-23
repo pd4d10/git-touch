@@ -20,6 +20,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../utils/utils.dart';
 import 'account.dart';
 import 'gitlab.dart';
+import 'gogs.dart';
 
 const clientId = 'df930d7d2e219f26142a';
 
@@ -29,6 +30,7 @@ class PlatformType {
   static const bitbucket = 'bitbucket';
   static const gitea = 'gitea';
   static const gitee = 'gitee';
+  static const gogs = 'gogs';
 }
 
 class DataWithPage<T> {
@@ -297,6 +299,109 @@ class AuthModel with ChangeNotifier {
   }
 
   Future<DataWithPage> fetchGiteaWithPage(String path,
+      {int page, int limit}) async {
+    page = page ?? 1;
+    limit = limit ?? pageSize;
+
+    var uri = Uri.parse('${activeAccount.domain}/api/v1$path');
+    uri = uri.replace(
+      queryParameters: {
+        'page': page.toString(),
+        'limit': limit.toString(),
+        ...uri.queryParameters,
+      },
+    );
+    final res = await http.get(uri, headers: {'Authorization': 'token $token'});
+    final info = json.decode(utf8.decode(res.bodyBytes));
+
+    return DataWithPage(
+      data: info,
+      cursor: page + 1,
+      hasMore: info is List && info.length > 0,
+      total: int.tryParse(res.headers['x-total-count'] ?? ''),
+    );
+  }
+
+  Future loginToGogs(String domain, String token) async {
+    domain = domain.trim();
+    token = token.trim();
+    try {
+      loading = true;
+      notifyListeners();
+      final res = await http.get('$domain/api/v1/user',
+          headers: {'Authorization': 'token $token'});
+      final info = json.decode(res.body);
+      if (info['message'] != null) {
+        throw info['message'];
+      }
+      final user = GogsUser.fromJson(info);
+
+      await _addAccount(Account(
+        platform: PlatformType.gogs,
+        domain: domain,
+        token: token,
+        login: user.username,
+        avatarUrl: user.avatarUrl,
+      ));
+    } finally {
+      loading = false;
+      notifyListeners();
+    }
+  }
+
+  // TODO: refactor
+  Future fetchGogs(
+    String p, {
+    requestType = 'GET',
+    Map<String, dynamic> body = const {},
+  }) async {
+    http.Response res;
+    Map<String, String> headers = {
+      'Authorization': 'token $token',
+      HttpHeaders.contentTypeHeader: 'application/json'
+    };
+    switch (requestType) {
+      case 'DELETE':
+        {
+          await http.delete(
+            '${activeAccount.domain}/api/v1$p',
+            headers: headers,
+          );
+          break;
+        }
+      case 'POST':
+        {
+          res = await http.post(
+            '${activeAccount.domain}/api/v1$p',
+            headers: headers,
+            body: jsonEncode(body),
+          );
+          break;
+        }
+      case 'PATCH':
+        {
+          res = await http.patch(
+            '${activeAccount.domain}/api/v1$p',
+            headers: headers,
+            body: jsonEncode(body),
+          );
+          break;
+        }
+      default:
+        {
+          res = await http.get('${activeAccount.domain}/api/v1$p',
+              headers: headers);
+          break;
+        }
+    }
+    if (requestType != 'DELETE') {
+      final info = json.decode(utf8.decode(res.bodyBytes));
+      return info;
+    }
+    return;
+  }
+
+  Future<DataWithPage> fetchGogsWithPage(String path,
       {int page, int limit}) async {
     page = page ?? 1;
     limit = limit ?? pageSize;

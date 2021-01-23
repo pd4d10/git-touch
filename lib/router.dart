@@ -35,6 +35,14 @@ import 'package:git_touch/screens/gh_org_repos.dart';
 import 'package:git_touch/screens/gl_commit.dart';
 import 'package:git_touch/screens/gl_issue_form.dart';
 import 'package:git_touch/screens/gl_starrers.dart';
+import 'package:git_touch/screens/go_commits.dart';
+import 'package:git_touch/screens/go_issues.dart';
+import 'package:git_touch/screens/go_object.dart';
+import 'package:git_touch/screens/go_orgs.dart';
+import 'package:git_touch/screens/go_repo.dart';
+import 'package:git_touch/screens/go_repos.dart';
+import 'package:git_touch/screens/go_user.dart';
+import 'package:git_touch/screens/go_users.dart';
 import 'package:git_touch/screens/gt_commits.dart';
 import 'package:git_touch/screens/gt_issue.dart';
 import 'package:git_touch/screens/gt_issue_comment.dart';
@@ -651,4 +659,64 @@ class GiteeRouter {
     (context, parameters) => GeContributorsScreen(
         parameters['owner'].first, parameters['name'].first),
   );
+}
+
+class GogsRouter {
+  static const prefix = '/gogs';
+  static final routes = [
+    GogsRouter.user,
+    GogsRouter.repo,
+    GogsRouter.object,
+    GogsRouter.commits,
+    GogsRouter.issues,
+  ];
+  static final user = RouterScreen('/:login', (context, parameters) {
+    final login = parameters['login'].first;
+    final tab = parameters['tab']?.first;
+    final isViewer = parameters['isViewer']?.first;
+    switch (tab) {
+      case 'followers':
+        return GoUsersScreen.followers(login);
+      case 'following':
+        return GoUsersScreen.following(login);
+      case 'repositories':
+        return GoReposScreen(login,
+            isViewer: isViewer == 'false' ? false : true);
+      case 'organizations':
+        return GoOrgsScreen.ofUser(login,
+            isViewer: isViewer == 'false' ? false : true); // handle better?
+      default:
+        return GoUserScreen(parameters['login'].first);
+    }
+  });
+  static final repo = RouterScreen(
+    '/:owner/:name',
+    (context, parameters) {
+      if (parameters['branch'] == null) {
+        return GoRepoScreen(
+            parameters['owner'].first, parameters['name'].first);
+      } else {
+        return GoRepoScreen(parameters['owner'].first, parameters['name'].first,
+            branch: parameters['branch'].first);
+      }
+    },
+  );
+  static final object = RouterScreen(
+    '/:owner/:name/blob',
+    (context, parameters) => GoObjectScreen(
+      parameters['owner'].first,
+      parameters['name'].first,
+      path: parameters['path']?.first,
+      ref: parameters['ref']?.first,
+    ),
+  );
+  static final commits = RouterScreen(
+      '/:owner/:name/commits',
+      (context, parameters) => GoCommitsScreen(
+          parameters['owner'].first, parameters['name'].first,
+          branch: parameters['ref']?.first));
+  static final issues = RouterScreen(
+      '/:owner/:name/issues',
+      (context, parameters) =>
+          GoIssuesScreen(parameters['owner'].first, parameters['name'].first));
 }

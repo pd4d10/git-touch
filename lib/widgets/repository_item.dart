@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:git_touch/models/bitbucket.dart';
 import 'package:git_touch/models/gitlab.dart';
+import 'package:git_touch/models/gogs.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/avatar.dart';
@@ -38,6 +39,21 @@ class RepositoryItem extends StatelessWidget {
     @required this.url,
     @required this.avatarLink,
   });
+
+  RepositoryItem.go({
+    @required GogsRepository payload,
+    this.primaryLanguageName,
+    this.primaryLanguageColor,
+    this.note,
+    this.owner,
+    this.name,
+  })  : url = '/gogs/${payload.fullName}',
+        avatarUrl = payload.owner.avatarUrl,
+        avatarLink = '/gogs/${payload.fullName}',
+        description = payload.description,
+        forkCount = payload.forksCount,
+        starCount = payload.starsCount,
+        iconData = payload.private ? Octicons.lock : null;
 
   RepositoryItem.bb({
     @required BbRepo payload,
