@@ -6,6 +6,35 @@ import 'package:git_touch/graphql/serializers.gql.dart' as _i1;
 
 part 'github.var.gql.g.dart';
 
+abstract class GGistsVars implements Built<GGistsVars, GGistsVarsBuilder> {
+  GGistsVars._();
+
+  factory GGistsVars([Function(GGistsVarsBuilder b) updates]) = _$GGistsVars;
+
+  String get login;
+  @nullable
+  String get after;
+  static Serializer<GGistsVars> get serializer => _$gGistsVarsSerializer;
+  Map<String, dynamic> toJson() =>
+      _i1.serializers.serializeWith(GGistsVars.serializer, this);
+  static GGistsVars fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(GGistsVars.serializer, json);
+}
+
+abstract class GGistVars implements Built<GGistVars, GGistVarsBuilder> {
+  GGistVars._();
+
+  factory GGistVars([Function(GGistVarsBuilder b) updates]) = _$GGistVars;
+
+  String get login;
+  String get name;
+  static Serializer<GGistVars> get serializer => _$gGistVarsSerializer;
+  Map<String, dynamic> toJson() =>
+      _i1.serializers.serializeWith(GGistVars.serializer, this);
+  static GGistVars fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(GGistVars.serializer, json);
+}
+
 abstract class GFollowersVars
     implements Built<GFollowersVars, GFollowersVarsBuilder> {
   GFollowersVars._();
@@ -234,6 +263,24 @@ abstract class GIssueVars implements Built<GIssueVars, GIssueVarsBuilder> {
       _i1.serializers.serializeWith(GIssueVars.serializer, this);
   static GIssueVars fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(GIssueVars.serializer, json);
+}
+
+abstract class GReleasesVars
+    implements Built<GReleasesVars, GReleasesVarsBuilder> {
+  GReleasesVars._();
+
+  factory GReleasesVars([Function(GReleasesVarsBuilder b) updates]) =
+      _$GReleasesVars;
+
+  String get name;
+  String get owner;
+  @nullable
+  String get cursor;
+  static Serializer<GReleasesVars> get serializer => _$gReleasesVarsSerializer;
+  Map<String, dynamic> toJson() =>
+      _i1.serializers.serializeWith(GReleasesVars.serializer, this);
+  static GReleasesVars fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(GReleasesVars.serializer, json);
 }
 
 abstract class GPageInfoPartsVars

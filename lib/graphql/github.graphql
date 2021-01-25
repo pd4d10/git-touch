@@ -32,6 +32,50 @@ fragment UserItem on User {
   createdAt
 }
 
+# user gists
+query Gists($login: String!, $after: String) {
+  user(login: $login) {
+    gists(first: 30, after: $after) {
+      pageInfo {
+        ...PageInfoParts
+      }
+      nodes {
+        name
+        description
+        files {
+          name
+          language {
+            name
+          }
+          text
+        }
+        updatedAt
+        id
+        owner {
+          avatarUrl
+        }
+      }
+    }
+  }
+}
+
+# single gist
+query Gist($login: String!, $name: String!) {
+  user(login:$login) {
+    gist(name: $name) {
+      name
+      files {
+        name 
+        language {
+          name
+        }
+        text
+        size
+      }
+    }
+  }
+}
+
 # users
 query Followers($login: String!, $after: String) {
   user(login: $login) {
@@ -1008,6 +1052,35 @@ query Issue($owner: String!, $name: String!, $number: Int!, $cursor: String) {
             ... on HeadRefDeletedEvent {
               ...HeadRefDeletedEventParts
             }
+          }
+        }
+      }
+    }
+  }
+}
+
+# Releases
+query Releases($name: String!, $owner: String!, $cursor: String) {
+   repository(name: $name, owner: $owner) {
+    releases(first: 30, after: $cursor, orderBy: { field: CREATED_AT, direction:DESC }) {
+      pageInfo {
+        ...PageInfoParts
+      }
+      nodes {
+        tagName
+        description
+        name
+        author {
+          name
+          avatarUrl
+        }
+        publishedAt
+        url
+        releaseAssets(first: 30) {
+          nodes {
+            name
+            downloadUrl
+            downloadCount
           }
         }
       }

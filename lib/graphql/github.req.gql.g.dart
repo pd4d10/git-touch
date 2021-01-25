@@ -6,6 +6,8 @@ part of 'github.req.gql.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
+Serializer<GGistsReq> _$gGistsReqSerializer = new _$GGistsReqSerializer();
+Serializer<GGistReq> _$gGistReqSerializer = new _$GGistReqSerializer();
 Serializer<GFollowersReq> _$gFollowersReqSerializer =
     new _$GFollowersReqSerializer();
 Serializer<GFollowingReq> _$gFollowingReqSerializer =
@@ -24,6 +26,8 @@ Serializer<GCommitsReq> _$gCommitsReqSerializer = new _$GCommitsReqSerializer();
 Serializer<GIssuesReq> _$gIssuesReqSerializer = new _$GIssuesReqSerializer();
 Serializer<GPullsReq> _$gPullsReqSerializer = new _$GPullsReqSerializer();
 Serializer<GIssueReq> _$gIssueReqSerializer = new _$GIssueReqSerializer();
+Serializer<GReleasesReq> _$gReleasesReqSerializer =
+    new _$GReleasesReqSerializer();
 Serializer<GPageInfoPartsReq> _$gPageInfoPartsReqSerializer =
     new _$GPageInfoPartsReqSerializer();
 Serializer<GRepoItemReq> _$gRepoItemReqSerializer =
@@ -117,6 +121,228 @@ Serializer<GMergedEventPartsReq> _$gMergedEventPartsReqSerializer =
 Serializer<GHeadRefDeletedEventPartsReq>
     _$gHeadRefDeletedEventPartsReqSerializer =
     new _$GHeadRefDeletedEventPartsReqSerializer();
+
+class _$GGistsReqSerializer implements StructuredSerializer<GGistsReq> {
+  @override
+  final Iterable<Type> types = const [GGistsReq, _$GGistsReq];
+  @override
+  final String wireName = 'GGistsReq';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, GGistsReq object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[
+      'vars',
+      serializers.serialize(object.vars,
+          specifiedType: const FullType(_i3.GGistsVars)),
+      'operation',
+      serializers.serialize(object.operation,
+          specifiedType: const FullType(_i4.Operation)),
+    ];
+    if (object.requestId != null) {
+      result
+        ..add('requestId')
+        ..add(serializers.serialize(object.requestId,
+            specifiedType: const FullType(String)));
+    }
+    if (object.optimisticResponse != null) {
+      result
+        ..add('optimisticResponse')
+        ..add(serializers.serialize(object.optimisticResponse,
+            specifiedType: const FullType(_i2.GGistsData)));
+    }
+    if (object.updateCacheHandlerKey != null) {
+      result
+        ..add('updateCacheHandlerKey')
+        ..add(serializers.serialize(object.updateCacheHandlerKey,
+            specifiedType: const FullType(String)));
+    }
+    if (object.updateCacheHandlerContext != null) {
+      result
+        ..add('updateCacheHandlerContext')
+        ..add(serializers.serialize(object.updateCacheHandlerContext,
+            specifiedType: const FullType(
+                Map, const [const FullType(String), const FullType(dynamic)])));
+    }
+    if (object.fetchPolicy != null) {
+      result
+        ..add('fetchPolicy')
+        ..add(serializers.serialize(object.fetchPolicy,
+            specifiedType: const FullType(_i1.FetchPolicy)));
+    }
+    if (object.executeOnListen != null) {
+      result
+        ..add('executeOnListen')
+        ..add(serializers.serialize(object.executeOnListen,
+            specifiedType: const FullType(bool)));
+    }
+    return result;
+  }
+
+  @override
+  GGistsReq deserialize(Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GGistsReqBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'vars':
+          result.vars.replace(serializers.deserialize(value,
+              specifiedType: const FullType(_i3.GGistsVars)) as _i3.GGistsVars);
+          break;
+        case 'operation':
+          result.operation = serializers.deserialize(value,
+              specifiedType: const FullType(_i4.Operation)) as _i4.Operation;
+          break;
+        case 'requestId':
+          result.requestId = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'optimisticResponse':
+          result.optimisticResponse.replace(serializers.deserialize(value,
+              specifiedType: const FullType(_i2.GGistsData)) as _i2.GGistsData);
+          break;
+        case 'updateCacheHandlerKey':
+          result.updateCacheHandlerKey = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'updateCacheHandlerContext':
+          result.updateCacheHandlerContext = serializers.deserialize(value,
+              specifiedType: const FullType(Map, const [
+                const FullType(String),
+                const FullType(dynamic)
+              ])) as Map<String, dynamic>;
+          break;
+        case 'fetchPolicy':
+          result.fetchPolicy = serializers.deserialize(value,
+                  specifiedType: const FullType(_i1.FetchPolicy))
+              as _i1.FetchPolicy;
+          break;
+        case 'executeOnListen':
+          result.executeOnListen = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GGistReqSerializer implements StructuredSerializer<GGistReq> {
+  @override
+  final Iterable<Type> types = const [GGistReq, _$GGistReq];
+  @override
+  final String wireName = 'GGistReq';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, GGistReq object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[
+      'vars',
+      serializers.serialize(object.vars,
+          specifiedType: const FullType(_i3.GGistVars)),
+      'operation',
+      serializers.serialize(object.operation,
+          specifiedType: const FullType(_i4.Operation)),
+    ];
+    if (object.requestId != null) {
+      result
+        ..add('requestId')
+        ..add(serializers.serialize(object.requestId,
+            specifiedType: const FullType(String)));
+    }
+    if (object.optimisticResponse != null) {
+      result
+        ..add('optimisticResponse')
+        ..add(serializers.serialize(object.optimisticResponse,
+            specifiedType: const FullType(_i2.GGistData)));
+    }
+    if (object.updateCacheHandlerKey != null) {
+      result
+        ..add('updateCacheHandlerKey')
+        ..add(serializers.serialize(object.updateCacheHandlerKey,
+            specifiedType: const FullType(String)));
+    }
+    if (object.updateCacheHandlerContext != null) {
+      result
+        ..add('updateCacheHandlerContext')
+        ..add(serializers.serialize(object.updateCacheHandlerContext,
+            specifiedType: const FullType(
+                Map, const [const FullType(String), const FullType(dynamic)])));
+    }
+    if (object.fetchPolicy != null) {
+      result
+        ..add('fetchPolicy')
+        ..add(serializers.serialize(object.fetchPolicy,
+            specifiedType: const FullType(_i1.FetchPolicy)));
+    }
+    if (object.executeOnListen != null) {
+      result
+        ..add('executeOnListen')
+        ..add(serializers.serialize(object.executeOnListen,
+            specifiedType: const FullType(bool)));
+    }
+    return result;
+  }
+
+  @override
+  GGistReq deserialize(Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GGistReqBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'vars':
+          result.vars.replace(serializers.deserialize(value,
+              specifiedType: const FullType(_i3.GGistVars)) as _i3.GGistVars);
+          break;
+        case 'operation':
+          result.operation = serializers.deserialize(value,
+              specifiedType: const FullType(_i4.Operation)) as _i4.Operation;
+          break;
+        case 'requestId':
+          result.requestId = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'optimisticResponse':
+          result.optimisticResponse.replace(serializers.deserialize(value,
+              specifiedType: const FullType(_i2.GGistData)) as _i2.GGistData);
+          break;
+        case 'updateCacheHandlerKey':
+          result.updateCacheHandlerKey = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'updateCacheHandlerContext':
+          result.updateCacheHandlerContext = serializers.deserialize(value,
+              specifiedType: const FullType(Map, const [
+                const FullType(String),
+                const FullType(dynamic)
+              ])) as Map<String, dynamic>;
+          break;
+        case 'fetchPolicy':
+          result.fetchPolicy = serializers.deserialize(value,
+                  specifiedType: const FullType(_i1.FetchPolicy))
+              as _i1.FetchPolicy;
+          break;
+        case 'executeOnListen':
+          result.executeOnListen = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
 
 class _$GFollowersReqSerializer implements StructuredSerializer<GFollowersReq> {
   @override
@@ -1664,6 +1890,119 @@ class _$GIssueReqSerializer implements StructuredSerializer<GIssueReq> {
         case 'optimisticResponse':
           result.optimisticResponse.replace(serializers.deserialize(value,
               specifiedType: const FullType(_i2.GIssueData)) as _i2.GIssueData);
+          break;
+        case 'updateCacheHandlerKey':
+          result.updateCacheHandlerKey = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'updateCacheHandlerContext':
+          result.updateCacheHandlerContext = serializers.deserialize(value,
+              specifiedType: const FullType(Map, const [
+                const FullType(String),
+                const FullType(dynamic)
+              ])) as Map<String, dynamic>;
+          break;
+        case 'fetchPolicy':
+          result.fetchPolicy = serializers.deserialize(value,
+                  specifiedType: const FullType(_i1.FetchPolicy))
+              as _i1.FetchPolicy;
+          break;
+        case 'executeOnListen':
+          result.executeOnListen = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GReleasesReqSerializer implements StructuredSerializer<GReleasesReq> {
+  @override
+  final Iterable<Type> types = const [GReleasesReq, _$GReleasesReq];
+  @override
+  final String wireName = 'GReleasesReq';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, GReleasesReq object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[
+      'vars',
+      serializers.serialize(object.vars,
+          specifiedType: const FullType(_i3.GReleasesVars)),
+      'operation',
+      serializers.serialize(object.operation,
+          specifiedType: const FullType(_i4.Operation)),
+    ];
+    if (object.requestId != null) {
+      result
+        ..add('requestId')
+        ..add(serializers.serialize(object.requestId,
+            specifiedType: const FullType(String)));
+    }
+    if (object.optimisticResponse != null) {
+      result
+        ..add('optimisticResponse')
+        ..add(serializers.serialize(object.optimisticResponse,
+            specifiedType: const FullType(_i2.GReleasesData)));
+    }
+    if (object.updateCacheHandlerKey != null) {
+      result
+        ..add('updateCacheHandlerKey')
+        ..add(serializers.serialize(object.updateCacheHandlerKey,
+            specifiedType: const FullType(String)));
+    }
+    if (object.updateCacheHandlerContext != null) {
+      result
+        ..add('updateCacheHandlerContext')
+        ..add(serializers.serialize(object.updateCacheHandlerContext,
+            specifiedType: const FullType(
+                Map, const [const FullType(String), const FullType(dynamic)])));
+    }
+    if (object.fetchPolicy != null) {
+      result
+        ..add('fetchPolicy')
+        ..add(serializers.serialize(object.fetchPolicy,
+            specifiedType: const FullType(_i1.FetchPolicy)));
+    }
+    if (object.executeOnListen != null) {
+      result
+        ..add('executeOnListen')
+        ..add(serializers.serialize(object.executeOnListen,
+            specifiedType: const FullType(bool)));
+    }
+    return result;
+  }
+
+  @override
+  GReleasesReq deserialize(Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GReleasesReqBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'vars':
+          result.vars.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(_i3.GReleasesVars))
+              as _i3.GReleasesVars);
+          break;
+        case 'operation':
+          result.operation = serializers.deserialize(value,
+              specifiedType: const FullType(_i4.Operation)) as _i4.Operation;
+          break;
+        case 'requestId':
+          result.requestId = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'optimisticResponse':
+          result.optimisticResponse.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(_i2.GReleasesData))
+              as _i2.GReleasesData);
           break;
         case 'updateCacheHandlerKey':
           result.updateCacheHandlerKey = serializers.deserialize(value,
@@ -4729,6 +5068,440 @@ class _$GHeadRefDeletedEventPartsReqSerializer
   }
 }
 
+class _$GGistsReq extends GGistsReq {
+  @override
+  final _i3.GGistsVars vars;
+  @override
+  final _i4.Operation operation;
+  @override
+  final String requestId;
+  @override
+  final _i2.GGistsData Function(_i2.GGistsData, _i2.GGistsData) updateResult;
+  @override
+  final _i2.GGistsData optimisticResponse;
+  @override
+  final String updateCacheHandlerKey;
+  @override
+  final Map<String, dynamic> updateCacheHandlerContext;
+  @override
+  final _i1.FetchPolicy fetchPolicy;
+  @override
+  final bool executeOnListen;
+
+  factory _$GGistsReq([void Function(GGistsReqBuilder) updates]) =>
+      (new GGistsReqBuilder()..update(updates)).build();
+
+  _$GGistsReq._(
+      {this.vars,
+      this.operation,
+      this.requestId,
+      this.updateResult,
+      this.optimisticResponse,
+      this.updateCacheHandlerKey,
+      this.updateCacheHandlerContext,
+      this.fetchPolicy,
+      this.executeOnListen})
+      : super._() {
+    if (vars == null) {
+      throw new BuiltValueNullFieldError('GGistsReq', 'vars');
+    }
+    if (operation == null) {
+      throw new BuiltValueNullFieldError('GGistsReq', 'operation');
+    }
+  }
+
+  @override
+  GGistsReq rebuild(void Function(GGistsReqBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GGistsReqBuilder toBuilder() => new GGistsReqBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    final dynamic _$dynamicOther = other;
+    return other is GGistsReq &&
+        vars == other.vars &&
+        operation == other.operation &&
+        requestId == other.requestId &&
+        updateResult == _$dynamicOther.updateResult &&
+        optimisticResponse == other.optimisticResponse &&
+        updateCacheHandlerKey == other.updateCacheHandlerKey &&
+        updateCacheHandlerContext == other.updateCacheHandlerContext &&
+        fetchPolicy == other.fetchPolicy &&
+        executeOnListen == other.executeOnListen;
+  }
+
+  @override
+  int get hashCode {
+    return $jf($jc(
+        $jc(
+            $jc(
+                $jc(
+                    $jc(
+                        $jc(
+                            $jc($jc($jc(0, vars.hashCode), operation.hashCode),
+                                requestId.hashCode),
+                            updateResult.hashCode),
+                        optimisticResponse.hashCode),
+                    updateCacheHandlerKey.hashCode),
+                updateCacheHandlerContext.hashCode),
+            fetchPolicy.hashCode),
+        executeOnListen.hashCode));
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper('GGistsReq')
+          ..add('vars', vars)
+          ..add('operation', operation)
+          ..add('requestId', requestId)
+          ..add('updateResult', updateResult)
+          ..add('optimisticResponse', optimisticResponse)
+          ..add('updateCacheHandlerKey', updateCacheHandlerKey)
+          ..add('updateCacheHandlerContext', updateCacheHandlerContext)
+          ..add('fetchPolicy', fetchPolicy)
+          ..add('executeOnListen', executeOnListen))
+        .toString();
+  }
+}
+
+class GGistsReqBuilder implements Builder<GGistsReq, GGistsReqBuilder> {
+  _$GGistsReq _$v;
+
+  _i3.GGistsVarsBuilder _vars;
+  _i3.GGistsVarsBuilder get vars =>
+      _$this._vars ??= new _i3.GGistsVarsBuilder();
+  set vars(_i3.GGistsVarsBuilder vars) => _$this._vars = vars;
+
+  _i4.Operation _operation;
+  _i4.Operation get operation => _$this._operation;
+  set operation(_i4.Operation operation) => _$this._operation = operation;
+
+  String _requestId;
+  String get requestId => _$this._requestId;
+  set requestId(String requestId) => _$this._requestId = requestId;
+
+  _i2.GGistsData Function(_i2.GGistsData, _i2.GGistsData) _updateResult;
+  _i2.GGistsData Function(_i2.GGistsData, _i2.GGistsData) get updateResult =>
+      _$this._updateResult;
+  set updateResult(
+          _i2.GGistsData Function(_i2.GGistsData, _i2.GGistsData)
+              updateResult) =>
+      _$this._updateResult = updateResult;
+
+  _i2.GGistsDataBuilder _optimisticResponse;
+  _i2.GGistsDataBuilder get optimisticResponse =>
+      _$this._optimisticResponse ??= new _i2.GGistsDataBuilder();
+  set optimisticResponse(_i2.GGistsDataBuilder optimisticResponse) =>
+      _$this._optimisticResponse = optimisticResponse;
+
+  String _updateCacheHandlerKey;
+  String get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
+  set updateCacheHandlerKey(String updateCacheHandlerKey) =>
+      _$this._updateCacheHandlerKey = updateCacheHandlerKey;
+
+  Map<String, dynamic> _updateCacheHandlerContext;
+  Map<String, dynamic> get updateCacheHandlerContext =>
+      _$this._updateCacheHandlerContext;
+  set updateCacheHandlerContext(
+          Map<String, dynamic> updateCacheHandlerContext) =>
+      _$this._updateCacheHandlerContext = updateCacheHandlerContext;
+
+  _i1.FetchPolicy _fetchPolicy;
+  _i1.FetchPolicy get fetchPolicy => _$this._fetchPolicy;
+  set fetchPolicy(_i1.FetchPolicy fetchPolicy) =>
+      _$this._fetchPolicy = fetchPolicy;
+
+  bool _executeOnListen;
+  bool get executeOnListen => _$this._executeOnListen;
+  set executeOnListen(bool executeOnListen) =>
+      _$this._executeOnListen = executeOnListen;
+
+  GGistsReqBuilder() {
+    GGistsReq._initializeBuilder(this);
+  }
+
+  GGistsReqBuilder get _$this {
+    if (_$v != null) {
+      _vars = _$v.vars?.toBuilder();
+      _operation = _$v.operation;
+      _requestId = _$v.requestId;
+      _updateResult = _$v.updateResult;
+      _optimisticResponse = _$v.optimisticResponse?.toBuilder();
+      _updateCacheHandlerKey = _$v.updateCacheHandlerKey;
+      _updateCacheHandlerContext = _$v.updateCacheHandlerContext;
+      _fetchPolicy = _$v.fetchPolicy;
+      _executeOnListen = _$v.executeOnListen;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GGistsReq other) {
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
+    _$v = other as _$GGistsReq;
+  }
+
+  @override
+  void update(void Function(GGistsReqBuilder) updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  _$GGistsReq build() {
+    _$GGistsReq _$result;
+    try {
+      _$result = _$v ??
+          new _$GGistsReq._(
+              vars: vars.build(),
+              operation: operation,
+              requestId: requestId,
+              updateResult: updateResult,
+              optimisticResponse: _optimisticResponse?.build(),
+              updateCacheHandlerKey: updateCacheHandlerKey,
+              updateCacheHandlerContext: updateCacheHandlerContext,
+              fetchPolicy: fetchPolicy,
+              executeOnListen: executeOnListen);
+    } catch (_) {
+      String _$failedField;
+      try {
+        _$failedField = 'vars';
+        vars.build();
+
+        _$failedField = 'optimisticResponse';
+        _optimisticResponse?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            'GGistsReq', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GGistReq extends GGistReq {
+  @override
+  final _i3.GGistVars vars;
+  @override
+  final _i4.Operation operation;
+  @override
+  final String requestId;
+  @override
+  final _i2.GGistData Function(_i2.GGistData, _i2.GGistData) updateResult;
+  @override
+  final _i2.GGistData optimisticResponse;
+  @override
+  final String updateCacheHandlerKey;
+  @override
+  final Map<String, dynamic> updateCacheHandlerContext;
+  @override
+  final _i1.FetchPolicy fetchPolicy;
+  @override
+  final bool executeOnListen;
+
+  factory _$GGistReq([void Function(GGistReqBuilder) updates]) =>
+      (new GGistReqBuilder()..update(updates)).build();
+
+  _$GGistReq._(
+      {this.vars,
+      this.operation,
+      this.requestId,
+      this.updateResult,
+      this.optimisticResponse,
+      this.updateCacheHandlerKey,
+      this.updateCacheHandlerContext,
+      this.fetchPolicy,
+      this.executeOnListen})
+      : super._() {
+    if (vars == null) {
+      throw new BuiltValueNullFieldError('GGistReq', 'vars');
+    }
+    if (operation == null) {
+      throw new BuiltValueNullFieldError('GGistReq', 'operation');
+    }
+  }
+
+  @override
+  GGistReq rebuild(void Function(GGistReqBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GGistReqBuilder toBuilder() => new GGistReqBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    final dynamic _$dynamicOther = other;
+    return other is GGistReq &&
+        vars == other.vars &&
+        operation == other.operation &&
+        requestId == other.requestId &&
+        updateResult == _$dynamicOther.updateResult &&
+        optimisticResponse == other.optimisticResponse &&
+        updateCacheHandlerKey == other.updateCacheHandlerKey &&
+        updateCacheHandlerContext == other.updateCacheHandlerContext &&
+        fetchPolicy == other.fetchPolicy &&
+        executeOnListen == other.executeOnListen;
+  }
+
+  @override
+  int get hashCode {
+    return $jf($jc(
+        $jc(
+            $jc(
+                $jc(
+                    $jc(
+                        $jc(
+                            $jc($jc($jc(0, vars.hashCode), operation.hashCode),
+                                requestId.hashCode),
+                            updateResult.hashCode),
+                        optimisticResponse.hashCode),
+                    updateCacheHandlerKey.hashCode),
+                updateCacheHandlerContext.hashCode),
+            fetchPolicy.hashCode),
+        executeOnListen.hashCode));
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper('GGistReq')
+          ..add('vars', vars)
+          ..add('operation', operation)
+          ..add('requestId', requestId)
+          ..add('updateResult', updateResult)
+          ..add('optimisticResponse', optimisticResponse)
+          ..add('updateCacheHandlerKey', updateCacheHandlerKey)
+          ..add('updateCacheHandlerContext', updateCacheHandlerContext)
+          ..add('fetchPolicy', fetchPolicy)
+          ..add('executeOnListen', executeOnListen))
+        .toString();
+  }
+}
+
+class GGistReqBuilder implements Builder<GGistReq, GGistReqBuilder> {
+  _$GGistReq _$v;
+
+  _i3.GGistVarsBuilder _vars;
+  _i3.GGistVarsBuilder get vars => _$this._vars ??= new _i3.GGistVarsBuilder();
+  set vars(_i3.GGistVarsBuilder vars) => _$this._vars = vars;
+
+  _i4.Operation _operation;
+  _i4.Operation get operation => _$this._operation;
+  set operation(_i4.Operation operation) => _$this._operation = operation;
+
+  String _requestId;
+  String get requestId => _$this._requestId;
+  set requestId(String requestId) => _$this._requestId = requestId;
+
+  _i2.GGistData Function(_i2.GGistData, _i2.GGistData) _updateResult;
+  _i2.GGistData Function(_i2.GGistData, _i2.GGistData) get updateResult =>
+      _$this._updateResult;
+  set updateResult(
+          _i2.GGistData Function(_i2.GGistData, _i2.GGistData) updateResult) =>
+      _$this._updateResult = updateResult;
+
+  _i2.GGistDataBuilder _optimisticResponse;
+  _i2.GGistDataBuilder get optimisticResponse =>
+      _$this._optimisticResponse ??= new _i2.GGistDataBuilder();
+  set optimisticResponse(_i2.GGistDataBuilder optimisticResponse) =>
+      _$this._optimisticResponse = optimisticResponse;
+
+  String _updateCacheHandlerKey;
+  String get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
+  set updateCacheHandlerKey(String updateCacheHandlerKey) =>
+      _$this._updateCacheHandlerKey = updateCacheHandlerKey;
+
+  Map<String, dynamic> _updateCacheHandlerContext;
+  Map<String, dynamic> get updateCacheHandlerContext =>
+      _$this._updateCacheHandlerContext;
+  set updateCacheHandlerContext(
+          Map<String, dynamic> updateCacheHandlerContext) =>
+      _$this._updateCacheHandlerContext = updateCacheHandlerContext;
+
+  _i1.FetchPolicy _fetchPolicy;
+  _i1.FetchPolicy get fetchPolicy => _$this._fetchPolicy;
+  set fetchPolicy(_i1.FetchPolicy fetchPolicy) =>
+      _$this._fetchPolicy = fetchPolicy;
+
+  bool _executeOnListen;
+  bool get executeOnListen => _$this._executeOnListen;
+  set executeOnListen(bool executeOnListen) =>
+      _$this._executeOnListen = executeOnListen;
+
+  GGistReqBuilder() {
+    GGistReq._initializeBuilder(this);
+  }
+
+  GGistReqBuilder get _$this {
+    if (_$v != null) {
+      _vars = _$v.vars?.toBuilder();
+      _operation = _$v.operation;
+      _requestId = _$v.requestId;
+      _updateResult = _$v.updateResult;
+      _optimisticResponse = _$v.optimisticResponse?.toBuilder();
+      _updateCacheHandlerKey = _$v.updateCacheHandlerKey;
+      _updateCacheHandlerContext = _$v.updateCacheHandlerContext;
+      _fetchPolicy = _$v.fetchPolicy;
+      _executeOnListen = _$v.executeOnListen;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GGistReq other) {
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
+    _$v = other as _$GGistReq;
+  }
+
+  @override
+  void update(void Function(GGistReqBuilder) updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  _$GGistReq build() {
+    _$GGistReq _$result;
+    try {
+      _$result = _$v ??
+          new _$GGistReq._(
+              vars: vars.build(),
+              operation: operation,
+              requestId: requestId,
+              updateResult: updateResult,
+              optimisticResponse: _optimisticResponse?.build(),
+              updateCacheHandlerKey: updateCacheHandlerKey,
+              updateCacheHandlerContext: updateCacheHandlerContext,
+              fetchPolicy: fetchPolicy,
+              executeOnListen: executeOnListen);
+    } catch (_) {
+      String _$failedField;
+      try {
+        _$failedField = 'vars';
+        vars.build();
+
+        _$failedField = 'optimisticResponse';
+        _optimisticResponse?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            'GGistReq', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
 class _$GFollowersReq extends GFollowersReq {
   @override
   final _i3.GFollowersVars vars;
@@ -7784,6 +8557,227 @@ class GIssueReqBuilder implements Builder<GIssueReq, GIssueReqBuilder> {
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'GIssueReq', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GReleasesReq extends GReleasesReq {
+  @override
+  final _i3.GReleasesVars vars;
+  @override
+  final _i4.Operation operation;
+  @override
+  final String requestId;
+  @override
+  final _i2.GReleasesData Function(_i2.GReleasesData, _i2.GReleasesData)
+      updateResult;
+  @override
+  final _i2.GReleasesData optimisticResponse;
+  @override
+  final String updateCacheHandlerKey;
+  @override
+  final Map<String, dynamic> updateCacheHandlerContext;
+  @override
+  final _i1.FetchPolicy fetchPolicy;
+  @override
+  final bool executeOnListen;
+
+  factory _$GReleasesReq([void Function(GReleasesReqBuilder) updates]) =>
+      (new GReleasesReqBuilder()..update(updates)).build();
+
+  _$GReleasesReq._(
+      {this.vars,
+      this.operation,
+      this.requestId,
+      this.updateResult,
+      this.optimisticResponse,
+      this.updateCacheHandlerKey,
+      this.updateCacheHandlerContext,
+      this.fetchPolicy,
+      this.executeOnListen})
+      : super._() {
+    if (vars == null) {
+      throw new BuiltValueNullFieldError('GReleasesReq', 'vars');
+    }
+    if (operation == null) {
+      throw new BuiltValueNullFieldError('GReleasesReq', 'operation');
+    }
+  }
+
+  @override
+  GReleasesReq rebuild(void Function(GReleasesReqBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GReleasesReqBuilder toBuilder() => new GReleasesReqBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    final dynamic _$dynamicOther = other;
+    return other is GReleasesReq &&
+        vars == other.vars &&
+        operation == other.operation &&
+        requestId == other.requestId &&
+        updateResult == _$dynamicOther.updateResult &&
+        optimisticResponse == other.optimisticResponse &&
+        updateCacheHandlerKey == other.updateCacheHandlerKey &&
+        updateCacheHandlerContext == other.updateCacheHandlerContext &&
+        fetchPolicy == other.fetchPolicy &&
+        executeOnListen == other.executeOnListen;
+  }
+
+  @override
+  int get hashCode {
+    return $jf($jc(
+        $jc(
+            $jc(
+                $jc(
+                    $jc(
+                        $jc(
+                            $jc($jc($jc(0, vars.hashCode), operation.hashCode),
+                                requestId.hashCode),
+                            updateResult.hashCode),
+                        optimisticResponse.hashCode),
+                    updateCacheHandlerKey.hashCode),
+                updateCacheHandlerContext.hashCode),
+            fetchPolicy.hashCode),
+        executeOnListen.hashCode));
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper('GReleasesReq')
+          ..add('vars', vars)
+          ..add('operation', operation)
+          ..add('requestId', requestId)
+          ..add('updateResult', updateResult)
+          ..add('optimisticResponse', optimisticResponse)
+          ..add('updateCacheHandlerKey', updateCacheHandlerKey)
+          ..add('updateCacheHandlerContext', updateCacheHandlerContext)
+          ..add('fetchPolicy', fetchPolicy)
+          ..add('executeOnListen', executeOnListen))
+        .toString();
+  }
+}
+
+class GReleasesReqBuilder
+    implements Builder<GReleasesReq, GReleasesReqBuilder> {
+  _$GReleasesReq _$v;
+
+  _i3.GReleasesVarsBuilder _vars;
+  _i3.GReleasesVarsBuilder get vars =>
+      _$this._vars ??= new _i3.GReleasesVarsBuilder();
+  set vars(_i3.GReleasesVarsBuilder vars) => _$this._vars = vars;
+
+  _i4.Operation _operation;
+  _i4.Operation get operation => _$this._operation;
+  set operation(_i4.Operation operation) => _$this._operation = operation;
+
+  String _requestId;
+  String get requestId => _$this._requestId;
+  set requestId(String requestId) => _$this._requestId = requestId;
+
+  _i2.GReleasesData Function(_i2.GReleasesData, _i2.GReleasesData)
+      _updateResult;
+  _i2.GReleasesData Function(_i2.GReleasesData, _i2.GReleasesData)
+      get updateResult => _$this._updateResult;
+  set updateResult(
+          _i2.GReleasesData Function(_i2.GReleasesData, _i2.GReleasesData)
+              updateResult) =>
+      _$this._updateResult = updateResult;
+
+  _i2.GReleasesDataBuilder _optimisticResponse;
+  _i2.GReleasesDataBuilder get optimisticResponse =>
+      _$this._optimisticResponse ??= new _i2.GReleasesDataBuilder();
+  set optimisticResponse(_i2.GReleasesDataBuilder optimisticResponse) =>
+      _$this._optimisticResponse = optimisticResponse;
+
+  String _updateCacheHandlerKey;
+  String get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
+  set updateCacheHandlerKey(String updateCacheHandlerKey) =>
+      _$this._updateCacheHandlerKey = updateCacheHandlerKey;
+
+  Map<String, dynamic> _updateCacheHandlerContext;
+  Map<String, dynamic> get updateCacheHandlerContext =>
+      _$this._updateCacheHandlerContext;
+  set updateCacheHandlerContext(
+          Map<String, dynamic> updateCacheHandlerContext) =>
+      _$this._updateCacheHandlerContext = updateCacheHandlerContext;
+
+  _i1.FetchPolicy _fetchPolicy;
+  _i1.FetchPolicy get fetchPolicy => _$this._fetchPolicy;
+  set fetchPolicy(_i1.FetchPolicy fetchPolicy) =>
+      _$this._fetchPolicy = fetchPolicy;
+
+  bool _executeOnListen;
+  bool get executeOnListen => _$this._executeOnListen;
+  set executeOnListen(bool executeOnListen) =>
+      _$this._executeOnListen = executeOnListen;
+
+  GReleasesReqBuilder() {
+    GReleasesReq._initializeBuilder(this);
+  }
+
+  GReleasesReqBuilder get _$this {
+    if (_$v != null) {
+      _vars = _$v.vars?.toBuilder();
+      _operation = _$v.operation;
+      _requestId = _$v.requestId;
+      _updateResult = _$v.updateResult;
+      _optimisticResponse = _$v.optimisticResponse?.toBuilder();
+      _updateCacheHandlerKey = _$v.updateCacheHandlerKey;
+      _updateCacheHandlerContext = _$v.updateCacheHandlerContext;
+      _fetchPolicy = _$v.fetchPolicy;
+      _executeOnListen = _$v.executeOnListen;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GReleasesReq other) {
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
+    _$v = other as _$GReleasesReq;
+  }
+
+  @override
+  void update(void Function(GReleasesReqBuilder) updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  _$GReleasesReq build() {
+    _$GReleasesReq _$result;
+    try {
+      _$result = _$v ??
+          new _$GReleasesReq._(
+              vars: vars.build(),
+              operation: operation,
+              requestId: requestId,
+              updateResult: updateResult,
+              optimisticResponse: _optimisticResponse?.build(),
+              updateCacheHandlerKey: updateCacheHandlerKey,
+              updateCacheHandlerContext: updateCacheHandlerContext,
+              fetchPolicy: fetchPolicy,
+              executeOnListen: executeOnListen);
+    } catch (_) {
+      String _$failedField;
+      try {
+        _$failedField = 'vars';
+        vars.build();
+
+        _$failedField = 'optimisticResponse';
+        _optimisticResponse?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            'GReleasesReq', _$failedField, e.toString());
       }
       rethrow;
     }

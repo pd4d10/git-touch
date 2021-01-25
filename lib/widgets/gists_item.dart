@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:git_touch/models/github.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/avatar.dart';
@@ -11,8 +10,7 @@ import 'package:github/github.dart' as github;
 class GistsItem extends StatelessWidget {
   final String description;
   final String login;
-  final Map<String, GistFiles> files;
-  final List<GistFiles> filenames;
+  final List<String> filenames;
   final String language;
   final String avatarUrl;
   final DateTime updatedAt;
@@ -21,7 +19,6 @@ class GistsItem extends StatelessWidget {
   GistsItem({
     @required this.description,
     @required this.login,
-    @required this.files,
     @required this.filenames,
     @required this.language,
     @required this.avatarUrl,
@@ -62,7 +59,7 @@ class GistsItem extends StatelessWidget {
                               ),
                             ),
                             TextSpan(
-                              text: filenames[0].filename,
+                              text: filenames[0],
                               style: TextStyle(
                                 fontSize: 18,
                                 color: theme.palette.primary,

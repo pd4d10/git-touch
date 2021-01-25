@@ -6,6 +6,8 @@ part of 'github.var.gql.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
+Serializer<GGistsVars> _$gGistsVarsSerializer = new _$GGistsVarsSerializer();
+Serializer<GGistVars> _$gGistVarsSerializer = new _$GGistVarsSerializer();
 Serializer<GFollowersVars> _$gFollowersVarsSerializer =
     new _$GFollowersVarsSerializer();
 Serializer<GFollowingVars> _$gFollowingVarsSerializer =
@@ -26,6 +28,8 @@ Serializer<GCommitsVars> _$gCommitsVarsSerializer =
 Serializer<GIssuesVars> _$gIssuesVarsSerializer = new _$GIssuesVarsSerializer();
 Serializer<GPullsVars> _$gPullsVarsSerializer = new _$GPullsVarsSerializer();
 Serializer<GIssueVars> _$gIssueVarsSerializer = new _$GIssueVarsSerializer();
+Serializer<GReleasesVars> _$gReleasesVarsSerializer =
+    new _$GReleasesVarsSerializer();
 Serializer<GPageInfoPartsVars> _$gPageInfoPartsVarsSerializer =
     new _$GPageInfoPartsVarsSerializer();
 Serializer<GRepoItemVars> _$gRepoItemVarsSerializer =
@@ -125,6 +129,101 @@ Serializer<GMergedEventPartsVars> _$gMergedEventPartsVarsSerializer =
 Serializer<GHeadRefDeletedEventPartsVars>
     _$gHeadRefDeletedEventPartsVarsSerializer =
     new _$GHeadRefDeletedEventPartsVarsSerializer();
+
+class _$GGistsVarsSerializer implements StructuredSerializer<GGistsVars> {
+  @override
+  final Iterable<Type> types = const [GGistsVars, _$GGistsVars];
+  @override
+  final String wireName = 'GGistsVars';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, GGistsVars object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[
+      'login',
+      serializers.serialize(object.login,
+          specifiedType: const FullType(String)),
+    ];
+    if (object.after != null) {
+      result
+        ..add('after')
+        ..add(serializers.serialize(object.after,
+            specifiedType: const FullType(String)));
+    }
+    return result;
+  }
+
+  @override
+  GGistsVars deserialize(Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GGistsVarsBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'login':
+          result.login = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'after':
+          result.after = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GGistVarsSerializer implements StructuredSerializer<GGistVars> {
+  @override
+  final Iterable<Type> types = const [GGistVars, _$GGistVars];
+  @override
+  final String wireName = 'GGistVars';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, GGistVars object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[
+      'login',
+      serializers.serialize(object.login,
+          specifiedType: const FullType(String)),
+      'name',
+      serializers.serialize(object.name, specifiedType: const FullType(String)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GGistVars deserialize(Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GGistVarsBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'login':
+          result.login = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'name':
+          result.name = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
 
 class _$GFollowersVarsSerializer
     implements StructuredSerializer<GFollowersVars> {
@@ -833,6 +932,62 @@ class _$GIssueVarsSerializer implements StructuredSerializer<GIssueVars> {
         case 'number':
           result.number = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int;
+          break;
+        case 'cursor':
+          result.cursor = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GReleasesVarsSerializer implements StructuredSerializer<GReleasesVars> {
+  @override
+  final Iterable<Type> types = const [GReleasesVars, _$GReleasesVars];
+  @override
+  final String wireName = 'GReleasesVars';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, GReleasesVars object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[
+      'name',
+      serializers.serialize(object.name, specifiedType: const FullType(String)),
+      'owner',
+      serializers.serialize(object.owner,
+          specifiedType: const FullType(String)),
+    ];
+    if (object.cursor != null) {
+      result
+        ..add('cursor')
+        ..add(serializers.serialize(object.cursor,
+            specifiedType: const FullType(String)));
+    }
+    return result;
+  }
+
+  @override
+  GReleasesVars deserialize(
+      Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GReleasesVarsBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'name':
+          result.name = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'owner':
+          result.owner = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
         case 'cursor':
           result.cursor = serializers.deserialize(value,
@@ -1897,6 +2052,179 @@ class _$GHeadRefDeletedEventPartsVarsSerializer
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     return new GHeadRefDeletedEventPartsVarsBuilder().build();
+  }
+}
+
+class _$GGistsVars extends GGistsVars {
+  @override
+  final String login;
+  @override
+  final String after;
+
+  factory _$GGistsVars([void Function(GGistsVarsBuilder) updates]) =>
+      (new GGistsVarsBuilder()..update(updates)).build();
+
+  _$GGistsVars._({this.login, this.after}) : super._() {
+    if (login == null) {
+      throw new BuiltValueNullFieldError('GGistsVars', 'login');
+    }
+  }
+
+  @override
+  GGistsVars rebuild(void Function(GGistsVarsBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GGistsVarsBuilder toBuilder() => new GGistsVarsBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GGistsVars && login == other.login && after == other.after;
+  }
+
+  @override
+  int get hashCode {
+    return $jf($jc($jc(0, login.hashCode), after.hashCode));
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper('GGistsVars')
+          ..add('login', login)
+          ..add('after', after))
+        .toString();
+  }
+}
+
+class GGistsVarsBuilder implements Builder<GGistsVars, GGistsVarsBuilder> {
+  _$GGistsVars _$v;
+
+  String _login;
+  String get login => _$this._login;
+  set login(String login) => _$this._login = login;
+
+  String _after;
+  String get after => _$this._after;
+  set after(String after) => _$this._after = after;
+
+  GGistsVarsBuilder();
+
+  GGistsVarsBuilder get _$this {
+    if (_$v != null) {
+      _login = _$v.login;
+      _after = _$v.after;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GGistsVars other) {
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
+    _$v = other as _$GGistsVars;
+  }
+
+  @override
+  void update(void Function(GGistsVarsBuilder) updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  _$GGistsVars build() {
+    final _$result = _$v ?? new _$GGistsVars._(login: login, after: after);
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GGistVars extends GGistVars {
+  @override
+  final String login;
+  @override
+  final String name;
+
+  factory _$GGistVars([void Function(GGistVarsBuilder) updates]) =>
+      (new GGistVarsBuilder()..update(updates)).build();
+
+  _$GGistVars._({this.login, this.name}) : super._() {
+    if (login == null) {
+      throw new BuiltValueNullFieldError('GGistVars', 'login');
+    }
+    if (name == null) {
+      throw new BuiltValueNullFieldError('GGistVars', 'name');
+    }
+  }
+
+  @override
+  GGistVars rebuild(void Function(GGistVarsBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GGistVarsBuilder toBuilder() => new GGistVarsBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GGistVars && login == other.login && name == other.name;
+  }
+
+  @override
+  int get hashCode {
+    return $jf($jc($jc(0, login.hashCode), name.hashCode));
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper('GGistVars')
+          ..add('login', login)
+          ..add('name', name))
+        .toString();
+  }
+}
+
+class GGistVarsBuilder implements Builder<GGistVars, GGistVarsBuilder> {
+  _$GGistVars _$v;
+
+  String _login;
+  String get login => _$this._login;
+  set login(String login) => _$this._login = login;
+
+  String _name;
+  String get name => _$this._name;
+  set name(String name) => _$this._name = name;
+
+  GGistVarsBuilder();
+
+  GGistVarsBuilder get _$this {
+    if (_$v != null) {
+      _login = _$v.login;
+      _name = _$v.name;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GGistVars other) {
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
+    _$v = other as _$GGistVars;
+  }
+
+  @override
+  void update(void Function(GGistVarsBuilder) updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  _$GGistVars build() {
+    final _$result = _$v ?? new _$GGistVars._(login: login, name: name);
+    replace(_$result);
+    return _$result;
   }
 }
 
@@ -3238,6 +3566,108 @@ class GIssueVarsBuilder implements Builder<GIssueVars, GIssueVarsBuilder> {
     final _$result = _$v ??
         new _$GIssueVars._(
             owner: owner, name: name, number: number, cursor: cursor);
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GReleasesVars extends GReleasesVars {
+  @override
+  final String name;
+  @override
+  final String owner;
+  @override
+  final String cursor;
+
+  factory _$GReleasesVars([void Function(GReleasesVarsBuilder) updates]) =>
+      (new GReleasesVarsBuilder()..update(updates)).build();
+
+  _$GReleasesVars._({this.name, this.owner, this.cursor}) : super._() {
+    if (name == null) {
+      throw new BuiltValueNullFieldError('GReleasesVars', 'name');
+    }
+    if (owner == null) {
+      throw new BuiltValueNullFieldError('GReleasesVars', 'owner');
+    }
+  }
+
+  @override
+  GReleasesVars rebuild(void Function(GReleasesVarsBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GReleasesVarsBuilder toBuilder() => new GReleasesVarsBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GReleasesVars &&
+        name == other.name &&
+        owner == other.owner &&
+        cursor == other.cursor;
+  }
+
+  @override
+  int get hashCode {
+    return $jf(
+        $jc($jc($jc(0, name.hashCode), owner.hashCode), cursor.hashCode));
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper('GReleasesVars')
+          ..add('name', name)
+          ..add('owner', owner)
+          ..add('cursor', cursor))
+        .toString();
+  }
+}
+
+class GReleasesVarsBuilder
+    implements Builder<GReleasesVars, GReleasesVarsBuilder> {
+  _$GReleasesVars _$v;
+
+  String _name;
+  String get name => _$this._name;
+  set name(String name) => _$this._name = name;
+
+  String _owner;
+  String get owner => _$this._owner;
+  set owner(String owner) => _$this._owner = owner;
+
+  String _cursor;
+  String get cursor => _$this._cursor;
+  set cursor(String cursor) => _$this._cursor = cursor;
+
+  GReleasesVarsBuilder();
+
+  GReleasesVarsBuilder get _$this {
+    if (_$v != null) {
+      _name = _$v.name;
+      _owner = _$v.owner;
+      _cursor = _$v.cursor;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GReleasesVars other) {
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
+    _$v = other as _$GReleasesVars;
+  }
+
+  @override
+  void update(void Function(GReleasesVarsBuilder) updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  _$GReleasesVars build() {
+    final _$result =
+        _$v ?? new _$GReleasesVars._(name: name, owner: owner, cursor: cursor);
     replace(_$result);
     return _$result;
   }

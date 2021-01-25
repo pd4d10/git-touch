@@ -94,10 +94,6 @@ class GhRepoScreen extends StatelessWidget {
               text: S.of(context).projects + '(${repo.projects.totalCount})',
               url: repo.projectsUrl,
             ),
-            ActionItem(
-              text: S.of(context).releases + '(${repo.releases.totalCount})',
-              url: 'https://github.com/$owner/$name/releases',
-            ),
             ...ActionItem.getUrlActions(repo.url),
           ],
         );
@@ -312,7 +308,13 @@ class GhRepoScreen extends StatelessWidget {
                       },
                     ),
                     url: '/github/$owner/$name/contributors',
-                  )
+                  ),
+                  TableViewItem(
+                    leftIconData: Octicons.book,
+                    text: Text("Releases"),
+                    url: '/github/$owner/$name/releases',
+                    rightWidget: Text(repo.releases.totalCount.toString()),
+                  ),
                 ],
               ],
             ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:git_touch/models/github.dart';
+import 'package:git_touch/graphql/github.data.gql.dart';
+import 'package:git_touch/graphql/github.req.gql.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/object_tree.dart';
@@ -15,29 +16,31 @@ class GhGistsFilesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RefreshStatefulScaffold<GithubGistsItem>(
+    return RefreshStatefulScaffold<GGistData_user_gist>(
       title: AppBarTitle(S.of(context).files),
       fetch: () async {
-        final data = await context.read<AuthModel>().ghClient.getJSON(
-            '/gists/$id',
-            convert: (vs) => GithubGistsItem.fromJson(vs));
-        return data;
+        final req = GGistReq((b) => b
+          ..vars.login = login
+          ..vars.name = id);
+        final res =
+            await context.read<AuthModel>().gqlClient.request(req).first;
+        final gist = res.data.user.gist;
+        return gist;
       },
       bodyBuilder: (payload, _) {
         return ObjectTree(
-          items: payload.fileNames.map((v) {
+          items: payload.files.map((v) {
             final uri = Uri(
-              path: '/github/$login/gists/$id/${v.filename}',
+              path: '/github/$login/gists/$id/${v.name}',
               queryParameters: {
-                'content': v.content,
-                ...(v.rawUrl == null ? {} : {'raw': v.rawUrl}),
+                'content': v.text,
               },
             ).toString();
             return ObjectTreeItem(
               url: uri,
               type: 'file',
-              name: v.filename,
-              downloadUrl: v.rawUrl,
+              name: v.name,
+              downloadUrl: null,
               size: v.size,
             );
           }),
