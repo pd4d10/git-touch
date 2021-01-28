@@ -307,7 +307,7 @@
   "@longPressToRemoveAccount": {
     "description": "Long Press to remove account"
   },
-  "giteaAccount": "Gitee Account",
+  "giteaAccount": "Gitea Account",
   "@giteaAccount": {
     "description": "Gitea Account"
   },
