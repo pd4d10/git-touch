@@ -43,7 +43,7 @@ class _BbIssueCommentScreenState extends State<BbIssueCommentScreen> {
           CupertinoButton.filled(
             child: Text('Comment'),
             onPressed: () async {
-              final res = await auth.fetchBb(
+              await auth.fetchBb(
                 '/repositories/${widget.owner}/${widget.name}/issues/${widget.number}/comments',
                 isPost: true,
                 body: {

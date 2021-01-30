@@ -38,7 +38,7 @@ class GlIssueScreen extends StatelessWidget {
       bodyBuilder: (data, _) {
         final issue = data.item1;
         final notes = data.item2;
-        final emoji = data.item3;
+        // final emoji = data.item3;
 
         return Column(
           children: <Widget>[

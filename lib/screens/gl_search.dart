@@ -104,23 +104,22 @@ class _GlSearchScreenState extends State<GlSearchScreen> {
   static const tabs = ['Projects', 'Users'];
 
   Widget _buildItem(_p) {
-    switch (_activeTab) {
-      case 0:
-        final p = _p as GitlabProject;
-        final updatedAt = timeago.format(p.lastActivityAt);
-        return RepositoryItem.gl(
-          payload: p,
-          note: 'Updated $updatedAt',
-        );
-      case 1:
-        final p = _p as GitlabUser;
-        return UserItem.gitlab(
-          login: p.username,
-          name: p.name,
-          id: p.id,
-          avatarUrl: p.avatarUrl,
-          bio: Text(p.bio ?? ''),
-        );
+    if (_activeTab == 0) {
+      final p = _p as GitlabProject;
+      final updatedAt = timeago.format(p.lastActivityAt);
+      return RepositoryItem.gl(
+        payload: p,
+        note: 'Updated $updatedAt',
+      );
+    } else {
+      final p = _p as GitlabUser;
+      return UserItem.gitlab(
+        login: p.username,
+        name: p.name,
+        id: p.id,
+        avatarUrl: p.avatarUrl,
+        bio: Text(p.bio ?? ''),
+      );
     }
   }
 

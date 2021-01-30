@@ -154,15 +154,15 @@ class _GhSearchScreenState extends State<GhSearchScreen> {
 
   static const tabs = ['Repositories', 'Users', 'Issues'];
 
-  static IconData _buildIconData(p) {
-    if (p['isPrivate']) {
-      return Octicons.lock;
-    }
-    if (p['isFork']) {
-      return Octicons.repo_forked;
-    }
-    return Octicons.repo;
-  }
+  // static IconData _buildIconData(p) {
+  //   if (p['isPrivate']) {
+  //     return Octicons.lock;
+  //   }
+  //   if (p['isFork']) {
+  //     return Octicons.repo_forked;
+  //   }
+  //   return Octicons.repo;
+  // }
 
   Widget _buildItem(p) {
     switch (_activeTab) {

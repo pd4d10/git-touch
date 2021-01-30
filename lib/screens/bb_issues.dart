@@ -16,7 +16,6 @@ class BbIssuesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final auth = Provider.of<AuthModel>(context);
     return ListStatefulScaffold<BbIssues, String>(
       title: AppBarTitle(S.of(context).issues),
       actionBuilder: () {

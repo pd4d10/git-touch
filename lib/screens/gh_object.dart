@@ -52,6 +52,8 @@ class GhObjectScreen extends StatelessWidget {
             iconData: Icons.settings,
             url: '/choose-code-theme',
           );
+        } else {
+          return null;
         }
       },
       bodyBuilder: (data, _) {

@@ -54,13 +54,13 @@ class _GeIssueCommentScreenState extends State<GeIssueCommentScreen> {
             child: Text('Comment'),
             onPressed: () async {
               if (!isEdit) {
-                final res = await auth.fetchGitee(
+                await auth.fetchGitee(
                   '/repos/${widget.owner}/${widget.name}/${widget.isPr ? 'pulls' : 'issues'}/${widget.number}/comments',
                   requestType: 'POST',
                   body: {'body': _controller.text, 'repo': widget.name},
                 );
               } else {
-                final res = await auth.fetchGitee(
+                await auth.fetchGitee(
                   '/repos/${widget.owner}/${widget.name}/${widget.isPr ? 'pulls' : 'issues'}/comments/${int.parse(widget.id)}',
                   requestType: 'PATCH',
                   body: {'body': _controller.text, 'repo': widget.name},

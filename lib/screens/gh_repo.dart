@@ -136,7 +136,7 @@ class GhRepoScreen extends StatelessWidget {
                                 switch (v) {
                                   case GSubscriptionState.SUBSCRIBED:
                                   case GSubscriptionState.IGNORED:
-                                    final res = await context
+                                    await context
                                         .read<AuthModel>()
                                         .ghClient
                                         .activity

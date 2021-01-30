@@ -56,7 +56,7 @@ class _GtIssueFormScreenState extends State<GtIssueFormScreen> {
           CupertinoButton.filled(
             child: Text('Submit'),
             onPressed: () async {
-              final res = await auth.fetchGitea(
+              await auth.fetchGitea(
                 '/repos/${widget.owner}/${widget.name}/issues',
                 requestType: 'POST',
                 body: {'body': _body, 'title': _title},

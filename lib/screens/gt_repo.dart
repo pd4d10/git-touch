@@ -4,7 +4,6 @@ import 'package:filesize/filesize.dart';
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/gitea.dart';
-import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
@@ -49,7 +48,6 @@ class GtRepoScreen extends StatelessWidget {
         return Tuple2(repo, readmeData);
       },
       bodyBuilder: (t, setState) {
-        final theme = Provider.of<ThemeModel>(context);
         final p = t.item1;
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,

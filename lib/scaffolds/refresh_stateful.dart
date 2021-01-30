@@ -29,7 +29,7 @@ class RefreshStatefulScaffold<T> extends StatefulWidget {
 
 class _RefreshStatefulScaffoldState<T>
     extends State<RefreshStatefulScaffold<T>> {
-  bool _loading;
+  // bool _loading;
   T _data;
   String _error = '';
 
@@ -44,7 +44,7 @@ class _RefreshStatefulScaffoldState<T>
     try {
       setState(() {
         _error = '';
-        _loading = true;
+        // _loading = true;
       });
       _data = await widget.fetch();
     } catch (err) {
@@ -53,7 +53,7 @@ class _RefreshStatefulScaffoldState<T>
     } finally {
       if (mounted) {
         setState(() {
-          _loading = false;
+          // _loading = false;
         });
       }
     }

@@ -56,7 +56,7 @@ class _BbIssueFormScreenState extends State<BbIssueFormScreen> {
           CupertinoButton.filled(
             child: Text('Submit'),
             onPressed: () async {
-              final res = await auth.fetchBbJson(
+              await auth.fetchBbJson(
                 '/repositories/${widget.owner}/${widget.name}/issues',
                 isPost: true,
                 body: {'body': _body, 'title': _title},

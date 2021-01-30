@@ -74,7 +74,6 @@ class GtIssueScreen extends StatelessWidget {
         final issue = data.item1;
         final comments = data.item2;
         final theme = context.read<ThemeModel>();
-        final auth = context.read<AuthModel>();
         return Column(children: <Widget>[
           Container(
               padding: CommonStyle.padding,

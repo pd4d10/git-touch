@@ -15,11 +15,11 @@ import 'package:tuple/tuple.dart';
 import '../generated/l10n.dart';
 
 class SettingsScreen extends StatelessWidget {
-  Widget _buildRightWidget(BuildContext context, bool checked) {
-    final theme = Provider.of<ThemeModel>(context);
-    if (!checked) return null;
-    return Icon(Icons.check, color: theme.palette.primary, size: 24);
-  }
+  // Widget _buildRightWidget(BuildContext context, bool checked) {
+  //   final theme = Provider.of<ThemeModel>(context);
+  //   if (!checked) return null;
+  //   return Icon(Icons.check, color: theme.palette.primary, size: 24);
+  // }
 
   @override
   Widget build(BuildContext context) {
