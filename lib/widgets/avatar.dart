@@ -17,8 +17,6 @@ class Avatar extends StatelessWidget {
   final String linkUrl;
   final BorderRadius borderRadius;
 
-  static const fallback = 'images/avatar.png';
-
   Avatar({
     @required this.url,
     this.size = AvatarSize.medium,
@@ -28,6 +26,11 @@ class Avatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Provider.of<ThemeModel>(context);
+    final fallback = theme.brightness == Brightness.light
+        ? 'images/avatar.png'
+        : 'images/avatar-dark.png';
+
     final widget = ClipRRect(
       borderRadius: borderRadius ?? BorderRadius.circular(size / 2),
       child: url == null
