@@ -728,9 +728,11 @@ class AuthModel with ChangeNotifier {
   }
 
   String _oauthState;
-  void redirectToGithubOauth() {
+  void redirectToGithubOauth([publicOnly = false]) {
     _oauthState = nanoid();
-    var scope = Uri.encodeComponent('user,repo,read:org,notifications');
+    final repoScope = publicOnly ? 'public_repo' : 'repo';
+    final scope = Uri.encodeComponent(
+        ['user', repoScope, 'read:org', 'notifications'].join(','));
     launchUrl(
       'https://github.com/login/oauth/authorize?client_id=$clientId&redirect_uri=gittouch://login&scope=$scope&state=$_oauthState',
     );

@@ -158,6 +158,12 @@ class _LoginScreenState extends State<LoginScreen> {
                           },
                         ),
                         ActionItem(
+                          text: 'via OAuth (Public repos only)',
+                          onTap: (_) {
+                            auth.redirectToGithubOauth(true);
+                          },
+                        ),
+                        ActionItem(
                           text: 'via Personal token',
                           onTap: (_) async {
                             final result = await theme.showConfirm(
