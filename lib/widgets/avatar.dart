@@ -17,6 +17,8 @@ class Avatar extends StatelessWidget {
   final String linkUrl;
   final BorderRadius borderRadius;
 
+  static const fallback = 'images/avatar.png';
+
   Avatar({
     @required this.url,
     this.size = AvatarSize.medium,
@@ -26,7 +28,6 @@ class Avatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final fallback = 'images/avatar.png';
     final widget = ClipRRect(
       borderRadius: borderRadius ?? BorderRadius.circular(size / 2),
       child: url == null
@@ -46,44 +47,6 @@ class Avatar extends StatelessWidget {
       onTap: () {
         context.read<ThemeModel>().push(context, linkUrl);
       },
-    );
-  }
-}
-
-class GithubAvatar extends StatelessWidget {
-  final String url;
-  final double size;
-  final String login;
-
-  GithubAvatar({
-    @required this.url,
-    this.size = AvatarSize.medium,
-    this.login,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Avatar(url: url, size: size, linkUrl: '/github/$login');
-  }
-}
-
-class GitlabAvatar extends StatelessWidget {
-  final String url;
-  final double size;
-  final int id;
-
-  GitlabAvatar({
-    @required this.url,
-    @required this.id,
-    this.size = AvatarSize.medium,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Avatar(
-      url: url,
-      size: size,
-      linkUrl: '/gitlab/user/$id',
     );
   }
 }

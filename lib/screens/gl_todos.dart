@@ -78,8 +78,9 @@ class GlTodosScreen extends StatelessWidget {
                 padding: CommonStyle.padding,
                 child: Row(
                   children: <Widget>[
-                    GitlabAvatar(
-                        url: item.author.avatarUrl, id: item.author.id),
+                    Avatar(
+                        url: item.author.avatarUrl,
+                        linkUrl: '/gitlab/user/${item.author.id}'),
                     SizedBox(width: 12),
                     Expanded(
                       child: Text.rich(
