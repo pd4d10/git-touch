@@ -142,27 +142,17 @@ class CommentItem extends StatelessWidget {
   final List<Widget> widgets;
   final List<ActionItem> commentActionItemList;
 
+  // p.author could be null (deleted user)
   CommentItem.gql(GCommentParts p)
       : avatar = Avatar(
-          url: p.author.avatarUrl, // TODO: deleted user
-          linkUrl: '/github/' + p.author.login,
+          url: p.author?.avatarUrl ??
+              'https://avatars.githubusercontent.com/u/10137?s=460&u=b1951d34a583cf12ec0d3b0781ba19be97726318&v=4',
+          linkUrl: '/github/' + (p.author?.login ?? 'ghost'),
         ),
-        login = p.author.login,
+        login = p.author?.login ?? 'ghost',
         createdAt = p.createdAt,
         body = p.body,
         widgets = [], // [GhEmojiAction(payload)], // TODO:
-        prefix = 'github',
-        commentActionItemList = []; // TODO
-
-  CommentItem.gh(Map<String, dynamic> payload)
-      : avatar = Avatar(
-          url: payload['author']['avatarUrl'], // TODO: deleted user
-          linkUrl: '/github/' + payload['author']['login'],
-        ),
-        login = payload['author']['login'],
-        createdAt = DateTime.parse(payload['createdAt']),
-        body = payload['body'],
-        widgets = [GhEmojiAction(payload)],
         prefix = 'github',
         commentActionItemList = []; // TODO
 
