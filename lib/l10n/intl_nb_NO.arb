@@ -1,1 +1,354 @@
-{}
+{
+  "reviewPermissions": "Tilgangsvurderinger",
+  "@reviewPermissions": {
+    "description": "review Permissions"
+  },
+  "material": "Materiell",
+  "@material": {
+    "description": "Material scaffold theme"
+  },
+  "gists": "Kludringer",
+  "@gists": {
+    "description": "gists for a user"
+  },
+  "cupertino": "Cupertino",
+  "@cupertino": {
+    "description": "Cupertino scaffold theme"
+  },
+  "scaffoldTheme": "Stillas",
+  "@scaffoldTheme": {
+    "description": "Kind of theme - cupertino or material"
+  },
+  "unfollow": "Ikke følg",
+  "@unfollow": {
+    "description": "unfollow someone"
+  },
+  "trending": "På vei opp",
+  "@trending": {
+    "description": "Trending"
+  },
+  "notFoundTextDisplay": "Oida, denne siden er ikke implementert enda.",
+  "@notFoundTextDisplay": {
+    "description": "Not found error message"
+  },
+  "somethingBadHappens": "Noe går galt:",
+  "@somethingBadHappens": {
+    "description": "error message"
+  },
+  "branches": "Forgreninger",
+  "@branches": {
+    "description": "branches"
+  },
+  "commits": "Innsendelser",
+  "@commits": {
+    "description": "Commits"
+  },
+  "pullRequests": "Hentingsforespørsler",
+  "@pullRequests": {
+    "description": "Pull Requests"
+  },
+  "issues": "Feilrapporter",
+  "@issues": {
+    "description": "issues"
+  },
+  "watchers": "Seere",
+  "@watchers": {
+    "description": "watchers"
+  },
+  "webview": "WebView",
+  "@webview": {
+    "description": "render webview for markdown"
+  },
+  "flutter": "Flutter",
+  "@flutter": {
+    "description": "render flutter for markdown"
+  },
+  "markdownRenderEngine": "Markdown-opptegningsmotor",
+  "@markdownRenderEngine": {
+    "description": "flutter or webview rendering for markdown"
+  },
+  "follow": "Følg",
+  "@follow": {
+    "description": "follow someone"
+  },
+  "helloWorld": "Hei verden!",
+  "@helloWorld": {
+    "description": "The conventional newborn programmer greeting"
+  },
+  "permissionRequiredMessage": "GitTouch trenger disse tilgangene",
+  "@permissionRequiredMessage": {
+    "description": "Permission Required Message"
+  },
+  "notFoundMessage": "Ikke funnet",
+  "@notFoundMessage": {
+    "description": "Not found page header"
+  },
+  "syntaxHighlighting": "SYNTAKSFRAMHEVING",
+  "@syntaxHighlighting": {
+    "description": "Syntax Highlighting"
+  },
+  "fontStyle": "SKRIFTSTIL",
+  "@fontStyle": {
+    "description": "font style"
+  },
+  "fontSize": "Skriftstørrelse",
+  "@fontSize": {
+    "description": "font size"
+  },
+  "fontFamily": "Skriftfamilie",
+  "@fontFamily": {
+    "description": "Font Family"
+  },
+  "projectActions": "Prosjekthandlinger",
+  "@projectActions": {
+    "description": "Project Actions"
+  },
+  "code": "Kode",
+  "@code": {
+    "description": "Code"
+  },
+  "issue": "Problem",
+  "@issue": {
+    "description": "issue"
+  },
+  "group": "Gruppe",
+  "@group": {
+    "description": "group"
+  },
+  "user": "Bruker",
+  "@user": {
+    "description": "user"
+  },
+  "giteeAccount": "Gitee-konto",
+  "@giteeAccount": {
+    "description": "Gitee Account"
+  },
+  "giteaAccount": "Gitea-konto",
+  "@giteaAccount": {
+    "description": "Gitea Account"
+  },
+  "longPressToRemoveAccount": "Trykk lenge for å fjerne konto",
+  "@longPressToRemoveAccount": {
+    "description": "Long Press to remove account"
+  },
+  "bitbucketAccount": "Bitbucket-konto",
+  "@bitbucketAccount": {
+    "description": "Bitbucket Account"
+  },
+  "gitlabAccount": "GitLab-konto",
+  "@gitlabAccount": {
+    "description": "Gitlab Account"
+  },
+  "githubAccount": "GitHub-konto",
+  "@githubAccount": {
+    "description": "Gitea Account"
+  },
+  "removeAccount": "Fjern konto",
+  "@removeAccount": {
+    "description": "remove account"
+  },
+  "selectAccount": "Velg konto",
+  "@selectAccount": {
+    "description": "select account message"
+  },
+  "project": "Prosjekt",
+  "@project": {
+    "description": "project"
+  },
+  "activity": "Aktivitet",
+  "@activity": {
+    "description": "activity"
+  },
+  "mergeRequests": "Flett forespørsler",
+  "@mergeRequests": {
+    "description": "Merge request"
+  },
+  "groups": "Grupper",
+  "@groups": {
+    "description": "groups"
+  },
+  "actions": "Handlinger",
+  "@actions": {
+    "description": "actions"
+  },
+  "files": "Filer",
+  "@files": {
+    "description": "file plural"
+  },
+  "file": "Fil",
+  "@file": {
+    "description": "file"
+  },
+  "teams": "Lag",
+  "@teams": {
+    "description": "teams"
+  },
+  "explore": "Utforsk",
+  "@explore": {
+    "description": "explore"
+  },
+  "developers": "Utviklere",
+  "@developers": {
+    "description": "developers"
+  },
+  "all": "Alle",
+  "@all": {
+    "description": "all"
+  },
+  "unread": "Ulest",
+  "@unread": {
+    "description": "unread"
+  },
+  "contributors": "Bidragsytere",
+  "@contributors": {
+    "description": "contributors"
+  },
+  "forks": "Forgreninger",
+  "@forks": {
+    "description": "forks"
+  },
+  "releases": "Utgivelser",
+  "@releases": {
+    "description": "releases"
+  },
+  "projects": "Prosjekter",
+  "@projects": {
+    "description": "projects"
+  },
+  "repositoryActions": "Kodelagerhandlinger",
+  "@repositoryActions": {
+    "description": "Repository Actions"
+  },
+  "repository": "Kodelager",
+  "@repository": {
+    "description": "Repository screen title"
+  },
+  "sourceCode": "Kildekode",
+  "@sourceCode": {
+    "description": "source code for app"
+  },
+  "about": "om",
+  "@about": {
+    "description": "about section"
+  },
+  "version": "Versjon",
+  "@version": {
+    "description": "app version"
+  },
+  "email": "E-post",
+  "@email": {
+    "description": "Email to report issues"
+  },
+  "rateThisApp": "Vurder programmet",
+  "@rateThisApp": {
+    "description": "rate the app"
+  },
+  "submitAnIssue": "Send inn en feilrapport",
+  "@submitAnIssue": {
+    "description": "submit issue for app"
+  },
+  "feedback": "tilbakemelding",
+  "@feedback": {
+    "description": "provide feedback"
+  },
+  "codeTheme": "Kodedrakt",
+  "@codeTheme": {
+    "description": "code theme"
+  },
+  "dark": "Mørk",
+  "@dark": {
+    "description": "dark mode"
+  },
+  "light": "Lys",
+  "@light": {
+    "description": "light mode"
+  },
+  "followSystem": "Følg systemet",
+  "@followSystem": {
+    "description": "follow systems setting"
+  },
+  "brightness": "Lysstyrke",
+  "@brightness": {
+    "description": "brightness"
+  },
+  "switchAccounts": "Bytt kontoer",
+  "@switchAccounts": {
+    "description": "Switch accounts"
+  },
+  "giteaStatus": "Gitea-status",
+  "@giteaStatus": {
+    "description": "Gitea status"
+  },
+  "gitlabStatus": "GitLab-status",
+  "@gitlabStatus": {
+    "description": "GitLab status"
+  },
+  "githubStatus": "GitHub-status",
+  "@githubStatus": {
+    "description": "github status"
+  },
+  "system": "system",
+  "@system": {
+    "description": "system"
+  },
+  "settings": "Innstillinger",
+  "@settings": {
+    "description": "settings"
+  },
+  "pinnedRepositories": "festede kodelager",
+  "@pinnedRepositories": {
+    "description": "pinned repositories"
+  },
+  "popularRepositories": "populære kodelager",
+  "@popularRepositories": {
+    "description": "popular repositories"
+  },
+  "members": "Medlemmer",
+  "@members": {
+    "description": "members of an organization"
+  },
+  "organizations": "Organisasjoner",
+  "@organizations": {
+    "description": "organizations for a user"
+  },
+  "events": "Hendelser",
+  "@events": {
+    "description": "events for a user"
+  },
+  "following": "Følger",
+  "@following": {
+    "description": "people followed by a person"
+  },
+  "followers": "Følgere",
+  "@followers": {
+    "description": "followers for a person"
+  },
+  "stars": "Stjerner",
+  "@stars": {
+    "description": "stars on a repo"
+  },
+  "repositories": "Kodelager",
+  "@repositories": {
+    "description": "repository text"
+  },
+  "participating": "Deltar",
+  "@participating": {
+    "description": "The participating Tab"
+  },
+  "me": "Meg",
+  "@me": {
+    "description": "The Me tab"
+  },
+  "search": "Søk",
+  "@search": {
+    "description": "The Search tab"
+  },
+  "notification": "Merknad",
+  "@notification": {
+    "description": "The Notification tab"
+  },
+  "news": "Nyheter",
+  "@news": {
+    "description": "The News tab"
+  }
+}
