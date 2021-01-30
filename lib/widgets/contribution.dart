@@ -16,6 +16,19 @@ const darkMapper = {
   '#216e39': '#00c647'
 };
 
+class HideScrollbar extends StatelessWidget {
+  final Widget child;
+  const HideScrollbar({Key key, this.child}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return NotificationListener<ScrollNotification>(
+      onNotification: (_) => true,
+      child: child,
+    );
+  }
+}
+
 class ContributionDay {
   String hexColor;
   int count;
@@ -55,7 +68,8 @@ class ContributionWidget extends StatelessWidget {
     return Container(
       alignment: Alignment.center,
       padding: CommonStyle.padding,
-      child: SingleChildScrollView(
+      child: HideScrollbar(
+          child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         reverse: true,
         child: Wrap(
@@ -84,7 +98,7 @@ class ContributionWidget extends StatelessWidget {
               )
           ],
         ),
-      ),
+      )),
     );
   }
 }
