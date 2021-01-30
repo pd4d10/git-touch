@@ -291,7 +291,7 @@
   "@notFoundMessage": {
     "description": "Not found page header"
   },
-  "notFoundTextDisplay": "Woops, This page is not implemented yet",
+  "notFoundTextDisplay": "Oops, this page is not implemented yet.",
   "@notFoundTextDisplay": {
     "description": "Not found error message"
   },
