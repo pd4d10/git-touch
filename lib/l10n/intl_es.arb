@@ -1,1 +1,354 @@
-{}
+{
+  "fontFamily": "Nombre de fuente",
+  "@fontFamily": {
+    "description": "Font Family"
+  },
+  "syntaxHighlighting": "RESALTADO DE SINTAXIS",
+  "@syntaxHighlighting": {
+    "description": "Syntax Highlighting"
+  },
+  "somethingBadHappens": "Algo malo sucede:",
+  "@somethingBadHappens": {
+    "description": "error message"
+  },
+  "issues": "Issues",
+  "@issues": {
+    "description": "issues"
+  },
+  "watchers": "Observadores",
+  "@watchers": {
+    "description": "watchers"
+  },
+  "releases": "Lanzamientos",
+  "@releases": {
+    "description": "releases"
+  },
+  "codeTheme": "Tema de Código",
+  "@codeTheme": {
+    "description": "code theme"
+  },
+  "cupertino": "Cupertino",
+  "@cupertino": {
+    "description": "Cupertino scaffold theme"
+  },
+  "scaffoldTheme": "Tema de Scaffold",
+  "@scaffoldTheme": {
+    "description": "Kind of theme - cupertino or material"
+  },
+  "fontStyle": "ESTILO DE FUENTE",
+  "@fontStyle": {
+    "description": "font style"
+  },
+  "fontSize": "Tamaño de la fuente",
+  "@fontSize": {
+    "description": "font size"
+  },
+  "projectActions": "Acciones del proyecto",
+  "@projectActions": {
+    "description": "Project Actions"
+  },
+  "code": "Código",
+  "@code": {
+    "description": "Code"
+  },
+  "issue": "Issue",
+  "@issue": {
+    "description": "issue"
+  },
+  "group": "Grupo",
+  "@group": {
+    "description": "group"
+  },
+  "user": "Usuario",
+  "@user": {
+    "description": "user"
+  },
+  "giteeAccount": "Cuenta de Gitea",
+  "@giteeAccount": {
+    "description": "Gitee Account"
+  },
+  "giteaAccount": "Cuenta de Gitea",
+  "@giteaAccount": {
+    "description": "Gitea Account"
+  },
+  "longPressToRemoveAccount": "Pulsación larga para eliminar la cuenta",
+  "@longPressToRemoveAccount": {
+    "description": "Long Press to remove account"
+  },
+  "bitbucketAccount": "Cuenta de Bitbucket",
+  "@bitbucketAccount": {
+    "description": "Bitbucket Account"
+  },
+  "gitlabAccount": "Cuenta de GitLab",
+  "@gitlabAccount": {
+    "description": "Gitlab Account"
+  },
+  "notFoundTextDisplay": "Oops, esta página aún no está implementada.",
+  "@notFoundTextDisplay": {
+    "description": "Not found error message"
+  },
+  "notFoundMessage": "No encontrado",
+  "@notFoundMessage": {
+    "description": "Not found page header"
+  },
+  "permissionRequiredMessage": "GitTouch necesita estos permisos",
+  "@permissionRequiredMessage": {
+    "description": "Permission Required Message"
+  },
+  "githubAccount": "Cuenta de GitHub",
+  "@githubAccount": {
+    "description": "Gitea Account"
+  },
+  "removeAccount": "Eliminar cuenta",
+  "@removeAccount": {
+    "description": "remove account"
+  },
+  "selectAccount": "Seleccione una cuenta",
+  "@selectAccount": {
+    "description": "select account message"
+  },
+  "project": "Proyecto",
+  "@project": {
+    "description": "project"
+  },
+  "activity": "Actividad",
+  "@activity": {
+    "description": "activity"
+  },
+  "mergeRequests": "Merge Requests",
+  "@mergeRequests": {
+    "description": "Merge request"
+  },
+  "groups": "Grupos",
+  "@groups": {
+    "description": "groups"
+  },
+  "actions": "Acciones",
+  "@actions": {
+    "description": "actions"
+  },
+  "files": "Archivos",
+  "@files": {
+    "description": "file plural"
+  },
+  "file": "Archivo",
+  "@file": {
+    "description": "file"
+  },
+  "teams": "Equipos",
+  "@teams": {
+    "description": "teams"
+  },
+  "explore": "Explorar",
+  "@explore": {
+    "description": "explore"
+  },
+  "developers": "Desarrolladores",
+  "@developers": {
+    "description": "developers"
+  },
+  "all": "Todos",
+  "@all": {
+    "description": "all"
+  },
+  "unread": "No leídos",
+  "@unread": {
+    "description": "unread"
+  },
+  "contributors": "Contribuidores",
+  "@contributors": {
+    "description": "contributors"
+  },
+  "branches": "Branches",
+  "@branches": {
+    "description": "branches"
+  },
+  "commits": "Commits",
+  "@commits": {
+    "description": "Commits"
+  },
+  "pullRequests": "Pull requests",
+  "@pullRequests": {
+    "description": "Pull Requests"
+  },
+  "forks": "Bifurcaciones (Forks)",
+  "@forks": {
+    "description": "forks"
+  },
+  "projects": "Proyectos",
+  "@projects": {
+    "description": "projects"
+  },
+  "repositoryActions": "Acciones del repositorio",
+  "@repositoryActions": {
+    "description": "Repository Actions"
+  },
+  "repository": "Repositorio",
+  "@repository": {
+    "description": "Repository screen title"
+  },
+  "sourceCode": "Código fuente",
+  "@sourceCode": {
+    "description": "source code for app"
+  },
+  "version": "Versión",
+  "@version": {
+    "description": "app version"
+  },
+  "about": "acerca de",
+  "@about": {
+    "description": "about section"
+  },
+  "email": "Correo electrónico",
+  "@email": {
+    "description": "Email to report issues"
+  },
+  "rateThisApp": "Valora esta aplicación",
+  "@rateThisApp": {
+    "description": "rate the app"
+  },
+  "submitAnIssue": "Enviar un problema",
+  "@submitAnIssue": {
+    "description": "submit issue for app"
+  },
+  "feedback": "comentarios",
+  "@feedback": {
+    "description": "provide feedback"
+  },
+  "webview": "WebView",
+  "@webview": {
+    "description": "render webview for markdown"
+  },
+  "flutter": "Flutter",
+  "@flutter": {
+    "description": "render flutter for markdown"
+  },
+  "markdownRenderEngine": "Motor de renderizado Markdown",
+  "@markdownRenderEngine": {
+    "description": "flutter or webview rendering for markdown"
+  },
+  "material": "Material",
+  "@material": {
+    "description": "Material scaffold theme"
+  },
+  "dark": "Oscuro",
+  "@dark": {
+    "description": "dark mode"
+  },
+  "light": "Luz",
+  "@light": {
+    "description": "light mode"
+  },
+  "followSystem": "Seguir el sistema",
+  "@followSystem": {
+    "description": "follow systems setting"
+  },
+  "brightness": "Brillo",
+  "@brightness": {
+    "description": "brightness"
+  },
+  "switchAccounts": "Cambiar de cuenta",
+  "@switchAccounts": {
+    "description": "Switch accounts"
+  },
+  "giteaStatus": "Estado de Gitea",
+  "@giteaStatus": {
+    "description": "Gitea status"
+  },
+  "gitlabStatus": "Estado de Gitlab",
+  "@gitlabStatus": {
+    "description": "GitLab status"
+  },
+  "reviewPermissions": "Revisar los permisos",
+  "@reviewPermissions": {
+    "description": "review Permissions"
+  },
+  "githubStatus": "Estado de Github",
+  "@githubStatus": {
+    "description": "github status"
+  },
+  "system": "sistema",
+  "@system": {
+    "description": "system"
+  },
+  "settings": "Configuraciones",
+  "@settings": {
+    "description": "settings"
+  },
+  "pinnedRepositories": "repositorios anclados",
+  "@pinnedRepositories": {
+    "description": "pinned repositories"
+  },
+  "popularRepositories": "repositorios populares",
+  "@popularRepositories": {
+    "description": "popular repositories"
+  },
+  "members": "Miembros",
+  "@members": {
+    "description": "members of an organization"
+  },
+  "organizations": "Organizaciones",
+  "@organizations": {
+    "description": "organizations for a user"
+  },
+  "gists": "Gists",
+  "@gists": {
+    "description": "gists for a user"
+  },
+  "events": "Eventos",
+  "@events": {
+    "description": "events for a user"
+  },
+  "following": "Siguiendo",
+  "@following": {
+    "description": "people followed by a person"
+  },
+  "followers": "Seguidores",
+  "@followers": {
+    "description": "followers for a person"
+  },
+  "stars": "Estrellas",
+  "@stars": {
+    "description": "stars on a repo"
+  },
+  "follow": "Seguir",
+  "@follow": {
+    "description": "follow someone"
+  },
+  "unfollow": "Dejar de seguir",
+  "@unfollow": {
+    "description": "unfollow someone"
+  },
+  "repositories": "Repositorios",
+  "@repositories": {
+    "description": "repository text"
+  },
+  "participating": "Participando",
+  "@participating": {
+    "description": "The participating Tab"
+  },
+  "me": "Yo",
+  "@me": {
+    "description": "The Me tab"
+  },
+  "search": "Buscar",
+  "@search": {
+    "description": "The Search tab"
+  },
+  "trending": "Tendencias",
+  "@trending": {
+    "description": "Trending"
+  },
+  "notification": "Notificación",
+  "@notification": {
+    "description": "The Notification tab"
+  },
+  "news": "Noticias",
+  "@news": {
+    "description": "The News tab"
+  },
+  "helloWorld": "¡Hola, Mundo!",
+  "@helloWorld": {
+    "description": "The conventional newborn programmer greeting"
+  }
+}
