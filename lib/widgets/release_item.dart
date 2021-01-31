@@ -76,11 +76,7 @@ class ReleaseItem extends StatelessWidget {
         ],
         ExpansionTile(
           title: Text(
-            'Assets (' +
-                (releaseAssets != null
-                    ? releaseAssets.nodes.length.toString()
-                    : '0') +
-                ')',
+            'Assets (' + (releaseAssets?.nodes?.length ?? 0).toString() + ')',
             style: TextStyle(
               color: theme.palette.secondaryText,
               fontSize: 18,
