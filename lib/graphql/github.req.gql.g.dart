@@ -43,6 +43,9 @@ Serializer<GCommitsRefReq> _$gCommitsRefReqSerializer =
     new _$GCommitsRefReqSerializer();
 Serializer<GCommentPartsReq> _$gCommentPartsReqSerializer =
     new _$GCommentPartsReqSerializer();
+Serializer<GReactionConnectionPartsReq>
+    _$gReactionConnectionPartsReqSerializer =
+    new _$GReactionConnectionPartsReqSerializer();
 Serializer<GReactablePartsReq> _$gReactablePartsReqSerializer =
     new _$GReactablePartsReqSerializer();
 Serializer<GReferencedEventPartsReq> _$gReferencedEventPartsReqSerializer =
@@ -2352,6 +2355,80 @@ class _$GCommentPartsReqSerializer
           result.vars.replace(serializers.deserialize(value,
                   specifiedType: const FullType(_i3.GCommentPartsVars))
               as _i3.GCommentPartsVars);
+          break;
+        case 'document':
+          result.document = serializers.deserialize(value,
+                  specifiedType: const FullType(_i7.DocumentNode))
+              as _i7.DocumentNode;
+          break;
+        case 'fragmentName':
+          result.fragmentName = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'idFields':
+          result.idFields = serializers.deserialize(value,
+              specifiedType: const FullType(Map, const [
+                const FullType(String),
+                const FullType(dynamic)
+              ])) as Map<String, dynamic>;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GReactionConnectionPartsReqSerializer
+    implements StructuredSerializer<GReactionConnectionPartsReq> {
+  @override
+  final Iterable<Type> types = const [
+    GReactionConnectionPartsReq,
+    _$GReactionConnectionPartsReq
+  ];
+  @override
+  final String wireName = 'GReactionConnectionPartsReq';
+
+  @override
+  Iterable<Object> serialize(
+      Serializers serializers, GReactionConnectionPartsReq object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[
+      'vars',
+      serializers.serialize(object.vars,
+          specifiedType: const FullType(_i3.GReactionConnectionPartsVars)),
+      'document',
+      serializers.serialize(object.document,
+          specifiedType: const FullType(_i7.DocumentNode)),
+      'fragmentName',
+      serializers.serialize(object.fragmentName,
+          specifiedType: const FullType(String)),
+      'idFields',
+      serializers.serialize(object.idFields,
+          specifiedType: const FullType(
+              Map, const [const FullType(String), const FullType(dynamic)])),
+    ];
+
+    return result;
+  }
+
+  @override
+  GReactionConnectionPartsReq deserialize(
+      Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GReactionConnectionPartsReqBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'vars':
+          result.vars.replace(serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(_i3.GReactionConnectionPartsVars))
+              as _i3.GReactionConnectionPartsVars);
           break;
         case 'document':
           result.document = serializers.deserialize(value,
@@ -9125,6 +9202,155 @@ class GCommentPartsReqBuilder
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'GCommentPartsReq', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GReactionConnectionPartsReq extends GReactionConnectionPartsReq {
+  @override
+  final _i3.GReactionConnectionPartsVars vars;
+  @override
+  final _i7.DocumentNode document;
+  @override
+  final String fragmentName;
+  @override
+  final Map<String, dynamic> idFields;
+
+  factory _$GReactionConnectionPartsReq(
+          [void Function(GReactionConnectionPartsReqBuilder) updates]) =>
+      (new GReactionConnectionPartsReqBuilder()..update(updates)).build();
+
+  _$GReactionConnectionPartsReq._(
+      {this.vars, this.document, this.fragmentName, this.idFields})
+      : super._() {
+    if (vars == null) {
+      throw new BuiltValueNullFieldError('GReactionConnectionPartsReq', 'vars');
+    }
+    if (document == null) {
+      throw new BuiltValueNullFieldError(
+          'GReactionConnectionPartsReq', 'document');
+    }
+    if (fragmentName == null) {
+      throw new BuiltValueNullFieldError(
+          'GReactionConnectionPartsReq', 'fragmentName');
+    }
+    if (idFields == null) {
+      throw new BuiltValueNullFieldError(
+          'GReactionConnectionPartsReq', 'idFields');
+    }
+  }
+
+  @override
+  GReactionConnectionPartsReq rebuild(
+          void Function(GReactionConnectionPartsReqBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GReactionConnectionPartsReqBuilder toBuilder() =>
+      new GReactionConnectionPartsReqBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GReactionConnectionPartsReq &&
+        vars == other.vars &&
+        document == other.document &&
+        fragmentName == other.fragmentName &&
+        idFields == other.idFields;
+  }
+
+  @override
+  int get hashCode {
+    return $jf($jc(
+        $jc($jc($jc(0, vars.hashCode), document.hashCode),
+            fragmentName.hashCode),
+        idFields.hashCode));
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper('GReactionConnectionPartsReq')
+          ..add('vars', vars)
+          ..add('document', document)
+          ..add('fragmentName', fragmentName)
+          ..add('idFields', idFields))
+        .toString();
+  }
+}
+
+class GReactionConnectionPartsReqBuilder
+    implements
+        Builder<GReactionConnectionPartsReq,
+            GReactionConnectionPartsReqBuilder> {
+  _$GReactionConnectionPartsReq _$v;
+
+  _i3.GReactionConnectionPartsVarsBuilder _vars;
+  _i3.GReactionConnectionPartsVarsBuilder get vars =>
+      _$this._vars ??= new _i3.GReactionConnectionPartsVarsBuilder();
+  set vars(_i3.GReactionConnectionPartsVarsBuilder vars) => _$this._vars = vars;
+
+  _i7.DocumentNode _document;
+  _i7.DocumentNode get document => _$this._document;
+  set document(_i7.DocumentNode document) => _$this._document = document;
+
+  String _fragmentName;
+  String get fragmentName => _$this._fragmentName;
+  set fragmentName(String fragmentName) => _$this._fragmentName = fragmentName;
+
+  Map<String, dynamic> _idFields;
+  Map<String, dynamic> get idFields => _$this._idFields;
+  set idFields(Map<String, dynamic> idFields) => _$this._idFields = idFields;
+
+  GReactionConnectionPartsReqBuilder() {
+    GReactionConnectionPartsReq._initializeBuilder(this);
+  }
+
+  GReactionConnectionPartsReqBuilder get _$this {
+    if (_$v != null) {
+      _vars = _$v.vars?.toBuilder();
+      _document = _$v.document;
+      _fragmentName = _$v.fragmentName;
+      _idFields = _$v.idFields;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GReactionConnectionPartsReq other) {
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
+    _$v = other as _$GReactionConnectionPartsReq;
+  }
+
+  @override
+  void update(void Function(GReactionConnectionPartsReqBuilder) updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  _$GReactionConnectionPartsReq build() {
+    _$GReactionConnectionPartsReq _$result;
+    try {
+      _$result = _$v ??
+          new _$GReactionConnectionPartsReq._(
+              vars: vars.build(),
+              document: document,
+              fragmentName: fragmentName,
+              idFields: idFields);
+    } catch (_) {
+      String _$failedField;
+      try {
+        _$failedField = 'vars';
+        vars.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            'GReactionConnectionPartsReq', _$failedField, e.toString());
       }
       rethrow;
     }

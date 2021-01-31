@@ -5537,7 +5537,8 @@ abstract class GIssueData_repository_issueOrPullRequest__asIssue_THUMBS_UP
     implements
         Built<GIssueData_repository_issueOrPullRequest__asIssue_THUMBS_UP,
             GIssueData_repository_issueOrPullRequest__asIssue_THUMBS_UPBuilder>,
-        GReactableParts_THUMBS_UP {
+        GReactableParts_THUMBS_UP,
+        GReactionConnectionParts {
   GIssueData_repository_issueOrPullRequest__asIssue_THUMBS_UP._();
 
   factory GIssueData_repository_issueOrPullRequest__asIssue_THUMBS_UP(
@@ -5572,7 +5573,8 @@ abstract class GIssueData_repository_issueOrPullRequest__asIssue_THUMBS_DOWN
     implements
         Built<GIssueData_repository_issueOrPullRequest__asIssue_THUMBS_DOWN,
             GIssueData_repository_issueOrPullRequest__asIssue_THUMBS_DOWNBuilder>,
-        GReactableParts_THUMBS_DOWN {
+        GReactableParts_THUMBS_DOWN,
+        GReactionConnectionParts {
   GIssueData_repository_issueOrPullRequest__asIssue_THUMBS_DOWN._();
 
   factory GIssueData_repository_issueOrPullRequest__asIssue_THUMBS_DOWN(
@@ -5609,7 +5611,8 @@ abstract class GIssueData_repository_issueOrPullRequest__asIssue_LAUGH
     implements
         Built<GIssueData_repository_issueOrPullRequest__asIssue_LAUGH,
             GIssueData_repository_issueOrPullRequest__asIssue_LAUGHBuilder>,
-        GReactableParts_LAUGH {
+        GReactableParts_LAUGH,
+        GReactionConnectionParts {
   GIssueData_repository_issueOrPullRequest__asIssue_LAUGH._();
 
   factory GIssueData_repository_issueOrPullRequest__asIssue_LAUGH(
@@ -5640,7 +5643,8 @@ abstract class GIssueData_repository_issueOrPullRequest__asIssue_HOORAY
     implements
         Built<GIssueData_repository_issueOrPullRequest__asIssue_HOORAY,
             GIssueData_repository_issueOrPullRequest__asIssue_HOORAYBuilder>,
-        GReactableParts_HOORAY {
+        GReactableParts_HOORAY,
+        GReactionConnectionParts {
   GIssueData_repository_issueOrPullRequest__asIssue_HOORAY._();
 
   factory GIssueData_repository_issueOrPullRequest__asIssue_HOORAY(
@@ -5672,7 +5676,8 @@ abstract class GIssueData_repository_issueOrPullRequest__asIssue_CONFUSED
     implements
         Built<GIssueData_repository_issueOrPullRequest__asIssue_CONFUSED,
             GIssueData_repository_issueOrPullRequest__asIssue_CONFUSEDBuilder>,
-        GReactableParts_CONFUSED {
+        GReactableParts_CONFUSED,
+        GReactionConnectionParts {
   GIssueData_repository_issueOrPullRequest__asIssue_CONFUSED._();
 
   factory GIssueData_repository_issueOrPullRequest__asIssue_CONFUSED(
@@ -5706,7 +5711,8 @@ abstract class GIssueData_repository_issueOrPullRequest__asIssue_HEART
     implements
         Built<GIssueData_repository_issueOrPullRequest__asIssue_HEART,
             GIssueData_repository_issueOrPullRequest__asIssue_HEARTBuilder>,
-        GReactableParts_HEART {
+        GReactableParts_HEART,
+        GReactionConnectionParts {
   GIssueData_repository_issueOrPullRequest__asIssue_HEART._();
 
   factory GIssueData_repository_issueOrPullRequest__asIssue_HEART(
@@ -5737,7 +5743,8 @@ abstract class GIssueData_repository_issueOrPullRequest__asIssue_ROCKET
     implements
         Built<GIssueData_repository_issueOrPullRequest__asIssue_ROCKET,
             GIssueData_repository_issueOrPullRequest__asIssue_ROCKETBuilder>,
-        GReactableParts_ROCKET {
+        GReactableParts_ROCKET,
+        GReactionConnectionParts {
   GIssueData_repository_issueOrPullRequest__asIssue_ROCKET._();
 
   factory GIssueData_repository_issueOrPullRequest__asIssue_ROCKET(
@@ -5769,7 +5776,8 @@ abstract class GIssueData_repository_issueOrPullRequest__asIssue_EYES
     implements
         Built<GIssueData_repository_issueOrPullRequest__asIssue_EYES,
             GIssueData_repository_issueOrPullRequest__asIssue_EYESBuilder>,
-        GReactableParts_EYES {
+        GReactableParts_EYES,
+        GReactionConnectionParts {
   GIssueData_repository_issueOrPullRequest__asIssue_EYES._();
 
   factory GIssueData_repository_issueOrPullRequest__asIssue_EYES(
@@ -6054,7 +6062,8 @@ abstract class GIssueData_repository_issueOrPullRequest__asIssue_timelineItems_n
         Built<
             GIssueData_repository_issueOrPullRequest__asIssue_timelineItems_nodes__asIssueComment_THUMBS_UP,
             GIssueData_repository_issueOrPullRequest__asIssue_timelineItems_nodes__asIssueComment_THUMBS_UPBuilder>,
-        GReactableParts_THUMBS_UP {
+        GReactableParts_THUMBS_UP,
+        GReactionConnectionParts {
   GIssueData_repository_issueOrPullRequest__asIssue_timelineItems_nodes__asIssueComment_THUMBS_UP._();
 
   factory GIssueData_repository_issueOrPullRequest__asIssue_timelineItems_nodes__asIssueComment_THUMBS_UP(
@@ -6092,7 +6101,8 @@ abstract class GIssueData_repository_issueOrPullRequest__asIssue_timelineItems_n
         Built<
             GIssueData_repository_issueOrPullRequest__asIssue_timelineItems_nodes__asIssueComment_THUMBS_DOWN,
             GIssueData_repository_issueOrPullRequest__asIssue_timelineItems_nodes__asIssueComment_THUMBS_DOWNBuilder>,
-        GReactableParts_THUMBS_DOWN {
+        GReactableParts_THUMBS_DOWN,
+        GReactionConnectionParts {
   GIssueData_repository_issueOrPullRequest__asIssue_timelineItems_nodes__asIssueComment_THUMBS_DOWN._();
 
   factory GIssueData_repository_issueOrPullRequest__asIssue_timelineItems_nodes__asIssueComment_THUMBS_DOWN(
@@ -6130,7 +6140,8 @@ abstract class GIssueData_repository_issueOrPullRequest__asIssue_timelineItems_n
         Built<
             GIssueData_repository_issueOrPullRequest__asIssue_timelineItems_nodes__asIssueComment_LAUGH,
             GIssueData_repository_issueOrPullRequest__asIssue_timelineItems_nodes__asIssueComment_LAUGHBuilder>,
-        GReactableParts_LAUGH {
+        GReactableParts_LAUGH,
+        GReactionConnectionParts {
   GIssueData_repository_issueOrPullRequest__asIssue_timelineItems_nodes__asIssueComment_LAUGH._();
 
   factory GIssueData_repository_issueOrPullRequest__asIssue_timelineItems_nodes__asIssueComment_LAUGH(
@@ -6168,7 +6179,8 @@ abstract class GIssueData_repository_issueOrPullRequest__asIssue_timelineItems_n
         Built<
             GIssueData_repository_issueOrPullRequest__asIssue_timelineItems_nodes__asIssueComment_HOORAY,
             GIssueData_repository_issueOrPullRequest__asIssue_timelineItems_nodes__asIssueComment_HOORAYBuilder>,
-        GReactableParts_HOORAY {
+        GReactableParts_HOORAY,
+        GReactionConnectionParts {
   GIssueData_repository_issueOrPullRequest__asIssue_timelineItems_nodes__asIssueComment_HOORAY._();
 
   factory GIssueData_repository_issueOrPullRequest__asIssue_timelineItems_nodes__asIssueComment_HOORAY(
@@ -6206,7 +6218,8 @@ abstract class GIssueData_repository_issueOrPullRequest__asIssue_timelineItems_n
         Built<
             GIssueData_repository_issueOrPullRequest__asIssue_timelineItems_nodes__asIssueComment_CONFUSED,
             GIssueData_repository_issueOrPullRequest__asIssue_timelineItems_nodes__asIssueComment_CONFUSEDBuilder>,
-        GReactableParts_CONFUSED {
+        GReactableParts_CONFUSED,
+        GReactionConnectionParts {
   GIssueData_repository_issueOrPullRequest__asIssue_timelineItems_nodes__asIssueComment_CONFUSED._();
 
   factory GIssueData_repository_issueOrPullRequest__asIssue_timelineItems_nodes__asIssueComment_CONFUSED(
@@ -6244,7 +6257,8 @@ abstract class GIssueData_repository_issueOrPullRequest__asIssue_timelineItems_n
         Built<
             GIssueData_repository_issueOrPullRequest__asIssue_timelineItems_nodes__asIssueComment_HEART,
             GIssueData_repository_issueOrPullRequest__asIssue_timelineItems_nodes__asIssueComment_HEARTBuilder>,
-        GReactableParts_HEART {
+        GReactableParts_HEART,
+        GReactionConnectionParts {
   GIssueData_repository_issueOrPullRequest__asIssue_timelineItems_nodes__asIssueComment_HEART._();
 
   factory GIssueData_repository_issueOrPullRequest__asIssue_timelineItems_nodes__asIssueComment_HEART(
@@ -6282,7 +6296,8 @@ abstract class GIssueData_repository_issueOrPullRequest__asIssue_timelineItems_n
         Built<
             GIssueData_repository_issueOrPullRequest__asIssue_timelineItems_nodes__asIssueComment_ROCKET,
             GIssueData_repository_issueOrPullRequest__asIssue_timelineItems_nodes__asIssueComment_ROCKETBuilder>,
-        GReactableParts_ROCKET {
+        GReactableParts_ROCKET,
+        GReactionConnectionParts {
   GIssueData_repository_issueOrPullRequest__asIssue_timelineItems_nodes__asIssueComment_ROCKET._();
 
   factory GIssueData_repository_issueOrPullRequest__asIssue_timelineItems_nodes__asIssueComment_ROCKET(
@@ -6320,7 +6335,8 @@ abstract class GIssueData_repository_issueOrPullRequest__asIssue_timelineItems_n
         Built<
             GIssueData_repository_issueOrPullRequest__asIssue_timelineItems_nodes__asIssueComment_EYES,
             GIssueData_repository_issueOrPullRequest__asIssue_timelineItems_nodes__asIssueComment_EYESBuilder>,
-        GReactableParts_EYES {
+        GReactableParts_EYES,
+        GReactionConnectionParts {
   GIssueData_repository_issueOrPullRequest__asIssue_timelineItems_nodes__asIssueComment_EYES._();
 
   factory GIssueData_repository_issueOrPullRequest__asIssue_timelineItems_nodes__asIssueComment_EYES(
@@ -8857,7 +8873,8 @@ abstract class GIssueData_repository_issueOrPullRequest__asPullRequest_THUMBS_UP
     implements
         Built<GIssueData_repository_issueOrPullRequest__asPullRequest_THUMBS_UP,
             GIssueData_repository_issueOrPullRequest__asPullRequest_THUMBS_UPBuilder>,
-        GReactableParts_THUMBS_UP {
+        GReactableParts_THUMBS_UP,
+        GReactionConnectionParts {
   GIssueData_repository_issueOrPullRequest__asPullRequest_THUMBS_UP._();
 
   factory GIssueData_repository_issueOrPullRequest__asPullRequest_THUMBS_UP(
@@ -8895,7 +8912,8 @@ abstract class GIssueData_repository_issueOrPullRequest__asPullRequest_THUMBS_DO
         Built<
             GIssueData_repository_issueOrPullRequest__asPullRequest_THUMBS_DOWN,
             GIssueData_repository_issueOrPullRequest__asPullRequest_THUMBS_DOWNBuilder>,
-        GReactableParts_THUMBS_DOWN {
+        GReactableParts_THUMBS_DOWN,
+        GReactionConnectionParts {
   GIssueData_repository_issueOrPullRequest__asPullRequest_THUMBS_DOWN._();
 
   factory GIssueData_repository_issueOrPullRequest__asPullRequest_THUMBS_DOWN(
@@ -8932,7 +8950,8 @@ abstract class GIssueData_repository_issueOrPullRequest__asPullRequest_LAUGH
     implements
         Built<GIssueData_repository_issueOrPullRequest__asPullRequest_LAUGH,
             GIssueData_repository_issueOrPullRequest__asPullRequest_LAUGHBuilder>,
-        GReactableParts_LAUGH {
+        GReactableParts_LAUGH,
+        GReactionConnectionParts {
   GIssueData_repository_issueOrPullRequest__asPullRequest_LAUGH._();
 
   factory GIssueData_repository_issueOrPullRequest__asPullRequest_LAUGH(
@@ -8969,7 +8988,8 @@ abstract class GIssueData_repository_issueOrPullRequest__asPullRequest_HOORAY
     implements
         Built<GIssueData_repository_issueOrPullRequest__asPullRequest_HOORAY,
             GIssueData_repository_issueOrPullRequest__asPullRequest_HOORAYBuilder>,
-        GReactableParts_HOORAY {
+        GReactableParts_HOORAY,
+        GReactionConnectionParts {
   GIssueData_repository_issueOrPullRequest__asPullRequest_HOORAY._();
 
   factory GIssueData_repository_issueOrPullRequest__asPullRequest_HOORAY(
@@ -9005,7 +9025,8 @@ abstract class GIssueData_repository_issueOrPullRequest__asPullRequest_CONFUSED
     implements
         Built<GIssueData_repository_issueOrPullRequest__asPullRequest_CONFUSED,
             GIssueData_repository_issueOrPullRequest__asPullRequest_CONFUSEDBuilder>,
-        GReactableParts_CONFUSED {
+        GReactableParts_CONFUSED,
+        GReactionConnectionParts {
   GIssueData_repository_issueOrPullRequest__asPullRequest_CONFUSED._();
 
   factory GIssueData_repository_issueOrPullRequest__asPullRequest_CONFUSED(
@@ -9042,7 +9063,8 @@ abstract class GIssueData_repository_issueOrPullRequest__asPullRequest_HEART
     implements
         Built<GIssueData_repository_issueOrPullRequest__asPullRequest_HEART,
             GIssueData_repository_issueOrPullRequest__asPullRequest_HEARTBuilder>,
-        GReactableParts_HEART {
+        GReactableParts_HEART,
+        GReactionConnectionParts {
   GIssueData_repository_issueOrPullRequest__asPullRequest_HEART._();
 
   factory GIssueData_repository_issueOrPullRequest__asPullRequest_HEART(
@@ -9079,7 +9101,8 @@ abstract class GIssueData_repository_issueOrPullRequest__asPullRequest_ROCKET
     implements
         Built<GIssueData_repository_issueOrPullRequest__asPullRequest_ROCKET,
             GIssueData_repository_issueOrPullRequest__asPullRequest_ROCKETBuilder>,
-        GReactableParts_ROCKET {
+        GReactableParts_ROCKET,
+        GReactionConnectionParts {
   GIssueData_repository_issueOrPullRequest__asPullRequest_ROCKET._();
 
   factory GIssueData_repository_issueOrPullRequest__asPullRequest_ROCKET(
@@ -9115,7 +9138,8 @@ abstract class GIssueData_repository_issueOrPullRequest__asPullRequest_EYES
     implements
         Built<GIssueData_repository_issueOrPullRequest__asPullRequest_EYES,
             GIssueData_repository_issueOrPullRequest__asPullRequest_EYESBuilder>,
-        GReactableParts_EYES {
+        GReactableParts_EYES,
+        GReactionConnectionParts {
   GIssueData_repository_issueOrPullRequest__asPullRequest_EYES._();
 
   factory GIssueData_repository_issueOrPullRequest__asPullRequest_EYES(
@@ -9455,7 +9479,8 @@ abstract class GIssueData_repository_issueOrPullRequest__asPullRequest_timelineI
         Built<
             GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asIssueComment_THUMBS_UP,
             GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asIssueComment_THUMBS_UPBuilder>,
-        GReactableParts_THUMBS_UP {
+        GReactableParts_THUMBS_UP,
+        GReactionConnectionParts {
   GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asIssueComment_THUMBS_UP._();
 
   factory GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asIssueComment_THUMBS_UP(
@@ -9493,7 +9518,8 @@ abstract class GIssueData_repository_issueOrPullRequest__asPullRequest_timelineI
         Built<
             GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asIssueComment_THUMBS_DOWN,
             GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asIssueComment_THUMBS_DOWNBuilder>,
-        GReactableParts_THUMBS_DOWN {
+        GReactableParts_THUMBS_DOWN,
+        GReactionConnectionParts {
   GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asIssueComment_THUMBS_DOWN._();
 
   factory GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asIssueComment_THUMBS_DOWN(
@@ -9531,7 +9557,8 @@ abstract class GIssueData_repository_issueOrPullRequest__asPullRequest_timelineI
         Built<
             GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asIssueComment_LAUGH,
             GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asIssueComment_LAUGHBuilder>,
-        GReactableParts_LAUGH {
+        GReactableParts_LAUGH,
+        GReactionConnectionParts {
   GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asIssueComment_LAUGH._();
 
   factory GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asIssueComment_LAUGH(
@@ -9569,7 +9596,8 @@ abstract class GIssueData_repository_issueOrPullRequest__asPullRequest_timelineI
         Built<
             GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asIssueComment_HOORAY,
             GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asIssueComment_HOORAYBuilder>,
-        GReactableParts_HOORAY {
+        GReactableParts_HOORAY,
+        GReactionConnectionParts {
   GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asIssueComment_HOORAY._();
 
   factory GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asIssueComment_HOORAY(
@@ -9607,7 +9635,8 @@ abstract class GIssueData_repository_issueOrPullRequest__asPullRequest_timelineI
         Built<
             GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asIssueComment_CONFUSED,
             GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asIssueComment_CONFUSEDBuilder>,
-        GReactableParts_CONFUSED {
+        GReactableParts_CONFUSED,
+        GReactionConnectionParts {
   GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asIssueComment_CONFUSED._();
 
   factory GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asIssueComment_CONFUSED(
@@ -9645,7 +9674,8 @@ abstract class GIssueData_repository_issueOrPullRequest__asPullRequest_timelineI
         Built<
             GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asIssueComment_HEART,
             GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asIssueComment_HEARTBuilder>,
-        GReactableParts_HEART {
+        GReactableParts_HEART,
+        GReactionConnectionParts {
   GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asIssueComment_HEART._();
 
   factory GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asIssueComment_HEART(
@@ -9683,7 +9713,8 @@ abstract class GIssueData_repository_issueOrPullRequest__asPullRequest_timelineI
         Built<
             GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asIssueComment_ROCKET,
             GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asIssueComment_ROCKETBuilder>,
-        GReactableParts_ROCKET {
+        GReactableParts_ROCKET,
+        GReactionConnectionParts {
   GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asIssueComment_ROCKET._();
 
   factory GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asIssueComment_ROCKET(
@@ -9721,7 +9752,8 @@ abstract class GIssueData_repository_issueOrPullRequest__asPullRequest_timelineI
         Built<
             GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asIssueComment_EYES,
             GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asIssueComment_EYESBuilder>,
-        GReactableParts_EYES {
+        GReactableParts_EYES,
+        GReactionConnectionParts {
   GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asIssueComment_EYES._();
 
   factory GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asIssueComment_EYES(
@@ -13920,7 +13952,8 @@ abstract class GIssueData_repository_issueOrPullRequest__asPullRequest_timelineI
             GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asPullRequestReview_comments_nodes_THUMBS_UP,
             GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asPullRequestReview_comments_nodes_THUMBS_UPBuilder>,
         GPullRequestReviewParts_comments_nodes_THUMBS_UP,
-        GReactableParts_THUMBS_UP {
+        GReactableParts_THUMBS_UP,
+        GReactionConnectionParts {
   GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asPullRequestReview_comments_nodes_THUMBS_UP._();
 
   factory GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asPullRequestReview_comments_nodes_THUMBS_UP(
@@ -13959,7 +13992,8 @@ abstract class GIssueData_repository_issueOrPullRequest__asPullRequest_timelineI
             GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asPullRequestReview_comments_nodes_THUMBS_DOWN,
             GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asPullRequestReview_comments_nodes_THUMBS_DOWNBuilder>,
         GPullRequestReviewParts_comments_nodes_THUMBS_DOWN,
-        GReactableParts_THUMBS_DOWN {
+        GReactableParts_THUMBS_DOWN,
+        GReactionConnectionParts {
   GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asPullRequestReview_comments_nodes_THUMBS_DOWN._();
 
   factory GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asPullRequestReview_comments_nodes_THUMBS_DOWN(
@@ -13998,7 +14032,8 @@ abstract class GIssueData_repository_issueOrPullRequest__asPullRequest_timelineI
             GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asPullRequestReview_comments_nodes_LAUGH,
             GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asPullRequestReview_comments_nodes_LAUGHBuilder>,
         GPullRequestReviewParts_comments_nodes_LAUGH,
-        GReactableParts_LAUGH {
+        GReactableParts_LAUGH,
+        GReactionConnectionParts {
   GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asPullRequestReview_comments_nodes_LAUGH._();
 
   factory GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asPullRequestReview_comments_nodes_LAUGH(
@@ -14037,7 +14072,8 @@ abstract class GIssueData_repository_issueOrPullRequest__asPullRequest_timelineI
             GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asPullRequestReview_comments_nodes_HOORAY,
             GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asPullRequestReview_comments_nodes_HOORAYBuilder>,
         GPullRequestReviewParts_comments_nodes_HOORAY,
-        GReactableParts_HOORAY {
+        GReactableParts_HOORAY,
+        GReactionConnectionParts {
   GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asPullRequestReview_comments_nodes_HOORAY._();
 
   factory GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asPullRequestReview_comments_nodes_HOORAY(
@@ -14076,7 +14112,8 @@ abstract class GIssueData_repository_issueOrPullRequest__asPullRequest_timelineI
             GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asPullRequestReview_comments_nodes_CONFUSED,
             GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asPullRequestReview_comments_nodes_CONFUSEDBuilder>,
         GPullRequestReviewParts_comments_nodes_CONFUSED,
-        GReactableParts_CONFUSED {
+        GReactableParts_CONFUSED,
+        GReactionConnectionParts {
   GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asPullRequestReview_comments_nodes_CONFUSED._();
 
   factory GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asPullRequestReview_comments_nodes_CONFUSED(
@@ -14115,7 +14152,8 @@ abstract class GIssueData_repository_issueOrPullRequest__asPullRequest_timelineI
             GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asPullRequestReview_comments_nodes_HEART,
             GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asPullRequestReview_comments_nodes_HEARTBuilder>,
         GPullRequestReviewParts_comments_nodes_HEART,
-        GReactableParts_HEART {
+        GReactableParts_HEART,
+        GReactionConnectionParts {
   GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asPullRequestReview_comments_nodes_HEART._();
 
   factory GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asPullRequestReview_comments_nodes_HEART(
@@ -14154,7 +14192,8 @@ abstract class GIssueData_repository_issueOrPullRequest__asPullRequest_timelineI
             GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asPullRequestReview_comments_nodes_ROCKET,
             GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asPullRequestReview_comments_nodes_ROCKETBuilder>,
         GPullRequestReviewParts_comments_nodes_ROCKET,
-        GReactableParts_ROCKET {
+        GReactableParts_ROCKET,
+        GReactionConnectionParts {
   GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asPullRequestReview_comments_nodes_ROCKET._();
 
   factory GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asPullRequestReview_comments_nodes_ROCKET(
@@ -14193,7 +14232,8 @@ abstract class GIssueData_repository_issueOrPullRequest__asPullRequest_timelineI
             GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asPullRequestReview_comments_nodes_EYES,
             GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asPullRequestReview_comments_nodes_EYESBuilder>,
         GPullRequestReviewParts_comments_nodes_EYES,
-        GReactableParts_EYES {
+        GReactableParts_EYES,
+        GReactionConnectionParts {
   GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asPullRequestReview_comments_nodes_EYES._();
 
   factory GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asPullRequestReview_comments_nodes_EYES(
@@ -16532,6 +16572,39 @@ abstract class GCommentPartsData_author
           .deserializeWith(GCommentPartsData_author.serializer, json);
 }
 
+abstract class GReactionConnectionParts {
+  String get G__typename;
+  int get totalCount;
+  bool get viewerHasReacted;
+  Map<String, dynamic> toJson();
+}
+
+abstract class GReactionConnectionPartsData
+    implements
+        Built<GReactionConnectionPartsData,
+            GReactionConnectionPartsDataBuilder>,
+        GReactionConnectionParts {
+  GReactionConnectionPartsData._();
+
+  factory GReactionConnectionPartsData(
+          [Function(GReactionConnectionPartsDataBuilder b) updates]) =
+      _$GReactionConnectionPartsData;
+
+  static void _initializeBuilder(GReactionConnectionPartsDataBuilder b) =>
+      b..G__typename = 'ReactionConnection';
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  int get totalCount;
+  bool get viewerHasReacted;
+  static Serializer<GReactionConnectionPartsData> get serializer =>
+      _$gReactionConnectionPartsDataSerializer;
+  Map<String, dynamic> toJson() => _i1.serializers
+      .serializeWith(GReactionConnectionPartsData.serializer, this);
+  static GReactionConnectionPartsData fromJson(Map<String, dynamic> json) =>
+      _i1.serializers
+          .deserializeWith(GReactionConnectionPartsData.serializer, json);
+}
+
 abstract class GReactableParts {
   String get G__typename;
   GReactableParts_THUMBS_UP get THUMBS_UP;
@@ -16545,56 +16618,56 @@ abstract class GReactableParts {
   Map<String, dynamic> toJson();
 }
 
-abstract class GReactableParts_THUMBS_UP {
+abstract class GReactableParts_THUMBS_UP implements GReactionConnectionParts {
   String get G__typename;
   int get totalCount;
   bool get viewerHasReacted;
   Map<String, dynamic> toJson();
 }
 
-abstract class GReactableParts_THUMBS_DOWN {
+abstract class GReactableParts_THUMBS_DOWN implements GReactionConnectionParts {
   String get G__typename;
   int get totalCount;
   bool get viewerHasReacted;
   Map<String, dynamic> toJson();
 }
 
-abstract class GReactableParts_LAUGH {
+abstract class GReactableParts_LAUGH implements GReactionConnectionParts {
   String get G__typename;
   int get totalCount;
   bool get viewerHasReacted;
   Map<String, dynamic> toJson();
 }
 
-abstract class GReactableParts_HOORAY {
+abstract class GReactableParts_HOORAY implements GReactionConnectionParts {
   String get G__typename;
   int get totalCount;
   bool get viewerHasReacted;
   Map<String, dynamic> toJson();
 }
 
-abstract class GReactableParts_CONFUSED {
+abstract class GReactableParts_CONFUSED implements GReactionConnectionParts {
   String get G__typename;
   int get totalCount;
   bool get viewerHasReacted;
   Map<String, dynamic> toJson();
 }
 
-abstract class GReactableParts_HEART {
+abstract class GReactableParts_HEART implements GReactionConnectionParts {
   String get G__typename;
   int get totalCount;
   bool get viewerHasReacted;
   Map<String, dynamic> toJson();
 }
 
-abstract class GReactableParts_ROCKET {
+abstract class GReactableParts_ROCKET implements GReactionConnectionParts {
   String get G__typename;
   int get totalCount;
   bool get viewerHasReacted;
   Map<String, dynamic> toJson();
 }
 
-abstract class GReactableParts_EYES {
+abstract class GReactableParts_EYES implements GReactionConnectionParts {
   String get G__typename;
   int get totalCount;
   bool get viewerHasReacted;
@@ -16634,7 +16707,8 @@ abstract class GReactablePartsData_THUMBS_UP
     implements
         Built<GReactablePartsData_THUMBS_UP,
             GReactablePartsData_THUMBS_UPBuilder>,
-        GReactableParts_THUMBS_UP {
+        GReactableParts_THUMBS_UP,
+        GReactionConnectionParts {
   GReactablePartsData_THUMBS_UP._();
 
   factory GReactablePartsData_THUMBS_UP(
@@ -16660,7 +16734,8 @@ abstract class GReactablePartsData_THUMBS_DOWN
     implements
         Built<GReactablePartsData_THUMBS_DOWN,
             GReactablePartsData_THUMBS_DOWNBuilder>,
-        GReactableParts_THUMBS_DOWN {
+        GReactableParts_THUMBS_DOWN,
+        GReactionConnectionParts {
   GReactablePartsData_THUMBS_DOWN._();
 
   factory GReactablePartsData_THUMBS_DOWN(
@@ -16685,7 +16760,8 @@ abstract class GReactablePartsData_THUMBS_DOWN
 abstract class GReactablePartsData_LAUGH
     implements
         Built<GReactablePartsData_LAUGH, GReactablePartsData_LAUGHBuilder>,
-        GReactableParts_LAUGH {
+        GReactableParts_LAUGH,
+        GReactionConnectionParts {
   GReactablePartsData_LAUGH._();
 
   factory GReactablePartsData_LAUGH(
@@ -16710,7 +16786,8 @@ abstract class GReactablePartsData_LAUGH
 abstract class GReactablePartsData_HOORAY
     implements
         Built<GReactablePartsData_HOORAY, GReactablePartsData_HOORAYBuilder>,
-        GReactableParts_HOORAY {
+        GReactableParts_HOORAY,
+        GReactionConnectionParts {
   GReactablePartsData_HOORAY._();
 
   factory GReactablePartsData_HOORAY(
@@ -16736,7 +16813,8 @@ abstract class GReactablePartsData_CONFUSED
     implements
         Built<GReactablePartsData_CONFUSED,
             GReactablePartsData_CONFUSEDBuilder>,
-        GReactableParts_CONFUSED {
+        GReactableParts_CONFUSED,
+        GReactionConnectionParts {
   GReactablePartsData_CONFUSED._();
 
   factory GReactablePartsData_CONFUSED(
@@ -16761,7 +16839,8 @@ abstract class GReactablePartsData_CONFUSED
 abstract class GReactablePartsData_HEART
     implements
         Built<GReactablePartsData_HEART, GReactablePartsData_HEARTBuilder>,
-        GReactableParts_HEART {
+        GReactableParts_HEART,
+        GReactionConnectionParts {
   GReactablePartsData_HEART._();
 
   factory GReactablePartsData_HEART(
@@ -16786,7 +16865,8 @@ abstract class GReactablePartsData_HEART
 abstract class GReactablePartsData_ROCKET
     implements
         Built<GReactablePartsData_ROCKET, GReactablePartsData_ROCKETBuilder>,
-        GReactableParts_ROCKET {
+        GReactableParts_ROCKET,
+        GReactionConnectionParts {
   GReactablePartsData_ROCKET._();
 
   factory GReactablePartsData_ROCKET(
@@ -16811,7 +16891,8 @@ abstract class GReactablePartsData_ROCKET
 abstract class GReactablePartsData_EYES
     implements
         Built<GReactablePartsData_EYES, GReactablePartsData_EYESBuilder>,
-        GReactableParts_EYES {
+        GReactableParts_EYES,
+        GReactionConnectionParts {
   GReactablePartsData_EYES._();
 
   factory GReactablePartsData_EYES(
@@ -20388,7 +20469,7 @@ abstract class GPullRequestReviewParts_comments_nodes_author
 }
 
 abstract class GPullRequestReviewParts_comments_nodes_THUMBS_UP
-    implements GReactableParts_THUMBS_UP {
+    implements GReactableParts_THUMBS_UP, GReactionConnectionParts {
   String get G__typename;
   int get totalCount;
   bool get viewerHasReacted;
@@ -20396,7 +20477,7 @@ abstract class GPullRequestReviewParts_comments_nodes_THUMBS_UP
 }
 
 abstract class GPullRequestReviewParts_comments_nodes_THUMBS_DOWN
-    implements GReactableParts_THUMBS_DOWN {
+    implements GReactableParts_THUMBS_DOWN, GReactionConnectionParts {
   String get G__typename;
   int get totalCount;
   bool get viewerHasReacted;
@@ -20404,7 +20485,7 @@ abstract class GPullRequestReviewParts_comments_nodes_THUMBS_DOWN
 }
 
 abstract class GPullRequestReviewParts_comments_nodes_LAUGH
-    implements GReactableParts_LAUGH {
+    implements GReactableParts_LAUGH, GReactionConnectionParts {
   String get G__typename;
   int get totalCount;
   bool get viewerHasReacted;
@@ -20412,7 +20493,7 @@ abstract class GPullRequestReviewParts_comments_nodes_LAUGH
 }
 
 abstract class GPullRequestReviewParts_comments_nodes_HOORAY
-    implements GReactableParts_HOORAY {
+    implements GReactableParts_HOORAY, GReactionConnectionParts {
   String get G__typename;
   int get totalCount;
   bool get viewerHasReacted;
@@ -20420,7 +20501,7 @@ abstract class GPullRequestReviewParts_comments_nodes_HOORAY
 }
 
 abstract class GPullRequestReviewParts_comments_nodes_CONFUSED
-    implements GReactableParts_CONFUSED {
+    implements GReactableParts_CONFUSED, GReactionConnectionParts {
   String get G__typename;
   int get totalCount;
   bool get viewerHasReacted;
@@ -20428,7 +20509,7 @@ abstract class GPullRequestReviewParts_comments_nodes_CONFUSED
 }
 
 abstract class GPullRequestReviewParts_comments_nodes_HEART
-    implements GReactableParts_HEART {
+    implements GReactableParts_HEART, GReactionConnectionParts {
   String get G__typename;
   int get totalCount;
   bool get viewerHasReacted;
@@ -20436,7 +20517,7 @@ abstract class GPullRequestReviewParts_comments_nodes_HEART
 }
 
 abstract class GPullRequestReviewParts_comments_nodes_ROCKET
-    implements GReactableParts_ROCKET {
+    implements GReactableParts_ROCKET, GReactionConnectionParts {
   String get G__typename;
   int get totalCount;
   bool get viewerHasReacted;
@@ -20444,7 +20525,7 @@ abstract class GPullRequestReviewParts_comments_nodes_ROCKET
 }
 
 abstract class GPullRequestReviewParts_comments_nodes_EYES
-    implements GReactableParts_EYES {
+    implements GReactableParts_EYES, GReactionConnectionParts {
   String get G__typename;
   int get totalCount;
   bool get viewerHasReacted;
@@ -20609,7 +20690,8 @@ abstract class GPullRequestReviewPartsData_comments_nodes_THUMBS_UP
         Built<GPullRequestReviewPartsData_comments_nodes_THUMBS_UP,
             GPullRequestReviewPartsData_comments_nodes_THUMBS_UPBuilder>,
         GPullRequestReviewParts_comments_nodes_THUMBS_UP,
-        GReactableParts_THUMBS_UP {
+        GReactableParts_THUMBS_UP,
+        GReactionConnectionParts {
   GPullRequestReviewPartsData_comments_nodes_THUMBS_UP._();
 
   factory GPullRequestReviewPartsData_comments_nodes_THUMBS_UP(
@@ -20640,7 +20722,8 @@ abstract class GPullRequestReviewPartsData_comments_nodes_THUMBS_DOWN
         Built<GPullRequestReviewPartsData_comments_nodes_THUMBS_DOWN,
             GPullRequestReviewPartsData_comments_nodes_THUMBS_DOWNBuilder>,
         GPullRequestReviewParts_comments_nodes_THUMBS_DOWN,
-        GReactableParts_THUMBS_DOWN {
+        GReactableParts_THUMBS_DOWN,
+        GReactionConnectionParts {
   GPullRequestReviewPartsData_comments_nodes_THUMBS_DOWN._();
 
   factory GPullRequestReviewPartsData_comments_nodes_THUMBS_DOWN(
@@ -20671,7 +20754,8 @@ abstract class GPullRequestReviewPartsData_comments_nodes_LAUGH
         Built<GPullRequestReviewPartsData_comments_nodes_LAUGH,
             GPullRequestReviewPartsData_comments_nodes_LAUGHBuilder>,
         GPullRequestReviewParts_comments_nodes_LAUGH,
-        GReactableParts_LAUGH {
+        GReactableParts_LAUGH,
+        GReactionConnectionParts {
   GPullRequestReviewPartsData_comments_nodes_LAUGH._();
 
   factory GPullRequestReviewPartsData_comments_nodes_LAUGH(
@@ -20701,7 +20785,8 @@ abstract class GPullRequestReviewPartsData_comments_nodes_HOORAY
         Built<GPullRequestReviewPartsData_comments_nodes_HOORAY,
             GPullRequestReviewPartsData_comments_nodes_HOORAYBuilder>,
         GPullRequestReviewParts_comments_nodes_HOORAY,
-        GReactableParts_HOORAY {
+        GReactableParts_HOORAY,
+        GReactionConnectionParts {
   GPullRequestReviewPartsData_comments_nodes_HOORAY._();
 
   factory GPullRequestReviewPartsData_comments_nodes_HOORAY(
@@ -20731,7 +20816,8 @@ abstract class GPullRequestReviewPartsData_comments_nodes_CONFUSED
         Built<GPullRequestReviewPartsData_comments_nodes_CONFUSED,
             GPullRequestReviewPartsData_comments_nodes_CONFUSEDBuilder>,
         GPullRequestReviewParts_comments_nodes_CONFUSED,
-        GReactableParts_CONFUSED {
+        GReactableParts_CONFUSED,
+        GReactionConnectionParts {
   GPullRequestReviewPartsData_comments_nodes_CONFUSED._();
 
   factory GPullRequestReviewPartsData_comments_nodes_CONFUSED(
@@ -20761,7 +20847,8 @@ abstract class GPullRequestReviewPartsData_comments_nodes_HEART
         Built<GPullRequestReviewPartsData_comments_nodes_HEART,
             GPullRequestReviewPartsData_comments_nodes_HEARTBuilder>,
         GPullRequestReviewParts_comments_nodes_HEART,
-        GReactableParts_HEART {
+        GReactableParts_HEART,
+        GReactionConnectionParts {
   GPullRequestReviewPartsData_comments_nodes_HEART._();
 
   factory GPullRequestReviewPartsData_comments_nodes_HEART(
@@ -20791,7 +20878,8 @@ abstract class GPullRequestReviewPartsData_comments_nodes_ROCKET
         Built<GPullRequestReviewPartsData_comments_nodes_ROCKET,
             GPullRequestReviewPartsData_comments_nodes_ROCKETBuilder>,
         GPullRequestReviewParts_comments_nodes_ROCKET,
-        GReactableParts_ROCKET {
+        GReactableParts_ROCKET,
+        GReactionConnectionParts {
   GPullRequestReviewPartsData_comments_nodes_ROCKET._();
 
   factory GPullRequestReviewPartsData_comments_nodes_ROCKET(
@@ -20821,7 +20909,8 @@ abstract class GPullRequestReviewPartsData_comments_nodes_EYES
         Built<GPullRequestReviewPartsData_comments_nodes_EYES,
             GPullRequestReviewPartsData_comments_nodes_EYESBuilder>,
         GPullRequestReviewParts_comments_nodes_EYES,
-        GReactableParts_EYES {
+        GReactableParts_EYES,
+        GReactionConnectionParts {
   GPullRequestReviewPartsData_comments_nodes_EYES._();
 
   factory GPullRequestReviewPartsData_comments_nodes_EYES(

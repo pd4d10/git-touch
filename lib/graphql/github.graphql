@@ -450,38 +450,34 @@ fragment CommentParts on Comment {
     avatarUrl
   }
 }
+fragment ReactionConnectionParts on ReactionConnection {
+  totalCount
+  viewerHasReacted
+}
 fragment ReactableParts on Reactable {
   THUMBS_UP: reactions(content: THUMBS_UP) {
-    totalCount
-    viewerHasReacted
+    ...ReactionConnectionParts
   }
   THUMBS_DOWN: reactions(content: THUMBS_DOWN) {
-    totalCount
-    viewerHasReacted
+    ...ReactionConnectionParts
   }
   LAUGH: reactions(content: LAUGH) {
-    totalCount
-    viewerHasReacted
+    ...ReactionConnectionParts
   }
   HOORAY: reactions(content: HOORAY) {
-    totalCount
-    viewerHasReacted
+    ...ReactionConnectionParts
   }
   CONFUSED: reactions(content: CONFUSED) {
-    totalCount
-    viewerHasReacted
+    ...ReactionConnectionParts
   }
   HEART: reactions(content: HEART) {
-    totalCount
-    viewerHasReacted
+    ...ReactionConnectionParts
   }
   ROCKET: reactions(content: ROCKET) {
-    totalCount
-    viewerHasReacted
+    ...ReactionConnectionParts
   }
   EYES: reactions(content: EYES) {
-    totalCount
-    viewerHasReacted
+    ...ReactionConnectionParts
   }
 }
 fragment ReferencedEventParts on ReferencedEvent {

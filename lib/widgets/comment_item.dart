@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:git_touch/graphql/github.data.gql.dart';
+import 'package:git_touch/graphql/schema.schema.gql.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/widgets/action_button.dart';
@@ -13,54 +14,102 @@ import 'avatar.dart';
 import 'link.dart';
 import 'user_name.dart';
 
-final emojiMap = {
-  'THUMBS_UP': '👍',
-  'THUMBS_DOWN': '👎',
-  'LAUGH': '😄',
-  'HOORAY': '🎉',
-  'CONFUSED': '😕',
-  'HEART': '❤️',
-  'ROCKET': '🚀',
-  'EYES': '👀'
-};
+class EmojiPayload {
+  GReactionContent key;
+  String text;
+  int count;
+  bool reacted;
+  EmojiPayload({
+    @required this.key,
+    @required this.text,
+    @required this.count,
+    @required this.reacted,
+  });
+}
+
+typedef EmojiUpdateCallaback = void Function(GReactionContent data);
 
 class GhEmojiAction extends StatefulWidget {
-  final Map<String, dynamic> payload;
-  GhEmojiAction(this.payload);
+  final String id;
+  final Iterable<EmojiPayload> items;
+  final EmojiUpdateCallaback onReaction;
+
+  GhEmojiAction(this.id, GReactableParts r, this.onReaction)
+      : items = [
+          EmojiPayload(
+            key: GReactionContent.THUMBS_UP,
+            text: '👍',
+            count: r.THUMBS_UP.totalCount,
+            reacted: r.THUMBS_UP.viewerHasReacted,
+          ),
+          EmojiPayload(
+            key: GReactionContent.THUMBS_DOWN,
+            text: '👎',
+            count: r.THUMBS_DOWN.totalCount,
+            reacted: r.THUMBS_DOWN.viewerHasReacted,
+          ),
+          EmojiPayload(
+            key: GReactionContent.LAUGH,
+            text: '😄',
+            count: r.LAUGH.totalCount,
+            reacted: r.LAUGH.viewerHasReacted,
+          ),
+          EmojiPayload(
+            key: GReactionContent.HOORAY,
+            text: '🎉',
+            count: r.HOORAY.totalCount,
+            reacted: r.HOORAY.viewerHasReacted,
+          ),
+          EmojiPayload(
+            key: GReactionContent.CONFUSED,
+            text: '😕',
+            count: r.CONFUSED.totalCount,
+            reacted: r.CONFUSED.viewerHasReacted,
+          ),
+          EmojiPayload(
+            key: GReactionContent.HEART,
+            text: '❤️',
+            count: r.HEART.totalCount,
+            reacted: r.HEART.viewerHasReacted,
+          ),
+          EmojiPayload(
+            key: GReactionContent.ROCKET,
+            text: '🚀',
+            count: r.ROCKET.totalCount,
+            reacted: r.ROCKET.viewerHasReacted,
+          ),
+          EmojiPayload(
+            key: GReactionContent.EYES,
+            text: '👀',
+            count: r.EYES.totalCount,
+            reacted: r.EYES.viewerHasReacted,
+          ),
+        ];
   @override
   _GhEmojiActionState createState() => _GhEmojiActionState();
 }
 
 class _GhEmojiActionState extends State<GhEmojiAction> {
-  get payload => widget.payload;
+  _onReaction(EmojiPayload item) async {
+    final op = item.reacted ? 'remove' : 'add';
 
-  onReaction(String emojiKey) async {
-    if (emojiKey == null) return;
-
-    final isRemove = _hasReacted(emojiKey);
-    var id = payload['id'] as String;
-    var operation = isRemove ? 'remove' : 'add';
-
-    try {
-      await context.read<AuthModel>().query('''
+    await context.read<AuthModel>().query('''
 mutation {
-  ${operation}Reaction(input: {subjectId: "$id", content: $emojiKey}) {
+  ${op}Reaction(input: {subjectId: "${widget.id}", content: ${item.key.name}}) {
     clientMutationId
   }
 }
     ''');
-      setState(() {
-        payload[emojiKey]['totalCount'] += isRemove ? -1 : 1;
-        payload[emojiKey]['viewerHasReacted'] = !isRemove;
-      });
-    } catch (e) {
-      context.read<ThemeModel>().showWarning(context, e);
-    }
-  }
-
-  bool _hasReacted(String emojiKey) {
-    if (payload[emojiKey] == null) return false;
-    return payload[emojiKey]['viewerHasReacted'] as bool;
+    setState(() {
+      item.reacted = !item.reacted;
+      if (item.reacted) {
+        item.count++;
+      } else {
+        item.count--;
+      }
+    });
+    // TODO: should set state from parent widgets
+    // widget.onReaction(item.key);
   }
 
   @override
@@ -69,53 +118,44 @@ mutation {
     return Wrap(
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        ...emojiMap.entries
-            .where((entry) => payload[entry.key]['totalCount'] as int != 0)
-            .map<Widget>((entry) {
-          var emojiKey = entry.key;
-          var emoji = entry.value;
-          var count = payload[entry.key]['totalCount'] as int;
-
-          return Link(
-            onTap: () {
-              onReaction(emojiKey);
-            },
-            child: Container(
-              padding: EdgeInsets.all(4),
-              decoration: BoxDecoration(
-                color: _hasReacted(emojiKey)
-                    ? (theme.brightness == Brightness.dark
-                        ? PrimerColors.blue900
-                        : PrimerColors.blue000)
-                    : Colors.transparent,
-              ),
-              child: Wrap(
-                crossAxisAlignment: WrapCrossAlignment.center,
-                children: <Widget>[
-                  Text(emoji, style: TextStyle(fontSize: 18)),
-                  SizedBox(width: 4),
-                  Text(numberFormat.format(count),
-                      style:
-                          TextStyle(color: theme.palette.primary, fontSize: 14))
-                ],
+        for (final item in widget.items)
+          if (item.count > 0)
+            Link(
+              onTap: () {
+                _onReaction(item);
+              },
+              child: Container(
+                padding: EdgeInsets.all(4),
+                decoration: BoxDecoration(
+                  color: item.reacted
+                      ? (theme.brightness == Brightness.dark
+                          ? PrimerColors.blue900
+                          : PrimerColors.blue000)
+                      : Colors.transparent,
+                ),
+                child: Wrap(
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  children: <Widget>[
+                    Text(item.text, style: TextStyle(fontSize: 18)),
+                    SizedBox(width: 4),
+                    Text(numberFormat.format(item.count),
+                        style: TextStyle(
+                            color: theme.palette.primary, fontSize: 14))
+                  ],
+                ),
               ),
             ),
-          );
-        }),
         Link(
           onTap: () async {
-            await theme.showActions(
-              context,
-              emojiMap.entries.map((entry) {
-                final emojiKey = entry.key;
-                return ActionItem(
-                  text: emojiKey + ' ' + entry.value,
+            await theme.showActions(context, [
+              for (final item in widget.items)
+                ActionItem(
+                  text: item.text,
                   onTap: (_) {
-                    onReaction(emojiKey);
+                    _onReaction(item);
                   },
-                );
-              }).toList(),
-            );
+                )
+            ]);
           },
           child: Container(
             padding: EdgeInsets.all(4),
@@ -143,7 +183,8 @@ class CommentItem extends StatelessWidget {
   final List<ActionItem> commentActionItemList;
 
   // p.author could be null (deleted user)
-  CommentItem.gql(GCommentParts p)
+  CommentItem.gql(
+      GCommentParts p, GReactableParts r, EmojiUpdateCallaback onReaction)
       : avatar = Avatar(
           url: p.author?.avatarUrl ??
               'https://avatars.githubusercontent.com/u/10137?s=460&u=b1951d34a583cf12ec0d3b0781ba19be97726318&v=4',
@@ -152,7 +193,7 @@ class CommentItem extends StatelessWidget {
         login = p.author?.login ?? 'ghost',
         createdAt = p.createdAt,
         body = p.body,
-        widgets = [], // [GhEmojiAction(payload)], // TODO:
+        widgets = [GhEmojiAction(p.id, r, onReaction)],
         prefix = 'github',
         commentActionItemList = []; // TODO
 

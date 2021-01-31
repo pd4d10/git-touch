@@ -83,7 +83,8 @@ class TimelineItem extends StatelessWidget {
           ]),
         );
       case 'IssueComment':
-        return CommentItem.gql(node as GCommentParts);
+        return CommentItem.gql(
+            node as GCommentParts, node as GReactableParts, (item) {});
       case 'CrossReferencedEvent':
         final p = node as GCrossReferencedEventParts;
         final source = p.source as dynamic;
@@ -288,7 +289,8 @@ class TimelineItem extends StatelessWidget {
               padding: CommonStyle.padding.copyWith(left: 50),
               child: Column(
                 children: <Widget>[
-                  for (var v in p.comments.nodes) CommentItem.gql(v),
+                  for (var v in p.comments.nodes)
+                    CommentItem.gql(v, v, (key) {}),
                 ],
               ),
             ),

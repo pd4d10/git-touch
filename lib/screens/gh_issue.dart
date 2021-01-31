@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:git_touch/graphql/github.data.gql.dart';
 import 'package:git_touch/graphql/github.req.gql.dart';
+import 'package:git_touch/graphql/schema.schema.gql.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/utils/utils.dart';
@@ -26,7 +27,7 @@ class GhIssueScreen extends StatelessWidget {
     @required String avatarUrl,
     @required String title,
     @required StateLabelStatus status,
-    @required GCommentParts comment,
+    @required Widget body,
     Iterable<Widget> extraWidgets = const [],
   }) {
     final theme = Provider.of<ThemeModel>(context);
@@ -76,7 +77,7 @@ class GhIssueScreen extends StatelessWidget {
               CommonStyle.border,
               ...extraWidgets,
               SizedBox(height: 8),
-              CommentItem.gql(comment),
+              body,
             ],
           ),
         ),
@@ -137,6 +138,7 @@ class GhIssueScreen extends StatelessWidget {
         if (p.issueOrPullRequest.G__typename == 'Issue') {
           final issue = p.issueOrPullRequest
               as GIssueData_repository_issueOrPullRequest__asIssue;
+
           return _buildHeader(
             context,
             avatarUrl: issue.author.avatarUrl,
@@ -144,7 +146,59 @@ class GhIssueScreen extends StatelessWidget {
             status: issue.closed
                 ? StateLabelStatus.issueClosed
                 : StateLabelStatus.issueOpened,
-            comment: issue,
+            body: CommentItem.gql(issue, issue, (key) {
+              // TODO: reduce boilerplate
+              // switch (key) {
+              //   case GReactionContent.THUMBS_UP:
+              //     issue.THUMBS_UP.rebuild((b) {
+              //       b.viewerHasReacted = !b.viewerHasReacted;
+              //       b.totalCount += (b.viewerHasReacted ? 1 : -1);
+              //     });
+              //     break;
+              //   case GReactionContent.THUMBS_DOWN:
+              //     issue.THUMBS_DOWN.rebuild((b) {
+              //       b.viewerHasReacted = !b.viewerHasReacted;
+              //       b.totalCount += (b.viewerHasReacted ? 1 : -1);
+              //     });
+              //     break;
+              //   case GReactionContent.LAUGH:
+              //     issue.LAUGH.rebuild((b) {
+              //       b.viewerHasReacted = !b.viewerHasReacted;
+              //       b.totalCount += (b.viewerHasReacted ? 1 : -1);
+              //     });
+              //     break;
+              //   case GReactionContent.HOORAY:
+              //     issue.HOORAY.rebuild((b) {
+              //       b.viewerHasReacted = !b.viewerHasReacted;
+              //       b.totalCount += (b.viewerHasReacted ? 1 : -1);
+              //     });
+              //     break;
+              //   case GReactionContent.CONFUSED:
+              //     issue.CONFUSED.rebuild((b) {
+              //       b.viewerHasReacted = !b.viewerHasReacted;
+              //       b.totalCount += (b.viewerHasReacted ? 1 : -1);
+              //     });
+              //     break;
+              //   case GReactionContent.HEART:
+              //     issue.HEART.rebuild((b) {
+              //       b.viewerHasReacted = !b.viewerHasReacted;
+              //       b.totalCount += (b.viewerHasReacted ? 1 : -1);
+              //     });
+              //     break;
+              //   case GReactionContent.ROCKET:
+              //     issue.ROCKET.rebuild((b) {
+              //       b.viewerHasReacted = !b.viewerHasReacted;
+              //       b.totalCount += (b.viewerHasReacted ? 1 : -1);
+              //     });
+              //     break;
+              //   case GReactionContent.EYES:
+              //     issue.EYES.rebuild((b) {
+              //       b.viewerHasReacted = !b.viewerHasReacted;
+              //       b.totalCount += (b.viewerHasReacted ? 1 : -1);
+              //     });
+              //     break;
+              // }
+            }),
           );
         } else {
           final pr = p.issueOrPullRequest
@@ -158,7 +212,7 @@ class GhIssueScreen extends StatelessWidget {
                 : pr.closed
                     ? StateLabelStatus.pullClosed
                     : StateLabelStatus.pullOpened,
-            comment: pr,
+            body: CommentItem.gql(pr, pr, (key) {}),
             extraWidgets: [
               Link(
                 child: Container(

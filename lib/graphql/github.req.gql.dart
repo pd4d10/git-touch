@@ -856,6 +856,36 @@ abstract class GCommentPartsReq
       _i6.serializers.deserializeWith(GCommentPartsReq.serializer, json);
 }
 
+abstract class GReactionConnectionPartsReq
+    implements
+        Built<GReactionConnectionPartsReq, GReactionConnectionPartsReqBuilder>,
+        _i1.FragmentRequest<_i2.GReactionConnectionPartsData,
+            _i3.GReactionConnectionPartsVars> {
+  GReactionConnectionPartsReq._();
+
+  factory GReactionConnectionPartsReq(
+          [Function(GReactionConnectionPartsReqBuilder b) updates]) =
+      _$GReactionConnectionPartsReq;
+
+  static void _initializeBuilder(GReactionConnectionPartsReqBuilder b) => b
+    ..document = _i5.document
+    ..fragmentName = 'ReactionConnectionParts';
+  _i3.GReactionConnectionPartsVars get vars;
+  _i7.DocumentNode get document;
+  String get fragmentName;
+  Map<String, dynamic> get idFields;
+  @override
+  _i2.GReactionConnectionPartsData parseData(Map<String, dynamic> json) =>
+      _i2.GReactionConnectionPartsData.fromJson(json);
+  static Serializer<GReactionConnectionPartsReq> get serializer =>
+      _$gReactionConnectionPartsReqSerializer;
+  Map<String, dynamic> toJson() => _i6.serializers
+      .serializeWith(GReactionConnectionPartsReq.serializer, this);
+  static GReactionConnectionPartsReq fromJson(Map<String, dynamic> json) =>
+      _i6.serializers
+          .deserializeWith(GReactionConnectionPartsReq.serializer, json);
+}
+
 abstract class GReactablePartsReq
     implements
         Built<GReactablePartsReq, GReactablePartsReqBuilder>,

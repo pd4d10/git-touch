@@ -46,6 +46,9 @@ Serializer<GCommitsRefVars> _$gCommitsRefVarsSerializer =
     new _$GCommitsRefVarsSerializer();
 Serializer<GCommentPartsVars> _$gCommentPartsVarsSerializer =
     new _$GCommentPartsVarsSerializer();
+Serializer<GReactionConnectionPartsVars>
+    _$gReactionConnectionPartsVarsSerializer =
+    new _$GReactionConnectionPartsVarsSerializer();
 Serializer<GReactablePartsVars> _$gReactablePartsVarsSerializer =
     new _$GReactablePartsVarsSerializer();
 Serializer<GReferencedEventPartsVars> _$gReferencedEventPartsVarsSerializer =
@@ -1093,6 +1096,31 @@ class _$GCommentPartsVarsSerializer
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     return new GCommentPartsVarsBuilder().build();
+  }
+}
+
+class _$GReactionConnectionPartsVarsSerializer
+    implements StructuredSerializer<GReactionConnectionPartsVars> {
+  @override
+  final Iterable<Type> types = const [
+    GReactionConnectionPartsVars,
+    _$GReactionConnectionPartsVars
+  ];
+  @override
+  final String wireName = 'GReactionConnectionPartsVars';
+
+  @override
+  Iterable<Object> serialize(
+      Serializers serializers, GReactionConnectionPartsVars object,
+      {FullType specifiedType = FullType.unspecified}) {
+    return <Object>[];
+  }
+
+  @override
+  GReactionConnectionPartsVars deserialize(
+      Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    return new GReactionConnectionPartsVarsBuilder().build();
   }
 }
 
@@ -3827,6 +3855,69 @@ class GCommentPartsVarsBuilder
   @override
   _$GCommentPartsVars build() {
     final _$result = _$v ?? new _$GCommentPartsVars._();
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GReactionConnectionPartsVars extends GReactionConnectionPartsVars {
+  factory _$GReactionConnectionPartsVars(
+          [void Function(GReactionConnectionPartsVarsBuilder) updates]) =>
+      (new GReactionConnectionPartsVarsBuilder()..update(updates)).build();
+
+  _$GReactionConnectionPartsVars._() : super._();
+
+  @override
+  GReactionConnectionPartsVars rebuild(
+          void Function(GReactionConnectionPartsVarsBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GReactionConnectionPartsVarsBuilder toBuilder() =>
+      new GReactionConnectionPartsVarsBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GReactionConnectionPartsVars;
+  }
+
+  @override
+  int get hashCode {
+    return 596461557;
+  }
+
+  @override
+  String toString() {
+    return newBuiltValueToStringHelper('GReactionConnectionPartsVars')
+        .toString();
+  }
+}
+
+class GReactionConnectionPartsVarsBuilder
+    implements
+        Builder<GReactionConnectionPartsVars,
+            GReactionConnectionPartsVarsBuilder> {
+  _$GReactionConnectionPartsVars _$v;
+
+  GReactionConnectionPartsVarsBuilder();
+
+  @override
+  void replace(GReactionConnectionPartsVars other) {
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
+    _$v = other as _$GReactionConnectionPartsVars;
+  }
+
+  @override
+  void update(void Function(GReactionConnectionPartsVarsBuilder) updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  _$GReactionConnectionPartsVars build() {
+    final _$result = _$v ?? new _$GReactionConnectionPartsVars._();
     replace(_$result);
     return _$result;
   }

@@ -2207,6 +2207,26 @@ const CommentParts = _i1.FragmentDefinitionNode(
                 selectionSet: null)
           ]))
     ]));
+const ReactionConnectionParts = _i1.FragmentDefinitionNode(
+    name: _i1.NameNode(value: 'ReactionConnectionParts'),
+    typeCondition: _i1.TypeConditionNode(
+        on: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'ReactionConnection'), isNonNull: false)),
+    directives: [],
+    selectionSet: _i1.SelectionSetNode(selections: [
+      _i1.FieldNode(
+          name: _i1.NameNode(value: 'totalCount'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null),
+      _i1.FieldNode(
+          name: _i1.NameNode(value: 'viewerHasReacted'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null)
+    ]));
 const ReactableParts = _i1.FragmentDefinitionNode(
     name: _i1.NameNode(value: 'ReactableParts'),
     typeCondition: _i1.TypeConditionNode(
@@ -2225,18 +2245,9 @@ const ReactableParts = _i1.FragmentDefinitionNode(
           ],
           directives: [],
           selectionSet: _i1.SelectionSetNode(selections: [
-            _i1.FieldNode(
-                name: _i1.NameNode(value: 'totalCount'),
-                alias: null,
-                arguments: [],
-                directives: [],
-                selectionSet: null),
-            _i1.FieldNode(
-                name: _i1.NameNode(value: 'viewerHasReacted'),
-                alias: null,
-                arguments: [],
-                directives: [],
-                selectionSet: null)
+            _i1.FragmentSpreadNode(
+                name: _i1.NameNode(value: 'ReactionConnectionParts'),
+                directives: [])
           ])),
       _i1.FieldNode(
           name: _i1.NameNode(value: 'reactions'),
@@ -2249,18 +2260,9 @@ const ReactableParts = _i1.FragmentDefinitionNode(
           ],
           directives: [],
           selectionSet: _i1.SelectionSetNode(selections: [
-            _i1.FieldNode(
-                name: _i1.NameNode(value: 'totalCount'),
-                alias: null,
-                arguments: [],
-                directives: [],
-                selectionSet: null),
-            _i1.FieldNode(
-                name: _i1.NameNode(value: 'viewerHasReacted'),
-                alias: null,
-                arguments: [],
-                directives: [],
-                selectionSet: null)
+            _i1.FragmentSpreadNode(
+                name: _i1.NameNode(value: 'ReactionConnectionParts'),
+                directives: [])
           ])),
       _i1.FieldNode(
           name: _i1.NameNode(value: 'reactions'),
@@ -2272,18 +2274,9 @@ const ReactableParts = _i1.FragmentDefinitionNode(
           ],
           directives: [],
           selectionSet: _i1.SelectionSetNode(selections: [
-            _i1.FieldNode(
-                name: _i1.NameNode(value: 'totalCount'),
-                alias: null,
-                arguments: [],
-                directives: [],
-                selectionSet: null),
-            _i1.FieldNode(
-                name: _i1.NameNode(value: 'viewerHasReacted'),
-                alias: null,
-                arguments: [],
-                directives: [],
-                selectionSet: null)
+            _i1.FragmentSpreadNode(
+                name: _i1.NameNode(value: 'ReactionConnectionParts'),
+                directives: [])
           ])),
       _i1.FieldNode(
           name: _i1.NameNode(value: 'reactions'),
@@ -2295,18 +2288,9 @@ const ReactableParts = _i1.FragmentDefinitionNode(
           ],
           directives: [],
           selectionSet: _i1.SelectionSetNode(selections: [
-            _i1.FieldNode(
-                name: _i1.NameNode(value: 'totalCount'),
-                alias: null,
-                arguments: [],
-                directives: [],
-                selectionSet: null),
-            _i1.FieldNode(
-                name: _i1.NameNode(value: 'viewerHasReacted'),
-                alias: null,
-                arguments: [],
-                directives: [],
-                selectionSet: null)
+            _i1.FragmentSpreadNode(
+                name: _i1.NameNode(value: 'ReactionConnectionParts'),
+                directives: [])
           ])),
       _i1.FieldNode(
           name: _i1.NameNode(value: 'reactions'),
@@ -2318,18 +2302,9 @@ const ReactableParts = _i1.FragmentDefinitionNode(
           ],
           directives: [],
           selectionSet: _i1.SelectionSetNode(selections: [
-            _i1.FieldNode(
-                name: _i1.NameNode(value: 'totalCount'),
-                alias: null,
-                arguments: [],
-                directives: [],
-                selectionSet: null),
-            _i1.FieldNode(
-                name: _i1.NameNode(value: 'viewerHasReacted'),
-                alias: null,
-                arguments: [],
-                directives: [],
-                selectionSet: null)
+            _i1.FragmentSpreadNode(
+                name: _i1.NameNode(value: 'ReactionConnectionParts'),
+                directives: [])
           ])),
       _i1.FieldNode(
           name: _i1.NameNode(value: 'reactions'),
@@ -2341,18 +2316,9 @@ const ReactableParts = _i1.FragmentDefinitionNode(
           ],
           directives: [],
           selectionSet: _i1.SelectionSetNode(selections: [
-            _i1.FieldNode(
-                name: _i1.NameNode(value: 'totalCount'),
-                alias: null,
-                arguments: [],
-                directives: [],
-                selectionSet: null),
-            _i1.FieldNode(
-                name: _i1.NameNode(value: 'viewerHasReacted'),
-                alias: null,
-                arguments: [],
-                directives: [],
-                selectionSet: null)
+            _i1.FragmentSpreadNode(
+                name: _i1.NameNode(value: 'ReactionConnectionParts'),
+                directives: [])
           ])),
       _i1.FieldNode(
           name: _i1.NameNode(value: 'reactions'),
@@ -2364,18 +2330,9 @@ const ReactableParts = _i1.FragmentDefinitionNode(
           ],
           directives: [],
           selectionSet: _i1.SelectionSetNode(selections: [
-            _i1.FieldNode(
-                name: _i1.NameNode(value: 'totalCount'),
-                alias: null,
-                arguments: [],
-                directives: [],
-                selectionSet: null),
-            _i1.FieldNode(
-                name: _i1.NameNode(value: 'viewerHasReacted'),
-                alias: null,
-                arguments: [],
-                directives: [],
-                selectionSet: null)
+            _i1.FragmentSpreadNode(
+                name: _i1.NameNode(value: 'ReactionConnectionParts'),
+                directives: [])
           ])),
       _i1.FieldNode(
           name: _i1.NameNode(value: 'reactions'),
@@ -2387,18 +2344,9 @@ const ReactableParts = _i1.FragmentDefinitionNode(
           ],
           directives: [],
           selectionSet: _i1.SelectionSetNode(selections: [
-            _i1.FieldNode(
-                name: _i1.NameNode(value: 'totalCount'),
-                alias: null,
-                arguments: [],
-                directives: [],
-                selectionSet: null),
-            _i1.FieldNode(
-                name: _i1.NameNode(value: 'viewerHasReacted'),
-                alias: null,
-                arguments: [],
-                directives: [],
-                selectionSet: null)
+            _i1.FragmentSpreadNode(
+                name: _i1.NameNode(value: 'ReactionConnectionParts'),
+                directives: [])
           ]))
     ]));
 const ReferencedEventParts = _i1.FragmentDefinitionNode(
@@ -4948,6 +4896,7 @@ const document = _i1.DocumentNode(definitions: [
   Issues,
   Pulls,
   CommentParts,
+  ReactionConnectionParts,
   ReactableParts,
   ReferencedEventParts,
   RenamedTitleEventParts,

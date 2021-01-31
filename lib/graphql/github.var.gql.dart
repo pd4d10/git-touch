@@ -388,6 +388,25 @@ abstract class GCommentPartsVars
       _i1.serializers.deserializeWith(GCommentPartsVars.serializer, json);
 }
 
+abstract class GReactionConnectionPartsVars
+    implements
+        Built<GReactionConnectionPartsVars,
+            GReactionConnectionPartsVarsBuilder> {
+  GReactionConnectionPartsVars._();
+
+  factory GReactionConnectionPartsVars(
+          [Function(GReactionConnectionPartsVarsBuilder b) updates]) =
+      _$GReactionConnectionPartsVars;
+
+  static Serializer<GReactionConnectionPartsVars> get serializer =>
+      _$gReactionConnectionPartsVarsSerializer;
+  Map<String, dynamic> toJson() => _i1.serializers
+      .serializeWith(GReactionConnectionPartsVars.serializer, this);
+  static GReactionConnectionPartsVars fromJson(Map<String, dynamic> json) =>
+      _i1.serializers
+          .deserializeWith(GReactionConnectionPartsVars.serializer, json);
+}
+
 abstract class GReactablePartsVars
     implements Built<GReactablePartsVars, GReactablePartsVarsBuilder> {
   GReactablePartsVars._();
