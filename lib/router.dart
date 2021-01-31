@@ -32,6 +32,7 @@ import 'package:git_touch/screens/gh_events.dart';
 import 'package:git_touch/screens/gh_files.dart';
 import 'package:git_touch/screens/gh_gists_files.dart';
 import 'package:git_touch/screens/gh_org_repos.dart';
+import 'package:git_touch/screens/gh_releases.dart';
 import 'package:git_touch/screens/gl_commit.dart';
 import 'package:git_touch/screens/gl_issue_form.dart';
 import 'package:git_touch/screens/gl_starrers.dart';
@@ -123,6 +124,7 @@ class GithubRouter {
     GithubRouter.gistFiles,
     GithubRouter.gistObject,
     GithubRouter.compare,
+    GithubRouter.releases,
   ];
   static final user = RouterScreen('/:login', (context, parameters) {
     final login = parameters['login'].first;
@@ -233,6 +235,11 @@ class GithubRouter {
   static final contributors =
       RouterScreen('/:owner/:name/contributors', (context, parameters) {
     return GhContributorsScreen(
+        parameters['owner'].first, parameters['name'].first);
+  });
+  static final releases =
+      RouterScreen('/:owner/:name/releases', (context, parameters) {
+    return GhReleasesScreen(
         parameters['owner'].first, parameters['name'].first);
   });
 }

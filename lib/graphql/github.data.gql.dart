@@ -10,6 +10,321 @@ import 'package:gql_code_builder/src/serializers/inline_fragment_serializer.dart
 
 part 'github.data.gql.g.dart';
 
+abstract class GGistsData implements Built<GGistsData, GGistsDataBuilder> {
+  GGistsData._();
+
+  factory GGistsData([Function(GGistsDataBuilder b) updates]) = _$GGistsData;
+
+  static void _initializeBuilder(GGistsDataBuilder b) =>
+      b..G__typename = 'Query';
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  @nullable
+  GGistsData_user get user;
+  static Serializer<GGistsData> get serializer => _$gGistsDataSerializer;
+  Map<String, dynamic> toJson() =>
+      _i1.serializers.serializeWith(GGistsData.serializer, this);
+  static GGistsData fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(GGistsData.serializer, json);
+}
+
+abstract class GGistsData_user
+    implements Built<GGistsData_user, GGistsData_userBuilder> {
+  GGistsData_user._();
+
+  factory GGistsData_user([Function(GGistsData_userBuilder b) updates]) =
+      _$GGistsData_user;
+
+  static void _initializeBuilder(GGistsData_userBuilder b) =>
+      b..G__typename = 'User';
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  GGistsData_user_gists get gists;
+  static Serializer<GGistsData_user> get serializer =>
+      _$gGistsDataUserSerializer;
+  Map<String, dynamic> toJson() =>
+      _i1.serializers.serializeWith(GGistsData_user.serializer, this);
+  static GGistsData_user fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(GGistsData_user.serializer, json);
+}
+
+abstract class GGistsData_user_gists
+    implements Built<GGistsData_user_gists, GGistsData_user_gistsBuilder> {
+  GGistsData_user_gists._();
+
+  factory GGistsData_user_gists(
+          [Function(GGistsData_user_gistsBuilder b) updates]) =
+      _$GGistsData_user_gists;
+
+  static void _initializeBuilder(GGistsData_user_gistsBuilder b) =>
+      b..G__typename = 'GistConnection';
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  GGistsData_user_gists_pageInfo get pageInfo;
+  @nullable
+  BuiltList<GGistsData_user_gists_nodes> get nodes;
+  static Serializer<GGistsData_user_gists> get serializer =>
+      _$gGistsDataUserGistsSerializer;
+  Map<String, dynamic> toJson() =>
+      _i1.serializers.serializeWith(GGistsData_user_gists.serializer, this);
+  static GGistsData_user_gists fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(GGistsData_user_gists.serializer, json);
+}
+
+abstract class GGistsData_user_gists_pageInfo
+    implements
+        Built<GGistsData_user_gists_pageInfo,
+            GGistsData_user_gists_pageInfoBuilder>,
+        GPageInfoParts {
+  GGistsData_user_gists_pageInfo._();
+
+  factory GGistsData_user_gists_pageInfo(
+          [Function(GGistsData_user_gists_pageInfoBuilder b) updates]) =
+      _$GGistsData_user_gists_pageInfo;
+
+  static void _initializeBuilder(GGistsData_user_gists_pageInfoBuilder b) =>
+      b..G__typename = 'PageInfo';
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  bool get hasNextPage;
+  @nullable
+  String get endCursor;
+  static Serializer<GGistsData_user_gists_pageInfo> get serializer =>
+      _$gGistsDataUserGistsPageInfoSerializer;
+  Map<String, dynamic> toJson() => _i1.serializers
+      .serializeWith(GGistsData_user_gists_pageInfo.serializer, this);
+  static GGistsData_user_gists_pageInfo fromJson(Map<String, dynamic> json) =>
+      _i1.serializers
+          .deserializeWith(GGistsData_user_gists_pageInfo.serializer, json);
+}
+
+abstract class GGistsData_user_gists_nodes
+    implements
+        Built<GGistsData_user_gists_nodes, GGistsData_user_gists_nodesBuilder> {
+  GGistsData_user_gists_nodes._();
+
+  factory GGistsData_user_gists_nodes(
+          [Function(GGistsData_user_gists_nodesBuilder b) updates]) =
+      _$GGistsData_user_gists_nodes;
+
+  static void _initializeBuilder(GGistsData_user_gists_nodesBuilder b) =>
+      b..G__typename = 'Gist';
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  String get name;
+  @nullable
+  String get description;
+  @nullable
+  BuiltList<GGistsData_user_gists_nodes_files> get files;
+  DateTime get updatedAt;
+  String get id;
+  @nullable
+  GGistsData_user_gists_nodes_owner get owner;
+  static Serializer<GGistsData_user_gists_nodes> get serializer =>
+      _$gGistsDataUserGistsNodesSerializer;
+  Map<String, dynamic> toJson() => _i1.serializers
+      .serializeWith(GGistsData_user_gists_nodes.serializer, this);
+  static GGistsData_user_gists_nodes fromJson(Map<String, dynamic> json) =>
+      _i1.serializers
+          .deserializeWith(GGistsData_user_gists_nodes.serializer, json);
+}
+
+abstract class GGistsData_user_gists_nodes_files
+    implements
+        Built<GGistsData_user_gists_nodes_files,
+            GGistsData_user_gists_nodes_filesBuilder> {
+  GGistsData_user_gists_nodes_files._();
+
+  factory GGistsData_user_gists_nodes_files(
+          [Function(GGistsData_user_gists_nodes_filesBuilder b) updates]) =
+      _$GGistsData_user_gists_nodes_files;
+
+  static void _initializeBuilder(GGistsData_user_gists_nodes_filesBuilder b) =>
+      b..G__typename = 'GistFile';
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  @nullable
+  String get name;
+  @nullable
+  GGistsData_user_gists_nodes_files_language get language;
+  @nullable
+  String get text;
+  static Serializer<GGistsData_user_gists_nodes_files> get serializer =>
+      _$gGistsDataUserGistsNodesFilesSerializer;
+  Map<String, dynamic> toJson() => _i1.serializers
+      .serializeWith(GGistsData_user_gists_nodes_files.serializer, this);
+  static GGistsData_user_gists_nodes_files fromJson(
+          Map<String, dynamic> json) =>
+      _i1.serializers
+          .deserializeWith(GGistsData_user_gists_nodes_files.serializer, json);
+}
+
+abstract class GGistsData_user_gists_nodes_files_language
+    implements
+        Built<GGistsData_user_gists_nodes_files_language,
+            GGistsData_user_gists_nodes_files_languageBuilder> {
+  GGistsData_user_gists_nodes_files_language._();
+
+  factory GGistsData_user_gists_nodes_files_language(
+      [Function(GGistsData_user_gists_nodes_files_languageBuilder b)
+          updates]) = _$GGistsData_user_gists_nodes_files_language;
+
+  static void _initializeBuilder(
+          GGistsData_user_gists_nodes_files_languageBuilder b) =>
+      b..G__typename = 'Language';
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  String get name;
+  static Serializer<GGistsData_user_gists_nodes_files_language>
+      get serializer => _$gGistsDataUserGistsNodesFilesLanguageSerializer;
+  Map<String, dynamic> toJson() => _i1.serializers.serializeWith(
+      GGistsData_user_gists_nodes_files_language.serializer, this);
+  static GGistsData_user_gists_nodes_files_language fromJson(
+          Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+          GGistsData_user_gists_nodes_files_language.serializer, json);
+}
+
+abstract class GGistsData_user_gists_nodes_owner
+    implements
+        Built<GGistsData_user_gists_nodes_owner,
+            GGistsData_user_gists_nodes_ownerBuilder> {
+  GGistsData_user_gists_nodes_owner._();
+
+  factory GGistsData_user_gists_nodes_owner(
+          [Function(GGistsData_user_gists_nodes_ownerBuilder b) updates]) =
+      _$GGistsData_user_gists_nodes_owner;
+
+  static void _initializeBuilder(GGistsData_user_gists_nodes_ownerBuilder b) =>
+      b..G__typename = 'RepositoryOwner';
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  String get avatarUrl;
+  static Serializer<GGistsData_user_gists_nodes_owner> get serializer =>
+      _$gGistsDataUserGistsNodesOwnerSerializer;
+  Map<String, dynamic> toJson() => _i1.serializers
+      .serializeWith(GGistsData_user_gists_nodes_owner.serializer, this);
+  static GGistsData_user_gists_nodes_owner fromJson(
+          Map<String, dynamic> json) =>
+      _i1.serializers
+          .deserializeWith(GGistsData_user_gists_nodes_owner.serializer, json);
+}
+
+abstract class GGistData implements Built<GGistData, GGistDataBuilder> {
+  GGistData._();
+
+  factory GGistData([Function(GGistDataBuilder b) updates]) = _$GGistData;
+
+  static void _initializeBuilder(GGistDataBuilder b) =>
+      b..G__typename = 'Query';
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  @nullable
+  GGistData_user get user;
+  static Serializer<GGistData> get serializer => _$gGistDataSerializer;
+  Map<String, dynamic> toJson() =>
+      _i1.serializers.serializeWith(GGistData.serializer, this);
+  static GGistData fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(GGistData.serializer, json);
+}
+
+abstract class GGistData_user
+    implements Built<GGistData_user, GGistData_userBuilder> {
+  GGistData_user._();
+
+  factory GGistData_user([Function(GGistData_userBuilder b) updates]) =
+      _$GGistData_user;
+
+  static void _initializeBuilder(GGistData_userBuilder b) =>
+      b..G__typename = 'User';
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  @nullable
+  GGistData_user_gist get gist;
+  static Serializer<GGistData_user> get serializer => _$gGistDataUserSerializer;
+  Map<String, dynamic> toJson() =>
+      _i1.serializers.serializeWith(GGistData_user.serializer, this);
+  static GGistData_user fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(GGistData_user.serializer, json);
+}
+
+abstract class GGistData_user_gist
+    implements Built<GGistData_user_gist, GGistData_user_gistBuilder> {
+  GGistData_user_gist._();
+
+  factory GGistData_user_gist(
+      [Function(GGistData_user_gistBuilder b) updates]) = _$GGistData_user_gist;
+
+  static void _initializeBuilder(GGistData_user_gistBuilder b) =>
+      b..G__typename = 'Gist';
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  String get name;
+  @nullable
+  BuiltList<GGistData_user_gist_files> get files;
+  static Serializer<GGistData_user_gist> get serializer =>
+      _$gGistDataUserGistSerializer;
+  Map<String, dynamic> toJson() =>
+      _i1.serializers.serializeWith(GGistData_user_gist.serializer, this);
+  static GGistData_user_gist fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(GGistData_user_gist.serializer, json);
+}
+
+abstract class GGistData_user_gist_files
+    implements
+        Built<GGistData_user_gist_files, GGistData_user_gist_filesBuilder> {
+  GGistData_user_gist_files._();
+
+  factory GGistData_user_gist_files(
+          [Function(GGistData_user_gist_filesBuilder b) updates]) =
+      _$GGistData_user_gist_files;
+
+  static void _initializeBuilder(GGistData_user_gist_filesBuilder b) =>
+      b..G__typename = 'GistFile';
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  @nullable
+  String get name;
+  @nullable
+  GGistData_user_gist_files_language get language;
+  @nullable
+  String get text;
+  @nullable
+  int get size;
+  static Serializer<GGistData_user_gist_files> get serializer =>
+      _$gGistDataUserGistFilesSerializer;
+  Map<String, dynamic> toJson() =>
+      _i1.serializers.serializeWith(GGistData_user_gist_files.serializer, this);
+  static GGistData_user_gist_files fromJson(Map<String, dynamic> json) =>
+      _i1.serializers
+          .deserializeWith(GGistData_user_gist_files.serializer, json);
+}
+
+abstract class GGistData_user_gist_files_language
+    implements
+        Built<GGistData_user_gist_files_language,
+            GGistData_user_gist_files_languageBuilder> {
+  GGistData_user_gist_files_language._();
+
+  factory GGistData_user_gist_files_language(
+          [Function(GGistData_user_gist_files_languageBuilder b) updates]) =
+      _$GGistData_user_gist_files_language;
+
+  static void _initializeBuilder(GGistData_user_gist_files_languageBuilder b) =>
+      b..G__typename = 'Language';
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  String get name;
+  static Serializer<GGistData_user_gist_files_language> get serializer =>
+      _$gGistDataUserGistFilesLanguageSerializer;
+  Map<String, dynamic> toJson() => _i1.serializers
+      .serializeWith(GGistData_user_gist_files_language.serializer, this);
+  static GGistData_user_gist_files_language fromJson(
+          Map<String, dynamic> json) =>
+      _i1.serializers
+          .deserializeWith(GGistData_user_gist_files_language.serializer, json);
+}
+
 abstract class GFollowersData
     implements Built<GFollowersData, GFollowersDataBuilder> {
   GFollowersData._();
@@ -14461,6 +14776,234 @@ abstract class GIssueData_repository_issueOrPullRequest__asPullRequest_timelineI
   static GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asHeadRefDeletedEvent_actor
       fromJson(Map<String, dynamic> json) => _i1.serializers.deserializeWith(
           GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asHeadRefDeletedEvent_actor
+              .serializer,
+          json);
+}
+
+abstract class GReleasesData
+    implements Built<GReleasesData, GReleasesDataBuilder> {
+  GReleasesData._();
+
+  factory GReleasesData([Function(GReleasesDataBuilder b) updates]) =
+      _$GReleasesData;
+
+  static void _initializeBuilder(GReleasesDataBuilder b) =>
+      b..G__typename = 'Query';
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  @nullable
+  GReleasesData_repository get repository;
+  static Serializer<GReleasesData> get serializer => _$gReleasesDataSerializer;
+  Map<String, dynamic> toJson() =>
+      _i1.serializers.serializeWith(GReleasesData.serializer, this);
+  static GReleasesData fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(GReleasesData.serializer, json);
+}
+
+abstract class GReleasesData_repository
+    implements
+        Built<GReleasesData_repository, GReleasesData_repositoryBuilder> {
+  GReleasesData_repository._();
+
+  factory GReleasesData_repository(
+          [Function(GReleasesData_repositoryBuilder b) updates]) =
+      _$GReleasesData_repository;
+
+  static void _initializeBuilder(GReleasesData_repositoryBuilder b) =>
+      b..G__typename = 'Repository';
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  GReleasesData_repository_releases get releases;
+  static Serializer<GReleasesData_repository> get serializer =>
+      _$gReleasesDataRepositorySerializer;
+  Map<String, dynamic> toJson() =>
+      _i1.serializers.serializeWith(GReleasesData_repository.serializer, this);
+  static GReleasesData_repository fromJson(Map<String, dynamic> json) =>
+      _i1.serializers
+          .deserializeWith(GReleasesData_repository.serializer, json);
+}
+
+abstract class GReleasesData_repository_releases
+    implements
+        Built<GReleasesData_repository_releases,
+            GReleasesData_repository_releasesBuilder> {
+  GReleasesData_repository_releases._();
+
+  factory GReleasesData_repository_releases(
+          [Function(GReleasesData_repository_releasesBuilder b) updates]) =
+      _$GReleasesData_repository_releases;
+
+  static void _initializeBuilder(GReleasesData_repository_releasesBuilder b) =>
+      b..G__typename = 'ReleaseConnection';
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  GReleasesData_repository_releases_pageInfo get pageInfo;
+  @nullable
+  BuiltList<GReleasesData_repository_releases_nodes> get nodes;
+  static Serializer<GReleasesData_repository_releases> get serializer =>
+      _$gReleasesDataRepositoryReleasesSerializer;
+  Map<String, dynamic> toJson() => _i1.serializers
+      .serializeWith(GReleasesData_repository_releases.serializer, this);
+  static GReleasesData_repository_releases fromJson(
+          Map<String, dynamic> json) =>
+      _i1.serializers
+          .deserializeWith(GReleasesData_repository_releases.serializer, json);
+}
+
+abstract class GReleasesData_repository_releases_pageInfo
+    implements
+        Built<GReleasesData_repository_releases_pageInfo,
+            GReleasesData_repository_releases_pageInfoBuilder>,
+        GPageInfoParts {
+  GReleasesData_repository_releases_pageInfo._();
+
+  factory GReleasesData_repository_releases_pageInfo(
+      [Function(GReleasesData_repository_releases_pageInfoBuilder b)
+          updates]) = _$GReleasesData_repository_releases_pageInfo;
+
+  static void _initializeBuilder(
+          GReleasesData_repository_releases_pageInfoBuilder b) =>
+      b..G__typename = 'PageInfo';
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  bool get hasNextPage;
+  @nullable
+  String get endCursor;
+  static Serializer<GReleasesData_repository_releases_pageInfo>
+      get serializer => _$gReleasesDataRepositoryReleasesPageInfoSerializer;
+  Map<String, dynamic> toJson() => _i1.serializers.serializeWith(
+      GReleasesData_repository_releases_pageInfo.serializer, this);
+  static GReleasesData_repository_releases_pageInfo fromJson(
+          Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+          GReleasesData_repository_releases_pageInfo.serializer, json);
+}
+
+abstract class GReleasesData_repository_releases_nodes
+    implements
+        Built<GReleasesData_repository_releases_nodes,
+            GReleasesData_repository_releases_nodesBuilder> {
+  GReleasesData_repository_releases_nodes._();
+
+  factory GReleasesData_repository_releases_nodes(
+      [Function(GReleasesData_repository_releases_nodesBuilder b)
+          updates]) = _$GReleasesData_repository_releases_nodes;
+
+  static void _initializeBuilder(
+          GReleasesData_repository_releases_nodesBuilder b) =>
+      b..G__typename = 'Release';
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  String get tagName;
+  @nullable
+  String get description;
+  @nullable
+  String get name;
+  @nullable
+  GReleasesData_repository_releases_nodes_author get author;
+  @nullable
+  DateTime get publishedAt;
+  String get url;
+  GReleasesData_repository_releases_nodes_releaseAssets get releaseAssets;
+  static Serializer<GReleasesData_repository_releases_nodes> get serializer =>
+      _$gReleasesDataRepositoryReleasesNodesSerializer;
+  Map<String, dynamic> toJson() => _i1.serializers
+      .serializeWith(GReleasesData_repository_releases_nodes.serializer, this);
+  static GReleasesData_repository_releases_nodes fromJson(
+          Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+          GReleasesData_repository_releases_nodes.serializer, json);
+}
+
+abstract class GReleasesData_repository_releases_nodes_author
+    implements
+        Built<GReleasesData_repository_releases_nodes_author,
+            GReleasesData_repository_releases_nodes_authorBuilder> {
+  GReleasesData_repository_releases_nodes_author._();
+
+  factory GReleasesData_repository_releases_nodes_author(
+      [Function(GReleasesData_repository_releases_nodes_authorBuilder b)
+          updates]) = _$GReleasesData_repository_releases_nodes_author;
+
+  static void _initializeBuilder(
+          GReleasesData_repository_releases_nodes_authorBuilder b) =>
+      b..G__typename = 'User';
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  @nullable
+  String get name;
+  String get avatarUrl;
+  static Serializer<GReleasesData_repository_releases_nodes_author>
+      get serializer => _$gReleasesDataRepositoryReleasesNodesAuthorSerializer;
+  Map<String, dynamic> toJson() => _i1.serializers.serializeWith(
+      GReleasesData_repository_releases_nodes_author.serializer, this);
+  static GReleasesData_repository_releases_nodes_author fromJson(
+          Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+          GReleasesData_repository_releases_nodes_author.serializer, json);
+}
+
+abstract class GReleasesData_repository_releases_nodes_releaseAssets
+    implements
+        Built<GReleasesData_repository_releases_nodes_releaseAssets,
+            GReleasesData_repository_releases_nodes_releaseAssetsBuilder> {
+  GReleasesData_repository_releases_nodes_releaseAssets._();
+
+  factory GReleasesData_repository_releases_nodes_releaseAssets(
+      [Function(GReleasesData_repository_releases_nodes_releaseAssetsBuilder b)
+          updates]) = _$GReleasesData_repository_releases_nodes_releaseAssets;
+
+  static void _initializeBuilder(
+          GReleasesData_repository_releases_nodes_releaseAssetsBuilder b) =>
+      b..G__typename = 'ReleaseAssetConnection';
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  @nullable
+  BuiltList<GReleasesData_repository_releases_nodes_releaseAssets_nodes>
+      get nodes;
+  static Serializer<GReleasesData_repository_releases_nodes_releaseAssets>
+      get serializer =>
+          _$gReleasesDataRepositoryReleasesNodesReleaseAssetsSerializer;
+  Map<String, dynamic> toJson() => _i1.serializers.serializeWith(
+      GReleasesData_repository_releases_nodes_releaseAssets.serializer, this);
+  static GReleasesData_repository_releases_nodes_releaseAssets fromJson(
+          Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+          GReleasesData_repository_releases_nodes_releaseAssets.serializer,
+          json);
+}
+
+abstract class GReleasesData_repository_releases_nodes_releaseAssets_nodes
+    implements
+        Built<GReleasesData_repository_releases_nodes_releaseAssets_nodes,
+            GReleasesData_repository_releases_nodes_releaseAssets_nodesBuilder> {
+  GReleasesData_repository_releases_nodes_releaseAssets_nodes._();
+
+  factory GReleasesData_repository_releases_nodes_releaseAssets_nodes(
+      [Function(
+              GReleasesData_repository_releases_nodes_releaseAssets_nodesBuilder
+                  b)
+          updates]) = _$GReleasesData_repository_releases_nodes_releaseAssets_nodes;
+
+  static void _initializeBuilder(
+          GReleasesData_repository_releases_nodes_releaseAssets_nodesBuilder
+              b) =>
+      b..G__typename = 'ReleaseAsset';
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  String get name;
+  String get downloadUrl;
+  int get downloadCount;
+  static Serializer<GReleasesData_repository_releases_nodes_releaseAssets_nodes>
+      get serializer =>
+          _$gReleasesDataRepositoryReleasesNodesReleaseAssetsNodesSerializer;
+  Map<String, dynamic> toJson() => _i1.serializers.serializeWith(
+      GReleasesData_repository_releases_nodes_releaseAssets_nodes.serializer,
+      this);
+  static GReleasesData_repository_releases_nodes_releaseAssets_nodes fromJson(
+          Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+          GReleasesData_repository_releases_nodes_releaseAssets_nodes
               .serializer,
           json);
 }

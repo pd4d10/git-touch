@@ -12,6 +12,86 @@ import 'package:gql_exec/gql_exec.dart' as _i4;
 
 part 'github.req.gql.g.dart';
 
+abstract class GGistsReq
+    implements
+        Built<GGistsReq, GGistsReqBuilder>,
+        _i1.OperationRequest<_i2.GGistsData, _i3.GGistsVars> {
+  GGistsReq._();
+
+  factory GGistsReq([Function(GGistsReqBuilder b) updates]) = _$GGistsReq;
+
+  static void _initializeBuilder(GGistsReqBuilder b) => b
+    ..operation = _i4.Operation(document: _i5.document, operationName: 'Gists')
+    ..executeOnListen = true;
+  _i3.GGistsVars get vars;
+  _i4.Operation get operation;
+  _i4.Request get execRequest =>
+      _i4.Request(operation: operation, variables: vars.toJson());
+  @nullable
+  String get requestId;
+  @nullable
+  @BuiltValueField(serialize: false)
+  _i2.GGistsData Function(_i2.GGistsData, _i2.GGistsData) get updateResult;
+  @nullable
+  _i2.GGistsData get optimisticResponse;
+  @nullable
+  String get updateCacheHandlerKey;
+  @nullable
+  Map<String, dynamic> get updateCacheHandlerContext;
+  @nullable
+  _i1.FetchPolicy get fetchPolicy;
+  @nullable
+  bool get executeOnListen;
+  @override
+  _i2.GGistsData parseData(Map<String, dynamic> json) =>
+      _i2.GGistsData.fromJson(json);
+  static Serializer<GGistsReq> get serializer => _$gGistsReqSerializer;
+  Map<String, dynamic> toJson() =>
+      _i6.serializers.serializeWith(GGistsReq.serializer, this);
+  static GGistsReq fromJson(Map<String, dynamic> json) =>
+      _i6.serializers.deserializeWith(GGistsReq.serializer, json);
+}
+
+abstract class GGistReq
+    implements
+        Built<GGistReq, GGistReqBuilder>,
+        _i1.OperationRequest<_i2.GGistData, _i3.GGistVars> {
+  GGistReq._();
+
+  factory GGistReq([Function(GGistReqBuilder b) updates]) = _$GGistReq;
+
+  static void _initializeBuilder(GGistReqBuilder b) => b
+    ..operation = _i4.Operation(document: _i5.document, operationName: 'Gist')
+    ..executeOnListen = true;
+  _i3.GGistVars get vars;
+  _i4.Operation get operation;
+  _i4.Request get execRequest =>
+      _i4.Request(operation: operation, variables: vars.toJson());
+  @nullable
+  String get requestId;
+  @nullable
+  @BuiltValueField(serialize: false)
+  _i2.GGistData Function(_i2.GGistData, _i2.GGistData) get updateResult;
+  @nullable
+  _i2.GGistData get optimisticResponse;
+  @nullable
+  String get updateCacheHandlerKey;
+  @nullable
+  Map<String, dynamic> get updateCacheHandlerContext;
+  @nullable
+  _i1.FetchPolicy get fetchPolicy;
+  @nullable
+  bool get executeOnListen;
+  @override
+  _i2.GGistData parseData(Map<String, dynamic> json) =>
+      _i2.GGistData.fromJson(json);
+  static Serializer<GGistReq> get serializer => _$gGistReqSerializer;
+  Map<String, dynamic> toJson() =>
+      _i6.serializers.serializeWith(GGistReq.serializer, this);
+  static GGistReq fromJson(Map<String, dynamic> json) =>
+      _i6.serializers.deserializeWith(GGistReq.serializer, json);
+}
+
 abstract class GFollowersReq
     implements
         Built<GFollowersReq, GFollowersReqBuilder>,
@@ -587,6 +667,49 @@ abstract class GIssueReq
       _i6.serializers.serializeWith(GIssueReq.serializer, this);
   static GIssueReq fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(GIssueReq.serializer, json);
+}
+
+abstract class GReleasesReq
+    implements
+        Built<GReleasesReq, GReleasesReqBuilder>,
+        _i1.OperationRequest<_i2.GReleasesData, _i3.GReleasesVars> {
+  GReleasesReq._();
+
+  factory GReleasesReq([Function(GReleasesReqBuilder b) updates]) =
+      _$GReleasesReq;
+
+  static void _initializeBuilder(GReleasesReqBuilder b) => b
+    ..operation =
+        _i4.Operation(document: _i5.document, operationName: 'Releases')
+    ..executeOnListen = true;
+  _i3.GReleasesVars get vars;
+  _i4.Operation get operation;
+  _i4.Request get execRequest =>
+      _i4.Request(operation: operation, variables: vars.toJson());
+  @nullable
+  String get requestId;
+  @nullable
+  @BuiltValueField(serialize: false)
+  _i2.GReleasesData Function(_i2.GReleasesData, _i2.GReleasesData)
+      get updateResult;
+  @nullable
+  _i2.GReleasesData get optimisticResponse;
+  @nullable
+  String get updateCacheHandlerKey;
+  @nullable
+  Map<String, dynamic> get updateCacheHandlerContext;
+  @nullable
+  _i1.FetchPolicy get fetchPolicy;
+  @nullable
+  bool get executeOnListen;
+  @override
+  _i2.GReleasesData parseData(Map<String, dynamic> json) =>
+      _i2.GReleasesData.fromJson(json);
+  static Serializer<GReleasesReq> get serializer => _$gReleasesReqSerializer;
+  Map<String, dynamic> toJson() =>
+      _i6.serializers.serializeWith(GReleasesReq.serializer, this);
+  static GReleasesReq fromJson(Map<String, dynamic> json) =>
+      _i6.serializers.deserializeWith(GReleasesReq.serializer, json);
 }
 
 abstract class GPageInfoPartsReq
