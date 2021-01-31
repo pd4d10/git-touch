@@ -54,7 +54,7 @@ class GoRepoScreen extends StatelessWidget {
 
         return Tuple3(repo, readmeData, branches);
       },
-      bodyBuilder: (t, setState) {
+      bodyBuilder: (t, _) {
         final p = t.item1;
         final branches = t.item3;
         final theme = context.read<ThemeModel>();

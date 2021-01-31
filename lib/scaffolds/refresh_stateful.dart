@@ -5,11 +5,9 @@ import 'package:git_touch/scaffolds/utils.dart';
 
 class RefreshStatefulScaffold<T> extends StatefulWidget {
   final Widget title;
-  final Widget Function(T data, void Function(VoidCallback fn) setState)
-      bodyBuilder;
+  final Widget Function(T data, void Function(T newData) setData) bodyBuilder;
   final Future<T> Function() fetch;
-  final Widget Function(T data, void Function(VoidCallback fn) setState)
-      actionBuilder;
+  final Widget Function(T data, void Function(T newData) setData) actionBuilder;
   final Widget action;
   final canRefresh;
 
@@ -62,13 +60,21 @@ class _RefreshStatefulScaffoldState<T>
   Widget get _action {
     if (widget.action != null) return widget.action;
     if (widget.actionBuilder == null || _data == null) return null;
-    return widget.actionBuilder(_data, setState);
+    return widget.actionBuilder(_data, (v) {
+      setState(() {
+        _data = v;
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     Widget child = ErrorLoadingWrapper(
-      bodyBuilder: () => widget.bodyBuilder(_data, setState),
+      bodyBuilder: () => widget.bodyBuilder(_data, (v) {
+        setState(() {
+          _data = v;
+        });
+      }),
       error: _error,
       loading: _data == null,
       reload: _refresh,

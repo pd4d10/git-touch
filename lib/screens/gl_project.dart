@@ -74,7 +74,7 @@ class GlProjectScreen extends StatelessWidget {
 
         return Tuple5(p, langFuture, memberCountFuture, readmeData, branches);
       },
-      actionBuilder: (t, setState) {
+      actionBuilder: (t, _) {
         return ActionButton(
           title: S.of(context).projectActions,
           items: [

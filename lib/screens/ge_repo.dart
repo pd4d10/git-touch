@@ -67,7 +67,7 @@ class GeRepoScreen extends StatelessWidget {
         StatusPayload statusPayload = StatusPayload(isWatching, isStarred);
         return Tuple4(repo, readmeData, branches, statusPayload);
       },
-      bodyBuilder: (t, setState) {
+      bodyBuilder: (t, setData) {
         final p = t.item1;
         final branches = t.item3;
         final theme = context.read<ThemeModel>();
@@ -92,9 +92,9 @@ class GeRepoScreen extends StatelessWidget {
                         await context.read<AuthModel>().fetchGitee(
                             '/user/subscriptions/$owner/$name?watch_type=$watchType',
                             requestType: t.item4.isWatching ? 'DELETE' : 'PUT');
-                        setState(() {
-                          t.item4.isWatching = !t.item4.isWatching;
-                        });
+
+                        t.item4.isWatching = !t.item4.isWatching;
+                        setData(t);
                       },
                     ),
                     SizedBox(width: 8),
@@ -106,9 +106,8 @@ class GeRepoScreen extends StatelessWidget {
                             '/user/starred/$owner/$name',
                             requestType: t.item4.isStarred ? 'DELETE' : 'PUT');
 
-                        setState(() {
-                          t.item4.isStarred = !t.item4.isStarred;
-                        });
+                        t.item4.isStarred = !t.item4.isStarred;
+                        setData(t);
                       },
                     )
                   ])

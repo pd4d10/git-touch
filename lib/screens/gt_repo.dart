@@ -47,7 +47,7 @@ class GtRepoScreen extends StatelessWidget {
 
         return Tuple2(repo, readmeData);
       },
-      bodyBuilder: (t, setState) {
+      bodyBuilder: (t, _) {
         final p = t.item1;
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,

@@ -85,7 +85,7 @@ class GhRepoScreen extends StatelessWidget {
 
         return Tuple3(repo, countFuture, readmeData);
       },
-      actionBuilder: (data, setState) {
+      actionBuilder: (data, _) {
         final repo = data.item1;
         return ActionButton(
           title: S.of(context).repositoryActions,
@@ -102,7 +102,7 @@ class GhRepoScreen extends StatelessWidget {
           ],
         );
       },
-      bodyBuilder: (data, setState) {
+      bodyBuilder: (data, setData) {
         final repo = data.item1;
         final contributionFuture = data.item2;
         final readmeData = data.item3;
@@ -133,49 +133,34 @@ class GhRepoScreen extends StatelessWidget {
                             ActionItem(
                               text: _buildWatchState(v),
                               onTap: (_) async {
+                                final activityApi =
+                                    context.read<AuthModel>().ghClient.activity;
                                 switch (v) {
                                   case GSubscriptionState.SUBSCRIBED:
                                   case GSubscriptionState.IGNORED:
-                                    await context
-                                        .read<AuthModel>()
-                                        .ghClient
-                                        .activity
-                                        .setRepositorySubscription(
-                                          RepositorySlug(
-                                              repo.owner.login, repo.name),
-                                          subscribed: v ==
-                                              GSubscriptionState.SUBSCRIBED,
-                                          ignored:
-                                              v == GSubscriptionState.IGNORED,
-                                        );
-                                    setState(() {
-                                      // if (res.subscribed) {
-                                      //   repo.viewerSubscription =
-                                      //       GSubscriptionState.SUBSCRIBED;
-                                      // } else if (res.ignored) {
-                                      //   repo.viewerSubscription =
-                                      //       GSubscriptionState.IGNORED;
-                                      // }
-                                    });
+                                    await activityApi.setRepositorySubscription(
+                                      RepositorySlug(
+                                          repo.owner.login, repo.name),
+                                      subscribed:
+                                          v == GSubscriptionState.SUBSCRIBED,
+                                      ignored: v == GSubscriptionState.IGNORED,
+                                    );
                                     break;
                                   case GSubscriptionState.UNSUBSCRIBED:
-                                    await context
-                                        .read<AuthModel>()
-                                        .ghClient
-                                        .activity
+                                    await activityApi
                                         .deleteRepositorySubscription(
-                                          RepositorySlug(
-                                            repo.owner.login,
-                                            repo.name,
-                                          ),
-                                        );
-                                    setState(() {
-                                      // repo.viewerSubscription =
-                                      // GSubscriptionState.UNSUBSCRIBED;
-                                    });
+                                      RepositorySlug(
+                                        repo.owner.login,
+                                        repo.name,
+                                      ),
+                                    );
                                     break;
                                   default:
                                 }
+
+                                setData(data.withItem1(repo.rebuild((b) {
+                                  b.viewerSubscription = v;
+                                })));
                               },
                             )
                         ]);
@@ -186,24 +171,18 @@ class GhRepoScreen extends StatelessWidget {
                       active: repo.viewerHasStarred,
                       text: repo.viewerHasStarred ? 'Unstar' : 'Star',
                       onTap: () async {
+                        final activityApi =
+                            context.read<AuthModel>().ghClient.activity;
                         if (repo.viewerHasStarred) {
-                          await context
-                              .read<AuthModel>()
-                              .ghClient
-                              .activity
-                              .unstar(
-                                  RepositorySlug(repo.owner.login, repo.name));
+                          await activityApi.unstar(
+                              RepositorySlug(repo.owner.login, repo.name));
                         } else {
-                          await context
-                              .read<AuthModel>()
-                              .ghClient
-                              .activity
-                              .star(
-                                  RepositorySlug(repo.owner.login, repo.name));
+                          await activityApi.star(
+                              RepositorySlug(repo.owner.login, repo.name));
                         }
-                        setState(() {
-                          // repo.viewerHasStarred = !repo.viewerHasStarred;
-                        });
+                        setData(data.withItem1(repo.rebuild((b) {
+                          b.viewerHasStarred = !repo.viewerHasStarred;
+                        })));
                       },
                     ),
                   ],

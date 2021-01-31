@@ -59,12 +59,12 @@ class _Repos extends StatelessWidget {
 class _User extends StatelessWidget {
   final GUserParts p;
   final bool isViewer;
-  const _User(this.p, {this.isViewer = false});
+  final List<Widget> rightWidgets;
+  const _User(this.p, {this.isViewer = false, this.rightWidgets = const []});
 
   @override
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
-    final auth = Provider.of<AuthModel>(context);
     final login = p.login;
 
     return Column(
@@ -77,25 +77,7 @@ class _User extends StatelessWidget {
           createdAt: p.createdAt,
           bio: p.bio,
           isViewer: isViewer,
-          rightWidgets: [
-            if (p.viewerCanFollow)
-              MutationButton(
-                active: p.viewerIsFollowing,
-                text: p.viewerIsFollowing
-                    ? S.of(context).unfollow
-                    : S.of(context).follow,
-                onTap: () async {
-                  if (p.viewerIsFollowing) {
-                    await auth.ghClient.users.unfollowUser(p.login);
-                  } else {
-                    await auth.ghClient.users.followUser(p.login);
-                  }
-                  // setState(() {
-                  //   // p.viewerIsFollowing = !p.viewerIsFollowing;
-                  // });
-                },
-              )
-          ],
+          rightWidgets: rightWidgets,
         ),
         CommonStyle.border,
         Row(children: [
@@ -297,7 +279,7 @@ class GhViewer extends StatelessWidget {
         iconData: Icons.settings,
         url: '/settings',
       ),
-      bodyBuilder: (p, setState) {
+      bodyBuilder: (p, _) {
         return _User(p, isViewer: true);
       },
     );
@@ -318,18 +300,44 @@ class GhUser extends StatelessWidget {
         return res.data;
       },
       title: AppBarTitle(login),
-      actionBuilder: (payload, setState) {
+      actionBuilder: (payload, _) {
         return ActionButton(
           title: 'User Actions',
           items: ActionItem.getUrlActions(payload.repositoryOwner.url),
         );
       },
-      bodyBuilder: (p, setState) {
-        if (p.repositoryOwner.G__typename == 'User') {
-          return _User(p.repositoryOwner as GUserData_repositoryOwner__asUser);
+      bodyBuilder: (data, setData) {
+        if (data.repositoryOwner.G__typename == 'User') {
+          final p = data.repositoryOwner as GUserData_repositoryOwner__asUser;
+          return _User(
+            p,
+            rightWidgets: [
+              if (p.viewerCanFollow)
+                MutationButton(
+                  active: p.viewerIsFollowing,
+                  text: p.viewerIsFollowing
+                      ? S.of(context).unfollow
+                      : S.of(context).follow,
+                  onTap: () async {
+                    if (p.viewerIsFollowing) {
+                      await auth.ghClient.users.unfollowUser(p.login);
+                    } else {
+                      await auth.ghClient.users.followUser(p.login);
+                    }
+                    setData(data.rebuild((b) {
+                      final u = b.repositoryOwner
+                          as GUserData_repositoryOwner__asUser;
+                      b.repositoryOwner = u.rebuild((b1) {
+                        b1.viewerIsFollowing = !b1.viewerIsFollowing;
+                      });
+                    }));
+                  },
+                )
+            ],
+          );
         } else {
-          return _Org(
-              p.repositoryOwner as GUserData_repositoryOwner__asOrganization);
+          return _Org(data.repositoryOwner
+              as GUserData_repositoryOwner__asOrganization);
         }
       },
     );

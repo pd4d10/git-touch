@@ -40,7 +40,7 @@ class BbRepoScreen extends StatelessWidget {
         });
         return Tuple3(repo, readme, branches);
       },
-      bodyBuilder: (t, setState) {
+      bodyBuilder: (t, _) {
         final theme = Provider.of<ThemeModel>(context);
         final p = t.item1;
         final branches = t.item3;

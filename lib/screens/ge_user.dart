@@ -42,13 +42,13 @@ class GeUserScreen extends StatelessWidget {
           : null,
       actionBuilder: isViewer
           ? null
-          : (p, setState) {
+          : (p, _) {
               return ActionButton(
                 title: 'User Actions',
                 items: [...ActionItem.getUrlActions(p.item1.htmlUrl)],
               );
             },
-      bodyBuilder: (p, setState) {
+      bodyBuilder: (p, _) {
         final user = p.item1;
         final repos = p.item2;
 

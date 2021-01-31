@@ -21,14 +21,15 @@ class UserHeader extends StatelessWidget {
     @required this.bio,
     bool isViewer = false,
     List<Widget> rightWidgets,
-  }) : this.rightWidgets = [
-          ...(rightWidgets ?? []),
+  }) : rightWidgets = [
           if (isViewer)
             MutationButton(
               active: false,
               text: 'Switch accounts',
               url: '/login',
             )
+          else
+            ...(rightWidgets ?? []),
         ];
 
   @override
