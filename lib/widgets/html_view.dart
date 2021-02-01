@@ -29,9 +29,11 @@ class _HtmlViewState extends State<HtmlView> {
     final value = await controller
         .evaluateJavascript("document.documentElement.scrollHeight;");
     // print(value);
-    setState(() {
-      height = double.parse(value);
-    });
+    if (mounted) {
+      setState(() {
+        height = double.parse(value);
+      });
+    }
   }
 
   @override
