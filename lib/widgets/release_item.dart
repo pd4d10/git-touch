@@ -102,7 +102,7 @@ class ReleaseItem extends StatelessWidget {
                             theme.push(context, asset.downloadUrl);
                           }
                         },
-                        icon: Icon(MaterialCommunityIcons.download)),
+                        icon: Icon(Ionicons.download_outline)),
                     hideRightChevron: true,
                   ),
             ])

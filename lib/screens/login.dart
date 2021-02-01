@@ -148,7 +148,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ...List.generate(auth.accounts.length, _buildAccountItem),
                   _buildAddItem(
                     text: S.of(context).githubAccount,
-                    brand: FontAwesome5Brands.github,
+                    brand: Ionicons.logo_github,
                     onTap: () async {
                       theme.showActions(context, [
                         ActionItem(
@@ -200,7 +200,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   _buildAddItem(
                     text: S.of(context).gitlabAccount,
-                    brand: FontAwesome5Brands.gitlab,
+                    brand: Ionicons.logo_gitlab,
                     onTap: () async {
                       _domainController.text = 'https://gitlab.com';
                       final result = await theme.showConfirm(
@@ -236,7 +236,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   _buildAddItem(
                     text: S.of(context).bitbucketAccount,
-                    brand: FontAwesome5Brands.bitbucket,
+                    brand: Ionicons.logo_bitbucket,
                     onTap: () async {
                       _domainController.text = 'https://bitbucket.org';
                       final result = await theme.showConfirm(

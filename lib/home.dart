@@ -110,9 +110,8 @@ class _HomeState extends State<Home> {
     }
   }
 
-  Widget _buildNotificationIcon(BuildContext context, bool isActive) {
+  Widget _buildNotificationIcon(BuildContext context, IconData iconData) {
     final theme = Provider.of<ThemeModel>(context);
-    final iconData = Icons.notifications;
     int count = Provider.of<NotificationModel>(context).count;
     if (count == 0) {
       return Icon(iconData);
@@ -147,6 +146,69 @@ class _HomeState extends State<Home> {
     return tab1;
   }
 
+  List<BottomNavigationBarItem> _buildNavigationItems(String platform) {
+    final search = BottomNavigationBarItem(
+      icon: Icon(Ionicons.search_outline),
+      activeIcon: Icon(Ionicons.search),
+      label: S.of(context).search,
+    );
+    final group = BottomNavigationBarItem(
+      icon: Icon(Ionicons.people_outline),
+      activeIcon: Icon(Ionicons.people),
+      label: S.of(context).organizations,
+    );
+    final me = BottomNavigationBarItem(
+      icon: Icon(Ionicons.person_outline),
+      activeIcon: Icon(Ionicons.person),
+      label: S.of(context).me,
+    );
+    final explore = BottomNavigationBarItem(
+      icon: Icon(Ionicons.compass_outline),
+      activeIcon: Icon(Ionicons.compass),
+      label: S.of(context).explore,
+    );
+
+    switch (platform) {
+      case PlatformType.github:
+        return [
+          BottomNavigationBarItem(
+            icon: Icon(Ionicons.newspaper_outline),
+            activeIcon: Icon(Ionicons.newspaper),
+            label: S.of(context).news,
+          ),
+          BottomNavigationBarItem(
+            icon:
+                _buildNotificationIcon(context, Ionicons.notifications_outline),
+            activeIcon: _buildNotificationIcon(context, Ionicons.notifications),
+            label: S.of(context).notification,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Ionicons.flame_outline),
+            activeIcon: Icon(Ionicons.flame),
+            label: S.of(context).trending,
+          ),
+          search,
+          me,
+        ];
+        break;
+      case PlatformType.gitlab:
+        return [explore, group, search, me];
+        break;
+      case PlatformType.bitbucket:
+        return [explore, group, me];
+        break;
+      case PlatformType.gitea:
+        return [group, me];
+        break;
+      case PlatformType.gitee:
+      case PlatformType.gogs:
+        return [search, me];
+        break;
+      default:
+        return [];
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
@@ -156,74 +218,7 @@ class _HomeState extends State<Home> {
       return LoginScreen();
     }
 
-    List<BottomNavigationBarItem> navigationItems;
-
-    switch (auth.activeAccount.platform) {
-      case PlatformType.github:
-        navigationItems = [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.rss_feed), label: S.of(context).news),
-          BottomNavigationBarItem(
-              icon: _buildNotificationIcon(context, false),
-              activeIcon: _buildNotificationIcon(context, true),
-              label: S.of(context).notification),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.whatshot), label: S.of(context).trending),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.search), label: S.of(context).search),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              activeIcon: Icon(Icons.person),
-              label: S.of(context).me),
-        ];
-        break;
-      case PlatformType.gitlab:
-        navigationItems = [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.explore), label: S.of(context).explore),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.group), label: S.of(context).groups),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.search), label: S.of(context).search),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.person), label: S.of(context).me),
-        ];
-        break;
-      case PlatformType.bitbucket:
-        navigationItems = [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.explore), label: S.of(context).explore),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.group), label: S.of(context).teams),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.person), label: S.of(context).me),
-        ];
-        break;
-      case PlatformType.gitea:
-        navigationItems = [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.group), label: S.of(context).organizations),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.person), label: S.of(context).me),
-        ];
-        break;
-      case PlatformType.gitee:
-        navigationItems = [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.search), label: S.of(context).search),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.person), label: S.of(context).me),
-        ];
-        break;
-      case PlatformType.gogs:
-        navigationItems = [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.search), label: S.of(context).search),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.person), label: S.of(context).me),
-        ];
-        break;
-    }
+    final navigationItems = _buildNavigationItems(auth.activeAccount.platform);
 
     switch (theme.theme) {
       case AppThemeType.cupertino:

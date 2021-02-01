@@ -129,11 +129,11 @@ class RepositoryItem extends StatelessWidget {
   static IconData _buildGlIconData(String visibility) {
     switch (visibility) {
       case 'internal':
-        return FontAwesome.shield;
+        return Ionicons.shield_outline;
       case 'public':
-        return FontAwesome.globe;
+        return Ionicons.globe_outline;
       case 'private':
-        return FontAwesome.lock;
+        return Ionicons.lock_closed_outline;
       default:
         return Octicons.repo;
     }
