@@ -74,40 +74,44 @@ class ReleaseItem extends StatelessWidget {
           ),
           SizedBox(height: 10),
         ],
-        ExpansionTile(
-          title: Text(
-            'Assets (' + (releaseAssets?.nodes?.length ?? 0).toString() + ')',
-            style: TextStyle(
-              color: theme.palette.secondaryText,
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
+        Card(
+          color: theme.palette.grayBackground,
+          margin: EdgeInsets.all(0),
+          child: ExpansionTile(
+            title: Text(
+              'Assets (' + (releaseAssets?.nodes?.length ?? 0).toString() + ')',
+              style: TextStyle(
+                color: theme.palette.secondaryText,
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+              ),
             ),
-          ),
-          children: <Widget>[
-            TableView(items: [
-              if (releaseAssets != null)
-                for (var asset in releaseAssets.nodes)
-                  TableViewItem(
-                    text: Text(
-                      asset.name,
-                      style: TextStyle(
-                        color: theme.palette.primary,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
+            children: <Widget>[
+              TableView(items: [
+                if (releaseAssets != null)
+                  for (var asset in releaseAssets.nodes)
+                    TableViewItem(
+                      text: Text(
+                        asset.name,
+                        style: TextStyle(
+                          color: theme.palette.primary,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
+                      rightWidget: IconButton(
+                          onPressed: () {
+                            if (asset.downloadUrl != null) {
+                              theme.push(context, asset.downloadUrl);
+                            }
+                          },
+                          icon: Icon(Ionicons.download_outline)),
+                      hideRightChevron: true,
                     ),
-                    rightWidget: IconButton(
-                        onPressed: () {
-                          if (asset.downloadUrl != null) {
-                            theme.push(context, asset.downloadUrl);
-                          }
-                        },
-                        icon: Icon(Ionicons.download_outline)),
-                    hideRightChevron: true,
-                  ),
-            ])
-          ],
-        ),
+              ])
+            ],
+          ),
+        )
       ],
     );
   }
