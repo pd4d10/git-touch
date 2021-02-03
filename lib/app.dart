@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     const Locale('hi'),
     const Locale('nb', 'NO'),
     const Locale('pt', 'BR'),
-    const Locale('zh'),
+    const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans'),
   ];
 
   static Locale localeResolutionCallback(
@@ -25,6 +25,24 @@ class MyApp extends StatelessWidget {
       }
     }
     return supportedLocales.first;
+  }
+
+  // locale format: {languageCode}_{scriptCode}_{countryCode}
+  static Locale parseLocale(String locale) {
+    List<String> splittedLocale =
+        locale.contains('_') ? locale.split('_') : [locale];
+    switch (splittedLocale.length) {
+      case 2:
+        return Locale.fromSubtags(
+            languageCode: splittedLocale[0], scriptCode: splittedLocale[1]);
+      case 3:
+        return Locale.fromSubtags(
+            languageCode: splittedLocale[0],
+            scriptCode: splittedLocale[1],
+            countryCode: splittedLocale[2]);
+      default:
+        return Locale(splittedLocale[0]);
+    }
   }
 
   Widget _buildChild(BuildContext context) {
@@ -42,6 +60,7 @@ class MyApp extends StatelessWidget {
             GlobalCupertinoLocalizations.delegate,
           ],
           supportedLocales: supportedLocales,
+          locale: parseLocale(theme.locale),
         );
       default:
         return MaterialApp(
@@ -66,6 +85,7 @@ class MyApp extends StatelessWidget {
             GlobalCupertinoLocalizations.delegate,
           ],
           supportedLocales: supportedLocales,
+          locale: parseLocale(theme.locale),
         );
     }
   }
