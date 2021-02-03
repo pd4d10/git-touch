@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:git_touch/generated/l10n.dart';
+import 'package:flutter_gen/gen_l10n/S.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/gogs.dart';
 import 'package:git_touch/scaffolds/list_stateful.dart';
@@ -19,8 +19,9 @@ class GoIssuesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GogsIssue, int>(
-      title:
-          AppBarTitle(isPr ? S.of(context).pullRequests : S.of(context).issues),
+      title: AppBarTitle(isPr
+          ? AppLocalizations.of(context).pullRequests
+          : AppLocalizations.of(context).issues),
       fetch: (page) async {
         final type = isPr ? 'pulls' : 'issues';
         final res = await context.read<AuthModel>().fetchGogsWithPage(

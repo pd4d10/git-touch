@@ -7,7 +7,7 @@ import 'package:git_touch/widgets/comment_item.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:tuple/tuple.dart';
-import '../generated/l10n.dart';
+import 'package:flutter_gen/gen_l10n/S.dart';
 
 class GlIssueScreen extends StatelessWidget {
   final int projectId;
@@ -20,7 +20,7 @@ class GlIssueScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold<
         Tuple3<GitlabTodoTarget, Iterable<GitlabIssueNote>, List>>(
-      title: Text(S.of(context).issue + '#$iid'),
+      title: Text(AppLocalizations.of(context).issue + '#$iid'),
       fetch: () async {
         final type = isMr ? 'merge_requests' : 'issues';
         final auth = context.read<AuthModel>();

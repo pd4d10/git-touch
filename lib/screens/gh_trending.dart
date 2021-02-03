@@ -8,15 +8,18 @@ import 'package:git_touch/widgets/user_item.dart';
 import 'package:github_trending/github_trending.dart';
 import 'package:git_touch/widgets/repository_item.dart';
 import 'package:provider/provider.dart';
-import '../generated/l10n.dart';
+import 'package:flutter_gen/gen_l10n/S.dart';
 
 class GhTrendingScreen extends StatelessWidget {
   static final trending = GithubTrending(prefix: 'https://gtrend.yapie.me');
 
   Widget build(BuildContext context) {
     return TabStatefulScaffold<List>(
-      title: AppBarTitle(S.of(context).trending),
-      tabs: [S.of(context).repositories, S.of(context).developers],
+      title: AppBarTitle(AppLocalizations.of(context).trending),
+      tabs: [
+        AppLocalizations.of(context).repositories,
+        AppLocalizations.of(context).developers
+      ],
       fetchData: (tabIndex) async {
         if (tabIndex == 0) {
           return trending.getTrendingRepositories();

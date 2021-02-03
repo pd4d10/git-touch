@@ -12,7 +12,7 @@ import 'package:launch_review/launch_review.dart';
 import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
-import '../generated/l10n.dart';
+import 'package:flutter_gen/gen_l10n/S.dart';
 
 class SettingsScreen extends StatelessWidget {
   // Widget _buildRightWidget(BuildContext context, bool checked) {
@@ -27,18 +27,18 @@ class SettingsScreen extends StatelessWidget {
     final auth = Provider.of<AuthModel>(context);
     final code = Provider.of<CodeModel>(context);
     return SingleScaffold(
-      title: AppBarTitle(S.of(context).settings),
+      title: AppBarTitle(AppLocalizations.of(context).settings),
       body: Column(
         children: <Widget>[
           CommonStyle.verticalGap,
-          TableView(headerText: S.of(context).system, items: [
+          TableView(headerText: AppLocalizations.of(context).system, items: [
             if (auth.activeAccount.platform == PlatformType.github) ...[
               TableViewItem(
-                text: Text(S.of(context).githubStatus),
+                text: Text(AppLocalizations.of(context).githubStatus),
                 url: 'https://www.githubstatus.com/',
               ),
               TableViewItem(
-                text: Text(S.of(context).reviewPermissions),
+                text: Text(AppLocalizations.of(context).reviewPermissions),
                 url:
                     'https://github.com/settings/connections/applications/$clientId',
                 rightWidget: Text(auth.activeAccount.login),
@@ -46,7 +46,7 @@ class SettingsScreen extends StatelessWidget {
             ],
             if (auth.activeAccount.platform == PlatformType.gitlab)
               TableViewItem(
-                text: Text(S.of(context).gitlabStatus),
+                text: Text(AppLocalizations.of(context).gitlabStatus),
                 url: '${auth.activeAccount.domain}/help',
                 rightWidget: FutureBuilder<String>(
                   future:
@@ -59,7 +59,7 @@ class SettingsScreen extends StatelessWidget {
             if (auth.activeAccount.platform == PlatformType.gitea)
               TableViewItem(
                 leftIconData: Octicons.info,
-                text: Text(S.of(context).giteaStatus),
+                text: Text(AppLocalizations.of(context).giteaStatus),
                 url: '/gitea/status',
                 rightWidget: FutureBuilder<String>(
                   future: auth.fetchGitea('/version').then((v) => v['version']),
@@ -69,7 +69,7 @@ class SettingsScreen extends StatelessWidget {
                 ),
               ),
             TableViewItem(
-              text: Text(S.of(context).switchAccounts),
+              text: Text(AppLocalizations.of(context).switchAccounts),
               url: '/login',
               rightWidget: Text(auth.activeAccount.login),
             ),
@@ -77,7 +77,7 @@ class SettingsScreen extends StatelessWidget {
           CommonStyle.verticalGap,
           TableView(headerText: 'theme', items: [
             TableViewItem(
-              text: Text(S.of(context).brightness),
+              text: Text(AppLocalizations.of(context).brightness),
               rightWidget: Text(theme.brighnessValue == AppBrightnessType.light
                   ? 'Light'
                   : theme.brighnessValue == AppBrightnessType.dark
@@ -86,10 +86,12 @@ class SettingsScreen extends StatelessWidget {
               onTap: () {
                 theme.showActions(context, [
                   for (var t in [
-                    Tuple2(S.of(context).followSystem,
+                    Tuple2(AppLocalizations.of(context).followSystem,
                         AppBrightnessType.followSystem),
-                    Tuple2(S.of(context).light, AppBrightnessType.light),
-                    Tuple2(S.of(context).dark, AppBrightnessType.dark),
+                    Tuple2(AppLocalizations.of(context).light,
+                        AppBrightnessType.light),
+                    Tuple2(AppLocalizations.of(context).dark,
+                        AppBrightnessType.dark),
                   ])
                     ActionItem(
                       text: t.item1,
@@ -102,15 +104,17 @@ class SettingsScreen extends StatelessWidget {
               },
             ),
             TableViewItem(
-              text: Text(S.of(context).scaffoldTheme),
+              text: Text(AppLocalizations.of(context).scaffoldTheme),
               rightWidget: Text(theme.theme == AppThemeType.cupertino
-                  ? S.of(context).cupertino
-                  : S.of(context).material),
+                  ? AppLocalizations.of(context).cupertino
+                  : AppLocalizations.of(context).material),
               onTap: () {
                 theme.showActions(context, [
                   for (var t in [
-                    Tuple2(S.of(context).material, AppThemeType.material),
-                    Tuple2(S.of(context).cupertino, AppThemeType.cupertino),
+                    Tuple2(AppLocalizations.of(context).material,
+                        AppThemeType.material),
+                    Tuple2(AppLocalizations.of(context).cupertino,
+                        AppThemeType.cupertino),
                   ])
                     ActionItem(
                       text: t.item1,
@@ -124,20 +128,22 @@ class SettingsScreen extends StatelessWidget {
               },
             ),
             TableViewItem(
-              text: Text(S.of(context).codeTheme),
+              text: Text(AppLocalizations.of(context).codeTheme),
               url: '/choose-code-theme',
               rightWidget: Text('${code.fontFamily}, ${code.fontSize}pt'),
             ),
             TableViewItem(
-              text: Text(S.of(context).markdownRenderEngine),
+              text: Text(AppLocalizations.of(context).markdownRenderEngine),
               rightWidget: Text(theme.markdown == AppMarkdownType.flutter
-                  ? S.of(context).flutter
-                  : S.of(context).webview),
+                  ? AppLocalizations.of(context).flutter
+                  : AppLocalizations.of(context).webview),
               onTap: () {
                 theme.showActions(context, [
                   for (var t in [
-                    Tuple2(S.of(context).flutter, AppMarkdownType.flutter),
-                    Tuple2(S.of(context).webview, AppMarkdownType.webview),
+                    Tuple2(AppLocalizations.of(context).flutter,
+                        AppMarkdownType.flutter),
+                    Tuple2(AppLocalizations.of(context).webview,
+                        AppMarkdownType.webview),
                   ])
                     ActionItem(
                       text: t.item1,
@@ -152,9 +158,9 @@ class SettingsScreen extends StatelessWidget {
             ),
           ]),
           CommonStyle.verticalGap,
-          TableView(headerText: S.of(context).feedback, items: [
+          TableView(headerText: AppLocalizations.of(context).feedback, items: [
             TableViewItem(
-              text: Text(S.of(context).submitAnIssue),
+              text: Text(AppLocalizations.of(context).submitAnIssue),
               rightWidget: Text('pd4d10/git-touch'),
               url: (auth.activeAccount.platform == PlatformType.github
                       ? '/github'
@@ -162,7 +168,7 @@ class SettingsScreen extends StatelessWidget {
                   '/pd4d10/git-touch/issues/new',
             ),
             TableViewItem(
-              text: Text(S.of(context).rateThisApp),
+              text: Text(AppLocalizations.of(context).rateThisApp),
               onTap: () {
                 LaunchReview.launch(
                   androidAppId: 'io.github.pd4d10.gittouch',
@@ -171,16 +177,16 @@ class SettingsScreen extends StatelessWidget {
               },
             ),
             TableViewItem(
-              text: Text(S.of(context).email),
+              text: Text(AppLocalizations.of(context).email),
               rightWidget: Text('pd4d10@gmail.com'),
               hideRightChevron: true,
               url: 'mailto:pd4d10@gmail.com',
             ),
           ]),
           CommonStyle.verticalGap,
-          TableView(headerText: S.of(context).about, items: [
+          TableView(headerText: AppLocalizations.of(context).about, items: [
             TableViewItem(
-                text: Text(S.of(context).version),
+                text: Text(AppLocalizations.of(context).version),
                 rightWidget: FutureBuilder<String>(
                   future:
                       PackageInfo.fromPlatform().then((info) => info.version),
@@ -189,7 +195,7 @@ class SettingsScreen extends StatelessWidget {
                   },
                 )),
             TableViewItem(
-              text: Text(S.of(context).sourceCode),
+              text: Text(AppLocalizations.of(context).sourceCode),
               rightWidget: Text('pd4d10/git-touch'),
               url: (auth.activeAccount.platform == PlatformType.github
                       ? '/github'

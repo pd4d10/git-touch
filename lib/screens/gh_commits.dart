@@ -8,7 +8,7 @@ import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/commit_item.dart';
 import 'package:provider/provider.dart';
-import '../generated/l10n.dart';
+import 'package:flutter_gen/gen_l10n/S.dart';
 
 class GhCommits extends StatelessWidget {
   final String owner;
@@ -31,7 +31,7 @@ class GhCommits extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GCommitsRefCommit_history_nodes, String>(
-      title: AppBarTitle(S.of(context).commits),
+      title: AppBarTitle(AppLocalizations.of(context).commits),
       fetch: (cursor) async {
         final req = GCommitsReq((b) {
           b.vars.owner = owner;

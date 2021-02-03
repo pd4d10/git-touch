@@ -24,7 +24,7 @@ import 'package:git_touch/screens/gh_news.dart';
 import 'package:git_touch/screens/gh_search.dart';
 import 'package:git_touch/screens/gh_trending.dart';
 import 'package:git_touch/screens/ge_search.dart';
-import 'generated/l10n.dart';
+import 'package:flutter_gen/gen_l10n/S.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -150,22 +150,22 @@ class _HomeState extends State<Home> {
     final search = BottomNavigationBarItem(
       icon: Icon(Ionicons.search_outline),
       activeIcon: Icon(Ionicons.search),
-      label: S.of(context).search,
+      label: AppLocalizations.of(context).search,
     );
     final group = BottomNavigationBarItem(
       icon: Icon(Ionicons.people_outline),
       activeIcon: Icon(Ionicons.people),
-      label: S.of(context).organizations,
+      label: AppLocalizations.of(context).organizations,
     );
     final me = BottomNavigationBarItem(
       icon: Icon(Ionicons.person_outline),
       activeIcon: Icon(Ionicons.person),
-      label: S.of(context).me,
+      label: AppLocalizations.of(context).me,
     );
     final explore = BottomNavigationBarItem(
       icon: Icon(Ionicons.compass_outline),
       activeIcon: Icon(Ionicons.compass),
-      label: S.of(context).explore,
+      label: AppLocalizations.of(context).explore,
     );
 
     switch (platform) {
@@ -174,18 +174,18 @@ class _HomeState extends State<Home> {
           BottomNavigationBarItem(
             icon: Icon(Ionicons.newspaper_outline),
             activeIcon: Icon(Ionicons.newspaper),
-            label: S.of(context).news,
+            label: AppLocalizations.of(context).news,
           ),
           BottomNavigationBarItem(
             icon:
                 _buildNotificationIcon(context, Ionicons.notifications_outline),
             activeIcon: _buildNotificationIcon(context, Ionicons.notifications),
-            label: S.of(context).notification,
+            label: AppLocalizations.of(context).notification,
           ),
           BottomNavigationBarItem(
             icon: Icon(Ionicons.flame_outline),
             activeIcon: Icon(Ionicons.flame),
-            label: S.of(context).trending,
+            label: AppLocalizations.of(context).trending,
           ),
           search,
           me,

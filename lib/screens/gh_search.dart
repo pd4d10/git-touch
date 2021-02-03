@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/widgets/repository_item.dart';
 import 'package:timeago/timeago.dart' as timeago;
-import '../generated/l10n.dart';
+import 'package:flutter_gen/gen_l10n/S.dart';
 
 class GhSearchScreen extends StatefulWidget {
   @override
@@ -126,7 +126,7 @@ class _GhSearchScreenState extends State<GhSearchScreen> {
                 Icon(Octicons.search, size: 20, color: PrimerColors.gray400),
               ],
             ),
-            placeholder: S.of(context).search,
+            placeholder: AppLocalizations.of(context).search,
             clearButtonMode: OverlayVisibilityMode.editing,
             textInputAction: TextInputAction.go,
             onSubmitted: (_) => _query(),
@@ -135,7 +135,8 @@ class _GhSearchScreenState extends State<GhSearchScreen> {
         );
       default:
         return TextField(
-          decoration: InputDecoration.collapsed(hintText: S.of(context).search),
+          decoration: InputDecoration.collapsed(
+              hintText: AppLocalizations.of(context).search),
           textInputAction: TextInputAction.go,
           onSubmitted: (_) => _query(),
           controller: _controller,
