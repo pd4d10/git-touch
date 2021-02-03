@@ -8,6 +8,25 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/S.dart';
 
 class MyApp extends StatelessWidget {
+  static const supportedLocales = [
+    const Locale('en'),
+    const Locale('es'),
+    const Locale('hi'),
+    const Locale('nb', 'NO'),
+    const Locale('pt', 'BR'),
+    const Locale('zh'),
+  ];
+
+  static Locale localeResolutionCallback(
+      Locale locale, Iterable<Locale> supportedLocales) {
+    for (final supportedLocale in supportedLocales) {
+      if (locale.languageCode == supportedLocale.languageCode) {
+        return supportedLocale;
+      }
+    }
+    return supportedLocales.first;
+  }
+
   Widget _buildChild(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
     switch (theme.theme) {
@@ -15,25 +34,14 @@ class MyApp extends StatelessWidget {
         return CupertinoApp(
           theme: CupertinoThemeData(brightness: theme.brightness),
           home: Home(),
-          localeResolutionCallback:
-              (Locale locale, Iterable<Locale> supportedLocales) {
-            for (final supportedLocale in supportedLocales) {
-              if (locale.languageCode == supportedLocale.languageCode) {
-                return supportedLocale;
-              }
-            }
-            return supportedLocales.first;
-          },
+          localeResolutionCallback: localeResolutionCallback,
           localizationsDelegates: [
             AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
-          supportedLocales: [
-            const Locale('en', ''),
-            const Locale('hi', ''),
-          ],
+          supportedLocales: supportedLocales,
         );
       default:
         return MaterialApp(
@@ -50,28 +58,14 @@ class MyApp extends StatelessWidget {
             ),
           ),
           home: Home(),
-          localeResolutionCallback:
-              (Locale locale, Iterable<Locale> supportedLocales) {
-            for (final supportedLocale in supportedLocales) {
-              if (locale.languageCode == supportedLocale.languageCode) {
-                return supportedLocale;
-              }
-            }
-            return supportedLocales.first;
-          },
+          localeResolutionCallback: localeResolutionCallback,
           localizationsDelegates: [
             AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
-          supportedLocales: [
-            const Locale('en', ''),
-            const Locale('hi', ''),
-            const Locale('es', ''),
-            const Locale('nb', 'NO'),
-            const Locale('pt', 'BR'),
-          ],
+          supportedLocales: supportedLocales,
         );
     }
   }
