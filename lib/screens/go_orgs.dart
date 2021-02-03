@@ -6,7 +6,7 @@ import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/user_item.dart';
 import 'package:provider/provider.dart';
-import '../generated/l10n.dart';
+import 'package:flutter_gen/gen_l10n/S.dart';
 
 class GoOrgsScreen extends StatelessWidget {
   final String api;
@@ -18,7 +18,7 @@ class GoOrgsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold<List<GogsOrg>>(
-      title: AppBarTitle(S.of(context).organizations),
+      title: AppBarTitle(AppLocalizations.of(context).organizations),
       fetch: () async {
         final res = await context.read<AuthModel>().fetchGogs(api);
         return [for (var v in res) GogsOrg.fromJson(v)];

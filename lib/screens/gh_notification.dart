@@ -13,7 +13,7 @@ import '../widgets/notification_item.dart';
 import '../widgets/list_group.dart';
 import '../widgets/empty.dart';
 import '../utils/utils.dart';
-import '../generated/l10n.dart';
+import 'package:flutter_gen/gen_l10n/S.dart';
 
 class GhNotificationScreen extends StatefulWidget {
   @override
@@ -157,11 +157,11 @@ ${item.key}: pullRequest(number: ${item.subject.number}) {
   @override
   Widget build(context) {
     return TabStatefulScaffold(
-      title: AppBarTitle(S.of(context).notification),
+      title: AppBarTitle(AppLocalizations.of(context).notification),
       tabs: [
-        S.of(context).unread,
-        S.of(context).participating,
-        S.of(context).all
+        AppLocalizations.of(context).unread,
+        AppLocalizations.of(context).participating,
+        AppLocalizations.of(context).all
       ],
       fetchData: fetchNotifications,
       bodyBuilder: (groupMap, activeTab) {

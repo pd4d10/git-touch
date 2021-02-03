@@ -13,7 +13,7 @@ import 'package:git_touch/widgets/table_view.dart';
 import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
 import 'package:http/http.dart' as http;
-import '../generated/l10n.dart';
+import 'package:flutter_gen/gen_l10n/S.dart';
 
 class GoRepoScreen extends StatelessWidget {
   final String owner;
@@ -25,7 +25,7 @@ class GoRepoScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold<
         Tuple3<GogsRepository, MarkdownViewData, List<GogsBranch>>>(
-      title: AppBarTitle(S.of(context).repository),
+      title: AppBarTitle(AppLocalizations.of(context).repository),
       fetch: () async {
         final auth = context.read<AuthModel>();
         final repo = await auth.fetchGogs('/repos/$owner/$name').then((v) {
@@ -115,7 +115,7 @@ class GoRepoScreen extends StatelessWidget {
                 ),
                 TableViewItem(
                   leftIconData: Octicons.git_branch,
-                  text: Text(S.of(context).branches),
+                  text: Text(AppLocalizations.of(context).branches),
                   rightWidget: Text((branch == null ? 'master' : branch) +
                       ' • ' +
                       '${branches == null ? '1' : branches.length.toString()}'),

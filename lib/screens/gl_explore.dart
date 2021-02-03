@@ -6,13 +6,13 @@ import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/repository_item.dart';
 import 'package:provider/provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
-import '../generated/l10n.dart';
+import 'package:flutter_gen/gen_l10n/S.dart';
 
 class GlExploreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GitlabProject, int>(
-      title: AppBarTitle(S.of(context).explore),
+      title: AppBarTitle(AppLocalizations.of(context).explore),
       fetch: (page) async {
         page = page ?? 1;
         final auth = context.read<AuthModel>();

@@ -7,7 +7,7 @@ import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/models/auth.dart';
-import '../generated/l10n.dart';
+import 'package:flutter_gen/gen_l10n/S.dart';
 
 class GeContributorsScreen extends StatelessWidget {
   final String owner;
@@ -16,7 +16,7 @@ class GeContributorsScreen extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GiteeContributor, int>(
-      title: AppBarTitle(S.of(context).contributors),
+      title: AppBarTitle(AppLocalizations.of(context).contributors),
       fetch: (page) async {
         page = page ?? 1;
         final res = await context

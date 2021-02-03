@@ -5,7 +5,7 @@ import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'generated/l10n.dart';
+import 'package:flutter_gen/gen_l10n/S.dart';
 
 class MyApp extends StatelessWidget {
   Widget _buildChild(BuildContext context) {
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
             return supportedLocales.first;
           },
           localizationsDelegates: [
-            S.delegate,
+            AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
@@ -60,7 +60,7 @@ class MyApp extends StatelessWidget {
             return supportedLocales.first;
           },
           localizationsDelegates: [
-            S.delegate,
+            AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
@@ -68,6 +68,9 @@ class MyApp extends StatelessWidget {
           supportedLocales: [
             const Locale('en', ''),
             const Locale('hi', ''),
+            const Locale('es', ''),
+            const Locale('nb', 'NO'),
+            const Locale('pt', 'BR'),
           ],
         );
     }

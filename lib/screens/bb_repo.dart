@@ -13,7 +13,7 @@ import 'package:git_touch/widgets/repo_header.dart';
 import 'package:git_touch/widgets/table_view.dart';
 import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
-import '../generated/l10n.dart';
+import 'package:flutter_gen/gen_l10n/S.dart';
 
 class BbRepoScreen extends StatelessWidget {
   final String owner;
@@ -24,7 +24,7 @@ class BbRepoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold<Tuple3<BbRepo, String, List<BbBranch>>>(
-      title: AppBarTitle(S.of(context).repository),
+      title: AppBarTitle(AppLocalizations.of(context).repository),
       fetch: () async {
         final auth = context.read<AuthModel>();
         final r = await auth.fetchBbJson('/repositories/$owner/$name');
@@ -85,7 +85,7 @@ class BbRepoScreen extends StatelessWidget {
                 if (branches != null)
                   TableViewItem(
                     leftIconData: Octicons.git_branch,
-                    text: Text(S.of(context).branches),
+                    text: Text(AppLocalizations.of(context).branches),
                     rightWidget: Text(
                         (branch == null ? p.mainbranch.name : branch) +
                             ' • ' +

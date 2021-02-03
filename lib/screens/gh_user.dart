@@ -17,7 +17,7 @@ import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/widgets/user_header.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/widgets/action_button.dart';
-import '../generated/l10n.dart';
+import 'package:flutter_gen/gen_l10n/S.dart';
 
 class _Repos extends StatelessWidget {
   final String title;
@@ -83,22 +83,22 @@ class _User extends StatelessWidget {
         Row(children: [
           EntryItem(
             count: p.repositories.totalCount,
-            text: S.of(context).repositories,
+            text: AppLocalizations.of(context).repositories,
             url: '/github/$login?tab=repositories',
           ),
           EntryItem(
             count: p.starredRepositories.totalCount,
-            text: S.of(context).stars,
+            text: AppLocalizations.of(context).stars,
             url: '/github/$login?tab=stars',
           ),
           EntryItem(
             count: p.followers.totalCount,
-            text: S.of(context).followers,
+            text: AppLocalizations.of(context).followers,
             url: '/github/$login?tab=followers',
           ),
           EntryItem(
             count: p.following.totalCount,
-            text: S.of(context).following,
+            text: AppLocalizations.of(context).following,
             url: '/github/$login?tab=following',
           ),
         ]),
@@ -120,17 +120,17 @@ class _User extends StatelessWidget {
           items: [
             TableViewItem(
               leftIconData: Icons.rss_feed,
-              text: Text(S.of(context).events),
+              text: Text(AppLocalizations.of(context).events),
               url: '/github/$login?tab=events',
             ),
             TableViewItem(
               leftIconData: Octicons.book,
-              text: Text(S.of(context).gists),
+              text: Text(AppLocalizations.of(context).gists),
               url: '/github/$login?tab=gists',
             ),
             TableViewItem(
               leftIconData: Octicons.home,
-              text: Text(S.of(context).organizations),
+              text: Text(AppLocalizations.of(context).organizations),
               url: '/github/$login?tab=organizations',
             ),
             if (isNotNullOrEmpty(p.company))
@@ -205,12 +205,12 @@ class _Org extends StatelessWidget {
         Row(children: [
           EntryItem(
             count: p.pinnableItems.totalCount,
-            text: S.of(context).repositories,
+            text: AppLocalizations.of(context).repositories,
             url: '/github/${p.login}?tab=orgrepo',
           ),
           EntryItem(
             count: p.membersWithRole.totalCount,
-            text: S.of(context).members,
+            text: AppLocalizations.of(context).members,
             url: '/github/${p.login}?tab=people',
           ),
         ]),
@@ -219,7 +219,7 @@ class _Org extends StatelessWidget {
           items: [
             TableViewItem(
               leftIconData: Icons.rss_feed,
-              text: Text(S.of(context).events),
+              text: Text(AppLocalizations.of(context).events),
               url: '/github/${p.login}?tab=events',
             ),
             if (isNotNullOrEmpty(p.location))
@@ -274,7 +274,7 @@ class GhViewer extends StatelessWidget {
         final res = await auth.gqlClient.request(req).first;
         return res.data.viewer;
       },
-      title: AppBarTitle(S.of(context).me),
+      title: AppBarTitle(AppLocalizations.of(context).me),
       action: ActionEntry(
         iconData: Icons.settings,
         url: '/settings',
@@ -316,8 +316,8 @@ class GhUser extends StatelessWidget {
                 MutationButton(
                   active: p.viewerIsFollowing,
                   text: p.viewerIsFollowing
-                      ? S.of(context).unfollow
-                      : S.of(context).follow,
+                      ? AppLocalizations.of(context).unfollow
+                      : AppLocalizations.of(context).follow,
                   onTap: () async {
                     if (p.viewerIsFollowing) {
                       await auth.ghClient.users.unfollowUser(p.login);

@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:git_touch/generated/l10n.dart';
+import 'package:flutter_gen/gen_l10n/S.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/widgets/blob_view.dart';
@@ -11,7 +11,7 @@ class GtStatusScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold<String>(
-      title: Text(S.of(context).giteaStatus),
+      title: Text(AppLocalizations.of(context).giteaStatus),
       fetch: () async {
         final auth = context.read<AuthModel>();
         final res = await Future.wait([

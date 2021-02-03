@@ -7,7 +7,7 @@ import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/widgets/files_item.dart';
 import 'package:git_touch/models/auth.dart';
-import '../generated/l10n.dart';
+import 'package:flutter_gen/gen_l10n/S.dart';
 
 class GeFilesScreen extends StatelessWidget {
   final String owner;
@@ -17,7 +17,7 @@ class GeFilesScreen extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GiteePullFile, int>(
-      title: AppBarTitle(S.of(context).files),
+      title: AppBarTitle(AppLocalizations.of(context).files),
       actionBuilder: () {
         return ActionButton(
           title: 'Actions',

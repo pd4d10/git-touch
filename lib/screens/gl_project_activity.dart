@@ -8,7 +8,7 @@ import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/avatar.dart';
 import 'package:git_touch/widgets/link.dart';
 import 'package:provider/provider.dart';
-import '../generated/l10n.dart';
+import 'package:flutter_gen/gen_l10n/S.dart';
 
 class GlProjectActivityScreen extends StatelessWidget {
   final int id;
@@ -18,7 +18,7 @@ class GlProjectActivityScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
     return ListStatefulScaffold<GitlabEvent, int>(
-      title: AppBarTitle(S.of(context).activity),
+      title: AppBarTitle(AppLocalizations.of(context).activity),
       fetch: (page) async {
         page = page ?? 1;
         final auth = context.read<AuthModel>();

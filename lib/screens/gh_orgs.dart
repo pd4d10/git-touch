@@ -6,7 +6,7 @@ import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/user_item.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/models/auth.dart';
-import '../generated/l10n.dart';
+import 'package:flutter_gen/gen_l10n/S.dart';
 
 class GhUserOrganizationScreen extends StatelessWidget {
   final String login;
@@ -14,7 +14,7 @@ class GhUserOrganizationScreen extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GithubUserOrganizationItem, int>(
-      title: AppBarTitle(S.of(context).organizations),
+      title: AppBarTitle(AppLocalizations.of(context).organizations),
       fetch: (page) async {
         page = page ?? 1;
         final res = await context

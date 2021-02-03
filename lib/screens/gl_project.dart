@@ -15,7 +15,7 @@ import 'package:provider/provider.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/widgets/action_button.dart';
 import 'package:tuple/tuple.dart';
-import '../generated/l10n.dart';
+import 'package:flutter_gen/gen_l10n/S.dart';
 
 class GlProjectScreen extends StatelessWidget {
   final int id;
@@ -27,7 +27,7 @@ class GlProjectScreen extends StatelessWidget {
     return RefreshStatefulScaffold<
         Tuple5<GitlabProject, Future<Map<String, double>>, Future<int>,
             MarkdownViewData, List<GitlabBranch>>>(
-      title: AppBarTitle(S.of(context).project),
+      title: AppBarTitle(AppLocalizations.of(context).project),
       fetch: () async {
         final auth = context.read<AuthModel>();
         final p =
@@ -76,7 +76,7 @@ class GlProjectScreen extends StatelessWidget {
       },
       actionBuilder: (t, _) {
         return ActionButton(
-          title: S.of(context).projectActions,
+          title: AppLocalizations.of(context).projectActions,
           items: [
             ...ActionItem.getUrlActions(t.item1.webUrl),
           ],
@@ -121,19 +121,19 @@ class GlProjectScreen extends StatelessWidget {
                   builder: (context, snapshot) {
                     return EntryItem(
                       count: snapshot.data,
-                      text: S.of(context).members,
+                      text: AppLocalizations.of(context).members,
                       url: '/gitlab/projects/$id/members',
                     );
                   },
                 ),
                 EntryItem(
                   count: p.starCount,
-                  text: S.of(context).stars,
+                  text: AppLocalizations.of(context).stars,
                   url: '/gitlab/projects/$id/starrers',
                 ),
                 EntryItem(
                   count: p.forksCount,
-                  text: S.of(context).forks, // TODO:
+                  text: AppLocalizations.of(context).forks, // TODO:
                 ),
               ],
             ),
@@ -166,8 +166,9 @@ class GlProjectScreen extends StatelessWidget {
                         return Text('');
                       } else {
                         final langs = snapshot.data.keys;
-                        return Text(
-                            langs.isEmpty ? S.of(context).code : langs.first);
+                        return Text(langs.isEmpty
+                            ? AppLocalizations.of(context).code
+                            : langs.first);
                       }
                     },
                   ),
@@ -180,19 +181,19 @@ class GlProjectScreen extends StatelessWidget {
                 if (p.issuesEnabled)
                   TableViewItem(
                     leftIconData: Octicons.issue_opened,
-                    text: Text(S.of(context).issues),
+                    text: Text(AppLocalizations.of(context).issues),
                     rightWidget: Text(numberFormat.format(p.openIssuesCount)),
                     url: '/gitlab/projects/$id/issues?prefix=$prefix',
                   ),
                 if (p.mergeRequestsEnabled)
                   TableViewItem(
                     leftIconData: Octicons.git_pull_request,
-                    text: Text(S.of(context).mergeRequests),
+                    text: Text(AppLocalizations.of(context).mergeRequests),
                     url: '/gitlab/projects/$id/merge_requests?prefix=$prefix',
                   ),
                 TableViewItem(
                   leftIconData: Octicons.history,
-                  text: Text(S.of(context).commits),
+                  text: Text(AppLocalizations.of(context).commits),
                   rightWidget: p.statistics == null
                       ? null
                       : Text(p.statistics.commitCount.toString()),
@@ -202,7 +203,7 @@ class GlProjectScreen extends StatelessWidget {
                 if (branches != null)
                   TableViewItem(
                     leftIconData: Octicons.git_branch,
-                    text: Text(S.of(context).branches),
+                    text: Text(AppLocalizations.of(context).branches),
                     rightWidget: Text(
                         (branch == null ? p.defaultBranch : branch) +
                             ' • ' +

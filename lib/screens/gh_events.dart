@@ -7,7 +7,7 @@ import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/widgets/event_item.dart';
 import 'package:git_touch/models/auth.dart';
-import '../generated/l10n.dart';
+import 'package:flutter_gen/gen_l10n/S.dart';
 
 class GhEventsScreen extends StatelessWidget {
   final String login;
@@ -16,7 +16,7 @@ class GhEventsScreen extends StatelessWidget {
   @override
   Widget build(context) {
     return ListStatefulScaffold<GithubEvent, int>(
-      title: AppBarTitle(S.of(context).events),
+      title: AppBarTitle(AppLocalizations.of(context).events),
       itemBuilder: (payload) => EventItem(payload),
       fetch: (page) async {
         page = page ?? 1;

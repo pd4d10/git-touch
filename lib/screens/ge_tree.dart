@@ -7,7 +7,7 @@ import 'package:git_touch/widgets/object_tree.dart';
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:provider/provider.dart';
-import '../generated/l10n.dart';
+import 'package:flutter_gen/gen_l10n/S.dart';
 
 class GeTreeScreen extends StatelessWidget {
   final String owner;
@@ -18,7 +18,7 @@ class GeTreeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold<List<GiteeTreeItem>>(
-      title: AppBarTitle(S.of(context).files),
+      title: AppBarTitle(AppLocalizations.of(context).files),
       fetch: () async {
         final res = await context
             .read<AuthModel>()

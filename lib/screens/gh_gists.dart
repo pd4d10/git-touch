@@ -5,7 +5,7 @@ import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/gists_item.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/models/auth.dart';
-import '../generated/l10n.dart';
+import 'package:flutter_gen/gen_l10n/S.dart';
 import 'package:git_touch/graphql/github.data.gql.dart';
 import 'package:git_touch/graphql/github.req.gql.dart';
 
@@ -16,7 +16,7 @@ class GhGistsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GGistsData_user_gists_nodes, String>(
-      title: AppBarTitle(S.of(context).gists),
+      title: AppBarTitle(AppLocalizations.of(context).gists),
       fetch: (page) async {
         final req = GGistsReq((b) => b
           ..vars.login = login
