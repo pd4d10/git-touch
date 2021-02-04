@@ -650,7 +650,6 @@ class AuthModel with ChangeNotifier {
   }
 
   Future<void> setDefaultAccount(int v) async {
-    activeAccountIndex = v;
     final prefs = await SharedPreferences.getInstance();
     await prefs.setInt(StorageKeys.defaultAccount, v);
     Fimber.d('write default account: $v');
