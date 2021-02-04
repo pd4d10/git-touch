@@ -265,6 +265,58 @@ abstract class GIssueVars implements Built<GIssueVars, GIssueVarsBuilder> {
       _i1.serializers.deserializeWith(GIssueVars.serializer, json);
 }
 
+abstract class GaddCommentVars
+    implements Built<GaddCommentVars, GaddCommentVarsBuilder> {
+  GaddCommentVars._();
+
+  factory GaddCommentVars([Function(GaddCommentVarsBuilder b) updates]) =
+      _$GaddCommentVars;
+
+  String get body;
+  String get subjectId;
+  static Serializer<GaddCommentVars> get serializer =>
+      _$gaddCommentVarsSerializer;
+  Map<String, dynamic> toJson() =>
+      _i1.serializers.serializeWith(GaddCommentVars.serializer, this);
+  static GaddCommentVars fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(GaddCommentVars.serializer, json);
+}
+
+abstract class GupdateIssueCommentVars
+    implements Built<GupdateIssueCommentVars, GupdateIssueCommentVarsBuilder> {
+  GupdateIssueCommentVars._();
+
+  factory GupdateIssueCommentVars(
+          [Function(GupdateIssueCommentVarsBuilder b) updates]) =
+      _$GupdateIssueCommentVars;
+
+  String get body;
+  String get id;
+  static Serializer<GupdateIssueCommentVars> get serializer =>
+      _$gupdateIssueCommentVarsSerializer;
+  Map<String, dynamic> toJson() =>
+      _i1.serializers.serializeWith(GupdateIssueCommentVars.serializer, this);
+  static GupdateIssueCommentVars fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(GupdateIssueCommentVars.serializer, json);
+}
+
+abstract class GdeleteIssueCommentVars
+    implements Built<GdeleteIssueCommentVars, GdeleteIssueCommentVarsBuilder> {
+  GdeleteIssueCommentVars._();
+
+  factory GdeleteIssueCommentVars(
+          [Function(GdeleteIssueCommentVarsBuilder b) updates]) =
+      _$GdeleteIssueCommentVars;
+
+  String get id;
+  static Serializer<GdeleteIssueCommentVars> get serializer =>
+      _$gdeleteIssueCommentVarsSerializer;
+  Map<String, dynamic> toJson() =>
+      _i1.serializers.serializeWith(GdeleteIssueCommentVars.serializer, this);
+  static GdeleteIssueCommentVars fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(GdeleteIssueCommentVars.serializer, json);
+}
+
 abstract class GReleasesVars
     implements Built<GReleasesVars, GReleasesVarsBuilder> {
   GReleasesVars._();

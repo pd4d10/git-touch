@@ -21,6 +21,40 @@ class GhIssueScreen extends StatelessWidget {
   final int number;
   GhIssueScreen(this.owner, this.name, this.number);
 
+  // TODO: Edit issue body/title
+  List<ActionItem> _buildCommentActionItem(
+    BuildContext context,
+    GCommentParts comment,
+  ) {
+    final theme = context.read<ThemeModel>();
+    return [
+      ActionItem(
+          iconData: Ionicons.pencil,
+          text: 'Edit',
+          onTap: (_) {
+            final uri = Uri(
+              path: '/github/${owner}/$name/issues/$number/comment',
+              queryParameters: {
+                'body': comment.body,
+                'id': comment.id.toString(),
+              },
+            ).toString();
+            theme.push(context, uri);
+          }),
+      ActionItem(
+        iconData: Ionicons.trash_bin,
+        text: 'Delete',
+        onTap: (_) async {
+          final req = GdeleteIssueCommentReq((b) => b..vars.id = comment.id);
+          final res =
+              await context.read<AuthModel>().gqlClient.request(req).first;
+          await theme.push(context, '/github/$owner/$name/issues/$number',
+              replace: true);
+        },
+      ),
+    ];
+  }
+
   Widget _buildHeader(
     BuildContext context, {
     @required String avatarUrl,
@@ -107,6 +141,14 @@ class GhIssueScreen extends StatelessWidget {
           return ActionButton(
             title: 'Actions',
             items: [
+              ActionItem(
+                onTap: (_) {
+                  context.read<ThemeModel>().push(context,
+                      '/github/$owner/$name/issues/$number/comment?id=${d.id}');
+                },
+                text: 'Comment',
+                iconData: Ionicons.create_outline,
+              ),
               if (!d.viewerCanUpdate)
                 ActionItem(
                   text: d.closed ? 'Reopen issue' : 'Close issue',
@@ -138,67 +180,65 @@ class GhIssueScreen extends StatelessWidget {
           final issue = p.issueOrPullRequest
               as GIssueData_repository_issueOrPullRequest__asIssue;
 
-          return _buildHeader(
-            context,
-            avatarUrl: issue.author.avatarUrl,
-            title: issue.title,
-            status: issue.closed
-                ? StateLabelStatus.issueClosed
-                : StateLabelStatus.issueOpened,
-            body: CommentItem.gql(issue, issue, (key) {
-              // TODO: reduce boilerplate
-              // switch (key) {
-              //   case GReactionContent.THUMBS_UP:
-              //     issue.THUMBS_UP.rebuild((b) {
-              //       b.viewerHasReacted = !b.viewerHasReacted;
-              //       b.totalCount += (b.viewerHasReacted ? 1 : -1);
-              //     });
-              //     break;
-              //   case GReactionContent.THUMBS_DOWN:
-              //     issue.THUMBS_DOWN.rebuild((b) {
-              //       b.viewerHasReacted = !b.viewerHasReacted;
-              //       b.totalCount += (b.viewerHasReacted ? 1 : -1);
-              //     });
-              //     break;
-              //   case GReactionContent.LAUGH:
-              //     issue.LAUGH.rebuild((b) {
-              //       b.viewerHasReacted = !b.viewerHasReacted;
-              //       b.totalCount += (b.viewerHasReacted ? 1 : -1);
-              //     });
-              //     break;
-              //   case GReactionContent.HOORAY:
-              //     issue.HOORAY.rebuild((b) {
-              //       b.viewerHasReacted = !b.viewerHasReacted;
-              //       b.totalCount += (b.viewerHasReacted ? 1 : -1);
-              //     });
-              //     break;
-              //   case GReactionContent.CONFUSED:
-              //     issue.CONFUSED.rebuild((b) {
-              //       b.viewerHasReacted = !b.viewerHasReacted;
-              //       b.totalCount += (b.viewerHasReacted ? 1 : -1);
-              //     });
-              //     break;
-              //   case GReactionContent.HEART:
-              //     issue.HEART.rebuild((b) {
-              //       b.viewerHasReacted = !b.viewerHasReacted;
-              //       b.totalCount += (b.viewerHasReacted ? 1 : -1);
-              //     });
-              //     break;
-              //   case GReactionContent.ROCKET:
-              //     issue.ROCKET.rebuild((b) {
-              //       b.viewerHasReacted = !b.viewerHasReacted;
-              //       b.totalCount += (b.viewerHasReacted ? 1 : -1);
-              //     });
-              //     break;
-              //   case GReactionContent.EYES:
-              //     issue.EYES.rebuild((b) {
-              //       b.viewerHasReacted = !b.viewerHasReacted;
-              //       b.totalCount += (b.viewerHasReacted ? 1 : -1);
-              //     });
-              //     break;
-              // }
-            }),
-          );
+          return _buildHeader(context,
+              avatarUrl: issue.author.avatarUrl,
+              title: issue.title,
+              status: issue.closed
+                  ? StateLabelStatus.issueClosed
+                  : StateLabelStatus.issueOpened,
+              body: CommentItem.gql(issue, issue, (key) {
+                // TODO: reduce boilerplate
+                // switch (key) {
+                //   case GReactionContent.THUMBS_UP:
+                //     issue.THUMBS_UP.rebuild((b) {
+                //       b.viewerHasReacted = !b.viewerHasReacted;
+                //       b.totalCount += (b.viewerHasReacted ? 1 : -1);
+                //     });
+                //     break;
+                //   case GReactionContent.THUMBS_DOWN:
+                //     issue.THUMBS_DOWN.rebuild((b) {
+                //       b.viewerHasReacted = !b.viewerHasReacted;
+                //       b.totalCount += (b.viewerHasReacted ? 1 : -1);
+                //     });
+                //     break;
+                //   case GReactionContent.LAUGH:
+                //     issue.LAUGH.rebuild((b) {
+                //       b.viewerHasReacted = !b.viewerHasReacted;
+                //       b.totalCount += (b.viewerHasReacted ? 1 : -1);
+                //     });
+                //     break;
+                //   case GReactionContent.HOORAY:
+                //     issue.HOORAY.rebuild((b) {
+                //       b.viewerHasReacted = !b.viewerHasReacted;
+                //       b.totalCount += (b.viewerHasReacted ? 1 : -1);
+                //     });
+                //     break;
+                //   case GReactionContent.CONFUSED:
+                //     issue.CONFUSED.rebuild((b) {
+                //       b.viewerHasReacted = !b.viewerHasReacted;
+                //       b.totalCount += (b.viewerHasReacted ? 1 : -1);
+                //     });
+                //     break;
+                //   case GReactionContent.HEART:
+                //     issue.HEART.rebuild((b) {
+                //       b.viewerHasReacted = !b.viewerHasReacted;
+                //       b.totalCount += (b.viewerHasReacted ? 1 : -1);
+                //     });
+                //     break;
+                //   case GReactionContent.ROCKET:
+                //     issue.ROCKET.rebuild((b) {
+                //       b.viewerHasReacted = !b.viewerHasReacted;
+                //       b.totalCount += (b.viewerHasReacted ? 1 : -1);
+                //     });
+                //     break;
+                //   case GReactionContent.EYES:
+                //     issue.EYES.rebuild((b) {
+                //       b.viewerHasReacted = !b.viewerHasReacted;
+                //       b.totalCount += (b.viewerHasReacted ? 1 : -1);
+                //     });
+                //     break;
+                // }
+              }, null));
         } else {
           final pr = p.issueOrPullRequest
               as GIssueData_repository_issueOrPullRequest__asPullRequest;
@@ -211,7 +251,7 @@ class GhIssueScreen extends StatelessWidget {
                 : pr.closed
                     ? StateLabelStatus.pullClosed
                     : StateLabelStatus.pullOpened,
-            body: CommentItem.gql(pr, pr, (key) {}),
+            body: CommentItem.gql(pr, pr, (key) {}, null),
             extraWidgets: [
               Link(
                 child: Container(
@@ -251,7 +291,8 @@ class GhIssueScreen extends StatelessWidget {
           );
         }
       },
-      itemBuilder: (p) => TimelineItem(p),
+      itemBuilder: (p) => TimelineItem(p,
+          commentActionItemList: _buildCommentActionItem(context, p)),
       onRefresh: () async {
         final res = await _queryIssue(context);
         if (res.issueOrPullRequest.G__typename == 'Issue') {
