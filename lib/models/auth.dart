@@ -632,9 +632,11 @@ class AuthModel with ChangeNotifier {
           .map((item) => Account.fromJson(item))
           .toList();
       activeAccountIndex = prefs.getInt(StorageKeys.defaultAccount);
-      _activeTab = prefs.getInt(
-              StorageKeys.getDefaultStartTabKey(activeAccount.platform)) ??
-          0;
+
+      if (activeAccount != null)
+        _activeTab = prefs.getInt(
+                StorageKeys.getDefaultStartTabKey(activeAccount.platform)) ??
+            0;
     } catch (err) {
       Fimber.e('prefs getAccount failed', ex: err);
       _accounts = [];
