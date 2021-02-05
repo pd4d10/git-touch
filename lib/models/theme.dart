@@ -33,11 +33,11 @@ class SupportedLocales {
   ];
   static const Map<String, String> languageNameExpanded = {
     'en': 'English',
-    'hi': 'Hindi',
-    'es': 'Spanish',
-    'nb_NO': 'Norwegian Bokmål (Norway)',
-    'pt_BR': 'Portuguese (Brazil)',
-    'zh_Hans': 'Chinese (Simplified Han)'
+    'hi': 'हिन्दी',
+    'es': 'Español',
+    'nb_NO': 'Norsk bokmål (Norge) ',
+    'pt_BR': 'Portugues (brasil)',
+    'zh_Hans': '中文（简体汉字'
   };
 }
 

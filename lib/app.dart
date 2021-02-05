@@ -6,6 +6,7 @@ import 'package:git_touch/models/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/S.dart';
+import 'package:intl/locale.dart' as l;
 
 class MyApp extends StatelessWidget {
   static const supportedLocales = [
@@ -27,26 +28,9 @@ class MyApp extends StatelessWidget {
     return supportedLocales.first;
   }
 
-  // locale format: {languageCode}_{scriptCode}_{countryCode}
-  static Locale parseLocale(String locale) {
-    List<String> splittedLocale =
-        locale.contains('_') ? locale.split('_') : [locale];
-    switch (splittedLocale.length) {
-      case 2:
-        return Locale.fromSubtags(
-            languageCode: splittedLocale[0], scriptCode: splittedLocale[1]);
-      case 3:
-        return Locale.fromSubtags(
-            languageCode: splittedLocale[0],
-            scriptCode: splittedLocale[1],
-            countryCode: splittedLocale[2]);
-      default:
-        return Locale(splittedLocale[0]);
-    }
-  }
-
   Widget _buildChild(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
+    final parsedLocale = l.Locale.parse(theme.locale ?? 'en');
     switch (theme.theme) {
       case AppThemeType.cupertino:
         return CupertinoApp(
@@ -60,7 +44,10 @@ class MyApp extends StatelessWidget {
             GlobalCupertinoLocalizations.delegate,
           ],
           supportedLocales: supportedLocales,
-          locale: parseLocale(theme.locale),
+          locale: Locale.fromSubtags(
+              languageCode: parsedLocale.languageCode,
+              countryCode: parsedLocale.countryCode,
+              scriptCode: parsedLocale.scriptCode),
         );
       default:
         return MaterialApp(
@@ -85,7 +72,10 @@ class MyApp extends StatelessWidget {
             GlobalCupertinoLocalizations.delegate,
           ],
           supportedLocales: supportedLocales,
-          locale: parseLocale(theme.locale),
+          locale: Locale.fromSubtags(
+              languageCode: parsedLocale.languageCode,
+              countryCode: parsedLocale.countryCode,
+              scriptCode: parsedLocale.scriptCode),
         );
     }
   }
