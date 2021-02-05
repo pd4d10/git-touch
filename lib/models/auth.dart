@@ -631,6 +631,12 @@ class AuthModel with ChangeNotifier {
       _accounts = (json.decode(str ?? '[]') as List)
           .map((item) => Account.fromJson(item))
           .toList();
+      activeAccountIndex = prefs.getInt(StorageKeys.defaultAccount);
+
+      if (activeAccount != null)
+        _activeTab = prefs.getInt(
+                StorageKeys.getDefaultStartTabKey(activeAccount.platform)) ??
+            0;
     } catch (err) {
       Fimber.e('prefs getAccount failed', ex: err);
       _accounts = [];
@@ -645,11 +651,19 @@ class AuthModel with ChangeNotifier {
     super.dispose();
   }
 
+  Future<void> setDefaultAccount(int v) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt(StorageKeys.defaultAccount, v);
+    Fimber.d('write default account: $v');
+    notifyListeners();
+  }
+
   var rootKey = UniqueKey();
   setActiveAccountAndReload(int index) async {
     // https://stackoverflow.com/a/50116077
     rootKey = UniqueKey();
     activeAccountIndex = index;
+    setDefaultAccount(activeAccountIndex);
     final prefs = await SharedPreferences.getInstance();
     _activeTab = prefs.getInt(
             StorageKeys.getDefaultStartTabKey(activeAccount.platform)) ??
