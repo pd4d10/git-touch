@@ -268,7 +268,7 @@ class GhRepoScreen extends StatelessWidget {
                     rightWidget: Text(
                         ((ref.target as GRepoCommit).history?.totalCount ?? 0)
                             .toString()),
-                    url: '/github/$owner/$name/commits',
+                    url: '/github/$owner/$name/commits/${ref.name}',
                   ),
                   if (repo.refs != null)
                     TableViewItem(

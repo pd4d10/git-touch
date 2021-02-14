@@ -211,9 +211,10 @@ class GithubRouter {
           parameters['before'].first,
           parameters['head'].first));
   static final commits = RouterScreen(
-      '/:owner/:name/commits',
-      (context, parameters) =>
-          GhCommits(parameters['owner'].first, parameters['name'].first));
+      '/:owner/:name/commits/:branch',
+      (context, parameters) => GhCommits(
+          parameters['owner'].first, parameters['name'].first,
+          branch: parameters['branch'].first));
   static final object =
       RouterScreen('/:owner/:name/blob/:ref', (context, parameters) {
     return GhObjectScreen(
