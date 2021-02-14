@@ -136,8 +136,8 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _checkAccountExists(BuildContext context, String domain, String login) {
     final auth = context.read<AuthModel>();
     final accountExists = auth.accounts
-        .where((account) => account.domain == domain && account.login == login);
-    return accountExists.isNotEmpty;
+        .any((account) => account.domain == domain && account.login == login);
+    return accountExists;
   }
 
   @override
@@ -164,7 +164,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               context,
                               _buildPopup(
                                 context,
-                                placeholder: 'Username or email',
+                                placeholder: 'Username',
                               ),
                             );
 
