@@ -9,6 +9,7 @@ import 'package:git_touch/widgets/action_button.dart';
 import 'package:primer/primer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/locale.dart' as l;
 
 class DialogOption<T> {
   final T value;
@@ -37,7 +38,7 @@ class SupportedLocales {
     'es': 'Español',
     'nb_NO': 'Norsk bokmål (Norge) ',
     'pt_BR': 'Portugues (brasil)',
-    'zh_Hans': '中文（简体汉字'
+    'zh_Hans': '简体中文'
   };
 }
 
@@ -188,6 +189,19 @@ class ThemeModel with ChangeNotifier {
   // supported languages
   String _locale;
   String get locale => _locale;
+  Locale get userSetLocale {
+    try {
+      final parsedLocale = l.Locale.parse(_locale);
+      return Locale.fromSubtags(
+        languageCode: parsedLocale.languageCode,
+        countryCode: parsedLocale.countryCode,
+        scriptCode: parsedLocale.scriptCode,
+      );
+    } catch (err) {
+      return null;
+    }
+  }
+
   Future<void> setLocale(String v) async {
     _locale = v;
     final prefs = await SharedPreferences.getInstance();

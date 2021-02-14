@@ -71,10 +71,6 @@
   "@follow": {
     "description": "follow someone"
   },
-  "helloWorld": "Hei verden!",
-  "@helloWorld": {
-    "description": "The conventional newborn programmer greeting"
-  },
   "permissionRequiredMessage": "GitTouch trenger disse tilgangene",
   "@permissionRequiredMessage": {
     "description": "Permission Required Message"

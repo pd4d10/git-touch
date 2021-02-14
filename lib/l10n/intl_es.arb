@@ -346,9 +346,5 @@
   "news": "Noticias",
   "@news": {
     "description": "The News tab"
-  },
-  "helloWorld": "¡Hola, Mundo!",
-  "@helloWorld": {
-    "description": "The conventional newborn programmer greeting"
   }
 }

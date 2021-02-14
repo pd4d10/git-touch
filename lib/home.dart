@@ -40,6 +40,7 @@ class _HomeState extends State<Home> {
   final GlobalKey<NavigatorState> tab5 = GlobalKey<NavigatorState>();
 
   _buildScreen(int index) {
+    // print(Localizations.localeOf(context).toString());
     // return GlProjectScreen(32221);
     // return GhIssuesScreen('flutter', 'flutter', isPullRequest: true);
     // return GhIssueScreen('reactjs', 'rfcs', 29);
