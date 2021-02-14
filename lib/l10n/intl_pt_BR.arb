@@ -55,7 +55,7 @@
   "@gitlabAccount": {
     "description": "Gitlab Account"
   },
-  "notFoundTextDisplay": "Esta página ainda não foi implementada",
+  "notFoundTextDisplay": "Ops, esta página ainda não foi implementada.",
   "@notFoundTextDisplay": {
     "description": "Not found error message"
   },
