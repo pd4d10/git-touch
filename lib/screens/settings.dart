@@ -21,6 +21,16 @@ class SettingsScreen extends StatelessWidget {
   //   return Icon(Icons.check, color: theme.palette.primary, size: 24);
   // }
 
+  // After translation finished, add locale name here to display in settings
+  static const localeNameMap = {
+    'en': 'English',
+    'hi': 'हिन्दी',
+    'es': 'Español',
+    'nb_NO': 'Norsk bokmål (Norge)',
+    'pt_BR': 'Portugues (brasil)',
+    'zh_Hans': '简体中文',
+  };
+
   @override
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
@@ -74,22 +84,32 @@ class SettingsScreen extends StatelessWidget {
               rightWidget: Text(auth.activeAccount.login),
             ),
             TableViewItem(
-                text: Text('App Language'),
-                rightWidget: Text(SupportedLocales
-                    .languageNameExpanded[theme.locale ?? 'en']),
-                onTap: () {
-                  theme.showActions(context, [
-                    for (var t in SupportedLocales.values)
-                      ActionItem(
-                        text: SupportedLocales.languageNameExpanded[t],
-                        onTap: (_) {
-                          if (theme.locale != t) {
-                            theme.setLocale(t);
-                          }
-                        },
-                      )
-                  ]);
-                })
+              text: Text('App Language'),
+              rightWidget: Text(theme.locale == null
+                  ? AppLocalizations.of(context).followSystem
+                  : localeNameMap[theme.locale] ?? 'Unknown'),
+              onTap: () {
+                theme.showActions(context, [
+                  for (final e in [
+                    MapEntry(null, AppLocalizations.of(context).followSystem),
+                    ...localeNameMap.entries
+                  ])
+                    ActionItem(
+                      text: e.value,
+                      onTap: (_) async {
+                        final res = await theme.showConfirm(
+                          context,
+                          Text('Reload the App to take effect'),
+                        );
+                        if (res && theme.locale != e.key) {
+                          await theme.setLocale(e.key);
+                          auth.reloadApp();
+                        }
+                      },
+                    )
+                ]);
+              },
+            )
           ]),
           CommonStyle.verticalGap,
           TableView(headerText: 'theme', items: [

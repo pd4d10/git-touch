@@ -660,6 +660,11 @@ class AuthModel with ChangeNotifier {
   }
 
   var rootKey = UniqueKey();
+  reloadApp() {
+    rootKey = UniqueKey();
+    notifyListeners();
+  }
+
   setActiveAccountAndReload(int index) async {
     // https://stackoverflow.com/a/50116077
     rootKey = UniqueKey();

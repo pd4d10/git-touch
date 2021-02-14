@@ -10,6 +10,7 @@ import 'package:primer/primer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/locale.dart' as l;
+import 'package:flutter_gen/gen_l10n/S.dart';
 
 class DialogOption<T> {
   final T value;
@@ -38,7 +39,8 @@ class SupportedLocales {
     'es': 'Español',
     'nb_NO': 'Norsk bokmål (Norge) ',
     'pt_BR': 'Portugues (brasil)',
-    'zh_Hans': '简体中文'
+    'zh_Hans': '简体中文',
+    'zh_Hant': '正体中文'
   };
 }
 
@@ -264,7 +266,7 @@ class ThemeModel with ChangeNotifier {
       _markdown = m;
     }
     final l = prefs.getString(StorageKeys.locale);
-    if (SupportedLocales.values.contains(l)) {
+    if (AppLocalizations.supportedLocales.any((v) => l == v.toString())) {
       _locale = l;
     }
 
