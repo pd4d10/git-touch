@@ -631,12 +631,13 @@ class AuthModel with ChangeNotifier {
       _accounts = (json.decode(str ?? '[]') as List)
           .map((item) => Account.fromJson(item))
           .toList();
-      activeAccountIndex = prefs.getInt(StorageKeys.defaultAccount);
+      activeAccountIndex = prefs.getInt(StorageKeys.iDefaultAccount);
 
-      if (activeAccount != null)
+      if (activeAccount != null) {
         _activeTab = prefs.getInt(
                 StorageKeys.getDefaultStartTabKey(activeAccount.platform)) ??
             0;
+      }
     } catch (err) {
       Fimber.e('prefs getAccount failed', ex: err);
       _accounts = [];
@@ -653,7 +654,7 @@ class AuthModel with ChangeNotifier {
 
   Future<void> setDefaultAccount(int v) async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setInt(StorageKeys.defaultAccount, v);
+    await prefs.setInt(StorageKeys.iDefaultAccount, v);
     Fimber.d('write default account: $v');
     notifyListeners();
   }

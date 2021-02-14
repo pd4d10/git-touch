@@ -175,7 +175,7 @@ class ThemeModel with ChangeNotifier {
   Future<void> setMarkdown(int v) async {
     _markdown = v;
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setInt(StorageKeys.markdown, v);
+    await prefs.setInt(StorageKeys.iMarkdown, v);
     Fimber.d('write markdown engine: $v');
     notifyListeners();
   }
@@ -245,7 +245,7 @@ class ThemeModel with ChangeNotifier {
     if (AppBrightnessType.values.contains(b)) {
       _brightnessValue = b;
     }
-    final m = prefs.getInt(StorageKeys.markdown);
+    final m = prefs.getInt(StorageKeys.iMarkdown);
     if (AppMarkdownType.values.contains(m)) {
       _markdown = m;
     }
