@@ -38,7 +38,7 @@ class BbPullsScreen extends StatelessWidget {
           subtitle: '#' + pullNumber.toString(),
           commentCount: 0,
           updatedAt: v.createdOn,
-          url: '${auth.activeAccount.domain}/$owner/$name/issues/$pullNumber',
+          url: '${auth.activeAccount.domain}/$owner/$name/pull-requests/$pullNumber',
         );
       },
     );
