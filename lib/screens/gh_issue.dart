@@ -24,7 +24,7 @@ class GhIssueScreen extends StatelessWidget {
   // TODO: Edit issue body/title
   List<ActionItem> _buildCommentActionItem(
     BuildContext context,
-    GCommentParts comment,
+    dynamic comment,
   ) {
     final theme = context.read<ThemeModel>();
     return [
