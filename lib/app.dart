@@ -6,6 +6,7 @@ import 'package:git_touch/models/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/S.dart';
+import 'package:intl/locale.dart' as l;
 
 class MyApp extends StatelessWidget {
   static const supportedLocales = [
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
     const Locale('hi'),
     const Locale('nb', 'NO'),
     const Locale('pt', 'BR'),
-    const Locale('zh'),
+    const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans'),
   ];
 
   static Locale localeResolutionCallback(
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
 
   Widget _buildChild(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
+    final parsedLocale = l.Locale.parse(theme.locale ?? 'en');
     switch (theme.theme) {
       case AppThemeType.cupertino:
         return CupertinoApp(
@@ -42,6 +44,10 @@ class MyApp extends StatelessWidget {
             GlobalCupertinoLocalizations.delegate,
           ],
           supportedLocales: supportedLocales,
+          locale: Locale.fromSubtags(
+              languageCode: parsedLocale.languageCode,
+              countryCode: parsedLocale.countryCode,
+              scriptCode: parsedLocale.scriptCode),
         );
       default:
         return MaterialApp(
@@ -66,6 +72,10 @@ class MyApp extends StatelessWidget {
             GlobalCupertinoLocalizations.delegate,
           ],
           supportedLocales: supportedLocales,
+          locale: Locale.fromSubtags(
+              languageCode: parsedLocale.languageCode,
+              countryCode: parsedLocale.countryCode,
+              scriptCode: parsedLocale.scriptCode),
         );
     }
   }

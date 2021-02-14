@@ -16,6 +16,31 @@ class DialogOption<T> {
   DialogOption({this.value, this.widget});
 }
 
+class SupportedLocales {
+  static const en = 'en';
+  static const hi = 'hi';
+  static const es = 'es';
+  static const nb_NO = 'nb_NO';
+  static const pt_BR = 'pt_BR';
+  static const zh_Hans = 'zh_Hans';
+  static const values = [
+    SupportedLocales.en,
+    SupportedLocales.hi,
+    SupportedLocales.es,
+    SupportedLocales.nb_NO,
+    SupportedLocales.pt_BR,
+    SupportedLocales.zh_Hans,
+  ];
+  static const Map<String, String> languageNameExpanded = {
+    'en': 'English',
+    'hi': 'हिन्दी',
+    'es': 'Español',
+    'nb_NO': 'Norsk bokmål (Norge) ',
+    'pt_BR': 'Portugues (brasil)',
+    'zh_Hans': '中文（简体汉字'
+  };
+}
+
 class AppThemeType {
   static const material = 0;
   static const cupertino = 1;
@@ -160,6 +185,16 @@ class ThemeModel with ChangeNotifier {
     return Platform.isMacOS || markdown == AppMarkdownType.flutter;
   }
 
+  // supported languages
+  String _locale;
+  String get locale => _locale;
+  Future<void> setLocale(String v) async {
+    _locale = v;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(StorageKeys.locale, v);
+    notifyListeners();
+  }
+
   final router = FluroRouter();
 
   final paletteLight = Palette(
@@ -213,6 +248,10 @@ class ThemeModel with ChangeNotifier {
     final m = prefs.getInt(StorageKeys.markdown);
     if (AppMarkdownType.values.contains(m)) {
       _markdown = m;
+    }
+    final l = prefs.getString(StorageKeys.locale);
+    if (SupportedLocales.values.contains(l)) {
+      _locale = l;
     }
 
     notifyListeners();

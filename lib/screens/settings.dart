@@ -73,6 +73,23 @@ class SettingsScreen extends StatelessWidget {
               url: '/login',
               rightWidget: Text(auth.activeAccount.login),
             ),
+            TableViewItem(
+                text: Text('App Language'),
+                rightWidget: Text(SupportedLocales
+                    .languageNameExpanded[theme.locale ?? 'en']),
+                onTap: () {
+                  theme.showActions(context, [
+                    for (var t in SupportedLocales.values)
+                      ActionItem(
+                        text: SupportedLocales.languageNameExpanded[t],
+                        onTap: (_) {
+                          if (theme.locale != t) {
+                            theme.setLocale(t);
+                          }
+                        },
+                      )
+                  ]);
+                })
           ]),
           CommonStyle.verticalGap,
           TableView(headerText: 'theme', items: [
