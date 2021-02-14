@@ -237,7 +237,7 @@ class GhIssueScreen extends StatelessWidget {
                                 color: Colors.red,
                                 fontSize: 15,
                               )),
-                          Icon(Icons.chevron_right,
+                          Icon(Ionicons.chevron_forward,
                               color: theme.palette.border),
                         ],
                       )

@@ -103,7 +103,7 @@ class TableView extends StatelessWidget {
                       ],
                       if ((item.onTap != null || item.url != null) &&
                           !item.hideRightChevron)
-                        Icon(CupertinoIcons.right_chevron,
+                        Icon(Ionicons.chevron_forward,
                             size: 20, color: theme.palette.tertiaryText)
                       else
                         SizedBox(width: 2),

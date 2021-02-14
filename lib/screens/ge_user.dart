@@ -36,7 +36,7 @@ class GeUserScreen extends StatelessWidget {
       title: AppBarTitle(isViewer ? 'Me' : login),
       action: isViewer
           ? ActionEntry(
-              iconData: Icons.settings,
+              iconData: Ionicons.cog,
               url: '/settings',
             )
           : null,

@@ -37,7 +37,7 @@ class BbObjectScreen extends StatelessWidget {
       actionBuilder: (p, _) {
         if (p is String) {
           return ActionEntry(
-            iconData: Icons.settings,
+            iconData: Ionicons.cog,
             url: '/choose-code-theme',
           );
         } else {

@@ -18,8 +18,8 @@ class CodeModel with ChangeNotifier {
     'Cascadia Code',
   ];
 
-  String _theme = 'tomorrow';
-  String _themeDark = 'tomorrow-night';
+  String _theme = 'vs';
+  String _themeDark = 'vs2015';
   int _fontSize = 14;
   String _fontFamily = 'JetBrains Mono';
 

@@ -15,12 +15,6 @@ import 'package:tuple/tuple.dart';
 import 'package:flutter_gen/gen_l10n/S.dart';
 
 class SettingsScreen extends StatelessWidget {
-  // Widget _buildRightWidget(BuildContext context, bool checked) {
-  //   final theme = Provider.of<ThemeModel>(context);
-  //   if (!checked) return null;
-  //   return Icon(Icons.check, color: theme.palette.primary, size: 24);
-  // }
-
   // After translation finished, add locale name here to display in settings
   static const localeNameMap = {
     'en': 'English',
@@ -198,11 +192,11 @@ class SettingsScreen extends StatelessWidget {
           TableView(headerText: AppLocalizations.of(context).feedback, items: [
             TableViewItem(
               text: Text(AppLocalizations.of(context).submitAnIssue),
-              rightWidget: Text('pd4d10/git-touch'),
+              rightWidget: Text('git-touch/git-touch'),
               url: (auth.activeAccount.platform == PlatformType.github
                       ? '/github'
                       : 'https://github.com') +
-                  '/pd4d10/git-touch/issues/new',
+                  '/git-touch/git-touch/issues/new',
             ),
             TableViewItem(
               text: Text(AppLocalizations.of(context).rateThisApp),
@@ -233,11 +227,11 @@ class SettingsScreen extends StatelessWidget {
                 )),
             TableViewItem(
               text: Text(AppLocalizations.of(context).sourceCode),
-              rightWidget: Text('pd4d10/git-touch'),
+              rightWidget: Text('git-touch/git-touch'),
               url: (auth.activeAccount.platform == PlatformType.github
                       ? '/github'
                       : 'https://github.com') +
-                  '/pd4d10/git-touch',
+                  '/git-touch/git-touch',
             ),
           ])
         ],

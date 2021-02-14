@@ -49,7 +49,7 @@ class GhObjectScreen extends StatelessWidget {
       actionBuilder: (data, _) {
         if (data.isFile) {
           return ActionEntry(
-            iconData: Icons.settings,
+            iconData: Ionicons.cog,
             url: '/choose-code-theme',
           );
         } else {

@@ -131,7 +131,7 @@ ${item.key}: pullRequest(number: ${item.subject.number}) {
               // await _onSwitchTab(); // TODO:
             },
             child: Icon(
-              Octicons.check,
+              Ionicons.checkmark_done,
               color: theme.palette.tertiaryText,
               size: 24,
             ),
@@ -176,22 +176,22 @@ ${item.key}: pullRequest(number: ${item.subject.number}) {
           ],
         );
       },
-      actionBuilder: (_, refresh) => ActionEntry(
-        iconData: Icons.done_all,
-        onTap: () async {
-          final value = await context
-              .read<ThemeModel>()
-              .showConfirm(context, Text('Mark all as read?'));
-          if (value) {
-            await context
-                .read<AuthModel>()
-                .ghClient
-                .activity
-                .markNotificationsRead();
-            refresh();
-          }
-        },
-      ),
+      // actionBuilder: (_, refresh) => ActionEntry(
+      //   iconData: Ionicons.checkmark_done,
+      //   onTap: () async {
+      //     final value = await context
+      //         .read<ThemeModel>()
+      //         .showConfirm(context, Text('Mark all as read?'));
+      //     if (value) {
+      //       await context
+      //           .read<AuthModel>()
+      //           .ghClient
+      //           .activity
+      //           .markNotificationsRead();
+      //       refresh();
+      //     }
+      //   },
+      // ),
     );
   }
 }

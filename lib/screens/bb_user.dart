@@ -42,7 +42,7 @@ class BbUserScreen extends StatelessWidget {
       },
       action: isViewer
           ? ActionEntry(
-              iconData: Icons.settings,
+              iconData: Ionicons.cog,
               url: '/settings',
             )
           : null,

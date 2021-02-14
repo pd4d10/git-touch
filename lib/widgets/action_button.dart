@@ -49,7 +49,7 @@ class ActionButton extends StatelessWidget {
   ActionButton({
     @required this.title,
     @required this.items,
-    this.iconData = Icons.more_vert,
+    this.iconData = Ionicons.ellipsis_horizontal,
     this.selected,
   });
 

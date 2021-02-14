@@ -80,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             (index == auth.activeAccountIndex)
-                ? Icon(Icons.check)
+                ? Icon(Ionicons.checkmark)
                 : Container(),
           ],
         ),
@@ -99,7 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Icon(Icons.add),
+            Icon(Ionicons.add),
             SizedBox(width: 4),
             Icon(brand),
             SizedBox(width: 8),
@@ -200,7 +200,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   _buildAddItem(
                     text: AppLocalizations.of(context).gitlabAccount,
-                    brand: Ionicons.logo_gitlab,
+                    brand: Ionicons.git_branch_outline,
                     onTap: () async {
                       _domainController.text = 'https://gitlab.com';
                       final result = await theme.showConfirm(
@@ -305,7 +305,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   _buildAddItem(
                     text: AppLocalizations.of(context).giteaAccount,
-                    brand: Octicons.git_branch, // TODO: brand icon
+                    brand: Ionicons.git_branch_outline, // TODO: brand icon
                     onTap: () async {
                       _domainController.text = 'https://gitea.com';
                       final result = await theme.showConfirm(
@@ -340,7 +340,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   _buildAddItem(
                     text: AppLocalizations.of(context).giteeAccount + '(码云)',
-                    brand: Octicons.git_branch, // TODO: brand icon
+                    brand: Ionicons.git_branch_outline, // TODO: brand icon
                     onTap: () async {
                       final result = await theme.showConfirm(
                         context,
@@ -358,7 +358,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   _buildAddItem(
                     text: 'Gogs Account',
-                    brand: Octicons.git_branch, // TODO: brand icon
+                    brand: Ionicons.git_branch_outline, // TODO: brand icon
                     onTap: () async {
                       _domainController.text = 'https://gogs.com';
                       final result = await theme.showConfirm(

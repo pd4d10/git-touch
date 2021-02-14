@@ -119,7 +119,7 @@ class _User extends StatelessWidget {
           hasIcon: true,
           items: [
             TableViewItem(
-              leftIconData: Icons.rss_feed,
+              leftIconData: Octicons.rss,
               text: Text(AppLocalizations.of(context).events),
               url: '/github/$login?tab=events',
             ),
@@ -218,7 +218,7 @@ class _Org extends StatelessWidget {
           hasIcon: true,
           items: [
             TableViewItem(
-              leftIconData: Icons.rss_feed,
+              leftIconData: Octicons.rss,
               text: Text(AppLocalizations.of(context).events),
               url: '/github/${p.login}?tab=events',
             ),
@@ -276,7 +276,7 @@ class GhViewer extends StatelessWidget {
       },
       title: AppBarTitle(AppLocalizations.of(context).me),
       action: ActionEntry(
-        iconData: Icons.settings,
+        iconData: Ionicons.cog,
         url: '/settings',
       ),
       bodyBuilder: (p, _) {

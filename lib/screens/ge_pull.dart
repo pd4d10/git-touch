@@ -178,7 +178,7 @@ class GePullScreen extends StatelessWidget {
                                           ),
                                         ),
                                         Icon(
-                                          Icons.chevron_right,
+                                          Ionicons.chevron_forward,
                                           color: theme.palette.border,
                                         ),
                                       ],

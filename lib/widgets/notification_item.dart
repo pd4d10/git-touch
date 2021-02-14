@@ -70,7 +70,7 @@ class _NotificationItemState extends State<NotificationItem> {
   Widget _buildCheckIcon() {
     final theme = Provider.of<ThemeModel>(context);
     return Icon(
-      payload.unread ? Octicons.check : Octicons.primitive_dot,
+      payload.unread ? Ionicons.checkmark : Octicons.primitive_dot,
       color:
           loading ? theme.palette.grayBackground : theme.palette.tertiaryText,
       size: 24,

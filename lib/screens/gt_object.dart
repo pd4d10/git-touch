@@ -32,7 +32,7 @@ class GtObjectScreen extends StatelessWidget {
           return null;
         } else {
           return ActionEntry(
-            iconData: Icons.settings,
+            iconData: Ionicons.cog,
             url: '/choose-code-theme',
           );
         }
