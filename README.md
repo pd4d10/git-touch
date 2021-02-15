@@ -13,6 +13,7 @@
 <p align="center">
   <a href="https://apps.apple.com/us/app/gittouch/id1452042346"><img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-US" alt="Download on the App Store" height="48"></a>
   <a href="https://play.google.com/store/apps/details?id=io.github.pd4d10.gittouch"><img alt="Get it on Google Play" title="Google Play" src="https://raw.githubusercontent.com/pd4d10/git-touch/main/assets/google-play-badge.png" height="48" /></a>
+  <a href="https://f-droid.org/packages/io.github.pd4d10.gittouch/"><img alt="Get it on F-Droid" src="https://upload.wikimedia.org/wikipedia/commons/9/96/%22Get_it_on_F-droid%22_Badge.png" height="48" /></a>
 </p>
 
 ## Installation
