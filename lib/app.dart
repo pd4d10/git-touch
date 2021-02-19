@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
 
     final LocaleListResolutionCallback localeListResolutionCallback =
         (locales, supportedLocales) {
-      return theme.userSetLocale ?? locales.first;
+      return theme.userSetLocale ?? supportedLocales.first;
     };
 
     return Container(
