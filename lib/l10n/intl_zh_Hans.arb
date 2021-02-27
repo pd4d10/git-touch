@@ -123,7 +123,7 @@
   "@watchers": {
     "description": "watchers"
   },
-  "projects": "",
+  "projects": "项目介绍",
   "@projects": {
     "description": "projects"
   },
@@ -266,5 +266,85 @@
   "notification": "通知",
   "@notification": {
     "description": "The Notification tab"
+  },
+  "projectActions": "项目行动",
+  "@projectActions": {
+    "description": "Project Actions"
+  },
+  "issue": "问题",
+  "@issue": {
+    "description": "issue"
+  },
+  "somethingBadHappens": "糟糕的事情发生了。",
+  "@somethingBadHappens": {
+    "description": "error message"
+  },
+  "mergeRequests": "合并请求",
+  "@mergeRequests": {
+    "description": "Merge request"
+  },
+  "branches": "分支机构",
+  "@branches": {
+    "description": "branches"
+  },
+  "commits": "承诺",
+  "@commits": {
+    "description": "Commits"
+  },
+  "pullRequests": "拉动请求",
+  "@pullRequests": {
+    "description": "Pull Requests"
+  },
+  "issues": "问题",
+  "@issues": {
+    "description": "issues"
+  },
+  "forks": "叉子",
+  "@forks": {
+    "description": "forks"
+  },
+  "releases": "发布",
+  "@releases": {
+    "description": "releases"
+  },
+  "webview": "WebView",
+  "@webview": {
+    "description": "render webview for markdown"
+  },
+  "flutter": "翩翩",
+  "@flutter": {
+    "description": "render flutter for markdown"
+  },
+  "material": "材质",
+  "@material": {
+    "description": "Material scaffold theme"
+  },
+  "cupertino": "库柏蒂诺",
+  "@cupertino": {
+    "description": "Cupertino scaffold theme"
+  },
+  "scaffoldTheme": "脚手架主题",
+  "@scaffoldTheme": {
+    "description": "Kind of theme - cupertino or material"
+  },
+  "reviewPermissions": "审查权限",
+  "@reviewPermissions": {
+    "description": "review Permissions"
+  },
+  "pinnedRepositories": "钉住的存储库",
+  "@pinnedRepositories": {
+    "description": "pinned repositories"
+  },
+  "popularRepositories": "热门库",
+  "@popularRepositories": {
+    "description": "popular repositories"
+  },
+  "gists": "Gists",
+  "@gists": {
+    "description": "gists for a user"
+  },
+  "news": "新闻中心",
+  "@news": {
+    "description": "The News tab"
   }
 }
