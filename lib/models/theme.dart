@@ -157,8 +157,15 @@ class ThemeModel with ChangeNotifier {
   }
 
   bool get shouldUseMarkdownFlutterView {
-    // WebView on macOS not working
-    return Platform.isMacOS || markdown == AppMarkdownType.flutter;
+    // webview on macOS not working
+    if (Platform.isMacOS) return true;
+
+    // android webview has some issues, prefer flutter
+    // https://github.com/git-touch/git-touch/issues/132
+    if (Platform.isAndroid && markdown == null) return true;
+
+    // otherwise, prefer webview
+    return markdown == AppMarkdownType.flutter;
   }
 
   // supported languages
