@@ -5,6 +5,7 @@ import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/S.dart';
+import 'package:intl/locale.dart' as l;
 
 class MyApp extends StatelessWidget {
   @override
@@ -14,7 +15,34 @@ class MyApp extends StatelessWidget {
 
     final LocaleListResolutionCallback localeListResolutionCallback =
         (locales, supportedLocales) {
-      return theme.userSetLocale ?? supportedLocales.first;
+      // 1. user set locale
+      // 2. system locale
+      try {
+        if (theme.locale != null) {
+          final intlLocale = l.Locale.parse(theme.locale);
+          locales = [
+            Locale.fromSubtags(
+              languageCode: intlLocale.languageCode,
+              countryCode: intlLocale.countryCode,
+              scriptCode: intlLocale.scriptCode,
+            ),
+            ...locales
+          ];
+        }
+      } catch (err) {
+        print(err);
+      }
+
+      for (final locale in locales) {
+        // this is necessary because Flutter only handles zh_Hans -> zh
+        // and would not handle non-exist language code
+        if (AppLocalizations.delegate.isSupported(locale)) {
+          return locale;
+        }
+      }
+
+      // 3. if none match, use the default
+      return supportedLocales.firstWhere((l) => l.languageCode == 'en');
     };
 
     return Container(

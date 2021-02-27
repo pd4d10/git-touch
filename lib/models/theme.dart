@@ -9,7 +9,6 @@ import 'package:git_touch/widgets/action_button.dart';
 import 'package:primer/primer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/services.dart';
-import 'package:intl/locale.dart' as l;
 import 'package:flutter_gen/gen_l10n/S.dart';
 
 class DialogOption<T> {
@@ -191,18 +190,6 @@ class ThemeModel with ChangeNotifier {
   // supported languages
   String _locale;
   String get locale => _locale;
-  Locale get userSetLocale {
-    try {
-      final parsedLocale = l.Locale.parse(_locale);
-      return Locale.fromSubtags(
-        languageCode: parsedLocale.languageCode,
-        countryCode: parsedLocale.countryCode,
-        scriptCode: parsedLocale.scriptCode,
-      );
-    } catch (err) {
-      return null;
-    }
-  }
 
   Future<void> setLocale(String v) async {
     _locale = v;
