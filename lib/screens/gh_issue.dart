@@ -91,6 +91,7 @@ class GhIssueScreen extends StatelessWidget {
       b.vars.owner = owner;
       b.vars.name = name;
       b.vars.number = number;
+      b.vars.cursor = cursor;
     });
     var res = await context.read<AuthModel>().gqlClient.request(req).first;
     return res.data.repository;
