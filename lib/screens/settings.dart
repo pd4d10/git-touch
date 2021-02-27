@@ -4,6 +4,7 @@ import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/code.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/single.dart';
+import 'package:git_touch/utils/locale.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/action_button.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
@@ -15,16 +16,6 @@ import 'package:tuple/tuple.dart';
 import 'package:flutter_gen/gen_l10n/S.dart';
 
 class SettingsScreen extends StatelessWidget {
-  // After translation finished, add locale name here to display in settings
-  static const localeNameMap = {
-    'en': 'English',
-    'hi': 'हिन्दी',
-    'es': 'Español',
-    'nb_NO': 'Norsk bokmål (Norge)',
-    'pt_BR': 'Portugues (brasil)',
-    'zh_Hans': '简体中文',
-  };
-
   @override
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
@@ -81,22 +72,27 @@ class SettingsScreen extends StatelessWidget {
               text: Text('App Language'),
               rightWidget: Text(theme.locale == null
                   ? AppLocalizations.of(context).followSystem
-                  : localeNameMap[theme.locale] ?? 'Unknown'),
+                  : localeNameMap[theme.locale] ?? theme.locale),
               onTap: () {
                 theme.showActions(context, [
-                  for (final e in [
-                    MapEntry(null, AppLocalizations.of(context).followSystem),
-                    ...localeNameMap.entries
+                  for (final key in [
+                    null,
+                    ...AppLocalizations.supportedLocales
+                        .map((l) => l.toString())
+                        .where((key) => localeNameMap[key] != null)
                   ])
                     ActionItem(
-                      text: e.value,
+                      text: key == null
+                          ? AppLocalizations.of(context).followSystem
+                          : localeNameMap[key],
                       onTap: (_) async {
                         final res = await theme.showConfirm(
                           context,
-                          Text('Reload the App to take effect'),
+                          Text(
+                              'The app will reload to make the language setting take effect'),
                         );
-                        if (res && theme.locale != e.key) {
-                          await theme.setLocale(e.key);
+                        if (res && theme.locale != key) {
+                          await theme.setLocale(key);
                           auth.reloadApp();
                         }
                       },

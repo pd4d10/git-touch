@@ -17,32 +17,6 @@ class DialogOption<T> {
   DialogOption({this.value, this.widget});
 }
 
-class SupportedLocales {
-  static const en = 'en';
-  static const hi = 'hi';
-  static const es = 'es';
-  static const nb_NO = 'nb_NO';
-  static const pt_BR = 'pt_BR';
-  static const zh_Hans = 'zh_Hans';
-  static const values = [
-    SupportedLocales.en,
-    SupportedLocales.hi,
-    SupportedLocales.es,
-    SupportedLocales.nb_NO,
-    SupportedLocales.pt_BR,
-    SupportedLocales.zh_Hans,
-  ];
-  static const Map<String, String> languageNameExpanded = {
-    'en': 'English',
-    'hi': 'हिन्दी',
-    'es': 'Español',
-    'nb_NO': 'Norsk bokmål (Norge) ',
-    'pt_BR': 'Portugues (brasil)',
-    'zh_Hans': '简体中文',
-    'zh_Hant': '正体中文'
-  };
-}
-
 class AppThemeType {
   static const material = 0;
   static const cupertino = 1;
