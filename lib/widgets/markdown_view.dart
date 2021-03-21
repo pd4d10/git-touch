@@ -7,6 +7,10 @@ import 'package:git_touch/widgets/html_view.dart';
 import 'package:provider/provider.dart';
 import 'package:uri/uri.dart';
 import 'package:path/path.dart' as path;
+import 'package:markdown/markdown.dart' as md;
+import 'package:charcode/charcode.dart';
+
+import 'link.dart';
 
 class MarkdownViewData {
   final Future<String> future;
@@ -109,6 +113,18 @@ class MarkdownFlutterView extends StatelessWidget {
     return Container(
       padding: padding,
       child: MarkdownBody(
+        builders: {
+          "userProfileLink": UserProfileLinkElementBuilder(),
+        },
+        extensionSet: md.ExtensionSet(
+          md.ExtensionSet.gitHubFlavored.blockSyntaxes,
+          [
+            UserProfileLink(),
+            md.EmojiSyntax(),
+            md.LinkSyntax(),
+            ...md.ExtensionSet.gitHubFlavored.inlineSyntaxes
+          ],
+        ),
         data: text,
         selectable: true,
         imageBuilder: (uri, title, alt) {
@@ -210,5 +226,28 @@ class MarkdownFlutterView extends StatelessWidget {
         // syntaxHighlighter: , // TODO:
       ),
     );
+  }
+}
+
+class UserProfileLink extends md.InlineSyntax {
+  // github username regex format
+  UserProfileLink()
+      : super(r'\B@([a-z0-9](?:-?[a-z0-9]){0,38})', startCharacter: $at);
+
+  @override
+  bool onMatch(md.InlineParser parser, Match match) {
+    var login = match[0].substring(1, match[0].length).trim();
+    md.Node el = md.Element.text("userProfileLink", login);
+    parser.addNode(el);
+    return true;
+  }
+}
+
+class UserProfileLinkElementBuilder extends MarkdownElementBuilder {
+  @override
+  Widget visitElementAfter(md.Element element, TextStyle prefferedStyle) {
+    return Link(
+        url: '/github/${element.textContent}',
+        child: Text('@' + element.textContent));
   }
 }
