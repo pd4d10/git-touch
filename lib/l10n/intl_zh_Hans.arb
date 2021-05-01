@@ -287,11 +287,11 @@
   "@branches": {
     "description": "branches"
   },
-  "commits": "承诺",
+  "commits": "提交",
   "@commits": {
     "description": "Commits"
   },
-  "pullRequests": "拉动请求",
+  "pullRequests": "拉取请求",
   "@pullRequests": {
     "description": "Pull Requests"
   },
@@ -299,7 +299,7 @@
   "@issues": {
     "description": "issues"
   },
-  "forks": "叉子",
+  "forks": "分叉",
   "@forks": {
     "description": "forks"
   },
@@ -311,7 +311,7 @@
   "@webview": {
     "description": "render webview for markdown"
   },
-  "flutter": "翩翩",
+  "flutter": "Flutter",
   "@flutter": {
     "description": "render flutter for markdown"
   },
@@ -331,7 +331,7 @@
   "@reviewPermissions": {
     "description": "review Permissions"
   },
-  "pinnedRepositories": "钉住的存储库",
+  "pinnedRepositories": "固定的存储库",
   "@pinnedRepositories": {
     "description": "pinned repositories"
   },
