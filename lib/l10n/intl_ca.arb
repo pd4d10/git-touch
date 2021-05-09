@@ -1,0 +1,334 @@
+{
+  "somethingBadHappens": "Ha ocorregut un problema:",
+  "@somethingBadHappens": {
+    "description": "error message"
+  },
+  "following": "Seguint",
+  "@following": {
+    "description": "people followed by a person"
+  },
+  "fontStyle": "ESTIL DE LLETRA",
+  "@fontStyle": {
+    "description": "font style"
+  },
+  "fontSize": "Mida de la lletra",
+  "@fontSize": {
+    "description": "font size"
+  },
+  "fontFamily": "Lletra tipogràfica",
+  "@fontFamily": {
+    "description": "Font Family"
+  },
+  "notFoundMessage": "No s’ha trobat",
+  "@notFoundMessage": {
+    "description": "Not found page header"
+  },
+  "permissionRequiredMessage": "El GitTouch necessita aquests permisos",
+  "@permissionRequiredMessage": {
+    "description": "Permission Required Message"
+  },
+  "githubAccount": "Compte del GitHub",
+  "@githubAccount": {
+    "description": "Gitea Account"
+  },
+  "removeAccount": "Suprimeix el compte",
+  "@removeAccount": {
+    "description": "remove account"
+  },
+  "selectAccount": "Selecció del compte",
+  "@selectAccount": {
+    "description": "select account message"
+  },
+  "activity": "Activitat",
+  "@activity": {
+    "description": "activity"
+  },
+  "forks": "Bifurcacions",
+  "@forks": {
+    "description": "forks"
+  },
+  "codeTheme": "Tema per al codi",
+  "@codeTheme": {
+    "description": "code theme"
+  },
+  "material": "Material",
+  "@material": {
+    "description": "Material scaffold theme"
+  },
+  "cupertino": "Cupertino",
+  "@cupertino": {
+    "description": "Cupertino scaffold theme"
+  },
+  "notFoundTextDisplay": "Encara no s’ha implementat aquesta pàgina.",
+  "@notFoundTextDisplay": {
+    "description": "Not found error message"
+  },
+  "dark": "Fosc",
+  "@dark": {
+    "description": "dark mode"
+  },
+  "light": "Clar",
+  "@light": {
+    "description": "light mode"
+  },
+  "about": "quant a",
+  "@about": {
+    "description": "about section"
+  },
+  "email": "Adreça electrònica",
+  "@email": {
+    "description": "Email to report issues"
+  },
+  "rateThisApp": "Valoreu aquesta aplicació",
+  "@rateThisApp": {
+    "description": "rate the app"
+  },
+  "submitAnIssue": "Envia un informe",
+  "@submitAnIssue": {
+    "description": "submit issue for app"
+  },
+  "feedback": "comentaris",
+  "@feedback": {
+    "description": "provide feedback"
+  },
+  "issues": "Informes",
+  "@issues": {
+    "description": "issues"
+  },
+  "projects": "Projectes",
+  "@projects": {
+    "description": "projects"
+  },
+  "repositoryActions": "Accions del dipòsit",
+  "@repositoryActions": {
+    "description": "Repository Actions"
+  },
+  "repository": "Dipòsit",
+  "@repository": {
+    "description": "Repository screen title"
+  },
+  "sourceCode": "Codi font",
+  "@sourceCode": {
+    "description": "source code for app"
+  },
+  "version": "Versió",
+  "@version": {
+    "description": "app version"
+  },
+  "all": "Tot",
+  "@all": {
+    "description": "all"
+  },
+  "unread": "Sense llegir",
+  "@unread": {
+    "description": "unread"
+  },
+  "contributors": "Contribuïdors",
+  "@contributors": {
+    "description": "contributors"
+  },
+  "branches": "Branques",
+  "@branches": {
+    "description": "branches"
+  },
+  "developers": "Desenvolupadors",
+  "@developers": {
+    "description": "developers"
+  },
+  "files": "Fitxers",
+  "@files": {
+    "description": "file plural"
+  },
+  "file": "Fitxer",
+  "@file": {
+    "description": "file"
+  },
+  "teams": "Equips",
+  "@teams": {
+    "description": "teams"
+  },
+  "groups": "Grups",
+  "@groups": {
+    "description": "groups"
+  },
+  "actions": "Accions",
+  "@actions": {
+    "description": "actions"
+  },
+  "project": "Projecte",
+  "@project": {
+    "description": "project"
+  },
+  "bitbucketAccount": "Compte del Bitbucket",
+  "@bitbucketAccount": {
+    "description": "Bitbucket Account"
+  },
+  "gitlabAccount": "Compte del GitLab",
+  "@gitlabAccount": {
+    "description": "Gitlab Account"
+  },
+  "giteeAccount": "Compte del Gitee",
+  "@giteeAccount": {
+    "description": "Gitee Account"
+  },
+  "giteaAccount": "Compte del Gitea",
+  "@giteaAccount": {
+    "description": "Gitea Account"
+  },
+  "issue": "Informe",
+  "@issue": {
+    "description": "issue"
+  },
+  "group": "Grup",
+  "@group": {
+    "description": "group"
+  },
+  "user": "Usuari",
+  "@user": {
+    "description": "user"
+  },
+  "projectActions": "Accions del projecte",
+  "@projectActions": {
+    "description": "Project Actions"
+  },
+  "code": "Codi",
+  "@code": {
+    "description": "Code"
+  },
+  "brightness": "Brillantor",
+  "@brightness": {
+    "description": "brightness"
+  },
+  "switchAccounts": "Canvia de compte",
+  "@switchAccounts": {
+    "description": "Switch accounts"
+  },
+  "giteaStatus": "Estat del Gitea",
+  "@giteaStatus": {
+    "description": "Gitea status"
+  },
+  "gitlabStatus": "Estat del GitLab",
+  "@gitlabStatus": {
+    "description": "GitLab status"
+  },
+  "githubStatus": "Estat del GitHub",
+  "@githubStatus": {
+    "description": "github status"
+  },
+  "system": "sistema",
+  "@system": {
+    "description": "system"
+  },
+  "settings": "Paràmetres",
+  "@settings": {
+    "description": "settings"
+  },
+  "pinnedRepositories": "dipòsits ancorats",
+  "@pinnedRepositories": {
+    "description": "pinned repositories"
+  },
+  "popularRepositories": "dipòsits populars",
+  "@popularRepositories": {
+    "description": "popular repositories"
+  },
+  "members": "Membres",
+  "@members": {
+    "description": "members of an organization"
+  },
+  "organizations": "Organitzacions",
+  "@organizations": {
+    "description": "organizations for a user"
+  },
+  "events": "Esdeveniments",
+  "@events": {
+    "description": "events for a user"
+  },
+  "followers": "Seguidors",
+  "@followers": {
+    "description": "followers for a person"
+  },
+  "stars": "Estrelles",
+  "@stars": {
+    "description": "stars on a repo"
+  },
+  "follow": "Segueix",
+  "@follow": {
+    "description": "follow someone"
+  },
+  "unfollow": "Deixa de seguir",
+  "@unfollow": {
+    "description": "unfollow someone"
+  },
+  "repositories": "Dipòsits",
+  "@repositories": {
+    "description": "repository text"
+  },
+  "participating": "Participacions",
+  "@participating": {
+    "description": "The participating Tab"
+  },
+  "me": "Jo",
+  "@me": {
+    "description": "The Me tab"
+  },
+  "search": "Cerca",
+  "@search": {
+    "description": "The Search tab"
+  },
+  "trending": "En tendència",
+  "@trending": {
+    "description": "Trending"
+  },
+  "notification": "Notificació",
+  "@notification": {
+    "description": "The Notification tab"
+  },
+  "news": "Notícies",
+  "@news": {
+    "description": "The News tab"
+  },
+  "markdownRenderEngine": "Motor de processament del Markdown",
+  "@markdownRenderEngine": {
+    "description": "flutter or webview rendering for markdown"
+  },
+  "webview": "WebView",
+  "@webview": {
+    "description": "render webview for markdown"
+  },
+  "flutter": "Flutter",
+  "@flutter": {
+    "description": "render flutter for markdown"
+  },
+  "scaffoldTheme": "Tema de l’entorn",
+  "@scaffoldTheme": {
+    "description": "Kind of theme - cupertino or material"
+  },
+  "followSystem": "Segueix el sistema",
+  "@followSystem": {
+    "description": "follow systems setting"
+  },
+  "syntaxHighlighting": "REALÇAMENT DE LA SINTAXI",
+  "@syntaxHighlighting": {
+    "description": "Syntax Highlighting"
+  },
+  "explore": "Explora",
+  "@explore": {
+    "description": "explore"
+  },
+  "pullRequests": "Peticions d’extracció",
+  "@pullRequests": {
+    "description": "Pull Requests"
+  },
+  "watchers": "Vigilants",
+  "@watchers": {
+    "description": "watchers"
+  },
+  "reviewPermissions": "Revisa els permissos",
+  "@reviewPermissions": {
+    "description": "review Permissions"
+  },
+  "mergeRequests": "Peticions de fusió",
+  "@mergeRequests": {
+    "description": "Merge request"
+  }
+}

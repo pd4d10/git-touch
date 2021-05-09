@@ -1,5 +1,5 @@
 {
-  "fontStyle": "FONT STYLE",
+  "fontStyle": "STYLE DE LA POLICE",
   "@fontStyle": {
     "description": "font style"
   },
@@ -23,7 +23,7 @@
   "@code": {
     "description": "Code"
   },
-  "issue": "Numéro",
+  "issue": "Problème",
   "@issue": {
     "description": "issue"
   },
@@ -135,7 +135,7 @@
   "@contributors": {
     "description": "contributors"
   },
-  "branches": "Succursales",
+  "branches": "Branches",
   "@branches": {
     "description": "branches"
   },
@@ -147,19 +147,19 @@
   "@pullRequests": {
     "description": "Pull Requests"
   },
-  "issues": "Questions",
+  "issues": "Problèmes",
   "@issues": {
     "description": "issues"
   },
-  "forks": "Fourchettes",
+  "forks": "Duplications",
   "@forks": {
     "description": "forks"
   },
-  "watchers": "Watchers",
+  "watchers": "Observateurs",
   "@watchers": {
     "description": "watchers"
   },
-  "releases": "Communiqués de presse",
+  "releases": "Versions finales",
   "@releases": {
     "description": "releases"
   },
@@ -187,7 +187,7 @@
   "@about": {
     "description": "about section"
   },
-  "email": "Courriel :",
+  "email": "Courriel",
   "@email": {
     "description": "Email to report issues"
   },
@@ -211,7 +211,7 @@
   "@flutter": {
     "description": "render flutter for markdown"
   },
-  "markdownRenderEngine": "Moteur de rendu à la baisse",
+  "markdownRenderEngine": "Moteur de rendu Markdown",
   "@markdownRenderEngine": {
     "description": "flutter or webview rendering for markdown"
   },
@@ -235,11 +235,11 @@
   "@dark": {
     "description": "dark mode"
   },
-  "light": "Lumière",
+  "light": "Clair",
   "@light": {
     "description": "light mode"
   },
-  "followSystem": "Système de suivi",
+  "followSystem": "Suivre le système",
   "@followSystem": {
     "description": "follow systems setting"
   },
@@ -311,11 +311,11 @@
   "@stars": {
     "description": "stars on a repo"
   },
-  "follow": "Suivez",
+  "follow": "Suivre",
   "@follow": {
     "description": "follow someone"
   },
-  "unfollow": "Suivre",
+  "unfollow": "Ne plus suivre",
   "@unfollow": {
     "description": "unfollow someone"
   },
