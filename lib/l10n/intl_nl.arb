@@ -1,0 +1,350 @@
+{
+  "projectActions": "Projectacties",
+  "@projectActions": {
+    "description": "Project Actions"
+  },
+  "code": "Code",
+  "@code": {
+    "description": "Code"
+  },
+  "issue": "Issue",
+  "@issue": {
+    "description": "issue"
+  },
+  "group": "Groep",
+  "@group": {
+    "description": "group"
+  },
+  "user": "Gebruiker",
+  "@user": {
+    "description": "user"
+  },
+  "giteeAccount": "Gitee-account",
+  "@giteeAccount": {
+    "description": "Gitee Account"
+  },
+  "giteaAccount": "Gitea-account",
+  "@giteaAccount": {
+    "description": "Gitea Account"
+  },
+  "longPressToRemoveAccount": "Houd ingedrukt om account te verwijderen",
+  "@longPressToRemoveAccount": {
+    "description": "Long Press to remove account"
+  },
+  "bitbucketAccount": "Bitbucket-account",
+  "@bitbucketAccount": {
+    "description": "Bitbucket Account"
+  },
+  "gitlabAccount": "GitLab-account",
+  "@gitlabAccount": {
+    "description": "Gitlab Account"
+  },
+  "notFoundTextDisplay": "Opes, deze pagina is nog niet geïmplementeerd.",
+  "@notFoundTextDisplay": {
+    "description": "Not found error message"
+  },
+  "notFoundMessage": "NIet gevonden",
+  "@notFoundMessage": {
+    "description": "Not found page header"
+  },
+  "permissionRequiredMessage": "GitTouch vereist de volgende rechten",
+  "@permissionRequiredMessage": {
+    "description": "Permission Required Message"
+  },
+  "githubAccount": "GitHub-account",
+  "@githubAccount": {
+    "description": "Gitea Account"
+  },
+  "somethingBadHappens": "Er iets ergs gebeurd:",
+  "@somethingBadHappens": {
+    "description": "error message"
+  },
+  "removeAccount": "Account verwijderen",
+  "@removeAccount": {
+    "description": "remove account"
+  },
+  "selectAccount": "Kies een account",
+  "@selectAccount": {
+    "description": "select account message"
+  },
+  "project": "Project",
+  "@project": {
+    "description": "project"
+  },
+  "activity": "Activiteit",
+  "@activity": {
+    "description": "activity"
+  },
+  "mergeRequests": "Samenvoegverzoeken",
+  "@mergeRequests": {
+    "description": "Merge request"
+  },
+  "groups": "Groepen",
+  "@groups": {
+    "description": "groups"
+  },
+  "actions": "Acties",
+  "@actions": {
+    "description": "actions"
+  },
+  "files": "Bestanden",
+  "@files": {
+    "description": "file plural"
+  },
+  "file": "Bestand",
+  "@file": {
+    "description": "file"
+  },
+  "teams": "Teams",
+  "@teams": {
+    "description": "teams"
+  },
+  "explore": "Verkennen",
+  "@explore": {
+    "description": "explore"
+  },
+  "developers": "Ontwikkelaars",
+  "@developers": {
+    "description": "developers"
+  },
+  "all": "Alles",
+  "@all": {
+    "description": "all"
+  },
+  "unread": "Ongelezen",
+  "@unread": {
+    "description": "unread"
+  },
+  "contributors": "Bijdragers",
+  "@contributors": {
+    "description": "contributors"
+  },
+  "branches": "Takken",
+  "@branches": {
+    "description": "branches"
+  },
+  "commits": "Commits",
+  "@commits": {
+    "description": "Commits"
+  },
+  "pullRequests": "Pull requests",
+  "@pullRequests": {
+    "description": "Pull Requests"
+  },
+  "issues": "Issues",
+  "@issues": {
+    "description": "issues"
+  },
+  "forks": "Afsplitsingen",
+  "@forks": {
+    "description": "forks"
+  },
+  "watchers": "Volgers",
+  "@watchers": {
+    "description": "watchers"
+  },
+  "releases": "Uitgaven",
+  "@releases": {
+    "description": "releases"
+  },
+  "projects": "Projecten",
+  "@projects": {
+    "description": "projects"
+  },
+  "repositoryActions": "Repo-acties",
+  "@repositoryActions": {
+    "description": "Repository Actions"
+  },
+  "repository": "Repo",
+  "@repository": {
+    "description": "Repository screen title"
+  },
+  "sourceCode": "Broncode",
+  "@sourceCode": {
+    "description": "source code for app"
+  },
+  "version": "Versie",
+  "@version": {
+    "description": "app version"
+  },
+  "fontStyle": "LETTERTYPESTIJL",
+  "@fontStyle": {
+    "description": "font style"
+  },
+  "fontSize": "Lettergrootte",
+  "@fontSize": {
+    "description": "font size"
+  },
+  "fontFamily": "Lettertype",
+  "@fontFamily": {
+    "description": "Font Family"
+  },
+  "syntaxHighlighting": "SYNTAXMARKERING",
+  "@syntaxHighlighting": {
+    "description": "Syntax Highlighting"
+  },
+  "about": "over",
+  "@about": {
+    "description": "about section"
+  },
+  "email": "E-mailadres",
+  "@email": {
+    "description": "Email to report issues"
+  },
+  "rateThisApp": "Beoordeel deze app",
+  "@rateThisApp": {
+    "description": "rate the app"
+  },
+  "submitAnIssue": "Issue openen",
+  "@submitAnIssue": {
+    "description": "submit issue for app"
+  },
+  "feedback": "feedback",
+  "@feedback": {
+    "description": "provide feedback"
+  },
+  "webview": "WebView",
+  "@webview": {
+    "description": "render webview for markdown"
+  },
+  "flutter": "Flutter",
+  "@flutter": {
+    "description": "render flutter for markdown"
+  },
+  "markdownRenderEngine": "Markdown-renderaandrijving",
+  "@markdownRenderEngine": {
+    "description": "flutter or webview rendering for markdown"
+  },
+  "codeTheme": "Codethema",
+  "@codeTheme": {
+    "description": "code theme"
+  },
+  "material": "Material",
+  "@material": {
+    "description": "Material scaffold theme"
+  },
+  "cupertino": "Cupertino",
+  "@cupertino": {
+    "description": "Cupertino scaffold theme"
+  },
+  "scaffoldTheme": "Scaffold-thema",
+  "@scaffoldTheme": {
+    "description": "Kind of theme - cupertino or material"
+  },
+  "dark": "Donker",
+  "@dark": {
+    "description": "dark mode"
+  },
+  "light": "Licht",
+  "@light": {
+    "description": "light mode"
+  },
+  "followSystem": "Systeemthema",
+  "@followSystem": {
+    "description": "follow systems setting"
+  },
+  "brightness": "Helherheid",
+  "@brightness": {
+    "description": "brightness"
+  },
+  "switchAccounts": "Ander account kiezen",
+  "@switchAccounts": {
+    "description": "Switch accounts"
+  },
+  "giteaStatus": "Gitea-status",
+  "@giteaStatus": {
+    "description": "Gitea status"
+  },
+  "gitlabStatus": "GitLab-status",
+  "@gitlabStatus": {
+    "description": "GitLab status"
+  },
+  "reviewPermissions": "Rechten bekijken",
+  "@reviewPermissions": {
+    "description": "review Permissions"
+  },
+  "githubStatus": "GitHub-status",
+  "@githubStatus": {
+    "description": "github status"
+  },
+  "system": "systeem",
+  "@system": {
+    "description": "system"
+  },
+  "settings": "Instellingen",
+  "@settings": {
+    "description": "settings"
+  },
+  "pinnedRepositories": "vastgemaakte repo's",
+  "@pinnedRepositories": {
+    "description": "pinned repositories"
+  },
+  "popularRepositories": "populaire repo's",
+  "@popularRepositories": {
+    "description": "popular repositories"
+  },
+  "members": "Leden",
+  "@members": {
+    "description": "members of an organization"
+  },
+  "organizations": "Organisaties",
+  "@organizations": {
+    "description": "organizations for a user"
+  },
+  "gists": "Gists",
+  "@gists": {
+    "description": "gists for a user"
+  },
+  "events": "Gebeurtenissen",
+  "@events": {
+    "description": "events for a user"
+  },
+  "following": "Volgend",
+  "@following": {
+    "description": "people followed by a person"
+  },
+  "followers": "Volgers",
+  "@followers": {
+    "description": "followers for a person"
+  },
+  "stars": "Favorieten",
+  "@stars": {
+    "description": "stars on a repo"
+  },
+  "follow": "Volgen",
+  "@follow": {
+    "description": "follow someone"
+  },
+  "unfollow": "Ontvolgen",
+  "@unfollow": {
+    "description": "unfollow someone"
+  },
+  "repositories": "Repo's",
+  "@repositories": {
+    "description": "repository text"
+  },
+  "participating": "Lid van",
+  "@participating": {
+    "description": "The participating Tab"
+  },
+  "me": "Ik",
+  "@me": {
+    "description": "The Me tab"
+  },
+  "search": "Zoeken",
+  "@search": {
+    "description": "The Search tab"
+  },
+  "trending": "Populair",
+  "@trending": {
+    "description": "Trending"
+  },
+  "notification": "Melding",
+  "@notification": {
+    "description": "The Notification tab"
+  },
+  "news": "Nieuws",
+  "@news": {
+    "description": "The News tab"
+  }
+}
