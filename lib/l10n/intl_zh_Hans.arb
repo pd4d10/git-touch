@@ -183,7 +183,7 @@
   "@followSystem": {
     "description": "follow systems setting"
   },
-  "brightness": "外观",
+  "brightness": "亮度",
   "@brightness": {
     "description": "brightness"
   },
@@ -199,7 +199,7 @@
   "@gitlabStatus": {
     "description": "GitLab status"
   },
-  "githubStatus": "GitHub 服务状态",
+  "githubStatus": "GitHub 系统状态",
   "@githubStatus": {
     "description": "github status"
   },
@@ -267,7 +267,7 @@
   "@notification": {
     "description": "The Notification tab"
   },
-  "projectActions": "项目行动",
+  "projectActions": "项目操作",
   "@projectActions": {
     "description": "Project Actions"
   },
@@ -283,11 +283,11 @@
   "@mergeRequests": {
     "description": "Merge request"
   },
-  "branches": "分支机构",
+  "branches": "分支",
   "@branches": {
     "description": "branches"
   },
-  "commits": "承诺",
+  "commits": "提交",
   "@commits": {
     "description": "Commits"
   },
@@ -299,7 +299,7 @@
   "@issues": {
     "description": "issues"
   },
-  "forks": "叉子",
+  "forks": "分叉",
   "@forks": {
     "description": "forks"
   },
@@ -311,19 +311,19 @@
   "@webview": {
     "description": "render webview for markdown"
   },
-  "flutter": "翩翩",
+  "flutter": "Flutter",
   "@flutter": {
     "description": "render flutter for markdown"
   },
-  "material": "材质",
+  "material": "材质设计",
   "@material": {
     "description": "Material scaffold theme"
   },
-  "cupertino": "库柏蒂诺",
+  "cupertino": "Cupertino",
   "@cupertino": {
     "description": "Cupertino scaffold theme"
   },
-  "scaffoldTheme": "脚手架主题",
+  "scaffoldTheme": "Scaffold主题",
   "@scaffoldTheme": {
     "description": "Kind of theme - cupertino or material"
   },
@@ -331,7 +331,7 @@
   "@reviewPermissions": {
     "description": "review Permissions"
   },
-  "pinnedRepositories": "钉住的存储库",
+  "pinnedRepositories": "置顶仓库",
   "@pinnedRepositories": {
     "description": "pinned repositories"
   },
@@ -339,7 +339,7 @@
   "@popularRepositories": {
     "description": "popular repositories"
   },
-  "gists": "Gists",
+  "gists": "代码片段",
   "@gists": {
     "description": "gists for a user"
   },
