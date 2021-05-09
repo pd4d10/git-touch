@@ -1,0 +1,10 @@
+{
+  "notification": "දැනුම්දීම",
+  "@notification": {
+    "description": "The Notification tab"
+  },
+  "news": "පුවත්",
+  "@news": {
+    "description": "The News tab"
+  }
+}
