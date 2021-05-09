@@ -1,5 +1,5 @@
 {
-  "followers": "Followers",
+  "followers": "Follower",
   "@followers": {
     "description": "followers for a person"
   },
@@ -155,7 +155,7 @@
   "@commits": {
     "description": "Commits"
   },
-  "pullRequests": "Pull requests",
+  "pullRequests": "Pull Requests",
   "@pullRequests": {
     "description": "Pull Requests"
   },
@@ -223,7 +223,7 @@
   "@flutter": {
     "description": "render flutter for markdown"
   },
-  "markdownRenderEngine": "Markdown Render Engine",
+  "markdownRenderEngine": "Markdown Rendering-Engine",
   "@markdownRenderEngine": {
     "description": "flutter or webview rendering for markdown"
   },
@@ -259,11 +259,11 @@
   "@switchAccounts": {
     "description": "Switch accounts"
   },
-  "giteaStatus": "Gitea status",
+  "giteaStatus": "Gitea-Status",
   "@giteaStatus": {
     "description": "Gitea status"
   },
-  "gitlabStatus": "GitLab status",
+  "gitlabStatus": "GitLab-Status",
   "@gitlabStatus": {
     "description": "GitLab status"
   },
@@ -271,7 +271,7 @@
   "@reviewPermissions": {
     "description": "review Permissions"
   },
-  "githubStatus": "GitHub status",
+  "githubStatus": "GitHub-Status",
   "@githubStatus": {
     "description": "github status"
   },
