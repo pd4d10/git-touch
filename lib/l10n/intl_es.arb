@@ -1,9 +1,9 @@
 {
-  "fontFamily": "Nombre de fuente",
+  "fontFamily": "Familia tipográfica",
   "@fontFamily": {
     "description": "Font Family"
   },
-  "syntaxHighlighting": "RESALTADO DE SINTAXIS",
+  "syntaxHighlighting": "COLORACIÓN SINTÁCTICA",
   "@syntaxHighlighting": {
     "description": "Syntax Highlighting"
   },
@@ -11,7 +11,7 @@
   "@somethingBadHappens": {
     "description": "error message"
   },
-  "issues": "Issues",
+  "issues": "Informes",
   "@issues": {
     "description": "issues"
   },
@@ -23,7 +23,7 @@
   "@releases": {
     "description": "releases"
   },
-  "codeTheme": "Tema de Código",
+  "codeTheme": "Tema de código",
   "@codeTheme": {
     "description": "code theme"
   },
@@ -31,15 +31,15 @@
   "@cupertino": {
     "description": "Cupertino scaffold theme"
   },
-  "scaffoldTheme": "Tema de Scaffold",
+  "scaffoldTheme": "Tema de andamiaje",
   "@scaffoldTheme": {
     "description": "Kind of theme - cupertino or material"
   },
-  "fontStyle": "ESTILO DE FUENTE",
+  "fontStyle": "ESTILO DE LETRA",
   "@fontStyle": {
     "description": "font style"
   },
-  "fontSize": "Tamaño de la fuente",
+  "fontSize": "Tamaño de letra",
   "@fontSize": {
     "description": "font size"
   },
@@ -51,7 +51,7 @@
   "@code": {
     "description": "Code"
   },
-  "issue": "Issue",
+  "issue": "Informe",
   "@issue": {
     "description": "issue"
   },
@@ -63,7 +63,7 @@
   "@user": {
     "description": "user"
   },
-  "giteeAccount": "Cuenta de Gitea",
+  "giteeAccount": "Cuenta de Gitee",
   "@giteeAccount": {
     "description": "Gitee Account"
   },
@@ -83,7 +83,7 @@
   "@gitlabAccount": {
     "description": "Gitlab Account"
   },
-  "notFoundTextDisplay": "Oops, esta página aún no está implementada.",
+  "notFoundTextDisplay": "Esta página aún no está implementada.",
   "@notFoundTextDisplay": {
     "description": "Not found error message"
   },
@@ -115,7 +115,7 @@
   "@activity": {
     "description": "activity"
   },
-  "mergeRequests": "Merge Requests",
+  "mergeRequests": "Solicitudes de incorporación",
   "@mergeRequests": {
     "description": "Merge request"
   },
@@ -159,19 +159,19 @@
   "@contributors": {
     "description": "contributors"
   },
-  "branches": "Branches",
+  "branches": "Ramas",
   "@branches": {
     "description": "branches"
   },
-  "commits": "Commits",
+  "commits": "Consignas",
   "@commits": {
     "description": "Commits"
   },
-  "pullRequests": "Pull requests",
+  "pullRequests": "Solicitudes de incorporación",
   "@pullRequests": {
     "description": "Pull Requests"
   },
-  "forks": "Bifurcaciones (Forks)",
+  "forks": "Bifurcaciones",
   "@forks": {
     "description": "forks"
   },
@@ -203,11 +203,11 @@
   "@email": {
     "description": "Email to report issues"
   },
-  "rateThisApp": "Valora esta aplicación",
+  "rateThisApp": "Valorar esta aplicación",
   "@rateThisApp": {
     "description": "rate the app"
   },
-  "submitAnIssue": "Enviar un problema",
+  "submitAnIssue": "Informar de un problema",
   "@submitAnIssue": {
     "description": "submit issue for app"
   },
@@ -223,7 +223,7 @@
   "@flutter": {
     "description": "render flutter for markdown"
   },
-  "markdownRenderEngine": "Motor de renderizado Markdown",
+  "markdownRenderEngine": "Motor de representación de Markdown",
   "@markdownRenderEngine": {
     "description": "flutter or webview rendering for markdown"
   },
@@ -235,7 +235,7 @@
   "@dark": {
     "description": "dark mode"
   },
-  "light": "Luz",
+  "light": "Claro",
   "@light": {
     "description": "light mode"
   },
@@ -271,7 +271,7 @@
   "@system": {
     "description": "system"
   },
-  "settings": "Configuraciones",
+  "settings": "Configuración",
   "@settings": {
     "description": "settings"
   },
@@ -323,7 +323,7 @@
   "@repositories": {
     "description": "repository text"
   },
-  "participating": "Participando",
+  "participating": "Participación",
   "@participating": {
     "description": "The participating Tab"
   },

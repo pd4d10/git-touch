@@ -207,7 +207,7 @@
   "@webview": {
     "description": "render webview for markdown"
   },
-  "flutter": "Flutuar",
+  "flutter": "Flutter",
   "@flutter": {
     "description": "render flutter for markdown"
   },
