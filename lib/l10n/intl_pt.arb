@@ -255,7 +255,7 @@
   "@giteaStatus": {
     "description": "Gitea status"
   },
-  "gitlabStatus": "status do GitLab",
+  "gitlabStatus": "Estado do GitLab",
   "@gitlabStatus": {
     "description": "GitLab status"
   },
@@ -263,7 +263,7 @@
   "@reviewPermissions": {
     "description": "review Permissions"
   },
-  "githubStatus": "Status do GitHub",
+  "githubStatus": "Estado do GitHub",
   "@githubStatus": {
     "description": "github status"
   },
