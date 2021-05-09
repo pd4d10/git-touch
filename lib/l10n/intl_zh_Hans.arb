@@ -247,7 +247,7 @@
   "@repositories": {
     "description": "repository text"
   },
-  "participating": "参与的",
+  "participating": "参与",
   "@participating": {
     "description": "The participating Tab"
   },
@@ -275,7 +275,7 @@
   "@issue": {
     "description": "issue"
   },
-  "somethingBadHappens": "糟糕的事情发生了。",
+  "somethingBadHappens": "糟糕的事情发生了：",
   "@somethingBadHappens": {
     "description": "error message"
   },
@@ -343,7 +343,7 @@
   "@gists": {
     "description": "gists for a user"
   },
-  "news": "新闻中心",
+  "news": "新闻",
   "@news": {
     "description": "The News tab"
   }
