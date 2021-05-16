@@ -21,8 +21,8 @@ class GlSearchScreen extends StatefulWidget {
 class _GlSearchScreenState extends State<GlSearchScreen> {
   int _activeTab = 0;
   bool _loading = false;
-  List<GitlabProject> _projects = List<GitlabProject>();
-  List<GitlabUser> _users = List<GitlabUser>();
+  List<GitlabProject> _projects = [];
+  List<GitlabUser> _users = [];
 
   TextEditingController _controller;
 

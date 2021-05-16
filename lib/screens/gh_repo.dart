@@ -20,7 +20,7 @@ import 'package:provider/provider.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:tuple/tuple.dart';
 import 'package:git_touch/widgets/action_button.dart';
-import 'package:universal_io/prefer_universal/io.dart';
+import 'package:universal_io/io.dart';
 import 'package:flutter_gen/gen_l10n/S.dart';
 
 class GhRepoScreen extends StatelessWidget {

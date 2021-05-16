@@ -122,7 +122,7 @@ class MarkdownFlutterView extends StatelessWidget {
             return Container(); // TODO: relative path image
           }
         },
-        onTapLink: (url) {
+        onTapLink: (text, url, title) {
           final theme = context.read<ThemeModel>();
 
           if (basePaths != null &&
