@@ -183,8 +183,8 @@ class CommentItem extends StatelessWidget {
   final List<ActionItem> commentActionItemList;
 
   // p.author could be null (deleted user)
-  CommentItem.gql(
-      GCommentParts p, GReactableParts r, EmojiUpdateCallaback onReaction)
+  CommentItem.gql(GCommentParts p, GReactableParts r,
+      EmojiUpdateCallaback onReaction, List<ActionItem> commentActionItemList)
       : avatar = Avatar(
           url: p.author?.avatarUrl ??
               'https://avatars.githubusercontent.com/u/10137?s=460&u=b1951d34a583cf12ec0d3b0781ba19be97726318&v=4',
@@ -195,7 +195,7 @@ class CommentItem extends StatelessWidget {
         body = p.body,
         widgets = [GhEmojiAction(p.id, r, onReaction)],
         prefix = 'github',
-        commentActionItemList = []; // TODO
+        commentActionItemList = commentActionItemList;
 
   CommentItem({
     @required this.avatar,

@@ -14780,6 +14780,143 @@ abstract class GIssueData_repository_issueOrPullRequest__asPullRequest_timelineI
           json);
 }
 
+abstract class GaddCommentData
+    implements Built<GaddCommentData, GaddCommentDataBuilder> {
+  GaddCommentData._();
+
+  factory GaddCommentData([Function(GaddCommentDataBuilder b) updates]) =
+      _$GaddCommentData;
+
+  static void _initializeBuilder(GaddCommentDataBuilder b) =>
+      b..G__typename = 'Mutation';
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  @nullable
+  GaddCommentData_addComment get addComment;
+  static Serializer<GaddCommentData> get serializer =>
+      _$gaddCommentDataSerializer;
+  Map<String, dynamic> toJson() =>
+      _i1.serializers.serializeWith(GaddCommentData.serializer, this);
+  static GaddCommentData fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(GaddCommentData.serializer, json);
+}
+
+abstract class GaddCommentData_addComment
+    implements
+        Built<GaddCommentData_addComment, GaddCommentData_addCommentBuilder> {
+  GaddCommentData_addComment._();
+
+  factory GaddCommentData_addComment(
+          [Function(GaddCommentData_addCommentBuilder b) updates]) =
+      _$GaddCommentData_addComment;
+
+  static void _initializeBuilder(GaddCommentData_addCommentBuilder b) =>
+      b..G__typename = 'AddCommentPayload';
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  static Serializer<GaddCommentData_addComment> get serializer =>
+      _$gaddCommentDataAddCommentSerializer;
+  Map<String, dynamic> toJson() => _i1.serializers
+      .serializeWith(GaddCommentData_addComment.serializer, this);
+  static GaddCommentData_addComment fromJson(Map<String, dynamic> json) =>
+      _i1.serializers
+          .deserializeWith(GaddCommentData_addComment.serializer, json);
+}
+
+abstract class GupdateIssueCommentData
+    implements Built<GupdateIssueCommentData, GupdateIssueCommentDataBuilder> {
+  GupdateIssueCommentData._();
+
+  factory GupdateIssueCommentData(
+          [Function(GupdateIssueCommentDataBuilder b) updates]) =
+      _$GupdateIssueCommentData;
+
+  static void _initializeBuilder(GupdateIssueCommentDataBuilder b) =>
+      b..G__typename = 'Mutation';
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  @nullable
+  GupdateIssueCommentData_updateIssueComment get updateIssueComment;
+  static Serializer<GupdateIssueCommentData> get serializer =>
+      _$gupdateIssueCommentDataSerializer;
+  Map<String, dynamic> toJson() =>
+      _i1.serializers.serializeWith(GupdateIssueCommentData.serializer, this);
+  static GupdateIssueCommentData fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(GupdateIssueCommentData.serializer, json);
+}
+
+abstract class GupdateIssueCommentData_updateIssueComment
+    implements
+        Built<GupdateIssueCommentData_updateIssueComment,
+            GupdateIssueCommentData_updateIssueCommentBuilder> {
+  GupdateIssueCommentData_updateIssueComment._();
+
+  factory GupdateIssueCommentData_updateIssueComment(
+      [Function(GupdateIssueCommentData_updateIssueCommentBuilder b)
+          updates]) = _$GupdateIssueCommentData_updateIssueComment;
+
+  static void _initializeBuilder(
+          GupdateIssueCommentData_updateIssueCommentBuilder b) =>
+      b..G__typename = 'UpdateIssueCommentPayload';
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  static Serializer<GupdateIssueCommentData_updateIssueComment>
+      get serializer => _$gupdateIssueCommentDataUpdateIssueCommentSerializer;
+  Map<String, dynamic> toJson() => _i1.serializers.serializeWith(
+      GupdateIssueCommentData_updateIssueComment.serializer, this);
+  static GupdateIssueCommentData_updateIssueComment fromJson(
+          Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+          GupdateIssueCommentData_updateIssueComment.serializer, json);
+}
+
+abstract class GdeleteIssueCommentData
+    implements Built<GdeleteIssueCommentData, GdeleteIssueCommentDataBuilder> {
+  GdeleteIssueCommentData._();
+
+  factory GdeleteIssueCommentData(
+          [Function(GdeleteIssueCommentDataBuilder b) updates]) =
+      _$GdeleteIssueCommentData;
+
+  static void _initializeBuilder(GdeleteIssueCommentDataBuilder b) =>
+      b..G__typename = 'Mutation';
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  @nullable
+  GdeleteIssueCommentData_deleteIssueComment get deleteIssueComment;
+  static Serializer<GdeleteIssueCommentData> get serializer =>
+      _$gdeleteIssueCommentDataSerializer;
+  Map<String, dynamic> toJson() =>
+      _i1.serializers.serializeWith(GdeleteIssueCommentData.serializer, this);
+  static GdeleteIssueCommentData fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(GdeleteIssueCommentData.serializer, json);
+}
+
+abstract class GdeleteIssueCommentData_deleteIssueComment
+    implements
+        Built<GdeleteIssueCommentData_deleteIssueComment,
+            GdeleteIssueCommentData_deleteIssueCommentBuilder> {
+  GdeleteIssueCommentData_deleteIssueComment._();
+
+  factory GdeleteIssueCommentData_deleteIssueComment(
+      [Function(GdeleteIssueCommentData_deleteIssueCommentBuilder b)
+          updates]) = _$GdeleteIssueCommentData_deleteIssueComment;
+
+  static void _initializeBuilder(
+          GdeleteIssueCommentData_deleteIssueCommentBuilder b) =>
+      b..G__typename = 'DeleteIssueCommentPayload';
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  static Serializer<GdeleteIssueCommentData_deleteIssueComment>
+      get serializer => _$gdeleteIssueCommentDataDeleteIssueCommentSerializer;
+  Map<String, dynamic> toJson() => _i1.serializers.serializeWith(
+      GdeleteIssueCommentData_deleteIssueComment.serializer, this);
+  static GdeleteIssueCommentData_deleteIssueComment fromJson(
+          Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+          GdeleteIssueCommentData_deleteIssueComment.serializer, json);
+}
+
 abstract class GReleasesData
     implements Built<GReleasesData, GReleasesDataBuilder> {
   GReleasesData._();

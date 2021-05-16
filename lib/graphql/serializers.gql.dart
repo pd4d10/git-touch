@@ -631,7 +631,13 @@ import 'package:git_touch/graphql/github.data.gql.dart'
         GWatchersData_repository,
         GWatchersData_repository_watchers,
         GWatchersData_repository_watchers_nodes,
-        GWatchersData_repository_watchers_pageInfo;
+        GWatchersData_repository_watchers_pageInfo,
+        GaddCommentData,
+        GaddCommentData_addComment,
+        GdeleteIssueCommentData,
+        GdeleteIssueCommentData_deleteIssueComment,
+        GupdateIssueCommentData,
+        GupdateIssueCommentData_updateIssueComment;
 import 'package:git_touch/graphql/github.req.gql.dart'
     show
         GAssignedEventPartsReq,
@@ -692,7 +698,10 @@ import 'package:git_touch/graphql/github.req.gql.dart'
         GUserPartsReq,
         GUserReq,
         GViewerReq,
-        GWatchersReq;
+        GWatchersReq,
+        GaddCommentReq,
+        GdeleteIssueCommentReq,
+        GupdateIssueCommentReq;
 import 'package:git_touch/graphql/github.var.gql.dart'
     show
         GAssignedEventPartsVars,
@@ -753,7 +762,10 @@ import 'package:git_touch/graphql/github.var.gql.dart'
         GUserPartsVars,
         GUserVars,
         GViewerVars,
-        GWatchersVars;
+        GWatchersVars,
+        GaddCommentVars,
+        GdeleteIssueCommentVars,
+        GupdateIssueCommentVars;
 import 'package:git_touch/graphql/schema.schema.gql.dart'
     show
         GAcceptEnterpriseAdministratorInvitationInput,
@@ -2168,6 +2180,18 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GWatchersData_repository_watchers_pageInfo,
   GWatchersReq,
   GWatchersVars,
-  GX509Certificate
+  GX509Certificate,
+  GaddCommentData,
+  GaddCommentData_addComment,
+  GaddCommentReq,
+  GaddCommentVars,
+  GdeleteIssueCommentData,
+  GdeleteIssueCommentData_deleteIssueComment,
+  GdeleteIssueCommentReq,
+  GdeleteIssueCommentVars,
+  GupdateIssueCommentData,
+  GupdateIssueCommentData_updateIssueComment,
+  GupdateIssueCommentReq,
+  GupdateIssueCommentVars
 ])
 final Serializers serializers = _serializersBuilder.build();

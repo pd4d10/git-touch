@@ -31,6 +31,7 @@ import 'package:git_touch/screens/gh_contributors.dart';
 import 'package:git_touch/screens/gh_events.dart';
 import 'package:git_touch/screens/gh_files.dart';
 import 'package:git_touch/screens/gh_gists_files.dart';
+import 'package:git_touch/screens/gh_issue_comment.dart';
 import 'package:git_touch/screens/gh_org_repos.dart';
 import 'package:git_touch/screens/gh_releases.dart';
 import 'package:git_touch/screens/gl_commit.dart';
@@ -125,6 +126,7 @@ class GithubRouter {
     GithubRouter.gistObject,
     GithubRouter.compare,
     GithubRouter.releases,
+    GithubRouter.issueComment,
   ];
   static final user = RouterScreen('/:login', (context, parameters) {
     final login = parameters['login'].first;
@@ -243,6 +245,12 @@ class GithubRouter {
     return GhReleasesScreen(
         parameters['owner'].first, parameters['name'].first);
   });
+  static final issueComment = RouterScreen(
+      '/:owner/:name/issues/:number/comment',
+      (context, parameters) => GhIssueCommentScreen(parameters['owner'].first,
+          parameters['name'].first, parameters['number'].first,
+          body: parameters['body']?.first ?? '',
+          id: parameters['id']?.first ?? ''));
 }
 
 class GitlabRouter {

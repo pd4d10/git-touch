@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:git_touch/graphql/github.data.gql.dart';
 import 'package:git_touch/graphql/schema.schema.gql.dart';
 import 'package:git_touch/models/theme.dart';
+import 'package:git_touch/widgets/action_button.dart';
 import 'package:git_touch/widgets/label.dart';
 import 'package:provider/provider.dart';
 import '../utils/utils.dart';
@@ -55,7 +56,8 @@ class TimelineEventItem extends StatelessWidget {
 
 class TimelineItem extends StatelessWidget {
   final dynamic node;
-  TimelineItem(this.node);
+  final List<ActionItem> commentActionItemList;
+  TimelineItem(this.node, {this.commentActionItemList});
 
   Widget _buildFallback(String type) {
     return TimelineEventItem(
@@ -83,8 +85,8 @@ class TimelineItem extends StatelessWidget {
           ]),
         );
       case 'IssueComment':
-        return CommentItem.gql(
-            node as GCommentParts, node as GReactableParts, (item) {});
+        return CommentItem.gql(node as GCommentParts, node as GReactableParts,
+            (item) {}, commentActionItemList);
       case 'CrossReferencedEvent':
         final p = node as GCrossReferencedEventParts;
         final source = p.source as dynamic;
@@ -290,7 +292,7 @@ class TimelineItem extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   for (var v in p.comments.nodes)
-                    CommentItem.gql(v, v, (key) {}),
+                    CommentItem.gql(v, v, (key) {}, null), // TODO
                 ],
               ),
             ),

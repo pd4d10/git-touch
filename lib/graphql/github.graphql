@@ -1059,6 +1059,27 @@ query Issue($owner: String!, $name: String!, $number: Int!, $cursor: String) {
   }
 }
 
+# add comment
+mutation addComment($body: String!, $subjectId: String!) {
+  addComment(input: { body: $body, subjectId: $subjectId }) {
+    __typename
+  }
+}
+
+# update issue comment
+mutation updateIssueComment($body: String!, $id: String!) {
+  updateIssueComment(input: { body: $body, id: $id }) {
+    __typename
+  }
+}
+
+# delete issue comment
+mutation deleteIssueComment($id: String!) {
+  deleteIssueComment(input: { id: $id }) {
+    __typename
+  }
+}
+
 # Releases
 query Releases($name: String!, $owner: String!, $cursor: String) {
    repository(name: $name, owner: $owner) {

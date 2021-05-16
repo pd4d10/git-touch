@@ -669,6 +669,144 @@ abstract class GIssueReq
       _i6.serializers.deserializeWith(GIssueReq.serializer, json);
 }
 
+abstract class GaddCommentReq
+    implements
+        Built<GaddCommentReq, GaddCommentReqBuilder>,
+        _i1.OperationRequest<_i2.GaddCommentData, _i3.GaddCommentVars> {
+  GaddCommentReq._();
+
+  factory GaddCommentReq([Function(GaddCommentReqBuilder b) updates]) =
+      _$GaddCommentReq;
+
+  static void _initializeBuilder(GaddCommentReqBuilder b) => b
+    ..operation =
+        _i4.Operation(document: _i5.document, operationName: 'addComment')
+    ..executeOnListen = true;
+  _i3.GaddCommentVars get vars;
+  _i4.Operation get operation;
+  _i4.Request get execRequest =>
+      _i4.Request(operation: operation, variables: vars.toJson());
+  @nullable
+  String get requestId;
+  @nullable
+  @BuiltValueField(serialize: false)
+  _i2.GaddCommentData Function(_i2.GaddCommentData, _i2.GaddCommentData)
+      get updateResult;
+  @nullable
+  _i2.GaddCommentData get optimisticResponse;
+  @nullable
+  String get updateCacheHandlerKey;
+  @nullable
+  Map<String, dynamic> get updateCacheHandlerContext;
+  @nullable
+  _i1.FetchPolicy get fetchPolicy;
+  @nullable
+  bool get executeOnListen;
+  @override
+  _i2.GaddCommentData parseData(Map<String, dynamic> json) =>
+      _i2.GaddCommentData.fromJson(json);
+  static Serializer<GaddCommentReq> get serializer =>
+      _$gaddCommentReqSerializer;
+  Map<String, dynamic> toJson() =>
+      _i6.serializers.serializeWith(GaddCommentReq.serializer, this);
+  static GaddCommentReq fromJson(Map<String, dynamic> json) =>
+      _i6.serializers.deserializeWith(GaddCommentReq.serializer, json);
+}
+
+abstract class GupdateIssueCommentReq
+    implements
+        Built<GupdateIssueCommentReq, GupdateIssueCommentReqBuilder>,
+        _i1.OperationRequest<_i2.GupdateIssueCommentData,
+            _i3.GupdateIssueCommentVars> {
+  GupdateIssueCommentReq._();
+
+  factory GupdateIssueCommentReq(
+          [Function(GupdateIssueCommentReqBuilder b) updates]) =
+      _$GupdateIssueCommentReq;
+
+  static void _initializeBuilder(GupdateIssueCommentReqBuilder b) => b
+    ..operation = _i4.Operation(
+        document: _i5.document, operationName: 'updateIssueComment')
+    ..executeOnListen = true;
+  _i3.GupdateIssueCommentVars get vars;
+  _i4.Operation get operation;
+  _i4.Request get execRequest =>
+      _i4.Request(operation: operation, variables: vars.toJson());
+  @nullable
+  String get requestId;
+  @nullable
+  @BuiltValueField(serialize: false)
+  _i2.GupdateIssueCommentData Function(
+          _i2.GupdateIssueCommentData, _i2.GupdateIssueCommentData)
+      get updateResult;
+  @nullable
+  _i2.GupdateIssueCommentData get optimisticResponse;
+  @nullable
+  String get updateCacheHandlerKey;
+  @nullable
+  Map<String, dynamic> get updateCacheHandlerContext;
+  @nullable
+  _i1.FetchPolicy get fetchPolicy;
+  @nullable
+  bool get executeOnListen;
+  @override
+  _i2.GupdateIssueCommentData parseData(Map<String, dynamic> json) =>
+      _i2.GupdateIssueCommentData.fromJson(json);
+  static Serializer<GupdateIssueCommentReq> get serializer =>
+      _$gupdateIssueCommentReqSerializer;
+  Map<String, dynamic> toJson() =>
+      _i6.serializers.serializeWith(GupdateIssueCommentReq.serializer, this);
+  static GupdateIssueCommentReq fromJson(Map<String, dynamic> json) =>
+      _i6.serializers.deserializeWith(GupdateIssueCommentReq.serializer, json);
+}
+
+abstract class GdeleteIssueCommentReq
+    implements
+        Built<GdeleteIssueCommentReq, GdeleteIssueCommentReqBuilder>,
+        _i1.OperationRequest<_i2.GdeleteIssueCommentData,
+            _i3.GdeleteIssueCommentVars> {
+  GdeleteIssueCommentReq._();
+
+  factory GdeleteIssueCommentReq(
+          [Function(GdeleteIssueCommentReqBuilder b) updates]) =
+      _$GdeleteIssueCommentReq;
+
+  static void _initializeBuilder(GdeleteIssueCommentReqBuilder b) => b
+    ..operation = _i4.Operation(
+        document: _i5.document, operationName: 'deleteIssueComment')
+    ..executeOnListen = true;
+  _i3.GdeleteIssueCommentVars get vars;
+  _i4.Operation get operation;
+  _i4.Request get execRequest =>
+      _i4.Request(operation: operation, variables: vars.toJson());
+  @nullable
+  String get requestId;
+  @nullable
+  @BuiltValueField(serialize: false)
+  _i2.GdeleteIssueCommentData Function(
+          _i2.GdeleteIssueCommentData, _i2.GdeleteIssueCommentData)
+      get updateResult;
+  @nullable
+  _i2.GdeleteIssueCommentData get optimisticResponse;
+  @nullable
+  String get updateCacheHandlerKey;
+  @nullable
+  Map<String, dynamic> get updateCacheHandlerContext;
+  @nullable
+  _i1.FetchPolicy get fetchPolicy;
+  @nullable
+  bool get executeOnListen;
+  @override
+  _i2.GdeleteIssueCommentData parseData(Map<String, dynamic> json) =>
+      _i2.GdeleteIssueCommentData.fromJson(json);
+  static Serializer<GdeleteIssueCommentReq> get serializer =>
+      _$gdeleteIssueCommentReqSerializer;
+  Map<String, dynamic> toJson() =>
+      _i6.serializers.serializeWith(GdeleteIssueCommentReq.serializer, this);
+  static GdeleteIssueCommentReq fromJson(Map<String, dynamic> json) =>
+      _i6.serializers.deserializeWith(GdeleteIssueCommentReq.serializer, json);
+}
+
 abstract class GReleasesReq
     implements
         Built<GReleasesReq, GReleasesReqBuilder>,

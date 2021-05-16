@@ -28,6 +28,12 @@ Serializer<GCommitsVars> _$gCommitsVarsSerializer =
 Serializer<GIssuesVars> _$gIssuesVarsSerializer = new _$GIssuesVarsSerializer();
 Serializer<GPullsVars> _$gPullsVarsSerializer = new _$GPullsVarsSerializer();
 Serializer<GIssueVars> _$gIssueVarsSerializer = new _$GIssueVarsSerializer();
+Serializer<GaddCommentVars> _$gaddCommentVarsSerializer =
+    new _$GaddCommentVarsSerializer();
+Serializer<GupdateIssueCommentVars> _$gupdateIssueCommentVarsSerializer =
+    new _$GupdateIssueCommentVarsSerializer();
+Serializer<GdeleteIssueCommentVars> _$gdeleteIssueCommentVarsSerializer =
+    new _$GdeleteIssueCommentVarsSerializer();
 Serializer<GReleasesVars> _$gReleasesVarsSerializer =
     new _$GReleasesVarsSerializer();
 Serializer<GPageInfoPartsVars> _$gPageInfoPartsVarsSerializer =
@@ -935,6 +941,150 @@ class _$GIssueVarsSerializer implements StructuredSerializer<GIssueVars> {
           break;
         case 'cursor':
           result.cursor = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GaddCommentVarsSerializer
+    implements StructuredSerializer<GaddCommentVars> {
+  @override
+  final Iterable<Type> types = const [GaddCommentVars, _$GaddCommentVars];
+  @override
+  final String wireName = 'GaddCommentVars';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, GaddCommentVars object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[
+      'body',
+      serializers.serialize(object.body, specifiedType: const FullType(String)),
+      'subjectId',
+      serializers.serialize(object.subjectId,
+          specifiedType: const FullType(String)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GaddCommentVars deserialize(
+      Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GaddCommentVarsBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'body':
+          result.body = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'subjectId':
+          result.subjectId = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GupdateIssueCommentVarsSerializer
+    implements StructuredSerializer<GupdateIssueCommentVars> {
+  @override
+  final Iterable<Type> types = const [
+    GupdateIssueCommentVars,
+    _$GupdateIssueCommentVars
+  ];
+  @override
+  final String wireName = 'GupdateIssueCommentVars';
+
+  @override
+  Iterable<Object> serialize(
+      Serializers serializers, GupdateIssueCommentVars object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[
+      'body',
+      serializers.serialize(object.body, specifiedType: const FullType(String)),
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(String)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GupdateIssueCommentVars deserialize(
+      Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GupdateIssueCommentVarsBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'body':
+          result.body = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GdeleteIssueCommentVarsSerializer
+    implements StructuredSerializer<GdeleteIssueCommentVars> {
+  @override
+  final Iterable<Type> types = const [
+    GdeleteIssueCommentVars,
+    _$GdeleteIssueCommentVars
+  ];
+  @override
+  final String wireName = 'GdeleteIssueCommentVars';
+
+  @override
+  Iterable<Object> serialize(
+      Serializers serializers, GdeleteIssueCommentVars object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(String)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GdeleteIssueCommentVars deserialize(
+      Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GdeleteIssueCommentVarsBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'id':
+          result.id = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
       }
@@ -3566,6 +3716,276 @@ class GIssueVarsBuilder implements Builder<GIssueVars, GIssueVarsBuilder> {
     final _$result = _$v ??
         new _$GIssueVars._(
             owner: owner, name: name, number: number, cursor: cursor);
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GaddCommentVars extends GaddCommentVars {
+  @override
+  final String body;
+  @override
+  final String subjectId;
+
+  factory _$GaddCommentVars([void Function(GaddCommentVarsBuilder) updates]) =>
+      (new GaddCommentVarsBuilder()..update(updates)).build();
+
+  _$GaddCommentVars._({this.body, this.subjectId}) : super._() {
+    if (body == null) {
+      throw new BuiltValueNullFieldError('GaddCommentVars', 'body');
+    }
+    if (subjectId == null) {
+      throw new BuiltValueNullFieldError('GaddCommentVars', 'subjectId');
+    }
+  }
+
+  @override
+  GaddCommentVars rebuild(void Function(GaddCommentVarsBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GaddCommentVarsBuilder toBuilder() =>
+      new GaddCommentVarsBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GaddCommentVars &&
+        body == other.body &&
+        subjectId == other.subjectId;
+  }
+
+  @override
+  int get hashCode {
+    return $jf($jc($jc(0, body.hashCode), subjectId.hashCode));
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper('GaddCommentVars')
+          ..add('body', body)
+          ..add('subjectId', subjectId))
+        .toString();
+  }
+}
+
+class GaddCommentVarsBuilder
+    implements Builder<GaddCommentVars, GaddCommentVarsBuilder> {
+  _$GaddCommentVars _$v;
+
+  String _body;
+  String get body => _$this._body;
+  set body(String body) => _$this._body = body;
+
+  String _subjectId;
+  String get subjectId => _$this._subjectId;
+  set subjectId(String subjectId) => _$this._subjectId = subjectId;
+
+  GaddCommentVarsBuilder();
+
+  GaddCommentVarsBuilder get _$this {
+    if (_$v != null) {
+      _body = _$v.body;
+      _subjectId = _$v.subjectId;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GaddCommentVars other) {
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
+    _$v = other as _$GaddCommentVars;
+  }
+
+  @override
+  void update(void Function(GaddCommentVarsBuilder) updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  _$GaddCommentVars build() {
+    final _$result =
+        _$v ?? new _$GaddCommentVars._(body: body, subjectId: subjectId);
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GupdateIssueCommentVars extends GupdateIssueCommentVars {
+  @override
+  final String body;
+  @override
+  final String id;
+
+  factory _$GupdateIssueCommentVars(
+          [void Function(GupdateIssueCommentVarsBuilder) updates]) =>
+      (new GupdateIssueCommentVarsBuilder()..update(updates)).build();
+
+  _$GupdateIssueCommentVars._({this.body, this.id}) : super._() {
+    if (body == null) {
+      throw new BuiltValueNullFieldError('GupdateIssueCommentVars', 'body');
+    }
+    if (id == null) {
+      throw new BuiltValueNullFieldError('GupdateIssueCommentVars', 'id');
+    }
+  }
+
+  @override
+  GupdateIssueCommentVars rebuild(
+          void Function(GupdateIssueCommentVarsBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GupdateIssueCommentVarsBuilder toBuilder() =>
+      new GupdateIssueCommentVarsBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GupdateIssueCommentVars &&
+        body == other.body &&
+        id == other.id;
+  }
+
+  @override
+  int get hashCode {
+    return $jf($jc($jc(0, body.hashCode), id.hashCode));
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper('GupdateIssueCommentVars')
+          ..add('body', body)
+          ..add('id', id))
+        .toString();
+  }
+}
+
+class GupdateIssueCommentVarsBuilder
+    implements
+        Builder<GupdateIssueCommentVars, GupdateIssueCommentVarsBuilder> {
+  _$GupdateIssueCommentVars _$v;
+
+  String _body;
+  String get body => _$this._body;
+  set body(String body) => _$this._body = body;
+
+  String _id;
+  String get id => _$this._id;
+  set id(String id) => _$this._id = id;
+
+  GupdateIssueCommentVarsBuilder();
+
+  GupdateIssueCommentVarsBuilder get _$this {
+    if (_$v != null) {
+      _body = _$v.body;
+      _id = _$v.id;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GupdateIssueCommentVars other) {
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
+    _$v = other as _$GupdateIssueCommentVars;
+  }
+
+  @override
+  void update(void Function(GupdateIssueCommentVarsBuilder) updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  _$GupdateIssueCommentVars build() {
+    final _$result = _$v ?? new _$GupdateIssueCommentVars._(body: body, id: id);
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GdeleteIssueCommentVars extends GdeleteIssueCommentVars {
+  @override
+  final String id;
+
+  factory _$GdeleteIssueCommentVars(
+          [void Function(GdeleteIssueCommentVarsBuilder) updates]) =>
+      (new GdeleteIssueCommentVarsBuilder()..update(updates)).build();
+
+  _$GdeleteIssueCommentVars._({this.id}) : super._() {
+    if (id == null) {
+      throw new BuiltValueNullFieldError('GdeleteIssueCommentVars', 'id');
+    }
+  }
+
+  @override
+  GdeleteIssueCommentVars rebuild(
+          void Function(GdeleteIssueCommentVarsBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GdeleteIssueCommentVarsBuilder toBuilder() =>
+      new GdeleteIssueCommentVarsBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GdeleteIssueCommentVars && id == other.id;
+  }
+
+  @override
+  int get hashCode {
+    return $jf($jc(0, id.hashCode));
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper('GdeleteIssueCommentVars')
+          ..add('id', id))
+        .toString();
+  }
+}
+
+class GdeleteIssueCommentVarsBuilder
+    implements
+        Builder<GdeleteIssueCommentVars, GdeleteIssueCommentVarsBuilder> {
+  _$GdeleteIssueCommentVars _$v;
+
+  String _id;
+  String get id => _$this._id;
+  set id(String id) => _$this._id = id;
+
+  GdeleteIssueCommentVarsBuilder();
+
+  GdeleteIssueCommentVarsBuilder get _$this {
+    if (_$v != null) {
+      _id = _$v.id;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GdeleteIssueCommentVars other) {
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
+    _$v = other as _$GdeleteIssueCommentVars;
+  }
+
+  @override
+  void update(void Function(GdeleteIssueCommentVarsBuilder) updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  _$GdeleteIssueCommentVars build() {
+    final _$result = _$v ?? new _$GdeleteIssueCommentVars._(id: id);
     replace(_$result);
     return _$result;
   }
