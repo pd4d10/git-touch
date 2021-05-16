@@ -46,7 +46,7 @@ class GeRepoScreen extends StatelessWidget {
                 });
         final html = () => md().then((v) async {
               final res = await http.post(
-                '${auth.activeAccount.domain}/api/v5/markdown',
+                Uri.parse('${auth.activeAccount.domain}/api/v5/markdown'),
                 headers: {'Authorization': 'token ${auth.token}'},
                 body: {'text': v},
               );

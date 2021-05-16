@@ -105,7 +105,7 @@ class AuthModel with ChangeNotifier {
 
     // Get token by code
     final res = await http.post(
-      'https://git-touch-oauth.vercel.app/api/token',
+      Uri.parse('https://git-touch-oauth.vercel.app/api/token'),
       headers: {
         HttpHeaders.acceptHeader: 'application/json',
         HttpHeaders.contentTypeHeader: 'application/json',
@@ -150,8 +150,8 @@ class AuthModel with ChangeNotifier {
     loading = true;
     notifyListeners();
     try {
-      final res = await http
-          .get('$domain/api/v4/user', headers: {'Private-Token': token});
+      final res = await http.get(Uri.parse('$domain/api/v4/user'),
+          headers: {'Private-Token': token});
       final info = json.decode(res.body);
       if (info['message'] != null) {
         throw info['message'];
@@ -179,7 +179,7 @@ class AuthModel with ChangeNotifier {
   }
 
   Future<String> fetchWithGitlabToken(String p) async {
-    final res = await http.get(p, headers: {'Private-Token': token});
+    final res = await http.get(Uri.parse(p), headers: {'Private-Token': token});
     return res.body;
   }
 
@@ -188,7 +188,7 @@ class AuthModel with ChangeNotifier {
     http.Response res;
     if (isPost) {
       res = await http.post(
-        '${activeAccount.domain}/api/v4$p',
+        Uri.parse('${activeAccount.domain}/api/v4$p'),
         headers: {
           'Private-Token': token,
           HttpHeaders.contentTypeHeader: 'application/json'
@@ -196,7 +196,7 @@ class AuthModel with ChangeNotifier {
         body: jsonEncode(body),
       );
     } else {
-      res = await http.get('${activeAccount.domain}/api/v4$p',
+      res = await http.get(Uri.parse('${activeAccount.domain}/api/v4$p'),
           headers: {'Private-Token': token});
     }
     final info = json.decode(utf8.decode(res.bodyBytes));
@@ -205,7 +205,7 @@ class AuthModel with ChangeNotifier {
   }
 
   Future<DataWithPage> fetchGitlabWithPage(String p) async {
-    final res = await http.get('${activeAccount.domain}/api/v4$p',
+    final res = await http.get(Uri.parse('${activeAccount.domain}/api/v4$p'),
         headers: {'Private-Token': token});
     final next = int.tryParse(
         res.headers['X-Next-Pages'] ?? res.headers['x-next-page'] ?? '');
@@ -226,7 +226,7 @@ class AuthModel with ChangeNotifier {
     try {
       loading = true;
       notifyListeners();
-      final res = await http.get('$domain/api/v1/user',
+      final res = await http.get(Uri.parse('$domain/api/v1/user'),
           headers: {'Authorization': 'token $token'});
       final info = json.decode(res.body);
       if (info['message'] != null) {
@@ -261,7 +261,7 @@ class AuthModel with ChangeNotifier {
       case 'DELETE':
         {
           await http.delete(
-            '${activeAccount.domain}/api/v1$p',
+            Uri.parse('${activeAccount.domain}/api/v1$p'),
             headers: headers,
           );
           break;
@@ -269,7 +269,7 @@ class AuthModel with ChangeNotifier {
       case 'POST':
         {
           res = await http.post(
-            '${activeAccount.domain}/api/v1$p',
+            Uri.parse('${activeAccount.domain}/api/v1$p'),
             headers: headers,
             body: jsonEncode(body),
           );
@@ -278,7 +278,7 @@ class AuthModel with ChangeNotifier {
       case 'PATCH':
         {
           res = await http.patch(
-            '${activeAccount.domain}/api/v1$p',
+            Uri.parse('${activeAccount.domain}/api/v1$p'),
             headers: headers,
             body: jsonEncode(body),
           );
@@ -286,7 +286,7 @@ class AuthModel with ChangeNotifier {
         }
       default:
         {
-          res = await http.get('${activeAccount.domain}/api/v1$p',
+          res = await http.get(Uri.parse('${activeAccount.domain}/api/v1$p'),
               headers: headers);
           break;
         }
@@ -328,7 +328,7 @@ class AuthModel with ChangeNotifier {
     try {
       loading = true;
       notifyListeners();
-      final res = await http.get('$domain/api/v1/user',
+      final res = await http.get(Uri.parse('$domain/api/v1/user'),
           headers: {'Authorization': 'token $token'});
       final info = json.decode(res.body);
       if (info['message'] != null) {
@@ -364,7 +364,7 @@ class AuthModel with ChangeNotifier {
       case 'DELETE':
         {
           await http.delete(
-            '${activeAccount.domain}/api/v1$p',
+            Uri.parse('${activeAccount.domain}/api/v1$p'),
             headers: headers,
           );
           break;
@@ -372,7 +372,7 @@ class AuthModel with ChangeNotifier {
       case 'POST':
         {
           res = await http.post(
-            '${activeAccount.domain}/api/v1$p',
+            Uri.parse('${activeAccount.domain}/api/v1$p'),
             headers: headers,
             body: jsonEncode(body),
           );
@@ -381,7 +381,7 @@ class AuthModel with ChangeNotifier {
       case 'PATCH':
         {
           res = await http.patch(
-            '${activeAccount.domain}/api/v1$p',
+            Uri.parse('${activeAccount.domain}/api/v1$p'),
             headers: headers,
             body: jsonEncode(body),
           );
@@ -389,7 +389,7 @@ class AuthModel with ChangeNotifier {
         }
       default:
         {
-          res = await http.get('${activeAccount.domain}/api/v1$p',
+          res = await http.get(Uri.parse('${activeAccount.domain}/api/v1$p'),
               headers: headers);
           break;
         }
@@ -439,7 +439,7 @@ class AuthModel with ChangeNotifier {
       case 'DELETE':
         {
           await http.delete(
-            '${activeAccount.domain}/api/v5$p',
+            Uri.parse('${activeAccount.domain}/api/v5$p'),
             headers: headers,
           );
           return;
@@ -447,7 +447,7 @@ class AuthModel with ChangeNotifier {
       case 'PUT':
         {
           await http.put(
-            '${activeAccount.domain}/api/v5$p',
+            Uri.parse('${activeAccount.domain}/api/v5$p'),
             headers: headers,
           );
           return;
@@ -455,7 +455,7 @@ class AuthModel with ChangeNotifier {
       case 'POST':
         {
           res = await http.post(
-            '${activeAccount.domain}/api/v5$p',
+            Uri.parse('${activeAccount.domain}/api/v5$p'),
             headers: headers,
             body: jsonEncode(body),
           );
@@ -464,7 +464,7 @@ class AuthModel with ChangeNotifier {
       case 'PATCH':
         {
           res = await http.patch(
-            '${activeAccount.domain}/api/v5$p',
+            Uri.parse('${activeAccount.domain}/api/v5$p'),
             headers: headers,
             body: jsonEncode(body),
           );
@@ -472,13 +472,13 @@ class AuthModel with ChangeNotifier {
         }
       case 'NO CONTENT':
         {
-          res = await http.get('${activeAccount.domain}/api/v5$p',
+          res = await http.get(Uri.parse('${activeAccount.domain}/api/v5$p'),
               headers: headers);
           return res;
         }
       default:
         {
-          res = await http.get('${activeAccount.domain}/api/v5$p',
+          res = await http.get(Uri.parse('${activeAccount.domain}/api/v5$p'),
               headers: headers);
           break;
         }
@@ -595,7 +595,7 @@ class AuthModel with ChangeNotifier {
     try {
       loading = true;
       notifyListeners();
-      final res = await http.get('https://gitee.com/api/v5/user',
+      final res = await http.get(Uri.parse('https://gitee.com/api/v5/user'),
           headers: {'Authorization': 'token $token'});
       final info = json.decode(res.body);
       if (info['message'] != null) {
@@ -729,7 +729,7 @@ class AuthModel with ChangeNotifier {
     }
 
     final res = await http
-        .post(_apiPrefix + '/graphql',
+        .post(Uri.parse(_apiPrefix + '/graphql'),
             headers: {
               HttpHeaders.authorizationHeader: 'token $_token',
               HttpHeaders.contentTypeHeader: 'application/json'
