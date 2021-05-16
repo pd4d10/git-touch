@@ -105,7 +105,7 @@ class AuthModel with ChangeNotifier {
 
     // Get token by code
     final res = await http.post(
-      'https://git-touch-oauth.now.sh/api/token',
+      'https://git-touch-oauth.vercel.app/api/token',
       headers: {
         HttpHeaders.acceptHeader: 'application/json',
         HttpHeaders.contentTypeHeader: 'application/json',
