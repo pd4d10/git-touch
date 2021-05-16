@@ -24,7 +24,7 @@ class GhNewsScreenState extends State<GhNewsScreen> {
       // 1 item is enough since count is not displayed for now.
       var items = await context
           .read<AuthModel>()
-          .ghClient
+          .ghClient!
           .getJSON('/notifications?per_page=1');
 
       if (items is List && items.isNotEmpty) {
@@ -36,16 +36,16 @@ class GhNewsScreenState extends State<GhNewsScreen> {
   @override
   Widget build(context) {
     return ListStatefulScaffold<GithubEvent, int>(
-      title: AppBarTitle(AppLocalizations.of(context).news),
+      title: AppBarTitle(AppLocalizations.of(context)!.news),
       itemBuilder: (payload) => EventItem(payload),
       fetch: (page) async {
         page = page ?? 1;
         final auth = context.read<AuthModel>();
-        final login = auth.activeAccount.login;
+        final login = auth.activeAccount!.login;
 
-        final events = await auth.ghClient.getJSON(
+        final events = await auth.ghClient!.getJSON(
           '/users/$login/received_events?page=$page&per_page=$pageSize',
-          convert: (vs) => [for (var v in vs) GithubEvent.fromJson(v)],
+          convert: (dynamic vs) => [for (var v in vs) GithubEvent.fromJson(v)],
         );
         return ListPayload(
           cursor: page + 1,

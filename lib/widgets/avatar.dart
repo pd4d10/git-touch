@@ -12,13 +12,13 @@ class AvatarSize {
 }
 
 class Avatar extends StatelessWidget {
-  final String url;
+  final String? url;
   final double size;
-  final String linkUrl;
-  final BorderRadius borderRadius;
+  final String? linkUrl;
+  final BorderRadius? borderRadius;
 
   Avatar({
-    @required this.url,
+    required this.url,
     this.size = AvatarSize.medium,
     this.linkUrl,
     this.borderRadius,
@@ -37,7 +37,7 @@ class Avatar extends StatelessWidget {
           ? Image.asset(fallback, width: size, height: size)
           : FadeInImage.assetNetwork(
               placeholder: fallback,
-              image: url,
+              image: url!,
               width: size,
               height: size,
               fadeInDuration: Duration(milliseconds: 200),
@@ -45,10 +45,10 @@ class Avatar extends StatelessWidget {
             ),
     );
     if (linkUrl == null) return widget;
-    return Link(
+    return LinkWidget(
       child: widget,
       onTap: () {
-        context.read<ThemeModel>().push(context, linkUrl);
+        context.read<ThemeModel>().push(context, linkUrl!);
       },
     );
   }

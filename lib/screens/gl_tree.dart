@@ -12,14 +12,14 @@ import 'package:flutter_gen/gen_l10n/S.dart';
 class GlTreeScreen extends StatelessWidget {
   final int id;
   final String ref;
-  final String path;
+  final String? path;
   GlTreeScreen(this.id, this.ref, {this.path});
 
   @override
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthModel>(context);
     return RefreshStatefulScaffold<Iterable<GitlabTreeItem>>(
-      title: AppBarTitle(path ?? AppLocalizations.of(context).files),
+      title: AppBarTitle(path ?? AppLocalizations.of(context)!.files),
       fetch: () async {
         final uri = Uri(
           path: '/projects/$id/repository/tree',
@@ -38,13 +38,13 @@ class GlTreeScreen extends StatelessWidget {
               type: item.type,
               name: item.name,
               downloadUrl:
-                  '${auth.activeAccount.domain}/api/v4/projects/$id/repository/files/${item.path.urlencode}/raw?ref=master', // TODO:
+                  '${auth.activeAccount!.domain}/api/v4/projects/$id/repository/files/${item.path!.urlencode}/raw?ref=master', // TODO:
               url: (() {
                 switch (item.type) {
                   case 'tree':
-                    return '/gitlab/projects/$id/tree/$ref?path=${item.path.urlencode}';
+                    return '/gitlab/projects/$id/tree/$ref?path=${item.path!.urlencode}';
                   case 'blob':
-                    return '/gitlab/projects/$id/blob/$ref?path=${item.path.urlencode}';
+                    return '/gitlab/projects/$id/blob/$ref?path=${item.path!.urlencode}';
                   default:
                     return null;
                 }

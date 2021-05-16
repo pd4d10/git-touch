@@ -12,7 +12,7 @@ class GlExploreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GitlabProject, int>(
-      title: AppBarTitle(AppLocalizations.of(context).explore),
+      title: AppBarTitle(AppLocalizations.of(context)!.explore),
       fetch: (page) async {
         page = page ?? 1;
         final auth = context.read<AuthModel>();
@@ -29,7 +29,7 @@ class GlExploreScreen extends StatelessWidget {
       itemBuilder: (v) {
         return RepositoryItem.gl(
           payload: v,
-          note: 'Updated ${timeago.format(v.lastActivityAt)}',
+          note: 'Updated ${timeago.format(v.lastActivityAt!)}',
         );
       },
     );

@@ -18,14 +18,14 @@ import 'package:flutter_gen/gen_l10n/S.dart';
 class GoRepoScreen extends StatelessWidget {
   final String owner;
   final String name;
-  final String branch;
+  final String? branch;
   GoRepoScreen(this.owner, this.name, {this.branch});
 
   @override
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold<
         Tuple3<GogsRepository, MarkdownViewData, List<GogsBranch>>>(
-      title: AppBarTitle(AppLocalizations.of(context).repository),
+      title: AppBarTitle(AppLocalizations.of(context)!.repository),
       fetch: () async {
         final auth = context.read<AuthModel>();
         final repo = await auth.fetchGogs('/repos/$owner/$name').then((v) {
@@ -34,21 +34,21 @@ class GoRepoScreen extends StatelessWidget {
 
         final md = () =>
             auth.fetchGogs('/repos/$owner/$name/contents/README.md').then((v) {
-              return (v['content'] as String)?.base64ToUtf8;
+              return (v['content'] as String?)?.base64ToUtf8 ?? '';
             });
         final html = () => md().then((v) async {
               final res = await http.post(
-                Uri.parse('${auth.activeAccount.domain}/api/v1/markdown/raw'),
+                Uri.parse('${auth.activeAccount!.domain}/api/v1/markdown/raw'),
                 headers: {'Authorization': 'token ${auth.token}'},
                 body: v,
               );
               return utf8.decode(res.bodyBytes).normalizedHtml;
             });
         final readmeData = MarkdownViewData(context, md: md, html: html);
-        final branches =
+        List<GogsBranch> branches =
             await auth.fetchGogs('/repos/$owner/$name/branches').then((v) {
           if (!(v is List))
-            return null; // Valid API Response only returned if repo contains >= 2 branches
+            return []; // Valid API Response only returned if repo contains >= 2 branches
           return [for (var branch in v) GogsBranch.fromJson(branch)];
         });
 
@@ -62,10 +62,10 @@ class GoRepoScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             RepoHeader(
-              avatarUrl: p.owner.avatarUrl,
-              avatarLink: '/gogs/${p.owner.username}',
-              owner: p.owner.username,
-              name: p.fullName.split('/')[1],
+              avatarUrl: p.owner!.avatarUrl,
+              avatarLink: '/gogs/${p.owner!.username}',
+              owner: p.owner!.username,
+              name: p.fullName!.split('/')[1],
               description: p.description,
               homepageUrl: p.website,
             ),
@@ -115,8 +115,8 @@ class GoRepoScreen extends StatelessWidget {
                 ),
                 TableViewItem(
                   leftIconData: Octicons.git_branch,
-                  text: Text(AppLocalizations.of(context).branches),
-                  rightWidget: Text((branch == null ? 'master' : branch) +
+                  text: Text(AppLocalizations.of(context)!.branches),
+                  rightWidget: Text((branch == null ? 'master' : branch)! +
                       ' • ' +
                       '${branches == null ? '1' : branches.length.toString()}'),
                   onTap: () async {

@@ -7,18 +7,18 @@ import 'package:provider/provider.dart';
 import 'package:flutter_highlight/theme_map.dart';
 
 class FilesItem extends StatelessWidget {
-  final String filename;
-  final String status;
-  final int additions;
-  final int deletions;
-  final String patch;
+  final String? filename;
+  final String? status;
+  final int? additions;
+  final int? deletions;
+  final String? patch;
 
   FilesItem({
-    @required this.filename,
-    @required this.status,
-    @required this.deletions,
-    @required this.additions,
-    @required this.patch,
+    required this.filename,
+    required this.status,
+    required this.deletions,
+    required this.additions,
+    required this.patch,
   });
 
   @override
@@ -30,7 +30,7 @@ class FilesItem extends StatelessWidget {
       margin: EdgeInsets.all(0),
       child: ExpansionTile(
         title: Text(
-          filename,
+          filename!,
           style: TextStyle(
             color: theme.palette.primary,
             fontSize: 18,
@@ -41,12 +41,12 @@ class FilesItem extends StatelessWidget {
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: HighlightView(
-              patch,
+              patch!,
               language: 'diff',
               padding: CommonStyle.padding,
               theme: themeMap[theme.brightness == Brightness.dark
                   ? codeProvider.themeDark
-                  : codeProvider.theme],
+                  : codeProvider.theme]!,
               textStyle: TextStyle(
                   fontSize: codeProvider.fontSize.toDouble(),
                   fontFamily: codeProvider.fontFamilyUsed),

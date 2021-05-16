@@ -1,6 +1,8 @@
+import 'package:ferry/ferry.dart';
 import 'package:flutter/material.dart';
 import 'package:git_touch/graphql/github.data.gql.dart';
 import 'package:git_touch/graphql/github.req.gql.dart';
+import 'package:git_touch/graphql/github.var.gql.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/scaffolds/list_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
@@ -18,8 +20,8 @@ class GhIssuesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListStatefulScaffold<GIssuesData_repository_issues_nodes, String>(
-      title: AppBarTitle(AppLocalizations.of(context).issues),
+    return ListStatefulScaffold<GIssuesData_repository_issues_nodes, String?>(
+      title: AppBarTitle(AppLocalizations.of(context)!.issues),
       actionBuilder: () => ActionEntry(
         iconData: Octicons.plus,
         url: '/github/$owner/$name/issues/new',
@@ -30,13 +32,13 @@ class GhIssuesScreen extends StatelessWidget {
           b.vars.name = name;
           b.vars.cursor = cursor;
         });
-        final res =
-            await context.read<AuthModel>().gqlClient.request(req).first;
-        final issues = res.data.repository.issues;
+        final OperationResponse<GIssuesData, GIssuesVars?> res =
+            await context.read<AuthModel>().gqlClient!.request(req).first;
+        final issues = res.data!.repository!.issues;
         return ListPayload(
           cursor: issues.pageInfo.endCursor,
           hasMore: issues.pageInfo.hasNextPage,
-          items: issues.nodes.toList(),
+          items: issues.nodes!.toList(),
         );
       },
       itemBuilder: (p) {
@@ -47,10 +49,10 @@ class GhIssuesScreen extends StatelessWidget {
           subtitle: '#' + p.number.toString(),
           title: p.title,
           updatedAt: p.updatedAt,
-          labels: p.labels.nodes.isEmpty
+          labels: p.labels!.nodes!.isEmpty
               ? null
               : Wrap(spacing: 4, runSpacing: 4, children: [
-                  for (var label in p.labels.nodes)
+                  for (var label in p.labels!.nodes!)
                     MyLabel(name: label.name, cssColor: label.color)
                 ]),
           url: '/github/$owner/$name/issues/${p.number}',

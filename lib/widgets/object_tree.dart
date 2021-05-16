@@ -6,30 +6,30 @@ import 'package:primer/primer.dart';
 import 'package:file_icon/file_icon.dart';
 
 class ObjectTreeItem {
-  final String url;
-  final String downloadUrl;
-  final String name;
-  final String type;
-  final int size;
+  final String? url;
+  final String? downloadUrl;
+  final String? name;
+  final String? type;
+  final int? size;
   ObjectTreeItem({
-    @required this.name,
-    @required this.url,
-    @required this.downloadUrl,
-    @required this.type,
+    required this.name,
+    required this.url,
+    required this.downloadUrl,
+    required this.type,
     this.size,
   });
 }
 
 class ObjectTree extends StatelessWidget {
   final Iterable<ObjectTreeItem> items;
-  ObjectTree({@required this.items});
+  ObjectTree({required this.items});
 
   Widget _buildIcon(ObjectTreeItem item) {
     switch (item.type) {
       case 'blob': // github gql, gitlab
       case 'file': // github rest, gitea
       case 'commit_file': // bitbucket
-        return FileIcon(item.name, size: 36);
+        return FileIcon(item.name!, size: 36);
       case 'tree': // github gql, gitlab
       case 'dir': // github rest, gitea
       case 'commit_directory': // bitbucket
@@ -57,7 +57,7 @@ class ObjectTree extends StatelessWidget {
         for (var item in items)
           TableViewItem(
             leftWidget: _buildIcon(item),
-            text: Text(item.name),
+            text: Text(item.name!),
             rightWidget: item.size == null ? null : Text(filesize(item.size)),
             url: [
               // Let system browser handle these files
@@ -71,7 +71,7 @@ class ObjectTree extends StatelessWidget {
               // Fonts
               'ttf', 'otf', 'eot', 'woff', 'woff2',
               'svg',
-            ].contains(item.name.ext)
+            ].contains(item.name!.ext)
                 ? item.downloadUrl
                 : item.url,
             hideRightChevron: item.size != null,

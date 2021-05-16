@@ -13,7 +13,7 @@ import 'package:timeago/timeago.dart' as timeago;
 import 'package:flutter_gen/gen_l10n/S.dart';
 
 class GlUserScreen extends StatelessWidget {
-  final int id;
+  final int? id;
   GlUserScreen(this.id);
   bool get isViewer => id == null;
 
@@ -21,11 +21,11 @@ class GlUserScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold<Tuple2<GitlabUser, Iterable<GitlabProject>>>(
       title: Text(isViewer
-          ? AppLocalizations.of(context).me
-          : AppLocalizations.of(context).user),
+          ? AppLocalizations.of(context)!.me
+          : AppLocalizations.of(context)!.user),
       fetch: () async {
         final auth = context.read<AuthModel>();
-        final _id = id ?? auth.activeAccount.gitlabId;
+        final _id = id ?? auth.activeAccount!.gitlabId;
         final res = await Future.wait([
           auth.fetchGitlab('/users/$_id'),
           auth.fetchGitlab('/users/$_id/projects'),
@@ -61,7 +61,7 @@ class GlUserScreen extends StatelessWidget {
                 for (var v in projects)
                   RepositoryItem.gl(
                     payload: v,
-                    note: 'Updated ${timeago.format(v.lastActivityAt)}',
+                    note: 'Updated ${timeago.format(v.lastActivityAt!)}',
                   )
               ],
             )

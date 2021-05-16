@@ -19,21 +19,21 @@ class MyApp extends StatelessWidget {
       // 2. system locale
       try {
         if (theme.locale != null) {
-          final intlLocale = l.Locale.parse(theme.locale);
+          final intlLocale = l.Locale.parse(theme.locale!);
           locales = [
             Locale.fromSubtags(
               languageCode: intlLocale.languageCode,
               countryCode: intlLocale.countryCode,
               scriptCode: intlLocale.scriptCode,
             ),
-            ...locales
+            ...locales!
           ];
         }
       } catch (err) {
         print(err);
       }
 
-      for (final locale in locales) {
+      for (final locale in locales!) {
         // this is necessary because Flutter only handles zh_Hans -> zh
         // and would not handle non-exist language code
         if (AppLocalizations.delegate.isSupported(locale)) {

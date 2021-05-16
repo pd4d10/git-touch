@@ -129,58 +129,61 @@ class _$GGistsReqSerializer implements StructuredSerializer<GGistsReq> {
   final String wireName = 'GGistsReq';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GGistsReq object,
+  Iterable<Object?> serialize(Serializers serializers, GGistsReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GGistsVars)),
       'operation',
       serializers.serialize(object.operation,
           specifiedType: const FullType(_i4.Operation)),
+      'executeOnListen',
+      serializers.serialize(object.executeOnListen,
+          specifiedType: const FullType(bool)),
     ];
-    if (object.requestId != null) {
+    Object? value;
+    value = object.requestId;
+    if (value != null) {
       result
         ..add('requestId')
-        ..add(serializers.serialize(object.requestId,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.optimisticResponse != null) {
+    value = object.optimisticResponse;
+    if (value != null) {
       result
         ..add('optimisticResponse')
-        ..add(serializers.serialize(object.optimisticResponse,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(_i2.GGistsData)));
     }
-    if (object.updateCacheHandlerKey != null) {
+    value = object.updateCacheHandlerKey;
+    if (value != null) {
       result
         ..add('updateCacheHandlerKey')
-        ..add(serializers.serialize(object.updateCacheHandlerKey,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.updateCacheHandlerContext != null) {
+    value = object.updateCacheHandlerContext;
+    if (value != null) {
       result
         ..add('updateCacheHandlerContext')
-        ..add(serializers.serialize(object.updateCacheHandlerContext,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(
                 Map, const [const FullType(String), const FullType(dynamic)])));
     }
-    if (object.fetchPolicy != null) {
+    value = object.fetchPolicy;
+    if (value != null) {
       result
         ..add('fetchPolicy')
-        ..add(serializers.serialize(object.fetchPolicy,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(_i1.FetchPolicy)));
-    }
-    if (object.executeOnListen != null) {
-      result
-        ..add('executeOnListen')
-        ..add(serializers.serialize(object.executeOnListen,
-            specifiedType: const FullType(bool)));
     }
     return result;
   }
 
   @override
-  GGistsReq deserialize(Serializers serializers, Iterable<Object> serialized,
+  GGistsReq deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GGistsReqBuilder();
 
@@ -188,11 +191,12 @@ class _$GGistsReqSerializer implements StructuredSerializer<GGistsReq> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-              specifiedType: const FullType(_i3.GGistsVars)) as _i3.GGistsVars);
+                  specifiedType: const FullType(_i3.GGistsVars))!
+              as _i3.GGistsVars);
           break;
         case 'operation':
           result.operation = serializers.deserialize(value,
@@ -204,7 +208,8 @@ class _$GGistsReqSerializer implements StructuredSerializer<GGistsReq> {
           break;
         case 'optimisticResponse':
           result.optimisticResponse.replace(serializers.deserialize(value,
-              specifiedType: const FullType(_i2.GGistsData)) as _i2.GGistsData);
+                  specifiedType: const FullType(_i2.GGistsData))!
+              as _i2.GGistsData);
           break;
         case 'updateCacheHandlerKey':
           result.updateCacheHandlerKey = serializers.deserialize(value,
@@ -240,58 +245,61 @@ class _$GGistReqSerializer implements StructuredSerializer<GGistReq> {
   final String wireName = 'GGistReq';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GGistReq object,
+  Iterable<Object?> serialize(Serializers serializers, GGistReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GGistVars)),
       'operation',
       serializers.serialize(object.operation,
           specifiedType: const FullType(_i4.Operation)),
+      'executeOnListen',
+      serializers.serialize(object.executeOnListen,
+          specifiedType: const FullType(bool)),
     ];
-    if (object.requestId != null) {
+    Object? value;
+    value = object.requestId;
+    if (value != null) {
       result
         ..add('requestId')
-        ..add(serializers.serialize(object.requestId,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.optimisticResponse != null) {
+    value = object.optimisticResponse;
+    if (value != null) {
       result
         ..add('optimisticResponse')
-        ..add(serializers.serialize(object.optimisticResponse,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(_i2.GGistData)));
     }
-    if (object.updateCacheHandlerKey != null) {
+    value = object.updateCacheHandlerKey;
+    if (value != null) {
       result
         ..add('updateCacheHandlerKey')
-        ..add(serializers.serialize(object.updateCacheHandlerKey,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.updateCacheHandlerContext != null) {
+    value = object.updateCacheHandlerContext;
+    if (value != null) {
       result
         ..add('updateCacheHandlerContext')
-        ..add(serializers.serialize(object.updateCacheHandlerContext,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(
                 Map, const [const FullType(String), const FullType(dynamic)])));
     }
-    if (object.fetchPolicy != null) {
+    value = object.fetchPolicy;
+    if (value != null) {
       result
         ..add('fetchPolicy')
-        ..add(serializers.serialize(object.fetchPolicy,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(_i1.FetchPolicy)));
-    }
-    if (object.executeOnListen != null) {
-      result
-        ..add('executeOnListen')
-        ..add(serializers.serialize(object.executeOnListen,
-            specifiedType: const FullType(bool)));
     }
     return result;
   }
 
   @override
-  GGistReq deserialize(Serializers serializers, Iterable<Object> serialized,
+  GGistReq deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GGistReqBuilder();
 
@@ -299,11 +307,11 @@ class _$GGistReqSerializer implements StructuredSerializer<GGistReq> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-              specifiedType: const FullType(_i3.GGistVars)) as _i3.GGistVars);
+              specifiedType: const FullType(_i3.GGistVars))! as _i3.GGistVars);
           break;
         case 'operation':
           result.operation = serializers.deserialize(value,
@@ -315,7 +323,7 @@ class _$GGistReqSerializer implements StructuredSerializer<GGistReq> {
           break;
         case 'optimisticResponse':
           result.optimisticResponse.replace(serializers.deserialize(value,
-              specifiedType: const FullType(_i2.GGistData)) as _i2.GGistData);
+              specifiedType: const FullType(_i2.GGistData))! as _i2.GGistData);
           break;
         case 'updateCacheHandlerKey':
           result.updateCacheHandlerKey = serializers.deserialize(value,
@@ -351,59 +359,62 @@ class _$GFollowersReqSerializer implements StructuredSerializer<GFollowersReq> {
   final String wireName = 'GFollowersReq';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GFollowersReq object,
+  Iterable<Object?> serialize(Serializers serializers, GFollowersReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GFollowersVars)),
       'operation',
       serializers.serialize(object.operation,
           specifiedType: const FullType(_i4.Operation)),
+      'executeOnListen',
+      serializers.serialize(object.executeOnListen,
+          specifiedType: const FullType(bool)),
     ];
-    if (object.requestId != null) {
+    Object? value;
+    value = object.requestId;
+    if (value != null) {
       result
         ..add('requestId')
-        ..add(serializers.serialize(object.requestId,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.optimisticResponse != null) {
+    value = object.optimisticResponse;
+    if (value != null) {
       result
         ..add('optimisticResponse')
-        ..add(serializers.serialize(object.optimisticResponse,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(_i2.GFollowersData)));
     }
-    if (object.updateCacheHandlerKey != null) {
+    value = object.updateCacheHandlerKey;
+    if (value != null) {
       result
         ..add('updateCacheHandlerKey')
-        ..add(serializers.serialize(object.updateCacheHandlerKey,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.updateCacheHandlerContext != null) {
+    value = object.updateCacheHandlerContext;
+    if (value != null) {
       result
         ..add('updateCacheHandlerContext')
-        ..add(serializers.serialize(object.updateCacheHandlerContext,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(
                 Map, const [const FullType(String), const FullType(dynamic)])));
     }
-    if (object.fetchPolicy != null) {
+    value = object.fetchPolicy;
+    if (value != null) {
       result
         ..add('fetchPolicy')
-        ..add(serializers.serialize(object.fetchPolicy,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(_i1.FetchPolicy)));
-    }
-    if (object.executeOnListen != null) {
-      result
-        ..add('executeOnListen')
-        ..add(serializers.serialize(object.executeOnListen,
-            specifiedType: const FullType(bool)));
     }
     return result;
   }
 
   @override
   GFollowersReq deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GFollowersReqBuilder();
 
@@ -411,11 +422,11 @@ class _$GFollowersReqSerializer implements StructuredSerializer<GFollowersReq> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GFollowersVars))
+                  specifiedType: const FullType(_i3.GFollowersVars))!
               as _i3.GFollowersVars);
           break;
         case 'operation':
@@ -428,7 +439,7 @@ class _$GFollowersReqSerializer implements StructuredSerializer<GFollowersReq> {
           break;
         case 'optimisticResponse':
           result.optimisticResponse.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i2.GFollowersData))
+                  specifiedType: const FullType(_i2.GFollowersData))!
               as _i2.GFollowersData);
           break;
         case 'updateCacheHandlerKey':
@@ -465,59 +476,62 @@ class _$GFollowingReqSerializer implements StructuredSerializer<GFollowingReq> {
   final String wireName = 'GFollowingReq';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GFollowingReq object,
+  Iterable<Object?> serialize(Serializers serializers, GFollowingReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GFollowingVars)),
       'operation',
       serializers.serialize(object.operation,
           specifiedType: const FullType(_i4.Operation)),
+      'executeOnListen',
+      serializers.serialize(object.executeOnListen,
+          specifiedType: const FullType(bool)),
     ];
-    if (object.requestId != null) {
+    Object? value;
+    value = object.requestId;
+    if (value != null) {
       result
         ..add('requestId')
-        ..add(serializers.serialize(object.requestId,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.optimisticResponse != null) {
+    value = object.optimisticResponse;
+    if (value != null) {
       result
         ..add('optimisticResponse')
-        ..add(serializers.serialize(object.optimisticResponse,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(_i2.GFollowingData)));
     }
-    if (object.updateCacheHandlerKey != null) {
+    value = object.updateCacheHandlerKey;
+    if (value != null) {
       result
         ..add('updateCacheHandlerKey')
-        ..add(serializers.serialize(object.updateCacheHandlerKey,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.updateCacheHandlerContext != null) {
+    value = object.updateCacheHandlerContext;
+    if (value != null) {
       result
         ..add('updateCacheHandlerContext')
-        ..add(serializers.serialize(object.updateCacheHandlerContext,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(
                 Map, const [const FullType(String), const FullType(dynamic)])));
     }
-    if (object.fetchPolicy != null) {
+    value = object.fetchPolicy;
+    if (value != null) {
       result
         ..add('fetchPolicy')
-        ..add(serializers.serialize(object.fetchPolicy,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(_i1.FetchPolicy)));
-    }
-    if (object.executeOnListen != null) {
-      result
-        ..add('executeOnListen')
-        ..add(serializers.serialize(object.executeOnListen,
-            specifiedType: const FullType(bool)));
     }
     return result;
   }
 
   @override
   GFollowingReq deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GFollowingReqBuilder();
 
@@ -525,11 +539,11 @@ class _$GFollowingReqSerializer implements StructuredSerializer<GFollowingReq> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GFollowingVars))
+                  specifiedType: const FullType(_i3.GFollowingVars))!
               as _i3.GFollowingVars);
           break;
         case 'operation':
@@ -542,7 +556,7 @@ class _$GFollowingReqSerializer implements StructuredSerializer<GFollowingReq> {
           break;
         case 'optimisticResponse':
           result.optimisticResponse.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i2.GFollowingData))
+                  specifiedType: const FullType(_i2.GFollowingData))!
               as _i2.GFollowingData);
           break;
         case 'updateCacheHandlerKey':
@@ -579,58 +593,61 @@ class _$GMembersReqSerializer implements StructuredSerializer<GMembersReq> {
   final String wireName = 'GMembersReq';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GMembersReq object,
+  Iterable<Object?> serialize(Serializers serializers, GMembersReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GMembersVars)),
       'operation',
       serializers.serialize(object.operation,
           specifiedType: const FullType(_i4.Operation)),
+      'executeOnListen',
+      serializers.serialize(object.executeOnListen,
+          specifiedType: const FullType(bool)),
     ];
-    if (object.requestId != null) {
+    Object? value;
+    value = object.requestId;
+    if (value != null) {
       result
         ..add('requestId')
-        ..add(serializers.serialize(object.requestId,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.optimisticResponse != null) {
+    value = object.optimisticResponse;
+    if (value != null) {
       result
         ..add('optimisticResponse')
-        ..add(serializers.serialize(object.optimisticResponse,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(_i2.GMembersData)));
     }
-    if (object.updateCacheHandlerKey != null) {
+    value = object.updateCacheHandlerKey;
+    if (value != null) {
       result
         ..add('updateCacheHandlerKey')
-        ..add(serializers.serialize(object.updateCacheHandlerKey,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.updateCacheHandlerContext != null) {
+    value = object.updateCacheHandlerContext;
+    if (value != null) {
       result
         ..add('updateCacheHandlerContext')
-        ..add(serializers.serialize(object.updateCacheHandlerContext,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(
                 Map, const [const FullType(String), const FullType(dynamic)])));
     }
-    if (object.fetchPolicy != null) {
+    value = object.fetchPolicy;
+    if (value != null) {
       result
         ..add('fetchPolicy')
-        ..add(serializers.serialize(object.fetchPolicy,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(_i1.FetchPolicy)));
-    }
-    if (object.executeOnListen != null) {
-      result
-        ..add('executeOnListen')
-        ..add(serializers.serialize(object.executeOnListen,
-            specifiedType: const FullType(bool)));
     }
     return result;
   }
 
   @override
-  GMembersReq deserialize(Serializers serializers, Iterable<Object> serialized,
+  GMembersReq deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GMembersReqBuilder();
 
@@ -638,11 +655,11 @@ class _$GMembersReqSerializer implements StructuredSerializer<GMembersReq> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GMembersVars))
+                  specifiedType: const FullType(_i3.GMembersVars))!
               as _i3.GMembersVars);
           break;
         case 'operation':
@@ -655,7 +672,7 @@ class _$GMembersReqSerializer implements StructuredSerializer<GMembersReq> {
           break;
         case 'optimisticResponse':
           result.optimisticResponse.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i2.GMembersData))
+                  specifiedType: const FullType(_i2.GMembersData))!
               as _i2.GMembersData);
           break;
         case 'updateCacheHandlerKey':
@@ -692,58 +709,62 @@ class _$GWatchersReqSerializer implements StructuredSerializer<GWatchersReq> {
   final String wireName = 'GWatchersReq';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GWatchersReq object,
+  Iterable<Object?> serialize(Serializers serializers, GWatchersReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GWatchersVars)),
       'operation',
       serializers.serialize(object.operation,
           specifiedType: const FullType(_i4.Operation)),
+      'executeOnListen',
+      serializers.serialize(object.executeOnListen,
+          specifiedType: const FullType(bool)),
     ];
-    if (object.requestId != null) {
+    Object? value;
+    value = object.requestId;
+    if (value != null) {
       result
         ..add('requestId')
-        ..add(serializers.serialize(object.requestId,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.optimisticResponse != null) {
+    value = object.optimisticResponse;
+    if (value != null) {
       result
         ..add('optimisticResponse')
-        ..add(serializers.serialize(object.optimisticResponse,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(_i2.GWatchersData)));
     }
-    if (object.updateCacheHandlerKey != null) {
+    value = object.updateCacheHandlerKey;
+    if (value != null) {
       result
         ..add('updateCacheHandlerKey')
-        ..add(serializers.serialize(object.updateCacheHandlerKey,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.updateCacheHandlerContext != null) {
+    value = object.updateCacheHandlerContext;
+    if (value != null) {
       result
         ..add('updateCacheHandlerContext')
-        ..add(serializers.serialize(object.updateCacheHandlerContext,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(
                 Map, const [const FullType(String), const FullType(dynamic)])));
     }
-    if (object.fetchPolicy != null) {
+    value = object.fetchPolicy;
+    if (value != null) {
       result
         ..add('fetchPolicy')
-        ..add(serializers.serialize(object.fetchPolicy,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(_i1.FetchPolicy)));
-    }
-    if (object.executeOnListen != null) {
-      result
-        ..add('executeOnListen')
-        ..add(serializers.serialize(object.executeOnListen,
-            specifiedType: const FullType(bool)));
     }
     return result;
   }
 
   @override
-  GWatchersReq deserialize(Serializers serializers, Iterable<Object> serialized,
+  GWatchersReq deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GWatchersReqBuilder();
 
@@ -751,11 +772,11 @@ class _$GWatchersReqSerializer implements StructuredSerializer<GWatchersReq> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GWatchersVars))
+                  specifiedType: const FullType(_i3.GWatchersVars))!
               as _i3.GWatchersVars);
           break;
         case 'operation':
@@ -768,7 +789,7 @@ class _$GWatchersReqSerializer implements StructuredSerializer<GWatchersReq> {
           break;
         case 'optimisticResponse':
           result.optimisticResponse.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i2.GWatchersData))
+                  specifiedType: const FullType(_i2.GWatchersData))!
               as _i2.GWatchersData);
           break;
         case 'updateCacheHandlerKey':
@@ -806,59 +827,62 @@ class _$GStargazersReqSerializer
   final String wireName = 'GStargazersReq';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GStargazersReq object,
+  Iterable<Object?> serialize(Serializers serializers, GStargazersReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GStargazersVars)),
       'operation',
       serializers.serialize(object.operation,
           specifiedType: const FullType(_i4.Operation)),
+      'executeOnListen',
+      serializers.serialize(object.executeOnListen,
+          specifiedType: const FullType(bool)),
     ];
-    if (object.requestId != null) {
+    Object? value;
+    value = object.requestId;
+    if (value != null) {
       result
         ..add('requestId')
-        ..add(serializers.serialize(object.requestId,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.optimisticResponse != null) {
+    value = object.optimisticResponse;
+    if (value != null) {
       result
         ..add('optimisticResponse')
-        ..add(serializers.serialize(object.optimisticResponse,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(_i2.GStargazersData)));
     }
-    if (object.updateCacheHandlerKey != null) {
+    value = object.updateCacheHandlerKey;
+    if (value != null) {
       result
         ..add('updateCacheHandlerKey')
-        ..add(serializers.serialize(object.updateCacheHandlerKey,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.updateCacheHandlerContext != null) {
+    value = object.updateCacheHandlerContext;
+    if (value != null) {
       result
         ..add('updateCacheHandlerContext')
-        ..add(serializers.serialize(object.updateCacheHandlerContext,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(
                 Map, const [const FullType(String), const FullType(dynamic)])));
     }
-    if (object.fetchPolicy != null) {
+    value = object.fetchPolicy;
+    if (value != null) {
       result
         ..add('fetchPolicy')
-        ..add(serializers.serialize(object.fetchPolicy,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(_i1.FetchPolicy)));
-    }
-    if (object.executeOnListen != null) {
-      result
-        ..add('executeOnListen')
-        ..add(serializers.serialize(object.executeOnListen,
-            specifiedType: const FullType(bool)));
     }
     return result;
   }
 
   @override
   GStargazersReq deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GStargazersReqBuilder();
 
@@ -866,11 +890,11 @@ class _$GStargazersReqSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GStargazersVars))
+                  specifiedType: const FullType(_i3.GStargazersVars))!
               as _i3.GStargazersVars);
           break;
         case 'operation':
@@ -883,7 +907,7 @@ class _$GStargazersReqSerializer
           break;
         case 'optimisticResponse':
           result.optimisticResponse.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i2.GStargazersData))
+                  specifiedType: const FullType(_i2.GStargazersData))!
               as _i2.GStargazersData);
           break;
         case 'updateCacheHandlerKey':
@@ -920,58 +944,61 @@ class _$GReposReqSerializer implements StructuredSerializer<GReposReq> {
   final String wireName = 'GReposReq';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GReposReq object,
+  Iterable<Object?> serialize(Serializers serializers, GReposReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GReposVars)),
       'operation',
       serializers.serialize(object.operation,
           specifiedType: const FullType(_i4.Operation)),
+      'executeOnListen',
+      serializers.serialize(object.executeOnListen,
+          specifiedType: const FullType(bool)),
     ];
-    if (object.requestId != null) {
+    Object? value;
+    value = object.requestId;
+    if (value != null) {
       result
         ..add('requestId')
-        ..add(serializers.serialize(object.requestId,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.optimisticResponse != null) {
+    value = object.optimisticResponse;
+    if (value != null) {
       result
         ..add('optimisticResponse')
-        ..add(serializers.serialize(object.optimisticResponse,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(_i2.GReposData)));
     }
-    if (object.updateCacheHandlerKey != null) {
+    value = object.updateCacheHandlerKey;
+    if (value != null) {
       result
         ..add('updateCacheHandlerKey')
-        ..add(serializers.serialize(object.updateCacheHandlerKey,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.updateCacheHandlerContext != null) {
+    value = object.updateCacheHandlerContext;
+    if (value != null) {
       result
         ..add('updateCacheHandlerContext')
-        ..add(serializers.serialize(object.updateCacheHandlerContext,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(
                 Map, const [const FullType(String), const FullType(dynamic)])));
     }
-    if (object.fetchPolicy != null) {
+    value = object.fetchPolicy;
+    if (value != null) {
       result
         ..add('fetchPolicy')
-        ..add(serializers.serialize(object.fetchPolicy,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(_i1.FetchPolicy)));
-    }
-    if (object.executeOnListen != null) {
-      result
-        ..add('executeOnListen')
-        ..add(serializers.serialize(object.executeOnListen,
-            specifiedType: const FullType(bool)));
     }
     return result;
   }
 
   @override
-  GReposReq deserialize(Serializers serializers, Iterable<Object> serialized,
+  GReposReq deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GReposReqBuilder();
 
@@ -979,11 +1006,12 @@ class _$GReposReqSerializer implements StructuredSerializer<GReposReq> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-              specifiedType: const FullType(_i3.GReposVars)) as _i3.GReposVars);
+                  specifiedType: const FullType(_i3.GReposVars))!
+              as _i3.GReposVars);
           break;
         case 'operation':
           result.operation = serializers.deserialize(value,
@@ -995,7 +1023,8 @@ class _$GReposReqSerializer implements StructuredSerializer<GReposReq> {
           break;
         case 'optimisticResponse':
           result.optimisticResponse.replace(serializers.deserialize(value,
-              specifiedType: const FullType(_i2.GReposData)) as _i2.GReposData);
+                  specifiedType: const FullType(_i2.GReposData))!
+              as _i2.GReposData);
           break;
         case 'updateCacheHandlerKey':
           result.updateCacheHandlerKey = serializers.deserialize(value,
@@ -1031,58 +1060,61 @@ class _$GStarsReqSerializer implements StructuredSerializer<GStarsReq> {
   final String wireName = 'GStarsReq';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GStarsReq object,
+  Iterable<Object?> serialize(Serializers serializers, GStarsReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GStarsVars)),
       'operation',
       serializers.serialize(object.operation,
           specifiedType: const FullType(_i4.Operation)),
+      'executeOnListen',
+      serializers.serialize(object.executeOnListen,
+          specifiedType: const FullType(bool)),
     ];
-    if (object.requestId != null) {
+    Object? value;
+    value = object.requestId;
+    if (value != null) {
       result
         ..add('requestId')
-        ..add(serializers.serialize(object.requestId,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.optimisticResponse != null) {
+    value = object.optimisticResponse;
+    if (value != null) {
       result
         ..add('optimisticResponse')
-        ..add(serializers.serialize(object.optimisticResponse,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(_i2.GStarsData)));
     }
-    if (object.updateCacheHandlerKey != null) {
+    value = object.updateCacheHandlerKey;
+    if (value != null) {
       result
         ..add('updateCacheHandlerKey')
-        ..add(serializers.serialize(object.updateCacheHandlerKey,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.updateCacheHandlerContext != null) {
+    value = object.updateCacheHandlerContext;
+    if (value != null) {
       result
         ..add('updateCacheHandlerContext')
-        ..add(serializers.serialize(object.updateCacheHandlerContext,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(
                 Map, const [const FullType(String), const FullType(dynamic)])));
     }
-    if (object.fetchPolicy != null) {
+    value = object.fetchPolicy;
+    if (value != null) {
       result
         ..add('fetchPolicy')
-        ..add(serializers.serialize(object.fetchPolicy,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(_i1.FetchPolicy)));
-    }
-    if (object.executeOnListen != null) {
-      result
-        ..add('executeOnListen')
-        ..add(serializers.serialize(object.executeOnListen,
-            specifiedType: const FullType(bool)));
     }
     return result;
   }
 
   @override
-  GStarsReq deserialize(Serializers serializers, Iterable<Object> serialized,
+  GStarsReq deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GStarsReqBuilder();
 
@@ -1090,11 +1122,12 @@ class _$GStarsReqSerializer implements StructuredSerializer<GStarsReq> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-              specifiedType: const FullType(_i3.GStarsVars)) as _i3.GStarsVars);
+                  specifiedType: const FullType(_i3.GStarsVars))!
+              as _i3.GStarsVars);
           break;
         case 'operation':
           result.operation = serializers.deserialize(value,
@@ -1106,7 +1139,8 @@ class _$GStarsReqSerializer implements StructuredSerializer<GStarsReq> {
           break;
         case 'optimisticResponse':
           result.optimisticResponse.replace(serializers.deserialize(value,
-              specifiedType: const FullType(_i2.GStarsData)) as _i2.GStarsData);
+                  specifiedType: const FullType(_i2.GStarsData))!
+              as _i2.GStarsData);
           break;
         case 'updateCacheHandlerKey':
           result.updateCacheHandlerKey = serializers.deserialize(value,
@@ -1142,58 +1176,61 @@ class _$GViewerReqSerializer implements StructuredSerializer<GViewerReq> {
   final String wireName = 'GViewerReq';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GViewerReq object,
+  Iterable<Object?> serialize(Serializers serializers, GViewerReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GViewerVars)),
       'operation',
       serializers.serialize(object.operation,
           specifiedType: const FullType(_i4.Operation)),
+      'executeOnListen',
+      serializers.serialize(object.executeOnListen,
+          specifiedType: const FullType(bool)),
     ];
-    if (object.requestId != null) {
+    Object? value;
+    value = object.requestId;
+    if (value != null) {
       result
         ..add('requestId')
-        ..add(serializers.serialize(object.requestId,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.optimisticResponse != null) {
+    value = object.optimisticResponse;
+    if (value != null) {
       result
         ..add('optimisticResponse')
-        ..add(serializers.serialize(object.optimisticResponse,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(_i2.GViewerData)));
     }
-    if (object.updateCacheHandlerKey != null) {
+    value = object.updateCacheHandlerKey;
+    if (value != null) {
       result
         ..add('updateCacheHandlerKey')
-        ..add(serializers.serialize(object.updateCacheHandlerKey,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.updateCacheHandlerContext != null) {
+    value = object.updateCacheHandlerContext;
+    if (value != null) {
       result
         ..add('updateCacheHandlerContext')
-        ..add(serializers.serialize(object.updateCacheHandlerContext,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(
                 Map, const [const FullType(String), const FullType(dynamic)])));
     }
-    if (object.fetchPolicy != null) {
+    value = object.fetchPolicy;
+    if (value != null) {
       result
         ..add('fetchPolicy')
-        ..add(serializers.serialize(object.fetchPolicy,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(_i1.FetchPolicy)));
-    }
-    if (object.executeOnListen != null) {
-      result
-        ..add('executeOnListen')
-        ..add(serializers.serialize(object.executeOnListen,
-            specifiedType: const FullType(bool)));
     }
     return result;
   }
 
   @override
-  GViewerReq deserialize(Serializers serializers, Iterable<Object> serialized,
+  GViewerReq deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GViewerReqBuilder();
 
@@ -1201,11 +1238,11 @@ class _$GViewerReqSerializer implements StructuredSerializer<GViewerReq> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GViewerVars))
+                  specifiedType: const FullType(_i3.GViewerVars))!
               as _i3.GViewerVars);
           break;
         case 'operation':
@@ -1218,7 +1255,7 @@ class _$GViewerReqSerializer implements StructuredSerializer<GViewerReq> {
           break;
         case 'optimisticResponse':
           result.optimisticResponse.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i2.GViewerData))
+                  specifiedType: const FullType(_i2.GViewerData))!
               as _i2.GViewerData);
           break;
         case 'updateCacheHandlerKey':
@@ -1255,58 +1292,61 @@ class _$GUserReqSerializer implements StructuredSerializer<GUserReq> {
   final String wireName = 'GUserReq';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GUserReq object,
+  Iterable<Object?> serialize(Serializers serializers, GUserReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GUserVars)),
       'operation',
       serializers.serialize(object.operation,
           specifiedType: const FullType(_i4.Operation)),
+      'executeOnListen',
+      serializers.serialize(object.executeOnListen,
+          specifiedType: const FullType(bool)),
     ];
-    if (object.requestId != null) {
+    Object? value;
+    value = object.requestId;
+    if (value != null) {
       result
         ..add('requestId')
-        ..add(serializers.serialize(object.requestId,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.optimisticResponse != null) {
+    value = object.optimisticResponse;
+    if (value != null) {
       result
         ..add('optimisticResponse')
-        ..add(serializers.serialize(object.optimisticResponse,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(_i2.GUserData)));
     }
-    if (object.updateCacheHandlerKey != null) {
+    value = object.updateCacheHandlerKey;
+    if (value != null) {
       result
         ..add('updateCacheHandlerKey')
-        ..add(serializers.serialize(object.updateCacheHandlerKey,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.updateCacheHandlerContext != null) {
+    value = object.updateCacheHandlerContext;
+    if (value != null) {
       result
         ..add('updateCacheHandlerContext')
-        ..add(serializers.serialize(object.updateCacheHandlerContext,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(
                 Map, const [const FullType(String), const FullType(dynamic)])));
     }
-    if (object.fetchPolicy != null) {
+    value = object.fetchPolicy;
+    if (value != null) {
       result
         ..add('fetchPolicy')
-        ..add(serializers.serialize(object.fetchPolicy,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(_i1.FetchPolicy)));
-    }
-    if (object.executeOnListen != null) {
-      result
-        ..add('executeOnListen')
-        ..add(serializers.serialize(object.executeOnListen,
-            specifiedType: const FullType(bool)));
     }
     return result;
   }
 
   @override
-  GUserReq deserialize(Serializers serializers, Iterable<Object> serialized,
+  GUserReq deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GUserReqBuilder();
 
@@ -1314,11 +1354,11 @@ class _$GUserReqSerializer implements StructuredSerializer<GUserReq> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-              specifiedType: const FullType(_i3.GUserVars)) as _i3.GUserVars);
+              specifiedType: const FullType(_i3.GUserVars))! as _i3.GUserVars);
           break;
         case 'operation':
           result.operation = serializers.deserialize(value,
@@ -1330,7 +1370,7 @@ class _$GUserReqSerializer implements StructuredSerializer<GUserReq> {
           break;
         case 'optimisticResponse':
           result.optimisticResponse.replace(serializers.deserialize(value,
-              specifiedType: const FullType(_i2.GUserData)) as _i2.GUserData);
+              specifiedType: const FullType(_i2.GUserData))! as _i2.GUserData);
           break;
         case 'updateCacheHandlerKey':
           result.updateCacheHandlerKey = serializers.deserialize(value,
@@ -1366,58 +1406,61 @@ class _$GRepoReqSerializer implements StructuredSerializer<GRepoReq> {
   final String wireName = 'GRepoReq';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GRepoReq object,
+  Iterable<Object?> serialize(Serializers serializers, GRepoReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GRepoVars)),
       'operation',
       serializers.serialize(object.operation,
           specifiedType: const FullType(_i4.Operation)),
+      'executeOnListen',
+      serializers.serialize(object.executeOnListen,
+          specifiedType: const FullType(bool)),
     ];
-    if (object.requestId != null) {
+    Object? value;
+    value = object.requestId;
+    if (value != null) {
       result
         ..add('requestId')
-        ..add(serializers.serialize(object.requestId,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.optimisticResponse != null) {
+    value = object.optimisticResponse;
+    if (value != null) {
       result
         ..add('optimisticResponse')
-        ..add(serializers.serialize(object.optimisticResponse,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(_i2.GRepoData)));
     }
-    if (object.updateCacheHandlerKey != null) {
+    value = object.updateCacheHandlerKey;
+    if (value != null) {
       result
         ..add('updateCacheHandlerKey')
-        ..add(serializers.serialize(object.updateCacheHandlerKey,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.updateCacheHandlerContext != null) {
+    value = object.updateCacheHandlerContext;
+    if (value != null) {
       result
         ..add('updateCacheHandlerContext')
-        ..add(serializers.serialize(object.updateCacheHandlerContext,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(
                 Map, const [const FullType(String), const FullType(dynamic)])));
     }
-    if (object.fetchPolicy != null) {
+    value = object.fetchPolicy;
+    if (value != null) {
       result
         ..add('fetchPolicy')
-        ..add(serializers.serialize(object.fetchPolicy,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(_i1.FetchPolicy)));
-    }
-    if (object.executeOnListen != null) {
-      result
-        ..add('executeOnListen')
-        ..add(serializers.serialize(object.executeOnListen,
-            specifiedType: const FullType(bool)));
     }
     return result;
   }
 
   @override
-  GRepoReq deserialize(Serializers serializers, Iterable<Object> serialized,
+  GRepoReq deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GRepoReqBuilder();
 
@@ -1425,11 +1468,11 @@ class _$GRepoReqSerializer implements StructuredSerializer<GRepoReq> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-              specifiedType: const FullType(_i3.GRepoVars)) as _i3.GRepoVars);
+              specifiedType: const FullType(_i3.GRepoVars))! as _i3.GRepoVars);
           break;
         case 'operation':
           result.operation = serializers.deserialize(value,
@@ -1441,7 +1484,7 @@ class _$GRepoReqSerializer implements StructuredSerializer<GRepoReq> {
           break;
         case 'optimisticResponse':
           result.optimisticResponse.replace(serializers.deserialize(value,
-              specifiedType: const FullType(_i2.GRepoData)) as _i2.GRepoData);
+              specifiedType: const FullType(_i2.GRepoData))! as _i2.GRepoData);
           break;
         case 'updateCacheHandlerKey':
           result.updateCacheHandlerKey = serializers.deserialize(value,
@@ -1477,58 +1520,61 @@ class _$GCommitsReqSerializer implements StructuredSerializer<GCommitsReq> {
   final String wireName = 'GCommitsReq';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GCommitsReq object,
+  Iterable<Object?> serialize(Serializers serializers, GCommitsReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GCommitsVars)),
       'operation',
       serializers.serialize(object.operation,
           specifiedType: const FullType(_i4.Operation)),
+      'executeOnListen',
+      serializers.serialize(object.executeOnListen,
+          specifiedType: const FullType(bool)),
     ];
-    if (object.requestId != null) {
+    Object? value;
+    value = object.requestId;
+    if (value != null) {
       result
         ..add('requestId')
-        ..add(serializers.serialize(object.requestId,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.optimisticResponse != null) {
+    value = object.optimisticResponse;
+    if (value != null) {
       result
         ..add('optimisticResponse')
-        ..add(serializers.serialize(object.optimisticResponse,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(_i2.GCommitsData)));
     }
-    if (object.updateCacheHandlerKey != null) {
+    value = object.updateCacheHandlerKey;
+    if (value != null) {
       result
         ..add('updateCacheHandlerKey')
-        ..add(serializers.serialize(object.updateCacheHandlerKey,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.updateCacheHandlerContext != null) {
+    value = object.updateCacheHandlerContext;
+    if (value != null) {
       result
         ..add('updateCacheHandlerContext')
-        ..add(serializers.serialize(object.updateCacheHandlerContext,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(
                 Map, const [const FullType(String), const FullType(dynamic)])));
     }
-    if (object.fetchPolicy != null) {
+    value = object.fetchPolicy;
+    if (value != null) {
       result
         ..add('fetchPolicy')
-        ..add(serializers.serialize(object.fetchPolicy,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(_i1.FetchPolicy)));
-    }
-    if (object.executeOnListen != null) {
-      result
-        ..add('executeOnListen')
-        ..add(serializers.serialize(object.executeOnListen,
-            specifiedType: const FullType(bool)));
     }
     return result;
   }
 
   @override
-  GCommitsReq deserialize(Serializers serializers, Iterable<Object> serialized,
+  GCommitsReq deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GCommitsReqBuilder();
 
@@ -1536,11 +1582,11 @@ class _$GCommitsReqSerializer implements StructuredSerializer<GCommitsReq> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GCommitsVars))
+                  specifiedType: const FullType(_i3.GCommitsVars))!
               as _i3.GCommitsVars);
           break;
         case 'operation':
@@ -1553,7 +1599,7 @@ class _$GCommitsReqSerializer implements StructuredSerializer<GCommitsReq> {
           break;
         case 'optimisticResponse':
           result.optimisticResponse.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i2.GCommitsData))
+                  specifiedType: const FullType(_i2.GCommitsData))!
               as _i2.GCommitsData);
           break;
         case 'updateCacheHandlerKey':
@@ -1590,58 +1636,61 @@ class _$GIssuesReqSerializer implements StructuredSerializer<GIssuesReq> {
   final String wireName = 'GIssuesReq';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GIssuesReq object,
+  Iterable<Object?> serialize(Serializers serializers, GIssuesReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GIssuesVars)),
       'operation',
       serializers.serialize(object.operation,
           specifiedType: const FullType(_i4.Operation)),
+      'executeOnListen',
+      serializers.serialize(object.executeOnListen,
+          specifiedType: const FullType(bool)),
     ];
-    if (object.requestId != null) {
+    Object? value;
+    value = object.requestId;
+    if (value != null) {
       result
         ..add('requestId')
-        ..add(serializers.serialize(object.requestId,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.optimisticResponse != null) {
+    value = object.optimisticResponse;
+    if (value != null) {
       result
         ..add('optimisticResponse')
-        ..add(serializers.serialize(object.optimisticResponse,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(_i2.GIssuesData)));
     }
-    if (object.updateCacheHandlerKey != null) {
+    value = object.updateCacheHandlerKey;
+    if (value != null) {
       result
         ..add('updateCacheHandlerKey')
-        ..add(serializers.serialize(object.updateCacheHandlerKey,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.updateCacheHandlerContext != null) {
+    value = object.updateCacheHandlerContext;
+    if (value != null) {
       result
         ..add('updateCacheHandlerContext')
-        ..add(serializers.serialize(object.updateCacheHandlerContext,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(
                 Map, const [const FullType(String), const FullType(dynamic)])));
     }
-    if (object.fetchPolicy != null) {
+    value = object.fetchPolicy;
+    if (value != null) {
       result
         ..add('fetchPolicy')
-        ..add(serializers.serialize(object.fetchPolicy,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(_i1.FetchPolicy)));
-    }
-    if (object.executeOnListen != null) {
-      result
-        ..add('executeOnListen')
-        ..add(serializers.serialize(object.executeOnListen,
-            specifiedType: const FullType(bool)));
     }
     return result;
   }
 
   @override
-  GIssuesReq deserialize(Serializers serializers, Iterable<Object> serialized,
+  GIssuesReq deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GIssuesReqBuilder();
 
@@ -1649,11 +1698,11 @@ class _$GIssuesReqSerializer implements StructuredSerializer<GIssuesReq> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GIssuesVars))
+                  specifiedType: const FullType(_i3.GIssuesVars))!
               as _i3.GIssuesVars);
           break;
         case 'operation':
@@ -1666,7 +1715,7 @@ class _$GIssuesReqSerializer implements StructuredSerializer<GIssuesReq> {
           break;
         case 'optimisticResponse':
           result.optimisticResponse.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i2.GIssuesData))
+                  specifiedType: const FullType(_i2.GIssuesData))!
               as _i2.GIssuesData);
           break;
         case 'updateCacheHandlerKey':
@@ -1703,58 +1752,61 @@ class _$GPullsReqSerializer implements StructuredSerializer<GPullsReq> {
   final String wireName = 'GPullsReq';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GPullsReq object,
+  Iterable<Object?> serialize(Serializers serializers, GPullsReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GPullsVars)),
       'operation',
       serializers.serialize(object.operation,
           specifiedType: const FullType(_i4.Operation)),
+      'executeOnListen',
+      serializers.serialize(object.executeOnListen,
+          specifiedType: const FullType(bool)),
     ];
-    if (object.requestId != null) {
+    Object? value;
+    value = object.requestId;
+    if (value != null) {
       result
         ..add('requestId')
-        ..add(serializers.serialize(object.requestId,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.optimisticResponse != null) {
+    value = object.optimisticResponse;
+    if (value != null) {
       result
         ..add('optimisticResponse')
-        ..add(serializers.serialize(object.optimisticResponse,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(_i2.GPullsData)));
     }
-    if (object.updateCacheHandlerKey != null) {
+    value = object.updateCacheHandlerKey;
+    if (value != null) {
       result
         ..add('updateCacheHandlerKey')
-        ..add(serializers.serialize(object.updateCacheHandlerKey,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.updateCacheHandlerContext != null) {
+    value = object.updateCacheHandlerContext;
+    if (value != null) {
       result
         ..add('updateCacheHandlerContext')
-        ..add(serializers.serialize(object.updateCacheHandlerContext,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(
                 Map, const [const FullType(String), const FullType(dynamic)])));
     }
-    if (object.fetchPolicy != null) {
+    value = object.fetchPolicy;
+    if (value != null) {
       result
         ..add('fetchPolicy')
-        ..add(serializers.serialize(object.fetchPolicy,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(_i1.FetchPolicy)));
-    }
-    if (object.executeOnListen != null) {
-      result
-        ..add('executeOnListen')
-        ..add(serializers.serialize(object.executeOnListen,
-            specifiedType: const FullType(bool)));
     }
     return result;
   }
 
   @override
-  GPullsReq deserialize(Serializers serializers, Iterable<Object> serialized,
+  GPullsReq deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GPullsReqBuilder();
 
@@ -1762,11 +1814,12 @@ class _$GPullsReqSerializer implements StructuredSerializer<GPullsReq> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-              specifiedType: const FullType(_i3.GPullsVars)) as _i3.GPullsVars);
+                  specifiedType: const FullType(_i3.GPullsVars))!
+              as _i3.GPullsVars);
           break;
         case 'operation':
           result.operation = serializers.deserialize(value,
@@ -1778,7 +1831,8 @@ class _$GPullsReqSerializer implements StructuredSerializer<GPullsReq> {
           break;
         case 'optimisticResponse':
           result.optimisticResponse.replace(serializers.deserialize(value,
-              specifiedType: const FullType(_i2.GPullsData)) as _i2.GPullsData);
+                  specifiedType: const FullType(_i2.GPullsData))!
+              as _i2.GPullsData);
           break;
         case 'updateCacheHandlerKey':
           result.updateCacheHandlerKey = serializers.deserialize(value,
@@ -1814,58 +1868,61 @@ class _$GIssueReqSerializer implements StructuredSerializer<GIssueReq> {
   final String wireName = 'GIssueReq';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GIssueReq object,
+  Iterable<Object?> serialize(Serializers serializers, GIssueReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GIssueVars)),
       'operation',
       serializers.serialize(object.operation,
           specifiedType: const FullType(_i4.Operation)),
+      'executeOnListen',
+      serializers.serialize(object.executeOnListen,
+          specifiedType: const FullType(bool)),
     ];
-    if (object.requestId != null) {
+    Object? value;
+    value = object.requestId;
+    if (value != null) {
       result
         ..add('requestId')
-        ..add(serializers.serialize(object.requestId,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.optimisticResponse != null) {
+    value = object.optimisticResponse;
+    if (value != null) {
       result
         ..add('optimisticResponse')
-        ..add(serializers.serialize(object.optimisticResponse,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(_i2.GIssueData)));
     }
-    if (object.updateCacheHandlerKey != null) {
+    value = object.updateCacheHandlerKey;
+    if (value != null) {
       result
         ..add('updateCacheHandlerKey')
-        ..add(serializers.serialize(object.updateCacheHandlerKey,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.updateCacheHandlerContext != null) {
+    value = object.updateCacheHandlerContext;
+    if (value != null) {
       result
         ..add('updateCacheHandlerContext')
-        ..add(serializers.serialize(object.updateCacheHandlerContext,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(
                 Map, const [const FullType(String), const FullType(dynamic)])));
     }
-    if (object.fetchPolicy != null) {
+    value = object.fetchPolicy;
+    if (value != null) {
       result
         ..add('fetchPolicy')
-        ..add(serializers.serialize(object.fetchPolicy,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(_i1.FetchPolicy)));
-    }
-    if (object.executeOnListen != null) {
-      result
-        ..add('executeOnListen')
-        ..add(serializers.serialize(object.executeOnListen,
-            specifiedType: const FullType(bool)));
     }
     return result;
   }
 
   @override
-  GIssueReq deserialize(Serializers serializers, Iterable<Object> serialized,
+  GIssueReq deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GIssueReqBuilder();
 
@@ -1873,11 +1930,12 @@ class _$GIssueReqSerializer implements StructuredSerializer<GIssueReq> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-              specifiedType: const FullType(_i3.GIssueVars)) as _i3.GIssueVars);
+                  specifiedType: const FullType(_i3.GIssueVars))!
+              as _i3.GIssueVars);
           break;
         case 'operation':
           result.operation = serializers.deserialize(value,
@@ -1889,7 +1947,8 @@ class _$GIssueReqSerializer implements StructuredSerializer<GIssueReq> {
           break;
         case 'optimisticResponse':
           result.optimisticResponse.replace(serializers.deserialize(value,
-              specifiedType: const FullType(_i2.GIssueData)) as _i2.GIssueData);
+                  specifiedType: const FullType(_i2.GIssueData))!
+              as _i2.GIssueData);
           break;
         case 'updateCacheHandlerKey':
           result.updateCacheHandlerKey = serializers.deserialize(value,
@@ -1925,58 +1984,62 @@ class _$GReleasesReqSerializer implements StructuredSerializer<GReleasesReq> {
   final String wireName = 'GReleasesReq';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GReleasesReq object,
+  Iterable<Object?> serialize(Serializers serializers, GReleasesReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GReleasesVars)),
       'operation',
       serializers.serialize(object.operation,
           specifiedType: const FullType(_i4.Operation)),
+      'executeOnListen',
+      serializers.serialize(object.executeOnListen,
+          specifiedType: const FullType(bool)),
     ];
-    if (object.requestId != null) {
+    Object? value;
+    value = object.requestId;
+    if (value != null) {
       result
         ..add('requestId')
-        ..add(serializers.serialize(object.requestId,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.optimisticResponse != null) {
+    value = object.optimisticResponse;
+    if (value != null) {
       result
         ..add('optimisticResponse')
-        ..add(serializers.serialize(object.optimisticResponse,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(_i2.GReleasesData)));
     }
-    if (object.updateCacheHandlerKey != null) {
+    value = object.updateCacheHandlerKey;
+    if (value != null) {
       result
         ..add('updateCacheHandlerKey')
-        ..add(serializers.serialize(object.updateCacheHandlerKey,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.updateCacheHandlerContext != null) {
+    value = object.updateCacheHandlerContext;
+    if (value != null) {
       result
         ..add('updateCacheHandlerContext')
-        ..add(serializers.serialize(object.updateCacheHandlerContext,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(
                 Map, const [const FullType(String), const FullType(dynamic)])));
     }
-    if (object.fetchPolicy != null) {
+    value = object.fetchPolicy;
+    if (value != null) {
       result
         ..add('fetchPolicy')
-        ..add(serializers.serialize(object.fetchPolicy,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(_i1.FetchPolicy)));
-    }
-    if (object.executeOnListen != null) {
-      result
-        ..add('executeOnListen')
-        ..add(serializers.serialize(object.executeOnListen,
-            specifiedType: const FullType(bool)));
     }
     return result;
   }
 
   @override
-  GReleasesReq deserialize(Serializers serializers, Iterable<Object> serialized,
+  GReleasesReq deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GReleasesReqBuilder();
 
@@ -1984,11 +2047,11 @@ class _$GReleasesReqSerializer implements StructuredSerializer<GReleasesReq> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GReleasesVars))
+                  specifiedType: const FullType(_i3.GReleasesVars))!
               as _i3.GReleasesVars);
           break;
         case 'operation':
@@ -2001,7 +2064,7 @@ class _$GReleasesReqSerializer implements StructuredSerializer<GReleasesReq> {
           break;
         case 'optimisticResponse':
           result.optimisticResponse.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i2.GReleasesData))
+                  specifiedType: const FullType(_i2.GReleasesData))!
               as _i2.GReleasesData);
           break;
         case 'updateCacheHandlerKey':
@@ -2039,30 +2102,34 @@ class _$GPageInfoPartsReqSerializer
   final String wireName = 'GPageInfoPartsReq';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GPageInfoPartsReq object,
+  Iterable<Object?> serialize(Serializers serializers, GPageInfoPartsReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GPageInfoPartsVars)),
       'document',
       serializers.serialize(object.document,
           specifiedType: const FullType(_i7.DocumentNode)),
-      'fragmentName',
-      serializers.serialize(object.fragmentName,
-          specifiedType: const FullType(String)),
       'idFields',
       serializers.serialize(object.idFields,
           specifiedType: const FullType(
               Map, const [const FullType(String), const FullType(dynamic)])),
     ];
-
+    Object? value;
+    value = object.fragmentName;
+    if (value != null) {
+      result
+        ..add('fragmentName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
   @override
   GPageInfoPartsReq deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GPageInfoPartsReqBuilder();
 
@@ -2070,11 +2137,11 @@ class _$GPageInfoPartsReqSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GPageInfoPartsVars))
+                  specifiedType: const FullType(_i3.GPageInfoPartsVars))!
               as _i3.GPageInfoPartsVars);
           break;
         case 'document':
@@ -2107,29 +2174,34 @@ class _$GRepoItemReqSerializer implements StructuredSerializer<GRepoItemReq> {
   final String wireName = 'GRepoItemReq';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GRepoItemReq object,
+  Iterable<Object?> serialize(Serializers serializers, GRepoItemReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GRepoItemVars)),
       'document',
       serializers.serialize(object.document,
           specifiedType: const FullType(_i7.DocumentNode)),
-      'fragmentName',
-      serializers.serialize(object.fragmentName,
-          specifiedType: const FullType(String)),
       'idFields',
       serializers.serialize(object.idFields,
           specifiedType: const FullType(
               Map, const [const FullType(String), const FullType(dynamic)])),
     ];
-
+    Object? value;
+    value = object.fragmentName;
+    if (value != null) {
+      result
+        ..add('fragmentName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
   @override
-  GRepoItemReq deserialize(Serializers serializers, Iterable<Object> serialized,
+  GRepoItemReq deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GRepoItemReqBuilder();
 
@@ -2137,11 +2209,11 @@ class _$GRepoItemReqSerializer implements StructuredSerializer<GRepoItemReq> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GRepoItemVars))
+                  specifiedType: const FullType(_i3.GRepoItemVars))!
               as _i3.GRepoItemVars);
           break;
         case 'document':
@@ -2174,29 +2246,34 @@ class _$GUserItemReqSerializer implements StructuredSerializer<GUserItemReq> {
   final String wireName = 'GUserItemReq';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GUserItemReq object,
+  Iterable<Object?> serialize(Serializers serializers, GUserItemReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GUserItemVars)),
       'document',
       serializers.serialize(object.document,
           specifiedType: const FullType(_i7.DocumentNode)),
-      'fragmentName',
-      serializers.serialize(object.fragmentName,
-          specifiedType: const FullType(String)),
       'idFields',
       serializers.serialize(object.idFields,
           specifiedType: const FullType(
               Map, const [const FullType(String), const FullType(dynamic)])),
     ];
-
+    Object? value;
+    value = object.fragmentName;
+    if (value != null) {
+      result
+        ..add('fragmentName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
   @override
-  GUserItemReq deserialize(Serializers serializers, Iterable<Object> serialized,
+  GUserItemReq deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GUserItemReqBuilder();
 
@@ -2204,11 +2281,11 @@ class _$GUserItemReqSerializer implements StructuredSerializer<GUserItemReq> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GUserItemVars))
+                  specifiedType: const FullType(_i3.GUserItemVars))!
               as _i3.GUserItemVars);
           break;
         case 'document':
@@ -2242,30 +2319,34 @@ class _$GReposRepoItemReqSerializer
   final String wireName = 'GReposRepoItemReq';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GReposRepoItemReq object,
+  Iterable<Object?> serialize(Serializers serializers, GReposRepoItemReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GReposRepoItemVars)),
       'document',
       serializers.serialize(object.document,
           specifiedType: const FullType(_i7.DocumentNode)),
-      'fragmentName',
-      serializers.serialize(object.fragmentName,
-          specifiedType: const FullType(String)),
       'idFields',
       serializers.serialize(object.idFields,
           specifiedType: const FullType(
               Map, const [const FullType(String), const FullType(dynamic)])),
     ];
-
+    Object? value;
+    value = object.fragmentName;
+    if (value != null) {
+      result
+        ..add('fragmentName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
   @override
   GReposRepoItemReq deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GReposRepoItemReqBuilder();
 
@@ -2273,11 +2354,11 @@ class _$GReposRepoItemReqSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GReposRepoItemVars))
+                  specifiedType: const FullType(_i3.GReposRepoItemVars))!
               as _i3.GReposRepoItemVars);
           break;
         case 'document':
@@ -2310,30 +2391,34 @@ class _$GUserPartsReqSerializer implements StructuredSerializer<GUserPartsReq> {
   final String wireName = 'GUserPartsReq';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GUserPartsReq object,
+  Iterable<Object?> serialize(Serializers serializers, GUserPartsReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GUserPartsVars)),
       'document',
       serializers.serialize(object.document,
           specifiedType: const FullType(_i7.DocumentNode)),
-      'fragmentName',
-      serializers.serialize(object.fragmentName,
-          specifiedType: const FullType(String)),
       'idFields',
       serializers.serialize(object.idFields,
           specifiedType: const FullType(
               Map, const [const FullType(String), const FullType(dynamic)])),
     ];
-
+    Object? value;
+    value = object.fragmentName;
+    if (value != null) {
+      result
+        ..add('fragmentName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
   @override
   GUserPartsReq deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GUserPartsReqBuilder();
 
@@ -2341,11 +2426,11 @@ class _$GUserPartsReqSerializer implements StructuredSerializer<GUserPartsReq> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GUserPartsVars))
+                  specifiedType: const FullType(_i3.GUserPartsVars))!
               as _i3.GUserPartsVars);
           break;
         case 'document':
@@ -2379,30 +2464,34 @@ class _$GRepoCommitReqSerializer
   final String wireName = 'GRepoCommitReq';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GRepoCommitReq object,
+  Iterable<Object?> serialize(Serializers serializers, GRepoCommitReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GRepoCommitVars)),
       'document',
       serializers.serialize(object.document,
           specifiedType: const FullType(_i7.DocumentNode)),
-      'fragmentName',
-      serializers.serialize(object.fragmentName,
-          specifiedType: const FullType(String)),
       'idFields',
       serializers.serialize(object.idFields,
           specifiedType: const FullType(
               Map, const [const FullType(String), const FullType(dynamic)])),
     ];
-
+    Object? value;
+    value = object.fragmentName;
+    if (value != null) {
+      result
+        ..add('fragmentName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
   @override
   GRepoCommitReq deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GRepoCommitReqBuilder();
 
@@ -2410,11 +2499,11 @@ class _$GRepoCommitReqSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GRepoCommitVars))
+                  specifiedType: const FullType(_i3.GRepoCommitVars))!
               as _i3.GRepoCommitVars);
           break;
         case 'document':
@@ -2447,29 +2536,33 @@ class _$GRepoRefReqSerializer implements StructuredSerializer<GRepoRefReq> {
   final String wireName = 'GRepoRefReq';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GRepoRefReq object,
+  Iterable<Object?> serialize(Serializers serializers, GRepoRefReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GRepoRefVars)),
       'document',
       serializers.serialize(object.document,
           specifiedType: const FullType(_i7.DocumentNode)),
-      'fragmentName',
-      serializers.serialize(object.fragmentName,
-          specifiedType: const FullType(String)),
       'idFields',
       serializers.serialize(object.idFields,
           specifiedType: const FullType(
               Map, const [const FullType(String), const FullType(dynamic)])),
     ];
-
+    Object? value;
+    value = object.fragmentName;
+    if (value != null) {
+      result
+        ..add('fragmentName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
   @override
-  GRepoRefReq deserialize(Serializers serializers, Iterable<Object> serialized,
+  GRepoRefReq deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GRepoRefReqBuilder();
 
@@ -2477,11 +2570,11 @@ class _$GRepoRefReqSerializer implements StructuredSerializer<GRepoRefReq> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GRepoRefVars))
+                  specifiedType: const FullType(_i3.GRepoRefVars))!
               as _i3.GRepoRefVars);
           break;
         case 'document':
@@ -2518,31 +2611,35 @@ class _$GCommitsRefCommitReqSerializer
   final String wireName = 'GCommitsRefCommitReq';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GCommitsRefCommitReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GCommitsRefCommitVars)),
       'document',
       serializers.serialize(object.document,
           specifiedType: const FullType(_i7.DocumentNode)),
-      'fragmentName',
-      serializers.serialize(object.fragmentName,
-          specifiedType: const FullType(String)),
       'idFields',
       serializers.serialize(object.idFields,
           specifiedType: const FullType(
               Map, const [const FullType(String), const FullType(dynamic)])),
     ];
-
+    Object? value;
+    value = object.fragmentName;
+    if (value != null) {
+      result
+        ..add('fragmentName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
   @override
   GCommitsRefCommitReq deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GCommitsRefCommitReqBuilder();
 
@@ -2550,11 +2647,11 @@ class _$GCommitsRefCommitReqSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GCommitsRefCommitVars))
+                  specifiedType: const FullType(_i3.GCommitsRefCommitVars))!
               as _i3.GCommitsRefCommitVars);
           break;
         case 'document':
@@ -2588,30 +2685,34 @@ class _$GCommitsRefReqSerializer
   final String wireName = 'GCommitsRefReq';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GCommitsRefReq object,
+  Iterable<Object?> serialize(Serializers serializers, GCommitsRefReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GCommitsRefVars)),
       'document',
       serializers.serialize(object.document,
           specifiedType: const FullType(_i7.DocumentNode)),
-      'fragmentName',
-      serializers.serialize(object.fragmentName,
-          specifiedType: const FullType(String)),
       'idFields',
       serializers.serialize(object.idFields,
           specifiedType: const FullType(
               Map, const [const FullType(String), const FullType(dynamic)])),
     ];
-
+    Object? value;
+    value = object.fragmentName;
+    if (value != null) {
+      result
+        ..add('fragmentName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
   @override
   GCommitsRefReq deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GCommitsRefReqBuilder();
 
@@ -2619,11 +2720,11 @@ class _$GCommitsRefReqSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GCommitsRefVars))
+                  specifiedType: const FullType(_i3.GCommitsRefVars))!
               as _i3.GCommitsRefVars);
           break;
         case 'document':
@@ -2657,30 +2758,34 @@ class _$GCommentPartsReqSerializer
   final String wireName = 'GCommentPartsReq';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GCommentPartsReq object,
+  Iterable<Object?> serialize(Serializers serializers, GCommentPartsReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GCommentPartsVars)),
       'document',
       serializers.serialize(object.document,
           specifiedType: const FullType(_i7.DocumentNode)),
-      'fragmentName',
-      serializers.serialize(object.fragmentName,
-          specifiedType: const FullType(String)),
       'idFields',
       serializers.serialize(object.idFields,
           specifiedType: const FullType(
               Map, const [const FullType(String), const FullType(dynamic)])),
     ];
-
+    Object? value;
+    value = object.fragmentName;
+    if (value != null) {
+      result
+        ..add('fragmentName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
   @override
   GCommentPartsReq deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GCommentPartsReqBuilder();
 
@@ -2688,11 +2793,11 @@ class _$GCommentPartsReqSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GCommentPartsVars))
+                  specifiedType: const FullType(_i3.GCommentPartsVars))!
               as _i3.GCommentPartsVars);
           break;
         case 'document':
@@ -2729,31 +2834,35 @@ class _$GReactionConnectionPartsReqSerializer
   final String wireName = 'GReactionConnectionPartsReq';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GReactionConnectionPartsReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GReactionConnectionPartsVars)),
       'document',
       serializers.serialize(object.document,
           specifiedType: const FullType(_i7.DocumentNode)),
-      'fragmentName',
-      serializers.serialize(object.fragmentName,
-          specifiedType: const FullType(String)),
       'idFields',
       serializers.serialize(object.idFields,
           specifiedType: const FullType(
               Map, const [const FullType(String), const FullType(dynamic)])),
     ];
-
+    Object? value;
+    value = object.fragmentName;
+    if (value != null) {
+      result
+        ..add('fragmentName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
   @override
   GReactionConnectionPartsReq deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GReactionConnectionPartsReqBuilder();
 
@@ -2761,12 +2870,12 @@ class _$GReactionConnectionPartsReqSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
                   specifiedType:
-                      const FullType(_i3.GReactionConnectionPartsVars))
+                      const FullType(_i3.GReactionConnectionPartsVars))!
               as _i3.GReactionConnectionPartsVars);
           break;
         case 'document':
@@ -2800,30 +2909,35 @@ class _$GReactablePartsReqSerializer
   final String wireName = 'GReactablePartsReq';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GReactablePartsReq object,
+  Iterable<Object?> serialize(
+      Serializers serializers, GReactablePartsReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GReactablePartsVars)),
       'document',
       serializers.serialize(object.document,
           specifiedType: const FullType(_i7.DocumentNode)),
-      'fragmentName',
-      serializers.serialize(object.fragmentName,
-          specifiedType: const FullType(String)),
       'idFields',
       serializers.serialize(object.idFields,
           specifiedType: const FullType(
               Map, const [const FullType(String), const FullType(dynamic)])),
     ];
-
+    Object? value;
+    value = object.fragmentName;
+    if (value != null) {
+      result
+        ..add('fragmentName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
   @override
   GReactablePartsReq deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GReactablePartsReqBuilder();
 
@@ -2831,11 +2945,11 @@ class _$GReactablePartsReqSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GReactablePartsVars))
+                  specifiedType: const FullType(_i3.GReactablePartsVars))!
               as _i3.GReactablePartsVars);
           break;
         case 'document':
@@ -2872,31 +2986,35 @@ class _$GReferencedEventPartsReqSerializer
   final String wireName = 'GReferencedEventPartsReq';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GReferencedEventPartsReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GReferencedEventPartsVars)),
       'document',
       serializers.serialize(object.document,
           specifiedType: const FullType(_i7.DocumentNode)),
-      'fragmentName',
-      serializers.serialize(object.fragmentName,
-          specifiedType: const FullType(String)),
       'idFields',
       serializers.serialize(object.idFields,
           specifiedType: const FullType(
               Map, const [const FullType(String), const FullType(dynamic)])),
     ];
-
+    Object? value;
+    value = object.fragmentName;
+    if (value != null) {
+      result
+        ..add('fragmentName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
   @override
   GReferencedEventPartsReq deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GReferencedEventPartsReqBuilder();
 
@@ -2904,11 +3022,11 @@ class _$GReferencedEventPartsReqSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GReferencedEventPartsVars))
+                  specifiedType: const FullType(_i3.GReferencedEventPartsVars))!
               as _i3.GReferencedEventPartsVars);
           break;
         case 'document':
@@ -2945,31 +3063,35 @@ class _$GRenamedTitleEventPartsReqSerializer
   final String wireName = 'GRenamedTitleEventPartsReq';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GRenamedTitleEventPartsReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GRenamedTitleEventPartsVars)),
       'document',
       serializers.serialize(object.document,
           specifiedType: const FullType(_i7.DocumentNode)),
-      'fragmentName',
-      serializers.serialize(object.fragmentName,
-          specifiedType: const FullType(String)),
       'idFields',
       serializers.serialize(object.idFields,
           specifiedType: const FullType(
               Map, const [const FullType(String), const FullType(dynamic)])),
     ];
-
+    Object? value;
+    value = object.fragmentName;
+    if (value != null) {
+      result
+        ..add('fragmentName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
   @override
   GRenamedTitleEventPartsReq deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GRenamedTitleEventPartsReqBuilder();
 
@@ -2977,12 +3099,12 @@ class _$GRenamedTitleEventPartsReqSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
                   specifiedType:
-                      const FullType(_i3.GRenamedTitleEventPartsVars))
+                      const FullType(_i3.GRenamedTitleEventPartsVars))!
               as _i3.GRenamedTitleEventPartsVars);
           break;
         case 'document':
@@ -3019,31 +3141,35 @@ class _$GClosedEventPartsReqSerializer
   final String wireName = 'GClosedEventPartsReq';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GClosedEventPartsReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GClosedEventPartsVars)),
       'document',
       serializers.serialize(object.document,
           specifiedType: const FullType(_i7.DocumentNode)),
-      'fragmentName',
-      serializers.serialize(object.fragmentName,
-          specifiedType: const FullType(String)),
       'idFields',
       serializers.serialize(object.idFields,
           specifiedType: const FullType(
               Map, const [const FullType(String), const FullType(dynamic)])),
     ];
-
+    Object? value;
+    value = object.fragmentName;
+    if (value != null) {
+      result
+        ..add('fragmentName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
   @override
   GClosedEventPartsReq deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GClosedEventPartsReqBuilder();
 
@@ -3051,11 +3177,11 @@ class _$GClosedEventPartsReqSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GClosedEventPartsVars))
+                  specifiedType: const FullType(_i3.GClosedEventPartsVars))!
               as _i3.GClosedEventPartsVars);
           break;
         case 'document':
@@ -3092,31 +3218,35 @@ class _$GReopenedEventPartsReqSerializer
   final String wireName = 'GReopenedEventPartsReq';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GReopenedEventPartsReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GReopenedEventPartsVars)),
       'document',
       serializers.serialize(object.document,
           specifiedType: const FullType(_i7.DocumentNode)),
-      'fragmentName',
-      serializers.serialize(object.fragmentName,
-          specifiedType: const FullType(String)),
       'idFields',
       serializers.serialize(object.idFields,
           specifiedType: const FullType(
               Map, const [const FullType(String), const FullType(dynamic)])),
     ];
-
+    Object? value;
+    value = object.fragmentName;
+    if (value != null) {
+      result
+        ..add('fragmentName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
   @override
   GReopenedEventPartsReq deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GReopenedEventPartsReqBuilder();
 
@@ -3124,11 +3254,11 @@ class _$GReopenedEventPartsReqSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GReopenedEventPartsVars))
+                  specifiedType: const FullType(_i3.GReopenedEventPartsVars))!
               as _i3.GReopenedEventPartsVars);
           break;
         case 'document':
@@ -3165,31 +3295,35 @@ class _$GCrossReferencedEventPartsReqSerializer
   final String wireName = 'GCrossReferencedEventPartsReq';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GCrossReferencedEventPartsReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GCrossReferencedEventPartsVars)),
       'document',
       serializers.serialize(object.document,
           specifiedType: const FullType(_i7.DocumentNode)),
-      'fragmentName',
-      serializers.serialize(object.fragmentName,
-          specifiedType: const FullType(String)),
       'idFields',
       serializers.serialize(object.idFields,
           specifiedType: const FullType(
               Map, const [const FullType(String), const FullType(dynamic)])),
     ];
-
+    Object? value;
+    value = object.fragmentName;
+    if (value != null) {
+      result
+        ..add('fragmentName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
   @override
   GCrossReferencedEventPartsReq deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GCrossReferencedEventPartsReqBuilder();
 
@@ -3197,12 +3331,12 @@ class _$GCrossReferencedEventPartsReqSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
                   specifiedType:
-                      const FullType(_i3.GCrossReferencedEventPartsVars))
+                      const FullType(_i3.GCrossReferencedEventPartsVars))!
               as _i3.GCrossReferencedEventPartsVars);
           break;
         case 'document':
@@ -3239,31 +3373,35 @@ class _$GLabeledEventPartsReqSerializer
   final String wireName = 'GLabeledEventPartsReq';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GLabeledEventPartsReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GLabeledEventPartsVars)),
       'document',
       serializers.serialize(object.document,
           specifiedType: const FullType(_i7.DocumentNode)),
-      'fragmentName',
-      serializers.serialize(object.fragmentName,
-          specifiedType: const FullType(String)),
       'idFields',
       serializers.serialize(object.idFields,
           specifiedType: const FullType(
               Map, const [const FullType(String), const FullType(dynamic)])),
     ];
-
+    Object? value;
+    value = object.fragmentName;
+    if (value != null) {
+      result
+        ..add('fragmentName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
   @override
   GLabeledEventPartsReq deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GLabeledEventPartsReqBuilder();
 
@@ -3271,11 +3409,11 @@ class _$GLabeledEventPartsReqSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GLabeledEventPartsVars))
+                  specifiedType: const FullType(_i3.GLabeledEventPartsVars))!
               as _i3.GLabeledEventPartsVars);
           break;
         case 'document':
@@ -3312,31 +3450,35 @@ class _$GUnlabeledEventPartsReqSerializer
   final String wireName = 'GUnlabeledEventPartsReq';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GUnlabeledEventPartsReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GUnlabeledEventPartsVars)),
       'document',
       serializers.serialize(object.document,
           specifiedType: const FullType(_i7.DocumentNode)),
-      'fragmentName',
-      serializers.serialize(object.fragmentName,
-          specifiedType: const FullType(String)),
       'idFields',
       serializers.serialize(object.idFields,
           specifiedType: const FullType(
               Map, const [const FullType(String), const FullType(dynamic)])),
     ];
-
+    Object? value;
+    value = object.fragmentName;
+    if (value != null) {
+      result
+        ..add('fragmentName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
   @override
   GUnlabeledEventPartsReq deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GUnlabeledEventPartsReqBuilder();
 
@@ -3344,11 +3486,11 @@ class _$GUnlabeledEventPartsReqSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GUnlabeledEventPartsVars))
+                  specifiedType: const FullType(_i3.GUnlabeledEventPartsVars))!
               as _i3.GUnlabeledEventPartsVars);
           break;
         case 'document':
@@ -3385,31 +3527,35 @@ class _$GMilestonedEventPartsReqSerializer
   final String wireName = 'GMilestonedEventPartsReq';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GMilestonedEventPartsReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GMilestonedEventPartsVars)),
       'document',
       serializers.serialize(object.document,
           specifiedType: const FullType(_i7.DocumentNode)),
-      'fragmentName',
-      serializers.serialize(object.fragmentName,
-          specifiedType: const FullType(String)),
       'idFields',
       serializers.serialize(object.idFields,
           specifiedType: const FullType(
               Map, const [const FullType(String), const FullType(dynamic)])),
     ];
-
+    Object? value;
+    value = object.fragmentName;
+    if (value != null) {
+      result
+        ..add('fragmentName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
   @override
   GMilestonedEventPartsReq deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GMilestonedEventPartsReqBuilder();
 
@@ -3417,11 +3563,11 @@ class _$GMilestonedEventPartsReqSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GMilestonedEventPartsVars))
+                  specifiedType: const FullType(_i3.GMilestonedEventPartsVars))!
               as _i3.GMilestonedEventPartsVars);
           break;
         case 'document':
@@ -3458,31 +3604,35 @@ class _$GDemilestonedEventPartsReqSerializer
   final String wireName = 'GDemilestonedEventPartsReq';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GDemilestonedEventPartsReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GDemilestonedEventPartsVars)),
       'document',
       serializers.serialize(object.document,
           specifiedType: const FullType(_i7.DocumentNode)),
-      'fragmentName',
-      serializers.serialize(object.fragmentName,
-          specifiedType: const FullType(String)),
       'idFields',
       serializers.serialize(object.idFields,
           specifiedType: const FullType(
               Map, const [const FullType(String), const FullType(dynamic)])),
     ];
-
+    Object? value;
+    value = object.fragmentName;
+    if (value != null) {
+      result
+        ..add('fragmentName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
   @override
   GDemilestonedEventPartsReq deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GDemilestonedEventPartsReqBuilder();
 
@@ -3490,12 +3640,12 @@ class _$GDemilestonedEventPartsReqSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
                   specifiedType:
-                      const FullType(_i3.GDemilestonedEventPartsVars))
+                      const FullType(_i3.GDemilestonedEventPartsVars))!
               as _i3.GDemilestonedEventPartsVars);
           break;
         case 'document':
@@ -3532,31 +3682,35 @@ class _$GLockedEventPartsReqSerializer
   final String wireName = 'GLockedEventPartsReq';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GLockedEventPartsReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GLockedEventPartsVars)),
       'document',
       serializers.serialize(object.document,
           specifiedType: const FullType(_i7.DocumentNode)),
-      'fragmentName',
-      serializers.serialize(object.fragmentName,
-          specifiedType: const FullType(String)),
       'idFields',
       serializers.serialize(object.idFields,
           specifiedType: const FullType(
               Map, const [const FullType(String), const FullType(dynamic)])),
     ];
-
+    Object? value;
+    value = object.fragmentName;
+    if (value != null) {
+      result
+        ..add('fragmentName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
   @override
   GLockedEventPartsReq deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GLockedEventPartsReqBuilder();
 
@@ -3564,11 +3718,11 @@ class _$GLockedEventPartsReqSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GLockedEventPartsVars))
+                  specifiedType: const FullType(_i3.GLockedEventPartsVars))!
               as _i3.GLockedEventPartsVars);
           break;
         case 'document':
@@ -3605,31 +3759,35 @@ class _$GUnlockedEventPartsReqSerializer
   final String wireName = 'GUnlockedEventPartsReq';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GUnlockedEventPartsReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GUnlockedEventPartsVars)),
       'document',
       serializers.serialize(object.document,
           specifiedType: const FullType(_i7.DocumentNode)),
-      'fragmentName',
-      serializers.serialize(object.fragmentName,
-          specifiedType: const FullType(String)),
       'idFields',
       serializers.serialize(object.idFields,
           specifiedType: const FullType(
               Map, const [const FullType(String), const FullType(dynamic)])),
     ];
-
+    Object? value;
+    value = object.fragmentName;
+    if (value != null) {
+      result
+        ..add('fragmentName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
   @override
   GUnlockedEventPartsReq deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GUnlockedEventPartsReqBuilder();
 
@@ -3637,11 +3795,11 @@ class _$GUnlockedEventPartsReqSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GUnlockedEventPartsVars))
+                  specifiedType: const FullType(_i3.GUnlockedEventPartsVars))!
               as _i3.GUnlockedEventPartsVars);
           break;
         case 'document':
@@ -3678,31 +3836,35 @@ class _$GAssignedEventPartsReqSerializer
   final String wireName = 'GAssignedEventPartsReq';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GAssignedEventPartsReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GAssignedEventPartsVars)),
       'document',
       serializers.serialize(object.document,
           specifiedType: const FullType(_i7.DocumentNode)),
-      'fragmentName',
-      serializers.serialize(object.fragmentName,
-          specifiedType: const FullType(String)),
       'idFields',
       serializers.serialize(object.idFields,
           specifiedType: const FullType(
               Map, const [const FullType(String), const FullType(dynamic)])),
     ];
-
+    Object? value;
+    value = object.fragmentName;
+    if (value != null) {
+      result
+        ..add('fragmentName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
   @override
   GAssignedEventPartsReq deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GAssignedEventPartsReqBuilder();
 
@@ -3710,11 +3872,11 @@ class _$GAssignedEventPartsReqSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GAssignedEventPartsVars))
+                  specifiedType: const FullType(_i3.GAssignedEventPartsVars))!
               as _i3.GAssignedEventPartsVars);
           break;
         case 'document':
@@ -3751,31 +3913,35 @@ class _$GUnassignedEventPartsReqSerializer
   final String wireName = 'GUnassignedEventPartsReq';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GUnassignedEventPartsReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GUnassignedEventPartsVars)),
       'document',
       serializers.serialize(object.document,
           specifiedType: const FullType(_i7.DocumentNode)),
-      'fragmentName',
-      serializers.serialize(object.fragmentName,
-          specifiedType: const FullType(String)),
       'idFields',
       serializers.serialize(object.idFields,
           specifiedType: const FullType(
               Map, const [const FullType(String), const FullType(dynamic)])),
     ];
-
+    Object? value;
+    value = object.fragmentName;
+    if (value != null) {
+      result
+        ..add('fragmentName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
   @override
   GUnassignedEventPartsReq deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GUnassignedEventPartsReqBuilder();
 
@@ -3783,11 +3949,11 @@ class _$GUnassignedEventPartsReqSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GUnassignedEventPartsVars))
+                  specifiedType: const FullType(_i3.GUnassignedEventPartsVars))!
               as _i3.GUnassignedEventPartsVars);
           break;
         case 'document':
@@ -3824,31 +3990,35 @@ class _$GSubscribedEventPartsReqSerializer
   final String wireName = 'GSubscribedEventPartsReq';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GSubscribedEventPartsReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GSubscribedEventPartsVars)),
       'document',
       serializers.serialize(object.document,
           specifiedType: const FullType(_i7.DocumentNode)),
-      'fragmentName',
-      serializers.serialize(object.fragmentName,
-          specifiedType: const FullType(String)),
       'idFields',
       serializers.serialize(object.idFields,
           specifiedType: const FullType(
               Map, const [const FullType(String), const FullType(dynamic)])),
     ];
-
+    Object? value;
+    value = object.fragmentName;
+    if (value != null) {
+      result
+        ..add('fragmentName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
   @override
   GSubscribedEventPartsReq deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GSubscribedEventPartsReqBuilder();
 
@@ -3856,11 +4026,11 @@ class _$GSubscribedEventPartsReqSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GSubscribedEventPartsVars))
+                  specifiedType: const FullType(_i3.GSubscribedEventPartsVars))!
               as _i3.GSubscribedEventPartsVars);
           break;
         case 'document':
@@ -3897,31 +4067,35 @@ class _$GUnsubscribedEventPartsReqSerializer
   final String wireName = 'GUnsubscribedEventPartsReq';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GUnsubscribedEventPartsReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GUnsubscribedEventPartsVars)),
       'document',
       serializers.serialize(object.document,
           specifiedType: const FullType(_i7.DocumentNode)),
-      'fragmentName',
-      serializers.serialize(object.fragmentName,
-          specifiedType: const FullType(String)),
       'idFields',
       serializers.serialize(object.idFields,
           specifiedType: const FullType(
               Map, const [const FullType(String), const FullType(dynamic)])),
     ];
-
+    Object? value;
+    value = object.fragmentName;
+    if (value != null) {
+      result
+        ..add('fragmentName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
   @override
   GUnsubscribedEventPartsReq deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GUnsubscribedEventPartsReqBuilder();
 
@@ -3929,12 +4103,12 @@ class _$GUnsubscribedEventPartsReqSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
                   specifiedType:
-                      const FullType(_i3.GUnsubscribedEventPartsVars))
+                      const FullType(_i3.GUnsubscribedEventPartsVars))!
               as _i3.GUnsubscribedEventPartsVars);
           break;
         case 'document':
@@ -3971,31 +4145,35 @@ class _$GMentionedEventPartsReqSerializer
   final String wireName = 'GMentionedEventPartsReq';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GMentionedEventPartsReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GMentionedEventPartsVars)),
       'document',
       serializers.serialize(object.document,
           specifiedType: const FullType(_i7.DocumentNode)),
-      'fragmentName',
-      serializers.serialize(object.fragmentName,
-          specifiedType: const FullType(String)),
       'idFields',
       serializers.serialize(object.idFields,
           specifiedType: const FullType(
               Map, const [const FullType(String), const FullType(dynamic)])),
     ];
-
+    Object? value;
+    value = object.fragmentName;
+    if (value != null) {
+      result
+        ..add('fragmentName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
   @override
   GMentionedEventPartsReq deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GMentionedEventPartsReqBuilder();
 
@@ -4003,11 +4181,11 @@ class _$GMentionedEventPartsReqSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GMentionedEventPartsVars))
+                  specifiedType: const FullType(_i3.GMentionedEventPartsVars))!
               as _i3.GMentionedEventPartsVars);
           break;
         case 'document':
@@ -4044,31 +4222,35 @@ class _$GPinnedEventPartsReqSerializer
   final String wireName = 'GPinnedEventPartsReq';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GPinnedEventPartsReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GPinnedEventPartsVars)),
       'document',
       serializers.serialize(object.document,
           specifiedType: const FullType(_i7.DocumentNode)),
-      'fragmentName',
-      serializers.serialize(object.fragmentName,
-          specifiedType: const FullType(String)),
       'idFields',
       serializers.serialize(object.idFields,
           specifiedType: const FullType(
               Map, const [const FullType(String), const FullType(dynamic)])),
     ];
-
+    Object? value;
+    value = object.fragmentName;
+    if (value != null) {
+      result
+        ..add('fragmentName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
   @override
   GPinnedEventPartsReq deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GPinnedEventPartsReqBuilder();
 
@@ -4076,11 +4258,11 @@ class _$GPinnedEventPartsReqSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GPinnedEventPartsVars))
+                  specifiedType: const FullType(_i3.GPinnedEventPartsVars))!
               as _i3.GPinnedEventPartsVars);
           break;
         case 'document':
@@ -4117,31 +4299,35 @@ class _$GTransferredEventPartsReqSerializer
   final String wireName = 'GTransferredEventPartsReq';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GTransferredEventPartsReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GTransferredEventPartsVars)),
       'document',
       serializers.serialize(object.document,
           specifiedType: const FullType(_i7.DocumentNode)),
-      'fragmentName',
-      serializers.serialize(object.fragmentName,
-          specifiedType: const FullType(String)),
       'idFields',
       serializers.serialize(object.idFields,
           specifiedType: const FullType(
               Map, const [const FullType(String), const FullType(dynamic)])),
     ];
-
+    Object? value;
+    value = object.fragmentName;
+    if (value != null) {
+      result
+        ..add('fragmentName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
   @override
   GTransferredEventPartsReq deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GTransferredEventPartsReqBuilder();
 
@@ -4149,11 +4335,12 @@ class _$GTransferredEventPartsReqSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GTransferredEventPartsVars))
+                  specifiedType:
+                      const FullType(_i3.GTransferredEventPartsVars))!
               as _i3.GTransferredEventPartsVars);
           break;
         case 'document':
@@ -4190,31 +4377,35 @@ class _$GPullRequestCommitPartsReqSerializer
   final String wireName = 'GPullRequestCommitPartsReq';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GPullRequestCommitPartsReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GPullRequestCommitPartsVars)),
       'document',
       serializers.serialize(object.document,
           specifiedType: const FullType(_i7.DocumentNode)),
-      'fragmentName',
-      serializers.serialize(object.fragmentName,
-          specifiedType: const FullType(String)),
       'idFields',
       serializers.serialize(object.idFields,
           specifiedType: const FullType(
               Map, const [const FullType(String), const FullType(dynamic)])),
     ];
-
+    Object? value;
+    value = object.fragmentName;
+    if (value != null) {
+      result
+        ..add('fragmentName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
   @override
   GPullRequestCommitPartsReq deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GPullRequestCommitPartsReqBuilder();
 
@@ -4222,12 +4413,12 @@ class _$GPullRequestCommitPartsReqSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
                   specifiedType:
-                      const FullType(_i3.GPullRequestCommitPartsVars))
+                      const FullType(_i3.GPullRequestCommitPartsVars))!
               as _i3.GPullRequestCommitPartsVars);
           break;
         case 'document':
@@ -4264,31 +4455,35 @@ class _$GDeployedEventPartsReqSerializer
   final String wireName = 'GDeployedEventPartsReq';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GDeployedEventPartsReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GDeployedEventPartsVars)),
       'document',
       serializers.serialize(object.document,
           specifiedType: const FullType(_i7.DocumentNode)),
-      'fragmentName',
-      serializers.serialize(object.fragmentName,
-          specifiedType: const FullType(String)),
       'idFields',
       serializers.serialize(object.idFields,
           specifiedType: const FullType(
               Map, const [const FullType(String), const FullType(dynamic)])),
     ];
-
+    Object? value;
+    value = object.fragmentName;
+    if (value != null) {
+      result
+        ..add('fragmentName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
   @override
   GDeployedEventPartsReq deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GDeployedEventPartsReqBuilder();
 
@@ -4296,11 +4491,11 @@ class _$GDeployedEventPartsReqSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GDeployedEventPartsVars))
+                  specifiedType: const FullType(_i3.GDeployedEventPartsVars))!
               as _i3.GDeployedEventPartsVars);
           break;
         case 'document':
@@ -4338,10 +4533,10 @@ class _$GDeploymentEnvironmentChangedEventPartsReqSerializer
   final String wireName = 'GDeploymentEnvironmentChangedEventPartsReq';
 
   @override
-  Iterable<Object> serialize(Serializers serializers,
+  Iterable<Object?> serialize(Serializers serializers,
       GDeploymentEnvironmentChangedEventPartsReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType:
@@ -4349,21 +4544,25 @@ class _$GDeploymentEnvironmentChangedEventPartsReqSerializer
       'document',
       serializers.serialize(object.document,
           specifiedType: const FullType(_i7.DocumentNode)),
-      'fragmentName',
-      serializers.serialize(object.fragmentName,
-          specifiedType: const FullType(String)),
       'idFields',
       serializers.serialize(object.idFields,
           specifiedType: const FullType(
               Map, const [const FullType(String), const FullType(dynamic)])),
     ];
-
+    Object? value;
+    value = object.fragmentName;
+    if (value != null) {
+      result
+        ..add('fragmentName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
   @override
   GDeploymentEnvironmentChangedEventPartsReq deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GDeploymentEnvironmentChangedEventPartsReqBuilder();
 
@@ -4371,12 +4570,12 @@ class _$GDeploymentEnvironmentChangedEventPartsReqSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
-                      _i3.GDeploymentEnvironmentChangedEventPartsVars))
+                      _i3.GDeploymentEnvironmentChangedEventPartsVars))!
               as _i3.GDeploymentEnvironmentChangedEventPartsVars);
           break;
         case 'document':
@@ -4413,31 +4612,35 @@ class _$GHeadRefRestoredEventPartsReqSerializer
   final String wireName = 'GHeadRefRestoredEventPartsReq';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GHeadRefRestoredEventPartsReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GHeadRefRestoredEventPartsVars)),
       'document',
       serializers.serialize(object.document,
           specifiedType: const FullType(_i7.DocumentNode)),
-      'fragmentName',
-      serializers.serialize(object.fragmentName,
-          specifiedType: const FullType(String)),
       'idFields',
       serializers.serialize(object.idFields,
           specifiedType: const FullType(
               Map, const [const FullType(String), const FullType(dynamic)])),
     ];
-
+    Object? value;
+    value = object.fragmentName;
+    if (value != null) {
+      result
+        ..add('fragmentName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
   @override
   GHeadRefRestoredEventPartsReq deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GHeadRefRestoredEventPartsReqBuilder();
 
@@ -4445,12 +4648,12 @@ class _$GHeadRefRestoredEventPartsReqSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
                   specifiedType:
-                      const FullType(_i3.GHeadRefRestoredEventPartsVars))
+                      const FullType(_i3.GHeadRefRestoredEventPartsVars))!
               as _i3.GHeadRefRestoredEventPartsVars);
           break;
         case 'document':
@@ -4487,31 +4690,35 @@ class _$GBaseRefForcePushedEventPartsReqSerializer
   final String wireName = 'GBaseRefForcePushedEventPartsReq';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GBaseRefForcePushedEventPartsReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GBaseRefForcePushedEventPartsVars)),
       'document',
       serializers.serialize(object.document,
           specifiedType: const FullType(_i7.DocumentNode)),
-      'fragmentName',
-      serializers.serialize(object.fragmentName,
-          specifiedType: const FullType(String)),
       'idFields',
       serializers.serialize(object.idFields,
           specifiedType: const FullType(
               Map, const [const FullType(String), const FullType(dynamic)])),
     ];
-
+    Object? value;
+    value = object.fragmentName;
+    if (value != null) {
+      result
+        ..add('fragmentName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
   @override
   GBaseRefForcePushedEventPartsReq deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GBaseRefForcePushedEventPartsReqBuilder();
 
@@ -4519,12 +4726,12 @@ class _$GBaseRefForcePushedEventPartsReqSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
                   specifiedType:
-                      const FullType(_i3.GBaseRefForcePushedEventPartsVars))
+                      const FullType(_i3.GBaseRefForcePushedEventPartsVars))!
               as _i3.GBaseRefForcePushedEventPartsVars);
           break;
         case 'document':
@@ -4561,31 +4768,35 @@ class _$GHeadRefForcePushedEventPartsReqSerializer
   final String wireName = 'GHeadRefForcePushedEventPartsReq';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GHeadRefForcePushedEventPartsReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GHeadRefForcePushedEventPartsVars)),
       'document',
       serializers.serialize(object.document,
           specifiedType: const FullType(_i7.DocumentNode)),
-      'fragmentName',
-      serializers.serialize(object.fragmentName,
-          specifiedType: const FullType(String)),
       'idFields',
       serializers.serialize(object.idFields,
           specifiedType: const FullType(
               Map, const [const FullType(String), const FullType(dynamic)])),
     ];
-
+    Object? value;
+    value = object.fragmentName;
+    if (value != null) {
+      result
+        ..add('fragmentName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
   @override
   GHeadRefForcePushedEventPartsReq deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GHeadRefForcePushedEventPartsReqBuilder();
 
@@ -4593,12 +4804,12 @@ class _$GHeadRefForcePushedEventPartsReqSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
                   specifiedType:
-                      const FullType(_i3.GHeadRefForcePushedEventPartsVars))
+                      const FullType(_i3.GHeadRefForcePushedEventPartsVars))!
               as _i3.GHeadRefForcePushedEventPartsVars);
           break;
         case 'document':
@@ -4635,31 +4846,35 @@ class _$GReviewRequestedEventPartsReqSerializer
   final String wireName = 'GReviewRequestedEventPartsReq';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GReviewRequestedEventPartsReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GReviewRequestedEventPartsVars)),
       'document',
       serializers.serialize(object.document,
           specifiedType: const FullType(_i7.DocumentNode)),
-      'fragmentName',
-      serializers.serialize(object.fragmentName,
-          specifiedType: const FullType(String)),
       'idFields',
       serializers.serialize(object.idFields,
           specifiedType: const FullType(
               Map, const [const FullType(String), const FullType(dynamic)])),
     ];
-
+    Object? value;
+    value = object.fragmentName;
+    if (value != null) {
+      result
+        ..add('fragmentName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
   @override
   GReviewRequestedEventPartsReq deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GReviewRequestedEventPartsReqBuilder();
 
@@ -4667,12 +4882,12 @@ class _$GReviewRequestedEventPartsReqSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
                   specifiedType:
-                      const FullType(_i3.GReviewRequestedEventPartsVars))
+                      const FullType(_i3.GReviewRequestedEventPartsVars))!
               as _i3.GReviewRequestedEventPartsVars);
           break;
         case 'document':
@@ -4709,10 +4924,10 @@ class _$GReviewRequestRemovedEventPartsReqSerializer
   final String wireName = 'GReviewRequestRemovedEventPartsReq';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GReviewRequestRemovedEventPartsReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType:
@@ -4720,21 +4935,25 @@ class _$GReviewRequestRemovedEventPartsReqSerializer
       'document',
       serializers.serialize(object.document,
           specifiedType: const FullType(_i7.DocumentNode)),
-      'fragmentName',
-      serializers.serialize(object.fragmentName,
-          specifiedType: const FullType(String)),
       'idFields',
       serializers.serialize(object.idFields,
           specifiedType: const FullType(
               Map, const [const FullType(String), const FullType(dynamic)])),
     ];
-
+    Object? value;
+    value = object.fragmentName;
+    if (value != null) {
+      result
+        ..add('fragmentName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
   @override
   GReviewRequestRemovedEventPartsReq deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GReviewRequestRemovedEventPartsReqBuilder();
 
@@ -4742,12 +4961,12 @@ class _$GReviewRequestRemovedEventPartsReqSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
                   specifiedType:
-                      const FullType(_i3.GReviewRequestRemovedEventPartsVars))
+                      const FullType(_i3.GReviewRequestRemovedEventPartsVars))!
               as _i3.GReviewRequestRemovedEventPartsVars);
           break;
         case 'document':
@@ -4784,31 +5003,35 @@ class _$GReviewDismissedEventPartsReqSerializer
   final String wireName = 'GReviewDismissedEventPartsReq';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GReviewDismissedEventPartsReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GReviewDismissedEventPartsVars)),
       'document',
       serializers.serialize(object.document,
           specifiedType: const FullType(_i7.DocumentNode)),
-      'fragmentName',
-      serializers.serialize(object.fragmentName,
-          specifiedType: const FullType(String)),
       'idFields',
       serializers.serialize(object.idFields,
           specifiedType: const FullType(
               Map, const [const FullType(String), const FullType(dynamic)])),
     ];
-
+    Object? value;
+    value = object.fragmentName;
+    if (value != null) {
+      result
+        ..add('fragmentName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
   @override
   GReviewDismissedEventPartsReq deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GReviewDismissedEventPartsReqBuilder();
 
@@ -4816,12 +5039,12 @@ class _$GReviewDismissedEventPartsReqSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
                   specifiedType:
-                      const FullType(_i3.GReviewDismissedEventPartsVars))
+                      const FullType(_i3.GReviewDismissedEventPartsVars))!
               as _i3.GReviewDismissedEventPartsVars);
           break;
         case 'document':
@@ -4858,31 +5081,35 @@ class _$GPullRequestReviewPartsReqSerializer
   final String wireName = 'GPullRequestReviewPartsReq';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GPullRequestReviewPartsReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GPullRequestReviewPartsVars)),
       'document',
       serializers.serialize(object.document,
           specifiedType: const FullType(_i7.DocumentNode)),
-      'fragmentName',
-      serializers.serialize(object.fragmentName,
-          specifiedType: const FullType(String)),
       'idFields',
       serializers.serialize(object.idFields,
           specifiedType: const FullType(
               Map, const [const FullType(String), const FullType(dynamic)])),
     ];
-
+    Object? value;
+    value = object.fragmentName;
+    if (value != null) {
+      result
+        ..add('fragmentName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
   @override
   GPullRequestReviewPartsReq deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GPullRequestReviewPartsReqBuilder();
 
@@ -4890,12 +5117,12 @@ class _$GPullRequestReviewPartsReqSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
                   specifiedType:
-                      const FullType(_i3.GPullRequestReviewPartsVars))
+                      const FullType(_i3.GPullRequestReviewPartsVars))!
               as _i3.GPullRequestReviewPartsVars);
           break;
         case 'document':
@@ -4932,31 +5159,35 @@ class _$GMergedEventPartsReqSerializer
   final String wireName = 'GMergedEventPartsReq';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GMergedEventPartsReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GMergedEventPartsVars)),
       'document',
       serializers.serialize(object.document,
           specifiedType: const FullType(_i7.DocumentNode)),
-      'fragmentName',
-      serializers.serialize(object.fragmentName,
-          specifiedType: const FullType(String)),
       'idFields',
       serializers.serialize(object.idFields,
           specifiedType: const FullType(
               Map, const [const FullType(String), const FullType(dynamic)])),
     ];
-
+    Object? value;
+    value = object.fragmentName;
+    if (value != null) {
+      result
+        ..add('fragmentName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
   @override
   GMergedEventPartsReq deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GMergedEventPartsReqBuilder();
 
@@ -4964,11 +5195,11 @@ class _$GMergedEventPartsReqSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GMergedEventPartsVars))
+                  specifiedType: const FullType(_i3.GMergedEventPartsVars))!
               as _i3.GMergedEventPartsVars);
           break;
         case 'document':
@@ -5005,31 +5236,35 @@ class _$GHeadRefDeletedEventPartsReqSerializer
   final String wireName = 'GHeadRefDeletedEventPartsReq';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GHeadRefDeletedEventPartsReq object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
           specifiedType: const FullType(_i3.GHeadRefDeletedEventPartsVars)),
       'document',
       serializers.serialize(object.document,
           specifiedType: const FullType(_i7.DocumentNode)),
-      'fragmentName',
-      serializers.serialize(object.fragmentName,
-          specifiedType: const FullType(String)),
       'idFields',
       serializers.serialize(object.idFields,
           specifiedType: const FullType(
               Map, const [const FullType(String), const FullType(dynamic)])),
     ];
-
+    Object? value;
+    value = object.fragmentName;
+    if (value != null) {
+      result
+        ..add('fragmentName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
   @override
   GHeadRefDeletedEventPartsReq deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GHeadRefDeletedEventPartsReqBuilder();
 
@@ -5037,12 +5272,12 @@ class _$GHeadRefDeletedEventPartsReqSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
                   specifiedType:
-                      const FullType(_i3.GHeadRefDeletedEventPartsVars))
+                      const FullType(_i3.GHeadRefDeletedEventPartsVars))!
               as _i3.GHeadRefDeletedEventPartsVars);
           break;
         case 'document':
@@ -5074,40 +5309,39 @@ class _$GGistsReq extends GGistsReq {
   @override
   final _i4.Operation operation;
   @override
-  final String requestId;
+  final String? requestId;
   @override
-  final _i2.GGistsData Function(_i2.GGistsData, _i2.GGistsData) updateResult;
+  final _i2.GGistsData? Function(_i2.GGistsData?, _i2.GGistsData?)?
+      updateResult;
   @override
-  final _i2.GGistsData optimisticResponse;
+  final _i2.GGistsData? optimisticResponse;
   @override
-  final String updateCacheHandlerKey;
+  final String? updateCacheHandlerKey;
   @override
-  final Map<String, dynamic> updateCacheHandlerContext;
+  final Map<String, dynamic>? updateCacheHandlerContext;
   @override
-  final _i1.FetchPolicy fetchPolicy;
+  final _i1.FetchPolicy? fetchPolicy;
   @override
   final bool executeOnListen;
 
-  factory _$GGistsReq([void Function(GGistsReqBuilder) updates]) =>
+  factory _$GGistsReq([void Function(GGistsReqBuilder)? updates]) =>
       (new GGistsReqBuilder()..update(updates)).build();
 
   _$GGistsReq._(
-      {this.vars,
-      this.operation,
+      {required this.vars,
+      required this.operation,
       this.requestId,
       this.updateResult,
       this.optimisticResponse,
       this.updateCacheHandlerKey,
       this.updateCacheHandlerContext,
       this.fetchPolicy,
-      this.executeOnListen})
+      required this.executeOnListen})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GGistsReq', 'vars');
-    }
-    if (operation == null) {
-      throw new BuiltValueNullFieldError('GGistsReq', 'operation');
-    }
+    BuiltValueNullFieldError.checkNotNull(vars, 'GGistsReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(operation, 'GGistsReq', 'operation');
+    BuiltValueNullFieldError.checkNotNull(
+        executeOnListen, 'GGistsReq', 'executeOnListen');
   }
 
   @override
@@ -5168,55 +5402,55 @@ class _$GGistsReq extends GGistsReq {
 }
 
 class GGistsReqBuilder implements Builder<GGistsReq, GGistsReqBuilder> {
-  _$GGistsReq _$v;
+  _$GGistsReq? _$v;
 
-  _i3.GGistsVarsBuilder _vars;
+  _i3.GGistsVarsBuilder? _vars;
   _i3.GGistsVarsBuilder get vars =>
       _$this._vars ??= new _i3.GGistsVarsBuilder();
-  set vars(_i3.GGistsVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GGistsVarsBuilder? vars) => _$this._vars = vars;
 
-  _i4.Operation _operation;
-  _i4.Operation get operation => _$this._operation;
-  set operation(_i4.Operation operation) => _$this._operation = operation;
+  _i4.Operation? _operation;
+  _i4.Operation? get operation => _$this._operation;
+  set operation(_i4.Operation? operation) => _$this._operation = operation;
 
-  String _requestId;
-  String get requestId => _$this._requestId;
-  set requestId(String requestId) => _$this._requestId = requestId;
+  String? _requestId;
+  String? get requestId => _$this._requestId;
+  set requestId(String? requestId) => _$this._requestId = requestId;
 
-  _i2.GGistsData Function(_i2.GGistsData, _i2.GGistsData) _updateResult;
-  _i2.GGistsData Function(_i2.GGistsData, _i2.GGistsData) get updateResult =>
-      _$this._updateResult;
+  _i2.GGistsData? Function(_i2.GGistsData?, _i2.GGistsData?)? _updateResult;
+  _i2.GGistsData? Function(_i2.GGistsData?, _i2.GGistsData?)?
+      get updateResult => _$this._updateResult;
   set updateResult(
-          _i2.GGistsData Function(_i2.GGistsData, _i2.GGistsData)
+          _i2.GGistsData? Function(_i2.GGistsData?, _i2.GGistsData?)?
               updateResult) =>
       _$this._updateResult = updateResult;
 
-  _i2.GGistsDataBuilder _optimisticResponse;
+  _i2.GGistsDataBuilder? _optimisticResponse;
   _i2.GGistsDataBuilder get optimisticResponse =>
       _$this._optimisticResponse ??= new _i2.GGistsDataBuilder();
-  set optimisticResponse(_i2.GGistsDataBuilder optimisticResponse) =>
+  set optimisticResponse(_i2.GGistsDataBuilder? optimisticResponse) =>
       _$this._optimisticResponse = optimisticResponse;
 
-  String _updateCacheHandlerKey;
-  String get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
-  set updateCacheHandlerKey(String updateCacheHandlerKey) =>
+  String? _updateCacheHandlerKey;
+  String? get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
+  set updateCacheHandlerKey(String? updateCacheHandlerKey) =>
       _$this._updateCacheHandlerKey = updateCacheHandlerKey;
 
-  Map<String, dynamic> _updateCacheHandlerContext;
-  Map<String, dynamic> get updateCacheHandlerContext =>
+  Map<String, dynamic>? _updateCacheHandlerContext;
+  Map<String, dynamic>? get updateCacheHandlerContext =>
       _$this._updateCacheHandlerContext;
   set updateCacheHandlerContext(
-          Map<String, dynamic> updateCacheHandlerContext) =>
+          Map<String, dynamic>? updateCacheHandlerContext) =>
       _$this._updateCacheHandlerContext = updateCacheHandlerContext;
 
-  _i1.FetchPolicy _fetchPolicy;
-  _i1.FetchPolicy get fetchPolicy => _$this._fetchPolicy;
-  set fetchPolicy(_i1.FetchPolicy fetchPolicy) =>
+  _i1.FetchPolicy? _fetchPolicy;
+  _i1.FetchPolicy? get fetchPolicy => _$this._fetchPolicy;
+  set fetchPolicy(_i1.FetchPolicy? fetchPolicy) =>
       _$this._fetchPolicy = fetchPolicy;
 
-  bool _executeOnListen;
-  bool get executeOnListen => _$this._executeOnListen;
-  set executeOnListen(bool executeOnListen) =>
+  bool? _executeOnListen;
+  bool? get executeOnListen => _$this._executeOnListen;
+  set executeOnListen(bool? executeOnListen) =>
       _$this._executeOnListen = executeOnListen;
 
   GGistsReqBuilder() {
@@ -5224,16 +5458,17 @@ class GGistsReqBuilder implements Builder<GGistsReq, GGistsReqBuilder> {
   }
 
   GGistsReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _operation = _$v.operation;
-      _requestId = _$v.requestId;
-      _updateResult = _$v.updateResult;
-      _optimisticResponse = _$v.optimisticResponse?.toBuilder();
-      _updateCacheHandlerKey = _$v.updateCacheHandlerKey;
-      _updateCacheHandlerContext = _$v.updateCacheHandlerContext;
-      _fetchPolicy = _$v.fetchPolicy;
-      _executeOnListen = _$v.executeOnListen;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _operation = $v.operation;
+      _requestId = $v.requestId;
+      _updateResult = $v.updateResult;
+      _optimisticResponse = $v.optimisticResponse?.toBuilder();
+      _updateCacheHandlerKey = $v.updateCacheHandlerKey;
+      _updateCacheHandlerContext = $v.updateCacheHandlerContext;
+      _fetchPolicy = $v.fetchPolicy;
+      _executeOnListen = $v.executeOnListen;
       _$v = null;
     }
     return this;
@@ -5241,14 +5476,12 @@ class GGistsReqBuilder implements Builder<GGistsReq, GGistsReqBuilder> {
 
   @override
   void replace(GGistsReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GGistsReq;
   }
 
   @override
-  void update(void Function(GGistsReqBuilder) updates) {
+  void update(void Function(GGistsReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -5259,16 +5492,18 @@ class GGistsReqBuilder implements Builder<GGistsReq, GGistsReqBuilder> {
       _$result = _$v ??
           new _$GGistsReq._(
               vars: vars.build(),
-              operation: operation,
+              operation: BuiltValueNullFieldError.checkNotNull(
+                  operation, 'GGistsReq', 'operation'),
               requestId: requestId,
               updateResult: updateResult,
               optimisticResponse: _optimisticResponse?.build(),
               updateCacheHandlerKey: updateCacheHandlerKey,
               updateCacheHandlerContext: updateCacheHandlerContext,
               fetchPolicy: fetchPolicy,
-              executeOnListen: executeOnListen);
+              executeOnListen: BuiltValueNullFieldError.checkNotNull(
+                  executeOnListen, 'GGistsReq', 'executeOnListen'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -5292,40 +5527,38 @@ class _$GGistReq extends GGistReq {
   @override
   final _i4.Operation operation;
   @override
-  final String requestId;
+  final String? requestId;
   @override
-  final _i2.GGistData Function(_i2.GGistData, _i2.GGistData) updateResult;
+  final _i2.GGistData? Function(_i2.GGistData?, _i2.GGistData?)? updateResult;
   @override
-  final _i2.GGistData optimisticResponse;
+  final _i2.GGistData? optimisticResponse;
   @override
-  final String updateCacheHandlerKey;
+  final String? updateCacheHandlerKey;
   @override
-  final Map<String, dynamic> updateCacheHandlerContext;
+  final Map<String, dynamic>? updateCacheHandlerContext;
   @override
-  final _i1.FetchPolicy fetchPolicy;
+  final _i1.FetchPolicy? fetchPolicy;
   @override
   final bool executeOnListen;
 
-  factory _$GGistReq([void Function(GGistReqBuilder) updates]) =>
+  factory _$GGistReq([void Function(GGistReqBuilder)? updates]) =>
       (new GGistReqBuilder()..update(updates)).build();
 
   _$GGistReq._(
-      {this.vars,
-      this.operation,
+      {required this.vars,
+      required this.operation,
       this.requestId,
       this.updateResult,
       this.optimisticResponse,
       this.updateCacheHandlerKey,
       this.updateCacheHandlerContext,
       this.fetchPolicy,
-      this.executeOnListen})
+      required this.executeOnListen})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GGistReq', 'vars');
-    }
-    if (operation == null) {
-      throw new BuiltValueNullFieldError('GGistReq', 'operation');
-    }
+    BuiltValueNullFieldError.checkNotNull(vars, 'GGistReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(operation, 'GGistReq', 'operation');
+    BuiltValueNullFieldError.checkNotNull(
+        executeOnListen, 'GGistReq', 'executeOnListen');
   }
 
   @override
@@ -5386,53 +5619,54 @@ class _$GGistReq extends GGistReq {
 }
 
 class GGistReqBuilder implements Builder<GGistReq, GGistReqBuilder> {
-  _$GGistReq _$v;
+  _$GGistReq? _$v;
 
-  _i3.GGistVarsBuilder _vars;
+  _i3.GGistVarsBuilder? _vars;
   _i3.GGistVarsBuilder get vars => _$this._vars ??= new _i3.GGistVarsBuilder();
-  set vars(_i3.GGistVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GGistVarsBuilder? vars) => _$this._vars = vars;
 
-  _i4.Operation _operation;
-  _i4.Operation get operation => _$this._operation;
-  set operation(_i4.Operation operation) => _$this._operation = operation;
+  _i4.Operation? _operation;
+  _i4.Operation? get operation => _$this._operation;
+  set operation(_i4.Operation? operation) => _$this._operation = operation;
 
-  String _requestId;
-  String get requestId => _$this._requestId;
-  set requestId(String requestId) => _$this._requestId = requestId;
+  String? _requestId;
+  String? get requestId => _$this._requestId;
+  set requestId(String? requestId) => _$this._requestId = requestId;
 
-  _i2.GGistData Function(_i2.GGistData, _i2.GGistData) _updateResult;
-  _i2.GGistData Function(_i2.GGistData, _i2.GGistData) get updateResult =>
+  _i2.GGistData? Function(_i2.GGistData?, _i2.GGistData?)? _updateResult;
+  _i2.GGistData? Function(_i2.GGistData?, _i2.GGistData?)? get updateResult =>
       _$this._updateResult;
   set updateResult(
-          _i2.GGistData Function(_i2.GGistData, _i2.GGistData) updateResult) =>
+          _i2.GGistData? Function(_i2.GGistData?, _i2.GGistData?)?
+              updateResult) =>
       _$this._updateResult = updateResult;
 
-  _i2.GGistDataBuilder _optimisticResponse;
+  _i2.GGistDataBuilder? _optimisticResponse;
   _i2.GGistDataBuilder get optimisticResponse =>
       _$this._optimisticResponse ??= new _i2.GGistDataBuilder();
-  set optimisticResponse(_i2.GGistDataBuilder optimisticResponse) =>
+  set optimisticResponse(_i2.GGistDataBuilder? optimisticResponse) =>
       _$this._optimisticResponse = optimisticResponse;
 
-  String _updateCacheHandlerKey;
-  String get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
-  set updateCacheHandlerKey(String updateCacheHandlerKey) =>
+  String? _updateCacheHandlerKey;
+  String? get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
+  set updateCacheHandlerKey(String? updateCacheHandlerKey) =>
       _$this._updateCacheHandlerKey = updateCacheHandlerKey;
 
-  Map<String, dynamic> _updateCacheHandlerContext;
-  Map<String, dynamic> get updateCacheHandlerContext =>
+  Map<String, dynamic>? _updateCacheHandlerContext;
+  Map<String, dynamic>? get updateCacheHandlerContext =>
       _$this._updateCacheHandlerContext;
   set updateCacheHandlerContext(
-          Map<String, dynamic> updateCacheHandlerContext) =>
+          Map<String, dynamic>? updateCacheHandlerContext) =>
       _$this._updateCacheHandlerContext = updateCacheHandlerContext;
 
-  _i1.FetchPolicy _fetchPolicy;
-  _i1.FetchPolicy get fetchPolicy => _$this._fetchPolicy;
-  set fetchPolicy(_i1.FetchPolicy fetchPolicy) =>
+  _i1.FetchPolicy? _fetchPolicy;
+  _i1.FetchPolicy? get fetchPolicy => _$this._fetchPolicy;
+  set fetchPolicy(_i1.FetchPolicy? fetchPolicy) =>
       _$this._fetchPolicy = fetchPolicy;
 
-  bool _executeOnListen;
-  bool get executeOnListen => _$this._executeOnListen;
-  set executeOnListen(bool executeOnListen) =>
+  bool? _executeOnListen;
+  bool? get executeOnListen => _$this._executeOnListen;
+  set executeOnListen(bool? executeOnListen) =>
       _$this._executeOnListen = executeOnListen;
 
   GGistReqBuilder() {
@@ -5440,16 +5674,17 @@ class GGistReqBuilder implements Builder<GGistReq, GGistReqBuilder> {
   }
 
   GGistReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _operation = _$v.operation;
-      _requestId = _$v.requestId;
-      _updateResult = _$v.updateResult;
-      _optimisticResponse = _$v.optimisticResponse?.toBuilder();
-      _updateCacheHandlerKey = _$v.updateCacheHandlerKey;
-      _updateCacheHandlerContext = _$v.updateCacheHandlerContext;
-      _fetchPolicy = _$v.fetchPolicy;
-      _executeOnListen = _$v.executeOnListen;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _operation = $v.operation;
+      _requestId = $v.requestId;
+      _updateResult = $v.updateResult;
+      _optimisticResponse = $v.optimisticResponse?.toBuilder();
+      _updateCacheHandlerKey = $v.updateCacheHandlerKey;
+      _updateCacheHandlerContext = $v.updateCacheHandlerContext;
+      _fetchPolicy = $v.fetchPolicy;
+      _executeOnListen = $v.executeOnListen;
       _$v = null;
     }
     return this;
@@ -5457,14 +5692,12 @@ class GGistReqBuilder implements Builder<GGistReq, GGistReqBuilder> {
 
   @override
   void replace(GGistReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GGistReq;
   }
 
   @override
-  void update(void Function(GGistReqBuilder) updates) {
+  void update(void Function(GGistReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -5475,16 +5708,18 @@ class GGistReqBuilder implements Builder<GGistReq, GGistReqBuilder> {
       _$result = _$v ??
           new _$GGistReq._(
               vars: vars.build(),
-              operation: operation,
+              operation: BuiltValueNullFieldError.checkNotNull(
+                  operation, 'GGistReq', 'operation'),
               requestId: requestId,
               updateResult: updateResult,
               optimisticResponse: _optimisticResponse?.build(),
               updateCacheHandlerKey: updateCacheHandlerKey,
               updateCacheHandlerContext: updateCacheHandlerContext,
               fetchPolicy: fetchPolicy,
-              executeOnListen: executeOnListen);
+              executeOnListen: BuiltValueNullFieldError.checkNotNull(
+                  executeOnListen, 'GGistReq', 'executeOnListen'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -5508,41 +5743,40 @@ class _$GFollowersReq extends GFollowersReq {
   @override
   final _i4.Operation operation;
   @override
-  final String requestId;
+  final String? requestId;
   @override
-  final _i2.GFollowersData Function(_i2.GFollowersData, _i2.GFollowersData)
+  final _i2.GFollowersData? Function(_i2.GFollowersData?, _i2.GFollowersData?)?
       updateResult;
   @override
-  final _i2.GFollowersData optimisticResponse;
+  final _i2.GFollowersData? optimisticResponse;
   @override
-  final String updateCacheHandlerKey;
+  final String? updateCacheHandlerKey;
   @override
-  final Map<String, dynamic> updateCacheHandlerContext;
+  final Map<String, dynamic>? updateCacheHandlerContext;
   @override
-  final _i1.FetchPolicy fetchPolicy;
+  final _i1.FetchPolicy? fetchPolicy;
   @override
   final bool executeOnListen;
 
-  factory _$GFollowersReq([void Function(GFollowersReqBuilder) updates]) =>
+  factory _$GFollowersReq([void Function(GFollowersReqBuilder)? updates]) =>
       (new GFollowersReqBuilder()..update(updates)).build();
 
   _$GFollowersReq._(
-      {this.vars,
-      this.operation,
+      {required this.vars,
+      required this.operation,
       this.requestId,
       this.updateResult,
       this.optimisticResponse,
       this.updateCacheHandlerKey,
       this.updateCacheHandlerContext,
       this.fetchPolicy,
-      this.executeOnListen})
+      required this.executeOnListen})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GFollowersReq', 'vars');
-    }
-    if (operation == null) {
-      throw new BuiltValueNullFieldError('GFollowersReq', 'operation');
-    }
+    BuiltValueNullFieldError.checkNotNull(vars, 'GFollowersReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        operation, 'GFollowersReq', 'operation');
+    BuiltValueNullFieldError.checkNotNull(
+        executeOnListen, 'GFollowersReq', 'executeOnListen');
   }
 
   @override
@@ -5604,56 +5838,57 @@ class _$GFollowersReq extends GFollowersReq {
 
 class GFollowersReqBuilder
     implements Builder<GFollowersReq, GFollowersReqBuilder> {
-  _$GFollowersReq _$v;
+  _$GFollowersReq? _$v;
 
-  _i3.GFollowersVarsBuilder _vars;
+  _i3.GFollowersVarsBuilder? _vars;
   _i3.GFollowersVarsBuilder get vars =>
       _$this._vars ??= new _i3.GFollowersVarsBuilder();
-  set vars(_i3.GFollowersVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GFollowersVarsBuilder? vars) => _$this._vars = vars;
 
-  _i4.Operation _operation;
-  _i4.Operation get operation => _$this._operation;
-  set operation(_i4.Operation operation) => _$this._operation = operation;
+  _i4.Operation? _operation;
+  _i4.Operation? get operation => _$this._operation;
+  set operation(_i4.Operation? operation) => _$this._operation = operation;
 
-  String _requestId;
-  String get requestId => _$this._requestId;
-  set requestId(String requestId) => _$this._requestId = requestId;
+  String? _requestId;
+  String? get requestId => _$this._requestId;
+  set requestId(String? requestId) => _$this._requestId = requestId;
 
-  _i2.GFollowersData Function(_i2.GFollowersData, _i2.GFollowersData)
+  _i2.GFollowersData? Function(_i2.GFollowersData?, _i2.GFollowersData?)?
       _updateResult;
-  _i2.GFollowersData Function(_i2.GFollowersData, _i2.GFollowersData)
+  _i2.GFollowersData? Function(_i2.GFollowersData?, _i2.GFollowersData?)?
       get updateResult => _$this._updateResult;
   set updateResult(
-          _i2.GFollowersData Function(_i2.GFollowersData, _i2.GFollowersData)
+          _i2.GFollowersData? Function(
+                  _i2.GFollowersData?, _i2.GFollowersData?)?
               updateResult) =>
       _$this._updateResult = updateResult;
 
-  _i2.GFollowersDataBuilder _optimisticResponse;
+  _i2.GFollowersDataBuilder? _optimisticResponse;
   _i2.GFollowersDataBuilder get optimisticResponse =>
       _$this._optimisticResponse ??= new _i2.GFollowersDataBuilder();
-  set optimisticResponse(_i2.GFollowersDataBuilder optimisticResponse) =>
+  set optimisticResponse(_i2.GFollowersDataBuilder? optimisticResponse) =>
       _$this._optimisticResponse = optimisticResponse;
 
-  String _updateCacheHandlerKey;
-  String get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
-  set updateCacheHandlerKey(String updateCacheHandlerKey) =>
+  String? _updateCacheHandlerKey;
+  String? get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
+  set updateCacheHandlerKey(String? updateCacheHandlerKey) =>
       _$this._updateCacheHandlerKey = updateCacheHandlerKey;
 
-  Map<String, dynamic> _updateCacheHandlerContext;
-  Map<String, dynamic> get updateCacheHandlerContext =>
+  Map<String, dynamic>? _updateCacheHandlerContext;
+  Map<String, dynamic>? get updateCacheHandlerContext =>
       _$this._updateCacheHandlerContext;
   set updateCacheHandlerContext(
-          Map<String, dynamic> updateCacheHandlerContext) =>
+          Map<String, dynamic>? updateCacheHandlerContext) =>
       _$this._updateCacheHandlerContext = updateCacheHandlerContext;
 
-  _i1.FetchPolicy _fetchPolicy;
-  _i1.FetchPolicy get fetchPolicy => _$this._fetchPolicy;
-  set fetchPolicy(_i1.FetchPolicy fetchPolicy) =>
+  _i1.FetchPolicy? _fetchPolicy;
+  _i1.FetchPolicy? get fetchPolicy => _$this._fetchPolicy;
+  set fetchPolicy(_i1.FetchPolicy? fetchPolicy) =>
       _$this._fetchPolicy = fetchPolicy;
 
-  bool _executeOnListen;
-  bool get executeOnListen => _$this._executeOnListen;
-  set executeOnListen(bool executeOnListen) =>
+  bool? _executeOnListen;
+  bool? get executeOnListen => _$this._executeOnListen;
+  set executeOnListen(bool? executeOnListen) =>
       _$this._executeOnListen = executeOnListen;
 
   GFollowersReqBuilder() {
@@ -5661,16 +5896,17 @@ class GFollowersReqBuilder
   }
 
   GFollowersReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _operation = _$v.operation;
-      _requestId = _$v.requestId;
-      _updateResult = _$v.updateResult;
-      _optimisticResponse = _$v.optimisticResponse?.toBuilder();
-      _updateCacheHandlerKey = _$v.updateCacheHandlerKey;
-      _updateCacheHandlerContext = _$v.updateCacheHandlerContext;
-      _fetchPolicy = _$v.fetchPolicy;
-      _executeOnListen = _$v.executeOnListen;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _operation = $v.operation;
+      _requestId = $v.requestId;
+      _updateResult = $v.updateResult;
+      _optimisticResponse = $v.optimisticResponse?.toBuilder();
+      _updateCacheHandlerKey = $v.updateCacheHandlerKey;
+      _updateCacheHandlerContext = $v.updateCacheHandlerContext;
+      _fetchPolicy = $v.fetchPolicy;
+      _executeOnListen = $v.executeOnListen;
       _$v = null;
     }
     return this;
@@ -5678,14 +5914,12 @@ class GFollowersReqBuilder
 
   @override
   void replace(GFollowersReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GFollowersReq;
   }
 
   @override
-  void update(void Function(GFollowersReqBuilder) updates) {
+  void update(void Function(GFollowersReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -5696,16 +5930,18 @@ class GFollowersReqBuilder
       _$result = _$v ??
           new _$GFollowersReq._(
               vars: vars.build(),
-              operation: operation,
+              operation: BuiltValueNullFieldError.checkNotNull(
+                  operation, 'GFollowersReq', 'operation'),
               requestId: requestId,
               updateResult: updateResult,
               optimisticResponse: _optimisticResponse?.build(),
               updateCacheHandlerKey: updateCacheHandlerKey,
               updateCacheHandlerContext: updateCacheHandlerContext,
               fetchPolicy: fetchPolicy,
-              executeOnListen: executeOnListen);
+              executeOnListen: BuiltValueNullFieldError.checkNotNull(
+                  executeOnListen, 'GFollowersReq', 'executeOnListen'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -5729,41 +5965,40 @@ class _$GFollowingReq extends GFollowingReq {
   @override
   final _i4.Operation operation;
   @override
-  final String requestId;
+  final String? requestId;
   @override
-  final _i2.GFollowingData Function(_i2.GFollowingData, _i2.GFollowingData)
+  final _i2.GFollowingData? Function(_i2.GFollowingData?, _i2.GFollowingData?)?
       updateResult;
   @override
-  final _i2.GFollowingData optimisticResponse;
+  final _i2.GFollowingData? optimisticResponse;
   @override
-  final String updateCacheHandlerKey;
+  final String? updateCacheHandlerKey;
   @override
-  final Map<String, dynamic> updateCacheHandlerContext;
+  final Map<String, dynamic>? updateCacheHandlerContext;
   @override
-  final _i1.FetchPolicy fetchPolicy;
+  final _i1.FetchPolicy? fetchPolicy;
   @override
   final bool executeOnListen;
 
-  factory _$GFollowingReq([void Function(GFollowingReqBuilder) updates]) =>
+  factory _$GFollowingReq([void Function(GFollowingReqBuilder)? updates]) =>
       (new GFollowingReqBuilder()..update(updates)).build();
 
   _$GFollowingReq._(
-      {this.vars,
-      this.operation,
+      {required this.vars,
+      required this.operation,
       this.requestId,
       this.updateResult,
       this.optimisticResponse,
       this.updateCacheHandlerKey,
       this.updateCacheHandlerContext,
       this.fetchPolicy,
-      this.executeOnListen})
+      required this.executeOnListen})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GFollowingReq', 'vars');
-    }
-    if (operation == null) {
-      throw new BuiltValueNullFieldError('GFollowingReq', 'operation');
-    }
+    BuiltValueNullFieldError.checkNotNull(vars, 'GFollowingReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        operation, 'GFollowingReq', 'operation');
+    BuiltValueNullFieldError.checkNotNull(
+        executeOnListen, 'GFollowingReq', 'executeOnListen');
   }
 
   @override
@@ -5825,56 +6060,57 @@ class _$GFollowingReq extends GFollowingReq {
 
 class GFollowingReqBuilder
     implements Builder<GFollowingReq, GFollowingReqBuilder> {
-  _$GFollowingReq _$v;
+  _$GFollowingReq? _$v;
 
-  _i3.GFollowingVarsBuilder _vars;
+  _i3.GFollowingVarsBuilder? _vars;
   _i3.GFollowingVarsBuilder get vars =>
       _$this._vars ??= new _i3.GFollowingVarsBuilder();
-  set vars(_i3.GFollowingVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GFollowingVarsBuilder? vars) => _$this._vars = vars;
 
-  _i4.Operation _operation;
-  _i4.Operation get operation => _$this._operation;
-  set operation(_i4.Operation operation) => _$this._operation = operation;
+  _i4.Operation? _operation;
+  _i4.Operation? get operation => _$this._operation;
+  set operation(_i4.Operation? operation) => _$this._operation = operation;
 
-  String _requestId;
-  String get requestId => _$this._requestId;
-  set requestId(String requestId) => _$this._requestId = requestId;
+  String? _requestId;
+  String? get requestId => _$this._requestId;
+  set requestId(String? requestId) => _$this._requestId = requestId;
 
-  _i2.GFollowingData Function(_i2.GFollowingData, _i2.GFollowingData)
+  _i2.GFollowingData? Function(_i2.GFollowingData?, _i2.GFollowingData?)?
       _updateResult;
-  _i2.GFollowingData Function(_i2.GFollowingData, _i2.GFollowingData)
+  _i2.GFollowingData? Function(_i2.GFollowingData?, _i2.GFollowingData?)?
       get updateResult => _$this._updateResult;
   set updateResult(
-          _i2.GFollowingData Function(_i2.GFollowingData, _i2.GFollowingData)
+          _i2.GFollowingData? Function(
+                  _i2.GFollowingData?, _i2.GFollowingData?)?
               updateResult) =>
       _$this._updateResult = updateResult;
 
-  _i2.GFollowingDataBuilder _optimisticResponse;
+  _i2.GFollowingDataBuilder? _optimisticResponse;
   _i2.GFollowingDataBuilder get optimisticResponse =>
       _$this._optimisticResponse ??= new _i2.GFollowingDataBuilder();
-  set optimisticResponse(_i2.GFollowingDataBuilder optimisticResponse) =>
+  set optimisticResponse(_i2.GFollowingDataBuilder? optimisticResponse) =>
       _$this._optimisticResponse = optimisticResponse;
 
-  String _updateCacheHandlerKey;
-  String get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
-  set updateCacheHandlerKey(String updateCacheHandlerKey) =>
+  String? _updateCacheHandlerKey;
+  String? get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
+  set updateCacheHandlerKey(String? updateCacheHandlerKey) =>
       _$this._updateCacheHandlerKey = updateCacheHandlerKey;
 
-  Map<String, dynamic> _updateCacheHandlerContext;
-  Map<String, dynamic> get updateCacheHandlerContext =>
+  Map<String, dynamic>? _updateCacheHandlerContext;
+  Map<String, dynamic>? get updateCacheHandlerContext =>
       _$this._updateCacheHandlerContext;
   set updateCacheHandlerContext(
-          Map<String, dynamic> updateCacheHandlerContext) =>
+          Map<String, dynamic>? updateCacheHandlerContext) =>
       _$this._updateCacheHandlerContext = updateCacheHandlerContext;
 
-  _i1.FetchPolicy _fetchPolicy;
-  _i1.FetchPolicy get fetchPolicy => _$this._fetchPolicy;
-  set fetchPolicy(_i1.FetchPolicy fetchPolicy) =>
+  _i1.FetchPolicy? _fetchPolicy;
+  _i1.FetchPolicy? get fetchPolicy => _$this._fetchPolicy;
+  set fetchPolicy(_i1.FetchPolicy? fetchPolicy) =>
       _$this._fetchPolicy = fetchPolicy;
 
-  bool _executeOnListen;
-  bool get executeOnListen => _$this._executeOnListen;
-  set executeOnListen(bool executeOnListen) =>
+  bool? _executeOnListen;
+  bool? get executeOnListen => _$this._executeOnListen;
+  set executeOnListen(bool? executeOnListen) =>
       _$this._executeOnListen = executeOnListen;
 
   GFollowingReqBuilder() {
@@ -5882,16 +6118,17 @@ class GFollowingReqBuilder
   }
 
   GFollowingReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _operation = _$v.operation;
-      _requestId = _$v.requestId;
-      _updateResult = _$v.updateResult;
-      _optimisticResponse = _$v.optimisticResponse?.toBuilder();
-      _updateCacheHandlerKey = _$v.updateCacheHandlerKey;
-      _updateCacheHandlerContext = _$v.updateCacheHandlerContext;
-      _fetchPolicy = _$v.fetchPolicy;
-      _executeOnListen = _$v.executeOnListen;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _operation = $v.operation;
+      _requestId = $v.requestId;
+      _updateResult = $v.updateResult;
+      _optimisticResponse = $v.optimisticResponse?.toBuilder();
+      _updateCacheHandlerKey = $v.updateCacheHandlerKey;
+      _updateCacheHandlerContext = $v.updateCacheHandlerContext;
+      _fetchPolicy = $v.fetchPolicy;
+      _executeOnListen = $v.executeOnListen;
       _$v = null;
     }
     return this;
@@ -5899,14 +6136,12 @@ class GFollowingReqBuilder
 
   @override
   void replace(GFollowingReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GFollowingReq;
   }
 
   @override
-  void update(void Function(GFollowingReqBuilder) updates) {
+  void update(void Function(GFollowingReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -5917,16 +6152,18 @@ class GFollowingReqBuilder
       _$result = _$v ??
           new _$GFollowingReq._(
               vars: vars.build(),
-              operation: operation,
+              operation: BuiltValueNullFieldError.checkNotNull(
+                  operation, 'GFollowingReq', 'operation'),
               requestId: requestId,
               updateResult: updateResult,
               optimisticResponse: _optimisticResponse?.build(),
               updateCacheHandlerKey: updateCacheHandlerKey,
               updateCacheHandlerContext: updateCacheHandlerContext,
               fetchPolicy: fetchPolicy,
-              executeOnListen: executeOnListen);
+              executeOnListen: BuiltValueNullFieldError.checkNotNull(
+                  executeOnListen, 'GFollowingReq', 'executeOnListen'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -5950,41 +6187,40 @@ class _$GMembersReq extends GMembersReq {
   @override
   final _i4.Operation operation;
   @override
-  final String requestId;
+  final String? requestId;
   @override
-  final _i2.GMembersData Function(_i2.GMembersData, _i2.GMembersData)
+  final _i2.GMembersData? Function(_i2.GMembersData?, _i2.GMembersData?)?
       updateResult;
   @override
-  final _i2.GMembersData optimisticResponse;
+  final _i2.GMembersData? optimisticResponse;
   @override
-  final String updateCacheHandlerKey;
+  final String? updateCacheHandlerKey;
   @override
-  final Map<String, dynamic> updateCacheHandlerContext;
+  final Map<String, dynamic>? updateCacheHandlerContext;
   @override
-  final _i1.FetchPolicy fetchPolicy;
+  final _i1.FetchPolicy? fetchPolicy;
   @override
   final bool executeOnListen;
 
-  factory _$GMembersReq([void Function(GMembersReqBuilder) updates]) =>
+  factory _$GMembersReq([void Function(GMembersReqBuilder)? updates]) =>
       (new GMembersReqBuilder()..update(updates)).build();
 
   _$GMembersReq._(
-      {this.vars,
-      this.operation,
+      {required this.vars,
+      required this.operation,
       this.requestId,
       this.updateResult,
       this.optimisticResponse,
       this.updateCacheHandlerKey,
       this.updateCacheHandlerContext,
       this.fetchPolicy,
-      this.executeOnListen})
+      required this.executeOnListen})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GMembersReq', 'vars');
-    }
-    if (operation == null) {
-      throw new BuiltValueNullFieldError('GMembersReq', 'operation');
-    }
+    BuiltValueNullFieldError.checkNotNull(vars, 'GMembersReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        operation, 'GMembersReq', 'operation');
+    BuiltValueNullFieldError.checkNotNull(
+        executeOnListen, 'GMembersReq', 'executeOnListen');
   }
 
   @override
@@ -6045,55 +6281,56 @@ class _$GMembersReq extends GMembersReq {
 }
 
 class GMembersReqBuilder implements Builder<GMembersReq, GMembersReqBuilder> {
-  _$GMembersReq _$v;
+  _$GMembersReq? _$v;
 
-  _i3.GMembersVarsBuilder _vars;
+  _i3.GMembersVarsBuilder? _vars;
   _i3.GMembersVarsBuilder get vars =>
       _$this._vars ??= new _i3.GMembersVarsBuilder();
-  set vars(_i3.GMembersVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GMembersVarsBuilder? vars) => _$this._vars = vars;
 
-  _i4.Operation _operation;
-  _i4.Operation get operation => _$this._operation;
-  set operation(_i4.Operation operation) => _$this._operation = operation;
+  _i4.Operation? _operation;
+  _i4.Operation? get operation => _$this._operation;
+  set operation(_i4.Operation? operation) => _$this._operation = operation;
 
-  String _requestId;
-  String get requestId => _$this._requestId;
-  set requestId(String requestId) => _$this._requestId = requestId;
+  String? _requestId;
+  String? get requestId => _$this._requestId;
+  set requestId(String? requestId) => _$this._requestId = requestId;
 
-  _i2.GMembersData Function(_i2.GMembersData, _i2.GMembersData) _updateResult;
-  _i2.GMembersData Function(_i2.GMembersData, _i2.GMembersData)
+  _i2.GMembersData? Function(_i2.GMembersData?, _i2.GMembersData?)?
+      _updateResult;
+  _i2.GMembersData? Function(_i2.GMembersData?, _i2.GMembersData?)?
       get updateResult => _$this._updateResult;
   set updateResult(
-          _i2.GMembersData Function(_i2.GMembersData, _i2.GMembersData)
+          _i2.GMembersData? Function(_i2.GMembersData?, _i2.GMembersData?)?
               updateResult) =>
       _$this._updateResult = updateResult;
 
-  _i2.GMembersDataBuilder _optimisticResponse;
+  _i2.GMembersDataBuilder? _optimisticResponse;
   _i2.GMembersDataBuilder get optimisticResponse =>
       _$this._optimisticResponse ??= new _i2.GMembersDataBuilder();
-  set optimisticResponse(_i2.GMembersDataBuilder optimisticResponse) =>
+  set optimisticResponse(_i2.GMembersDataBuilder? optimisticResponse) =>
       _$this._optimisticResponse = optimisticResponse;
 
-  String _updateCacheHandlerKey;
-  String get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
-  set updateCacheHandlerKey(String updateCacheHandlerKey) =>
+  String? _updateCacheHandlerKey;
+  String? get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
+  set updateCacheHandlerKey(String? updateCacheHandlerKey) =>
       _$this._updateCacheHandlerKey = updateCacheHandlerKey;
 
-  Map<String, dynamic> _updateCacheHandlerContext;
-  Map<String, dynamic> get updateCacheHandlerContext =>
+  Map<String, dynamic>? _updateCacheHandlerContext;
+  Map<String, dynamic>? get updateCacheHandlerContext =>
       _$this._updateCacheHandlerContext;
   set updateCacheHandlerContext(
-          Map<String, dynamic> updateCacheHandlerContext) =>
+          Map<String, dynamic>? updateCacheHandlerContext) =>
       _$this._updateCacheHandlerContext = updateCacheHandlerContext;
 
-  _i1.FetchPolicy _fetchPolicy;
-  _i1.FetchPolicy get fetchPolicy => _$this._fetchPolicy;
-  set fetchPolicy(_i1.FetchPolicy fetchPolicy) =>
+  _i1.FetchPolicy? _fetchPolicy;
+  _i1.FetchPolicy? get fetchPolicy => _$this._fetchPolicy;
+  set fetchPolicy(_i1.FetchPolicy? fetchPolicy) =>
       _$this._fetchPolicy = fetchPolicy;
 
-  bool _executeOnListen;
-  bool get executeOnListen => _$this._executeOnListen;
-  set executeOnListen(bool executeOnListen) =>
+  bool? _executeOnListen;
+  bool? get executeOnListen => _$this._executeOnListen;
+  set executeOnListen(bool? executeOnListen) =>
       _$this._executeOnListen = executeOnListen;
 
   GMembersReqBuilder() {
@@ -6101,16 +6338,17 @@ class GMembersReqBuilder implements Builder<GMembersReq, GMembersReqBuilder> {
   }
 
   GMembersReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _operation = _$v.operation;
-      _requestId = _$v.requestId;
-      _updateResult = _$v.updateResult;
-      _optimisticResponse = _$v.optimisticResponse?.toBuilder();
-      _updateCacheHandlerKey = _$v.updateCacheHandlerKey;
-      _updateCacheHandlerContext = _$v.updateCacheHandlerContext;
-      _fetchPolicy = _$v.fetchPolicy;
-      _executeOnListen = _$v.executeOnListen;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _operation = $v.operation;
+      _requestId = $v.requestId;
+      _updateResult = $v.updateResult;
+      _optimisticResponse = $v.optimisticResponse?.toBuilder();
+      _updateCacheHandlerKey = $v.updateCacheHandlerKey;
+      _updateCacheHandlerContext = $v.updateCacheHandlerContext;
+      _fetchPolicy = $v.fetchPolicy;
+      _executeOnListen = $v.executeOnListen;
       _$v = null;
     }
     return this;
@@ -6118,14 +6356,12 @@ class GMembersReqBuilder implements Builder<GMembersReq, GMembersReqBuilder> {
 
   @override
   void replace(GMembersReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GMembersReq;
   }
 
   @override
-  void update(void Function(GMembersReqBuilder) updates) {
+  void update(void Function(GMembersReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -6136,16 +6372,18 @@ class GMembersReqBuilder implements Builder<GMembersReq, GMembersReqBuilder> {
       _$result = _$v ??
           new _$GMembersReq._(
               vars: vars.build(),
-              operation: operation,
+              operation: BuiltValueNullFieldError.checkNotNull(
+                  operation, 'GMembersReq', 'operation'),
               requestId: requestId,
               updateResult: updateResult,
               optimisticResponse: _optimisticResponse?.build(),
               updateCacheHandlerKey: updateCacheHandlerKey,
               updateCacheHandlerContext: updateCacheHandlerContext,
               fetchPolicy: fetchPolicy,
-              executeOnListen: executeOnListen);
+              executeOnListen: BuiltValueNullFieldError.checkNotNull(
+                  executeOnListen, 'GMembersReq', 'executeOnListen'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -6169,41 +6407,40 @@ class _$GWatchersReq extends GWatchersReq {
   @override
   final _i4.Operation operation;
   @override
-  final String requestId;
+  final String? requestId;
   @override
-  final _i2.GWatchersData Function(_i2.GWatchersData, _i2.GWatchersData)
+  final _i2.GWatchersData? Function(_i2.GWatchersData?, _i2.GWatchersData?)?
       updateResult;
   @override
-  final _i2.GWatchersData optimisticResponse;
+  final _i2.GWatchersData? optimisticResponse;
   @override
-  final String updateCacheHandlerKey;
+  final String? updateCacheHandlerKey;
   @override
-  final Map<String, dynamic> updateCacheHandlerContext;
+  final Map<String, dynamic>? updateCacheHandlerContext;
   @override
-  final _i1.FetchPolicy fetchPolicy;
+  final _i1.FetchPolicy? fetchPolicy;
   @override
   final bool executeOnListen;
 
-  factory _$GWatchersReq([void Function(GWatchersReqBuilder) updates]) =>
+  factory _$GWatchersReq([void Function(GWatchersReqBuilder)? updates]) =>
       (new GWatchersReqBuilder()..update(updates)).build();
 
   _$GWatchersReq._(
-      {this.vars,
-      this.operation,
+      {required this.vars,
+      required this.operation,
       this.requestId,
       this.updateResult,
       this.optimisticResponse,
       this.updateCacheHandlerKey,
       this.updateCacheHandlerContext,
       this.fetchPolicy,
-      this.executeOnListen})
+      required this.executeOnListen})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GWatchersReq', 'vars');
-    }
-    if (operation == null) {
-      throw new BuiltValueNullFieldError('GWatchersReq', 'operation');
-    }
+    BuiltValueNullFieldError.checkNotNull(vars, 'GWatchersReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        operation, 'GWatchersReq', 'operation');
+    BuiltValueNullFieldError.checkNotNull(
+        executeOnListen, 'GWatchersReq', 'executeOnListen');
   }
 
   @override
@@ -6265,56 +6502,56 @@ class _$GWatchersReq extends GWatchersReq {
 
 class GWatchersReqBuilder
     implements Builder<GWatchersReq, GWatchersReqBuilder> {
-  _$GWatchersReq _$v;
+  _$GWatchersReq? _$v;
 
-  _i3.GWatchersVarsBuilder _vars;
+  _i3.GWatchersVarsBuilder? _vars;
   _i3.GWatchersVarsBuilder get vars =>
       _$this._vars ??= new _i3.GWatchersVarsBuilder();
-  set vars(_i3.GWatchersVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GWatchersVarsBuilder? vars) => _$this._vars = vars;
 
-  _i4.Operation _operation;
-  _i4.Operation get operation => _$this._operation;
-  set operation(_i4.Operation operation) => _$this._operation = operation;
+  _i4.Operation? _operation;
+  _i4.Operation? get operation => _$this._operation;
+  set operation(_i4.Operation? operation) => _$this._operation = operation;
 
-  String _requestId;
-  String get requestId => _$this._requestId;
-  set requestId(String requestId) => _$this._requestId = requestId;
+  String? _requestId;
+  String? get requestId => _$this._requestId;
+  set requestId(String? requestId) => _$this._requestId = requestId;
 
-  _i2.GWatchersData Function(_i2.GWatchersData, _i2.GWatchersData)
+  _i2.GWatchersData? Function(_i2.GWatchersData?, _i2.GWatchersData?)?
       _updateResult;
-  _i2.GWatchersData Function(_i2.GWatchersData, _i2.GWatchersData)
+  _i2.GWatchersData? Function(_i2.GWatchersData?, _i2.GWatchersData?)?
       get updateResult => _$this._updateResult;
   set updateResult(
-          _i2.GWatchersData Function(_i2.GWatchersData, _i2.GWatchersData)
+          _i2.GWatchersData? Function(_i2.GWatchersData?, _i2.GWatchersData?)?
               updateResult) =>
       _$this._updateResult = updateResult;
 
-  _i2.GWatchersDataBuilder _optimisticResponse;
+  _i2.GWatchersDataBuilder? _optimisticResponse;
   _i2.GWatchersDataBuilder get optimisticResponse =>
       _$this._optimisticResponse ??= new _i2.GWatchersDataBuilder();
-  set optimisticResponse(_i2.GWatchersDataBuilder optimisticResponse) =>
+  set optimisticResponse(_i2.GWatchersDataBuilder? optimisticResponse) =>
       _$this._optimisticResponse = optimisticResponse;
 
-  String _updateCacheHandlerKey;
-  String get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
-  set updateCacheHandlerKey(String updateCacheHandlerKey) =>
+  String? _updateCacheHandlerKey;
+  String? get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
+  set updateCacheHandlerKey(String? updateCacheHandlerKey) =>
       _$this._updateCacheHandlerKey = updateCacheHandlerKey;
 
-  Map<String, dynamic> _updateCacheHandlerContext;
-  Map<String, dynamic> get updateCacheHandlerContext =>
+  Map<String, dynamic>? _updateCacheHandlerContext;
+  Map<String, dynamic>? get updateCacheHandlerContext =>
       _$this._updateCacheHandlerContext;
   set updateCacheHandlerContext(
-          Map<String, dynamic> updateCacheHandlerContext) =>
+          Map<String, dynamic>? updateCacheHandlerContext) =>
       _$this._updateCacheHandlerContext = updateCacheHandlerContext;
 
-  _i1.FetchPolicy _fetchPolicy;
-  _i1.FetchPolicy get fetchPolicy => _$this._fetchPolicy;
-  set fetchPolicy(_i1.FetchPolicy fetchPolicy) =>
+  _i1.FetchPolicy? _fetchPolicy;
+  _i1.FetchPolicy? get fetchPolicy => _$this._fetchPolicy;
+  set fetchPolicy(_i1.FetchPolicy? fetchPolicy) =>
       _$this._fetchPolicy = fetchPolicy;
 
-  bool _executeOnListen;
-  bool get executeOnListen => _$this._executeOnListen;
-  set executeOnListen(bool executeOnListen) =>
+  bool? _executeOnListen;
+  bool? get executeOnListen => _$this._executeOnListen;
+  set executeOnListen(bool? executeOnListen) =>
       _$this._executeOnListen = executeOnListen;
 
   GWatchersReqBuilder() {
@@ -6322,16 +6559,17 @@ class GWatchersReqBuilder
   }
 
   GWatchersReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _operation = _$v.operation;
-      _requestId = _$v.requestId;
-      _updateResult = _$v.updateResult;
-      _optimisticResponse = _$v.optimisticResponse?.toBuilder();
-      _updateCacheHandlerKey = _$v.updateCacheHandlerKey;
-      _updateCacheHandlerContext = _$v.updateCacheHandlerContext;
-      _fetchPolicy = _$v.fetchPolicy;
-      _executeOnListen = _$v.executeOnListen;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _operation = $v.operation;
+      _requestId = $v.requestId;
+      _updateResult = $v.updateResult;
+      _optimisticResponse = $v.optimisticResponse?.toBuilder();
+      _updateCacheHandlerKey = $v.updateCacheHandlerKey;
+      _updateCacheHandlerContext = $v.updateCacheHandlerContext;
+      _fetchPolicy = $v.fetchPolicy;
+      _executeOnListen = $v.executeOnListen;
       _$v = null;
     }
     return this;
@@ -6339,14 +6577,12 @@ class GWatchersReqBuilder
 
   @override
   void replace(GWatchersReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GWatchersReq;
   }
 
   @override
-  void update(void Function(GWatchersReqBuilder) updates) {
+  void update(void Function(GWatchersReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -6357,16 +6593,18 @@ class GWatchersReqBuilder
       _$result = _$v ??
           new _$GWatchersReq._(
               vars: vars.build(),
-              operation: operation,
+              operation: BuiltValueNullFieldError.checkNotNull(
+                  operation, 'GWatchersReq', 'operation'),
               requestId: requestId,
               updateResult: updateResult,
               optimisticResponse: _optimisticResponse?.build(),
               updateCacheHandlerKey: updateCacheHandlerKey,
               updateCacheHandlerContext: updateCacheHandlerContext,
               fetchPolicy: fetchPolicy,
-              executeOnListen: executeOnListen);
+              executeOnListen: BuiltValueNullFieldError.checkNotNull(
+                  executeOnListen, 'GWatchersReq', 'executeOnListen'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -6390,41 +6628,40 @@ class _$GStargazersReq extends GStargazersReq {
   @override
   final _i4.Operation operation;
   @override
-  final String requestId;
+  final String? requestId;
   @override
-  final _i2.GStargazersData Function(_i2.GStargazersData, _i2.GStargazersData)
-      updateResult;
+  final _i2.GStargazersData? Function(
+      _i2.GStargazersData?, _i2.GStargazersData?)? updateResult;
   @override
-  final _i2.GStargazersData optimisticResponse;
+  final _i2.GStargazersData? optimisticResponse;
   @override
-  final String updateCacheHandlerKey;
+  final String? updateCacheHandlerKey;
   @override
-  final Map<String, dynamic> updateCacheHandlerContext;
+  final Map<String, dynamic>? updateCacheHandlerContext;
   @override
-  final _i1.FetchPolicy fetchPolicy;
+  final _i1.FetchPolicy? fetchPolicy;
   @override
   final bool executeOnListen;
 
-  factory _$GStargazersReq([void Function(GStargazersReqBuilder) updates]) =>
+  factory _$GStargazersReq([void Function(GStargazersReqBuilder)? updates]) =>
       (new GStargazersReqBuilder()..update(updates)).build();
 
   _$GStargazersReq._(
-      {this.vars,
-      this.operation,
+      {required this.vars,
+      required this.operation,
       this.requestId,
       this.updateResult,
       this.optimisticResponse,
       this.updateCacheHandlerKey,
       this.updateCacheHandlerContext,
       this.fetchPolicy,
-      this.executeOnListen})
+      required this.executeOnListen})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GStargazersReq', 'vars');
-    }
-    if (operation == null) {
-      throw new BuiltValueNullFieldError('GStargazersReq', 'operation');
-    }
+    BuiltValueNullFieldError.checkNotNull(vars, 'GStargazersReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        operation, 'GStargazersReq', 'operation');
+    BuiltValueNullFieldError.checkNotNull(
+        executeOnListen, 'GStargazersReq', 'executeOnListen');
   }
 
   @override
@@ -6487,56 +6724,57 @@ class _$GStargazersReq extends GStargazersReq {
 
 class GStargazersReqBuilder
     implements Builder<GStargazersReq, GStargazersReqBuilder> {
-  _$GStargazersReq _$v;
+  _$GStargazersReq? _$v;
 
-  _i3.GStargazersVarsBuilder _vars;
+  _i3.GStargazersVarsBuilder? _vars;
   _i3.GStargazersVarsBuilder get vars =>
       _$this._vars ??= new _i3.GStargazersVarsBuilder();
-  set vars(_i3.GStargazersVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GStargazersVarsBuilder? vars) => _$this._vars = vars;
 
-  _i4.Operation _operation;
-  _i4.Operation get operation => _$this._operation;
-  set operation(_i4.Operation operation) => _$this._operation = operation;
+  _i4.Operation? _operation;
+  _i4.Operation? get operation => _$this._operation;
+  set operation(_i4.Operation? operation) => _$this._operation = operation;
 
-  String _requestId;
-  String get requestId => _$this._requestId;
-  set requestId(String requestId) => _$this._requestId = requestId;
+  String? _requestId;
+  String? get requestId => _$this._requestId;
+  set requestId(String? requestId) => _$this._requestId = requestId;
 
-  _i2.GStargazersData Function(_i2.GStargazersData, _i2.GStargazersData)
+  _i2.GStargazersData? Function(_i2.GStargazersData?, _i2.GStargazersData?)?
       _updateResult;
-  _i2.GStargazersData Function(_i2.GStargazersData, _i2.GStargazersData)
+  _i2.GStargazersData? Function(_i2.GStargazersData?, _i2.GStargazersData?)?
       get updateResult => _$this._updateResult;
   set updateResult(
-          _i2.GStargazersData Function(_i2.GStargazersData, _i2.GStargazersData)
+          _i2.GStargazersData? Function(
+                  _i2.GStargazersData?, _i2.GStargazersData?)?
               updateResult) =>
       _$this._updateResult = updateResult;
 
-  _i2.GStargazersDataBuilder _optimisticResponse;
+  _i2.GStargazersDataBuilder? _optimisticResponse;
   _i2.GStargazersDataBuilder get optimisticResponse =>
       _$this._optimisticResponse ??= new _i2.GStargazersDataBuilder();
-  set optimisticResponse(_i2.GStargazersDataBuilder optimisticResponse) =>
+  set optimisticResponse(_i2.GStargazersDataBuilder? optimisticResponse) =>
       _$this._optimisticResponse = optimisticResponse;
 
-  String _updateCacheHandlerKey;
-  String get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
-  set updateCacheHandlerKey(String updateCacheHandlerKey) =>
+  String? _updateCacheHandlerKey;
+  String? get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
+  set updateCacheHandlerKey(String? updateCacheHandlerKey) =>
       _$this._updateCacheHandlerKey = updateCacheHandlerKey;
 
-  Map<String, dynamic> _updateCacheHandlerContext;
-  Map<String, dynamic> get updateCacheHandlerContext =>
+  Map<String, dynamic>? _updateCacheHandlerContext;
+  Map<String, dynamic>? get updateCacheHandlerContext =>
       _$this._updateCacheHandlerContext;
   set updateCacheHandlerContext(
-          Map<String, dynamic> updateCacheHandlerContext) =>
+          Map<String, dynamic>? updateCacheHandlerContext) =>
       _$this._updateCacheHandlerContext = updateCacheHandlerContext;
 
-  _i1.FetchPolicy _fetchPolicy;
-  _i1.FetchPolicy get fetchPolicy => _$this._fetchPolicy;
-  set fetchPolicy(_i1.FetchPolicy fetchPolicy) =>
+  _i1.FetchPolicy? _fetchPolicy;
+  _i1.FetchPolicy? get fetchPolicy => _$this._fetchPolicy;
+  set fetchPolicy(_i1.FetchPolicy? fetchPolicy) =>
       _$this._fetchPolicy = fetchPolicy;
 
-  bool _executeOnListen;
-  bool get executeOnListen => _$this._executeOnListen;
-  set executeOnListen(bool executeOnListen) =>
+  bool? _executeOnListen;
+  bool? get executeOnListen => _$this._executeOnListen;
+  set executeOnListen(bool? executeOnListen) =>
       _$this._executeOnListen = executeOnListen;
 
   GStargazersReqBuilder() {
@@ -6544,16 +6782,17 @@ class GStargazersReqBuilder
   }
 
   GStargazersReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _operation = _$v.operation;
-      _requestId = _$v.requestId;
-      _updateResult = _$v.updateResult;
-      _optimisticResponse = _$v.optimisticResponse?.toBuilder();
-      _updateCacheHandlerKey = _$v.updateCacheHandlerKey;
-      _updateCacheHandlerContext = _$v.updateCacheHandlerContext;
-      _fetchPolicy = _$v.fetchPolicy;
-      _executeOnListen = _$v.executeOnListen;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _operation = $v.operation;
+      _requestId = $v.requestId;
+      _updateResult = $v.updateResult;
+      _optimisticResponse = $v.optimisticResponse?.toBuilder();
+      _updateCacheHandlerKey = $v.updateCacheHandlerKey;
+      _updateCacheHandlerContext = $v.updateCacheHandlerContext;
+      _fetchPolicy = $v.fetchPolicy;
+      _executeOnListen = $v.executeOnListen;
       _$v = null;
     }
     return this;
@@ -6561,14 +6800,12 @@ class GStargazersReqBuilder
 
   @override
   void replace(GStargazersReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GStargazersReq;
   }
 
   @override
-  void update(void Function(GStargazersReqBuilder) updates) {
+  void update(void Function(GStargazersReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -6579,16 +6816,18 @@ class GStargazersReqBuilder
       _$result = _$v ??
           new _$GStargazersReq._(
               vars: vars.build(),
-              operation: operation,
+              operation: BuiltValueNullFieldError.checkNotNull(
+                  operation, 'GStargazersReq', 'operation'),
               requestId: requestId,
               updateResult: updateResult,
               optimisticResponse: _optimisticResponse?.build(),
               updateCacheHandlerKey: updateCacheHandlerKey,
               updateCacheHandlerContext: updateCacheHandlerContext,
               fetchPolicy: fetchPolicy,
-              executeOnListen: executeOnListen);
+              executeOnListen: BuiltValueNullFieldError.checkNotNull(
+                  executeOnListen, 'GStargazersReq', 'executeOnListen'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -6612,40 +6851,39 @@ class _$GReposReq extends GReposReq {
   @override
   final _i4.Operation operation;
   @override
-  final String requestId;
+  final String? requestId;
   @override
-  final _i2.GReposData Function(_i2.GReposData, _i2.GReposData) updateResult;
+  final _i2.GReposData? Function(_i2.GReposData?, _i2.GReposData?)?
+      updateResult;
   @override
-  final _i2.GReposData optimisticResponse;
+  final _i2.GReposData? optimisticResponse;
   @override
-  final String updateCacheHandlerKey;
+  final String? updateCacheHandlerKey;
   @override
-  final Map<String, dynamic> updateCacheHandlerContext;
+  final Map<String, dynamic>? updateCacheHandlerContext;
   @override
-  final _i1.FetchPolicy fetchPolicy;
+  final _i1.FetchPolicy? fetchPolicy;
   @override
   final bool executeOnListen;
 
-  factory _$GReposReq([void Function(GReposReqBuilder) updates]) =>
+  factory _$GReposReq([void Function(GReposReqBuilder)? updates]) =>
       (new GReposReqBuilder()..update(updates)).build();
 
   _$GReposReq._(
-      {this.vars,
-      this.operation,
+      {required this.vars,
+      required this.operation,
       this.requestId,
       this.updateResult,
       this.optimisticResponse,
       this.updateCacheHandlerKey,
       this.updateCacheHandlerContext,
       this.fetchPolicy,
-      this.executeOnListen})
+      required this.executeOnListen})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GReposReq', 'vars');
-    }
-    if (operation == null) {
-      throw new BuiltValueNullFieldError('GReposReq', 'operation');
-    }
+    BuiltValueNullFieldError.checkNotNull(vars, 'GReposReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(operation, 'GReposReq', 'operation');
+    BuiltValueNullFieldError.checkNotNull(
+        executeOnListen, 'GReposReq', 'executeOnListen');
   }
 
   @override
@@ -6706,55 +6944,55 @@ class _$GReposReq extends GReposReq {
 }
 
 class GReposReqBuilder implements Builder<GReposReq, GReposReqBuilder> {
-  _$GReposReq _$v;
+  _$GReposReq? _$v;
 
-  _i3.GReposVarsBuilder _vars;
+  _i3.GReposVarsBuilder? _vars;
   _i3.GReposVarsBuilder get vars =>
       _$this._vars ??= new _i3.GReposVarsBuilder();
-  set vars(_i3.GReposVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GReposVarsBuilder? vars) => _$this._vars = vars;
 
-  _i4.Operation _operation;
-  _i4.Operation get operation => _$this._operation;
-  set operation(_i4.Operation operation) => _$this._operation = operation;
+  _i4.Operation? _operation;
+  _i4.Operation? get operation => _$this._operation;
+  set operation(_i4.Operation? operation) => _$this._operation = operation;
 
-  String _requestId;
-  String get requestId => _$this._requestId;
-  set requestId(String requestId) => _$this._requestId = requestId;
+  String? _requestId;
+  String? get requestId => _$this._requestId;
+  set requestId(String? requestId) => _$this._requestId = requestId;
 
-  _i2.GReposData Function(_i2.GReposData, _i2.GReposData) _updateResult;
-  _i2.GReposData Function(_i2.GReposData, _i2.GReposData) get updateResult =>
-      _$this._updateResult;
+  _i2.GReposData? Function(_i2.GReposData?, _i2.GReposData?)? _updateResult;
+  _i2.GReposData? Function(_i2.GReposData?, _i2.GReposData?)?
+      get updateResult => _$this._updateResult;
   set updateResult(
-          _i2.GReposData Function(_i2.GReposData, _i2.GReposData)
+          _i2.GReposData? Function(_i2.GReposData?, _i2.GReposData?)?
               updateResult) =>
       _$this._updateResult = updateResult;
 
-  _i2.GReposDataBuilder _optimisticResponse;
+  _i2.GReposDataBuilder? _optimisticResponse;
   _i2.GReposDataBuilder get optimisticResponse =>
       _$this._optimisticResponse ??= new _i2.GReposDataBuilder();
-  set optimisticResponse(_i2.GReposDataBuilder optimisticResponse) =>
+  set optimisticResponse(_i2.GReposDataBuilder? optimisticResponse) =>
       _$this._optimisticResponse = optimisticResponse;
 
-  String _updateCacheHandlerKey;
-  String get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
-  set updateCacheHandlerKey(String updateCacheHandlerKey) =>
+  String? _updateCacheHandlerKey;
+  String? get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
+  set updateCacheHandlerKey(String? updateCacheHandlerKey) =>
       _$this._updateCacheHandlerKey = updateCacheHandlerKey;
 
-  Map<String, dynamic> _updateCacheHandlerContext;
-  Map<String, dynamic> get updateCacheHandlerContext =>
+  Map<String, dynamic>? _updateCacheHandlerContext;
+  Map<String, dynamic>? get updateCacheHandlerContext =>
       _$this._updateCacheHandlerContext;
   set updateCacheHandlerContext(
-          Map<String, dynamic> updateCacheHandlerContext) =>
+          Map<String, dynamic>? updateCacheHandlerContext) =>
       _$this._updateCacheHandlerContext = updateCacheHandlerContext;
 
-  _i1.FetchPolicy _fetchPolicy;
-  _i1.FetchPolicy get fetchPolicy => _$this._fetchPolicy;
-  set fetchPolicy(_i1.FetchPolicy fetchPolicy) =>
+  _i1.FetchPolicy? _fetchPolicy;
+  _i1.FetchPolicy? get fetchPolicy => _$this._fetchPolicy;
+  set fetchPolicy(_i1.FetchPolicy? fetchPolicy) =>
       _$this._fetchPolicy = fetchPolicy;
 
-  bool _executeOnListen;
-  bool get executeOnListen => _$this._executeOnListen;
-  set executeOnListen(bool executeOnListen) =>
+  bool? _executeOnListen;
+  bool? get executeOnListen => _$this._executeOnListen;
+  set executeOnListen(bool? executeOnListen) =>
       _$this._executeOnListen = executeOnListen;
 
   GReposReqBuilder() {
@@ -6762,16 +7000,17 @@ class GReposReqBuilder implements Builder<GReposReq, GReposReqBuilder> {
   }
 
   GReposReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _operation = _$v.operation;
-      _requestId = _$v.requestId;
-      _updateResult = _$v.updateResult;
-      _optimisticResponse = _$v.optimisticResponse?.toBuilder();
-      _updateCacheHandlerKey = _$v.updateCacheHandlerKey;
-      _updateCacheHandlerContext = _$v.updateCacheHandlerContext;
-      _fetchPolicy = _$v.fetchPolicy;
-      _executeOnListen = _$v.executeOnListen;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _operation = $v.operation;
+      _requestId = $v.requestId;
+      _updateResult = $v.updateResult;
+      _optimisticResponse = $v.optimisticResponse?.toBuilder();
+      _updateCacheHandlerKey = $v.updateCacheHandlerKey;
+      _updateCacheHandlerContext = $v.updateCacheHandlerContext;
+      _fetchPolicy = $v.fetchPolicy;
+      _executeOnListen = $v.executeOnListen;
       _$v = null;
     }
     return this;
@@ -6779,14 +7018,12 @@ class GReposReqBuilder implements Builder<GReposReq, GReposReqBuilder> {
 
   @override
   void replace(GReposReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GReposReq;
   }
 
   @override
-  void update(void Function(GReposReqBuilder) updates) {
+  void update(void Function(GReposReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -6797,16 +7034,18 @@ class GReposReqBuilder implements Builder<GReposReq, GReposReqBuilder> {
       _$result = _$v ??
           new _$GReposReq._(
               vars: vars.build(),
-              operation: operation,
+              operation: BuiltValueNullFieldError.checkNotNull(
+                  operation, 'GReposReq', 'operation'),
               requestId: requestId,
               updateResult: updateResult,
               optimisticResponse: _optimisticResponse?.build(),
               updateCacheHandlerKey: updateCacheHandlerKey,
               updateCacheHandlerContext: updateCacheHandlerContext,
               fetchPolicy: fetchPolicy,
-              executeOnListen: executeOnListen);
+              executeOnListen: BuiltValueNullFieldError.checkNotNull(
+                  executeOnListen, 'GReposReq', 'executeOnListen'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -6830,40 +7069,39 @@ class _$GStarsReq extends GStarsReq {
   @override
   final _i4.Operation operation;
   @override
-  final String requestId;
+  final String? requestId;
   @override
-  final _i2.GStarsData Function(_i2.GStarsData, _i2.GStarsData) updateResult;
+  final _i2.GStarsData? Function(_i2.GStarsData?, _i2.GStarsData?)?
+      updateResult;
   @override
-  final _i2.GStarsData optimisticResponse;
+  final _i2.GStarsData? optimisticResponse;
   @override
-  final String updateCacheHandlerKey;
+  final String? updateCacheHandlerKey;
   @override
-  final Map<String, dynamic> updateCacheHandlerContext;
+  final Map<String, dynamic>? updateCacheHandlerContext;
   @override
-  final _i1.FetchPolicy fetchPolicy;
+  final _i1.FetchPolicy? fetchPolicy;
   @override
   final bool executeOnListen;
 
-  factory _$GStarsReq([void Function(GStarsReqBuilder) updates]) =>
+  factory _$GStarsReq([void Function(GStarsReqBuilder)? updates]) =>
       (new GStarsReqBuilder()..update(updates)).build();
 
   _$GStarsReq._(
-      {this.vars,
-      this.operation,
+      {required this.vars,
+      required this.operation,
       this.requestId,
       this.updateResult,
       this.optimisticResponse,
       this.updateCacheHandlerKey,
       this.updateCacheHandlerContext,
       this.fetchPolicy,
-      this.executeOnListen})
+      required this.executeOnListen})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GStarsReq', 'vars');
-    }
-    if (operation == null) {
-      throw new BuiltValueNullFieldError('GStarsReq', 'operation');
-    }
+    BuiltValueNullFieldError.checkNotNull(vars, 'GStarsReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(operation, 'GStarsReq', 'operation');
+    BuiltValueNullFieldError.checkNotNull(
+        executeOnListen, 'GStarsReq', 'executeOnListen');
   }
 
   @override
@@ -6924,55 +7162,55 @@ class _$GStarsReq extends GStarsReq {
 }
 
 class GStarsReqBuilder implements Builder<GStarsReq, GStarsReqBuilder> {
-  _$GStarsReq _$v;
+  _$GStarsReq? _$v;
 
-  _i3.GStarsVarsBuilder _vars;
+  _i3.GStarsVarsBuilder? _vars;
   _i3.GStarsVarsBuilder get vars =>
       _$this._vars ??= new _i3.GStarsVarsBuilder();
-  set vars(_i3.GStarsVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GStarsVarsBuilder? vars) => _$this._vars = vars;
 
-  _i4.Operation _operation;
-  _i4.Operation get operation => _$this._operation;
-  set operation(_i4.Operation operation) => _$this._operation = operation;
+  _i4.Operation? _operation;
+  _i4.Operation? get operation => _$this._operation;
+  set operation(_i4.Operation? operation) => _$this._operation = operation;
 
-  String _requestId;
-  String get requestId => _$this._requestId;
-  set requestId(String requestId) => _$this._requestId = requestId;
+  String? _requestId;
+  String? get requestId => _$this._requestId;
+  set requestId(String? requestId) => _$this._requestId = requestId;
 
-  _i2.GStarsData Function(_i2.GStarsData, _i2.GStarsData) _updateResult;
-  _i2.GStarsData Function(_i2.GStarsData, _i2.GStarsData) get updateResult =>
-      _$this._updateResult;
+  _i2.GStarsData? Function(_i2.GStarsData?, _i2.GStarsData?)? _updateResult;
+  _i2.GStarsData? Function(_i2.GStarsData?, _i2.GStarsData?)?
+      get updateResult => _$this._updateResult;
   set updateResult(
-          _i2.GStarsData Function(_i2.GStarsData, _i2.GStarsData)
+          _i2.GStarsData? Function(_i2.GStarsData?, _i2.GStarsData?)?
               updateResult) =>
       _$this._updateResult = updateResult;
 
-  _i2.GStarsDataBuilder _optimisticResponse;
+  _i2.GStarsDataBuilder? _optimisticResponse;
   _i2.GStarsDataBuilder get optimisticResponse =>
       _$this._optimisticResponse ??= new _i2.GStarsDataBuilder();
-  set optimisticResponse(_i2.GStarsDataBuilder optimisticResponse) =>
+  set optimisticResponse(_i2.GStarsDataBuilder? optimisticResponse) =>
       _$this._optimisticResponse = optimisticResponse;
 
-  String _updateCacheHandlerKey;
-  String get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
-  set updateCacheHandlerKey(String updateCacheHandlerKey) =>
+  String? _updateCacheHandlerKey;
+  String? get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
+  set updateCacheHandlerKey(String? updateCacheHandlerKey) =>
       _$this._updateCacheHandlerKey = updateCacheHandlerKey;
 
-  Map<String, dynamic> _updateCacheHandlerContext;
-  Map<String, dynamic> get updateCacheHandlerContext =>
+  Map<String, dynamic>? _updateCacheHandlerContext;
+  Map<String, dynamic>? get updateCacheHandlerContext =>
       _$this._updateCacheHandlerContext;
   set updateCacheHandlerContext(
-          Map<String, dynamic> updateCacheHandlerContext) =>
+          Map<String, dynamic>? updateCacheHandlerContext) =>
       _$this._updateCacheHandlerContext = updateCacheHandlerContext;
 
-  _i1.FetchPolicy _fetchPolicy;
-  _i1.FetchPolicy get fetchPolicy => _$this._fetchPolicy;
-  set fetchPolicy(_i1.FetchPolicy fetchPolicy) =>
+  _i1.FetchPolicy? _fetchPolicy;
+  _i1.FetchPolicy? get fetchPolicy => _$this._fetchPolicy;
+  set fetchPolicy(_i1.FetchPolicy? fetchPolicy) =>
       _$this._fetchPolicy = fetchPolicy;
 
-  bool _executeOnListen;
-  bool get executeOnListen => _$this._executeOnListen;
-  set executeOnListen(bool executeOnListen) =>
+  bool? _executeOnListen;
+  bool? get executeOnListen => _$this._executeOnListen;
+  set executeOnListen(bool? executeOnListen) =>
       _$this._executeOnListen = executeOnListen;
 
   GStarsReqBuilder() {
@@ -6980,16 +7218,17 @@ class GStarsReqBuilder implements Builder<GStarsReq, GStarsReqBuilder> {
   }
 
   GStarsReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _operation = _$v.operation;
-      _requestId = _$v.requestId;
-      _updateResult = _$v.updateResult;
-      _optimisticResponse = _$v.optimisticResponse?.toBuilder();
-      _updateCacheHandlerKey = _$v.updateCacheHandlerKey;
-      _updateCacheHandlerContext = _$v.updateCacheHandlerContext;
-      _fetchPolicy = _$v.fetchPolicy;
-      _executeOnListen = _$v.executeOnListen;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _operation = $v.operation;
+      _requestId = $v.requestId;
+      _updateResult = $v.updateResult;
+      _optimisticResponse = $v.optimisticResponse?.toBuilder();
+      _updateCacheHandlerKey = $v.updateCacheHandlerKey;
+      _updateCacheHandlerContext = $v.updateCacheHandlerContext;
+      _fetchPolicy = $v.fetchPolicy;
+      _executeOnListen = $v.executeOnListen;
       _$v = null;
     }
     return this;
@@ -6997,14 +7236,12 @@ class GStarsReqBuilder implements Builder<GStarsReq, GStarsReqBuilder> {
 
   @override
   void replace(GStarsReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GStarsReq;
   }
 
   @override
-  void update(void Function(GStarsReqBuilder) updates) {
+  void update(void Function(GStarsReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -7015,16 +7252,18 @@ class GStarsReqBuilder implements Builder<GStarsReq, GStarsReqBuilder> {
       _$result = _$v ??
           new _$GStarsReq._(
               vars: vars.build(),
-              operation: operation,
+              operation: BuiltValueNullFieldError.checkNotNull(
+                  operation, 'GStarsReq', 'operation'),
               requestId: requestId,
               updateResult: updateResult,
               optimisticResponse: _optimisticResponse?.build(),
               updateCacheHandlerKey: updateCacheHandlerKey,
               updateCacheHandlerContext: updateCacheHandlerContext,
               fetchPolicy: fetchPolicy,
-              executeOnListen: executeOnListen);
+              executeOnListen: BuiltValueNullFieldError.checkNotNull(
+                  executeOnListen, 'GStarsReq', 'executeOnListen'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -7048,40 +7287,39 @@ class _$GViewerReq extends GViewerReq {
   @override
   final _i4.Operation operation;
   @override
-  final String requestId;
+  final String? requestId;
   @override
-  final _i2.GViewerData Function(_i2.GViewerData, _i2.GViewerData) updateResult;
+  final _i2.GViewerData? Function(_i2.GViewerData?, _i2.GViewerData?)?
+      updateResult;
   @override
-  final _i2.GViewerData optimisticResponse;
+  final _i2.GViewerData? optimisticResponse;
   @override
-  final String updateCacheHandlerKey;
+  final String? updateCacheHandlerKey;
   @override
-  final Map<String, dynamic> updateCacheHandlerContext;
+  final Map<String, dynamic>? updateCacheHandlerContext;
   @override
-  final _i1.FetchPolicy fetchPolicy;
+  final _i1.FetchPolicy? fetchPolicy;
   @override
   final bool executeOnListen;
 
-  factory _$GViewerReq([void Function(GViewerReqBuilder) updates]) =>
+  factory _$GViewerReq([void Function(GViewerReqBuilder)? updates]) =>
       (new GViewerReqBuilder()..update(updates)).build();
 
   _$GViewerReq._(
-      {this.vars,
-      this.operation,
+      {required this.vars,
+      required this.operation,
       this.requestId,
       this.updateResult,
       this.optimisticResponse,
       this.updateCacheHandlerKey,
       this.updateCacheHandlerContext,
       this.fetchPolicy,
-      this.executeOnListen})
+      required this.executeOnListen})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GViewerReq', 'vars');
-    }
-    if (operation == null) {
-      throw new BuiltValueNullFieldError('GViewerReq', 'operation');
-    }
+    BuiltValueNullFieldError.checkNotNull(vars, 'GViewerReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(operation, 'GViewerReq', 'operation');
+    BuiltValueNullFieldError.checkNotNull(
+        executeOnListen, 'GViewerReq', 'executeOnListen');
   }
 
   @override
@@ -7142,55 +7380,55 @@ class _$GViewerReq extends GViewerReq {
 }
 
 class GViewerReqBuilder implements Builder<GViewerReq, GViewerReqBuilder> {
-  _$GViewerReq _$v;
+  _$GViewerReq? _$v;
 
-  _i3.GViewerVarsBuilder _vars;
+  _i3.GViewerVarsBuilder? _vars;
   _i3.GViewerVarsBuilder get vars =>
       _$this._vars ??= new _i3.GViewerVarsBuilder();
-  set vars(_i3.GViewerVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GViewerVarsBuilder? vars) => _$this._vars = vars;
 
-  _i4.Operation _operation;
-  _i4.Operation get operation => _$this._operation;
-  set operation(_i4.Operation operation) => _$this._operation = operation;
+  _i4.Operation? _operation;
+  _i4.Operation? get operation => _$this._operation;
+  set operation(_i4.Operation? operation) => _$this._operation = operation;
 
-  String _requestId;
-  String get requestId => _$this._requestId;
-  set requestId(String requestId) => _$this._requestId = requestId;
+  String? _requestId;
+  String? get requestId => _$this._requestId;
+  set requestId(String? requestId) => _$this._requestId = requestId;
 
-  _i2.GViewerData Function(_i2.GViewerData, _i2.GViewerData) _updateResult;
-  _i2.GViewerData Function(_i2.GViewerData, _i2.GViewerData) get updateResult =>
-      _$this._updateResult;
+  _i2.GViewerData? Function(_i2.GViewerData?, _i2.GViewerData?)? _updateResult;
+  _i2.GViewerData? Function(_i2.GViewerData?, _i2.GViewerData?)?
+      get updateResult => _$this._updateResult;
   set updateResult(
-          _i2.GViewerData Function(_i2.GViewerData, _i2.GViewerData)
+          _i2.GViewerData? Function(_i2.GViewerData?, _i2.GViewerData?)?
               updateResult) =>
       _$this._updateResult = updateResult;
 
-  _i2.GViewerDataBuilder _optimisticResponse;
+  _i2.GViewerDataBuilder? _optimisticResponse;
   _i2.GViewerDataBuilder get optimisticResponse =>
       _$this._optimisticResponse ??= new _i2.GViewerDataBuilder();
-  set optimisticResponse(_i2.GViewerDataBuilder optimisticResponse) =>
+  set optimisticResponse(_i2.GViewerDataBuilder? optimisticResponse) =>
       _$this._optimisticResponse = optimisticResponse;
 
-  String _updateCacheHandlerKey;
-  String get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
-  set updateCacheHandlerKey(String updateCacheHandlerKey) =>
+  String? _updateCacheHandlerKey;
+  String? get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
+  set updateCacheHandlerKey(String? updateCacheHandlerKey) =>
       _$this._updateCacheHandlerKey = updateCacheHandlerKey;
 
-  Map<String, dynamic> _updateCacheHandlerContext;
-  Map<String, dynamic> get updateCacheHandlerContext =>
+  Map<String, dynamic>? _updateCacheHandlerContext;
+  Map<String, dynamic>? get updateCacheHandlerContext =>
       _$this._updateCacheHandlerContext;
   set updateCacheHandlerContext(
-          Map<String, dynamic> updateCacheHandlerContext) =>
+          Map<String, dynamic>? updateCacheHandlerContext) =>
       _$this._updateCacheHandlerContext = updateCacheHandlerContext;
 
-  _i1.FetchPolicy _fetchPolicy;
-  _i1.FetchPolicy get fetchPolicy => _$this._fetchPolicy;
-  set fetchPolicy(_i1.FetchPolicy fetchPolicy) =>
+  _i1.FetchPolicy? _fetchPolicy;
+  _i1.FetchPolicy? get fetchPolicy => _$this._fetchPolicy;
+  set fetchPolicy(_i1.FetchPolicy? fetchPolicy) =>
       _$this._fetchPolicy = fetchPolicy;
 
-  bool _executeOnListen;
-  bool get executeOnListen => _$this._executeOnListen;
-  set executeOnListen(bool executeOnListen) =>
+  bool? _executeOnListen;
+  bool? get executeOnListen => _$this._executeOnListen;
+  set executeOnListen(bool? executeOnListen) =>
       _$this._executeOnListen = executeOnListen;
 
   GViewerReqBuilder() {
@@ -7198,16 +7436,17 @@ class GViewerReqBuilder implements Builder<GViewerReq, GViewerReqBuilder> {
   }
 
   GViewerReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _operation = _$v.operation;
-      _requestId = _$v.requestId;
-      _updateResult = _$v.updateResult;
-      _optimisticResponse = _$v.optimisticResponse?.toBuilder();
-      _updateCacheHandlerKey = _$v.updateCacheHandlerKey;
-      _updateCacheHandlerContext = _$v.updateCacheHandlerContext;
-      _fetchPolicy = _$v.fetchPolicy;
-      _executeOnListen = _$v.executeOnListen;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _operation = $v.operation;
+      _requestId = $v.requestId;
+      _updateResult = $v.updateResult;
+      _optimisticResponse = $v.optimisticResponse?.toBuilder();
+      _updateCacheHandlerKey = $v.updateCacheHandlerKey;
+      _updateCacheHandlerContext = $v.updateCacheHandlerContext;
+      _fetchPolicy = $v.fetchPolicy;
+      _executeOnListen = $v.executeOnListen;
       _$v = null;
     }
     return this;
@@ -7215,14 +7454,12 @@ class GViewerReqBuilder implements Builder<GViewerReq, GViewerReqBuilder> {
 
   @override
   void replace(GViewerReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GViewerReq;
   }
 
   @override
-  void update(void Function(GViewerReqBuilder) updates) {
+  void update(void Function(GViewerReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -7233,16 +7470,18 @@ class GViewerReqBuilder implements Builder<GViewerReq, GViewerReqBuilder> {
       _$result = _$v ??
           new _$GViewerReq._(
               vars: vars.build(),
-              operation: operation,
+              operation: BuiltValueNullFieldError.checkNotNull(
+                  operation, 'GViewerReq', 'operation'),
               requestId: requestId,
               updateResult: updateResult,
               optimisticResponse: _optimisticResponse?.build(),
               updateCacheHandlerKey: updateCacheHandlerKey,
               updateCacheHandlerContext: updateCacheHandlerContext,
               fetchPolicy: fetchPolicy,
-              executeOnListen: executeOnListen);
+              executeOnListen: BuiltValueNullFieldError.checkNotNull(
+                  executeOnListen, 'GViewerReq', 'executeOnListen'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -7266,40 +7505,38 @@ class _$GUserReq extends GUserReq {
   @override
   final _i4.Operation operation;
   @override
-  final String requestId;
+  final String? requestId;
   @override
-  final _i2.GUserData Function(_i2.GUserData, _i2.GUserData) updateResult;
+  final _i2.GUserData? Function(_i2.GUserData?, _i2.GUserData?)? updateResult;
   @override
-  final _i2.GUserData optimisticResponse;
+  final _i2.GUserData? optimisticResponse;
   @override
-  final String updateCacheHandlerKey;
+  final String? updateCacheHandlerKey;
   @override
-  final Map<String, dynamic> updateCacheHandlerContext;
+  final Map<String, dynamic>? updateCacheHandlerContext;
   @override
-  final _i1.FetchPolicy fetchPolicy;
+  final _i1.FetchPolicy? fetchPolicy;
   @override
   final bool executeOnListen;
 
-  factory _$GUserReq([void Function(GUserReqBuilder) updates]) =>
+  factory _$GUserReq([void Function(GUserReqBuilder)? updates]) =>
       (new GUserReqBuilder()..update(updates)).build();
 
   _$GUserReq._(
-      {this.vars,
-      this.operation,
+      {required this.vars,
+      required this.operation,
       this.requestId,
       this.updateResult,
       this.optimisticResponse,
       this.updateCacheHandlerKey,
       this.updateCacheHandlerContext,
       this.fetchPolicy,
-      this.executeOnListen})
+      required this.executeOnListen})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GUserReq', 'vars');
-    }
-    if (operation == null) {
-      throw new BuiltValueNullFieldError('GUserReq', 'operation');
-    }
+    BuiltValueNullFieldError.checkNotNull(vars, 'GUserReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(operation, 'GUserReq', 'operation');
+    BuiltValueNullFieldError.checkNotNull(
+        executeOnListen, 'GUserReq', 'executeOnListen');
   }
 
   @override
@@ -7360,53 +7597,54 @@ class _$GUserReq extends GUserReq {
 }
 
 class GUserReqBuilder implements Builder<GUserReq, GUserReqBuilder> {
-  _$GUserReq _$v;
+  _$GUserReq? _$v;
 
-  _i3.GUserVarsBuilder _vars;
+  _i3.GUserVarsBuilder? _vars;
   _i3.GUserVarsBuilder get vars => _$this._vars ??= new _i3.GUserVarsBuilder();
-  set vars(_i3.GUserVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GUserVarsBuilder? vars) => _$this._vars = vars;
 
-  _i4.Operation _operation;
-  _i4.Operation get operation => _$this._operation;
-  set operation(_i4.Operation operation) => _$this._operation = operation;
+  _i4.Operation? _operation;
+  _i4.Operation? get operation => _$this._operation;
+  set operation(_i4.Operation? operation) => _$this._operation = operation;
 
-  String _requestId;
-  String get requestId => _$this._requestId;
-  set requestId(String requestId) => _$this._requestId = requestId;
+  String? _requestId;
+  String? get requestId => _$this._requestId;
+  set requestId(String? requestId) => _$this._requestId = requestId;
 
-  _i2.GUserData Function(_i2.GUserData, _i2.GUserData) _updateResult;
-  _i2.GUserData Function(_i2.GUserData, _i2.GUserData) get updateResult =>
+  _i2.GUserData? Function(_i2.GUserData?, _i2.GUserData?)? _updateResult;
+  _i2.GUserData? Function(_i2.GUserData?, _i2.GUserData?)? get updateResult =>
       _$this._updateResult;
   set updateResult(
-          _i2.GUserData Function(_i2.GUserData, _i2.GUserData) updateResult) =>
+          _i2.GUserData? Function(_i2.GUserData?, _i2.GUserData?)?
+              updateResult) =>
       _$this._updateResult = updateResult;
 
-  _i2.GUserDataBuilder _optimisticResponse;
+  _i2.GUserDataBuilder? _optimisticResponse;
   _i2.GUserDataBuilder get optimisticResponse =>
       _$this._optimisticResponse ??= new _i2.GUserDataBuilder();
-  set optimisticResponse(_i2.GUserDataBuilder optimisticResponse) =>
+  set optimisticResponse(_i2.GUserDataBuilder? optimisticResponse) =>
       _$this._optimisticResponse = optimisticResponse;
 
-  String _updateCacheHandlerKey;
-  String get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
-  set updateCacheHandlerKey(String updateCacheHandlerKey) =>
+  String? _updateCacheHandlerKey;
+  String? get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
+  set updateCacheHandlerKey(String? updateCacheHandlerKey) =>
       _$this._updateCacheHandlerKey = updateCacheHandlerKey;
 
-  Map<String, dynamic> _updateCacheHandlerContext;
-  Map<String, dynamic> get updateCacheHandlerContext =>
+  Map<String, dynamic>? _updateCacheHandlerContext;
+  Map<String, dynamic>? get updateCacheHandlerContext =>
       _$this._updateCacheHandlerContext;
   set updateCacheHandlerContext(
-          Map<String, dynamic> updateCacheHandlerContext) =>
+          Map<String, dynamic>? updateCacheHandlerContext) =>
       _$this._updateCacheHandlerContext = updateCacheHandlerContext;
 
-  _i1.FetchPolicy _fetchPolicy;
-  _i1.FetchPolicy get fetchPolicy => _$this._fetchPolicy;
-  set fetchPolicy(_i1.FetchPolicy fetchPolicy) =>
+  _i1.FetchPolicy? _fetchPolicy;
+  _i1.FetchPolicy? get fetchPolicy => _$this._fetchPolicy;
+  set fetchPolicy(_i1.FetchPolicy? fetchPolicy) =>
       _$this._fetchPolicy = fetchPolicy;
 
-  bool _executeOnListen;
-  bool get executeOnListen => _$this._executeOnListen;
-  set executeOnListen(bool executeOnListen) =>
+  bool? _executeOnListen;
+  bool? get executeOnListen => _$this._executeOnListen;
+  set executeOnListen(bool? executeOnListen) =>
       _$this._executeOnListen = executeOnListen;
 
   GUserReqBuilder() {
@@ -7414,16 +7652,17 @@ class GUserReqBuilder implements Builder<GUserReq, GUserReqBuilder> {
   }
 
   GUserReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _operation = _$v.operation;
-      _requestId = _$v.requestId;
-      _updateResult = _$v.updateResult;
-      _optimisticResponse = _$v.optimisticResponse?.toBuilder();
-      _updateCacheHandlerKey = _$v.updateCacheHandlerKey;
-      _updateCacheHandlerContext = _$v.updateCacheHandlerContext;
-      _fetchPolicy = _$v.fetchPolicy;
-      _executeOnListen = _$v.executeOnListen;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _operation = $v.operation;
+      _requestId = $v.requestId;
+      _updateResult = $v.updateResult;
+      _optimisticResponse = $v.optimisticResponse?.toBuilder();
+      _updateCacheHandlerKey = $v.updateCacheHandlerKey;
+      _updateCacheHandlerContext = $v.updateCacheHandlerContext;
+      _fetchPolicy = $v.fetchPolicy;
+      _executeOnListen = $v.executeOnListen;
       _$v = null;
     }
     return this;
@@ -7431,14 +7670,12 @@ class GUserReqBuilder implements Builder<GUserReq, GUserReqBuilder> {
 
   @override
   void replace(GUserReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GUserReq;
   }
 
   @override
-  void update(void Function(GUserReqBuilder) updates) {
+  void update(void Function(GUserReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -7449,16 +7686,18 @@ class GUserReqBuilder implements Builder<GUserReq, GUserReqBuilder> {
       _$result = _$v ??
           new _$GUserReq._(
               vars: vars.build(),
-              operation: operation,
+              operation: BuiltValueNullFieldError.checkNotNull(
+                  operation, 'GUserReq', 'operation'),
               requestId: requestId,
               updateResult: updateResult,
               optimisticResponse: _optimisticResponse?.build(),
               updateCacheHandlerKey: updateCacheHandlerKey,
               updateCacheHandlerContext: updateCacheHandlerContext,
               fetchPolicy: fetchPolicy,
-              executeOnListen: executeOnListen);
+              executeOnListen: BuiltValueNullFieldError.checkNotNull(
+                  executeOnListen, 'GUserReq', 'executeOnListen'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -7482,40 +7721,38 @@ class _$GRepoReq extends GRepoReq {
   @override
   final _i4.Operation operation;
   @override
-  final String requestId;
+  final String? requestId;
   @override
-  final _i2.GRepoData Function(_i2.GRepoData, _i2.GRepoData) updateResult;
+  final _i2.GRepoData? Function(_i2.GRepoData?, _i2.GRepoData?)? updateResult;
   @override
-  final _i2.GRepoData optimisticResponse;
+  final _i2.GRepoData? optimisticResponse;
   @override
-  final String updateCacheHandlerKey;
+  final String? updateCacheHandlerKey;
   @override
-  final Map<String, dynamic> updateCacheHandlerContext;
+  final Map<String, dynamic>? updateCacheHandlerContext;
   @override
-  final _i1.FetchPolicy fetchPolicy;
+  final _i1.FetchPolicy? fetchPolicy;
   @override
   final bool executeOnListen;
 
-  factory _$GRepoReq([void Function(GRepoReqBuilder) updates]) =>
+  factory _$GRepoReq([void Function(GRepoReqBuilder)? updates]) =>
       (new GRepoReqBuilder()..update(updates)).build();
 
   _$GRepoReq._(
-      {this.vars,
-      this.operation,
+      {required this.vars,
+      required this.operation,
       this.requestId,
       this.updateResult,
       this.optimisticResponse,
       this.updateCacheHandlerKey,
       this.updateCacheHandlerContext,
       this.fetchPolicy,
-      this.executeOnListen})
+      required this.executeOnListen})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GRepoReq', 'vars');
-    }
-    if (operation == null) {
-      throw new BuiltValueNullFieldError('GRepoReq', 'operation');
-    }
+    BuiltValueNullFieldError.checkNotNull(vars, 'GRepoReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(operation, 'GRepoReq', 'operation');
+    BuiltValueNullFieldError.checkNotNull(
+        executeOnListen, 'GRepoReq', 'executeOnListen');
   }
 
   @override
@@ -7576,53 +7813,54 @@ class _$GRepoReq extends GRepoReq {
 }
 
 class GRepoReqBuilder implements Builder<GRepoReq, GRepoReqBuilder> {
-  _$GRepoReq _$v;
+  _$GRepoReq? _$v;
 
-  _i3.GRepoVarsBuilder _vars;
+  _i3.GRepoVarsBuilder? _vars;
   _i3.GRepoVarsBuilder get vars => _$this._vars ??= new _i3.GRepoVarsBuilder();
-  set vars(_i3.GRepoVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GRepoVarsBuilder? vars) => _$this._vars = vars;
 
-  _i4.Operation _operation;
-  _i4.Operation get operation => _$this._operation;
-  set operation(_i4.Operation operation) => _$this._operation = operation;
+  _i4.Operation? _operation;
+  _i4.Operation? get operation => _$this._operation;
+  set operation(_i4.Operation? operation) => _$this._operation = operation;
 
-  String _requestId;
-  String get requestId => _$this._requestId;
-  set requestId(String requestId) => _$this._requestId = requestId;
+  String? _requestId;
+  String? get requestId => _$this._requestId;
+  set requestId(String? requestId) => _$this._requestId = requestId;
 
-  _i2.GRepoData Function(_i2.GRepoData, _i2.GRepoData) _updateResult;
-  _i2.GRepoData Function(_i2.GRepoData, _i2.GRepoData) get updateResult =>
+  _i2.GRepoData? Function(_i2.GRepoData?, _i2.GRepoData?)? _updateResult;
+  _i2.GRepoData? Function(_i2.GRepoData?, _i2.GRepoData?)? get updateResult =>
       _$this._updateResult;
   set updateResult(
-          _i2.GRepoData Function(_i2.GRepoData, _i2.GRepoData) updateResult) =>
+          _i2.GRepoData? Function(_i2.GRepoData?, _i2.GRepoData?)?
+              updateResult) =>
       _$this._updateResult = updateResult;
 
-  _i2.GRepoDataBuilder _optimisticResponse;
+  _i2.GRepoDataBuilder? _optimisticResponse;
   _i2.GRepoDataBuilder get optimisticResponse =>
       _$this._optimisticResponse ??= new _i2.GRepoDataBuilder();
-  set optimisticResponse(_i2.GRepoDataBuilder optimisticResponse) =>
+  set optimisticResponse(_i2.GRepoDataBuilder? optimisticResponse) =>
       _$this._optimisticResponse = optimisticResponse;
 
-  String _updateCacheHandlerKey;
-  String get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
-  set updateCacheHandlerKey(String updateCacheHandlerKey) =>
+  String? _updateCacheHandlerKey;
+  String? get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
+  set updateCacheHandlerKey(String? updateCacheHandlerKey) =>
       _$this._updateCacheHandlerKey = updateCacheHandlerKey;
 
-  Map<String, dynamic> _updateCacheHandlerContext;
-  Map<String, dynamic> get updateCacheHandlerContext =>
+  Map<String, dynamic>? _updateCacheHandlerContext;
+  Map<String, dynamic>? get updateCacheHandlerContext =>
       _$this._updateCacheHandlerContext;
   set updateCacheHandlerContext(
-          Map<String, dynamic> updateCacheHandlerContext) =>
+          Map<String, dynamic>? updateCacheHandlerContext) =>
       _$this._updateCacheHandlerContext = updateCacheHandlerContext;
 
-  _i1.FetchPolicy _fetchPolicy;
-  _i1.FetchPolicy get fetchPolicy => _$this._fetchPolicy;
-  set fetchPolicy(_i1.FetchPolicy fetchPolicy) =>
+  _i1.FetchPolicy? _fetchPolicy;
+  _i1.FetchPolicy? get fetchPolicy => _$this._fetchPolicy;
+  set fetchPolicy(_i1.FetchPolicy? fetchPolicy) =>
       _$this._fetchPolicy = fetchPolicy;
 
-  bool _executeOnListen;
-  bool get executeOnListen => _$this._executeOnListen;
-  set executeOnListen(bool executeOnListen) =>
+  bool? _executeOnListen;
+  bool? get executeOnListen => _$this._executeOnListen;
+  set executeOnListen(bool? executeOnListen) =>
       _$this._executeOnListen = executeOnListen;
 
   GRepoReqBuilder() {
@@ -7630,16 +7868,17 @@ class GRepoReqBuilder implements Builder<GRepoReq, GRepoReqBuilder> {
   }
 
   GRepoReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _operation = _$v.operation;
-      _requestId = _$v.requestId;
-      _updateResult = _$v.updateResult;
-      _optimisticResponse = _$v.optimisticResponse?.toBuilder();
-      _updateCacheHandlerKey = _$v.updateCacheHandlerKey;
-      _updateCacheHandlerContext = _$v.updateCacheHandlerContext;
-      _fetchPolicy = _$v.fetchPolicy;
-      _executeOnListen = _$v.executeOnListen;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _operation = $v.operation;
+      _requestId = $v.requestId;
+      _updateResult = $v.updateResult;
+      _optimisticResponse = $v.optimisticResponse?.toBuilder();
+      _updateCacheHandlerKey = $v.updateCacheHandlerKey;
+      _updateCacheHandlerContext = $v.updateCacheHandlerContext;
+      _fetchPolicy = $v.fetchPolicy;
+      _executeOnListen = $v.executeOnListen;
       _$v = null;
     }
     return this;
@@ -7647,14 +7886,12 @@ class GRepoReqBuilder implements Builder<GRepoReq, GRepoReqBuilder> {
 
   @override
   void replace(GRepoReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GRepoReq;
   }
 
   @override
-  void update(void Function(GRepoReqBuilder) updates) {
+  void update(void Function(GRepoReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -7665,16 +7902,18 @@ class GRepoReqBuilder implements Builder<GRepoReq, GRepoReqBuilder> {
       _$result = _$v ??
           new _$GRepoReq._(
               vars: vars.build(),
-              operation: operation,
+              operation: BuiltValueNullFieldError.checkNotNull(
+                  operation, 'GRepoReq', 'operation'),
               requestId: requestId,
               updateResult: updateResult,
               optimisticResponse: _optimisticResponse?.build(),
               updateCacheHandlerKey: updateCacheHandlerKey,
               updateCacheHandlerContext: updateCacheHandlerContext,
               fetchPolicy: fetchPolicy,
-              executeOnListen: executeOnListen);
+              executeOnListen: BuiltValueNullFieldError.checkNotNull(
+                  executeOnListen, 'GRepoReq', 'executeOnListen'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -7698,41 +7937,40 @@ class _$GCommitsReq extends GCommitsReq {
   @override
   final _i4.Operation operation;
   @override
-  final String requestId;
+  final String? requestId;
   @override
-  final _i2.GCommitsData Function(_i2.GCommitsData, _i2.GCommitsData)
+  final _i2.GCommitsData? Function(_i2.GCommitsData?, _i2.GCommitsData?)?
       updateResult;
   @override
-  final _i2.GCommitsData optimisticResponse;
+  final _i2.GCommitsData? optimisticResponse;
   @override
-  final String updateCacheHandlerKey;
+  final String? updateCacheHandlerKey;
   @override
-  final Map<String, dynamic> updateCacheHandlerContext;
+  final Map<String, dynamic>? updateCacheHandlerContext;
   @override
-  final _i1.FetchPolicy fetchPolicy;
+  final _i1.FetchPolicy? fetchPolicy;
   @override
   final bool executeOnListen;
 
-  factory _$GCommitsReq([void Function(GCommitsReqBuilder) updates]) =>
+  factory _$GCommitsReq([void Function(GCommitsReqBuilder)? updates]) =>
       (new GCommitsReqBuilder()..update(updates)).build();
 
   _$GCommitsReq._(
-      {this.vars,
-      this.operation,
+      {required this.vars,
+      required this.operation,
       this.requestId,
       this.updateResult,
       this.optimisticResponse,
       this.updateCacheHandlerKey,
       this.updateCacheHandlerContext,
       this.fetchPolicy,
-      this.executeOnListen})
+      required this.executeOnListen})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GCommitsReq', 'vars');
-    }
-    if (operation == null) {
-      throw new BuiltValueNullFieldError('GCommitsReq', 'operation');
-    }
+    BuiltValueNullFieldError.checkNotNull(vars, 'GCommitsReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        operation, 'GCommitsReq', 'operation');
+    BuiltValueNullFieldError.checkNotNull(
+        executeOnListen, 'GCommitsReq', 'executeOnListen');
   }
 
   @override
@@ -7793,55 +8031,56 @@ class _$GCommitsReq extends GCommitsReq {
 }
 
 class GCommitsReqBuilder implements Builder<GCommitsReq, GCommitsReqBuilder> {
-  _$GCommitsReq _$v;
+  _$GCommitsReq? _$v;
 
-  _i3.GCommitsVarsBuilder _vars;
+  _i3.GCommitsVarsBuilder? _vars;
   _i3.GCommitsVarsBuilder get vars =>
       _$this._vars ??= new _i3.GCommitsVarsBuilder();
-  set vars(_i3.GCommitsVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GCommitsVarsBuilder? vars) => _$this._vars = vars;
 
-  _i4.Operation _operation;
-  _i4.Operation get operation => _$this._operation;
-  set operation(_i4.Operation operation) => _$this._operation = operation;
+  _i4.Operation? _operation;
+  _i4.Operation? get operation => _$this._operation;
+  set operation(_i4.Operation? operation) => _$this._operation = operation;
 
-  String _requestId;
-  String get requestId => _$this._requestId;
-  set requestId(String requestId) => _$this._requestId = requestId;
+  String? _requestId;
+  String? get requestId => _$this._requestId;
+  set requestId(String? requestId) => _$this._requestId = requestId;
 
-  _i2.GCommitsData Function(_i2.GCommitsData, _i2.GCommitsData) _updateResult;
-  _i2.GCommitsData Function(_i2.GCommitsData, _i2.GCommitsData)
+  _i2.GCommitsData? Function(_i2.GCommitsData?, _i2.GCommitsData?)?
+      _updateResult;
+  _i2.GCommitsData? Function(_i2.GCommitsData?, _i2.GCommitsData?)?
       get updateResult => _$this._updateResult;
   set updateResult(
-          _i2.GCommitsData Function(_i2.GCommitsData, _i2.GCommitsData)
+          _i2.GCommitsData? Function(_i2.GCommitsData?, _i2.GCommitsData?)?
               updateResult) =>
       _$this._updateResult = updateResult;
 
-  _i2.GCommitsDataBuilder _optimisticResponse;
+  _i2.GCommitsDataBuilder? _optimisticResponse;
   _i2.GCommitsDataBuilder get optimisticResponse =>
       _$this._optimisticResponse ??= new _i2.GCommitsDataBuilder();
-  set optimisticResponse(_i2.GCommitsDataBuilder optimisticResponse) =>
+  set optimisticResponse(_i2.GCommitsDataBuilder? optimisticResponse) =>
       _$this._optimisticResponse = optimisticResponse;
 
-  String _updateCacheHandlerKey;
-  String get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
-  set updateCacheHandlerKey(String updateCacheHandlerKey) =>
+  String? _updateCacheHandlerKey;
+  String? get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
+  set updateCacheHandlerKey(String? updateCacheHandlerKey) =>
       _$this._updateCacheHandlerKey = updateCacheHandlerKey;
 
-  Map<String, dynamic> _updateCacheHandlerContext;
-  Map<String, dynamic> get updateCacheHandlerContext =>
+  Map<String, dynamic>? _updateCacheHandlerContext;
+  Map<String, dynamic>? get updateCacheHandlerContext =>
       _$this._updateCacheHandlerContext;
   set updateCacheHandlerContext(
-          Map<String, dynamic> updateCacheHandlerContext) =>
+          Map<String, dynamic>? updateCacheHandlerContext) =>
       _$this._updateCacheHandlerContext = updateCacheHandlerContext;
 
-  _i1.FetchPolicy _fetchPolicy;
-  _i1.FetchPolicy get fetchPolicy => _$this._fetchPolicy;
-  set fetchPolicy(_i1.FetchPolicy fetchPolicy) =>
+  _i1.FetchPolicy? _fetchPolicy;
+  _i1.FetchPolicy? get fetchPolicy => _$this._fetchPolicy;
+  set fetchPolicy(_i1.FetchPolicy? fetchPolicy) =>
       _$this._fetchPolicy = fetchPolicy;
 
-  bool _executeOnListen;
-  bool get executeOnListen => _$this._executeOnListen;
-  set executeOnListen(bool executeOnListen) =>
+  bool? _executeOnListen;
+  bool? get executeOnListen => _$this._executeOnListen;
+  set executeOnListen(bool? executeOnListen) =>
       _$this._executeOnListen = executeOnListen;
 
   GCommitsReqBuilder() {
@@ -7849,16 +8088,17 @@ class GCommitsReqBuilder implements Builder<GCommitsReq, GCommitsReqBuilder> {
   }
 
   GCommitsReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _operation = _$v.operation;
-      _requestId = _$v.requestId;
-      _updateResult = _$v.updateResult;
-      _optimisticResponse = _$v.optimisticResponse?.toBuilder();
-      _updateCacheHandlerKey = _$v.updateCacheHandlerKey;
-      _updateCacheHandlerContext = _$v.updateCacheHandlerContext;
-      _fetchPolicy = _$v.fetchPolicy;
-      _executeOnListen = _$v.executeOnListen;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _operation = $v.operation;
+      _requestId = $v.requestId;
+      _updateResult = $v.updateResult;
+      _optimisticResponse = $v.optimisticResponse?.toBuilder();
+      _updateCacheHandlerKey = $v.updateCacheHandlerKey;
+      _updateCacheHandlerContext = $v.updateCacheHandlerContext;
+      _fetchPolicy = $v.fetchPolicy;
+      _executeOnListen = $v.executeOnListen;
       _$v = null;
     }
     return this;
@@ -7866,14 +8106,12 @@ class GCommitsReqBuilder implements Builder<GCommitsReq, GCommitsReqBuilder> {
 
   @override
   void replace(GCommitsReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GCommitsReq;
   }
 
   @override
-  void update(void Function(GCommitsReqBuilder) updates) {
+  void update(void Function(GCommitsReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -7884,16 +8122,18 @@ class GCommitsReqBuilder implements Builder<GCommitsReq, GCommitsReqBuilder> {
       _$result = _$v ??
           new _$GCommitsReq._(
               vars: vars.build(),
-              operation: operation,
+              operation: BuiltValueNullFieldError.checkNotNull(
+                  operation, 'GCommitsReq', 'operation'),
               requestId: requestId,
               updateResult: updateResult,
               optimisticResponse: _optimisticResponse?.build(),
               updateCacheHandlerKey: updateCacheHandlerKey,
               updateCacheHandlerContext: updateCacheHandlerContext,
               fetchPolicy: fetchPolicy,
-              executeOnListen: executeOnListen);
+              executeOnListen: BuiltValueNullFieldError.checkNotNull(
+                  executeOnListen, 'GCommitsReq', 'executeOnListen'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -7917,40 +8157,39 @@ class _$GIssuesReq extends GIssuesReq {
   @override
   final _i4.Operation operation;
   @override
-  final String requestId;
+  final String? requestId;
   @override
-  final _i2.GIssuesData Function(_i2.GIssuesData, _i2.GIssuesData) updateResult;
+  final _i2.GIssuesData? Function(_i2.GIssuesData?, _i2.GIssuesData?)?
+      updateResult;
   @override
-  final _i2.GIssuesData optimisticResponse;
+  final _i2.GIssuesData? optimisticResponse;
   @override
-  final String updateCacheHandlerKey;
+  final String? updateCacheHandlerKey;
   @override
-  final Map<String, dynamic> updateCacheHandlerContext;
+  final Map<String, dynamic>? updateCacheHandlerContext;
   @override
-  final _i1.FetchPolicy fetchPolicy;
+  final _i1.FetchPolicy? fetchPolicy;
   @override
   final bool executeOnListen;
 
-  factory _$GIssuesReq([void Function(GIssuesReqBuilder) updates]) =>
+  factory _$GIssuesReq([void Function(GIssuesReqBuilder)? updates]) =>
       (new GIssuesReqBuilder()..update(updates)).build();
 
   _$GIssuesReq._(
-      {this.vars,
-      this.operation,
+      {required this.vars,
+      required this.operation,
       this.requestId,
       this.updateResult,
       this.optimisticResponse,
       this.updateCacheHandlerKey,
       this.updateCacheHandlerContext,
       this.fetchPolicy,
-      this.executeOnListen})
+      required this.executeOnListen})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GIssuesReq', 'vars');
-    }
-    if (operation == null) {
-      throw new BuiltValueNullFieldError('GIssuesReq', 'operation');
-    }
+    BuiltValueNullFieldError.checkNotNull(vars, 'GIssuesReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(operation, 'GIssuesReq', 'operation');
+    BuiltValueNullFieldError.checkNotNull(
+        executeOnListen, 'GIssuesReq', 'executeOnListen');
   }
 
   @override
@@ -8011,55 +8250,55 @@ class _$GIssuesReq extends GIssuesReq {
 }
 
 class GIssuesReqBuilder implements Builder<GIssuesReq, GIssuesReqBuilder> {
-  _$GIssuesReq _$v;
+  _$GIssuesReq? _$v;
 
-  _i3.GIssuesVarsBuilder _vars;
+  _i3.GIssuesVarsBuilder? _vars;
   _i3.GIssuesVarsBuilder get vars =>
       _$this._vars ??= new _i3.GIssuesVarsBuilder();
-  set vars(_i3.GIssuesVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GIssuesVarsBuilder? vars) => _$this._vars = vars;
 
-  _i4.Operation _operation;
-  _i4.Operation get operation => _$this._operation;
-  set operation(_i4.Operation operation) => _$this._operation = operation;
+  _i4.Operation? _operation;
+  _i4.Operation? get operation => _$this._operation;
+  set operation(_i4.Operation? operation) => _$this._operation = operation;
 
-  String _requestId;
-  String get requestId => _$this._requestId;
-  set requestId(String requestId) => _$this._requestId = requestId;
+  String? _requestId;
+  String? get requestId => _$this._requestId;
+  set requestId(String? requestId) => _$this._requestId = requestId;
 
-  _i2.GIssuesData Function(_i2.GIssuesData, _i2.GIssuesData) _updateResult;
-  _i2.GIssuesData Function(_i2.GIssuesData, _i2.GIssuesData) get updateResult =>
-      _$this._updateResult;
+  _i2.GIssuesData? Function(_i2.GIssuesData?, _i2.GIssuesData?)? _updateResult;
+  _i2.GIssuesData? Function(_i2.GIssuesData?, _i2.GIssuesData?)?
+      get updateResult => _$this._updateResult;
   set updateResult(
-          _i2.GIssuesData Function(_i2.GIssuesData, _i2.GIssuesData)
+          _i2.GIssuesData? Function(_i2.GIssuesData?, _i2.GIssuesData?)?
               updateResult) =>
       _$this._updateResult = updateResult;
 
-  _i2.GIssuesDataBuilder _optimisticResponse;
+  _i2.GIssuesDataBuilder? _optimisticResponse;
   _i2.GIssuesDataBuilder get optimisticResponse =>
       _$this._optimisticResponse ??= new _i2.GIssuesDataBuilder();
-  set optimisticResponse(_i2.GIssuesDataBuilder optimisticResponse) =>
+  set optimisticResponse(_i2.GIssuesDataBuilder? optimisticResponse) =>
       _$this._optimisticResponse = optimisticResponse;
 
-  String _updateCacheHandlerKey;
-  String get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
-  set updateCacheHandlerKey(String updateCacheHandlerKey) =>
+  String? _updateCacheHandlerKey;
+  String? get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
+  set updateCacheHandlerKey(String? updateCacheHandlerKey) =>
       _$this._updateCacheHandlerKey = updateCacheHandlerKey;
 
-  Map<String, dynamic> _updateCacheHandlerContext;
-  Map<String, dynamic> get updateCacheHandlerContext =>
+  Map<String, dynamic>? _updateCacheHandlerContext;
+  Map<String, dynamic>? get updateCacheHandlerContext =>
       _$this._updateCacheHandlerContext;
   set updateCacheHandlerContext(
-          Map<String, dynamic> updateCacheHandlerContext) =>
+          Map<String, dynamic>? updateCacheHandlerContext) =>
       _$this._updateCacheHandlerContext = updateCacheHandlerContext;
 
-  _i1.FetchPolicy _fetchPolicy;
-  _i1.FetchPolicy get fetchPolicy => _$this._fetchPolicy;
-  set fetchPolicy(_i1.FetchPolicy fetchPolicy) =>
+  _i1.FetchPolicy? _fetchPolicy;
+  _i1.FetchPolicy? get fetchPolicy => _$this._fetchPolicy;
+  set fetchPolicy(_i1.FetchPolicy? fetchPolicy) =>
       _$this._fetchPolicy = fetchPolicy;
 
-  bool _executeOnListen;
-  bool get executeOnListen => _$this._executeOnListen;
-  set executeOnListen(bool executeOnListen) =>
+  bool? _executeOnListen;
+  bool? get executeOnListen => _$this._executeOnListen;
+  set executeOnListen(bool? executeOnListen) =>
       _$this._executeOnListen = executeOnListen;
 
   GIssuesReqBuilder() {
@@ -8067,16 +8306,17 @@ class GIssuesReqBuilder implements Builder<GIssuesReq, GIssuesReqBuilder> {
   }
 
   GIssuesReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _operation = _$v.operation;
-      _requestId = _$v.requestId;
-      _updateResult = _$v.updateResult;
-      _optimisticResponse = _$v.optimisticResponse?.toBuilder();
-      _updateCacheHandlerKey = _$v.updateCacheHandlerKey;
-      _updateCacheHandlerContext = _$v.updateCacheHandlerContext;
-      _fetchPolicy = _$v.fetchPolicy;
-      _executeOnListen = _$v.executeOnListen;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _operation = $v.operation;
+      _requestId = $v.requestId;
+      _updateResult = $v.updateResult;
+      _optimisticResponse = $v.optimisticResponse?.toBuilder();
+      _updateCacheHandlerKey = $v.updateCacheHandlerKey;
+      _updateCacheHandlerContext = $v.updateCacheHandlerContext;
+      _fetchPolicy = $v.fetchPolicy;
+      _executeOnListen = $v.executeOnListen;
       _$v = null;
     }
     return this;
@@ -8084,14 +8324,12 @@ class GIssuesReqBuilder implements Builder<GIssuesReq, GIssuesReqBuilder> {
 
   @override
   void replace(GIssuesReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GIssuesReq;
   }
 
   @override
-  void update(void Function(GIssuesReqBuilder) updates) {
+  void update(void Function(GIssuesReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -8102,16 +8340,18 @@ class GIssuesReqBuilder implements Builder<GIssuesReq, GIssuesReqBuilder> {
       _$result = _$v ??
           new _$GIssuesReq._(
               vars: vars.build(),
-              operation: operation,
+              operation: BuiltValueNullFieldError.checkNotNull(
+                  operation, 'GIssuesReq', 'operation'),
               requestId: requestId,
               updateResult: updateResult,
               optimisticResponse: _optimisticResponse?.build(),
               updateCacheHandlerKey: updateCacheHandlerKey,
               updateCacheHandlerContext: updateCacheHandlerContext,
               fetchPolicy: fetchPolicy,
-              executeOnListen: executeOnListen);
+              executeOnListen: BuiltValueNullFieldError.checkNotNull(
+                  executeOnListen, 'GIssuesReq', 'executeOnListen'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -8135,40 +8375,39 @@ class _$GPullsReq extends GPullsReq {
   @override
   final _i4.Operation operation;
   @override
-  final String requestId;
+  final String? requestId;
   @override
-  final _i2.GPullsData Function(_i2.GPullsData, _i2.GPullsData) updateResult;
+  final _i2.GPullsData? Function(_i2.GPullsData?, _i2.GPullsData?)?
+      updateResult;
   @override
-  final _i2.GPullsData optimisticResponse;
+  final _i2.GPullsData? optimisticResponse;
   @override
-  final String updateCacheHandlerKey;
+  final String? updateCacheHandlerKey;
   @override
-  final Map<String, dynamic> updateCacheHandlerContext;
+  final Map<String, dynamic>? updateCacheHandlerContext;
   @override
-  final _i1.FetchPolicy fetchPolicy;
+  final _i1.FetchPolicy? fetchPolicy;
   @override
   final bool executeOnListen;
 
-  factory _$GPullsReq([void Function(GPullsReqBuilder) updates]) =>
+  factory _$GPullsReq([void Function(GPullsReqBuilder)? updates]) =>
       (new GPullsReqBuilder()..update(updates)).build();
 
   _$GPullsReq._(
-      {this.vars,
-      this.operation,
+      {required this.vars,
+      required this.operation,
       this.requestId,
       this.updateResult,
       this.optimisticResponse,
       this.updateCacheHandlerKey,
       this.updateCacheHandlerContext,
       this.fetchPolicy,
-      this.executeOnListen})
+      required this.executeOnListen})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GPullsReq', 'vars');
-    }
-    if (operation == null) {
-      throw new BuiltValueNullFieldError('GPullsReq', 'operation');
-    }
+    BuiltValueNullFieldError.checkNotNull(vars, 'GPullsReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(operation, 'GPullsReq', 'operation');
+    BuiltValueNullFieldError.checkNotNull(
+        executeOnListen, 'GPullsReq', 'executeOnListen');
   }
 
   @override
@@ -8229,55 +8468,55 @@ class _$GPullsReq extends GPullsReq {
 }
 
 class GPullsReqBuilder implements Builder<GPullsReq, GPullsReqBuilder> {
-  _$GPullsReq _$v;
+  _$GPullsReq? _$v;
 
-  _i3.GPullsVarsBuilder _vars;
+  _i3.GPullsVarsBuilder? _vars;
   _i3.GPullsVarsBuilder get vars =>
       _$this._vars ??= new _i3.GPullsVarsBuilder();
-  set vars(_i3.GPullsVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GPullsVarsBuilder? vars) => _$this._vars = vars;
 
-  _i4.Operation _operation;
-  _i4.Operation get operation => _$this._operation;
-  set operation(_i4.Operation operation) => _$this._operation = operation;
+  _i4.Operation? _operation;
+  _i4.Operation? get operation => _$this._operation;
+  set operation(_i4.Operation? operation) => _$this._operation = operation;
 
-  String _requestId;
-  String get requestId => _$this._requestId;
-  set requestId(String requestId) => _$this._requestId = requestId;
+  String? _requestId;
+  String? get requestId => _$this._requestId;
+  set requestId(String? requestId) => _$this._requestId = requestId;
 
-  _i2.GPullsData Function(_i2.GPullsData, _i2.GPullsData) _updateResult;
-  _i2.GPullsData Function(_i2.GPullsData, _i2.GPullsData) get updateResult =>
-      _$this._updateResult;
+  _i2.GPullsData? Function(_i2.GPullsData?, _i2.GPullsData?)? _updateResult;
+  _i2.GPullsData? Function(_i2.GPullsData?, _i2.GPullsData?)?
+      get updateResult => _$this._updateResult;
   set updateResult(
-          _i2.GPullsData Function(_i2.GPullsData, _i2.GPullsData)
+          _i2.GPullsData? Function(_i2.GPullsData?, _i2.GPullsData?)?
               updateResult) =>
       _$this._updateResult = updateResult;
 
-  _i2.GPullsDataBuilder _optimisticResponse;
+  _i2.GPullsDataBuilder? _optimisticResponse;
   _i2.GPullsDataBuilder get optimisticResponse =>
       _$this._optimisticResponse ??= new _i2.GPullsDataBuilder();
-  set optimisticResponse(_i2.GPullsDataBuilder optimisticResponse) =>
+  set optimisticResponse(_i2.GPullsDataBuilder? optimisticResponse) =>
       _$this._optimisticResponse = optimisticResponse;
 
-  String _updateCacheHandlerKey;
-  String get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
-  set updateCacheHandlerKey(String updateCacheHandlerKey) =>
+  String? _updateCacheHandlerKey;
+  String? get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
+  set updateCacheHandlerKey(String? updateCacheHandlerKey) =>
       _$this._updateCacheHandlerKey = updateCacheHandlerKey;
 
-  Map<String, dynamic> _updateCacheHandlerContext;
-  Map<String, dynamic> get updateCacheHandlerContext =>
+  Map<String, dynamic>? _updateCacheHandlerContext;
+  Map<String, dynamic>? get updateCacheHandlerContext =>
       _$this._updateCacheHandlerContext;
   set updateCacheHandlerContext(
-          Map<String, dynamic> updateCacheHandlerContext) =>
+          Map<String, dynamic>? updateCacheHandlerContext) =>
       _$this._updateCacheHandlerContext = updateCacheHandlerContext;
 
-  _i1.FetchPolicy _fetchPolicy;
-  _i1.FetchPolicy get fetchPolicy => _$this._fetchPolicy;
-  set fetchPolicy(_i1.FetchPolicy fetchPolicy) =>
+  _i1.FetchPolicy? _fetchPolicy;
+  _i1.FetchPolicy? get fetchPolicy => _$this._fetchPolicy;
+  set fetchPolicy(_i1.FetchPolicy? fetchPolicy) =>
       _$this._fetchPolicy = fetchPolicy;
 
-  bool _executeOnListen;
-  bool get executeOnListen => _$this._executeOnListen;
-  set executeOnListen(bool executeOnListen) =>
+  bool? _executeOnListen;
+  bool? get executeOnListen => _$this._executeOnListen;
+  set executeOnListen(bool? executeOnListen) =>
       _$this._executeOnListen = executeOnListen;
 
   GPullsReqBuilder() {
@@ -8285,16 +8524,17 @@ class GPullsReqBuilder implements Builder<GPullsReq, GPullsReqBuilder> {
   }
 
   GPullsReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _operation = _$v.operation;
-      _requestId = _$v.requestId;
-      _updateResult = _$v.updateResult;
-      _optimisticResponse = _$v.optimisticResponse?.toBuilder();
-      _updateCacheHandlerKey = _$v.updateCacheHandlerKey;
-      _updateCacheHandlerContext = _$v.updateCacheHandlerContext;
-      _fetchPolicy = _$v.fetchPolicy;
-      _executeOnListen = _$v.executeOnListen;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _operation = $v.operation;
+      _requestId = $v.requestId;
+      _updateResult = $v.updateResult;
+      _optimisticResponse = $v.optimisticResponse?.toBuilder();
+      _updateCacheHandlerKey = $v.updateCacheHandlerKey;
+      _updateCacheHandlerContext = $v.updateCacheHandlerContext;
+      _fetchPolicy = $v.fetchPolicy;
+      _executeOnListen = $v.executeOnListen;
       _$v = null;
     }
     return this;
@@ -8302,14 +8542,12 @@ class GPullsReqBuilder implements Builder<GPullsReq, GPullsReqBuilder> {
 
   @override
   void replace(GPullsReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GPullsReq;
   }
 
   @override
-  void update(void Function(GPullsReqBuilder) updates) {
+  void update(void Function(GPullsReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -8320,16 +8558,18 @@ class GPullsReqBuilder implements Builder<GPullsReq, GPullsReqBuilder> {
       _$result = _$v ??
           new _$GPullsReq._(
               vars: vars.build(),
-              operation: operation,
+              operation: BuiltValueNullFieldError.checkNotNull(
+                  operation, 'GPullsReq', 'operation'),
               requestId: requestId,
               updateResult: updateResult,
               optimisticResponse: _optimisticResponse?.build(),
               updateCacheHandlerKey: updateCacheHandlerKey,
               updateCacheHandlerContext: updateCacheHandlerContext,
               fetchPolicy: fetchPolicy,
-              executeOnListen: executeOnListen);
+              executeOnListen: BuiltValueNullFieldError.checkNotNull(
+                  executeOnListen, 'GPullsReq', 'executeOnListen'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -8353,40 +8593,39 @@ class _$GIssueReq extends GIssueReq {
   @override
   final _i4.Operation operation;
   @override
-  final String requestId;
+  final String? requestId;
   @override
-  final _i2.GIssueData Function(_i2.GIssueData, _i2.GIssueData) updateResult;
+  final _i2.GIssueData? Function(_i2.GIssueData?, _i2.GIssueData?)?
+      updateResult;
   @override
-  final _i2.GIssueData optimisticResponse;
+  final _i2.GIssueData? optimisticResponse;
   @override
-  final String updateCacheHandlerKey;
+  final String? updateCacheHandlerKey;
   @override
-  final Map<String, dynamic> updateCacheHandlerContext;
+  final Map<String, dynamic>? updateCacheHandlerContext;
   @override
-  final _i1.FetchPolicy fetchPolicy;
+  final _i1.FetchPolicy? fetchPolicy;
   @override
   final bool executeOnListen;
 
-  factory _$GIssueReq([void Function(GIssueReqBuilder) updates]) =>
+  factory _$GIssueReq([void Function(GIssueReqBuilder)? updates]) =>
       (new GIssueReqBuilder()..update(updates)).build();
 
   _$GIssueReq._(
-      {this.vars,
-      this.operation,
+      {required this.vars,
+      required this.operation,
       this.requestId,
       this.updateResult,
       this.optimisticResponse,
       this.updateCacheHandlerKey,
       this.updateCacheHandlerContext,
       this.fetchPolicy,
-      this.executeOnListen})
+      required this.executeOnListen})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GIssueReq', 'vars');
-    }
-    if (operation == null) {
-      throw new BuiltValueNullFieldError('GIssueReq', 'operation');
-    }
+    BuiltValueNullFieldError.checkNotNull(vars, 'GIssueReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(operation, 'GIssueReq', 'operation');
+    BuiltValueNullFieldError.checkNotNull(
+        executeOnListen, 'GIssueReq', 'executeOnListen');
   }
 
   @override
@@ -8447,55 +8686,55 @@ class _$GIssueReq extends GIssueReq {
 }
 
 class GIssueReqBuilder implements Builder<GIssueReq, GIssueReqBuilder> {
-  _$GIssueReq _$v;
+  _$GIssueReq? _$v;
 
-  _i3.GIssueVarsBuilder _vars;
+  _i3.GIssueVarsBuilder? _vars;
   _i3.GIssueVarsBuilder get vars =>
       _$this._vars ??= new _i3.GIssueVarsBuilder();
-  set vars(_i3.GIssueVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GIssueVarsBuilder? vars) => _$this._vars = vars;
 
-  _i4.Operation _operation;
-  _i4.Operation get operation => _$this._operation;
-  set operation(_i4.Operation operation) => _$this._operation = operation;
+  _i4.Operation? _operation;
+  _i4.Operation? get operation => _$this._operation;
+  set operation(_i4.Operation? operation) => _$this._operation = operation;
 
-  String _requestId;
-  String get requestId => _$this._requestId;
-  set requestId(String requestId) => _$this._requestId = requestId;
+  String? _requestId;
+  String? get requestId => _$this._requestId;
+  set requestId(String? requestId) => _$this._requestId = requestId;
 
-  _i2.GIssueData Function(_i2.GIssueData, _i2.GIssueData) _updateResult;
-  _i2.GIssueData Function(_i2.GIssueData, _i2.GIssueData) get updateResult =>
-      _$this._updateResult;
+  _i2.GIssueData? Function(_i2.GIssueData?, _i2.GIssueData?)? _updateResult;
+  _i2.GIssueData? Function(_i2.GIssueData?, _i2.GIssueData?)?
+      get updateResult => _$this._updateResult;
   set updateResult(
-          _i2.GIssueData Function(_i2.GIssueData, _i2.GIssueData)
+          _i2.GIssueData? Function(_i2.GIssueData?, _i2.GIssueData?)?
               updateResult) =>
       _$this._updateResult = updateResult;
 
-  _i2.GIssueDataBuilder _optimisticResponse;
+  _i2.GIssueDataBuilder? _optimisticResponse;
   _i2.GIssueDataBuilder get optimisticResponse =>
       _$this._optimisticResponse ??= new _i2.GIssueDataBuilder();
-  set optimisticResponse(_i2.GIssueDataBuilder optimisticResponse) =>
+  set optimisticResponse(_i2.GIssueDataBuilder? optimisticResponse) =>
       _$this._optimisticResponse = optimisticResponse;
 
-  String _updateCacheHandlerKey;
-  String get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
-  set updateCacheHandlerKey(String updateCacheHandlerKey) =>
+  String? _updateCacheHandlerKey;
+  String? get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
+  set updateCacheHandlerKey(String? updateCacheHandlerKey) =>
       _$this._updateCacheHandlerKey = updateCacheHandlerKey;
 
-  Map<String, dynamic> _updateCacheHandlerContext;
-  Map<String, dynamic> get updateCacheHandlerContext =>
+  Map<String, dynamic>? _updateCacheHandlerContext;
+  Map<String, dynamic>? get updateCacheHandlerContext =>
       _$this._updateCacheHandlerContext;
   set updateCacheHandlerContext(
-          Map<String, dynamic> updateCacheHandlerContext) =>
+          Map<String, dynamic>? updateCacheHandlerContext) =>
       _$this._updateCacheHandlerContext = updateCacheHandlerContext;
 
-  _i1.FetchPolicy _fetchPolicy;
-  _i1.FetchPolicy get fetchPolicy => _$this._fetchPolicy;
-  set fetchPolicy(_i1.FetchPolicy fetchPolicy) =>
+  _i1.FetchPolicy? _fetchPolicy;
+  _i1.FetchPolicy? get fetchPolicy => _$this._fetchPolicy;
+  set fetchPolicy(_i1.FetchPolicy? fetchPolicy) =>
       _$this._fetchPolicy = fetchPolicy;
 
-  bool _executeOnListen;
-  bool get executeOnListen => _$this._executeOnListen;
-  set executeOnListen(bool executeOnListen) =>
+  bool? _executeOnListen;
+  bool? get executeOnListen => _$this._executeOnListen;
+  set executeOnListen(bool? executeOnListen) =>
       _$this._executeOnListen = executeOnListen;
 
   GIssueReqBuilder() {
@@ -8503,16 +8742,17 @@ class GIssueReqBuilder implements Builder<GIssueReq, GIssueReqBuilder> {
   }
 
   GIssueReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _operation = _$v.operation;
-      _requestId = _$v.requestId;
-      _updateResult = _$v.updateResult;
-      _optimisticResponse = _$v.optimisticResponse?.toBuilder();
-      _updateCacheHandlerKey = _$v.updateCacheHandlerKey;
-      _updateCacheHandlerContext = _$v.updateCacheHandlerContext;
-      _fetchPolicy = _$v.fetchPolicy;
-      _executeOnListen = _$v.executeOnListen;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _operation = $v.operation;
+      _requestId = $v.requestId;
+      _updateResult = $v.updateResult;
+      _optimisticResponse = $v.optimisticResponse?.toBuilder();
+      _updateCacheHandlerKey = $v.updateCacheHandlerKey;
+      _updateCacheHandlerContext = $v.updateCacheHandlerContext;
+      _fetchPolicy = $v.fetchPolicy;
+      _executeOnListen = $v.executeOnListen;
       _$v = null;
     }
     return this;
@@ -8520,14 +8760,12 @@ class GIssueReqBuilder implements Builder<GIssueReq, GIssueReqBuilder> {
 
   @override
   void replace(GIssueReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GIssueReq;
   }
 
   @override
-  void update(void Function(GIssueReqBuilder) updates) {
+  void update(void Function(GIssueReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -8538,16 +8776,18 @@ class GIssueReqBuilder implements Builder<GIssueReq, GIssueReqBuilder> {
       _$result = _$v ??
           new _$GIssueReq._(
               vars: vars.build(),
-              operation: operation,
+              operation: BuiltValueNullFieldError.checkNotNull(
+                  operation, 'GIssueReq', 'operation'),
               requestId: requestId,
               updateResult: updateResult,
               optimisticResponse: _optimisticResponse?.build(),
               updateCacheHandlerKey: updateCacheHandlerKey,
               updateCacheHandlerContext: updateCacheHandlerContext,
               fetchPolicy: fetchPolicy,
-              executeOnListen: executeOnListen);
+              executeOnListen: BuiltValueNullFieldError.checkNotNull(
+                  executeOnListen, 'GIssueReq', 'executeOnListen'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -8571,41 +8811,40 @@ class _$GReleasesReq extends GReleasesReq {
   @override
   final _i4.Operation operation;
   @override
-  final String requestId;
+  final String? requestId;
   @override
-  final _i2.GReleasesData Function(_i2.GReleasesData, _i2.GReleasesData)
+  final _i2.GReleasesData? Function(_i2.GReleasesData?, _i2.GReleasesData?)?
       updateResult;
   @override
-  final _i2.GReleasesData optimisticResponse;
+  final _i2.GReleasesData? optimisticResponse;
   @override
-  final String updateCacheHandlerKey;
+  final String? updateCacheHandlerKey;
   @override
-  final Map<String, dynamic> updateCacheHandlerContext;
+  final Map<String, dynamic>? updateCacheHandlerContext;
   @override
-  final _i1.FetchPolicy fetchPolicy;
+  final _i1.FetchPolicy? fetchPolicy;
   @override
   final bool executeOnListen;
 
-  factory _$GReleasesReq([void Function(GReleasesReqBuilder) updates]) =>
+  factory _$GReleasesReq([void Function(GReleasesReqBuilder)? updates]) =>
       (new GReleasesReqBuilder()..update(updates)).build();
 
   _$GReleasesReq._(
-      {this.vars,
-      this.operation,
+      {required this.vars,
+      required this.operation,
       this.requestId,
       this.updateResult,
       this.optimisticResponse,
       this.updateCacheHandlerKey,
       this.updateCacheHandlerContext,
       this.fetchPolicy,
-      this.executeOnListen})
+      required this.executeOnListen})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GReleasesReq', 'vars');
-    }
-    if (operation == null) {
-      throw new BuiltValueNullFieldError('GReleasesReq', 'operation');
-    }
+    BuiltValueNullFieldError.checkNotNull(vars, 'GReleasesReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        operation, 'GReleasesReq', 'operation');
+    BuiltValueNullFieldError.checkNotNull(
+        executeOnListen, 'GReleasesReq', 'executeOnListen');
   }
 
   @override
@@ -8667,56 +8906,56 @@ class _$GReleasesReq extends GReleasesReq {
 
 class GReleasesReqBuilder
     implements Builder<GReleasesReq, GReleasesReqBuilder> {
-  _$GReleasesReq _$v;
+  _$GReleasesReq? _$v;
 
-  _i3.GReleasesVarsBuilder _vars;
+  _i3.GReleasesVarsBuilder? _vars;
   _i3.GReleasesVarsBuilder get vars =>
       _$this._vars ??= new _i3.GReleasesVarsBuilder();
-  set vars(_i3.GReleasesVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GReleasesVarsBuilder? vars) => _$this._vars = vars;
 
-  _i4.Operation _operation;
-  _i4.Operation get operation => _$this._operation;
-  set operation(_i4.Operation operation) => _$this._operation = operation;
+  _i4.Operation? _operation;
+  _i4.Operation? get operation => _$this._operation;
+  set operation(_i4.Operation? operation) => _$this._operation = operation;
 
-  String _requestId;
-  String get requestId => _$this._requestId;
-  set requestId(String requestId) => _$this._requestId = requestId;
+  String? _requestId;
+  String? get requestId => _$this._requestId;
+  set requestId(String? requestId) => _$this._requestId = requestId;
 
-  _i2.GReleasesData Function(_i2.GReleasesData, _i2.GReleasesData)
+  _i2.GReleasesData? Function(_i2.GReleasesData?, _i2.GReleasesData?)?
       _updateResult;
-  _i2.GReleasesData Function(_i2.GReleasesData, _i2.GReleasesData)
+  _i2.GReleasesData? Function(_i2.GReleasesData?, _i2.GReleasesData?)?
       get updateResult => _$this._updateResult;
   set updateResult(
-          _i2.GReleasesData Function(_i2.GReleasesData, _i2.GReleasesData)
+          _i2.GReleasesData? Function(_i2.GReleasesData?, _i2.GReleasesData?)?
               updateResult) =>
       _$this._updateResult = updateResult;
 
-  _i2.GReleasesDataBuilder _optimisticResponse;
+  _i2.GReleasesDataBuilder? _optimisticResponse;
   _i2.GReleasesDataBuilder get optimisticResponse =>
       _$this._optimisticResponse ??= new _i2.GReleasesDataBuilder();
-  set optimisticResponse(_i2.GReleasesDataBuilder optimisticResponse) =>
+  set optimisticResponse(_i2.GReleasesDataBuilder? optimisticResponse) =>
       _$this._optimisticResponse = optimisticResponse;
 
-  String _updateCacheHandlerKey;
-  String get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
-  set updateCacheHandlerKey(String updateCacheHandlerKey) =>
+  String? _updateCacheHandlerKey;
+  String? get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
+  set updateCacheHandlerKey(String? updateCacheHandlerKey) =>
       _$this._updateCacheHandlerKey = updateCacheHandlerKey;
 
-  Map<String, dynamic> _updateCacheHandlerContext;
-  Map<String, dynamic> get updateCacheHandlerContext =>
+  Map<String, dynamic>? _updateCacheHandlerContext;
+  Map<String, dynamic>? get updateCacheHandlerContext =>
       _$this._updateCacheHandlerContext;
   set updateCacheHandlerContext(
-          Map<String, dynamic> updateCacheHandlerContext) =>
+          Map<String, dynamic>? updateCacheHandlerContext) =>
       _$this._updateCacheHandlerContext = updateCacheHandlerContext;
 
-  _i1.FetchPolicy _fetchPolicy;
-  _i1.FetchPolicy get fetchPolicy => _$this._fetchPolicy;
-  set fetchPolicy(_i1.FetchPolicy fetchPolicy) =>
+  _i1.FetchPolicy? _fetchPolicy;
+  _i1.FetchPolicy? get fetchPolicy => _$this._fetchPolicy;
+  set fetchPolicy(_i1.FetchPolicy? fetchPolicy) =>
       _$this._fetchPolicy = fetchPolicy;
 
-  bool _executeOnListen;
-  bool get executeOnListen => _$this._executeOnListen;
-  set executeOnListen(bool executeOnListen) =>
+  bool? _executeOnListen;
+  bool? get executeOnListen => _$this._executeOnListen;
+  set executeOnListen(bool? executeOnListen) =>
       _$this._executeOnListen = executeOnListen;
 
   GReleasesReqBuilder() {
@@ -8724,16 +8963,17 @@ class GReleasesReqBuilder
   }
 
   GReleasesReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _operation = _$v.operation;
-      _requestId = _$v.requestId;
-      _updateResult = _$v.updateResult;
-      _optimisticResponse = _$v.optimisticResponse?.toBuilder();
-      _updateCacheHandlerKey = _$v.updateCacheHandlerKey;
-      _updateCacheHandlerContext = _$v.updateCacheHandlerContext;
-      _fetchPolicy = _$v.fetchPolicy;
-      _executeOnListen = _$v.executeOnListen;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _operation = $v.operation;
+      _requestId = $v.requestId;
+      _updateResult = $v.updateResult;
+      _optimisticResponse = $v.optimisticResponse?.toBuilder();
+      _updateCacheHandlerKey = $v.updateCacheHandlerKey;
+      _updateCacheHandlerContext = $v.updateCacheHandlerContext;
+      _fetchPolicy = $v.fetchPolicy;
+      _executeOnListen = $v.executeOnListen;
       _$v = null;
     }
     return this;
@@ -8741,14 +8981,12 @@ class GReleasesReqBuilder
 
   @override
   void replace(GReleasesReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GReleasesReq;
   }
 
   @override
-  void update(void Function(GReleasesReqBuilder) updates) {
+  void update(void Function(GReleasesReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -8759,16 +8997,18 @@ class GReleasesReqBuilder
       _$result = _$v ??
           new _$GReleasesReq._(
               vars: vars.build(),
-              operation: operation,
+              operation: BuiltValueNullFieldError.checkNotNull(
+                  operation, 'GReleasesReq', 'operation'),
               requestId: requestId,
               updateResult: updateResult,
               optimisticResponse: _optimisticResponse?.build(),
               updateCacheHandlerKey: updateCacheHandlerKey,
               updateCacheHandlerContext: updateCacheHandlerContext,
               fetchPolicy: fetchPolicy,
-              executeOnListen: executeOnListen);
+              executeOnListen: BuiltValueNullFieldError.checkNotNull(
+                  executeOnListen, 'GReleasesReq', 'executeOnListen'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -8792,29 +9032,25 @@ class _$GPageInfoPartsReq extends GPageInfoPartsReq {
   @override
   final _i7.DocumentNode document;
   @override
-  final String fragmentName;
+  final String? fragmentName;
   @override
   final Map<String, dynamic> idFields;
 
   factory _$GPageInfoPartsReq(
-          [void Function(GPageInfoPartsReqBuilder) updates]) =>
+          [void Function(GPageInfoPartsReqBuilder)? updates]) =>
       (new GPageInfoPartsReqBuilder()..update(updates)).build();
 
   _$GPageInfoPartsReq._(
-      {this.vars, this.document, this.fragmentName, this.idFields})
+      {required this.vars,
+      required this.document,
+      this.fragmentName,
+      required this.idFields})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GPageInfoPartsReq', 'vars');
-    }
-    if (document == null) {
-      throw new BuiltValueNullFieldError('GPageInfoPartsReq', 'document');
-    }
-    if (fragmentName == null) {
-      throw new BuiltValueNullFieldError('GPageInfoPartsReq', 'fragmentName');
-    }
-    if (idFields == null) {
-      throw new BuiltValueNullFieldError('GPageInfoPartsReq', 'idFields');
-    }
+    BuiltValueNullFieldError.checkNotNull(vars, 'GPageInfoPartsReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        document, 'GPageInfoPartsReq', 'document');
+    BuiltValueNullFieldError.checkNotNull(
+        idFields, 'GPageInfoPartsReq', 'idFields');
   }
 
   @override
@@ -8856,35 +9092,36 @@ class _$GPageInfoPartsReq extends GPageInfoPartsReq {
 
 class GPageInfoPartsReqBuilder
     implements Builder<GPageInfoPartsReq, GPageInfoPartsReqBuilder> {
-  _$GPageInfoPartsReq _$v;
+  _$GPageInfoPartsReq? _$v;
 
-  _i3.GPageInfoPartsVarsBuilder _vars;
+  _i3.GPageInfoPartsVarsBuilder? _vars;
   _i3.GPageInfoPartsVarsBuilder get vars =>
       _$this._vars ??= new _i3.GPageInfoPartsVarsBuilder();
-  set vars(_i3.GPageInfoPartsVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GPageInfoPartsVarsBuilder? vars) => _$this._vars = vars;
 
-  _i7.DocumentNode _document;
-  _i7.DocumentNode get document => _$this._document;
-  set document(_i7.DocumentNode document) => _$this._document = document;
+  _i7.DocumentNode? _document;
+  _i7.DocumentNode? get document => _$this._document;
+  set document(_i7.DocumentNode? document) => _$this._document = document;
 
-  String _fragmentName;
-  String get fragmentName => _$this._fragmentName;
-  set fragmentName(String fragmentName) => _$this._fragmentName = fragmentName;
+  String? _fragmentName;
+  String? get fragmentName => _$this._fragmentName;
+  set fragmentName(String? fragmentName) => _$this._fragmentName = fragmentName;
 
-  Map<String, dynamic> _idFields;
-  Map<String, dynamic> get idFields => _$this._idFields;
-  set idFields(Map<String, dynamic> idFields) => _$this._idFields = idFields;
+  Map<String, dynamic>? _idFields;
+  Map<String, dynamic>? get idFields => _$this._idFields;
+  set idFields(Map<String, dynamic>? idFields) => _$this._idFields = idFields;
 
   GPageInfoPartsReqBuilder() {
     GPageInfoPartsReq._initializeBuilder(this);
   }
 
   GPageInfoPartsReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _document = _$v.document;
-      _fragmentName = _$v.fragmentName;
-      _idFields = _$v.idFields;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _document = $v.document;
+      _fragmentName = $v.fragmentName;
+      _idFields = $v.idFields;
       _$v = null;
     }
     return this;
@@ -8892,14 +9129,12 @@ class GPageInfoPartsReqBuilder
 
   @override
   void replace(GPageInfoPartsReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GPageInfoPartsReq;
   }
 
   @override
-  void update(void Function(GPageInfoPartsReqBuilder) updates) {
+  void update(void Function(GPageInfoPartsReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -8910,11 +9145,13 @@ class GPageInfoPartsReqBuilder
       _$result = _$v ??
           new _$GPageInfoPartsReq._(
               vars: vars.build(),
-              document: document,
+              document: BuiltValueNullFieldError.checkNotNull(
+                  document, 'GPageInfoPartsReq', 'document'),
               fragmentName: fragmentName,
-              idFields: idFields);
+              idFields: BuiltValueNullFieldError.checkNotNull(
+                  idFields, 'GPageInfoPartsReq', 'idFields'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -8935,27 +9172,22 @@ class _$GRepoItemReq extends GRepoItemReq {
   @override
   final _i7.DocumentNode document;
   @override
-  final String fragmentName;
+  final String? fragmentName;
   @override
   final Map<String, dynamic> idFields;
 
-  factory _$GRepoItemReq([void Function(GRepoItemReqBuilder) updates]) =>
+  factory _$GRepoItemReq([void Function(GRepoItemReqBuilder)? updates]) =>
       (new GRepoItemReqBuilder()..update(updates)).build();
 
-  _$GRepoItemReq._({this.vars, this.document, this.fragmentName, this.idFields})
+  _$GRepoItemReq._(
+      {required this.vars,
+      required this.document,
+      this.fragmentName,
+      required this.idFields})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GRepoItemReq', 'vars');
-    }
-    if (document == null) {
-      throw new BuiltValueNullFieldError('GRepoItemReq', 'document');
-    }
-    if (fragmentName == null) {
-      throw new BuiltValueNullFieldError('GRepoItemReq', 'fragmentName');
-    }
-    if (idFields == null) {
-      throw new BuiltValueNullFieldError('GRepoItemReq', 'idFields');
-    }
+    BuiltValueNullFieldError.checkNotNull(vars, 'GRepoItemReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(document, 'GRepoItemReq', 'document');
+    BuiltValueNullFieldError.checkNotNull(idFields, 'GRepoItemReq', 'idFields');
   }
 
   @override
@@ -8996,35 +9228,36 @@ class _$GRepoItemReq extends GRepoItemReq {
 
 class GRepoItemReqBuilder
     implements Builder<GRepoItemReq, GRepoItemReqBuilder> {
-  _$GRepoItemReq _$v;
+  _$GRepoItemReq? _$v;
 
-  _i3.GRepoItemVarsBuilder _vars;
+  _i3.GRepoItemVarsBuilder? _vars;
   _i3.GRepoItemVarsBuilder get vars =>
       _$this._vars ??= new _i3.GRepoItemVarsBuilder();
-  set vars(_i3.GRepoItemVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GRepoItemVarsBuilder? vars) => _$this._vars = vars;
 
-  _i7.DocumentNode _document;
-  _i7.DocumentNode get document => _$this._document;
-  set document(_i7.DocumentNode document) => _$this._document = document;
+  _i7.DocumentNode? _document;
+  _i7.DocumentNode? get document => _$this._document;
+  set document(_i7.DocumentNode? document) => _$this._document = document;
 
-  String _fragmentName;
-  String get fragmentName => _$this._fragmentName;
-  set fragmentName(String fragmentName) => _$this._fragmentName = fragmentName;
+  String? _fragmentName;
+  String? get fragmentName => _$this._fragmentName;
+  set fragmentName(String? fragmentName) => _$this._fragmentName = fragmentName;
 
-  Map<String, dynamic> _idFields;
-  Map<String, dynamic> get idFields => _$this._idFields;
-  set idFields(Map<String, dynamic> idFields) => _$this._idFields = idFields;
+  Map<String, dynamic>? _idFields;
+  Map<String, dynamic>? get idFields => _$this._idFields;
+  set idFields(Map<String, dynamic>? idFields) => _$this._idFields = idFields;
 
   GRepoItemReqBuilder() {
     GRepoItemReq._initializeBuilder(this);
   }
 
   GRepoItemReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _document = _$v.document;
-      _fragmentName = _$v.fragmentName;
-      _idFields = _$v.idFields;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _document = $v.document;
+      _fragmentName = $v.fragmentName;
+      _idFields = $v.idFields;
       _$v = null;
     }
     return this;
@@ -9032,14 +9265,12 @@ class GRepoItemReqBuilder
 
   @override
   void replace(GRepoItemReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GRepoItemReq;
   }
 
   @override
-  void update(void Function(GRepoItemReqBuilder) updates) {
+  void update(void Function(GRepoItemReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -9050,11 +9281,13 @@ class GRepoItemReqBuilder
       _$result = _$v ??
           new _$GRepoItemReq._(
               vars: vars.build(),
-              document: document,
+              document: BuiltValueNullFieldError.checkNotNull(
+                  document, 'GRepoItemReq', 'document'),
               fragmentName: fragmentName,
-              idFields: idFields);
+              idFields: BuiltValueNullFieldError.checkNotNull(
+                  idFields, 'GRepoItemReq', 'idFields'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -9075,27 +9308,22 @@ class _$GUserItemReq extends GUserItemReq {
   @override
   final _i7.DocumentNode document;
   @override
-  final String fragmentName;
+  final String? fragmentName;
   @override
   final Map<String, dynamic> idFields;
 
-  factory _$GUserItemReq([void Function(GUserItemReqBuilder) updates]) =>
+  factory _$GUserItemReq([void Function(GUserItemReqBuilder)? updates]) =>
       (new GUserItemReqBuilder()..update(updates)).build();
 
-  _$GUserItemReq._({this.vars, this.document, this.fragmentName, this.idFields})
+  _$GUserItemReq._(
+      {required this.vars,
+      required this.document,
+      this.fragmentName,
+      required this.idFields})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GUserItemReq', 'vars');
-    }
-    if (document == null) {
-      throw new BuiltValueNullFieldError('GUserItemReq', 'document');
-    }
-    if (fragmentName == null) {
-      throw new BuiltValueNullFieldError('GUserItemReq', 'fragmentName');
-    }
-    if (idFields == null) {
-      throw new BuiltValueNullFieldError('GUserItemReq', 'idFields');
-    }
+    BuiltValueNullFieldError.checkNotNull(vars, 'GUserItemReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(document, 'GUserItemReq', 'document');
+    BuiltValueNullFieldError.checkNotNull(idFields, 'GUserItemReq', 'idFields');
   }
 
   @override
@@ -9136,35 +9364,36 @@ class _$GUserItemReq extends GUserItemReq {
 
 class GUserItemReqBuilder
     implements Builder<GUserItemReq, GUserItemReqBuilder> {
-  _$GUserItemReq _$v;
+  _$GUserItemReq? _$v;
 
-  _i3.GUserItemVarsBuilder _vars;
+  _i3.GUserItemVarsBuilder? _vars;
   _i3.GUserItemVarsBuilder get vars =>
       _$this._vars ??= new _i3.GUserItemVarsBuilder();
-  set vars(_i3.GUserItemVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GUserItemVarsBuilder? vars) => _$this._vars = vars;
 
-  _i7.DocumentNode _document;
-  _i7.DocumentNode get document => _$this._document;
-  set document(_i7.DocumentNode document) => _$this._document = document;
+  _i7.DocumentNode? _document;
+  _i7.DocumentNode? get document => _$this._document;
+  set document(_i7.DocumentNode? document) => _$this._document = document;
 
-  String _fragmentName;
-  String get fragmentName => _$this._fragmentName;
-  set fragmentName(String fragmentName) => _$this._fragmentName = fragmentName;
+  String? _fragmentName;
+  String? get fragmentName => _$this._fragmentName;
+  set fragmentName(String? fragmentName) => _$this._fragmentName = fragmentName;
 
-  Map<String, dynamic> _idFields;
-  Map<String, dynamic> get idFields => _$this._idFields;
-  set idFields(Map<String, dynamic> idFields) => _$this._idFields = idFields;
+  Map<String, dynamic>? _idFields;
+  Map<String, dynamic>? get idFields => _$this._idFields;
+  set idFields(Map<String, dynamic>? idFields) => _$this._idFields = idFields;
 
   GUserItemReqBuilder() {
     GUserItemReq._initializeBuilder(this);
   }
 
   GUserItemReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _document = _$v.document;
-      _fragmentName = _$v.fragmentName;
-      _idFields = _$v.idFields;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _document = $v.document;
+      _fragmentName = $v.fragmentName;
+      _idFields = $v.idFields;
       _$v = null;
     }
     return this;
@@ -9172,14 +9401,12 @@ class GUserItemReqBuilder
 
   @override
   void replace(GUserItemReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GUserItemReq;
   }
 
   @override
-  void update(void Function(GUserItemReqBuilder) updates) {
+  void update(void Function(GUserItemReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -9190,11 +9417,13 @@ class GUserItemReqBuilder
       _$result = _$v ??
           new _$GUserItemReq._(
               vars: vars.build(),
-              document: document,
+              document: BuiltValueNullFieldError.checkNotNull(
+                  document, 'GUserItemReq', 'document'),
               fragmentName: fragmentName,
-              idFields: idFields);
+              idFields: BuiltValueNullFieldError.checkNotNull(
+                  idFields, 'GUserItemReq', 'idFields'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -9215,29 +9444,25 @@ class _$GReposRepoItemReq extends GReposRepoItemReq {
   @override
   final _i7.DocumentNode document;
   @override
-  final String fragmentName;
+  final String? fragmentName;
   @override
   final Map<String, dynamic> idFields;
 
   factory _$GReposRepoItemReq(
-          [void Function(GReposRepoItemReqBuilder) updates]) =>
+          [void Function(GReposRepoItemReqBuilder)? updates]) =>
       (new GReposRepoItemReqBuilder()..update(updates)).build();
 
   _$GReposRepoItemReq._(
-      {this.vars, this.document, this.fragmentName, this.idFields})
+      {required this.vars,
+      required this.document,
+      this.fragmentName,
+      required this.idFields})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GReposRepoItemReq', 'vars');
-    }
-    if (document == null) {
-      throw new BuiltValueNullFieldError('GReposRepoItemReq', 'document');
-    }
-    if (fragmentName == null) {
-      throw new BuiltValueNullFieldError('GReposRepoItemReq', 'fragmentName');
-    }
-    if (idFields == null) {
-      throw new BuiltValueNullFieldError('GReposRepoItemReq', 'idFields');
-    }
+    BuiltValueNullFieldError.checkNotNull(vars, 'GReposRepoItemReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        document, 'GReposRepoItemReq', 'document');
+    BuiltValueNullFieldError.checkNotNull(
+        idFields, 'GReposRepoItemReq', 'idFields');
   }
 
   @override
@@ -9279,35 +9504,36 @@ class _$GReposRepoItemReq extends GReposRepoItemReq {
 
 class GReposRepoItemReqBuilder
     implements Builder<GReposRepoItemReq, GReposRepoItemReqBuilder> {
-  _$GReposRepoItemReq _$v;
+  _$GReposRepoItemReq? _$v;
 
-  _i3.GReposRepoItemVarsBuilder _vars;
+  _i3.GReposRepoItemVarsBuilder? _vars;
   _i3.GReposRepoItemVarsBuilder get vars =>
       _$this._vars ??= new _i3.GReposRepoItemVarsBuilder();
-  set vars(_i3.GReposRepoItemVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GReposRepoItemVarsBuilder? vars) => _$this._vars = vars;
 
-  _i7.DocumentNode _document;
-  _i7.DocumentNode get document => _$this._document;
-  set document(_i7.DocumentNode document) => _$this._document = document;
+  _i7.DocumentNode? _document;
+  _i7.DocumentNode? get document => _$this._document;
+  set document(_i7.DocumentNode? document) => _$this._document = document;
 
-  String _fragmentName;
-  String get fragmentName => _$this._fragmentName;
-  set fragmentName(String fragmentName) => _$this._fragmentName = fragmentName;
+  String? _fragmentName;
+  String? get fragmentName => _$this._fragmentName;
+  set fragmentName(String? fragmentName) => _$this._fragmentName = fragmentName;
 
-  Map<String, dynamic> _idFields;
-  Map<String, dynamic> get idFields => _$this._idFields;
-  set idFields(Map<String, dynamic> idFields) => _$this._idFields = idFields;
+  Map<String, dynamic>? _idFields;
+  Map<String, dynamic>? get idFields => _$this._idFields;
+  set idFields(Map<String, dynamic>? idFields) => _$this._idFields = idFields;
 
   GReposRepoItemReqBuilder() {
     GReposRepoItemReq._initializeBuilder(this);
   }
 
   GReposRepoItemReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _document = _$v.document;
-      _fragmentName = _$v.fragmentName;
-      _idFields = _$v.idFields;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _document = $v.document;
+      _fragmentName = $v.fragmentName;
+      _idFields = $v.idFields;
       _$v = null;
     }
     return this;
@@ -9315,14 +9541,12 @@ class GReposRepoItemReqBuilder
 
   @override
   void replace(GReposRepoItemReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GReposRepoItemReq;
   }
 
   @override
-  void update(void Function(GReposRepoItemReqBuilder) updates) {
+  void update(void Function(GReposRepoItemReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -9333,11 +9557,13 @@ class GReposRepoItemReqBuilder
       _$result = _$v ??
           new _$GReposRepoItemReq._(
               vars: vars.build(),
-              document: document,
+              document: BuiltValueNullFieldError.checkNotNull(
+                  document, 'GReposRepoItemReq', 'document'),
               fragmentName: fragmentName,
-              idFields: idFields);
+              idFields: BuiltValueNullFieldError.checkNotNull(
+                  idFields, 'GReposRepoItemReq', 'idFields'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -9358,28 +9584,24 @@ class _$GUserPartsReq extends GUserPartsReq {
   @override
   final _i7.DocumentNode document;
   @override
-  final String fragmentName;
+  final String? fragmentName;
   @override
   final Map<String, dynamic> idFields;
 
-  factory _$GUserPartsReq([void Function(GUserPartsReqBuilder) updates]) =>
+  factory _$GUserPartsReq([void Function(GUserPartsReqBuilder)? updates]) =>
       (new GUserPartsReqBuilder()..update(updates)).build();
 
   _$GUserPartsReq._(
-      {this.vars, this.document, this.fragmentName, this.idFields})
+      {required this.vars,
+      required this.document,
+      this.fragmentName,
+      required this.idFields})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GUserPartsReq', 'vars');
-    }
-    if (document == null) {
-      throw new BuiltValueNullFieldError('GUserPartsReq', 'document');
-    }
-    if (fragmentName == null) {
-      throw new BuiltValueNullFieldError('GUserPartsReq', 'fragmentName');
-    }
-    if (idFields == null) {
-      throw new BuiltValueNullFieldError('GUserPartsReq', 'idFields');
-    }
+    BuiltValueNullFieldError.checkNotNull(vars, 'GUserPartsReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        document, 'GUserPartsReq', 'document');
+    BuiltValueNullFieldError.checkNotNull(
+        idFields, 'GUserPartsReq', 'idFields');
   }
 
   @override
@@ -9420,35 +9642,36 @@ class _$GUserPartsReq extends GUserPartsReq {
 
 class GUserPartsReqBuilder
     implements Builder<GUserPartsReq, GUserPartsReqBuilder> {
-  _$GUserPartsReq _$v;
+  _$GUserPartsReq? _$v;
 
-  _i3.GUserPartsVarsBuilder _vars;
+  _i3.GUserPartsVarsBuilder? _vars;
   _i3.GUserPartsVarsBuilder get vars =>
       _$this._vars ??= new _i3.GUserPartsVarsBuilder();
-  set vars(_i3.GUserPartsVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GUserPartsVarsBuilder? vars) => _$this._vars = vars;
 
-  _i7.DocumentNode _document;
-  _i7.DocumentNode get document => _$this._document;
-  set document(_i7.DocumentNode document) => _$this._document = document;
+  _i7.DocumentNode? _document;
+  _i7.DocumentNode? get document => _$this._document;
+  set document(_i7.DocumentNode? document) => _$this._document = document;
 
-  String _fragmentName;
-  String get fragmentName => _$this._fragmentName;
-  set fragmentName(String fragmentName) => _$this._fragmentName = fragmentName;
+  String? _fragmentName;
+  String? get fragmentName => _$this._fragmentName;
+  set fragmentName(String? fragmentName) => _$this._fragmentName = fragmentName;
 
-  Map<String, dynamic> _idFields;
-  Map<String, dynamic> get idFields => _$this._idFields;
-  set idFields(Map<String, dynamic> idFields) => _$this._idFields = idFields;
+  Map<String, dynamic>? _idFields;
+  Map<String, dynamic>? get idFields => _$this._idFields;
+  set idFields(Map<String, dynamic>? idFields) => _$this._idFields = idFields;
 
   GUserPartsReqBuilder() {
     GUserPartsReq._initializeBuilder(this);
   }
 
   GUserPartsReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _document = _$v.document;
-      _fragmentName = _$v.fragmentName;
-      _idFields = _$v.idFields;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _document = $v.document;
+      _fragmentName = $v.fragmentName;
+      _idFields = $v.idFields;
       _$v = null;
     }
     return this;
@@ -9456,14 +9679,12 @@ class GUserPartsReqBuilder
 
   @override
   void replace(GUserPartsReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GUserPartsReq;
   }
 
   @override
-  void update(void Function(GUserPartsReqBuilder) updates) {
+  void update(void Function(GUserPartsReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -9474,11 +9695,13 @@ class GUserPartsReqBuilder
       _$result = _$v ??
           new _$GUserPartsReq._(
               vars: vars.build(),
-              document: document,
+              document: BuiltValueNullFieldError.checkNotNull(
+                  document, 'GUserPartsReq', 'document'),
               fragmentName: fragmentName,
-              idFields: idFields);
+              idFields: BuiltValueNullFieldError.checkNotNull(
+                  idFields, 'GUserPartsReq', 'idFields'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -9499,28 +9722,24 @@ class _$GRepoCommitReq extends GRepoCommitReq {
   @override
   final _i7.DocumentNode document;
   @override
-  final String fragmentName;
+  final String? fragmentName;
   @override
   final Map<String, dynamic> idFields;
 
-  factory _$GRepoCommitReq([void Function(GRepoCommitReqBuilder) updates]) =>
+  factory _$GRepoCommitReq([void Function(GRepoCommitReqBuilder)? updates]) =>
       (new GRepoCommitReqBuilder()..update(updates)).build();
 
   _$GRepoCommitReq._(
-      {this.vars, this.document, this.fragmentName, this.idFields})
+      {required this.vars,
+      required this.document,
+      this.fragmentName,
+      required this.idFields})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GRepoCommitReq', 'vars');
-    }
-    if (document == null) {
-      throw new BuiltValueNullFieldError('GRepoCommitReq', 'document');
-    }
-    if (fragmentName == null) {
-      throw new BuiltValueNullFieldError('GRepoCommitReq', 'fragmentName');
-    }
-    if (idFields == null) {
-      throw new BuiltValueNullFieldError('GRepoCommitReq', 'idFields');
-    }
+    BuiltValueNullFieldError.checkNotNull(vars, 'GRepoCommitReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        document, 'GRepoCommitReq', 'document');
+    BuiltValueNullFieldError.checkNotNull(
+        idFields, 'GRepoCommitReq', 'idFields');
   }
 
   @override
@@ -9562,35 +9781,36 @@ class _$GRepoCommitReq extends GRepoCommitReq {
 
 class GRepoCommitReqBuilder
     implements Builder<GRepoCommitReq, GRepoCommitReqBuilder> {
-  _$GRepoCommitReq _$v;
+  _$GRepoCommitReq? _$v;
 
-  _i3.GRepoCommitVarsBuilder _vars;
+  _i3.GRepoCommitVarsBuilder? _vars;
   _i3.GRepoCommitVarsBuilder get vars =>
       _$this._vars ??= new _i3.GRepoCommitVarsBuilder();
-  set vars(_i3.GRepoCommitVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GRepoCommitVarsBuilder? vars) => _$this._vars = vars;
 
-  _i7.DocumentNode _document;
-  _i7.DocumentNode get document => _$this._document;
-  set document(_i7.DocumentNode document) => _$this._document = document;
+  _i7.DocumentNode? _document;
+  _i7.DocumentNode? get document => _$this._document;
+  set document(_i7.DocumentNode? document) => _$this._document = document;
 
-  String _fragmentName;
-  String get fragmentName => _$this._fragmentName;
-  set fragmentName(String fragmentName) => _$this._fragmentName = fragmentName;
+  String? _fragmentName;
+  String? get fragmentName => _$this._fragmentName;
+  set fragmentName(String? fragmentName) => _$this._fragmentName = fragmentName;
 
-  Map<String, dynamic> _idFields;
-  Map<String, dynamic> get idFields => _$this._idFields;
-  set idFields(Map<String, dynamic> idFields) => _$this._idFields = idFields;
+  Map<String, dynamic>? _idFields;
+  Map<String, dynamic>? get idFields => _$this._idFields;
+  set idFields(Map<String, dynamic>? idFields) => _$this._idFields = idFields;
 
   GRepoCommitReqBuilder() {
     GRepoCommitReq._initializeBuilder(this);
   }
 
   GRepoCommitReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _document = _$v.document;
-      _fragmentName = _$v.fragmentName;
-      _idFields = _$v.idFields;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _document = $v.document;
+      _fragmentName = $v.fragmentName;
+      _idFields = $v.idFields;
       _$v = null;
     }
     return this;
@@ -9598,14 +9818,12 @@ class GRepoCommitReqBuilder
 
   @override
   void replace(GRepoCommitReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GRepoCommitReq;
   }
 
   @override
-  void update(void Function(GRepoCommitReqBuilder) updates) {
+  void update(void Function(GRepoCommitReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -9616,11 +9834,13 @@ class GRepoCommitReqBuilder
       _$result = _$v ??
           new _$GRepoCommitReq._(
               vars: vars.build(),
-              document: document,
+              document: BuiltValueNullFieldError.checkNotNull(
+                  document, 'GRepoCommitReq', 'document'),
               fragmentName: fragmentName,
-              idFields: idFields);
+              idFields: BuiltValueNullFieldError.checkNotNull(
+                  idFields, 'GRepoCommitReq', 'idFields'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -9641,27 +9861,22 @@ class _$GRepoRefReq extends GRepoRefReq {
   @override
   final _i7.DocumentNode document;
   @override
-  final String fragmentName;
+  final String? fragmentName;
   @override
   final Map<String, dynamic> idFields;
 
-  factory _$GRepoRefReq([void Function(GRepoRefReqBuilder) updates]) =>
+  factory _$GRepoRefReq([void Function(GRepoRefReqBuilder)? updates]) =>
       (new GRepoRefReqBuilder()..update(updates)).build();
 
-  _$GRepoRefReq._({this.vars, this.document, this.fragmentName, this.idFields})
+  _$GRepoRefReq._(
+      {required this.vars,
+      required this.document,
+      this.fragmentName,
+      required this.idFields})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GRepoRefReq', 'vars');
-    }
-    if (document == null) {
-      throw new BuiltValueNullFieldError('GRepoRefReq', 'document');
-    }
-    if (fragmentName == null) {
-      throw new BuiltValueNullFieldError('GRepoRefReq', 'fragmentName');
-    }
-    if (idFields == null) {
-      throw new BuiltValueNullFieldError('GRepoRefReq', 'idFields');
-    }
+    BuiltValueNullFieldError.checkNotNull(vars, 'GRepoRefReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(document, 'GRepoRefReq', 'document');
+    BuiltValueNullFieldError.checkNotNull(idFields, 'GRepoRefReq', 'idFields');
   }
 
   @override
@@ -9701,35 +9916,36 @@ class _$GRepoRefReq extends GRepoRefReq {
 }
 
 class GRepoRefReqBuilder implements Builder<GRepoRefReq, GRepoRefReqBuilder> {
-  _$GRepoRefReq _$v;
+  _$GRepoRefReq? _$v;
 
-  _i3.GRepoRefVarsBuilder _vars;
+  _i3.GRepoRefVarsBuilder? _vars;
   _i3.GRepoRefVarsBuilder get vars =>
       _$this._vars ??= new _i3.GRepoRefVarsBuilder();
-  set vars(_i3.GRepoRefVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GRepoRefVarsBuilder? vars) => _$this._vars = vars;
 
-  _i7.DocumentNode _document;
-  _i7.DocumentNode get document => _$this._document;
-  set document(_i7.DocumentNode document) => _$this._document = document;
+  _i7.DocumentNode? _document;
+  _i7.DocumentNode? get document => _$this._document;
+  set document(_i7.DocumentNode? document) => _$this._document = document;
 
-  String _fragmentName;
-  String get fragmentName => _$this._fragmentName;
-  set fragmentName(String fragmentName) => _$this._fragmentName = fragmentName;
+  String? _fragmentName;
+  String? get fragmentName => _$this._fragmentName;
+  set fragmentName(String? fragmentName) => _$this._fragmentName = fragmentName;
 
-  Map<String, dynamic> _idFields;
-  Map<String, dynamic> get idFields => _$this._idFields;
-  set idFields(Map<String, dynamic> idFields) => _$this._idFields = idFields;
+  Map<String, dynamic>? _idFields;
+  Map<String, dynamic>? get idFields => _$this._idFields;
+  set idFields(Map<String, dynamic>? idFields) => _$this._idFields = idFields;
 
   GRepoRefReqBuilder() {
     GRepoRefReq._initializeBuilder(this);
   }
 
   GRepoRefReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _document = _$v.document;
-      _fragmentName = _$v.fragmentName;
-      _idFields = _$v.idFields;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _document = $v.document;
+      _fragmentName = $v.fragmentName;
+      _idFields = $v.idFields;
       _$v = null;
     }
     return this;
@@ -9737,14 +9953,12 @@ class GRepoRefReqBuilder implements Builder<GRepoRefReq, GRepoRefReqBuilder> {
 
   @override
   void replace(GRepoRefReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GRepoRefReq;
   }
 
   @override
-  void update(void Function(GRepoRefReqBuilder) updates) {
+  void update(void Function(GRepoRefReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -9755,11 +9969,13 @@ class GRepoRefReqBuilder implements Builder<GRepoRefReq, GRepoRefReqBuilder> {
       _$result = _$v ??
           new _$GRepoRefReq._(
               vars: vars.build(),
-              document: document,
+              document: BuiltValueNullFieldError.checkNotNull(
+                  document, 'GRepoRefReq', 'document'),
               fragmentName: fragmentName,
-              idFields: idFields);
+              idFields: BuiltValueNullFieldError.checkNotNull(
+                  idFields, 'GRepoRefReq', 'idFields'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -9780,30 +9996,25 @@ class _$GCommitsRefCommitReq extends GCommitsRefCommitReq {
   @override
   final _i7.DocumentNode document;
   @override
-  final String fragmentName;
+  final String? fragmentName;
   @override
   final Map<String, dynamic> idFields;
 
   factory _$GCommitsRefCommitReq(
-          [void Function(GCommitsRefCommitReqBuilder) updates]) =>
+          [void Function(GCommitsRefCommitReqBuilder)? updates]) =>
       (new GCommitsRefCommitReqBuilder()..update(updates)).build();
 
   _$GCommitsRefCommitReq._(
-      {this.vars, this.document, this.fragmentName, this.idFields})
+      {required this.vars,
+      required this.document,
+      this.fragmentName,
+      required this.idFields})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GCommitsRefCommitReq', 'vars');
-    }
-    if (document == null) {
-      throw new BuiltValueNullFieldError('GCommitsRefCommitReq', 'document');
-    }
-    if (fragmentName == null) {
-      throw new BuiltValueNullFieldError(
-          'GCommitsRefCommitReq', 'fragmentName');
-    }
-    if (idFields == null) {
-      throw new BuiltValueNullFieldError('GCommitsRefCommitReq', 'idFields');
-    }
+    BuiltValueNullFieldError.checkNotNull(vars, 'GCommitsRefCommitReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        document, 'GCommitsRefCommitReq', 'document');
+    BuiltValueNullFieldError.checkNotNull(
+        idFields, 'GCommitsRefCommitReq', 'idFields');
   }
 
   @override
@@ -9846,35 +10057,36 @@ class _$GCommitsRefCommitReq extends GCommitsRefCommitReq {
 
 class GCommitsRefCommitReqBuilder
     implements Builder<GCommitsRefCommitReq, GCommitsRefCommitReqBuilder> {
-  _$GCommitsRefCommitReq _$v;
+  _$GCommitsRefCommitReq? _$v;
 
-  _i3.GCommitsRefCommitVarsBuilder _vars;
+  _i3.GCommitsRefCommitVarsBuilder? _vars;
   _i3.GCommitsRefCommitVarsBuilder get vars =>
       _$this._vars ??= new _i3.GCommitsRefCommitVarsBuilder();
-  set vars(_i3.GCommitsRefCommitVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GCommitsRefCommitVarsBuilder? vars) => _$this._vars = vars;
 
-  _i7.DocumentNode _document;
-  _i7.DocumentNode get document => _$this._document;
-  set document(_i7.DocumentNode document) => _$this._document = document;
+  _i7.DocumentNode? _document;
+  _i7.DocumentNode? get document => _$this._document;
+  set document(_i7.DocumentNode? document) => _$this._document = document;
 
-  String _fragmentName;
-  String get fragmentName => _$this._fragmentName;
-  set fragmentName(String fragmentName) => _$this._fragmentName = fragmentName;
+  String? _fragmentName;
+  String? get fragmentName => _$this._fragmentName;
+  set fragmentName(String? fragmentName) => _$this._fragmentName = fragmentName;
 
-  Map<String, dynamic> _idFields;
-  Map<String, dynamic> get idFields => _$this._idFields;
-  set idFields(Map<String, dynamic> idFields) => _$this._idFields = idFields;
+  Map<String, dynamic>? _idFields;
+  Map<String, dynamic>? get idFields => _$this._idFields;
+  set idFields(Map<String, dynamic>? idFields) => _$this._idFields = idFields;
 
   GCommitsRefCommitReqBuilder() {
     GCommitsRefCommitReq._initializeBuilder(this);
   }
 
   GCommitsRefCommitReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _document = _$v.document;
-      _fragmentName = _$v.fragmentName;
-      _idFields = _$v.idFields;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _document = $v.document;
+      _fragmentName = $v.fragmentName;
+      _idFields = $v.idFields;
       _$v = null;
     }
     return this;
@@ -9882,14 +10094,12 @@ class GCommitsRefCommitReqBuilder
 
   @override
   void replace(GCommitsRefCommitReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GCommitsRefCommitReq;
   }
 
   @override
-  void update(void Function(GCommitsRefCommitReqBuilder) updates) {
+  void update(void Function(GCommitsRefCommitReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -9900,11 +10110,13 @@ class GCommitsRefCommitReqBuilder
       _$result = _$v ??
           new _$GCommitsRefCommitReq._(
               vars: vars.build(),
-              document: document,
+              document: BuiltValueNullFieldError.checkNotNull(
+                  document, 'GCommitsRefCommitReq', 'document'),
               fragmentName: fragmentName,
-              idFields: idFields);
+              idFields: BuiltValueNullFieldError.checkNotNull(
+                  idFields, 'GCommitsRefCommitReq', 'idFields'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -9925,28 +10137,24 @@ class _$GCommitsRefReq extends GCommitsRefReq {
   @override
   final _i7.DocumentNode document;
   @override
-  final String fragmentName;
+  final String? fragmentName;
   @override
   final Map<String, dynamic> idFields;
 
-  factory _$GCommitsRefReq([void Function(GCommitsRefReqBuilder) updates]) =>
+  factory _$GCommitsRefReq([void Function(GCommitsRefReqBuilder)? updates]) =>
       (new GCommitsRefReqBuilder()..update(updates)).build();
 
   _$GCommitsRefReq._(
-      {this.vars, this.document, this.fragmentName, this.idFields})
+      {required this.vars,
+      required this.document,
+      this.fragmentName,
+      required this.idFields})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GCommitsRefReq', 'vars');
-    }
-    if (document == null) {
-      throw new BuiltValueNullFieldError('GCommitsRefReq', 'document');
-    }
-    if (fragmentName == null) {
-      throw new BuiltValueNullFieldError('GCommitsRefReq', 'fragmentName');
-    }
-    if (idFields == null) {
-      throw new BuiltValueNullFieldError('GCommitsRefReq', 'idFields');
-    }
+    BuiltValueNullFieldError.checkNotNull(vars, 'GCommitsRefReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        document, 'GCommitsRefReq', 'document');
+    BuiltValueNullFieldError.checkNotNull(
+        idFields, 'GCommitsRefReq', 'idFields');
   }
 
   @override
@@ -9988,35 +10196,36 @@ class _$GCommitsRefReq extends GCommitsRefReq {
 
 class GCommitsRefReqBuilder
     implements Builder<GCommitsRefReq, GCommitsRefReqBuilder> {
-  _$GCommitsRefReq _$v;
+  _$GCommitsRefReq? _$v;
 
-  _i3.GCommitsRefVarsBuilder _vars;
+  _i3.GCommitsRefVarsBuilder? _vars;
   _i3.GCommitsRefVarsBuilder get vars =>
       _$this._vars ??= new _i3.GCommitsRefVarsBuilder();
-  set vars(_i3.GCommitsRefVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GCommitsRefVarsBuilder? vars) => _$this._vars = vars;
 
-  _i7.DocumentNode _document;
-  _i7.DocumentNode get document => _$this._document;
-  set document(_i7.DocumentNode document) => _$this._document = document;
+  _i7.DocumentNode? _document;
+  _i7.DocumentNode? get document => _$this._document;
+  set document(_i7.DocumentNode? document) => _$this._document = document;
 
-  String _fragmentName;
-  String get fragmentName => _$this._fragmentName;
-  set fragmentName(String fragmentName) => _$this._fragmentName = fragmentName;
+  String? _fragmentName;
+  String? get fragmentName => _$this._fragmentName;
+  set fragmentName(String? fragmentName) => _$this._fragmentName = fragmentName;
 
-  Map<String, dynamic> _idFields;
-  Map<String, dynamic> get idFields => _$this._idFields;
-  set idFields(Map<String, dynamic> idFields) => _$this._idFields = idFields;
+  Map<String, dynamic>? _idFields;
+  Map<String, dynamic>? get idFields => _$this._idFields;
+  set idFields(Map<String, dynamic>? idFields) => _$this._idFields = idFields;
 
   GCommitsRefReqBuilder() {
     GCommitsRefReq._initializeBuilder(this);
   }
 
   GCommitsRefReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _document = _$v.document;
-      _fragmentName = _$v.fragmentName;
-      _idFields = _$v.idFields;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _document = $v.document;
+      _fragmentName = $v.fragmentName;
+      _idFields = $v.idFields;
       _$v = null;
     }
     return this;
@@ -10024,14 +10233,12 @@ class GCommitsRefReqBuilder
 
   @override
   void replace(GCommitsRefReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GCommitsRefReq;
   }
 
   @override
-  void update(void Function(GCommitsRefReqBuilder) updates) {
+  void update(void Function(GCommitsRefReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -10042,11 +10249,13 @@ class GCommitsRefReqBuilder
       _$result = _$v ??
           new _$GCommitsRefReq._(
               vars: vars.build(),
-              document: document,
+              document: BuiltValueNullFieldError.checkNotNull(
+                  document, 'GCommitsRefReq', 'document'),
               fragmentName: fragmentName,
-              idFields: idFields);
+              idFields: BuiltValueNullFieldError.checkNotNull(
+                  idFields, 'GCommitsRefReq', 'idFields'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -10067,29 +10276,25 @@ class _$GCommentPartsReq extends GCommentPartsReq {
   @override
   final _i7.DocumentNode document;
   @override
-  final String fragmentName;
+  final String? fragmentName;
   @override
   final Map<String, dynamic> idFields;
 
   factory _$GCommentPartsReq(
-          [void Function(GCommentPartsReqBuilder) updates]) =>
+          [void Function(GCommentPartsReqBuilder)? updates]) =>
       (new GCommentPartsReqBuilder()..update(updates)).build();
 
   _$GCommentPartsReq._(
-      {this.vars, this.document, this.fragmentName, this.idFields})
+      {required this.vars,
+      required this.document,
+      this.fragmentName,
+      required this.idFields})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GCommentPartsReq', 'vars');
-    }
-    if (document == null) {
-      throw new BuiltValueNullFieldError('GCommentPartsReq', 'document');
-    }
-    if (fragmentName == null) {
-      throw new BuiltValueNullFieldError('GCommentPartsReq', 'fragmentName');
-    }
-    if (idFields == null) {
-      throw new BuiltValueNullFieldError('GCommentPartsReq', 'idFields');
-    }
+    BuiltValueNullFieldError.checkNotNull(vars, 'GCommentPartsReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        document, 'GCommentPartsReq', 'document');
+    BuiltValueNullFieldError.checkNotNull(
+        idFields, 'GCommentPartsReq', 'idFields');
   }
 
   @override
@@ -10131,35 +10336,36 @@ class _$GCommentPartsReq extends GCommentPartsReq {
 
 class GCommentPartsReqBuilder
     implements Builder<GCommentPartsReq, GCommentPartsReqBuilder> {
-  _$GCommentPartsReq _$v;
+  _$GCommentPartsReq? _$v;
 
-  _i3.GCommentPartsVarsBuilder _vars;
+  _i3.GCommentPartsVarsBuilder? _vars;
   _i3.GCommentPartsVarsBuilder get vars =>
       _$this._vars ??= new _i3.GCommentPartsVarsBuilder();
-  set vars(_i3.GCommentPartsVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GCommentPartsVarsBuilder? vars) => _$this._vars = vars;
 
-  _i7.DocumentNode _document;
-  _i7.DocumentNode get document => _$this._document;
-  set document(_i7.DocumentNode document) => _$this._document = document;
+  _i7.DocumentNode? _document;
+  _i7.DocumentNode? get document => _$this._document;
+  set document(_i7.DocumentNode? document) => _$this._document = document;
 
-  String _fragmentName;
-  String get fragmentName => _$this._fragmentName;
-  set fragmentName(String fragmentName) => _$this._fragmentName = fragmentName;
+  String? _fragmentName;
+  String? get fragmentName => _$this._fragmentName;
+  set fragmentName(String? fragmentName) => _$this._fragmentName = fragmentName;
 
-  Map<String, dynamic> _idFields;
-  Map<String, dynamic> get idFields => _$this._idFields;
-  set idFields(Map<String, dynamic> idFields) => _$this._idFields = idFields;
+  Map<String, dynamic>? _idFields;
+  Map<String, dynamic>? get idFields => _$this._idFields;
+  set idFields(Map<String, dynamic>? idFields) => _$this._idFields = idFields;
 
   GCommentPartsReqBuilder() {
     GCommentPartsReq._initializeBuilder(this);
   }
 
   GCommentPartsReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _document = _$v.document;
-      _fragmentName = _$v.fragmentName;
-      _idFields = _$v.idFields;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _document = $v.document;
+      _fragmentName = $v.fragmentName;
+      _idFields = $v.idFields;
       _$v = null;
     }
     return this;
@@ -10167,14 +10373,12 @@ class GCommentPartsReqBuilder
 
   @override
   void replace(GCommentPartsReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GCommentPartsReq;
   }
 
   @override
-  void update(void Function(GCommentPartsReqBuilder) updates) {
+  void update(void Function(GCommentPartsReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -10185,11 +10389,13 @@ class GCommentPartsReqBuilder
       _$result = _$v ??
           new _$GCommentPartsReq._(
               vars: vars.build(),
-              document: document,
+              document: BuiltValueNullFieldError.checkNotNull(
+                  document, 'GCommentPartsReq', 'document'),
               fragmentName: fragmentName,
-              idFields: idFields);
+              idFields: BuiltValueNullFieldError.checkNotNull(
+                  idFields, 'GCommentPartsReq', 'idFields'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -10210,32 +10416,26 @@ class _$GReactionConnectionPartsReq extends GReactionConnectionPartsReq {
   @override
   final _i7.DocumentNode document;
   @override
-  final String fragmentName;
+  final String? fragmentName;
   @override
   final Map<String, dynamic> idFields;
 
   factory _$GReactionConnectionPartsReq(
-          [void Function(GReactionConnectionPartsReqBuilder) updates]) =>
+          [void Function(GReactionConnectionPartsReqBuilder)? updates]) =>
       (new GReactionConnectionPartsReqBuilder()..update(updates)).build();
 
   _$GReactionConnectionPartsReq._(
-      {this.vars, this.document, this.fragmentName, this.idFields})
+      {required this.vars,
+      required this.document,
+      this.fragmentName,
+      required this.idFields})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GReactionConnectionPartsReq', 'vars');
-    }
-    if (document == null) {
-      throw new BuiltValueNullFieldError(
-          'GReactionConnectionPartsReq', 'document');
-    }
-    if (fragmentName == null) {
-      throw new BuiltValueNullFieldError(
-          'GReactionConnectionPartsReq', 'fragmentName');
-    }
-    if (idFields == null) {
-      throw new BuiltValueNullFieldError(
-          'GReactionConnectionPartsReq', 'idFields');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        vars, 'GReactionConnectionPartsReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        document, 'GReactionConnectionPartsReq', 'document');
+    BuiltValueNullFieldError.checkNotNull(
+        idFields, 'GReactionConnectionPartsReq', 'idFields');
   }
 
   @override
@@ -10280,35 +10480,37 @@ class GReactionConnectionPartsReqBuilder
     implements
         Builder<GReactionConnectionPartsReq,
             GReactionConnectionPartsReqBuilder> {
-  _$GReactionConnectionPartsReq _$v;
+  _$GReactionConnectionPartsReq? _$v;
 
-  _i3.GReactionConnectionPartsVarsBuilder _vars;
+  _i3.GReactionConnectionPartsVarsBuilder? _vars;
   _i3.GReactionConnectionPartsVarsBuilder get vars =>
       _$this._vars ??= new _i3.GReactionConnectionPartsVarsBuilder();
-  set vars(_i3.GReactionConnectionPartsVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GReactionConnectionPartsVarsBuilder? vars) =>
+      _$this._vars = vars;
 
-  _i7.DocumentNode _document;
-  _i7.DocumentNode get document => _$this._document;
-  set document(_i7.DocumentNode document) => _$this._document = document;
+  _i7.DocumentNode? _document;
+  _i7.DocumentNode? get document => _$this._document;
+  set document(_i7.DocumentNode? document) => _$this._document = document;
 
-  String _fragmentName;
-  String get fragmentName => _$this._fragmentName;
-  set fragmentName(String fragmentName) => _$this._fragmentName = fragmentName;
+  String? _fragmentName;
+  String? get fragmentName => _$this._fragmentName;
+  set fragmentName(String? fragmentName) => _$this._fragmentName = fragmentName;
 
-  Map<String, dynamic> _idFields;
-  Map<String, dynamic> get idFields => _$this._idFields;
-  set idFields(Map<String, dynamic> idFields) => _$this._idFields = idFields;
+  Map<String, dynamic>? _idFields;
+  Map<String, dynamic>? get idFields => _$this._idFields;
+  set idFields(Map<String, dynamic>? idFields) => _$this._idFields = idFields;
 
   GReactionConnectionPartsReqBuilder() {
     GReactionConnectionPartsReq._initializeBuilder(this);
   }
 
   GReactionConnectionPartsReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _document = _$v.document;
-      _fragmentName = _$v.fragmentName;
-      _idFields = _$v.idFields;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _document = $v.document;
+      _fragmentName = $v.fragmentName;
+      _idFields = $v.idFields;
       _$v = null;
     }
     return this;
@@ -10316,14 +10518,12 @@ class GReactionConnectionPartsReqBuilder
 
   @override
   void replace(GReactionConnectionPartsReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GReactionConnectionPartsReq;
   }
 
   @override
-  void update(void Function(GReactionConnectionPartsReqBuilder) updates) {
+  void update(void Function(GReactionConnectionPartsReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -10334,11 +10534,13 @@ class GReactionConnectionPartsReqBuilder
       _$result = _$v ??
           new _$GReactionConnectionPartsReq._(
               vars: vars.build(),
-              document: document,
+              document: BuiltValueNullFieldError.checkNotNull(
+                  document, 'GReactionConnectionPartsReq', 'document'),
               fragmentName: fragmentName,
-              idFields: idFields);
+              idFields: BuiltValueNullFieldError.checkNotNull(
+                  idFields, 'GReactionConnectionPartsReq', 'idFields'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -10359,29 +10561,25 @@ class _$GReactablePartsReq extends GReactablePartsReq {
   @override
   final _i7.DocumentNode document;
   @override
-  final String fragmentName;
+  final String? fragmentName;
   @override
   final Map<String, dynamic> idFields;
 
   factory _$GReactablePartsReq(
-          [void Function(GReactablePartsReqBuilder) updates]) =>
+          [void Function(GReactablePartsReqBuilder)? updates]) =>
       (new GReactablePartsReqBuilder()..update(updates)).build();
 
   _$GReactablePartsReq._(
-      {this.vars, this.document, this.fragmentName, this.idFields})
+      {required this.vars,
+      required this.document,
+      this.fragmentName,
+      required this.idFields})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GReactablePartsReq', 'vars');
-    }
-    if (document == null) {
-      throw new BuiltValueNullFieldError('GReactablePartsReq', 'document');
-    }
-    if (fragmentName == null) {
-      throw new BuiltValueNullFieldError('GReactablePartsReq', 'fragmentName');
-    }
-    if (idFields == null) {
-      throw new BuiltValueNullFieldError('GReactablePartsReq', 'idFields');
-    }
+    BuiltValueNullFieldError.checkNotNull(vars, 'GReactablePartsReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        document, 'GReactablePartsReq', 'document');
+    BuiltValueNullFieldError.checkNotNull(
+        idFields, 'GReactablePartsReq', 'idFields');
   }
 
   @override
@@ -10424,35 +10622,36 @@ class _$GReactablePartsReq extends GReactablePartsReq {
 
 class GReactablePartsReqBuilder
     implements Builder<GReactablePartsReq, GReactablePartsReqBuilder> {
-  _$GReactablePartsReq _$v;
+  _$GReactablePartsReq? _$v;
 
-  _i3.GReactablePartsVarsBuilder _vars;
+  _i3.GReactablePartsVarsBuilder? _vars;
   _i3.GReactablePartsVarsBuilder get vars =>
       _$this._vars ??= new _i3.GReactablePartsVarsBuilder();
-  set vars(_i3.GReactablePartsVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GReactablePartsVarsBuilder? vars) => _$this._vars = vars;
 
-  _i7.DocumentNode _document;
-  _i7.DocumentNode get document => _$this._document;
-  set document(_i7.DocumentNode document) => _$this._document = document;
+  _i7.DocumentNode? _document;
+  _i7.DocumentNode? get document => _$this._document;
+  set document(_i7.DocumentNode? document) => _$this._document = document;
 
-  String _fragmentName;
-  String get fragmentName => _$this._fragmentName;
-  set fragmentName(String fragmentName) => _$this._fragmentName = fragmentName;
+  String? _fragmentName;
+  String? get fragmentName => _$this._fragmentName;
+  set fragmentName(String? fragmentName) => _$this._fragmentName = fragmentName;
 
-  Map<String, dynamic> _idFields;
-  Map<String, dynamic> get idFields => _$this._idFields;
-  set idFields(Map<String, dynamic> idFields) => _$this._idFields = idFields;
+  Map<String, dynamic>? _idFields;
+  Map<String, dynamic>? get idFields => _$this._idFields;
+  set idFields(Map<String, dynamic>? idFields) => _$this._idFields = idFields;
 
   GReactablePartsReqBuilder() {
     GReactablePartsReq._initializeBuilder(this);
   }
 
   GReactablePartsReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _document = _$v.document;
-      _fragmentName = _$v.fragmentName;
-      _idFields = _$v.idFields;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _document = $v.document;
+      _fragmentName = $v.fragmentName;
+      _idFields = $v.idFields;
       _$v = null;
     }
     return this;
@@ -10460,14 +10659,12 @@ class GReactablePartsReqBuilder
 
   @override
   void replace(GReactablePartsReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GReactablePartsReq;
   }
 
   @override
-  void update(void Function(GReactablePartsReqBuilder) updates) {
+  void update(void Function(GReactablePartsReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -10478,11 +10675,13 @@ class GReactablePartsReqBuilder
       _$result = _$v ??
           new _$GReactablePartsReq._(
               vars: vars.build(),
-              document: document,
+              document: BuiltValueNullFieldError.checkNotNull(
+                  document, 'GReactablePartsReq', 'document'),
               fragmentName: fragmentName,
-              idFields: idFields);
+              idFields: BuiltValueNullFieldError.checkNotNull(
+                  idFields, 'GReactablePartsReq', 'idFields'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -10503,32 +10702,26 @@ class _$GReferencedEventPartsReq extends GReferencedEventPartsReq {
   @override
   final _i7.DocumentNode document;
   @override
-  final String fragmentName;
+  final String? fragmentName;
   @override
   final Map<String, dynamic> idFields;
 
   factory _$GReferencedEventPartsReq(
-          [void Function(GReferencedEventPartsReqBuilder) updates]) =>
+          [void Function(GReferencedEventPartsReqBuilder)? updates]) =>
       (new GReferencedEventPartsReqBuilder()..update(updates)).build();
 
   _$GReferencedEventPartsReq._(
-      {this.vars, this.document, this.fragmentName, this.idFields})
+      {required this.vars,
+      required this.document,
+      this.fragmentName,
+      required this.idFields})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GReferencedEventPartsReq', 'vars');
-    }
-    if (document == null) {
-      throw new BuiltValueNullFieldError(
-          'GReferencedEventPartsReq', 'document');
-    }
-    if (fragmentName == null) {
-      throw new BuiltValueNullFieldError(
-          'GReferencedEventPartsReq', 'fragmentName');
-    }
-    if (idFields == null) {
-      throw new BuiltValueNullFieldError(
-          'GReferencedEventPartsReq', 'idFields');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        vars, 'GReferencedEventPartsReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        document, 'GReferencedEventPartsReq', 'document');
+    BuiltValueNullFieldError.checkNotNull(
+        idFields, 'GReferencedEventPartsReq', 'idFields');
   }
 
   @override
@@ -10572,35 +10765,36 @@ class _$GReferencedEventPartsReq extends GReferencedEventPartsReq {
 class GReferencedEventPartsReqBuilder
     implements
         Builder<GReferencedEventPartsReq, GReferencedEventPartsReqBuilder> {
-  _$GReferencedEventPartsReq _$v;
+  _$GReferencedEventPartsReq? _$v;
 
-  _i3.GReferencedEventPartsVarsBuilder _vars;
+  _i3.GReferencedEventPartsVarsBuilder? _vars;
   _i3.GReferencedEventPartsVarsBuilder get vars =>
       _$this._vars ??= new _i3.GReferencedEventPartsVarsBuilder();
-  set vars(_i3.GReferencedEventPartsVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GReferencedEventPartsVarsBuilder? vars) => _$this._vars = vars;
 
-  _i7.DocumentNode _document;
-  _i7.DocumentNode get document => _$this._document;
-  set document(_i7.DocumentNode document) => _$this._document = document;
+  _i7.DocumentNode? _document;
+  _i7.DocumentNode? get document => _$this._document;
+  set document(_i7.DocumentNode? document) => _$this._document = document;
 
-  String _fragmentName;
-  String get fragmentName => _$this._fragmentName;
-  set fragmentName(String fragmentName) => _$this._fragmentName = fragmentName;
+  String? _fragmentName;
+  String? get fragmentName => _$this._fragmentName;
+  set fragmentName(String? fragmentName) => _$this._fragmentName = fragmentName;
 
-  Map<String, dynamic> _idFields;
-  Map<String, dynamic> get idFields => _$this._idFields;
-  set idFields(Map<String, dynamic> idFields) => _$this._idFields = idFields;
+  Map<String, dynamic>? _idFields;
+  Map<String, dynamic>? get idFields => _$this._idFields;
+  set idFields(Map<String, dynamic>? idFields) => _$this._idFields = idFields;
 
   GReferencedEventPartsReqBuilder() {
     GReferencedEventPartsReq._initializeBuilder(this);
   }
 
   GReferencedEventPartsReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _document = _$v.document;
-      _fragmentName = _$v.fragmentName;
-      _idFields = _$v.idFields;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _document = $v.document;
+      _fragmentName = $v.fragmentName;
+      _idFields = $v.idFields;
       _$v = null;
     }
     return this;
@@ -10608,14 +10802,12 @@ class GReferencedEventPartsReqBuilder
 
   @override
   void replace(GReferencedEventPartsReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GReferencedEventPartsReq;
   }
 
   @override
-  void update(void Function(GReferencedEventPartsReqBuilder) updates) {
+  void update(void Function(GReferencedEventPartsReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -10626,11 +10818,13 @@ class GReferencedEventPartsReqBuilder
       _$result = _$v ??
           new _$GReferencedEventPartsReq._(
               vars: vars.build(),
-              document: document,
+              document: BuiltValueNullFieldError.checkNotNull(
+                  document, 'GReferencedEventPartsReq', 'document'),
               fragmentName: fragmentName,
-              idFields: idFields);
+              idFields: BuiltValueNullFieldError.checkNotNull(
+                  idFields, 'GReferencedEventPartsReq', 'idFields'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -10651,32 +10845,26 @@ class _$GRenamedTitleEventPartsReq extends GRenamedTitleEventPartsReq {
   @override
   final _i7.DocumentNode document;
   @override
-  final String fragmentName;
+  final String? fragmentName;
   @override
   final Map<String, dynamic> idFields;
 
   factory _$GRenamedTitleEventPartsReq(
-          [void Function(GRenamedTitleEventPartsReqBuilder) updates]) =>
+          [void Function(GRenamedTitleEventPartsReqBuilder)? updates]) =>
       (new GRenamedTitleEventPartsReqBuilder()..update(updates)).build();
 
   _$GRenamedTitleEventPartsReq._(
-      {this.vars, this.document, this.fragmentName, this.idFields})
+      {required this.vars,
+      required this.document,
+      this.fragmentName,
+      required this.idFields})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GRenamedTitleEventPartsReq', 'vars');
-    }
-    if (document == null) {
-      throw new BuiltValueNullFieldError(
-          'GRenamedTitleEventPartsReq', 'document');
-    }
-    if (fragmentName == null) {
-      throw new BuiltValueNullFieldError(
-          'GRenamedTitleEventPartsReq', 'fragmentName');
-    }
-    if (idFields == null) {
-      throw new BuiltValueNullFieldError(
-          'GRenamedTitleEventPartsReq', 'idFields');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        vars, 'GRenamedTitleEventPartsReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        document, 'GRenamedTitleEventPartsReq', 'document');
+    BuiltValueNullFieldError.checkNotNull(
+        idFields, 'GRenamedTitleEventPartsReq', 'idFields');
   }
 
   @override
@@ -10720,35 +10908,36 @@ class _$GRenamedTitleEventPartsReq extends GRenamedTitleEventPartsReq {
 class GRenamedTitleEventPartsReqBuilder
     implements
         Builder<GRenamedTitleEventPartsReq, GRenamedTitleEventPartsReqBuilder> {
-  _$GRenamedTitleEventPartsReq _$v;
+  _$GRenamedTitleEventPartsReq? _$v;
 
-  _i3.GRenamedTitleEventPartsVarsBuilder _vars;
+  _i3.GRenamedTitleEventPartsVarsBuilder? _vars;
   _i3.GRenamedTitleEventPartsVarsBuilder get vars =>
       _$this._vars ??= new _i3.GRenamedTitleEventPartsVarsBuilder();
-  set vars(_i3.GRenamedTitleEventPartsVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GRenamedTitleEventPartsVarsBuilder? vars) => _$this._vars = vars;
 
-  _i7.DocumentNode _document;
-  _i7.DocumentNode get document => _$this._document;
-  set document(_i7.DocumentNode document) => _$this._document = document;
+  _i7.DocumentNode? _document;
+  _i7.DocumentNode? get document => _$this._document;
+  set document(_i7.DocumentNode? document) => _$this._document = document;
 
-  String _fragmentName;
-  String get fragmentName => _$this._fragmentName;
-  set fragmentName(String fragmentName) => _$this._fragmentName = fragmentName;
+  String? _fragmentName;
+  String? get fragmentName => _$this._fragmentName;
+  set fragmentName(String? fragmentName) => _$this._fragmentName = fragmentName;
 
-  Map<String, dynamic> _idFields;
-  Map<String, dynamic> get idFields => _$this._idFields;
-  set idFields(Map<String, dynamic> idFields) => _$this._idFields = idFields;
+  Map<String, dynamic>? _idFields;
+  Map<String, dynamic>? get idFields => _$this._idFields;
+  set idFields(Map<String, dynamic>? idFields) => _$this._idFields = idFields;
 
   GRenamedTitleEventPartsReqBuilder() {
     GRenamedTitleEventPartsReq._initializeBuilder(this);
   }
 
   GRenamedTitleEventPartsReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _document = _$v.document;
-      _fragmentName = _$v.fragmentName;
-      _idFields = _$v.idFields;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _document = $v.document;
+      _fragmentName = $v.fragmentName;
+      _idFields = $v.idFields;
       _$v = null;
     }
     return this;
@@ -10756,14 +10945,12 @@ class GRenamedTitleEventPartsReqBuilder
 
   @override
   void replace(GRenamedTitleEventPartsReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GRenamedTitleEventPartsReq;
   }
 
   @override
-  void update(void Function(GRenamedTitleEventPartsReqBuilder) updates) {
+  void update(void Function(GRenamedTitleEventPartsReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -10774,11 +10961,13 @@ class GRenamedTitleEventPartsReqBuilder
       _$result = _$v ??
           new _$GRenamedTitleEventPartsReq._(
               vars: vars.build(),
-              document: document,
+              document: BuiltValueNullFieldError.checkNotNull(
+                  document, 'GRenamedTitleEventPartsReq', 'document'),
               fragmentName: fragmentName,
-              idFields: idFields);
+              idFields: BuiltValueNullFieldError.checkNotNull(
+                  idFields, 'GRenamedTitleEventPartsReq', 'idFields'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -10799,30 +10988,25 @@ class _$GClosedEventPartsReq extends GClosedEventPartsReq {
   @override
   final _i7.DocumentNode document;
   @override
-  final String fragmentName;
+  final String? fragmentName;
   @override
   final Map<String, dynamic> idFields;
 
   factory _$GClosedEventPartsReq(
-          [void Function(GClosedEventPartsReqBuilder) updates]) =>
+          [void Function(GClosedEventPartsReqBuilder)? updates]) =>
       (new GClosedEventPartsReqBuilder()..update(updates)).build();
 
   _$GClosedEventPartsReq._(
-      {this.vars, this.document, this.fragmentName, this.idFields})
+      {required this.vars,
+      required this.document,
+      this.fragmentName,
+      required this.idFields})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GClosedEventPartsReq', 'vars');
-    }
-    if (document == null) {
-      throw new BuiltValueNullFieldError('GClosedEventPartsReq', 'document');
-    }
-    if (fragmentName == null) {
-      throw new BuiltValueNullFieldError(
-          'GClosedEventPartsReq', 'fragmentName');
-    }
-    if (idFields == null) {
-      throw new BuiltValueNullFieldError('GClosedEventPartsReq', 'idFields');
-    }
+    BuiltValueNullFieldError.checkNotNull(vars, 'GClosedEventPartsReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        document, 'GClosedEventPartsReq', 'document');
+    BuiltValueNullFieldError.checkNotNull(
+        idFields, 'GClosedEventPartsReq', 'idFields');
   }
 
   @override
@@ -10865,35 +11049,36 @@ class _$GClosedEventPartsReq extends GClosedEventPartsReq {
 
 class GClosedEventPartsReqBuilder
     implements Builder<GClosedEventPartsReq, GClosedEventPartsReqBuilder> {
-  _$GClosedEventPartsReq _$v;
+  _$GClosedEventPartsReq? _$v;
 
-  _i3.GClosedEventPartsVarsBuilder _vars;
+  _i3.GClosedEventPartsVarsBuilder? _vars;
   _i3.GClosedEventPartsVarsBuilder get vars =>
       _$this._vars ??= new _i3.GClosedEventPartsVarsBuilder();
-  set vars(_i3.GClosedEventPartsVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GClosedEventPartsVarsBuilder? vars) => _$this._vars = vars;
 
-  _i7.DocumentNode _document;
-  _i7.DocumentNode get document => _$this._document;
-  set document(_i7.DocumentNode document) => _$this._document = document;
+  _i7.DocumentNode? _document;
+  _i7.DocumentNode? get document => _$this._document;
+  set document(_i7.DocumentNode? document) => _$this._document = document;
 
-  String _fragmentName;
-  String get fragmentName => _$this._fragmentName;
-  set fragmentName(String fragmentName) => _$this._fragmentName = fragmentName;
+  String? _fragmentName;
+  String? get fragmentName => _$this._fragmentName;
+  set fragmentName(String? fragmentName) => _$this._fragmentName = fragmentName;
 
-  Map<String, dynamic> _idFields;
-  Map<String, dynamic> get idFields => _$this._idFields;
-  set idFields(Map<String, dynamic> idFields) => _$this._idFields = idFields;
+  Map<String, dynamic>? _idFields;
+  Map<String, dynamic>? get idFields => _$this._idFields;
+  set idFields(Map<String, dynamic>? idFields) => _$this._idFields = idFields;
 
   GClosedEventPartsReqBuilder() {
     GClosedEventPartsReq._initializeBuilder(this);
   }
 
   GClosedEventPartsReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _document = _$v.document;
-      _fragmentName = _$v.fragmentName;
-      _idFields = _$v.idFields;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _document = $v.document;
+      _fragmentName = $v.fragmentName;
+      _idFields = $v.idFields;
       _$v = null;
     }
     return this;
@@ -10901,14 +11086,12 @@ class GClosedEventPartsReqBuilder
 
   @override
   void replace(GClosedEventPartsReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GClosedEventPartsReq;
   }
 
   @override
-  void update(void Function(GClosedEventPartsReqBuilder) updates) {
+  void update(void Function(GClosedEventPartsReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -10919,11 +11102,13 @@ class GClosedEventPartsReqBuilder
       _$result = _$v ??
           new _$GClosedEventPartsReq._(
               vars: vars.build(),
-              document: document,
+              document: BuiltValueNullFieldError.checkNotNull(
+                  document, 'GClosedEventPartsReq', 'document'),
               fragmentName: fragmentName,
-              idFields: idFields);
+              idFields: BuiltValueNullFieldError.checkNotNull(
+                  idFields, 'GClosedEventPartsReq', 'idFields'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -10944,30 +11129,26 @@ class _$GReopenedEventPartsReq extends GReopenedEventPartsReq {
   @override
   final _i7.DocumentNode document;
   @override
-  final String fragmentName;
+  final String? fragmentName;
   @override
   final Map<String, dynamic> idFields;
 
   factory _$GReopenedEventPartsReq(
-          [void Function(GReopenedEventPartsReqBuilder) updates]) =>
+          [void Function(GReopenedEventPartsReqBuilder)? updates]) =>
       (new GReopenedEventPartsReqBuilder()..update(updates)).build();
 
   _$GReopenedEventPartsReq._(
-      {this.vars, this.document, this.fragmentName, this.idFields})
+      {required this.vars,
+      required this.document,
+      this.fragmentName,
+      required this.idFields})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GReopenedEventPartsReq', 'vars');
-    }
-    if (document == null) {
-      throw new BuiltValueNullFieldError('GReopenedEventPartsReq', 'document');
-    }
-    if (fragmentName == null) {
-      throw new BuiltValueNullFieldError(
-          'GReopenedEventPartsReq', 'fragmentName');
-    }
-    if (idFields == null) {
-      throw new BuiltValueNullFieldError('GReopenedEventPartsReq', 'idFields');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        vars, 'GReopenedEventPartsReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        document, 'GReopenedEventPartsReq', 'document');
+    BuiltValueNullFieldError.checkNotNull(
+        idFields, 'GReopenedEventPartsReq', 'idFields');
   }
 
   @override
@@ -11010,35 +11191,36 @@ class _$GReopenedEventPartsReq extends GReopenedEventPartsReq {
 
 class GReopenedEventPartsReqBuilder
     implements Builder<GReopenedEventPartsReq, GReopenedEventPartsReqBuilder> {
-  _$GReopenedEventPartsReq _$v;
+  _$GReopenedEventPartsReq? _$v;
 
-  _i3.GReopenedEventPartsVarsBuilder _vars;
+  _i3.GReopenedEventPartsVarsBuilder? _vars;
   _i3.GReopenedEventPartsVarsBuilder get vars =>
       _$this._vars ??= new _i3.GReopenedEventPartsVarsBuilder();
-  set vars(_i3.GReopenedEventPartsVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GReopenedEventPartsVarsBuilder? vars) => _$this._vars = vars;
 
-  _i7.DocumentNode _document;
-  _i7.DocumentNode get document => _$this._document;
-  set document(_i7.DocumentNode document) => _$this._document = document;
+  _i7.DocumentNode? _document;
+  _i7.DocumentNode? get document => _$this._document;
+  set document(_i7.DocumentNode? document) => _$this._document = document;
 
-  String _fragmentName;
-  String get fragmentName => _$this._fragmentName;
-  set fragmentName(String fragmentName) => _$this._fragmentName = fragmentName;
+  String? _fragmentName;
+  String? get fragmentName => _$this._fragmentName;
+  set fragmentName(String? fragmentName) => _$this._fragmentName = fragmentName;
 
-  Map<String, dynamic> _idFields;
-  Map<String, dynamic> get idFields => _$this._idFields;
-  set idFields(Map<String, dynamic> idFields) => _$this._idFields = idFields;
+  Map<String, dynamic>? _idFields;
+  Map<String, dynamic>? get idFields => _$this._idFields;
+  set idFields(Map<String, dynamic>? idFields) => _$this._idFields = idFields;
 
   GReopenedEventPartsReqBuilder() {
     GReopenedEventPartsReq._initializeBuilder(this);
   }
 
   GReopenedEventPartsReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _document = _$v.document;
-      _fragmentName = _$v.fragmentName;
-      _idFields = _$v.idFields;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _document = $v.document;
+      _fragmentName = $v.fragmentName;
+      _idFields = $v.idFields;
       _$v = null;
     }
     return this;
@@ -11046,14 +11228,12 @@ class GReopenedEventPartsReqBuilder
 
   @override
   void replace(GReopenedEventPartsReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GReopenedEventPartsReq;
   }
 
   @override
-  void update(void Function(GReopenedEventPartsReqBuilder) updates) {
+  void update(void Function(GReopenedEventPartsReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -11064,11 +11244,13 @@ class GReopenedEventPartsReqBuilder
       _$result = _$v ??
           new _$GReopenedEventPartsReq._(
               vars: vars.build(),
-              document: document,
+              document: BuiltValueNullFieldError.checkNotNull(
+                  document, 'GReopenedEventPartsReq', 'document'),
               fragmentName: fragmentName,
-              idFields: idFields);
+              idFields: BuiltValueNullFieldError.checkNotNull(
+                  idFields, 'GReopenedEventPartsReq', 'idFields'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -11089,33 +11271,26 @@ class _$GCrossReferencedEventPartsReq extends GCrossReferencedEventPartsReq {
   @override
   final _i7.DocumentNode document;
   @override
-  final String fragmentName;
+  final String? fragmentName;
   @override
   final Map<String, dynamic> idFields;
 
   factory _$GCrossReferencedEventPartsReq(
-          [void Function(GCrossReferencedEventPartsReqBuilder) updates]) =>
+          [void Function(GCrossReferencedEventPartsReqBuilder)? updates]) =>
       (new GCrossReferencedEventPartsReqBuilder()..update(updates)).build();
 
   _$GCrossReferencedEventPartsReq._(
-      {this.vars, this.document, this.fragmentName, this.idFields})
+      {required this.vars,
+      required this.document,
+      this.fragmentName,
+      required this.idFields})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError(
-          'GCrossReferencedEventPartsReq', 'vars');
-    }
-    if (document == null) {
-      throw new BuiltValueNullFieldError(
-          'GCrossReferencedEventPartsReq', 'document');
-    }
-    if (fragmentName == null) {
-      throw new BuiltValueNullFieldError(
-          'GCrossReferencedEventPartsReq', 'fragmentName');
-    }
-    if (idFields == null) {
-      throw new BuiltValueNullFieldError(
-          'GCrossReferencedEventPartsReq', 'idFields');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        vars, 'GCrossReferencedEventPartsReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        document, 'GCrossReferencedEventPartsReq', 'document');
+    BuiltValueNullFieldError.checkNotNull(
+        idFields, 'GCrossReferencedEventPartsReq', 'idFields');
   }
 
   @override
@@ -11160,36 +11335,37 @@ class GCrossReferencedEventPartsReqBuilder
     implements
         Builder<GCrossReferencedEventPartsReq,
             GCrossReferencedEventPartsReqBuilder> {
-  _$GCrossReferencedEventPartsReq _$v;
+  _$GCrossReferencedEventPartsReq? _$v;
 
-  _i3.GCrossReferencedEventPartsVarsBuilder _vars;
+  _i3.GCrossReferencedEventPartsVarsBuilder? _vars;
   _i3.GCrossReferencedEventPartsVarsBuilder get vars =>
       _$this._vars ??= new _i3.GCrossReferencedEventPartsVarsBuilder();
-  set vars(_i3.GCrossReferencedEventPartsVarsBuilder vars) =>
+  set vars(_i3.GCrossReferencedEventPartsVarsBuilder? vars) =>
       _$this._vars = vars;
 
-  _i7.DocumentNode _document;
-  _i7.DocumentNode get document => _$this._document;
-  set document(_i7.DocumentNode document) => _$this._document = document;
+  _i7.DocumentNode? _document;
+  _i7.DocumentNode? get document => _$this._document;
+  set document(_i7.DocumentNode? document) => _$this._document = document;
 
-  String _fragmentName;
-  String get fragmentName => _$this._fragmentName;
-  set fragmentName(String fragmentName) => _$this._fragmentName = fragmentName;
+  String? _fragmentName;
+  String? get fragmentName => _$this._fragmentName;
+  set fragmentName(String? fragmentName) => _$this._fragmentName = fragmentName;
 
-  Map<String, dynamic> _idFields;
-  Map<String, dynamic> get idFields => _$this._idFields;
-  set idFields(Map<String, dynamic> idFields) => _$this._idFields = idFields;
+  Map<String, dynamic>? _idFields;
+  Map<String, dynamic>? get idFields => _$this._idFields;
+  set idFields(Map<String, dynamic>? idFields) => _$this._idFields = idFields;
 
   GCrossReferencedEventPartsReqBuilder() {
     GCrossReferencedEventPartsReq._initializeBuilder(this);
   }
 
   GCrossReferencedEventPartsReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _document = _$v.document;
-      _fragmentName = _$v.fragmentName;
-      _idFields = _$v.idFields;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _document = $v.document;
+      _fragmentName = $v.fragmentName;
+      _idFields = $v.idFields;
       _$v = null;
     }
     return this;
@@ -11197,14 +11373,12 @@ class GCrossReferencedEventPartsReqBuilder
 
   @override
   void replace(GCrossReferencedEventPartsReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GCrossReferencedEventPartsReq;
   }
 
   @override
-  void update(void Function(GCrossReferencedEventPartsReqBuilder) updates) {
+  void update(void Function(GCrossReferencedEventPartsReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -11215,11 +11389,13 @@ class GCrossReferencedEventPartsReqBuilder
       _$result = _$v ??
           new _$GCrossReferencedEventPartsReq._(
               vars: vars.build(),
-              document: document,
+              document: BuiltValueNullFieldError.checkNotNull(
+                  document, 'GCrossReferencedEventPartsReq', 'document'),
               fragmentName: fragmentName,
-              idFields: idFields);
+              idFields: BuiltValueNullFieldError.checkNotNull(
+                  idFields, 'GCrossReferencedEventPartsReq', 'idFields'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -11240,30 +11416,26 @@ class _$GLabeledEventPartsReq extends GLabeledEventPartsReq {
   @override
   final _i7.DocumentNode document;
   @override
-  final String fragmentName;
+  final String? fragmentName;
   @override
   final Map<String, dynamic> idFields;
 
   factory _$GLabeledEventPartsReq(
-          [void Function(GLabeledEventPartsReqBuilder) updates]) =>
+          [void Function(GLabeledEventPartsReqBuilder)? updates]) =>
       (new GLabeledEventPartsReqBuilder()..update(updates)).build();
 
   _$GLabeledEventPartsReq._(
-      {this.vars, this.document, this.fragmentName, this.idFields})
+      {required this.vars,
+      required this.document,
+      this.fragmentName,
+      required this.idFields})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GLabeledEventPartsReq', 'vars');
-    }
-    if (document == null) {
-      throw new BuiltValueNullFieldError('GLabeledEventPartsReq', 'document');
-    }
-    if (fragmentName == null) {
-      throw new BuiltValueNullFieldError(
-          'GLabeledEventPartsReq', 'fragmentName');
-    }
-    if (idFields == null) {
-      throw new BuiltValueNullFieldError('GLabeledEventPartsReq', 'idFields');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        vars, 'GLabeledEventPartsReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        document, 'GLabeledEventPartsReq', 'document');
+    BuiltValueNullFieldError.checkNotNull(
+        idFields, 'GLabeledEventPartsReq', 'idFields');
   }
 
   @override
@@ -11306,35 +11478,36 @@ class _$GLabeledEventPartsReq extends GLabeledEventPartsReq {
 
 class GLabeledEventPartsReqBuilder
     implements Builder<GLabeledEventPartsReq, GLabeledEventPartsReqBuilder> {
-  _$GLabeledEventPartsReq _$v;
+  _$GLabeledEventPartsReq? _$v;
 
-  _i3.GLabeledEventPartsVarsBuilder _vars;
+  _i3.GLabeledEventPartsVarsBuilder? _vars;
   _i3.GLabeledEventPartsVarsBuilder get vars =>
       _$this._vars ??= new _i3.GLabeledEventPartsVarsBuilder();
-  set vars(_i3.GLabeledEventPartsVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GLabeledEventPartsVarsBuilder? vars) => _$this._vars = vars;
 
-  _i7.DocumentNode _document;
-  _i7.DocumentNode get document => _$this._document;
-  set document(_i7.DocumentNode document) => _$this._document = document;
+  _i7.DocumentNode? _document;
+  _i7.DocumentNode? get document => _$this._document;
+  set document(_i7.DocumentNode? document) => _$this._document = document;
 
-  String _fragmentName;
-  String get fragmentName => _$this._fragmentName;
-  set fragmentName(String fragmentName) => _$this._fragmentName = fragmentName;
+  String? _fragmentName;
+  String? get fragmentName => _$this._fragmentName;
+  set fragmentName(String? fragmentName) => _$this._fragmentName = fragmentName;
 
-  Map<String, dynamic> _idFields;
-  Map<String, dynamic> get idFields => _$this._idFields;
-  set idFields(Map<String, dynamic> idFields) => _$this._idFields = idFields;
+  Map<String, dynamic>? _idFields;
+  Map<String, dynamic>? get idFields => _$this._idFields;
+  set idFields(Map<String, dynamic>? idFields) => _$this._idFields = idFields;
 
   GLabeledEventPartsReqBuilder() {
     GLabeledEventPartsReq._initializeBuilder(this);
   }
 
   GLabeledEventPartsReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _document = _$v.document;
-      _fragmentName = _$v.fragmentName;
-      _idFields = _$v.idFields;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _document = $v.document;
+      _fragmentName = $v.fragmentName;
+      _idFields = $v.idFields;
       _$v = null;
     }
     return this;
@@ -11342,14 +11515,12 @@ class GLabeledEventPartsReqBuilder
 
   @override
   void replace(GLabeledEventPartsReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GLabeledEventPartsReq;
   }
 
   @override
-  void update(void Function(GLabeledEventPartsReqBuilder) updates) {
+  void update(void Function(GLabeledEventPartsReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -11360,11 +11531,13 @@ class GLabeledEventPartsReqBuilder
       _$result = _$v ??
           new _$GLabeledEventPartsReq._(
               vars: vars.build(),
-              document: document,
+              document: BuiltValueNullFieldError.checkNotNull(
+                  document, 'GLabeledEventPartsReq', 'document'),
               fragmentName: fragmentName,
-              idFields: idFields);
+              idFields: BuiltValueNullFieldError.checkNotNull(
+                  idFields, 'GLabeledEventPartsReq', 'idFields'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -11385,30 +11558,26 @@ class _$GUnlabeledEventPartsReq extends GUnlabeledEventPartsReq {
   @override
   final _i7.DocumentNode document;
   @override
-  final String fragmentName;
+  final String? fragmentName;
   @override
   final Map<String, dynamic> idFields;
 
   factory _$GUnlabeledEventPartsReq(
-          [void Function(GUnlabeledEventPartsReqBuilder) updates]) =>
+          [void Function(GUnlabeledEventPartsReqBuilder)? updates]) =>
       (new GUnlabeledEventPartsReqBuilder()..update(updates)).build();
 
   _$GUnlabeledEventPartsReq._(
-      {this.vars, this.document, this.fragmentName, this.idFields})
+      {required this.vars,
+      required this.document,
+      this.fragmentName,
+      required this.idFields})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GUnlabeledEventPartsReq', 'vars');
-    }
-    if (document == null) {
-      throw new BuiltValueNullFieldError('GUnlabeledEventPartsReq', 'document');
-    }
-    if (fragmentName == null) {
-      throw new BuiltValueNullFieldError(
-          'GUnlabeledEventPartsReq', 'fragmentName');
-    }
-    if (idFields == null) {
-      throw new BuiltValueNullFieldError('GUnlabeledEventPartsReq', 'idFields');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        vars, 'GUnlabeledEventPartsReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        document, 'GUnlabeledEventPartsReq', 'document');
+    BuiltValueNullFieldError.checkNotNull(
+        idFields, 'GUnlabeledEventPartsReq', 'idFields');
   }
 
   @override
@@ -11452,35 +11621,36 @@ class _$GUnlabeledEventPartsReq extends GUnlabeledEventPartsReq {
 class GUnlabeledEventPartsReqBuilder
     implements
         Builder<GUnlabeledEventPartsReq, GUnlabeledEventPartsReqBuilder> {
-  _$GUnlabeledEventPartsReq _$v;
+  _$GUnlabeledEventPartsReq? _$v;
 
-  _i3.GUnlabeledEventPartsVarsBuilder _vars;
+  _i3.GUnlabeledEventPartsVarsBuilder? _vars;
   _i3.GUnlabeledEventPartsVarsBuilder get vars =>
       _$this._vars ??= new _i3.GUnlabeledEventPartsVarsBuilder();
-  set vars(_i3.GUnlabeledEventPartsVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GUnlabeledEventPartsVarsBuilder? vars) => _$this._vars = vars;
 
-  _i7.DocumentNode _document;
-  _i7.DocumentNode get document => _$this._document;
-  set document(_i7.DocumentNode document) => _$this._document = document;
+  _i7.DocumentNode? _document;
+  _i7.DocumentNode? get document => _$this._document;
+  set document(_i7.DocumentNode? document) => _$this._document = document;
 
-  String _fragmentName;
-  String get fragmentName => _$this._fragmentName;
-  set fragmentName(String fragmentName) => _$this._fragmentName = fragmentName;
+  String? _fragmentName;
+  String? get fragmentName => _$this._fragmentName;
+  set fragmentName(String? fragmentName) => _$this._fragmentName = fragmentName;
 
-  Map<String, dynamic> _idFields;
-  Map<String, dynamic> get idFields => _$this._idFields;
-  set idFields(Map<String, dynamic> idFields) => _$this._idFields = idFields;
+  Map<String, dynamic>? _idFields;
+  Map<String, dynamic>? get idFields => _$this._idFields;
+  set idFields(Map<String, dynamic>? idFields) => _$this._idFields = idFields;
 
   GUnlabeledEventPartsReqBuilder() {
     GUnlabeledEventPartsReq._initializeBuilder(this);
   }
 
   GUnlabeledEventPartsReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _document = _$v.document;
-      _fragmentName = _$v.fragmentName;
-      _idFields = _$v.idFields;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _document = $v.document;
+      _fragmentName = $v.fragmentName;
+      _idFields = $v.idFields;
       _$v = null;
     }
     return this;
@@ -11488,14 +11658,12 @@ class GUnlabeledEventPartsReqBuilder
 
   @override
   void replace(GUnlabeledEventPartsReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GUnlabeledEventPartsReq;
   }
 
   @override
-  void update(void Function(GUnlabeledEventPartsReqBuilder) updates) {
+  void update(void Function(GUnlabeledEventPartsReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -11506,11 +11674,13 @@ class GUnlabeledEventPartsReqBuilder
       _$result = _$v ??
           new _$GUnlabeledEventPartsReq._(
               vars: vars.build(),
-              document: document,
+              document: BuiltValueNullFieldError.checkNotNull(
+                  document, 'GUnlabeledEventPartsReq', 'document'),
               fragmentName: fragmentName,
-              idFields: idFields);
+              idFields: BuiltValueNullFieldError.checkNotNull(
+                  idFields, 'GUnlabeledEventPartsReq', 'idFields'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -11531,32 +11701,26 @@ class _$GMilestonedEventPartsReq extends GMilestonedEventPartsReq {
   @override
   final _i7.DocumentNode document;
   @override
-  final String fragmentName;
+  final String? fragmentName;
   @override
   final Map<String, dynamic> idFields;
 
   factory _$GMilestonedEventPartsReq(
-          [void Function(GMilestonedEventPartsReqBuilder) updates]) =>
+          [void Function(GMilestonedEventPartsReqBuilder)? updates]) =>
       (new GMilestonedEventPartsReqBuilder()..update(updates)).build();
 
   _$GMilestonedEventPartsReq._(
-      {this.vars, this.document, this.fragmentName, this.idFields})
+      {required this.vars,
+      required this.document,
+      this.fragmentName,
+      required this.idFields})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GMilestonedEventPartsReq', 'vars');
-    }
-    if (document == null) {
-      throw new BuiltValueNullFieldError(
-          'GMilestonedEventPartsReq', 'document');
-    }
-    if (fragmentName == null) {
-      throw new BuiltValueNullFieldError(
-          'GMilestonedEventPartsReq', 'fragmentName');
-    }
-    if (idFields == null) {
-      throw new BuiltValueNullFieldError(
-          'GMilestonedEventPartsReq', 'idFields');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        vars, 'GMilestonedEventPartsReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        document, 'GMilestonedEventPartsReq', 'document');
+    BuiltValueNullFieldError.checkNotNull(
+        idFields, 'GMilestonedEventPartsReq', 'idFields');
   }
 
   @override
@@ -11600,35 +11764,36 @@ class _$GMilestonedEventPartsReq extends GMilestonedEventPartsReq {
 class GMilestonedEventPartsReqBuilder
     implements
         Builder<GMilestonedEventPartsReq, GMilestonedEventPartsReqBuilder> {
-  _$GMilestonedEventPartsReq _$v;
+  _$GMilestonedEventPartsReq? _$v;
 
-  _i3.GMilestonedEventPartsVarsBuilder _vars;
+  _i3.GMilestonedEventPartsVarsBuilder? _vars;
   _i3.GMilestonedEventPartsVarsBuilder get vars =>
       _$this._vars ??= new _i3.GMilestonedEventPartsVarsBuilder();
-  set vars(_i3.GMilestonedEventPartsVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GMilestonedEventPartsVarsBuilder? vars) => _$this._vars = vars;
 
-  _i7.DocumentNode _document;
-  _i7.DocumentNode get document => _$this._document;
-  set document(_i7.DocumentNode document) => _$this._document = document;
+  _i7.DocumentNode? _document;
+  _i7.DocumentNode? get document => _$this._document;
+  set document(_i7.DocumentNode? document) => _$this._document = document;
 
-  String _fragmentName;
-  String get fragmentName => _$this._fragmentName;
-  set fragmentName(String fragmentName) => _$this._fragmentName = fragmentName;
+  String? _fragmentName;
+  String? get fragmentName => _$this._fragmentName;
+  set fragmentName(String? fragmentName) => _$this._fragmentName = fragmentName;
 
-  Map<String, dynamic> _idFields;
-  Map<String, dynamic> get idFields => _$this._idFields;
-  set idFields(Map<String, dynamic> idFields) => _$this._idFields = idFields;
+  Map<String, dynamic>? _idFields;
+  Map<String, dynamic>? get idFields => _$this._idFields;
+  set idFields(Map<String, dynamic>? idFields) => _$this._idFields = idFields;
 
   GMilestonedEventPartsReqBuilder() {
     GMilestonedEventPartsReq._initializeBuilder(this);
   }
 
   GMilestonedEventPartsReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _document = _$v.document;
-      _fragmentName = _$v.fragmentName;
-      _idFields = _$v.idFields;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _document = $v.document;
+      _fragmentName = $v.fragmentName;
+      _idFields = $v.idFields;
       _$v = null;
     }
     return this;
@@ -11636,14 +11801,12 @@ class GMilestonedEventPartsReqBuilder
 
   @override
   void replace(GMilestonedEventPartsReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GMilestonedEventPartsReq;
   }
 
   @override
-  void update(void Function(GMilestonedEventPartsReqBuilder) updates) {
+  void update(void Function(GMilestonedEventPartsReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -11654,11 +11817,13 @@ class GMilestonedEventPartsReqBuilder
       _$result = _$v ??
           new _$GMilestonedEventPartsReq._(
               vars: vars.build(),
-              document: document,
+              document: BuiltValueNullFieldError.checkNotNull(
+                  document, 'GMilestonedEventPartsReq', 'document'),
               fragmentName: fragmentName,
-              idFields: idFields);
+              idFields: BuiltValueNullFieldError.checkNotNull(
+                  idFields, 'GMilestonedEventPartsReq', 'idFields'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -11679,32 +11844,26 @@ class _$GDemilestonedEventPartsReq extends GDemilestonedEventPartsReq {
   @override
   final _i7.DocumentNode document;
   @override
-  final String fragmentName;
+  final String? fragmentName;
   @override
   final Map<String, dynamic> idFields;
 
   factory _$GDemilestonedEventPartsReq(
-          [void Function(GDemilestonedEventPartsReqBuilder) updates]) =>
+          [void Function(GDemilestonedEventPartsReqBuilder)? updates]) =>
       (new GDemilestonedEventPartsReqBuilder()..update(updates)).build();
 
   _$GDemilestonedEventPartsReq._(
-      {this.vars, this.document, this.fragmentName, this.idFields})
+      {required this.vars,
+      required this.document,
+      this.fragmentName,
+      required this.idFields})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GDemilestonedEventPartsReq', 'vars');
-    }
-    if (document == null) {
-      throw new BuiltValueNullFieldError(
-          'GDemilestonedEventPartsReq', 'document');
-    }
-    if (fragmentName == null) {
-      throw new BuiltValueNullFieldError(
-          'GDemilestonedEventPartsReq', 'fragmentName');
-    }
-    if (idFields == null) {
-      throw new BuiltValueNullFieldError(
-          'GDemilestonedEventPartsReq', 'idFields');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        vars, 'GDemilestonedEventPartsReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        document, 'GDemilestonedEventPartsReq', 'document');
+    BuiltValueNullFieldError.checkNotNull(
+        idFields, 'GDemilestonedEventPartsReq', 'idFields');
   }
 
   @override
@@ -11748,35 +11907,36 @@ class _$GDemilestonedEventPartsReq extends GDemilestonedEventPartsReq {
 class GDemilestonedEventPartsReqBuilder
     implements
         Builder<GDemilestonedEventPartsReq, GDemilestonedEventPartsReqBuilder> {
-  _$GDemilestonedEventPartsReq _$v;
+  _$GDemilestonedEventPartsReq? _$v;
 
-  _i3.GDemilestonedEventPartsVarsBuilder _vars;
+  _i3.GDemilestonedEventPartsVarsBuilder? _vars;
   _i3.GDemilestonedEventPartsVarsBuilder get vars =>
       _$this._vars ??= new _i3.GDemilestonedEventPartsVarsBuilder();
-  set vars(_i3.GDemilestonedEventPartsVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GDemilestonedEventPartsVarsBuilder? vars) => _$this._vars = vars;
 
-  _i7.DocumentNode _document;
-  _i7.DocumentNode get document => _$this._document;
-  set document(_i7.DocumentNode document) => _$this._document = document;
+  _i7.DocumentNode? _document;
+  _i7.DocumentNode? get document => _$this._document;
+  set document(_i7.DocumentNode? document) => _$this._document = document;
 
-  String _fragmentName;
-  String get fragmentName => _$this._fragmentName;
-  set fragmentName(String fragmentName) => _$this._fragmentName = fragmentName;
+  String? _fragmentName;
+  String? get fragmentName => _$this._fragmentName;
+  set fragmentName(String? fragmentName) => _$this._fragmentName = fragmentName;
 
-  Map<String, dynamic> _idFields;
-  Map<String, dynamic> get idFields => _$this._idFields;
-  set idFields(Map<String, dynamic> idFields) => _$this._idFields = idFields;
+  Map<String, dynamic>? _idFields;
+  Map<String, dynamic>? get idFields => _$this._idFields;
+  set idFields(Map<String, dynamic>? idFields) => _$this._idFields = idFields;
 
   GDemilestonedEventPartsReqBuilder() {
     GDemilestonedEventPartsReq._initializeBuilder(this);
   }
 
   GDemilestonedEventPartsReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _document = _$v.document;
-      _fragmentName = _$v.fragmentName;
-      _idFields = _$v.idFields;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _document = $v.document;
+      _fragmentName = $v.fragmentName;
+      _idFields = $v.idFields;
       _$v = null;
     }
     return this;
@@ -11784,14 +11944,12 @@ class GDemilestonedEventPartsReqBuilder
 
   @override
   void replace(GDemilestonedEventPartsReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GDemilestonedEventPartsReq;
   }
 
   @override
-  void update(void Function(GDemilestonedEventPartsReqBuilder) updates) {
+  void update(void Function(GDemilestonedEventPartsReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -11802,11 +11960,13 @@ class GDemilestonedEventPartsReqBuilder
       _$result = _$v ??
           new _$GDemilestonedEventPartsReq._(
               vars: vars.build(),
-              document: document,
+              document: BuiltValueNullFieldError.checkNotNull(
+                  document, 'GDemilestonedEventPartsReq', 'document'),
               fragmentName: fragmentName,
-              idFields: idFields);
+              idFields: BuiltValueNullFieldError.checkNotNull(
+                  idFields, 'GDemilestonedEventPartsReq', 'idFields'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -11827,30 +11987,25 @@ class _$GLockedEventPartsReq extends GLockedEventPartsReq {
   @override
   final _i7.DocumentNode document;
   @override
-  final String fragmentName;
+  final String? fragmentName;
   @override
   final Map<String, dynamic> idFields;
 
   factory _$GLockedEventPartsReq(
-          [void Function(GLockedEventPartsReqBuilder) updates]) =>
+          [void Function(GLockedEventPartsReqBuilder)? updates]) =>
       (new GLockedEventPartsReqBuilder()..update(updates)).build();
 
   _$GLockedEventPartsReq._(
-      {this.vars, this.document, this.fragmentName, this.idFields})
+      {required this.vars,
+      required this.document,
+      this.fragmentName,
+      required this.idFields})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GLockedEventPartsReq', 'vars');
-    }
-    if (document == null) {
-      throw new BuiltValueNullFieldError('GLockedEventPartsReq', 'document');
-    }
-    if (fragmentName == null) {
-      throw new BuiltValueNullFieldError(
-          'GLockedEventPartsReq', 'fragmentName');
-    }
-    if (idFields == null) {
-      throw new BuiltValueNullFieldError('GLockedEventPartsReq', 'idFields');
-    }
+    BuiltValueNullFieldError.checkNotNull(vars, 'GLockedEventPartsReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        document, 'GLockedEventPartsReq', 'document');
+    BuiltValueNullFieldError.checkNotNull(
+        idFields, 'GLockedEventPartsReq', 'idFields');
   }
 
   @override
@@ -11893,35 +12048,36 @@ class _$GLockedEventPartsReq extends GLockedEventPartsReq {
 
 class GLockedEventPartsReqBuilder
     implements Builder<GLockedEventPartsReq, GLockedEventPartsReqBuilder> {
-  _$GLockedEventPartsReq _$v;
+  _$GLockedEventPartsReq? _$v;
 
-  _i3.GLockedEventPartsVarsBuilder _vars;
+  _i3.GLockedEventPartsVarsBuilder? _vars;
   _i3.GLockedEventPartsVarsBuilder get vars =>
       _$this._vars ??= new _i3.GLockedEventPartsVarsBuilder();
-  set vars(_i3.GLockedEventPartsVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GLockedEventPartsVarsBuilder? vars) => _$this._vars = vars;
 
-  _i7.DocumentNode _document;
-  _i7.DocumentNode get document => _$this._document;
-  set document(_i7.DocumentNode document) => _$this._document = document;
+  _i7.DocumentNode? _document;
+  _i7.DocumentNode? get document => _$this._document;
+  set document(_i7.DocumentNode? document) => _$this._document = document;
 
-  String _fragmentName;
-  String get fragmentName => _$this._fragmentName;
-  set fragmentName(String fragmentName) => _$this._fragmentName = fragmentName;
+  String? _fragmentName;
+  String? get fragmentName => _$this._fragmentName;
+  set fragmentName(String? fragmentName) => _$this._fragmentName = fragmentName;
 
-  Map<String, dynamic> _idFields;
-  Map<String, dynamic> get idFields => _$this._idFields;
-  set idFields(Map<String, dynamic> idFields) => _$this._idFields = idFields;
+  Map<String, dynamic>? _idFields;
+  Map<String, dynamic>? get idFields => _$this._idFields;
+  set idFields(Map<String, dynamic>? idFields) => _$this._idFields = idFields;
 
   GLockedEventPartsReqBuilder() {
     GLockedEventPartsReq._initializeBuilder(this);
   }
 
   GLockedEventPartsReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _document = _$v.document;
-      _fragmentName = _$v.fragmentName;
-      _idFields = _$v.idFields;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _document = $v.document;
+      _fragmentName = $v.fragmentName;
+      _idFields = $v.idFields;
       _$v = null;
     }
     return this;
@@ -11929,14 +12085,12 @@ class GLockedEventPartsReqBuilder
 
   @override
   void replace(GLockedEventPartsReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GLockedEventPartsReq;
   }
 
   @override
-  void update(void Function(GLockedEventPartsReqBuilder) updates) {
+  void update(void Function(GLockedEventPartsReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -11947,11 +12101,13 @@ class GLockedEventPartsReqBuilder
       _$result = _$v ??
           new _$GLockedEventPartsReq._(
               vars: vars.build(),
-              document: document,
+              document: BuiltValueNullFieldError.checkNotNull(
+                  document, 'GLockedEventPartsReq', 'document'),
               fragmentName: fragmentName,
-              idFields: idFields);
+              idFields: BuiltValueNullFieldError.checkNotNull(
+                  idFields, 'GLockedEventPartsReq', 'idFields'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -11972,30 +12128,26 @@ class _$GUnlockedEventPartsReq extends GUnlockedEventPartsReq {
   @override
   final _i7.DocumentNode document;
   @override
-  final String fragmentName;
+  final String? fragmentName;
   @override
   final Map<String, dynamic> idFields;
 
   factory _$GUnlockedEventPartsReq(
-          [void Function(GUnlockedEventPartsReqBuilder) updates]) =>
+          [void Function(GUnlockedEventPartsReqBuilder)? updates]) =>
       (new GUnlockedEventPartsReqBuilder()..update(updates)).build();
 
   _$GUnlockedEventPartsReq._(
-      {this.vars, this.document, this.fragmentName, this.idFields})
+      {required this.vars,
+      required this.document,
+      this.fragmentName,
+      required this.idFields})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GUnlockedEventPartsReq', 'vars');
-    }
-    if (document == null) {
-      throw new BuiltValueNullFieldError('GUnlockedEventPartsReq', 'document');
-    }
-    if (fragmentName == null) {
-      throw new BuiltValueNullFieldError(
-          'GUnlockedEventPartsReq', 'fragmentName');
-    }
-    if (idFields == null) {
-      throw new BuiltValueNullFieldError('GUnlockedEventPartsReq', 'idFields');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        vars, 'GUnlockedEventPartsReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        document, 'GUnlockedEventPartsReq', 'document');
+    BuiltValueNullFieldError.checkNotNull(
+        idFields, 'GUnlockedEventPartsReq', 'idFields');
   }
 
   @override
@@ -12038,35 +12190,36 @@ class _$GUnlockedEventPartsReq extends GUnlockedEventPartsReq {
 
 class GUnlockedEventPartsReqBuilder
     implements Builder<GUnlockedEventPartsReq, GUnlockedEventPartsReqBuilder> {
-  _$GUnlockedEventPartsReq _$v;
+  _$GUnlockedEventPartsReq? _$v;
 
-  _i3.GUnlockedEventPartsVarsBuilder _vars;
+  _i3.GUnlockedEventPartsVarsBuilder? _vars;
   _i3.GUnlockedEventPartsVarsBuilder get vars =>
       _$this._vars ??= new _i3.GUnlockedEventPartsVarsBuilder();
-  set vars(_i3.GUnlockedEventPartsVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GUnlockedEventPartsVarsBuilder? vars) => _$this._vars = vars;
 
-  _i7.DocumentNode _document;
-  _i7.DocumentNode get document => _$this._document;
-  set document(_i7.DocumentNode document) => _$this._document = document;
+  _i7.DocumentNode? _document;
+  _i7.DocumentNode? get document => _$this._document;
+  set document(_i7.DocumentNode? document) => _$this._document = document;
 
-  String _fragmentName;
-  String get fragmentName => _$this._fragmentName;
-  set fragmentName(String fragmentName) => _$this._fragmentName = fragmentName;
+  String? _fragmentName;
+  String? get fragmentName => _$this._fragmentName;
+  set fragmentName(String? fragmentName) => _$this._fragmentName = fragmentName;
 
-  Map<String, dynamic> _idFields;
-  Map<String, dynamic> get idFields => _$this._idFields;
-  set idFields(Map<String, dynamic> idFields) => _$this._idFields = idFields;
+  Map<String, dynamic>? _idFields;
+  Map<String, dynamic>? get idFields => _$this._idFields;
+  set idFields(Map<String, dynamic>? idFields) => _$this._idFields = idFields;
 
   GUnlockedEventPartsReqBuilder() {
     GUnlockedEventPartsReq._initializeBuilder(this);
   }
 
   GUnlockedEventPartsReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _document = _$v.document;
-      _fragmentName = _$v.fragmentName;
-      _idFields = _$v.idFields;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _document = $v.document;
+      _fragmentName = $v.fragmentName;
+      _idFields = $v.idFields;
       _$v = null;
     }
     return this;
@@ -12074,14 +12227,12 @@ class GUnlockedEventPartsReqBuilder
 
   @override
   void replace(GUnlockedEventPartsReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GUnlockedEventPartsReq;
   }
 
   @override
-  void update(void Function(GUnlockedEventPartsReqBuilder) updates) {
+  void update(void Function(GUnlockedEventPartsReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -12092,11 +12243,13 @@ class GUnlockedEventPartsReqBuilder
       _$result = _$v ??
           new _$GUnlockedEventPartsReq._(
               vars: vars.build(),
-              document: document,
+              document: BuiltValueNullFieldError.checkNotNull(
+                  document, 'GUnlockedEventPartsReq', 'document'),
               fragmentName: fragmentName,
-              idFields: idFields);
+              idFields: BuiltValueNullFieldError.checkNotNull(
+                  idFields, 'GUnlockedEventPartsReq', 'idFields'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -12117,30 +12270,26 @@ class _$GAssignedEventPartsReq extends GAssignedEventPartsReq {
   @override
   final _i7.DocumentNode document;
   @override
-  final String fragmentName;
+  final String? fragmentName;
   @override
   final Map<String, dynamic> idFields;
 
   factory _$GAssignedEventPartsReq(
-          [void Function(GAssignedEventPartsReqBuilder) updates]) =>
+          [void Function(GAssignedEventPartsReqBuilder)? updates]) =>
       (new GAssignedEventPartsReqBuilder()..update(updates)).build();
 
   _$GAssignedEventPartsReq._(
-      {this.vars, this.document, this.fragmentName, this.idFields})
+      {required this.vars,
+      required this.document,
+      this.fragmentName,
+      required this.idFields})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GAssignedEventPartsReq', 'vars');
-    }
-    if (document == null) {
-      throw new BuiltValueNullFieldError('GAssignedEventPartsReq', 'document');
-    }
-    if (fragmentName == null) {
-      throw new BuiltValueNullFieldError(
-          'GAssignedEventPartsReq', 'fragmentName');
-    }
-    if (idFields == null) {
-      throw new BuiltValueNullFieldError('GAssignedEventPartsReq', 'idFields');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        vars, 'GAssignedEventPartsReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        document, 'GAssignedEventPartsReq', 'document');
+    BuiltValueNullFieldError.checkNotNull(
+        idFields, 'GAssignedEventPartsReq', 'idFields');
   }
 
   @override
@@ -12183,35 +12332,36 @@ class _$GAssignedEventPartsReq extends GAssignedEventPartsReq {
 
 class GAssignedEventPartsReqBuilder
     implements Builder<GAssignedEventPartsReq, GAssignedEventPartsReqBuilder> {
-  _$GAssignedEventPartsReq _$v;
+  _$GAssignedEventPartsReq? _$v;
 
-  _i3.GAssignedEventPartsVarsBuilder _vars;
+  _i3.GAssignedEventPartsVarsBuilder? _vars;
   _i3.GAssignedEventPartsVarsBuilder get vars =>
       _$this._vars ??= new _i3.GAssignedEventPartsVarsBuilder();
-  set vars(_i3.GAssignedEventPartsVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GAssignedEventPartsVarsBuilder? vars) => _$this._vars = vars;
 
-  _i7.DocumentNode _document;
-  _i7.DocumentNode get document => _$this._document;
-  set document(_i7.DocumentNode document) => _$this._document = document;
+  _i7.DocumentNode? _document;
+  _i7.DocumentNode? get document => _$this._document;
+  set document(_i7.DocumentNode? document) => _$this._document = document;
 
-  String _fragmentName;
-  String get fragmentName => _$this._fragmentName;
-  set fragmentName(String fragmentName) => _$this._fragmentName = fragmentName;
+  String? _fragmentName;
+  String? get fragmentName => _$this._fragmentName;
+  set fragmentName(String? fragmentName) => _$this._fragmentName = fragmentName;
 
-  Map<String, dynamic> _idFields;
-  Map<String, dynamic> get idFields => _$this._idFields;
-  set idFields(Map<String, dynamic> idFields) => _$this._idFields = idFields;
+  Map<String, dynamic>? _idFields;
+  Map<String, dynamic>? get idFields => _$this._idFields;
+  set idFields(Map<String, dynamic>? idFields) => _$this._idFields = idFields;
 
   GAssignedEventPartsReqBuilder() {
     GAssignedEventPartsReq._initializeBuilder(this);
   }
 
   GAssignedEventPartsReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _document = _$v.document;
-      _fragmentName = _$v.fragmentName;
-      _idFields = _$v.idFields;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _document = $v.document;
+      _fragmentName = $v.fragmentName;
+      _idFields = $v.idFields;
       _$v = null;
     }
     return this;
@@ -12219,14 +12369,12 @@ class GAssignedEventPartsReqBuilder
 
   @override
   void replace(GAssignedEventPartsReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GAssignedEventPartsReq;
   }
 
   @override
-  void update(void Function(GAssignedEventPartsReqBuilder) updates) {
+  void update(void Function(GAssignedEventPartsReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -12237,11 +12385,13 @@ class GAssignedEventPartsReqBuilder
       _$result = _$v ??
           new _$GAssignedEventPartsReq._(
               vars: vars.build(),
-              document: document,
+              document: BuiltValueNullFieldError.checkNotNull(
+                  document, 'GAssignedEventPartsReq', 'document'),
               fragmentName: fragmentName,
-              idFields: idFields);
+              idFields: BuiltValueNullFieldError.checkNotNull(
+                  idFields, 'GAssignedEventPartsReq', 'idFields'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -12262,32 +12412,26 @@ class _$GUnassignedEventPartsReq extends GUnassignedEventPartsReq {
   @override
   final _i7.DocumentNode document;
   @override
-  final String fragmentName;
+  final String? fragmentName;
   @override
   final Map<String, dynamic> idFields;
 
   factory _$GUnassignedEventPartsReq(
-          [void Function(GUnassignedEventPartsReqBuilder) updates]) =>
+          [void Function(GUnassignedEventPartsReqBuilder)? updates]) =>
       (new GUnassignedEventPartsReqBuilder()..update(updates)).build();
 
   _$GUnassignedEventPartsReq._(
-      {this.vars, this.document, this.fragmentName, this.idFields})
+      {required this.vars,
+      required this.document,
+      this.fragmentName,
+      required this.idFields})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GUnassignedEventPartsReq', 'vars');
-    }
-    if (document == null) {
-      throw new BuiltValueNullFieldError(
-          'GUnassignedEventPartsReq', 'document');
-    }
-    if (fragmentName == null) {
-      throw new BuiltValueNullFieldError(
-          'GUnassignedEventPartsReq', 'fragmentName');
-    }
-    if (idFields == null) {
-      throw new BuiltValueNullFieldError(
-          'GUnassignedEventPartsReq', 'idFields');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        vars, 'GUnassignedEventPartsReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        document, 'GUnassignedEventPartsReq', 'document');
+    BuiltValueNullFieldError.checkNotNull(
+        idFields, 'GUnassignedEventPartsReq', 'idFields');
   }
 
   @override
@@ -12331,35 +12475,36 @@ class _$GUnassignedEventPartsReq extends GUnassignedEventPartsReq {
 class GUnassignedEventPartsReqBuilder
     implements
         Builder<GUnassignedEventPartsReq, GUnassignedEventPartsReqBuilder> {
-  _$GUnassignedEventPartsReq _$v;
+  _$GUnassignedEventPartsReq? _$v;
 
-  _i3.GUnassignedEventPartsVarsBuilder _vars;
+  _i3.GUnassignedEventPartsVarsBuilder? _vars;
   _i3.GUnassignedEventPartsVarsBuilder get vars =>
       _$this._vars ??= new _i3.GUnassignedEventPartsVarsBuilder();
-  set vars(_i3.GUnassignedEventPartsVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GUnassignedEventPartsVarsBuilder? vars) => _$this._vars = vars;
 
-  _i7.DocumentNode _document;
-  _i7.DocumentNode get document => _$this._document;
-  set document(_i7.DocumentNode document) => _$this._document = document;
+  _i7.DocumentNode? _document;
+  _i7.DocumentNode? get document => _$this._document;
+  set document(_i7.DocumentNode? document) => _$this._document = document;
 
-  String _fragmentName;
-  String get fragmentName => _$this._fragmentName;
-  set fragmentName(String fragmentName) => _$this._fragmentName = fragmentName;
+  String? _fragmentName;
+  String? get fragmentName => _$this._fragmentName;
+  set fragmentName(String? fragmentName) => _$this._fragmentName = fragmentName;
 
-  Map<String, dynamic> _idFields;
-  Map<String, dynamic> get idFields => _$this._idFields;
-  set idFields(Map<String, dynamic> idFields) => _$this._idFields = idFields;
+  Map<String, dynamic>? _idFields;
+  Map<String, dynamic>? get idFields => _$this._idFields;
+  set idFields(Map<String, dynamic>? idFields) => _$this._idFields = idFields;
 
   GUnassignedEventPartsReqBuilder() {
     GUnassignedEventPartsReq._initializeBuilder(this);
   }
 
   GUnassignedEventPartsReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _document = _$v.document;
-      _fragmentName = _$v.fragmentName;
-      _idFields = _$v.idFields;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _document = $v.document;
+      _fragmentName = $v.fragmentName;
+      _idFields = $v.idFields;
       _$v = null;
     }
     return this;
@@ -12367,14 +12512,12 @@ class GUnassignedEventPartsReqBuilder
 
   @override
   void replace(GUnassignedEventPartsReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GUnassignedEventPartsReq;
   }
 
   @override
-  void update(void Function(GUnassignedEventPartsReqBuilder) updates) {
+  void update(void Function(GUnassignedEventPartsReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -12385,11 +12528,13 @@ class GUnassignedEventPartsReqBuilder
       _$result = _$v ??
           new _$GUnassignedEventPartsReq._(
               vars: vars.build(),
-              document: document,
+              document: BuiltValueNullFieldError.checkNotNull(
+                  document, 'GUnassignedEventPartsReq', 'document'),
               fragmentName: fragmentName,
-              idFields: idFields);
+              idFields: BuiltValueNullFieldError.checkNotNull(
+                  idFields, 'GUnassignedEventPartsReq', 'idFields'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -12410,32 +12555,26 @@ class _$GSubscribedEventPartsReq extends GSubscribedEventPartsReq {
   @override
   final _i7.DocumentNode document;
   @override
-  final String fragmentName;
+  final String? fragmentName;
   @override
   final Map<String, dynamic> idFields;
 
   factory _$GSubscribedEventPartsReq(
-          [void Function(GSubscribedEventPartsReqBuilder) updates]) =>
+          [void Function(GSubscribedEventPartsReqBuilder)? updates]) =>
       (new GSubscribedEventPartsReqBuilder()..update(updates)).build();
 
   _$GSubscribedEventPartsReq._(
-      {this.vars, this.document, this.fragmentName, this.idFields})
+      {required this.vars,
+      required this.document,
+      this.fragmentName,
+      required this.idFields})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GSubscribedEventPartsReq', 'vars');
-    }
-    if (document == null) {
-      throw new BuiltValueNullFieldError(
-          'GSubscribedEventPartsReq', 'document');
-    }
-    if (fragmentName == null) {
-      throw new BuiltValueNullFieldError(
-          'GSubscribedEventPartsReq', 'fragmentName');
-    }
-    if (idFields == null) {
-      throw new BuiltValueNullFieldError(
-          'GSubscribedEventPartsReq', 'idFields');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        vars, 'GSubscribedEventPartsReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        document, 'GSubscribedEventPartsReq', 'document');
+    BuiltValueNullFieldError.checkNotNull(
+        idFields, 'GSubscribedEventPartsReq', 'idFields');
   }
 
   @override
@@ -12479,35 +12618,36 @@ class _$GSubscribedEventPartsReq extends GSubscribedEventPartsReq {
 class GSubscribedEventPartsReqBuilder
     implements
         Builder<GSubscribedEventPartsReq, GSubscribedEventPartsReqBuilder> {
-  _$GSubscribedEventPartsReq _$v;
+  _$GSubscribedEventPartsReq? _$v;
 
-  _i3.GSubscribedEventPartsVarsBuilder _vars;
+  _i3.GSubscribedEventPartsVarsBuilder? _vars;
   _i3.GSubscribedEventPartsVarsBuilder get vars =>
       _$this._vars ??= new _i3.GSubscribedEventPartsVarsBuilder();
-  set vars(_i3.GSubscribedEventPartsVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GSubscribedEventPartsVarsBuilder? vars) => _$this._vars = vars;
 
-  _i7.DocumentNode _document;
-  _i7.DocumentNode get document => _$this._document;
-  set document(_i7.DocumentNode document) => _$this._document = document;
+  _i7.DocumentNode? _document;
+  _i7.DocumentNode? get document => _$this._document;
+  set document(_i7.DocumentNode? document) => _$this._document = document;
 
-  String _fragmentName;
-  String get fragmentName => _$this._fragmentName;
-  set fragmentName(String fragmentName) => _$this._fragmentName = fragmentName;
+  String? _fragmentName;
+  String? get fragmentName => _$this._fragmentName;
+  set fragmentName(String? fragmentName) => _$this._fragmentName = fragmentName;
 
-  Map<String, dynamic> _idFields;
-  Map<String, dynamic> get idFields => _$this._idFields;
-  set idFields(Map<String, dynamic> idFields) => _$this._idFields = idFields;
+  Map<String, dynamic>? _idFields;
+  Map<String, dynamic>? get idFields => _$this._idFields;
+  set idFields(Map<String, dynamic>? idFields) => _$this._idFields = idFields;
 
   GSubscribedEventPartsReqBuilder() {
     GSubscribedEventPartsReq._initializeBuilder(this);
   }
 
   GSubscribedEventPartsReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _document = _$v.document;
-      _fragmentName = _$v.fragmentName;
-      _idFields = _$v.idFields;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _document = $v.document;
+      _fragmentName = $v.fragmentName;
+      _idFields = $v.idFields;
       _$v = null;
     }
     return this;
@@ -12515,14 +12655,12 @@ class GSubscribedEventPartsReqBuilder
 
   @override
   void replace(GSubscribedEventPartsReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GSubscribedEventPartsReq;
   }
 
   @override
-  void update(void Function(GSubscribedEventPartsReqBuilder) updates) {
+  void update(void Function(GSubscribedEventPartsReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -12533,11 +12671,13 @@ class GSubscribedEventPartsReqBuilder
       _$result = _$v ??
           new _$GSubscribedEventPartsReq._(
               vars: vars.build(),
-              document: document,
+              document: BuiltValueNullFieldError.checkNotNull(
+                  document, 'GSubscribedEventPartsReq', 'document'),
               fragmentName: fragmentName,
-              idFields: idFields);
+              idFields: BuiltValueNullFieldError.checkNotNull(
+                  idFields, 'GSubscribedEventPartsReq', 'idFields'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -12558,32 +12698,26 @@ class _$GUnsubscribedEventPartsReq extends GUnsubscribedEventPartsReq {
   @override
   final _i7.DocumentNode document;
   @override
-  final String fragmentName;
+  final String? fragmentName;
   @override
   final Map<String, dynamic> idFields;
 
   factory _$GUnsubscribedEventPartsReq(
-          [void Function(GUnsubscribedEventPartsReqBuilder) updates]) =>
+          [void Function(GUnsubscribedEventPartsReqBuilder)? updates]) =>
       (new GUnsubscribedEventPartsReqBuilder()..update(updates)).build();
 
   _$GUnsubscribedEventPartsReq._(
-      {this.vars, this.document, this.fragmentName, this.idFields})
+      {required this.vars,
+      required this.document,
+      this.fragmentName,
+      required this.idFields})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GUnsubscribedEventPartsReq', 'vars');
-    }
-    if (document == null) {
-      throw new BuiltValueNullFieldError(
-          'GUnsubscribedEventPartsReq', 'document');
-    }
-    if (fragmentName == null) {
-      throw new BuiltValueNullFieldError(
-          'GUnsubscribedEventPartsReq', 'fragmentName');
-    }
-    if (idFields == null) {
-      throw new BuiltValueNullFieldError(
-          'GUnsubscribedEventPartsReq', 'idFields');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        vars, 'GUnsubscribedEventPartsReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        document, 'GUnsubscribedEventPartsReq', 'document');
+    BuiltValueNullFieldError.checkNotNull(
+        idFields, 'GUnsubscribedEventPartsReq', 'idFields');
   }
 
   @override
@@ -12627,35 +12761,36 @@ class _$GUnsubscribedEventPartsReq extends GUnsubscribedEventPartsReq {
 class GUnsubscribedEventPartsReqBuilder
     implements
         Builder<GUnsubscribedEventPartsReq, GUnsubscribedEventPartsReqBuilder> {
-  _$GUnsubscribedEventPartsReq _$v;
+  _$GUnsubscribedEventPartsReq? _$v;
 
-  _i3.GUnsubscribedEventPartsVarsBuilder _vars;
+  _i3.GUnsubscribedEventPartsVarsBuilder? _vars;
   _i3.GUnsubscribedEventPartsVarsBuilder get vars =>
       _$this._vars ??= new _i3.GUnsubscribedEventPartsVarsBuilder();
-  set vars(_i3.GUnsubscribedEventPartsVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GUnsubscribedEventPartsVarsBuilder? vars) => _$this._vars = vars;
 
-  _i7.DocumentNode _document;
-  _i7.DocumentNode get document => _$this._document;
-  set document(_i7.DocumentNode document) => _$this._document = document;
+  _i7.DocumentNode? _document;
+  _i7.DocumentNode? get document => _$this._document;
+  set document(_i7.DocumentNode? document) => _$this._document = document;
 
-  String _fragmentName;
-  String get fragmentName => _$this._fragmentName;
-  set fragmentName(String fragmentName) => _$this._fragmentName = fragmentName;
+  String? _fragmentName;
+  String? get fragmentName => _$this._fragmentName;
+  set fragmentName(String? fragmentName) => _$this._fragmentName = fragmentName;
 
-  Map<String, dynamic> _idFields;
-  Map<String, dynamic> get idFields => _$this._idFields;
-  set idFields(Map<String, dynamic> idFields) => _$this._idFields = idFields;
+  Map<String, dynamic>? _idFields;
+  Map<String, dynamic>? get idFields => _$this._idFields;
+  set idFields(Map<String, dynamic>? idFields) => _$this._idFields = idFields;
 
   GUnsubscribedEventPartsReqBuilder() {
     GUnsubscribedEventPartsReq._initializeBuilder(this);
   }
 
   GUnsubscribedEventPartsReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _document = _$v.document;
-      _fragmentName = _$v.fragmentName;
-      _idFields = _$v.idFields;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _document = $v.document;
+      _fragmentName = $v.fragmentName;
+      _idFields = $v.idFields;
       _$v = null;
     }
     return this;
@@ -12663,14 +12798,12 @@ class GUnsubscribedEventPartsReqBuilder
 
   @override
   void replace(GUnsubscribedEventPartsReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GUnsubscribedEventPartsReq;
   }
 
   @override
-  void update(void Function(GUnsubscribedEventPartsReqBuilder) updates) {
+  void update(void Function(GUnsubscribedEventPartsReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -12681,11 +12814,13 @@ class GUnsubscribedEventPartsReqBuilder
       _$result = _$v ??
           new _$GUnsubscribedEventPartsReq._(
               vars: vars.build(),
-              document: document,
+              document: BuiltValueNullFieldError.checkNotNull(
+                  document, 'GUnsubscribedEventPartsReq', 'document'),
               fragmentName: fragmentName,
-              idFields: idFields);
+              idFields: BuiltValueNullFieldError.checkNotNull(
+                  idFields, 'GUnsubscribedEventPartsReq', 'idFields'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -12706,30 +12841,26 @@ class _$GMentionedEventPartsReq extends GMentionedEventPartsReq {
   @override
   final _i7.DocumentNode document;
   @override
-  final String fragmentName;
+  final String? fragmentName;
   @override
   final Map<String, dynamic> idFields;
 
   factory _$GMentionedEventPartsReq(
-          [void Function(GMentionedEventPartsReqBuilder) updates]) =>
+          [void Function(GMentionedEventPartsReqBuilder)? updates]) =>
       (new GMentionedEventPartsReqBuilder()..update(updates)).build();
 
   _$GMentionedEventPartsReq._(
-      {this.vars, this.document, this.fragmentName, this.idFields})
+      {required this.vars,
+      required this.document,
+      this.fragmentName,
+      required this.idFields})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GMentionedEventPartsReq', 'vars');
-    }
-    if (document == null) {
-      throw new BuiltValueNullFieldError('GMentionedEventPartsReq', 'document');
-    }
-    if (fragmentName == null) {
-      throw new BuiltValueNullFieldError(
-          'GMentionedEventPartsReq', 'fragmentName');
-    }
-    if (idFields == null) {
-      throw new BuiltValueNullFieldError('GMentionedEventPartsReq', 'idFields');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        vars, 'GMentionedEventPartsReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        document, 'GMentionedEventPartsReq', 'document');
+    BuiltValueNullFieldError.checkNotNull(
+        idFields, 'GMentionedEventPartsReq', 'idFields');
   }
 
   @override
@@ -12773,35 +12904,36 @@ class _$GMentionedEventPartsReq extends GMentionedEventPartsReq {
 class GMentionedEventPartsReqBuilder
     implements
         Builder<GMentionedEventPartsReq, GMentionedEventPartsReqBuilder> {
-  _$GMentionedEventPartsReq _$v;
+  _$GMentionedEventPartsReq? _$v;
 
-  _i3.GMentionedEventPartsVarsBuilder _vars;
+  _i3.GMentionedEventPartsVarsBuilder? _vars;
   _i3.GMentionedEventPartsVarsBuilder get vars =>
       _$this._vars ??= new _i3.GMentionedEventPartsVarsBuilder();
-  set vars(_i3.GMentionedEventPartsVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GMentionedEventPartsVarsBuilder? vars) => _$this._vars = vars;
 
-  _i7.DocumentNode _document;
-  _i7.DocumentNode get document => _$this._document;
-  set document(_i7.DocumentNode document) => _$this._document = document;
+  _i7.DocumentNode? _document;
+  _i7.DocumentNode? get document => _$this._document;
+  set document(_i7.DocumentNode? document) => _$this._document = document;
 
-  String _fragmentName;
-  String get fragmentName => _$this._fragmentName;
-  set fragmentName(String fragmentName) => _$this._fragmentName = fragmentName;
+  String? _fragmentName;
+  String? get fragmentName => _$this._fragmentName;
+  set fragmentName(String? fragmentName) => _$this._fragmentName = fragmentName;
 
-  Map<String, dynamic> _idFields;
-  Map<String, dynamic> get idFields => _$this._idFields;
-  set idFields(Map<String, dynamic> idFields) => _$this._idFields = idFields;
+  Map<String, dynamic>? _idFields;
+  Map<String, dynamic>? get idFields => _$this._idFields;
+  set idFields(Map<String, dynamic>? idFields) => _$this._idFields = idFields;
 
   GMentionedEventPartsReqBuilder() {
     GMentionedEventPartsReq._initializeBuilder(this);
   }
 
   GMentionedEventPartsReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _document = _$v.document;
-      _fragmentName = _$v.fragmentName;
-      _idFields = _$v.idFields;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _document = $v.document;
+      _fragmentName = $v.fragmentName;
+      _idFields = $v.idFields;
       _$v = null;
     }
     return this;
@@ -12809,14 +12941,12 @@ class GMentionedEventPartsReqBuilder
 
   @override
   void replace(GMentionedEventPartsReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GMentionedEventPartsReq;
   }
 
   @override
-  void update(void Function(GMentionedEventPartsReqBuilder) updates) {
+  void update(void Function(GMentionedEventPartsReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -12827,11 +12957,13 @@ class GMentionedEventPartsReqBuilder
       _$result = _$v ??
           new _$GMentionedEventPartsReq._(
               vars: vars.build(),
-              document: document,
+              document: BuiltValueNullFieldError.checkNotNull(
+                  document, 'GMentionedEventPartsReq', 'document'),
               fragmentName: fragmentName,
-              idFields: idFields);
+              idFields: BuiltValueNullFieldError.checkNotNull(
+                  idFields, 'GMentionedEventPartsReq', 'idFields'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -12852,30 +12984,25 @@ class _$GPinnedEventPartsReq extends GPinnedEventPartsReq {
   @override
   final _i7.DocumentNode document;
   @override
-  final String fragmentName;
+  final String? fragmentName;
   @override
   final Map<String, dynamic> idFields;
 
   factory _$GPinnedEventPartsReq(
-          [void Function(GPinnedEventPartsReqBuilder) updates]) =>
+          [void Function(GPinnedEventPartsReqBuilder)? updates]) =>
       (new GPinnedEventPartsReqBuilder()..update(updates)).build();
 
   _$GPinnedEventPartsReq._(
-      {this.vars, this.document, this.fragmentName, this.idFields})
+      {required this.vars,
+      required this.document,
+      this.fragmentName,
+      required this.idFields})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GPinnedEventPartsReq', 'vars');
-    }
-    if (document == null) {
-      throw new BuiltValueNullFieldError('GPinnedEventPartsReq', 'document');
-    }
-    if (fragmentName == null) {
-      throw new BuiltValueNullFieldError(
-          'GPinnedEventPartsReq', 'fragmentName');
-    }
-    if (idFields == null) {
-      throw new BuiltValueNullFieldError('GPinnedEventPartsReq', 'idFields');
-    }
+    BuiltValueNullFieldError.checkNotNull(vars, 'GPinnedEventPartsReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        document, 'GPinnedEventPartsReq', 'document');
+    BuiltValueNullFieldError.checkNotNull(
+        idFields, 'GPinnedEventPartsReq', 'idFields');
   }
 
   @override
@@ -12918,35 +13045,36 @@ class _$GPinnedEventPartsReq extends GPinnedEventPartsReq {
 
 class GPinnedEventPartsReqBuilder
     implements Builder<GPinnedEventPartsReq, GPinnedEventPartsReqBuilder> {
-  _$GPinnedEventPartsReq _$v;
+  _$GPinnedEventPartsReq? _$v;
 
-  _i3.GPinnedEventPartsVarsBuilder _vars;
+  _i3.GPinnedEventPartsVarsBuilder? _vars;
   _i3.GPinnedEventPartsVarsBuilder get vars =>
       _$this._vars ??= new _i3.GPinnedEventPartsVarsBuilder();
-  set vars(_i3.GPinnedEventPartsVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GPinnedEventPartsVarsBuilder? vars) => _$this._vars = vars;
 
-  _i7.DocumentNode _document;
-  _i7.DocumentNode get document => _$this._document;
-  set document(_i7.DocumentNode document) => _$this._document = document;
+  _i7.DocumentNode? _document;
+  _i7.DocumentNode? get document => _$this._document;
+  set document(_i7.DocumentNode? document) => _$this._document = document;
 
-  String _fragmentName;
-  String get fragmentName => _$this._fragmentName;
-  set fragmentName(String fragmentName) => _$this._fragmentName = fragmentName;
+  String? _fragmentName;
+  String? get fragmentName => _$this._fragmentName;
+  set fragmentName(String? fragmentName) => _$this._fragmentName = fragmentName;
 
-  Map<String, dynamic> _idFields;
-  Map<String, dynamic> get idFields => _$this._idFields;
-  set idFields(Map<String, dynamic> idFields) => _$this._idFields = idFields;
+  Map<String, dynamic>? _idFields;
+  Map<String, dynamic>? get idFields => _$this._idFields;
+  set idFields(Map<String, dynamic>? idFields) => _$this._idFields = idFields;
 
   GPinnedEventPartsReqBuilder() {
     GPinnedEventPartsReq._initializeBuilder(this);
   }
 
   GPinnedEventPartsReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _document = _$v.document;
-      _fragmentName = _$v.fragmentName;
-      _idFields = _$v.idFields;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _document = $v.document;
+      _fragmentName = $v.fragmentName;
+      _idFields = $v.idFields;
       _$v = null;
     }
     return this;
@@ -12954,14 +13082,12 @@ class GPinnedEventPartsReqBuilder
 
   @override
   void replace(GPinnedEventPartsReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GPinnedEventPartsReq;
   }
 
   @override
-  void update(void Function(GPinnedEventPartsReqBuilder) updates) {
+  void update(void Function(GPinnedEventPartsReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -12972,11 +13098,13 @@ class GPinnedEventPartsReqBuilder
       _$result = _$v ??
           new _$GPinnedEventPartsReq._(
               vars: vars.build(),
-              document: document,
+              document: BuiltValueNullFieldError.checkNotNull(
+                  document, 'GPinnedEventPartsReq', 'document'),
               fragmentName: fragmentName,
-              idFields: idFields);
+              idFields: BuiltValueNullFieldError.checkNotNull(
+                  idFields, 'GPinnedEventPartsReq', 'idFields'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -12997,32 +13125,26 @@ class _$GTransferredEventPartsReq extends GTransferredEventPartsReq {
   @override
   final _i7.DocumentNode document;
   @override
-  final String fragmentName;
+  final String? fragmentName;
   @override
   final Map<String, dynamic> idFields;
 
   factory _$GTransferredEventPartsReq(
-          [void Function(GTransferredEventPartsReqBuilder) updates]) =>
+          [void Function(GTransferredEventPartsReqBuilder)? updates]) =>
       (new GTransferredEventPartsReqBuilder()..update(updates)).build();
 
   _$GTransferredEventPartsReq._(
-      {this.vars, this.document, this.fragmentName, this.idFields})
+      {required this.vars,
+      required this.document,
+      this.fragmentName,
+      required this.idFields})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GTransferredEventPartsReq', 'vars');
-    }
-    if (document == null) {
-      throw new BuiltValueNullFieldError(
-          'GTransferredEventPartsReq', 'document');
-    }
-    if (fragmentName == null) {
-      throw new BuiltValueNullFieldError(
-          'GTransferredEventPartsReq', 'fragmentName');
-    }
-    if (idFields == null) {
-      throw new BuiltValueNullFieldError(
-          'GTransferredEventPartsReq', 'idFields');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        vars, 'GTransferredEventPartsReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        document, 'GTransferredEventPartsReq', 'document');
+    BuiltValueNullFieldError.checkNotNull(
+        idFields, 'GTransferredEventPartsReq', 'idFields');
   }
 
   @override
@@ -13066,35 +13188,36 @@ class _$GTransferredEventPartsReq extends GTransferredEventPartsReq {
 class GTransferredEventPartsReqBuilder
     implements
         Builder<GTransferredEventPartsReq, GTransferredEventPartsReqBuilder> {
-  _$GTransferredEventPartsReq _$v;
+  _$GTransferredEventPartsReq? _$v;
 
-  _i3.GTransferredEventPartsVarsBuilder _vars;
+  _i3.GTransferredEventPartsVarsBuilder? _vars;
   _i3.GTransferredEventPartsVarsBuilder get vars =>
       _$this._vars ??= new _i3.GTransferredEventPartsVarsBuilder();
-  set vars(_i3.GTransferredEventPartsVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GTransferredEventPartsVarsBuilder? vars) => _$this._vars = vars;
 
-  _i7.DocumentNode _document;
-  _i7.DocumentNode get document => _$this._document;
-  set document(_i7.DocumentNode document) => _$this._document = document;
+  _i7.DocumentNode? _document;
+  _i7.DocumentNode? get document => _$this._document;
+  set document(_i7.DocumentNode? document) => _$this._document = document;
 
-  String _fragmentName;
-  String get fragmentName => _$this._fragmentName;
-  set fragmentName(String fragmentName) => _$this._fragmentName = fragmentName;
+  String? _fragmentName;
+  String? get fragmentName => _$this._fragmentName;
+  set fragmentName(String? fragmentName) => _$this._fragmentName = fragmentName;
 
-  Map<String, dynamic> _idFields;
-  Map<String, dynamic> get idFields => _$this._idFields;
-  set idFields(Map<String, dynamic> idFields) => _$this._idFields = idFields;
+  Map<String, dynamic>? _idFields;
+  Map<String, dynamic>? get idFields => _$this._idFields;
+  set idFields(Map<String, dynamic>? idFields) => _$this._idFields = idFields;
 
   GTransferredEventPartsReqBuilder() {
     GTransferredEventPartsReq._initializeBuilder(this);
   }
 
   GTransferredEventPartsReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _document = _$v.document;
-      _fragmentName = _$v.fragmentName;
-      _idFields = _$v.idFields;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _document = $v.document;
+      _fragmentName = $v.fragmentName;
+      _idFields = $v.idFields;
       _$v = null;
     }
     return this;
@@ -13102,14 +13225,12 @@ class GTransferredEventPartsReqBuilder
 
   @override
   void replace(GTransferredEventPartsReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GTransferredEventPartsReq;
   }
 
   @override
-  void update(void Function(GTransferredEventPartsReqBuilder) updates) {
+  void update(void Function(GTransferredEventPartsReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -13120,11 +13241,13 @@ class GTransferredEventPartsReqBuilder
       _$result = _$v ??
           new _$GTransferredEventPartsReq._(
               vars: vars.build(),
-              document: document,
+              document: BuiltValueNullFieldError.checkNotNull(
+                  document, 'GTransferredEventPartsReq', 'document'),
               fragmentName: fragmentName,
-              idFields: idFields);
+              idFields: BuiltValueNullFieldError.checkNotNull(
+                  idFields, 'GTransferredEventPartsReq', 'idFields'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -13145,32 +13268,26 @@ class _$GPullRequestCommitPartsReq extends GPullRequestCommitPartsReq {
   @override
   final _i7.DocumentNode document;
   @override
-  final String fragmentName;
+  final String? fragmentName;
   @override
   final Map<String, dynamic> idFields;
 
   factory _$GPullRequestCommitPartsReq(
-          [void Function(GPullRequestCommitPartsReqBuilder) updates]) =>
+          [void Function(GPullRequestCommitPartsReqBuilder)? updates]) =>
       (new GPullRequestCommitPartsReqBuilder()..update(updates)).build();
 
   _$GPullRequestCommitPartsReq._(
-      {this.vars, this.document, this.fragmentName, this.idFields})
+      {required this.vars,
+      required this.document,
+      this.fragmentName,
+      required this.idFields})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GPullRequestCommitPartsReq', 'vars');
-    }
-    if (document == null) {
-      throw new BuiltValueNullFieldError(
-          'GPullRequestCommitPartsReq', 'document');
-    }
-    if (fragmentName == null) {
-      throw new BuiltValueNullFieldError(
-          'GPullRequestCommitPartsReq', 'fragmentName');
-    }
-    if (idFields == null) {
-      throw new BuiltValueNullFieldError(
-          'GPullRequestCommitPartsReq', 'idFields');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        vars, 'GPullRequestCommitPartsReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        document, 'GPullRequestCommitPartsReq', 'document');
+    BuiltValueNullFieldError.checkNotNull(
+        idFields, 'GPullRequestCommitPartsReq', 'idFields');
   }
 
   @override
@@ -13214,35 +13331,36 @@ class _$GPullRequestCommitPartsReq extends GPullRequestCommitPartsReq {
 class GPullRequestCommitPartsReqBuilder
     implements
         Builder<GPullRequestCommitPartsReq, GPullRequestCommitPartsReqBuilder> {
-  _$GPullRequestCommitPartsReq _$v;
+  _$GPullRequestCommitPartsReq? _$v;
 
-  _i3.GPullRequestCommitPartsVarsBuilder _vars;
+  _i3.GPullRequestCommitPartsVarsBuilder? _vars;
   _i3.GPullRequestCommitPartsVarsBuilder get vars =>
       _$this._vars ??= new _i3.GPullRequestCommitPartsVarsBuilder();
-  set vars(_i3.GPullRequestCommitPartsVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GPullRequestCommitPartsVarsBuilder? vars) => _$this._vars = vars;
 
-  _i7.DocumentNode _document;
-  _i7.DocumentNode get document => _$this._document;
-  set document(_i7.DocumentNode document) => _$this._document = document;
+  _i7.DocumentNode? _document;
+  _i7.DocumentNode? get document => _$this._document;
+  set document(_i7.DocumentNode? document) => _$this._document = document;
 
-  String _fragmentName;
-  String get fragmentName => _$this._fragmentName;
-  set fragmentName(String fragmentName) => _$this._fragmentName = fragmentName;
+  String? _fragmentName;
+  String? get fragmentName => _$this._fragmentName;
+  set fragmentName(String? fragmentName) => _$this._fragmentName = fragmentName;
 
-  Map<String, dynamic> _idFields;
-  Map<String, dynamic> get idFields => _$this._idFields;
-  set idFields(Map<String, dynamic> idFields) => _$this._idFields = idFields;
+  Map<String, dynamic>? _idFields;
+  Map<String, dynamic>? get idFields => _$this._idFields;
+  set idFields(Map<String, dynamic>? idFields) => _$this._idFields = idFields;
 
   GPullRequestCommitPartsReqBuilder() {
     GPullRequestCommitPartsReq._initializeBuilder(this);
   }
 
   GPullRequestCommitPartsReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _document = _$v.document;
-      _fragmentName = _$v.fragmentName;
-      _idFields = _$v.idFields;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _document = $v.document;
+      _fragmentName = $v.fragmentName;
+      _idFields = $v.idFields;
       _$v = null;
     }
     return this;
@@ -13250,14 +13368,12 @@ class GPullRequestCommitPartsReqBuilder
 
   @override
   void replace(GPullRequestCommitPartsReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GPullRequestCommitPartsReq;
   }
 
   @override
-  void update(void Function(GPullRequestCommitPartsReqBuilder) updates) {
+  void update(void Function(GPullRequestCommitPartsReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -13268,11 +13384,13 @@ class GPullRequestCommitPartsReqBuilder
       _$result = _$v ??
           new _$GPullRequestCommitPartsReq._(
               vars: vars.build(),
-              document: document,
+              document: BuiltValueNullFieldError.checkNotNull(
+                  document, 'GPullRequestCommitPartsReq', 'document'),
               fragmentName: fragmentName,
-              idFields: idFields);
+              idFields: BuiltValueNullFieldError.checkNotNull(
+                  idFields, 'GPullRequestCommitPartsReq', 'idFields'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -13293,30 +13411,26 @@ class _$GDeployedEventPartsReq extends GDeployedEventPartsReq {
   @override
   final _i7.DocumentNode document;
   @override
-  final String fragmentName;
+  final String? fragmentName;
   @override
   final Map<String, dynamic> idFields;
 
   factory _$GDeployedEventPartsReq(
-          [void Function(GDeployedEventPartsReqBuilder) updates]) =>
+          [void Function(GDeployedEventPartsReqBuilder)? updates]) =>
       (new GDeployedEventPartsReqBuilder()..update(updates)).build();
 
   _$GDeployedEventPartsReq._(
-      {this.vars, this.document, this.fragmentName, this.idFields})
+      {required this.vars,
+      required this.document,
+      this.fragmentName,
+      required this.idFields})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GDeployedEventPartsReq', 'vars');
-    }
-    if (document == null) {
-      throw new BuiltValueNullFieldError('GDeployedEventPartsReq', 'document');
-    }
-    if (fragmentName == null) {
-      throw new BuiltValueNullFieldError(
-          'GDeployedEventPartsReq', 'fragmentName');
-    }
-    if (idFields == null) {
-      throw new BuiltValueNullFieldError('GDeployedEventPartsReq', 'idFields');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        vars, 'GDeployedEventPartsReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        document, 'GDeployedEventPartsReq', 'document');
+    BuiltValueNullFieldError.checkNotNull(
+        idFields, 'GDeployedEventPartsReq', 'idFields');
   }
 
   @override
@@ -13359,35 +13473,36 @@ class _$GDeployedEventPartsReq extends GDeployedEventPartsReq {
 
 class GDeployedEventPartsReqBuilder
     implements Builder<GDeployedEventPartsReq, GDeployedEventPartsReqBuilder> {
-  _$GDeployedEventPartsReq _$v;
+  _$GDeployedEventPartsReq? _$v;
 
-  _i3.GDeployedEventPartsVarsBuilder _vars;
+  _i3.GDeployedEventPartsVarsBuilder? _vars;
   _i3.GDeployedEventPartsVarsBuilder get vars =>
       _$this._vars ??= new _i3.GDeployedEventPartsVarsBuilder();
-  set vars(_i3.GDeployedEventPartsVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GDeployedEventPartsVarsBuilder? vars) => _$this._vars = vars;
 
-  _i7.DocumentNode _document;
-  _i7.DocumentNode get document => _$this._document;
-  set document(_i7.DocumentNode document) => _$this._document = document;
+  _i7.DocumentNode? _document;
+  _i7.DocumentNode? get document => _$this._document;
+  set document(_i7.DocumentNode? document) => _$this._document = document;
 
-  String _fragmentName;
-  String get fragmentName => _$this._fragmentName;
-  set fragmentName(String fragmentName) => _$this._fragmentName = fragmentName;
+  String? _fragmentName;
+  String? get fragmentName => _$this._fragmentName;
+  set fragmentName(String? fragmentName) => _$this._fragmentName = fragmentName;
 
-  Map<String, dynamic> _idFields;
-  Map<String, dynamic> get idFields => _$this._idFields;
-  set idFields(Map<String, dynamic> idFields) => _$this._idFields = idFields;
+  Map<String, dynamic>? _idFields;
+  Map<String, dynamic>? get idFields => _$this._idFields;
+  set idFields(Map<String, dynamic>? idFields) => _$this._idFields = idFields;
 
   GDeployedEventPartsReqBuilder() {
     GDeployedEventPartsReq._initializeBuilder(this);
   }
 
   GDeployedEventPartsReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _document = _$v.document;
-      _fragmentName = _$v.fragmentName;
-      _idFields = _$v.idFields;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _document = $v.document;
+      _fragmentName = $v.fragmentName;
+      _idFields = $v.idFields;
       _$v = null;
     }
     return this;
@@ -13395,14 +13510,12 @@ class GDeployedEventPartsReqBuilder
 
   @override
   void replace(GDeployedEventPartsReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GDeployedEventPartsReq;
   }
 
   @override
-  void update(void Function(GDeployedEventPartsReqBuilder) updates) {
+  void update(void Function(GDeployedEventPartsReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -13413,11 +13526,13 @@ class GDeployedEventPartsReqBuilder
       _$result = _$v ??
           new _$GDeployedEventPartsReq._(
               vars: vars.build(),
-              document: document,
+              document: BuiltValueNullFieldError.checkNotNull(
+                  document, 'GDeployedEventPartsReq', 'document'),
               fragmentName: fragmentName,
-              idFields: idFields);
+              idFields: BuiltValueNullFieldError.checkNotNull(
+                  idFields, 'GDeployedEventPartsReq', 'idFields'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -13439,35 +13554,28 @@ class _$GDeploymentEnvironmentChangedEventPartsReq
   @override
   final _i7.DocumentNode document;
   @override
-  final String fragmentName;
+  final String? fragmentName;
   @override
   final Map<String, dynamic> idFields;
 
   factory _$GDeploymentEnvironmentChangedEventPartsReq(
-          [void Function(GDeploymentEnvironmentChangedEventPartsReqBuilder)
+          [void Function(GDeploymentEnvironmentChangedEventPartsReqBuilder)?
               updates]) =>
       (new GDeploymentEnvironmentChangedEventPartsReqBuilder()..update(updates))
           .build();
 
   _$GDeploymentEnvironmentChangedEventPartsReq._(
-      {this.vars, this.document, this.fragmentName, this.idFields})
+      {required this.vars,
+      required this.document,
+      this.fragmentName,
+      required this.idFields})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError(
-          'GDeploymentEnvironmentChangedEventPartsReq', 'vars');
-    }
-    if (document == null) {
-      throw new BuiltValueNullFieldError(
-          'GDeploymentEnvironmentChangedEventPartsReq', 'document');
-    }
-    if (fragmentName == null) {
-      throw new BuiltValueNullFieldError(
-          'GDeploymentEnvironmentChangedEventPartsReq', 'fragmentName');
-    }
-    if (idFields == null) {
-      throw new BuiltValueNullFieldError(
-          'GDeploymentEnvironmentChangedEventPartsReq', 'idFields');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        vars, 'GDeploymentEnvironmentChangedEventPartsReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        document, 'GDeploymentEnvironmentChangedEventPartsReq', 'document');
+    BuiltValueNullFieldError.checkNotNull(
+        idFields, 'GDeploymentEnvironmentChangedEventPartsReq', 'idFields');
   }
 
   @override
@@ -13514,37 +13622,38 @@ class GDeploymentEnvironmentChangedEventPartsReqBuilder
     implements
         Builder<GDeploymentEnvironmentChangedEventPartsReq,
             GDeploymentEnvironmentChangedEventPartsReqBuilder> {
-  _$GDeploymentEnvironmentChangedEventPartsReq _$v;
+  _$GDeploymentEnvironmentChangedEventPartsReq? _$v;
 
-  _i3.GDeploymentEnvironmentChangedEventPartsVarsBuilder _vars;
+  _i3.GDeploymentEnvironmentChangedEventPartsVarsBuilder? _vars;
   _i3.GDeploymentEnvironmentChangedEventPartsVarsBuilder get vars =>
       _$this._vars ??=
           new _i3.GDeploymentEnvironmentChangedEventPartsVarsBuilder();
-  set vars(_i3.GDeploymentEnvironmentChangedEventPartsVarsBuilder vars) =>
+  set vars(_i3.GDeploymentEnvironmentChangedEventPartsVarsBuilder? vars) =>
       _$this._vars = vars;
 
-  _i7.DocumentNode _document;
-  _i7.DocumentNode get document => _$this._document;
-  set document(_i7.DocumentNode document) => _$this._document = document;
+  _i7.DocumentNode? _document;
+  _i7.DocumentNode? get document => _$this._document;
+  set document(_i7.DocumentNode? document) => _$this._document = document;
 
-  String _fragmentName;
-  String get fragmentName => _$this._fragmentName;
-  set fragmentName(String fragmentName) => _$this._fragmentName = fragmentName;
+  String? _fragmentName;
+  String? get fragmentName => _$this._fragmentName;
+  set fragmentName(String? fragmentName) => _$this._fragmentName = fragmentName;
 
-  Map<String, dynamic> _idFields;
-  Map<String, dynamic> get idFields => _$this._idFields;
-  set idFields(Map<String, dynamic> idFields) => _$this._idFields = idFields;
+  Map<String, dynamic>? _idFields;
+  Map<String, dynamic>? get idFields => _$this._idFields;
+  set idFields(Map<String, dynamic>? idFields) => _$this._idFields = idFields;
 
   GDeploymentEnvironmentChangedEventPartsReqBuilder() {
     GDeploymentEnvironmentChangedEventPartsReq._initializeBuilder(this);
   }
 
   GDeploymentEnvironmentChangedEventPartsReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _document = _$v.document;
-      _fragmentName = _$v.fragmentName;
-      _idFields = _$v.idFields;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _document = $v.document;
+      _fragmentName = $v.fragmentName;
+      _idFields = $v.idFields;
       _$v = null;
     }
     return this;
@@ -13552,15 +13661,13 @@ class GDeploymentEnvironmentChangedEventPartsReqBuilder
 
   @override
   void replace(GDeploymentEnvironmentChangedEventPartsReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GDeploymentEnvironmentChangedEventPartsReq;
   }
 
   @override
   void update(
-      void Function(GDeploymentEnvironmentChangedEventPartsReqBuilder)
+      void Function(GDeploymentEnvironmentChangedEventPartsReqBuilder)?
           updates) {
     if (updates != null) updates(this);
   }
@@ -13572,11 +13679,13 @@ class GDeploymentEnvironmentChangedEventPartsReqBuilder
       _$result = _$v ??
           new _$GDeploymentEnvironmentChangedEventPartsReq._(
               vars: vars.build(),
-              document: document,
+              document: BuiltValueNullFieldError.checkNotNull(document,
+                  'GDeploymentEnvironmentChangedEventPartsReq', 'document'),
               fragmentName: fragmentName,
-              idFields: idFields);
+              idFields: BuiltValueNullFieldError.checkNotNull(idFields,
+                  'GDeploymentEnvironmentChangedEventPartsReq', 'idFields'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -13599,33 +13708,26 @@ class _$GHeadRefRestoredEventPartsReq extends GHeadRefRestoredEventPartsReq {
   @override
   final _i7.DocumentNode document;
   @override
-  final String fragmentName;
+  final String? fragmentName;
   @override
   final Map<String, dynamic> idFields;
 
   factory _$GHeadRefRestoredEventPartsReq(
-          [void Function(GHeadRefRestoredEventPartsReqBuilder) updates]) =>
+          [void Function(GHeadRefRestoredEventPartsReqBuilder)? updates]) =>
       (new GHeadRefRestoredEventPartsReqBuilder()..update(updates)).build();
 
   _$GHeadRefRestoredEventPartsReq._(
-      {this.vars, this.document, this.fragmentName, this.idFields})
+      {required this.vars,
+      required this.document,
+      this.fragmentName,
+      required this.idFields})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError(
-          'GHeadRefRestoredEventPartsReq', 'vars');
-    }
-    if (document == null) {
-      throw new BuiltValueNullFieldError(
-          'GHeadRefRestoredEventPartsReq', 'document');
-    }
-    if (fragmentName == null) {
-      throw new BuiltValueNullFieldError(
-          'GHeadRefRestoredEventPartsReq', 'fragmentName');
-    }
-    if (idFields == null) {
-      throw new BuiltValueNullFieldError(
-          'GHeadRefRestoredEventPartsReq', 'idFields');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        vars, 'GHeadRefRestoredEventPartsReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        document, 'GHeadRefRestoredEventPartsReq', 'document');
+    BuiltValueNullFieldError.checkNotNull(
+        idFields, 'GHeadRefRestoredEventPartsReq', 'idFields');
   }
 
   @override
@@ -13670,36 +13772,37 @@ class GHeadRefRestoredEventPartsReqBuilder
     implements
         Builder<GHeadRefRestoredEventPartsReq,
             GHeadRefRestoredEventPartsReqBuilder> {
-  _$GHeadRefRestoredEventPartsReq _$v;
+  _$GHeadRefRestoredEventPartsReq? _$v;
 
-  _i3.GHeadRefRestoredEventPartsVarsBuilder _vars;
+  _i3.GHeadRefRestoredEventPartsVarsBuilder? _vars;
   _i3.GHeadRefRestoredEventPartsVarsBuilder get vars =>
       _$this._vars ??= new _i3.GHeadRefRestoredEventPartsVarsBuilder();
-  set vars(_i3.GHeadRefRestoredEventPartsVarsBuilder vars) =>
+  set vars(_i3.GHeadRefRestoredEventPartsVarsBuilder? vars) =>
       _$this._vars = vars;
 
-  _i7.DocumentNode _document;
-  _i7.DocumentNode get document => _$this._document;
-  set document(_i7.DocumentNode document) => _$this._document = document;
+  _i7.DocumentNode? _document;
+  _i7.DocumentNode? get document => _$this._document;
+  set document(_i7.DocumentNode? document) => _$this._document = document;
 
-  String _fragmentName;
-  String get fragmentName => _$this._fragmentName;
-  set fragmentName(String fragmentName) => _$this._fragmentName = fragmentName;
+  String? _fragmentName;
+  String? get fragmentName => _$this._fragmentName;
+  set fragmentName(String? fragmentName) => _$this._fragmentName = fragmentName;
 
-  Map<String, dynamic> _idFields;
-  Map<String, dynamic> get idFields => _$this._idFields;
-  set idFields(Map<String, dynamic> idFields) => _$this._idFields = idFields;
+  Map<String, dynamic>? _idFields;
+  Map<String, dynamic>? get idFields => _$this._idFields;
+  set idFields(Map<String, dynamic>? idFields) => _$this._idFields = idFields;
 
   GHeadRefRestoredEventPartsReqBuilder() {
     GHeadRefRestoredEventPartsReq._initializeBuilder(this);
   }
 
   GHeadRefRestoredEventPartsReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _document = _$v.document;
-      _fragmentName = _$v.fragmentName;
-      _idFields = _$v.idFields;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _document = $v.document;
+      _fragmentName = $v.fragmentName;
+      _idFields = $v.idFields;
       _$v = null;
     }
     return this;
@@ -13707,14 +13810,12 @@ class GHeadRefRestoredEventPartsReqBuilder
 
   @override
   void replace(GHeadRefRestoredEventPartsReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GHeadRefRestoredEventPartsReq;
   }
 
   @override
-  void update(void Function(GHeadRefRestoredEventPartsReqBuilder) updates) {
+  void update(void Function(GHeadRefRestoredEventPartsReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -13725,11 +13826,13 @@ class GHeadRefRestoredEventPartsReqBuilder
       _$result = _$v ??
           new _$GHeadRefRestoredEventPartsReq._(
               vars: vars.build(),
-              document: document,
+              document: BuiltValueNullFieldError.checkNotNull(
+                  document, 'GHeadRefRestoredEventPartsReq', 'document'),
               fragmentName: fragmentName,
-              idFields: idFields);
+              idFields: BuiltValueNullFieldError.checkNotNull(
+                  idFields, 'GHeadRefRestoredEventPartsReq', 'idFields'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -13751,33 +13854,26 @@ class _$GBaseRefForcePushedEventPartsReq
   @override
   final _i7.DocumentNode document;
   @override
-  final String fragmentName;
+  final String? fragmentName;
   @override
   final Map<String, dynamic> idFields;
 
   factory _$GBaseRefForcePushedEventPartsReq(
-          [void Function(GBaseRefForcePushedEventPartsReqBuilder) updates]) =>
+          [void Function(GBaseRefForcePushedEventPartsReqBuilder)? updates]) =>
       (new GBaseRefForcePushedEventPartsReqBuilder()..update(updates)).build();
 
   _$GBaseRefForcePushedEventPartsReq._(
-      {this.vars, this.document, this.fragmentName, this.idFields})
+      {required this.vars,
+      required this.document,
+      this.fragmentName,
+      required this.idFields})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError(
-          'GBaseRefForcePushedEventPartsReq', 'vars');
-    }
-    if (document == null) {
-      throw new BuiltValueNullFieldError(
-          'GBaseRefForcePushedEventPartsReq', 'document');
-    }
-    if (fragmentName == null) {
-      throw new BuiltValueNullFieldError(
-          'GBaseRefForcePushedEventPartsReq', 'fragmentName');
-    }
-    if (idFields == null) {
-      throw new BuiltValueNullFieldError(
-          'GBaseRefForcePushedEventPartsReq', 'idFields');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        vars, 'GBaseRefForcePushedEventPartsReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        document, 'GBaseRefForcePushedEventPartsReq', 'document');
+    BuiltValueNullFieldError.checkNotNull(
+        idFields, 'GBaseRefForcePushedEventPartsReq', 'idFields');
   }
 
   @override
@@ -13822,36 +13918,37 @@ class GBaseRefForcePushedEventPartsReqBuilder
     implements
         Builder<GBaseRefForcePushedEventPartsReq,
             GBaseRefForcePushedEventPartsReqBuilder> {
-  _$GBaseRefForcePushedEventPartsReq _$v;
+  _$GBaseRefForcePushedEventPartsReq? _$v;
 
-  _i3.GBaseRefForcePushedEventPartsVarsBuilder _vars;
+  _i3.GBaseRefForcePushedEventPartsVarsBuilder? _vars;
   _i3.GBaseRefForcePushedEventPartsVarsBuilder get vars =>
       _$this._vars ??= new _i3.GBaseRefForcePushedEventPartsVarsBuilder();
-  set vars(_i3.GBaseRefForcePushedEventPartsVarsBuilder vars) =>
+  set vars(_i3.GBaseRefForcePushedEventPartsVarsBuilder? vars) =>
       _$this._vars = vars;
 
-  _i7.DocumentNode _document;
-  _i7.DocumentNode get document => _$this._document;
-  set document(_i7.DocumentNode document) => _$this._document = document;
+  _i7.DocumentNode? _document;
+  _i7.DocumentNode? get document => _$this._document;
+  set document(_i7.DocumentNode? document) => _$this._document = document;
 
-  String _fragmentName;
-  String get fragmentName => _$this._fragmentName;
-  set fragmentName(String fragmentName) => _$this._fragmentName = fragmentName;
+  String? _fragmentName;
+  String? get fragmentName => _$this._fragmentName;
+  set fragmentName(String? fragmentName) => _$this._fragmentName = fragmentName;
 
-  Map<String, dynamic> _idFields;
-  Map<String, dynamic> get idFields => _$this._idFields;
-  set idFields(Map<String, dynamic> idFields) => _$this._idFields = idFields;
+  Map<String, dynamic>? _idFields;
+  Map<String, dynamic>? get idFields => _$this._idFields;
+  set idFields(Map<String, dynamic>? idFields) => _$this._idFields = idFields;
 
   GBaseRefForcePushedEventPartsReqBuilder() {
     GBaseRefForcePushedEventPartsReq._initializeBuilder(this);
   }
 
   GBaseRefForcePushedEventPartsReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _document = _$v.document;
-      _fragmentName = _$v.fragmentName;
-      _idFields = _$v.idFields;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _document = $v.document;
+      _fragmentName = $v.fragmentName;
+      _idFields = $v.idFields;
       _$v = null;
     }
     return this;
@@ -13859,14 +13956,12 @@ class GBaseRefForcePushedEventPartsReqBuilder
 
   @override
   void replace(GBaseRefForcePushedEventPartsReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GBaseRefForcePushedEventPartsReq;
   }
 
   @override
-  void update(void Function(GBaseRefForcePushedEventPartsReqBuilder) updates) {
+  void update(void Function(GBaseRefForcePushedEventPartsReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -13877,11 +13972,13 @@ class GBaseRefForcePushedEventPartsReqBuilder
       _$result = _$v ??
           new _$GBaseRefForcePushedEventPartsReq._(
               vars: vars.build(),
-              document: document,
+              document: BuiltValueNullFieldError.checkNotNull(
+                  document, 'GBaseRefForcePushedEventPartsReq', 'document'),
               fragmentName: fragmentName,
-              idFields: idFields);
+              idFields: BuiltValueNullFieldError.checkNotNull(
+                  idFields, 'GBaseRefForcePushedEventPartsReq', 'idFields'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -13903,33 +14000,26 @@ class _$GHeadRefForcePushedEventPartsReq
   @override
   final _i7.DocumentNode document;
   @override
-  final String fragmentName;
+  final String? fragmentName;
   @override
   final Map<String, dynamic> idFields;
 
   factory _$GHeadRefForcePushedEventPartsReq(
-          [void Function(GHeadRefForcePushedEventPartsReqBuilder) updates]) =>
+          [void Function(GHeadRefForcePushedEventPartsReqBuilder)? updates]) =>
       (new GHeadRefForcePushedEventPartsReqBuilder()..update(updates)).build();
 
   _$GHeadRefForcePushedEventPartsReq._(
-      {this.vars, this.document, this.fragmentName, this.idFields})
+      {required this.vars,
+      required this.document,
+      this.fragmentName,
+      required this.idFields})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError(
-          'GHeadRefForcePushedEventPartsReq', 'vars');
-    }
-    if (document == null) {
-      throw new BuiltValueNullFieldError(
-          'GHeadRefForcePushedEventPartsReq', 'document');
-    }
-    if (fragmentName == null) {
-      throw new BuiltValueNullFieldError(
-          'GHeadRefForcePushedEventPartsReq', 'fragmentName');
-    }
-    if (idFields == null) {
-      throw new BuiltValueNullFieldError(
-          'GHeadRefForcePushedEventPartsReq', 'idFields');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        vars, 'GHeadRefForcePushedEventPartsReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        document, 'GHeadRefForcePushedEventPartsReq', 'document');
+    BuiltValueNullFieldError.checkNotNull(
+        idFields, 'GHeadRefForcePushedEventPartsReq', 'idFields');
   }
 
   @override
@@ -13974,36 +14064,37 @@ class GHeadRefForcePushedEventPartsReqBuilder
     implements
         Builder<GHeadRefForcePushedEventPartsReq,
             GHeadRefForcePushedEventPartsReqBuilder> {
-  _$GHeadRefForcePushedEventPartsReq _$v;
+  _$GHeadRefForcePushedEventPartsReq? _$v;
 
-  _i3.GHeadRefForcePushedEventPartsVarsBuilder _vars;
+  _i3.GHeadRefForcePushedEventPartsVarsBuilder? _vars;
   _i3.GHeadRefForcePushedEventPartsVarsBuilder get vars =>
       _$this._vars ??= new _i3.GHeadRefForcePushedEventPartsVarsBuilder();
-  set vars(_i3.GHeadRefForcePushedEventPartsVarsBuilder vars) =>
+  set vars(_i3.GHeadRefForcePushedEventPartsVarsBuilder? vars) =>
       _$this._vars = vars;
 
-  _i7.DocumentNode _document;
-  _i7.DocumentNode get document => _$this._document;
-  set document(_i7.DocumentNode document) => _$this._document = document;
+  _i7.DocumentNode? _document;
+  _i7.DocumentNode? get document => _$this._document;
+  set document(_i7.DocumentNode? document) => _$this._document = document;
 
-  String _fragmentName;
-  String get fragmentName => _$this._fragmentName;
-  set fragmentName(String fragmentName) => _$this._fragmentName = fragmentName;
+  String? _fragmentName;
+  String? get fragmentName => _$this._fragmentName;
+  set fragmentName(String? fragmentName) => _$this._fragmentName = fragmentName;
 
-  Map<String, dynamic> _idFields;
-  Map<String, dynamic> get idFields => _$this._idFields;
-  set idFields(Map<String, dynamic> idFields) => _$this._idFields = idFields;
+  Map<String, dynamic>? _idFields;
+  Map<String, dynamic>? get idFields => _$this._idFields;
+  set idFields(Map<String, dynamic>? idFields) => _$this._idFields = idFields;
 
   GHeadRefForcePushedEventPartsReqBuilder() {
     GHeadRefForcePushedEventPartsReq._initializeBuilder(this);
   }
 
   GHeadRefForcePushedEventPartsReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _document = _$v.document;
-      _fragmentName = _$v.fragmentName;
-      _idFields = _$v.idFields;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _document = $v.document;
+      _fragmentName = $v.fragmentName;
+      _idFields = $v.idFields;
       _$v = null;
     }
     return this;
@@ -14011,14 +14102,12 @@ class GHeadRefForcePushedEventPartsReqBuilder
 
   @override
   void replace(GHeadRefForcePushedEventPartsReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GHeadRefForcePushedEventPartsReq;
   }
 
   @override
-  void update(void Function(GHeadRefForcePushedEventPartsReqBuilder) updates) {
+  void update(void Function(GHeadRefForcePushedEventPartsReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -14029,11 +14118,13 @@ class GHeadRefForcePushedEventPartsReqBuilder
       _$result = _$v ??
           new _$GHeadRefForcePushedEventPartsReq._(
               vars: vars.build(),
-              document: document,
+              document: BuiltValueNullFieldError.checkNotNull(
+                  document, 'GHeadRefForcePushedEventPartsReq', 'document'),
               fragmentName: fragmentName,
-              idFields: idFields);
+              idFields: BuiltValueNullFieldError.checkNotNull(
+                  idFields, 'GHeadRefForcePushedEventPartsReq', 'idFields'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -14054,33 +14145,26 @@ class _$GReviewRequestedEventPartsReq extends GReviewRequestedEventPartsReq {
   @override
   final _i7.DocumentNode document;
   @override
-  final String fragmentName;
+  final String? fragmentName;
   @override
   final Map<String, dynamic> idFields;
 
   factory _$GReviewRequestedEventPartsReq(
-          [void Function(GReviewRequestedEventPartsReqBuilder) updates]) =>
+          [void Function(GReviewRequestedEventPartsReqBuilder)? updates]) =>
       (new GReviewRequestedEventPartsReqBuilder()..update(updates)).build();
 
   _$GReviewRequestedEventPartsReq._(
-      {this.vars, this.document, this.fragmentName, this.idFields})
+      {required this.vars,
+      required this.document,
+      this.fragmentName,
+      required this.idFields})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError(
-          'GReviewRequestedEventPartsReq', 'vars');
-    }
-    if (document == null) {
-      throw new BuiltValueNullFieldError(
-          'GReviewRequestedEventPartsReq', 'document');
-    }
-    if (fragmentName == null) {
-      throw new BuiltValueNullFieldError(
-          'GReviewRequestedEventPartsReq', 'fragmentName');
-    }
-    if (idFields == null) {
-      throw new BuiltValueNullFieldError(
-          'GReviewRequestedEventPartsReq', 'idFields');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        vars, 'GReviewRequestedEventPartsReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        document, 'GReviewRequestedEventPartsReq', 'document');
+    BuiltValueNullFieldError.checkNotNull(
+        idFields, 'GReviewRequestedEventPartsReq', 'idFields');
   }
 
   @override
@@ -14125,36 +14209,37 @@ class GReviewRequestedEventPartsReqBuilder
     implements
         Builder<GReviewRequestedEventPartsReq,
             GReviewRequestedEventPartsReqBuilder> {
-  _$GReviewRequestedEventPartsReq _$v;
+  _$GReviewRequestedEventPartsReq? _$v;
 
-  _i3.GReviewRequestedEventPartsVarsBuilder _vars;
+  _i3.GReviewRequestedEventPartsVarsBuilder? _vars;
   _i3.GReviewRequestedEventPartsVarsBuilder get vars =>
       _$this._vars ??= new _i3.GReviewRequestedEventPartsVarsBuilder();
-  set vars(_i3.GReviewRequestedEventPartsVarsBuilder vars) =>
+  set vars(_i3.GReviewRequestedEventPartsVarsBuilder? vars) =>
       _$this._vars = vars;
 
-  _i7.DocumentNode _document;
-  _i7.DocumentNode get document => _$this._document;
-  set document(_i7.DocumentNode document) => _$this._document = document;
+  _i7.DocumentNode? _document;
+  _i7.DocumentNode? get document => _$this._document;
+  set document(_i7.DocumentNode? document) => _$this._document = document;
 
-  String _fragmentName;
-  String get fragmentName => _$this._fragmentName;
-  set fragmentName(String fragmentName) => _$this._fragmentName = fragmentName;
+  String? _fragmentName;
+  String? get fragmentName => _$this._fragmentName;
+  set fragmentName(String? fragmentName) => _$this._fragmentName = fragmentName;
 
-  Map<String, dynamic> _idFields;
-  Map<String, dynamic> get idFields => _$this._idFields;
-  set idFields(Map<String, dynamic> idFields) => _$this._idFields = idFields;
+  Map<String, dynamic>? _idFields;
+  Map<String, dynamic>? get idFields => _$this._idFields;
+  set idFields(Map<String, dynamic>? idFields) => _$this._idFields = idFields;
 
   GReviewRequestedEventPartsReqBuilder() {
     GReviewRequestedEventPartsReq._initializeBuilder(this);
   }
 
   GReviewRequestedEventPartsReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _document = _$v.document;
-      _fragmentName = _$v.fragmentName;
-      _idFields = _$v.idFields;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _document = $v.document;
+      _fragmentName = $v.fragmentName;
+      _idFields = $v.idFields;
       _$v = null;
     }
     return this;
@@ -14162,14 +14247,12 @@ class GReviewRequestedEventPartsReqBuilder
 
   @override
   void replace(GReviewRequestedEventPartsReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GReviewRequestedEventPartsReq;
   }
 
   @override
-  void update(void Function(GReviewRequestedEventPartsReqBuilder) updates) {
+  void update(void Function(GReviewRequestedEventPartsReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -14180,11 +14263,13 @@ class GReviewRequestedEventPartsReqBuilder
       _$result = _$v ??
           new _$GReviewRequestedEventPartsReq._(
               vars: vars.build(),
-              document: document,
+              document: BuiltValueNullFieldError.checkNotNull(
+                  document, 'GReviewRequestedEventPartsReq', 'document'),
               fragmentName: fragmentName,
-              idFields: idFields);
+              idFields: BuiltValueNullFieldError.checkNotNull(
+                  idFields, 'GReviewRequestedEventPartsReq', 'idFields'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -14206,34 +14291,28 @@ class _$GReviewRequestRemovedEventPartsReq
   @override
   final _i7.DocumentNode document;
   @override
-  final String fragmentName;
+  final String? fragmentName;
   @override
   final Map<String, dynamic> idFields;
 
   factory _$GReviewRequestRemovedEventPartsReq(
-          [void Function(GReviewRequestRemovedEventPartsReqBuilder) updates]) =>
+          [void Function(GReviewRequestRemovedEventPartsReqBuilder)?
+              updates]) =>
       (new GReviewRequestRemovedEventPartsReqBuilder()..update(updates))
           .build();
 
   _$GReviewRequestRemovedEventPartsReq._(
-      {this.vars, this.document, this.fragmentName, this.idFields})
+      {required this.vars,
+      required this.document,
+      this.fragmentName,
+      required this.idFields})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError(
-          'GReviewRequestRemovedEventPartsReq', 'vars');
-    }
-    if (document == null) {
-      throw new BuiltValueNullFieldError(
-          'GReviewRequestRemovedEventPartsReq', 'document');
-    }
-    if (fragmentName == null) {
-      throw new BuiltValueNullFieldError(
-          'GReviewRequestRemovedEventPartsReq', 'fragmentName');
-    }
-    if (idFields == null) {
-      throw new BuiltValueNullFieldError(
-          'GReviewRequestRemovedEventPartsReq', 'idFields');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        vars, 'GReviewRequestRemovedEventPartsReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        document, 'GReviewRequestRemovedEventPartsReq', 'document');
+    BuiltValueNullFieldError.checkNotNull(
+        idFields, 'GReviewRequestRemovedEventPartsReq', 'idFields');
   }
 
   @override
@@ -14278,36 +14357,37 @@ class GReviewRequestRemovedEventPartsReqBuilder
     implements
         Builder<GReviewRequestRemovedEventPartsReq,
             GReviewRequestRemovedEventPartsReqBuilder> {
-  _$GReviewRequestRemovedEventPartsReq _$v;
+  _$GReviewRequestRemovedEventPartsReq? _$v;
 
-  _i3.GReviewRequestRemovedEventPartsVarsBuilder _vars;
+  _i3.GReviewRequestRemovedEventPartsVarsBuilder? _vars;
   _i3.GReviewRequestRemovedEventPartsVarsBuilder get vars =>
       _$this._vars ??= new _i3.GReviewRequestRemovedEventPartsVarsBuilder();
-  set vars(_i3.GReviewRequestRemovedEventPartsVarsBuilder vars) =>
+  set vars(_i3.GReviewRequestRemovedEventPartsVarsBuilder? vars) =>
       _$this._vars = vars;
 
-  _i7.DocumentNode _document;
-  _i7.DocumentNode get document => _$this._document;
-  set document(_i7.DocumentNode document) => _$this._document = document;
+  _i7.DocumentNode? _document;
+  _i7.DocumentNode? get document => _$this._document;
+  set document(_i7.DocumentNode? document) => _$this._document = document;
 
-  String _fragmentName;
-  String get fragmentName => _$this._fragmentName;
-  set fragmentName(String fragmentName) => _$this._fragmentName = fragmentName;
+  String? _fragmentName;
+  String? get fragmentName => _$this._fragmentName;
+  set fragmentName(String? fragmentName) => _$this._fragmentName = fragmentName;
 
-  Map<String, dynamic> _idFields;
-  Map<String, dynamic> get idFields => _$this._idFields;
-  set idFields(Map<String, dynamic> idFields) => _$this._idFields = idFields;
+  Map<String, dynamic>? _idFields;
+  Map<String, dynamic>? get idFields => _$this._idFields;
+  set idFields(Map<String, dynamic>? idFields) => _$this._idFields = idFields;
 
   GReviewRequestRemovedEventPartsReqBuilder() {
     GReviewRequestRemovedEventPartsReq._initializeBuilder(this);
   }
 
   GReviewRequestRemovedEventPartsReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _document = _$v.document;
-      _fragmentName = _$v.fragmentName;
-      _idFields = _$v.idFields;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _document = $v.document;
+      _fragmentName = $v.fragmentName;
+      _idFields = $v.idFields;
       _$v = null;
     }
     return this;
@@ -14315,15 +14395,13 @@ class GReviewRequestRemovedEventPartsReqBuilder
 
   @override
   void replace(GReviewRequestRemovedEventPartsReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GReviewRequestRemovedEventPartsReq;
   }
 
   @override
   void update(
-      void Function(GReviewRequestRemovedEventPartsReqBuilder) updates) {
+      void Function(GReviewRequestRemovedEventPartsReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -14334,11 +14412,13 @@ class GReviewRequestRemovedEventPartsReqBuilder
       _$result = _$v ??
           new _$GReviewRequestRemovedEventPartsReq._(
               vars: vars.build(),
-              document: document,
+              document: BuiltValueNullFieldError.checkNotNull(
+                  document, 'GReviewRequestRemovedEventPartsReq', 'document'),
               fragmentName: fragmentName,
-              idFields: idFields);
+              idFields: BuiltValueNullFieldError.checkNotNull(
+                  idFields, 'GReviewRequestRemovedEventPartsReq', 'idFields'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -14359,33 +14439,26 @@ class _$GReviewDismissedEventPartsReq extends GReviewDismissedEventPartsReq {
   @override
   final _i7.DocumentNode document;
   @override
-  final String fragmentName;
+  final String? fragmentName;
   @override
   final Map<String, dynamic> idFields;
 
   factory _$GReviewDismissedEventPartsReq(
-          [void Function(GReviewDismissedEventPartsReqBuilder) updates]) =>
+          [void Function(GReviewDismissedEventPartsReqBuilder)? updates]) =>
       (new GReviewDismissedEventPartsReqBuilder()..update(updates)).build();
 
   _$GReviewDismissedEventPartsReq._(
-      {this.vars, this.document, this.fragmentName, this.idFields})
+      {required this.vars,
+      required this.document,
+      this.fragmentName,
+      required this.idFields})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError(
-          'GReviewDismissedEventPartsReq', 'vars');
-    }
-    if (document == null) {
-      throw new BuiltValueNullFieldError(
-          'GReviewDismissedEventPartsReq', 'document');
-    }
-    if (fragmentName == null) {
-      throw new BuiltValueNullFieldError(
-          'GReviewDismissedEventPartsReq', 'fragmentName');
-    }
-    if (idFields == null) {
-      throw new BuiltValueNullFieldError(
-          'GReviewDismissedEventPartsReq', 'idFields');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        vars, 'GReviewDismissedEventPartsReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        document, 'GReviewDismissedEventPartsReq', 'document');
+    BuiltValueNullFieldError.checkNotNull(
+        idFields, 'GReviewDismissedEventPartsReq', 'idFields');
   }
 
   @override
@@ -14430,36 +14503,37 @@ class GReviewDismissedEventPartsReqBuilder
     implements
         Builder<GReviewDismissedEventPartsReq,
             GReviewDismissedEventPartsReqBuilder> {
-  _$GReviewDismissedEventPartsReq _$v;
+  _$GReviewDismissedEventPartsReq? _$v;
 
-  _i3.GReviewDismissedEventPartsVarsBuilder _vars;
+  _i3.GReviewDismissedEventPartsVarsBuilder? _vars;
   _i3.GReviewDismissedEventPartsVarsBuilder get vars =>
       _$this._vars ??= new _i3.GReviewDismissedEventPartsVarsBuilder();
-  set vars(_i3.GReviewDismissedEventPartsVarsBuilder vars) =>
+  set vars(_i3.GReviewDismissedEventPartsVarsBuilder? vars) =>
       _$this._vars = vars;
 
-  _i7.DocumentNode _document;
-  _i7.DocumentNode get document => _$this._document;
-  set document(_i7.DocumentNode document) => _$this._document = document;
+  _i7.DocumentNode? _document;
+  _i7.DocumentNode? get document => _$this._document;
+  set document(_i7.DocumentNode? document) => _$this._document = document;
 
-  String _fragmentName;
-  String get fragmentName => _$this._fragmentName;
-  set fragmentName(String fragmentName) => _$this._fragmentName = fragmentName;
+  String? _fragmentName;
+  String? get fragmentName => _$this._fragmentName;
+  set fragmentName(String? fragmentName) => _$this._fragmentName = fragmentName;
 
-  Map<String, dynamic> _idFields;
-  Map<String, dynamic> get idFields => _$this._idFields;
-  set idFields(Map<String, dynamic> idFields) => _$this._idFields = idFields;
+  Map<String, dynamic>? _idFields;
+  Map<String, dynamic>? get idFields => _$this._idFields;
+  set idFields(Map<String, dynamic>? idFields) => _$this._idFields = idFields;
 
   GReviewDismissedEventPartsReqBuilder() {
     GReviewDismissedEventPartsReq._initializeBuilder(this);
   }
 
   GReviewDismissedEventPartsReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _document = _$v.document;
-      _fragmentName = _$v.fragmentName;
-      _idFields = _$v.idFields;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _document = $v.document;
+      _fragmentName = $v.fragmentName;
+      _idFields = $v.idFields;
       _$v = null;
     }
     return this;
@@ -14467,14 +14541,12 @@ class GReviewDismissedEventPartsReqBuilder
 
   @override
   void replace(GReviewDismissedEventPartsReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GReviewDismissedEventPartsReq;
   }
 
   @override
-  void update(void Function(GReviewDismissedEventPartsReqBuilder) updates) {
+  void update(void Function(GReviewDismissedEventPartsReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -14485,11 +14557,13 @@ class GReviewDismissedEventPartsReqBuilder
       _$result = _$v ??
           new _$GReviewDismissedEventPartsReq._(
               vars: vars.build(),
-              document: document,
+              document: BuiltValueNullFieldError.checkNotNull(
+                  document, 'GReviewDismissedEventPartsReq', 'document'),
               fragmentName: fragmentName,
-              idFields: idFields);
+              idFields: BuiltValueNullFieldError.checkNotNull(
+                  idFields, 'GReviewDismissedEventPartsReq', 'idFields'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -14510,32 +14584,26 @@ class _$GPullRequestReviewPartsReq extends GPullRequestReviewPartsReq {
   @override
   final _i7.DocumentNode document;
   @override
-  final String fragmentName;
+  final String? fragmentName;
   @override
   final Map<String, dynamic> idFields;
 
   factory _$GPullRequestReviewPartsReq(
-          [void Function(GPullRequestReviewPartsReqBuilder) updates]) =>
+          [void Function(GPullRequestReviewPartsReqBuilder)? updates]) =>
       (new GPullRequestReviewPartsReqBuilder()..update(updates)).build();
 
   _$GPullRequestReviewPartsReq._(
-      {this.vars, this.document, this.fragmentName, this.idFields})
+      {required this.vars,
+      required this.document,
+      this.fragmentName,
+      required this.idFields})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GPullRequestReviewPartsReq', 'vars');
-    }
-    if (document == null) {
-      throw new BuiltValueNullFieldError(
-          'GPullRequestReviewPartsReq', 'document');
-    }
-    if (fragmentName == null) {
-      throw new BuiltValueNullFieldError(
-          'GPullRequestReviewPartsReq', 'fragmentName');
-    }
-    if (idFields == null) {
-      throw new BuiltValueNullFieldError(
-          'GPullRequestReviewPartsReq', 'idFields');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        vars, 'GPullRequestReviewPartsReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        document, 'GPullRequestReviewPartsReq', 'document');
+    BuiltValueNullFieldError.checkNotNull(
+        idFields, 'GPullRequestReviewPartsReq', 'idFields');
   }
 
   @override
@@ -14579,35 +14647,36 @@ class _$GPullRequestReviewPartsReq extends GPullRequestReviewPartsReq {
 class GPullRequestReviewPartsReqBuilder
     implements
         Builder<GPullRequestReviewPartsReq, GPullRequestReviewPartsReqBuilder> {
-  _$GPullRequestReviewPartsReq _$v;
+  _$GPullRequestReviewPartsReq? _$v;
 
-  _i3.GPullRequestReviewPartsVarsBuilder _vars;
+  _i3.GPullRequestReviewPartsVarsBuilder? _vars;
   _i3.GPullRequestReviewPartsVarsBuilder get vars =>
       _$this._vars ??= new _i3.GPullRequestReviewPartsVarsBuilder();
-  set vars(_i3.GPullRequestReviewPartsVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GPullRequestReviewPartsVarsBuilder? vars) => _$this._vars = vars;
 
-  _i7.DocumentNode _document;
-  _i7.DocumentNode get document => _$this._document;
-  set document(_i7.DocumentNode document) => _$this._document = document;
+  _i7.DocumentNode? _document;
+  _i7.DocumentNode? get document => _$this._document;
+  set document(_i7.DocumentNode? document) => _$this._document = document;
 
-  String _fragmentName;
-  String get fragmentName => _$this._fragmentName;
-  set fragmentName(String fragmentName) => _$this._fragmentName = fragmentName;
+  String? _fragmentName;
+  String? get fragmentName => _$this._fragmentName;
+  set fragmentName(String? fragmentName) => _$this._fragmentName = fragmentName;
 
-  Map<String, dynamic> _idFields;
-  Map<String, dynamic> get idFields => _$this._idFields;
-  set idFields(Map<String, dynamic> idFields) => _$this._idFields = idFields;
+  Map<String, dynamic>? _idFields;
+  Map<String, dynamic>? get idFields => _$this._idFields;
+  set idFields(Map<String, dynamic>? idFields) => _$this._idFields = idFields;
 
   GPullRequestReviewPartsReqBuilder() {
     GPullRequestReviewPartsReq._initializeBuilder(this);
   }
 
   GPullRequestReviewPartsReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _document = _$v.document;
-      _fragmentName = _$v.fragmentName;
-      _idFields = _$v.idFields;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _document = $v.document;
+      _fragmentName = $v.fragmentName;
+      _idFields = $v.idFields;
       _$v = null;
     }
     return this;
@@ -14615,14 +14684,12 @@ class GPullRequestReviewPartsReqBuilder
 
   @override
   void replace(GPullRequestReviewPartsReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GPullRequestReviewPartsReq;
   }
 
   @override
-  void update(void Function(GPullRequestReviewPartsReqBuilder) updates) {
+  void update(void Function(GPullRequestReviewPartsReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -14633,11 +14700,13 @@ class GPullRequestReviewPartsReqBuilder
       _$result = _$v ??
           new _$GPullRequestReviewPartsReq._(
               vars: vars.build(),
-              document: document,
+              document: BuiltValueNullFieldError.checkNotNull(
+                  document, 'GPullRequestReviewPartsReq', 'document'),
               fragmentName: fragmentName,
-              idFields: idFields);
+              idFields: BuiltValueNullFieldError.checkNotNull(
+                  idFields, 'GPullRequestReviewPartsReq', 'idFields'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -14658,30 +14727,25 @@ class _$GMergedEventPartsReq extends GMergedEventPartsReq {
   @override
   final _i7.DocumentNode document;
   @override
-  final String fragmentName;
+  final String? fragmentName;
   @override
   final Map<String, dynamic> idFields;
 
   factory _$GMergedEventPartsReq(
-          [void Function(GMergedEventPartsReqBuilder) updates]) =>
+          [void Function(GMergedEventPartsReqBuilder)? updates]) =>
       (new GMergedEventPartsReqBuilder()..update(updates)).build();
 
   _$GMergedEventPartsReq._(
-      {this.vars, this.document, this.fragmentName, this.idFields})
+      {required this.vars,
+      required this.document,
+      this.fragmentName,
+      required this.idFields})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError('GMergedEventPartsReq', 'vars');
-    }
-    if (document == null) {
-      throw new BuiltValueNullFieldError('GMergedEventPartsReq', 'document');
-    }
-    if (fragmentName == null) {
-      throw new BuiltValueNullFieldError(
-          'GMergedEventPartsReq', 'fragmentName');
-    }
-    if (idFields == null) {
-      throw new BuiltValueNullFieldError('GMergedEventPartsReq', 'idFields');
-    }
+    BuiltValueNullFieldError.checkNotNull(vars, 'GMergedEventPartsReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        document, 'GMergedEventPartsReq', 'document');
+    BuiltValueNullFieldError.checkNotNull(
+        idFields, 'GMergedEventPartsReq', 'idFields');
   }
 
   @override
@@ -14724,35 +14788,36 @@ class _$GMergedEventPartsReq extends GMergedEventPartsReq {
 
 class GMergedEventPartsReqBuilder
     implements Builder<GMergedEventPartsReq, GMergedEventPartsReqBuilder> {
-  _$GMergedEventPartsReq _$v;
+  _$GMergedEventPartsReq? _$v;
 
-  _i3.GMergedEventPartsVarsBuilder _vars;
+  _i3.GMergedEventPartsVarsBuilder? _vars;
   _i3.GMergedEventPartsVarsBuilder get vars =>
       _$this._vars ??= new _i3.GMergedEventPartsVarsBuilder();
-  set vars(_i3.GMergedEventPartsVarsBuilder vars) => _$this._vars = vars;
+  set vars(_i3.GMergedEventPartsVarsBuilder? vars) => _$this._vars = vars;
 
-  _i7.DocumentNode _document;
-  _i7.DocumentNode get document => _$this._document;
-  set document(_i7.DocumentNode document) => _$this._document = document;
+  _i7.DocumentNode? _document;
+  _i7.DocumentNode? get document => _$this._document;
+  set document(_i7.DocumentNode? document) => _$this._document = document;
 
-  String _fragmentName;
-  String get fragmentName => _$this._fragmentName;
-  set fragmentName(String fragmentName) => _$this._fragmentName = fragmentName;
+  String? _fragmentName;
+  String? get fragmentName => _$this._fragmentName;
+  set fragmentName(String? fragmentName) => _$this._fragmentName = fragmentName;
 
-  Map<String, dynamic> _idFields;
-  Map<String, dynamic> get idFields => _$this._idFields;
-  set idFields(Map<String, dynamic> idFields) => _$this._idFields = idFields;
+  Map<String, dynamic>? _idFields;
+  Map<String, dynamic>? get idFields => _$this._idFields;
+  set idFields(Map<String, dynamic>? idFields) => _$this._idFields = idFields;
 
   GMergedEventPartsReqBuilder() {
     GMergedEventPartsReq._initializeBuilder(this);
   }
 
   GMergedEventPartsReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _document = _$v.document;
-      _fragmentName = _$v.fragmentName;
-      _idFields = _$v.idFields;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _document = $v.document;
+      _fragmentName = $v.fragmentName;
+      _idFields = $v.idFields;
       _$v = null;
     }
     return this;
@@ -14760,14 +14825,12 @@ class GMergedEventPartsReqBuilder
 
   @override
   void replace(GMergedEventPartsReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GMergedEventPartsReq;
   }
 
   @override
-  void update(void Function(GMergedEventPartsReqBuilder) updates) {
+  void update(void Function(GMergedEventPartsReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -14778,11 +14841,13 @@ class GMergedEventPartsReqBuilder
       _$result = _$v ??
           new _$GMergedEventPartsReq._(
               vars: vars.build(),
-              document: document,
+              document: BuiltValueNullFieldError.checkNotNull(
+                  document, 'GMergedEventPartsReq', 'document'),
               fragmentName: fragmentName,
-              idFields: idFields);
+              idFields: BuiltValueNullFieldError.checkNotNull(
+                  idFields, 'GMergedEventPartsReq', 'idFields'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();
@@ -14803,33 +14868,26 @@ class _$GHeadRefDeletedEventPartsReq extends GHeadRefDeletedEventPartsReq {
   @override
   final _i7.DocumentNode document;
   @override
-  final String fragmentName;
+  final String? fragmentName;
   @override
   final Map<String, dynamic> idFields;
 
   factory _$GHeadRefDeletedEventPartsReq(
-          [void Function(GHeadRefDeletedEventPartsReqBuilder) updates]) =>
+          [void Function(GHeadRefDeletedEventPartsReqBuilder)? updates]) =>
       (new GHeadRefDeletedEventPartsReqBuilder()..update(updates)).build();
 
   _$GHeadRefDeletedEventPartsReq._(
-      {this.vars, this.document, this.fragmentName, this.idFields})
+      {required this.vars,
+      required this.document,
+      this.fragmentName,
+      required this.idFields})
       : super._() {
-    if (vars == null) {
-      throw new BuiltValueNullFieldError(
-          'GHeadRefDeletedEventPartsReq', 'vars');
-    }
-    if (document == null) {
-      throw new BuiltValueNullFieldError(
-          'GHeadRefDeletedEventPartsReq', 'document');
-    }
-    if (fragmentName == null) {
-      throw new BuiltValueNullFieldError(
-          'GHeadRefDeletedEventPartsReq', 'fragmentName');
-    }
-    if (idFields == null) {
-      throw new BuiltValueNullFieldError(
-          'GHeadRefDeletedEventPartsReq', 'idFields');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        vars, 'GHeadRefDeletedEventPartsReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        document, 'GHeadRefDeletedEventPartsReq', 'document');
+    BuiltValueNullFieldError.checkNotNull(
+        idFields, 'GHeadRefDeletedEventPartsReq', 'idFields');
   }
 
   @override
@@ -14874,36 +14932,37 @@ class GHeadRefDeletedEventPartsReqBuilder
     implements
         Builder<GHeadRefDeletedEventPartsReq,
             GHeadRefDeletedEventPartsReqBuilder> {
-  _$GHeadRefDeletedEventPartsReq _$v;
+  _$GHeadRefDeletedEventPartsReq? _$v;
 
-  _i3.GHeadRefDeletedEventPartsVarsBuilder _vars;
+  _i3.GHeadRefDeletedEventPartsVarsBuilder? _vars;
   _i3.GHeadRefDeletedEventPartsVarsBuilder get vars =>
       _$this._vars ??= new _i3.GHeadRefDeletedEventPartsVarsBuilder();
-  set vars(_i3.GHeadRefDeletedEventPartsVarsBuilder vars) =>
+  set vars(_i3.GHeadRefDeletedEventPartsVarsBuilder? vars) =>
       _$this._vars = vars;
 
-  _i7.DocumentNode _document;
-  _i7.DocumentNode get document => _$this._document;
-  set document(_i7.DocumentNode document) => _$this._document = document;
+  _i7.DocumentNode? _document;
+  _i7.DocumentNode? get document => _$this._document;
+  set document(_i7.DocumentNode? document) => _$this._document = document;
 
-  String _fragmentName;
-  String get fragmentName => _$this._fragmentName;
-  set fragmentName(String fragmentName) => _$this._fragmentName = fragmentName;
+  String? _fragmentName;
+  String? get fragmentName => _$this._fragmentName;
+  set fragmentName(String? fragmentName) => _$this._fragmentName = fragmentName;
 
-  Map<String, dynamic> _idFields;
-  Map<String, dynamic> get idFields => _$this._idFields;
-  set idFields(Map<String, dynamic> idFields) => _$this._idFields = idFields;
+  Map<String, dynamic>? _idFields;
+  Map<String, dynamic>? get idFields => _$this._idFields;
+  set idFields(Map<String, dynamic>? idFields) => _$this._idFields = idFields;
 
   GHeadRefDeletedEventPartsReqBuilder() {
     GHeadRefDeletedEventPartsReq._initializeBuilder(this);
   }
 
   GHeadRefDeletedEventPartsReqBuilder get _$this {
-    if (_$v != null) {
-      _vars = _$v.vars?.toBuilder();
-      _document = _$v.document;
-      _fragmentName = _$v.fragmentName;
-      _idFields = _$v.idFields;
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _document = $v.document;
+      _fragmentName = $v.fragmentName;
+      _idFields = $v.idFields;
       _$v = null;
     }
     return this;
@@ -14911,14 +14970,12 @@ class GHeadRefDeletedEventPartsReqBuilder
 
   @override
   void replace(GHeadRefDeletedEventPartsReq other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GHeadRefDeletedEventPartsReq;
   }
 
   @override
-  void update(void Function(GHeadRefDeletedEventPartsReqBuilder) updates) {
+  void update(void Function(GHeadRefDeletedEventPartsReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -14929,11 +14986,13 @@ class GHeadRefDeletedEventPartsReqBuilder
       _$result = _$v ??
           new _$GHeadRefDeletedEventPartsReq._(
               vars: vars.build(),
-              document: document,
+              document: BuiltValueNullFieldError.checkNotNull(
+                  document, 'GHeadRefDeletedEventPartsReq', 'document'),
               fragmentName: fragmentName,
-              idFields: idFields);
+              idFields: BuiltValueNullFieldError.checkNotNull(
+                  idFields, 'GHeadRefDeletedEventPartsReq', 'idFields'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'vars';
         vars.build();

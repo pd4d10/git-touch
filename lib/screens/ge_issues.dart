@@ -34,17 +34,17 @@ class GeIssuesScreen extends StatelessWidget {
         url: '/gitee/$owner/$name/issues/new',
       ),
       itemBuilder: (p) => IssueItem(
-        author: p.user.login,
-        avatarUrl: p.user.avatarUrl,
+        author: p.user!.login,
+        avatarUrl: p.user!.avatarUrl,
         commentCount: p.comments,
-        subtitle: '#' + p.number,
+        subtitle: '#' + p.number!,
         title: p.title,
-        updatedAt: DateTime.parse(p.updatedAt),
+        updatedAt: DateTime.parse(p.updatedAt!),
         url: '/gitee/$owner/$name/issues/${p.number}',
-        labels: p.labels.isEmpty
+        labels: p.labels!.isEmpty
             ? null
             : Wrap(spacing: 4, runSpacing: 4, children: [
-                for (var label in p.labels)
+                for (var label in p.labels!)
                   MyLabel(name: label.name, cssColor: label.color)
               ]),
       ),

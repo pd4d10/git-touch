@@ -16,8 +16,8 @@ class BbCommitsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthModel>(context);
-    return ListStatefulScaffold<BbCommit, String>(
-      title: AppBarTitle(AppLocalizations.of(context).commits),
+    return ListStatefulScaffold<BbCommit, String?>(
+      title: AppBarTitle(AppLocalizations.of(context)!.commits),
       fetch: (nextUrl) async {
         final res = await context.read<AuthModel>().fetchBbWithPage(
             nextUrl ?? '/repositories/$owner/$name/commits/$ref');
@@ -25,16 +25,16 @@ class BbCommitsScreen extends StatelessWidget {
           cursor: res.cursor,
           hasMore: res.hasMore,
           items: <BbCommit>[
-            for (var v in res.data) BbCommit.fromJson(v),
+            for (var v in res.data!) BbCommit.fromJson(v),
           ],
         );
       },
       itemBuilder: (v) {
         return CommitItem(
-          url: '${auth.activeAccount.domain}/$owner/$name/commits/${v.hash}',
-          avatarUrl: v.author.user?.avatarUrl,
+          url: '${auth.activeAccount!.domain}/$owner/$name/commits/${v.hash}',
+          avatarUrl: v.author!.user?.avatarUrl,
           avatarLink: null,
-          author: v.author.raw.replaceFirst(RegExp(r' <.*>'), ''),
+          author: v.author!.raw!.replaceFirst(RegExp(r' <.*>'), ''),
           createdAt: v.date,
           message: v.message,
         );

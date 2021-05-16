@@ -10,14 +10,14 @@ import 'package:flutter_gen/gen_l10n/S.dart';
 class GoCommitsScreen extends StatelessWidget {
   final String owner;
   final String name;
-  final String branch;
+  final String? branch;
   GoCommitsScreen(this.owner, this.name, {this.branch = 'master'});
 
   // TODO: API only returns most recent commit. No provision for all commits.
   @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GogsCommit, int>(
-      title: AppBarTitle(AppLocalizations.of(context).commits),
+      title: AppBarTitle(AppLocalizations.of(context)!.commits),
       fetch: (page) async {
         final res = await context.read<AuthModel>().fetchGogsWithPage(
             '/repos/$owner/$name/commits/$branch',
@@ -30,11 +30,11 @@ class GoCommitsScreen extends StatelessWidget {
       },
       itemBuilder: (c) {
         return CommitItem(
-          author: c.author?.username ?? c.commit.author.name,
-          avatarUrl: c.author.avatarUrl,
-          avatarLink: '/gogs/${c.author.username}',
-          createdAt: c.commit.author.date,
-          message: c.commit.message,
+          author: c.author?.username ?? c.commit!.author!.name,
+          avatarUrl: c.author!.avatarUrl,
+          avatarLink: '/gogs/${c.author!.username}',
+          createdAt: c.commit!.author!.date,
+          message: c.commit!.message,
           url: c.htmlUrl,
         );
       },

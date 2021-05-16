@@ -4,20 +4,20 @@ import 'package:git_touch/models/theme.dart';
 import 'package:provider/provider.dart';
 
 class DiffLine {
-  String type;
+  String? type;
   int lineNumber;
   String content;
   DiffLine({
-    @required this.type,
-    @required this.lineNumber,
-    @required this.content,
+    required this.type,
+    required this.lineNumber,
+    required this.content,
   });
 }
 
 class DiffChunk {
   String heading;
   List<DiffLine> lines;
-  DiffChunk({@required this.heading, @required this.lines});
+  DiffChunk({required this.heading, required this.lines});
 }
 
 class DiffView extends StatelessWidget {

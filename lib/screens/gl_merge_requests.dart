@@ -10,13 +10,13 @@ import 'package:flutter_gen/gen_l10n/S.dart';
 
 class GlMergeRequestsScreen extends StatelessWidget {
   final String id;
-  final String prefix;
+  final String? prefix;
   GlMergeRequestsScreen(this.id, {this.prefix});
 
   @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GitlabIssue, int>(
-      title: AppBarTitle(AppLocalizations.of(context).mergeRequests),
+      title: AppBarTitle(AppLocalizations.of(context)!.mergeRequests),
       fetch: (page) async {
         page = page ?? 1;
         final res = await context.read<AuthModel>().fetchGitlabWithPage(
@@ -30,16 +30,16 @@ class GlMergeRequestsScreen extends StatelessWidget {
       },
       itemBuilder: (p) => IssueItem(
         isPr: true,
-        author: p.author.username,
-        avatarUrl: p.author.avatarUrl,
+        author: p.author!.username,
+        avatarUrl: p.author!.avatarUrl,
         commentCount: p.userNotesCount,
         subtitle: '#' + p.iid.toString(),
         title: p.title,
         updatedAt: p.updatedAt,
-        labels: p.labels.isEmpty
+        labels: p.labels!.isEmpty
             ? null
             : Wrap(spacing: 4, runSpacing: 4, children: [
-                for (var label in p.labels)
+                for (var label in p.labels!)
                   MyLabel(name: label, cssColor: '#428BCA')
               ]),
         // url: '/gitlab/projects/${p.projectId}/merge_requests/${p.iid}',

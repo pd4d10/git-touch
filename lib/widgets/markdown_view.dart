@@ -12,15 +12,15 @@ class MarkdownViewData {
   final Future<String> future;
   MarkdownViewData(
     BuildContext context, {
-    @required Future<String> Function() md,
-    @required Future<String> Function() html,
+    required Future<String> Function() md,
+    required Future<String> Function() html,
   }) : future = context.read<ThemeModel>().shouldUseMarkdownFlutterView
             ? md()
             : html();
 }
 
 class MarkdownView extends StatelessWidget {
-  final MarkdownViewData data;
+  final MarkdownViewData? data;
   MarkdownView(this.data);
 
   @override
@@ -31,7 +31,7 @@ class MarkdownView extends StatelessWidget {
 
     if (theme.shouldUseMarkdownFlutterView) {
       return FutureBuilder<String>(
-        future: data.future,
+        future: data!.future,
         builder: (context, snapshot) {
           if (snapshot.data == null) {
             return Container();
@@ -42,7 +42,7 @@ class MarkdownView extends StatelessWidget {
       );
     } else {
       return FutureBuilder<String>(
-        future: data.future,
+        future: data!.future,
         builder: (context, snapshot) {
           if (snapshot.data == null) {
             return Container();
@@ -57,13 +57,13 @@ class MarkdownView extends StatelessWidget {
 
 // TODO: Safari table width
 class MarkdownWebView extends StatelessWidget {
-  final String html;
+  final String? html;
   MarkdownWebView(this.html);
 
   @override
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
-    var css = theme.markdownCss;
+    var css = theme.markdownCss ?? '';
     if (theme.brightness == Brightness.dark) {
       css += '''
 html {
@@ -77,13 +77,13 @@ html {
 }
 ''';
     }
-    return HtmlView(html, cssText: css);
+    return HtmlView(html!, cssText: css);
   }
 }
 
 class MarkdownFlutterView extends StatelessWidget {
-  final String text;
-  final List<String> basePaths;
+  final String? text;
+  final List<String>? basePaths;
   final EdgeInsetsGeometry padding;
 
   MarkdownFlutterView(
@@ -92,7 +92,7 @@ class MarkdownFlutterView extends StatelessWidget {
     this.padding = const EdgeInsets.all(12),
   });
 
-  static Map<String, String> matchPattern(String url, String pattern) {
+  static Map<String, String?>? matchPattern(String url, String pattern) {
     var uri = Uri.parse(url);
     return UriParser(UriTemplate(pattern)).match(uri)?.parameters;
   }
@@ -109,7 +109,7 @@ class MarkdownFlutterView extends StatelessWidget {
     return Container(
       padding: padding,
       child: MarkdownBody(
-        data: text,
+        data: text!,
         selectable: true,
         imageBuilder: (uri, title, alt) {
           if (uri.scheme == 'http' || uri.scheme == 'https') {
@@ -126,20 +126,20 @@ class MarkdownFlutterView extends StatelessWidget {
           final theme = context.read<ThemeModel>();
 
           if (basePaths != null &&
-              !url.startsWith('https://') &&
+              !url!.startsWith('https://') &&
               !url.startsWith('http://')) {
             // Treat as relative path
 
-            final x = basePaths.sublist(3).join('/');
+            final x = basePaths!.sublist(3).join('/');
             var y = path.join(x, url);
             if (y.startsWith('/')) y = y.substring(1);
 
             return theme.push(context,
-                '/${basePaths[0]}/${basePaths[1]}/${basePaths[2]}?path=${y.urlencode}');
+                '/${basePaths![0]}/${basePaths![1]}/${basePaths![2]}?path=${y.urlencode}');
           }
 
           // TODO: Relative paths
-          if (url.startsWith('https://github.com')) {
+          if (url!.startsWith('https://github.com')) {
             const matchedPaths = [
               '/{owner}/{name}/pull/{number}',
               '/{owner}/{name}/issues/{number}',

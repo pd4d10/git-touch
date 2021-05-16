@@ -18,23 +18,23 @@ class GhComparisonScreen extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold(
-      title: AppBarTitle(AppLocalizations.of(context).files),
+      title: AppBarTitle(AppLocalizations.of(context)!.files),
       fetch: () async {
-        final res = await context.read<AuthModel>().ghClient.getJSON(
+        final res = await context.read<AuthModel>().ghClient!.getJSON(
             '/repos/$owner/$name/compare/$before...$head',
-            convert: (vs) => GithubComparisonItem.fromJson(vs));
+            convert: (dynamic vs) => GithubComparisonItem.fromJson(vs));
         return res.files;
       },
-      actionBuilder: (v, _) {
+      actionBuilder: (dynamic v, _) {
         return ActionButton(
-          title: AppLocalizations.of(context).actions,
+          title: AppLocalizations.of(context)!.actions,
           items: [
             ...ActionItem.getUrlActions(
                 'https://github.com/$owner/$name/compare/$before...$head'),
           ],
         );
       },
-      bodyBuilder: (v, _) {
+      bodyBuilder: (dynamic v, _) {
         return Wrap(
           children: v
               .map<Widget>((vs) => FilesItem(

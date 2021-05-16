@@ -16,7 +16,7 @@ class GtCommitsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GiteaCommit, int>(
-      title: AppBarTitle(AppLocalizations.of(context).commits),
+      title: AppBarTitle(AppLocalizations.of(context)!.commits),
       fetch: (page) async {
         final res = await context
             .read<AuthModel>()
@@ -30,11 +30,11 @@ class GtCommitsScreen extends StatelessWidget {
       },
       itemBuilder: (c) {
         return CommitItem(
-          author: c.author?.login ?? c.commit.author.name,
+          author: c.author?.login ?? c.commit!.author!.name,
           avatarUrl: null,
           avatarLink: null,
-          createdAt: c.commit.author.date,
-          message: c.commit.message,
+          createdAt: c.commit!.author!.date,
+          message: c.commit!.message,
           url: c.htmlUrl,
         );
       },

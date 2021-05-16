@@ -6,22 +6,22 @@ import 'package:git_touch/widgets/link.dart';
 import 'package:provider/provider.dart';
 
 class ContributorItem extends StatelessWidget {
-  final String login;
-  final String avatarUrl;
-  final int commits;
+  final String? login;
+  final String? avatarUrl;
+  final int? commits;
   final String url;
 
   ContributorItem({
-    @required this.login,
-    @required this.avatarUrl,
-    @required this.commits,
-    @required this.url,
+    required this.login,
+    required this.avatarUrl,
+    required this.commits,
+    required this.url,
   });
 
   @override
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
-    return Link(
+    return LinkWidget(
       url: url,
       child: Container(
         padding: CommonStyle.padding,
@@ -37,7 +37,7 @@ class ContributorItem extends StatelessWidget {
                   Row(
                     children: <Widget>[
                       Text(
-                        login,
+                        login!,
                         style: TextStyle(
                           color: theme.palette.primary,
                           fontSize: 18,

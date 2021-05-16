@@ -20,25 +20,25 @@ class GhNotificationScreen extends StatefulWidget {
 }
 
 class GhNotificationScreenState extends State<GhNotificationScreen> {
-  Future<Map<String, NotificationGroup>> fetchNotifications(int index) async {
-    final ns = await context.read<AuthModel>().ghClient.getJSON(
+  Future<Map<String?, NotificationGroup>> fetchNotifications(int index) async {
+    final ns = await context.read<AuthModel>().ghClient!.getJSON(
           '/notifications?all=${index == 2}&participating=${index == 1}',
-          convert: (vs) =>
+          convert: (dynamic vs) =>
               [for (var v in vs) GithubNotificationItem.fromJson(v)],
         );
     if (index == 0) {
       context.read<NotificationModel>().setCount(ns.length);
     }
 
-    Map<String, NotificationGroup> _groupMap = {};
+    Map<String?, NotificationGroup> _groupMap = {};
 
     ns.forEach((item) {
-      final repo = item.repository.fullName;
+      final repo = item.repository!.fullName;
       if (_groupMap[repo] == null) {
         _groupMap[repo] = NotificationGroup(repo);
       }
 
-      _groupMap[repo].items.add(item);
+      _groupMap[repo]!.items.add(item);
     });
 
     if (_groupMap.isNotEmpty) {
@@ -47,8 +47,8 @@ class GhNotificationScreenState extends State<GhNotificationScreen> {
       _groupMap.forEach((repo, group) {
         // Check if issue and pull request exist
         if (group.items.where((item) {
-          return item.subject.type == 'Issue' ||
-              item.subject.type == 'PullRequest';
+          return item.subject!.type == 'Issue' ||
+              item.subject!.type == 'PullRequest';
         }).isEmpty) {
           return;
         }
@@ -57,17 +57,17 @@ class GhNotificationScreenState extends State<GhNotificationScreen> {
             '${group.key}: repository(owner: "${group.owner}", name: "${group.name}") {';
 
         group.items.forEach((item) {
-          switch (item.subject.type) {
+          switch (item.subject!.type) {
             case 'Issue':
               schema += '''
-${item.key}: issue(number: ${item.subject.number}) {
+${item.key}: issue(number: ${item.subject!.number}) {
   state
 }
 ''';
               break;
             case 'PullRequest':
               schema += '''
-${item.key}: pullRequest(number: ${item.subject.number}) {
+${item.key}: pullRequest(number: ${item.subject!.number}) {
   state
 }
 ''';
@@ -112,7 +112,7 @@ ${item.key}: pullRequest(number: ${item.subject.number}) {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Text(
-            group.fullName,
+            group.fullName!,
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,
@@ -123,10 +123,10 @@ ${item.key}: pullRequest(number: ${item.subject.number}) {
             onTap: () async {
               await context
                   .read<AuthModel>()
-                  .ghClient
+                  .ghClient!
                   .activity
                   .markRepositoryNotificationsRead(
-                      RepositorySlug.full(group.fullName));
+                      RepositorySlug.full(group.fullName!));
               // await _onSwitchTab(); // TODO:
             },
             child: Icon(
@@ -138,13 +138,13 @@ ${item.key}: pullRequest(number: ${item.subject.number}) {
         ],
       ),
       items: group.items,
-      itemBuilder: (item, index) {
+      itemBuilder: (dynamic item, index) {
         return NotificationItem(
           payload: item,
           markAsRead: () {
             if (mounted) {
               setState(() {
-                groupMap[entry.key].items[index].unread = false;
+                groupMap[entry.key]!.items[index].unread = false;
               });
             }
           },
@@ -156,14 +156,14 @@ ${item.key}: pullRequest(number: ${item.subject.number}) {
   @override
   Widget build(context) {
     return TabStatefulScaffold(
-      title: AppBarTitle(AppLocalizations.of(context).notification),
+      title: AppBarTitle(AppLocalizations.of(context)!.notification),
       tabs: [
-        AppLocalizations.of(context).unread,
-        AppLocalizations.of(context).participating,
-        AppLocalizations.of(context).all
+        AppLocalizations.of(context)!.unread,
+        AppLocalizations.of(context)!.participating,
+        AppLocalizations.of(context)!.all
       ],
       fetchData: fetchNotifications,
-      bodyBuilder: (groupMap, activeTab) {
+      bodyBuilder: (dynamic groupMap, activeTab) {
         if (groupMap.isEmpty) return EmptyWidget();
 
         return Column(

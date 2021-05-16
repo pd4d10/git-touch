@@ -1,8 +1,10 @@
+import 'package:ferry/ferry.dart';
 import 'package:filesize/filesize.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:git_touch/graphql/github.data.gql.dart';
 import 'package:git_touch/graphql/github.req.gql.dart';
+import 'package:git_touch/graphql/github.var.gql.dart';
 import 'package:git_touch/graphql/schema.schema.gql.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
@@ -26,10 +28,10 @@ import 'package:flutter_gen/gen_l10n/S.dart';
 class GhRepoScreen extends StatelessWidget {
   final String owner;
   final String name;
-  final String branch;
+  final String? branch;
   GhRepoScreen(this.owner, this.name, {this.branch});
 
-  String _buildWatchState(GSubscriptionState state) {
+  String _buildWatchState(GSubscriptionState? state) {
     switch (state) {
       case GSubscriptionState.IGNORED:
         return 'Ignoring';
@@ -46,19 +48,19 @@ class GhRepoScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
     return RefreshStatefulScaffold<
-        Tuple3<GRepoData_repository, Future<int>, MarkdownViewData>>(
-      title: AppBarTitle(AppLocalizations.of(context).repository),
+        Tuple3<GRepoData_repository?, Future<int>, MarkdownViewData>>(
+      title: AppBarTitle(AppLocalizations.of(context)!.repository),
       fetch: () async {
         final req = GRepoReq((b) => b
           ..vars.owner = owner
           ..vars.name = name
           ..vars.branchSpecified = branch != null
           ..vars.branch = branch ?? '');
-        final res =
-            await context.read<AuthModel>().gqlClient.request(req).first;
-        final repo = res.data.repository;
+        final OperationResponse<GRepoData, GRepoVars?> res =
+            await context.read<AuthModel>().gqlClient!.request(req).first;
+        final repo = res.data!.repository;
 
-        final ghClient = context.read<AuthModel>().ghClient;
+        final ghClient = context.read<AuthModel>().ghClient!;
         final countFuture = ghClient
             .getJSON('/repos/$owner/$name/stats/contributors')
             .then((v) => (v as List).length);
@@ -86,12 +88,12 @@ class GhRepoScreen extends StatelessWidget {
         return Tuple3(repo, countFuture, readmeData);
       },
       actionBuilder: (data, _) {
-        final repo = data.item1;
+        final repo = data.item1!;
         return ActionButton(
-          title: AppLocalizations.of(context).repositoryActions,
+          title: AppLocalizations.of(context)!.repositoryActions,
           items: [
             ActionItem(
-              text: AppLocalizations.of(context).projects +
+              text: AppLocalizations.of(context)!.projects +
                   '(${repo.projects.totalCount})',
               url: repo.projectsUrl,
             ),
@@ -100,7 +102,7 @@ class GhRepoScreen extends StatelessWidget {
         );
       },
       bodyBuilder: (data, setData) {
-        final repo = data.item1;
+        final repo = data.item1!;
         final contributionFuture = data.item2;
         final readmeData = data.item3;
 
@@ -130,8 +132,10 @@ class GhRepoScreen extends StatelessWidget {
                             ActionItem(
                               text: _buildWatchState(v),
                               onTap: (_) async {
-                                final activityApi =
-                                    context.read<AuthModel>().ghClient.activity;
+                                final activityApi = context
+                                    .read<AuthModel>()
+                                    .ghClient!
+                                    .activity;
                                 switch (v) {
                                   case GSubscriptionState.SUBSCRIBED:
                                   case GSubscriptionState.IGNORED:
@@ -166,10 +170,10 @@ class GhRepoScreen extends StatelessWidget {
                     SizedBox(width: 8),
                     MutationButton(
                       active: repo.viewerHasStarred,
-                      text: repo.viewerHasStarred ? 'Unstar' : 'Star',
+                      text: repo.viewerHasStarred? 'Unstar' : 'Star',
                       onTap: () async {
                         final activityApi =
-                            context.read<AuthModel>().ghClient.activity;
+                            context.read<AuthModel>().ghClient!.activity;
                         if (repo.viewerHasStarred) {
                           await activityApi.unstar(
                               RepositorySlug(repo.owner.login, repo.name));
@@ -186,12 +190,12 @@ class GhRepoScreen extends StatelessWidget {
                 ),
               ],
               trailings: <Widget>[
-                if (repo.repositoryTopics.nodes.isNotEmpty)
+                if (repo.repositoryTopics.nodes!.isNotEmpty)
                   // TODO: link
                   Wrap(
                     spacing: 4,
                     runSpacing: 4,
-                    children: repo.repositoryTopics.nodes.map((node) {
+                    children: repo.repositoryTopics.nodes!.map((node) {
                       return MyLabel(
                         name: node.topic.name,
                         // color: Colors.blue.shade50,
@@ -207,28 +211,28 @@ class GhRepoScreen extends StatelessWidget {
               children: <Widget>[
                 EntryItem(
                   count: repo.watchers.totalCount,
-                  text: AppLocalizations.of(context).watchers,
+                  text: AppLocalizations.of(context)!.watchers,
                   url: '/github/$owner/$name/watchers',
                 ),
                 EntryItem(
                   count: repo.stargazers.totalCount,
-                  text: AppLocalizations.of(context).stars,
+                  text: AppLocalizations.of(context)!.stars,
                   url: '/github/$owner/$name/stargazers',
                 ),
                 EntryItem(
                   count: repo.forks.totalCount,
-                  text: AppLocalizations.of(context).forks,
+                  text: AppLocalizations.of(context)!.forks,
                   url: 'https://github.com/$owner/$name/network/members',
                 ),
               ],
             ),
-            if (repo.languages.edges.isNotEmpty) ...[
+            if (repo.languages!.edges!.isNotEmpty) ...[
               CommonStyle.border,
               LanguageBar([
-                for (var edge in repo.languages.edges)
+                for (var edge in repo.languages!.edges!)
                   LanguageBarItem(
                     name: edge.node.name,
-                    ratio: edge.size / repo.languages.totalSize,
+                    ratio: edge.size/ repo.languages!.totalSize,
                     hexColor: edge.node.color,
                   )
               ]),
@@ -242,21 +246,21 @@ class GhRepoScreen extends StatelessWidget {
                     text: Text(repo.primaryLanguage?.name ?? 'Code'),
                     rightWidget: Text(
                       (license == null ? '' : '$license • ') +
-                          filesize(repo.diskUsage * 1000),
+                          filesize(repo.diskUsage! * 1000),
                     ),
                     url: '/github/$owner/$name/blob/${ref.name}',
                   ),
                 if (repo.hasIssuesEnabled)
                   TableViewItem(
                     leftIconData: Octicons.issue_opened,
-                    text: Text(AppLocalizations.of(context).issues),
+                    text: Text(AppLocalizations.of(context)!.issues),
                     rightWidget:
                         Text(numberFormat.format(repo.issues.totalCount)),
                     url: '/github/$owner/$name/issues',
                   ),
                 TableViewItem(
                   leftIconData: Octicons.git_pull_request,
-                  text: Text(AppLocalizations.of(context).pullRequests),
+                  text: Text(AppLocalizations.of(context)!.pullRequests),
                   rightWidget:
                       Text(numberFormat.format(repo.pullRequests.totalCount)),
                   url: '/github/$owner/$name/pulls',
@@ -264,7 +268,7 @@ class GhRepoScreen extends StatelessWidget {
                 if (ref != null) ...[
                   TableViewItem(
                     leftIconData: Octicons.history,
-                    text: Text(AppLocalizations.of(context).commits),
+                    text: Text(AppLocalizations.of(context)!.commits),
                     rightWidget: Text(
                         ((ref.target as GRepoCommit).history?.totalCount ?? 0)
                             .toString()),
@@ -273,12 +277,12 @@ class GhRepoScreen extends StatelessWidget {
                   if (repo.refs != null)
                     TableViewItem(
                       leftIconData: Octicons.git_branch,
-                      text: Text(AppLocalizations.of(context).branches),
-                      rightWidget: Text(ref.name +
+                      text: Text(AppLocalizations.of(context)!.branches),
+                      rightWidget: Text(ref.name+
                           ' • ' +
-                          numberFormat.format(repo.refs.totalCount)),
+                          numberFormat.format(repo.refs!.totalCount)),
                       onTap: () async {
-                        final refs = repo.refs.nodes;
+                        final refs = repo.refs!.nodes!;
                         if (refs.length < 2) return;
 
                         await theme.showPicker(
@@ -301,7 +305,7 @@ class GhRepoScreen extends StatelessWidget {
                     ),
                   TableViewItem(
                     leftIconData: Octicons.organization,
-                    text: Text(AppLocalizations.of(context).contributors),
+                    text: Text(AppLocalizations.of(context)!.contributors),
                     rightWidget: FutureBuilder<int>(
                       future: contributionFuture,
                       builder: (context, snapshot) {

@@ -11,27 +11,27 @@ import '../widgets/empty.dart';
 
 class ListPayload<T, K> {
   K cursor;
-  Iterable<T> items;
-  bool hasMore;
+  Iterable<T>? items;
+  bool? hasMore;
 
   ListPayload({
-    @required this.items,
-    @required this.cursor,
-    @required this.hasMore,
+    required this.items,
+    required this.cursor,
+    required this.hasMore,
   });
 }
 
 // This is a scaffold for infinite scroll screens
 class ListStatefulScaffold<T, K> extends StatefulWidget {
   final Widget title;
-  final Widget Function() actionBuilder;
+  final Widget Function()? actionBuilder;
   final Widget Function(T payload) itemBuilder;
   final Future<ListPayload<T, K>> Function(K cursor) fetch;
 
   ListStatefulScaffold({
-    @required this.title,
-    @required this.itemBuilder,
-    @required this.fetch,
+    required this.title,
+    required this.itemBuilder,
+    required this.fetch,
     this.actionBuilder,
   });
 
@@ -41,14 +41,14 @@ class ListStatefulScaffold<T, K> extends StatefulWidget {
 }
 
 class _ListStatefulScaffoldState<T, K>
-    extends State<ListStatefulScaffold<T, K>> {
+    extends State<ListStatefulScaffold<T, K?>> {
   bool loading = false;
   bool loadingMore = false;
   String error = '';
 
   List<T> items = [];
-  K cursor;
-  bool hasMore;
+  K? cursor;
+  bool? hasMore;
 
   ScrollController _controller = ScrollController();
 
@@ -71,7 +71,7 @@ class _ListStatefulScaffoldState<T, K>
         !_controller.position.outOfRange &&
         !loading &&
         !loadingMore &&
-        hasMore) {
+        hasMore!) {
       _loadMore();
     }
   }
@@ -95,8 +95,8 @@ class _ListStatefulScaffoldState<T, K>
       }
     });
     try {
-      final _payload = await widget.fetch(null);
-      items = _payload.items.toList();
+      final ListPayload<T, K?> _payload = await widget.fetch(null);
+      items = _payload.items!.toList();
       cursor = _payload.cursor;
       hasMore = _payload.hasMore;
     } catch (err) {
@@ -118,8 +118,8 @@ class _ListStatefulScaffoldState<T, K>
       loadingMore = true;
     });
     try {
-      var _payload = await widget.fetch(cursor);
-      items.addAll(_payload.items);
+      ListPayload<T, K?> _payload = await widget.fetch(cursor);
+      items.addAll(_payload.items!);
       cursor = _payload.cursor;
       hasMore = _payload.hasMore;
     } catch (err) {
@@ -137,7 +137,7 @@ class _ListStatefulScaffoldState<T, K>
 
   Widget _buildItem(BuildContext context, int index) {
     if (index == 2 * items.length) {
-      if (hasMore) {
+      if (hasMore!) {
         return Loading(more: true);
       } else {
         return Container();
@@ -213,7 +213,7 @@ class _ListStatefulScaffoldState<T, K>
     return CommonScaffold(
       title: widget.title,
       body: _buildBody(),
-      action: widget.actionBuilder == null ? null : widget.actionBuilder(),
+      action: widget.actionBuilder == null ? null : widget.actionBuilder!(),
     );
   }
 }

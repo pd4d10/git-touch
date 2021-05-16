@@ -16,7 +16,7 @@ class BbObjectScreen extends StatelessWidget {
   final String owner;
   final String name;
   final String ref;
-  final String path;
+  final String? path;
   BbObjectScreen(this.owner, this.name, this.ref, {this.path});
 
   @override
@@ -34,7 +34,7 @@ class BbObjectScreen extends StatelessWidget {
               .values;
         }
       },
-      actionBuilder: (p, _) {
+      actionBuilder: (dynamic p, _) {
         if (p is String) {
           return ActionEntry(
             iconData: Ionicons.cog,
@@ -44,7 +44,7 @@ class BbObjectScreen extends StatelessWidget {
           return null;
         }
       },
-      bodyBuilder: (pl, _) {
+      bodyBuilder: (dynamic pl, _) {
         if (pl is String) {
           return BlobView(path, text: pl);
         } else if (pl is List) {
@@ -55,12 +55,12 @@ class BbObjectScreen extends StatelessWidget {
           return ObjectTree(items: [
             for (var v in items)
               ObjectTreeItem(
-                name: p.basename(v.path),
+                name: p.basename(v.path!),
                 type: v.type,
                 size: v.type == 'commit_file' ? v.size : null,
                 url:
-                    '/bitbucket/$owner/$name/src/$ref?path=${v.path.urlencode}',
-                downloadUrl: v.links['self']['href'] as String,
+                    '/bitbucket/$owner/$name/src/$ref?path=${v.path!.urlencode}',
+                downloadUrl: v.links!['self']['href'] as String?,
               ),
           ]);
         } else {

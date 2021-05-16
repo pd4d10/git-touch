@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import 'link.dart';
 
 class TableViewHeader extends StatelessWidget {
-  final String title;
+  final String? title;
 
   TableViewHeader(this.title);
 
@@ -17,7 +17,7 @@ class TableViewHeader extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       child: Text(
-        title.toUpperCase(),
+        title!.toUpperCase(),
         style: TextStyle(color: theme.palette.secondaryText, fontSize: 13),
       ),
     );
@@ -26,15 +26,15 @@ class TableViewHeader extends StatelessWidget {
 
 class TableViewItem {
   final Widget text;
-  final IconData leftIconData;
-  final Widget leftWidget;
-  final Widget rightWidget;
-  final void Function() onTap;
-  final String url;
+  final IconData? leftIconData;
+  final Widget? leftWidget;
+  final Widget? rightWidget;
+  final void Function()? onTap;
+  final String? url;
   final bool hideRightChevron;
 
   TableViewItem({
-    @required this.text,
+    required this.text,
     this.leftIconData,
     this.leftWidget,
     this.rightWidget,
@@ -45,13 +45,13 @@ class TableViewItem {
 }
 
 class TableView extends StatelessWidget {
-  final String headerText;
+  final String? headerText;
   final Iterable<TableViewItem> items;
   final bool hasIcon;
 
   double get _leftPadding => hasIcon ? 44 : 12;
 
-  TableView({this.headerText, @required this.items, this.hasIcon = false});
+  TableView({this.headerText, required this.items, this.hasIcon = false});
 
   @override
   Widget build(BuildContext context) {
@@ -65,8 +65,6 @@ class TableView extends StatelessWidget {
         ...join(
           BorderView(leftPadding: _leftPadding),
           items.map((item) {
-            if (item == null) return null;
-
             var leftWidget = item.leftWidget;
             if (leftWidget == null && hasIcon) {
               leftWidget = Icon(
@@ -76,7 +74,7 @@ class TableView extends StatelessWidget {
               );
             }
 
-            return Link(
+            return LinkWidget(
               onTap: item.onTap,
               url: item.url,
               child: DefaultTextStyle(
@@ -97,7 +95,7 @@ class TableView extends StatelessWidget {
                             fontSize: 17,
                             color: theme.palette.tertiaryText,
                           ),
-                          child: item.rightWidget,
+                          child: item.rightWidget!,
                         ),
                         SizedBox(width: 6)
                       ],

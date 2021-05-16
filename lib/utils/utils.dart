@@ -41,7 +41,7 @@ class CommonStyle {
   static final monospace = Platform.isIOS ? 'Menlo' : 'monospace'; // FIXME:
 }
 
-Color convertColor(String cssHex) {
+Color convertColor(String? cssHex) {
   if (cssHex == null) {
     return Color(0xffededed); // Default color
   }
@@ -65,7 +65,7 @@ Color getFontColorByBrightness(Color color) {
 
 TextSpan createLinkSpan(
   BuildContext context,
-  String text,
+  String? text,
   String url,
 ) {
   final theme = Provider.of<ThemeModel>(context);
@@ -132,7 +132,7 @@ List<T> joinAll<T>(T seperator, List<List<T>> xss) {
 
 final numberFormat = NumberFormat();
 
-bool isNotNullOrEmpty(String text) {
+bool isNotNullOrEmpty(String? text) {
   return text != null && text.isNotEmpty;
 }
 
@@ -143,7 +143,7 @@ String getBranchQueryKey(String branch, {bool withParams = false}) {
 
 // TODO: Primer
 class PrimerBranchName extends StatelessWidget {
-  final String name;
+  final String? name;
 
   PrimerBranchName(this.name);
 
@@ -160,7 +160,7 @@ class PrimerBranchName extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(3)),
       ),
       child: Text(
-        name,
+        name!,
         style: TextStyle(
           color: theme.palette.primary,
           fontSize: 14,
@@ -172,7 +172,7 @@ class PrimerBranchName extends StatelessWidget {
   }
 }
 
-launchUrl(String url) async {
+launchUrl(String? url) async {
   if (url == null) return;
 
   if (await canLaunch(url)) {

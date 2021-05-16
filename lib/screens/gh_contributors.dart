@@ -15,12 +15,12 @@ class GhContributorsScreen extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GithubContributorItem, int>(
-      title: AppBarTitle(AppLocalizations.of(context).contributors),
+      title: AppBarTitle(AppLocalizations.of(context)!.contributors),
       fetch: (page) async {
         page = page ?? 1;
         final res = await context
             .read<AuthModel>()
-            .ghClient
+            .ghClient!
             .getJSON<List, List<GithubContributorItem>>(
               '/repos/$owner/$name/contributors?page=$page',
               convert: (vs) =>
@@ -33,7 +33,7 @@ class GhContributorsScreen extends StatelessWidget {
         );
       },
       itemBuilder: (v) {
-        final String login = v.login;
+        final String? login = v.login;
         return ContributorItem(
           avatarUrl: v.avatarUrl,
           commits: v.contributions,

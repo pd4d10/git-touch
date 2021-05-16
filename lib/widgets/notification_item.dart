@@ -14,9 +14,9 @@ class NotificationItem extends StatefulWidget {
   final Function markAsRead;
 
   NotificationItem({
-    Key key,
-    @required this.payload,
-    @required this.markAsRead,
+    Key? key,
+    required this.payload,
+    required this.markAsRead,
   }) : super(key: key);
 
   @override
@@ -32,7 +32,7 @@ class _NotificationItemState extends State<NotificationItem> {
   }
 
   Widget _buildIconData() {
-    switch (payload.subject.type) {
+    switch (payload.subject!.type) {
       case 'Issue':
         switch (payload.state) {
           case 'OPEN':
@@ -70,7 +70,7 @@ class _NotificationItemState extends State<NotificationItem> {
   Widget _buildCheckIcon() {
     final theme = Provider.of<ThemeModel>(context);
     return Icon(
-      payload.unread ? Ionicons.checkmark : Octicons.primitive_dot,
+      payload.unread! ? Ionicons.checkmark : Octicons.primitive_dot,
       color:
           loading ? theme.palette.grayBackground : theme.palette.tertiaryText,
       size: 24,
@@ -78,16 +78,16 @@ class _NotificationItemState extends State<NotificationItem> {
   }
 
   void _markAsRead() async {
-    if (payload.unread && !loading) {
+    if (payload.unread! && !loading) {
       setState(() {
         loading = true;
       });
       try {
         await context
             .read<AuthModel>()
-            .ghClient
+            .ghClient!
             .activity
-            .markThreadRead(payload.id);
+            .markThreadRead(payload.id!);
         widget.markAsRead();
       } finally {
         if (mounted) {
@@ -99,13 +99,13 @@ class _NotificationItemState extends State<NotificationItem> {
     }
   }
 
-  String get _url {
-    final fullName = payload.repository.fullName;
-    switch (payload.subject.type) {
+  String? get _url {
+    final fullName = payload.repository!.fullName;
+    switch (payload.subject!.type) {
       case 'Issue':
-        return '/github/$fullName/issues/${payload.subject.number}';
+        return '/github/$fullName/issues/${payload.subject!.number}';
       case 'PullRequest':
-        return '/github/$fullName/pull/${payload.subject.number}';
+        return '/github/$fullName/pull/${payload.subject!.number}';
       case 'Release':
         return 'https://github.com/$fullName/releases';
       case 'Commit':
@@ -119,11 +119,11 @@ class _NotificationItemState extends State<NotificationItem> {
   @override
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
-    return Link(
+    return LinkWidget(
       url: _url,
       onTap: _markAsRead,
       child: Opacity(
-        opacity: payload.unread ? 1 : 0.5,
+        opacity: payload.unread! ? 1 : 0.5,
         child: Container(
           padding: EdgeInsets.all(8),
           child: Row(
@@ -134,12 +134,12 @@ class _NotificationItemState extends State<NotificationItem> {
               ),
               Expanded(
                 child: Text(
-                  payload.subject.title,
+                  payload.subject!.title!,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(fontSize: 15, color: theme.palette.text),
                 ),
               ),
-              Link(child: _buildCheckIcon(), onTap: _markAsRead),
+              LinkWidget(child: _buildCheckIcon(), onTap: _markAsRead),
             ],
           ),
         ),

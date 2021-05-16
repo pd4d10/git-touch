@@ -36,15 +36,15 @@ class GeReposScreen extends StatelessWidget {
       },
       itemBuilder: (v) {
         return RepositoryItem(
-          owner: v.namespace.path,
-          avatarUrl: v.owner.avatarUrl,
+          owner: v.namespace!.path,
+          avatarUrl: v.owner!.avatarUrl,
           name: v.path,
           description: v.description,
           starCount: v.stargazersCount,
           forkCount: v.forksCount,
-          note: 'Updated ${timeago.format(v.updatedAt)}',
-          url: '/gitee/${v.namespace.path}/${v.path}',
-          avatarLink: '/gitee/${v.namespace.path}',
+          note: 'Updated ${timeago.format(v.updatedAt!)}',
+          url: '/gitee/${v.namespace!.path}/${v.path}',
+          avatarLink: '/gitee/${v.namespace!.path}',
         );
       },
     );

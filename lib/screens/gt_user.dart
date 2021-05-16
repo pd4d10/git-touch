@@ -14,13 +14,13 @@ import 'package:provider/provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class GtUserScreenPayload {
-  GiteaOrg org;
-  List<GiteaRepository> orgRepos;
-  int orgRepoCount;
-  GiteaUser user;
-  List<GiteaRepository> userRepos;
-  int userRepoCount;
-  List<List<ContributionDay>> userHeatmap;
+  GiteaOrg? org;
+  late List<GiteaRepository> orgRepos;
+  int? orgRepoCount;
+  GiteaUser? user;
+  late List<GiteaRepository> userRepos;
+  int? userRepoCount;
+  List<List<ContributionDay>>? userHeatmap;
 }
 
 class GtUserScreen extends StatelessWidget {
@@ -35,7 +35,7 @@ class GtUserScreen extends StatelessWidget {
     List<List<ContributionDay>> heatmapWeeks = [[]];
     for (var i = 0; i < heatmapItems.length; i++) {
       if (i > 0 &&
-          heatmapItems[i].timestamp - heatmapItems[i - 1].timestamp > 86400) {
+          heatmapItems[i].timestamp! - heatmapItems[i - 1].timestamp! > 86400) {
         if (heatmapWeeks.last.length == 7) {
           heatmapWeeks.add([]);
         }
@@ -101,10 +101,10 @@ class GtUserScreen extends StatelessWidget {
           return Column(
             children: <Widget>[
               UserHeader(
-                login: p.user.login,
-                avatarUrl: p.user.avatarUrl,
-                name: p.user.fullName,
-                createdAt: p.user.created,
+                login: p.user!.login,
+                avatarUrl: p.user!.avatarUrl,
+                name: p.user!.fullName,
+                createdAt: p.user!.created,
                 isViewer: isViewer,
                 bio: '',
               ),
@@ -145,15 +145,15 @@ class GtUserScreen extends StatelessWidget {
                 children: <Widget>[
                   for (var v in p.userRepos)
                     RepositoryItem(
-                      owner: v.owner.login,
-                      avatarUrl: v.owner.avatarUrl,
+                      owner: v.owner!.login,
+                      avatarUrl: v.owner!.avatarUrl,
                       name: v.name,
                       description: v.description,
                       starCount: v.starsCount,
                       forkCount: v.forksCount,
-                      note: 'Updated ${timeago.format(v.updatedAt)}',
-                      url: '/gitea/${v.owner.login}/${v.name}',
-                      avatarLink: '/gitea/${v.owner.login}',
+                      note: 'Updated ${timeago.format(v.updatedAt!)}',
+                      url: '/gitea/${v.owner!.login}/${v.name}',
+                      avatarLink: '/gitea/${v.owner!.login}',
                     )
                 ],
               ),
@@ -163,11 +163,11 @@ class GtUserScreen extends StatelessWidget {
           return Column(
             children: <Widget>[
               UserHeader(
-                login: p.org.username,
-                avatarUrl: p.org.avatarUrl,
-                name: p.org.fullName,
+                login: p.org!.username,
+                avatarUrl: p.org!.avatarUrl,
+                name: p.org!.fullName,
                 createdAt: null,
-                bio: p.org.description,
+                bio: p.org!.description,
               ),
               CommonStyle.border,
               Row(children: [
@@ -187,15 +187,15 @@ class GtUserScreen extends StatelessWidget {
                 children: <Widget>[
                   for (var v in p.orgRepos)
                     RepositoryItem(
-                      owner: v.owner.login,
-                      avatarUrl: v.owner.avatarUrl,
+                      owner: v.owner!.login,
+                      avatarUrl: v.owner!.avatarUrl,
                       name: v.name,
                       description: v.description,
                       starCount: v.starsCount,
                       forkCount: v.forksCount,
-                      note: 'Updated ${timeago.format(v.updatedAt)}',
-                      url: '/gitea/${v.owner.login}/${v.name}',
-                      avatarLink: '/gitea/${v.owner.login}',
+                      note: 'Updated ${timeago.format(v.updatedAt!)}',
+                      url: '/gitea/${v.owner!.login}/${v.name}',
+                      avatarLink: '/gitea/${v.owner!.login}',
                     )
                 ],
               )

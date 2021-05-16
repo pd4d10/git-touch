@@ -19,13 +19,13 @@ class GhSearchScreen extends StatefulWidget {
 }
 
 class _GhSearchScreenState extends State<GhSearchScreen> {
-  int _activeTab = 0;
+  int? _activeTab = 0;
   bool _loading = false;
-  List<List> _payloads = [[], [], []];
+  List<List?> _payloads = [[], [], []];
 
-  TextEditingController _controller;
+  TextEditingController? _controller;
 
-  String get _keyword => _controller.text?.trim() ?? '';
+  String get _keyword => _controller!.text?.trim() ?? '';
 
   @override
   void initState() {
@@ -35,14 +35,14 @@ class _GhSearchScreenState extends State<GhSearchScreen> {
 
   @override
   void dispose() {
-    _controller.dispose();
+    _controller!.dispose();
     super.dispose();
   }
 
   Future<void> _query() async {
     if (_loading || _keyword.isEmpty) return;
 
-    var keyword = _controller.text;
+    var keyword = _controller!.text;
     setState(() {
       _loading = true;
     });
@@ -126,7 +126,7 @@ class _GhSearchScreenState extends State<GhSearchScreen> {
                 Icon(Octicons.search, size: 20, color: PrimerColors.gray400),
               ],
             ),
-            placeholder: AppLocalizations.of(context).search,
+            placeholder: AppLocalizations.of(context)!.search,
             clearButtonMode: OverlayVisibilityMode.editing,
             textInputAction: TextInputAction.go,
             onSubmitted: (_) => _query(),
@@ -136,7 +136,7 @@ class _GhSearchScreenState extends State<GhSearchScreen> {
       default:
         return TextField(
           decoration: InputDecoration.collapsed(
-              hintText: AppLocalizations.of(context).search),
+              hintText: AppLocalizations.of(context)!.search),
           textInputAction: TextInputAction.go,
           onSubmitted: (_) => _query(),
           controller: _controller,
@@ -144,11 +144,11 @@ class _GhSearchScreenState extends State<GhSearchScreen> {
     }
   }
 
-  _onTabSwitch(int index) {
+  _onTabSwitch(int? index) {
     setState(() {
       _activeTab = index;
     });
-    if (_payloads[_activeTab].isEmpty) {
+    if (_payloads[_activeTab!]!.isEmpty) {
       _query();
     }
   }
@@ -236,7 +236,7 @@ class _GhSearchScreenState extends State<GhSearchScreen> {
             if (_loading)
               Loading()
             else
-              ..._payloads[_activeTab].map(_buildItem).toList(),
+              ..._payloads[_activeTab!]!.map(_buildItem).toList(),
           ],
         ),
       ),

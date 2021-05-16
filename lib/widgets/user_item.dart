@@ -30,7 +30,7 @@ class GhBioWidget extends StatelessWidget {
             color: theme.palette.secondaryText,
           ),
           SizedBox(width: 4),
-          Expanded(child: Text(p.company, overflow: TextOverflow.ellipsis)),
+          Expanded(child: Text(p.company!, overflow: TextOverflow.ellipsis)),
         ],
       );
     }
@@ -43,7 +43,7 @@ class GhBioWidget extends StatelessWidget {
             color: theme.palette.secondaryText,
           ),
           SizedBox(width: 4),
-          Expanded(child: Text(p.location, overflow: TextOverflow.ellipsis)),
+          Expanded(child: Text(p.location!, overflow: TextOverflow.ellipsis)),
         ],
       );
     }
@@ -64,17 +64,17 @@ class GhBioWidget extends StatelessWidget {
 }
 
 class UserItem extends StatelessWidget {
-  final String login;
-  final String name;
-  final String avatarUrl;
-  final Widget bio;
+  final String? login;
+  final String? name;
+  final String? avatarUrl;
+  final Widget? bio;
   final String url;
 
   UserItem.github({
-    @required this.login,
-    @required this.name,
-    @required this.avatarUrl,
-    @required this.bio,
+    required this.login,
+    required this.name,
+    required this.avatarUrl,
+    required this.bio,
   }) : url = '/github/$login';
 
   UserItem.gql(GUserItem p)
@@ -85,53 +85,53 @@ class UserItem extends StatelessWidget {
         bio = GhBioWidget(p);
 
   UserItem.gitlab({
-    @required this.login,
-    @required this.name,
-    @required this.avatarUrl,
-    @required this.bio,
-    @required int id,
+    required this.login,
+    required this.name,
+    required this.avatarUrl,
+    required this.bio,
+    required int? id,
   }) : url = '/gitlab/user/$id';
 
   UserItem.gitlabGroup({
-    @required this.login,
-    @required this.name,
-    @required this.avatarUrl,
-    @required this.bio,
-    @required int id,
+    required this.login,
+    required this.name,
+    required this.avatarUrl,
+    required this.bio,
+    required int? id,
   }) : url = '/gitlab/group/$id';
 
   UserItem.gitea({
-    @required this.login,
-    @required this.name,
-    @required this.avatarUrl,
-    @required this.bio,
+    required this.login,
+    required this.name,
+    required this.avatarUrl,
+    required this.bio,
   }) : url = '/gitea/$login';
 
   UserItem.gitee({
-    @required this.login,
-    @required this.name,
-    @required this.avatarUrl,
-    @required this.bio,
+    required this.login,
+    required this.name,
+    required this.avatarUrl,
+    required this.bio,
   }) : url = '/gitee/$login';
 
   UserItem.bitbucket({
-    @required this.login,
-    @required this.name,
-    @required this.avatarUrl,
-    @required this.bio,
+    required this.login,
+    required this.name,
+    required this.avatarUrl,
+    required this.bio,
   }) : url = '/bitbucket/$login?team=1';
 
   UserItem.gogs({
-    @required this.login,
-    @required this.name,
-    @required this.avatarUrl,
-    @required this.bio,
+    required this.login,
+    required this.name,
+    required this.avatarUrl,
+    required this.bio,
   }) : url = '/gogs/$login';
 
   @override
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
-    return Link(
+    return LinkWidget(
       url: url,
       child: Container(
         padding: CommonStyle.padding,
@@ -149,9 +149,9 @@ class UserItem extends StatelessWidget {
                     textBaseline: TextBaseline.alphabetic,
                     crossAxisAlignment: CrossAxisAlignment.baseline,
                     children: <Widget>[
-                      if (name != null && name.isNotEmpty) ...[
+                      if (name != null && name!.isNotEmpty) ...[
                         Text(
-                          name,
+                          name!,
                           style: TextStyle(
                             color: theme.palette.text,
                             fontSize: 18,
@@ -162,7 +162,7 @@ class UserItem extends StatelessWidget {
                       ],
                       Expanded(
                         child: Text(
-                          login,
+                          login!,
                           style: TextStyle(
                             color: theme.palette.text,
                             fontSize: 16,
@@ -179,7 +179,7 @@ class UserItem extends StatelessWidget {
                         color: theme.palette.secondaryText,
                         fontSize: 16,
                       ),
-                      child: bio,
+                      child: bio!,
                     ),
                 ],
               ),

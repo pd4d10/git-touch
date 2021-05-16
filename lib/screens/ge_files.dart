@@ -17,7 +17,7 @@ class GeFilesScreen extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GiteePullFile, int>(
-      title: AppBarTitle(AppLocalizations.of(context).files),
+      title: AppBarTitle(AppLocalizations.of(context)!.files),
       actionBuilder: () {
         return ActionButton(
           title: 'Actions',
@@ -46,10 +46,10 @@ class GeFilesScreen extends StatelessWidget {
       itemBuilder: (v) {
         return FilesItem(
           filename: v.filename,
-          additions: int.parse(v.additions),
-          deletions: int.parse(v.deletions),
+          additions: int.parse(v.additions!),
+          deletions: int.parse(v.deletions!),
           status: v.status,
-          patch: v.patch.diff,
+          patch: v.patch!.diff,
         );
       },
     );

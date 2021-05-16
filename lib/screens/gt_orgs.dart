@@ -15,7 +15,7 @@ class GtOrgsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GiteaOrg, int>(
-      title: AppBarTitle(AppLocalizations.of(context).organizations),
+      title: AppBarTitle(AppLocalizations.of(context)!.organizations),
       fetch: (page) async {
         final res =
             await context.read<AuthModel>().fetchGiteaWithPage(api, page: page);
@@ -30,7 +30,7 @@ class GtOrgsScreen extends StatelessWidget {
           avatarUrl: v.avatarUrl,
           login: v.username,
           name: v.fullName,
-          bio: Text(v.description ?? v.website ?? v.location),
+          bio: Text(v.description ?? v.website ?? v.location!),
         );
       },
     );

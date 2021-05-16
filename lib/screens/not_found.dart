@@ -7,8 +7,8 @@ class NotFoundScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleScaffold(
-      title: AppBarTitle(AppLocalizations.of(context).notFoundMessage),
-      body: Text(AppLocalizations.of(context).notFoundTextDisplay),
+      title: AppBarTitle(AppLocalizations.of(context)!.notFoundMessage),
+      body: Text(AppLocalizations.of(context)!.notFoundTextDisplay),
     );
   }
 }

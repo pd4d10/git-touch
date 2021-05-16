@@ -10,13 +10,13 @@ import 'package:flutter_gen/gen_l10n/S.dart';
 class GeCommitsScreen extends StatelessWidget {
   final String owner;
   final String name;
-  final String branch;
+  final String? branch;
   GeCommitsScreen(this.owner, this.name, {this.branch});
 
   @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GiteeCommit, int>(
-      title: AppBarTitle(AppLocalizations.of(context).commits),
+      title: AppBarTitle(AppLocalizations.of(context)!.commits),
       fetch: (page) async {
         final res = await context.read<AuthModel>().fetchGiteeWithPage(
             '/repos/$owner/$name/commits?sha=$branch',
@@ -29,11 +29,11 @@ class GeCommitsScreen extends StatelessWidget {
       },
       itemBuilder: (c) {
         return CommitItem(
-          author: c.commit.author.name,
-          avatarUrl: c.author.avatarUrl,
-          avatarLink: '/gitee/${c.author.login}',
-          createdAt: c.commit.author.date,
-          message: c.commit.message,
+          author: c.commit!.author!.name,
+          avatarUrl: c.author!.avatarUrl,
+          avatarLink: '/gitee/${c.author!.login}',
+          createdAt: c.commit!.author!.date,
+          message: c.commit!.message,
           url: '/gitee/$owner/$name/commits/${c.sha}',
         );
       },

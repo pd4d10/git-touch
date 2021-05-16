@@ -13,7 +13,7 @@ extension MyString<T extends String> on String {
   /// 1.dart -> 'dart'
   ///
   /// license -> null
-  String get ext {
+  String? get ext {
     final dotext = p.extension(this);
     if (dotext.isEmpty) return null;
     return dotext.substring(1);

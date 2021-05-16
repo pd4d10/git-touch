@@ -87,8 +87,8 @@ class GoUserScreen extends StatelessWidget {
                   for (var v in repos) ...[
                     RepositoryItem.go(
                       payload: v,
-                      name: v.fullName.split('/')[1],
-                      owner: v.owner.username,
+                      name: v.fullName!.split('/')[1],
+                      owner: v.owner!.username,
                     ),
                     CommonStyle.border,
                   ]

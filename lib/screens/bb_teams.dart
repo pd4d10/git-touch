@@ -11,8 +11,8 @@ import 'package:flutter_gen/gen_l10n/S.dart';
 class BbTeamsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ListStatefulScaffold<BbUser, String>(
-      title: AppBarTitle(AppLocalizations.of(context).teams),
+    return ListStatefulScaffold<BbUser, String?>(
+      title: AppBarTitle(AppLocalizations.of(context)!.teams),
       fetch: (nextUrl) async {
         final res = await context
             .read<AuthModel>()
@@ -21,7 +21,7 @@ class BbTeamsScreen extends StatelessWidget {
           cursor: res.cursor,
           hasMore: res.hasMore,
           items: <BbUser>[
-            for (var v in res.data) BbUser.fromJson(v),
+            for (var v in res.data!) BbUser.fromJson(v),
           ],
         );
       },
@@ -30,7 +30,7 @@ class BbTeamsScreen extends StatelessWidget {
           login: v.username,
           name: v.nickname,
           avatarUrl: v.avatarUrl,
-          bio: Text('Created ${timeago.format(v.createdOn)}'),
+          bio: Text('Created ${timeago.format(v.createdOn!)}'),
         );
       },
     );

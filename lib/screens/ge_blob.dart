@@ -18,8 +18,8 @@ class GeBlobScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RefreshStatefulScaffold<String>(
-      title: AppBarTitle(AppLocalizations.of(context).file),
+    return RefreshStatefulScaffold<String?>(
+      title: AppBarTitle(AppLocalizations.of(context)!.file),
       fetch: () async {
         final auth = context.read<AuthModel>();
         final res = await auth.fetchGitee('/repos/$owner/$name/git/blobs/$sha');

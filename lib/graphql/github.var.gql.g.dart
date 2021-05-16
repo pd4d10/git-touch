@@ -137,24 +137,26 @@ class _$GGistsVarsSerializer implements StructuredSerializer<GGistsVars> {
   final String wireName = 'GGistsVars';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GGistsVars object,
+  Iterable<Object?> serialize(Serializers serializers, GGistsVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'login',
       serializers.serialize(object.login,
           specifiedType: const FullType(String)),
     ];
-    if (object.after != null) {
+    Object? value;
+    value = object.after;
+    if (value != null) {
       result
         ..add('after')
-        ..add(serializers.serialize(object.after,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
   }
 
   @override
-  GGistsVars deserialize(Serializers serializers, Iterable<Object> serialized,
+  GGistsVars deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GGistsVarsBuilder();
 
@@ -162,7 +164,7 @@ class _$GGistsVarsSerializer implements StructuredSerializer<GGistsVars> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'login':
           result.login = serializers.deserialize(value,
@@ -186,9 +188,9 @@ class _$GGistVarsSerializer implements StructuredSerializer<GGistVars> {
   final String wireName = 'GGistVars';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GGistVars object,
+  Iterable<Object?> serialize(Serializers serializers, GGistVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'login',
       serializers.serialize(object.login,
           specifiedType: const FullType(String)),
@@ -200,7 +202,7 @@ class _$GGistVarsSerializer implements StructuredSerializer<GGistVars> {
   }
 
   @override
-  GGistVars deserialize(Serializers serializers, Iterable<Object> serialized,
+  GGistVars deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GGistVarsBuilder();
 
@@ -208,7 +210,7 @@ class _$GGistVarsSerializer implements StructuredSerializer<GGistVars> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'login':
           result.login = serializers.deserialize(value,
@@ -233,17 +235,19 @@ class _$GFollowersVarsSerializer
   final String wireName = 'GFollowersVars';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GFollowersVars object,
+  Iterable<Object?> serialize(Serializers serializers, GFollowersVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'login',
       serializers.serialize(object.login,
           specifiedType: const FullType(String)),
     ];
-    if (object.after != null) {
+    Object? value;
+    value = object.after;
+    if (value != null) {
       result
         ..add('after')
-        ..add(serializers.serialize(object.after,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
@@ -251,7 +255,7 @@ class _$GFollowersVarsSerializer
 
   @override
   GFollowersVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GFollowersVarsBuilder();
 
@@ -259,7 +263,7 @@ class _$GFollowersVarsSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'login':
           result.login = serializers.deserialize(value,
@@ -284,17 +288,19 @@ class _$GFollowingVarsSerializer
   final String wireName = 'GFollowingVars';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GFollowingVars object,
+  Iterable<Object?> serialize(Serializers serializers, GFollowingVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'login',
       serializers.serialize(object.login,
           specifiedType: const FullType(String)),
     ];
-    if (object.after != null) {
+    Object? value;
+    value = object.after;
+    if (value != null) {
       result
         ..add('after')
-        ..add(serializers.serialize(object.after,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
@@ -302,7 +308,7 @@ class _$GFollowingVarsSerializer
 
   @override
   GFollowingVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GFollowingVarsBuilder();
 
@@ -310,7 +316,7 @@ class _$GFollowingVarsSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'login':
           result.login = serializers.deserialize(value,
@@ -334,24 +340,27 @@ class _$GMembersVarsSerializer implements StructuredSerializer<GMembersVars> {
   final String wireName = 'GMembersVars';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GMembersVars object,
+  Iterable<Object?> serialize(Serializers serializers, GMembersVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'login',
       serializers.serialize(object.login,
           specifiedType: const FullType(String)),
     ];
-    if (object.after != null) {
+    Object? value;
+    value = object.after;
+    if (value != null) {
       result
         ..add('after')
-        ..add(serializers.serialize(object.after,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
   }
 
   @override
-  GMembersVars deserialize(Serializers serializers, Iterable<Object> serialized,
+  GMembersVars deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GMembersVarsBuilder();
 
@@ -359,7 +368,7 @@ class _$GMembersVarsSerializer implements StructuredSerializer<GMembersVars> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'login':
           result.login = serializers.deserialize(value,
@@ -383,19 +392,21 @@ class _$GWatchersVarsSerializer implements StructuredSerializer<GWatchersVars> {
   final String wireName = 'GWatchersVars';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GWatchersVars object,
+  Iterable<Object?> serialize(Serializers serializers, GWatchersVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'owner',
       serializers.serialize(object.owner,
           specifiedType: const FullType(String)),
       'name',
       serializers.serialize(object.name, specifiedType: const FullType(String)),
     ];
-    if (object.after != null) {
+    Object? value;
+    value = object.after;
+    if (value != null) {
       result
         ..add('after')
-        ..add(serializers.serialize(object.after,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
@@ -403,7 +414,7 @@ class _$GWatchersVarsSerializer implements StructuredSerializer<GWatchersVars> {
 
   @override
   GWatchersVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GWatchersVarsBuilder();
 
@@ -411,7 +422,7 @@ class _$GWatchersVarsSerializer implements StructuredSerializer<GWatchersVars> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'owner':
           result.owner = serializers.deserialize(value,
@@ -440,19 +451,21 @@ class _$GStargazersVarsSerializer
   final String wireName = 'GStargazersVars';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GStargazersVars object,
+  Iterable<Object?> serialize(Serializers serializers, GStargazersVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'owner',
       serializers.serialize(object.owner,
           specifiedType: const FullType(String)),
       'name',
       serializers.serialize(object.name, specifiedType: const FullType(String)),
     ];
-    if (object.after != null) {
+    Object? value;
+    value = object.after;
+    if (value != null) {
       result
         ..add('after')
-        ..add(serializers.serialize(object.after,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
@@ -460,7 +473,7 @@ class _$GStargazersVarsSerializer
 
   @override
   GStargazersVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GStargazersVarsBuilder();
 
@@ -468,7 +481,7 @@ class _$GStargazersVarsSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'owner':
           result.owner = serializers.deserialize(value,
@@ -496,24 +509,26 @@ class _$GReposVarsSerializer implements StructuredSerializer<GReposVars> {
   final String wireName = 'GReposVars';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GReposVars object,
+  Iterable<Object?> serialize(Serializers serializers, GReposVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'login',
       serializers.serialize(object.login,
           specifiedType: const FullType(String)),
     ];
-    if (object.after != null) {
+    Object? value;
+    value = object.after;
+    if (value != null) {
       result
         ..add('after')
-        ..add(serializers.serialize(object.after,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
   }
 
   @override
-  GReposVars deserialize(Serializers serializers, Iterable<Object> serialized,
+  GReposVars deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GReposVarsBuilder();
 
@@ -521,7 +536,7 @@ class _$GReposVarsSerializer implements StructuredSerializer<GReposVars> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'login':
           result.login = serializers.deserialize(value,
@@ -545,24 +560,26 @@ class _$GStarsVarsSerializer implements StructuredSerializer<GStarsVars> {
   final String wireName = 'GStarsVars';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GStarsVars object,
+  Iterable<Object?> serialize(Serializers serializers, GStarsVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'login',
       serializers.serialize(object.login,
           specifiedType: const FullType(String)),
     ];
-    if (object.after != null) {
+    Object? value;
+    value = object.after;
+    if (value != null) {
       result
         ..add('after')
-        ..add(serializers.serialize(object.after,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
   }
 
   @override
-  GStarsVars deserialize(Serializers serializers, Iterable<Object> serialized,
+  GStarsVars deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GStarsVarsBuilder();
 
@@ -570,7 +587,7 @@ class _$GStarsVarsSerializer implements StructuredSerializer<GStarsVars> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'login':
           result.login = serializers.deserialize(value,
@@ -594,13 +611,13 @@ class _$GViewerVarsSerializer implements StructuredSerializer<GViewerVars> {
   final String wireName = 'GViewerVars';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GViewerVars object,
+  Iterable<Object?> serialize(Serializers serializers, GViewerVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    return <Object>[];
+    return <Object?>[];
   }
 
   @override
-  GViewerVars deserialize(Serializers serializers, Iterable<Object> serialized,
+  GViewerVars deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     return new GViewerVarsBuilder().build();
   }
@@ -613,9 +630,9 @@ class _$GUserVarsSerializer implements StructuredSerializer<GUserVars> {
   final String wireName = 'GUserVars';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GUserVars object,
+  Iterable<Object?> serialize(Serializers serializers, GUserVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'login',
       serializers.serialize(object.login,
           specifiedType: const FullType(String)),
@@ -625,7 +642,7 @@ class _$GUserVarsSerializer implements StructuredSerializer<GUserVars> {
   }
 
   @override
-  GUserVars deserialize(Serializers serializers, Iterable<Object> serialized,
+  GUserVars deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GUserVarsBuilder();
 
@@ -633,7 +650,7 @@ class _$GUserVarsSerializer implements StructuredSerializer<GUserVars> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'login':
           result.login = serializers.deserialize(value,
@@ -653,9 +670,9 @@ class _$GRepoVarsSerializer implements StructuredSerializer<GRepoVars> {
   final String wireName = 'GRepoVars';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GRepoVars object,
+  Iterable<Object?> serialize(Serializers serializers, GRepoVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'owner',
       serializers.serialize(object.owner,
           specifiedType: const FullType(String)),
@@ -673,7 +690,7 @@ class _$GRepoVarsSerializer implements StructuredSerializer<GRepoVars> {
   }
 
   @override
-  GRepoVars deserialize(Serializers serializers, Iterable<Object> serialized,
+  GRepoVars deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GRepoVarsBuilder();
 
@@ -681,7 +698,7 @@ class _$GRepoVarsSerializer implements StructuredSerializer<GRepoVars> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'owner':
           result.owner = serializers.deserialize(value,
@@ -713,9 +730,9 @@ class _$GCommitsVarsSerializer implements StructuredSerializer<GCommitsVars> {
   final String wireName = 'GCommitsVars';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GCommitsVars object,
+  Iterable<Object?> serialize(Serializers serializers, GCommitsVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'owner',
       serializers.serialize(object.owner,
           specifiedType: const FullType(String)),
@@ -726,17 +743,20 @@ class _$GCommitsVarsSerializer implements StructuredSerializer<GCommitsVars> {
       'hasRef',
       serializers.serialize(object.hasRef, specifiedType: const FullType(bool)),
     ];
-    if (object.after != null) {
+    Object? value;
+    value = object.after;
+    if (value != null) {
       result
         ..add('after')
-        ..add(serializers.serialize(object.after,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
   }
 
   @override
-  GCommitsVars deserialize(Serializers serializers, Iterable<Object> serialized,
+  GCommitsVars deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GCommitsVarsBuilder();
 
@@ -744,7 +764,7 @@ class _$GCommitsVarsSerializer implements StructuredSerializer<GCommitsVars> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'owner':
           result.owner = serializers.deserialize(value,
@@ -780,26 +800,28 @@ class _$GIssuesVarsSerializer implements StructuredSerializer<GIssuesVars> {
   final String wireName = 'GIssuesVars';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GIssuesVars object,
+  Iterable<Object?> serialize(Serializers serializers, GIssuesVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'owner',
       serializers.serialize(object.owner,
           specifiedType: const FullType(String)),
       'name',
       serializers.serialize(object.name, specifiedType: const FullType(String)),
     ];
-    if (object.cursor != null) {
+    Object? value;
+    value = object.cursor;
+    if (value != null) {
       result
         ..add('cursor')
-        ..add(serializers.serialize(object.cursor,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
   }
 
   @override
-  GIssuesVars deserialize(Serializers serializers, Iterable<Object> serialized,
+  GIssuesVars deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GIssuesVarsBuilder();
 
@@ -807,7 +829,7 @@ class _$GIssuesVarsSerializer implements StructuredSerializer<GIssuesVars> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'owner':
           result.owner = serializers.deserialize(value,
@@ -835,26 +857,28 @@ class _$GPullsVarsSerializer implements StructuredSerializer<GPullsVars> {
   final String wireName = 'GPullsVars';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GPullsVars object,
+  Iterable<Object?> serialize(Serializers serializers, GPullsVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'owner',
       serializers.serialize(object.owner,
           specifiedType: const FullType(String)),
       'name',
       serializers.serialize(object.name, specifiedType: const FullType(String)),
     ];
-    if (object.cursor != null) {
+    Object? value;
+    value = object.cursor;
+    if (value != null) {
       result
         ..add('cursor')
-        ..add(serializers.serialize(object.cursor,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
   }
 
   @override
-  GPullsVars deserialize(Serializers serializers, Iterable<Object> serialized,
+  GPullsVars deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GPullsVarsBuilder();
 
@@ -862,7 +886,7 @@ class _$GPullsVarsSerializer implements StructuredSerializer<GPullsVars> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'owner':
           result.owner = serializers.deserialize(value,
@@ -890,9 +914,9 @@ class _$GIssueVarsSerializer implements StructuredSerializer<GIssueVars> {
   final String wireName = 'GIssueVars';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GIssueVars object,
+  Iterable<Object?> serialize(Serializers serializers, GIssueVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'owner',
       serializers.serialize(object.owner,
           specifiedType: const FullType(String)),
@@ -901,17 +925,19 @@ class _$GIssueVarsSerializer implements StructuredSerializer<GIssueVars> {
       'number',
       serializers.serialize(object.number, specifiedType: const FullType(int)),
     ];
-    if (object.cursor != null) {
+    Object? value;
+    value = object.cursor;
+    if (value != null) {
       result
         ..add('cursor')
-        ..add(serializers.serialize(object.cursor,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
   }
 
   @override
-  GIssueVars deserialize(Serializers serializers, Iterable<Object> serialized,
+  GIssueVars deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GIssueVarsBuilder();
 
@@ -919,7 +945,7 @@ class _$GIssueVarsSerializer implements StructuredSerializer<GIssueVars> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'owner':
           result.owner = serializers.deserialize(value,
@@ -951,19 +977,21 @@ class _$GReleasesVarsSerializer implements StructuredSerializer<GReleasesVars> {
   final String wireName = 'GReleasesVars';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GReleasesVars object,
+  Iterable<Object?> serialize(Serializers serializers, GReleasesVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'name',
       serializers.serialize(object.name, specifiedType: const FullType(String)),
       'owner',
       serializers.serialize(object.owner,
           specifiedType: const FullType(String)),
     ];
-    if (object.cursor != null) {
+    Object? value;
+    value = object.cursor;
+    if (value != null) {
       result
         ..add('cursor')
-        ..add(serializers.serialize(object.cursor,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
@@ -971,7 +999,7 @@ class _$GReleasesVarsSerializer implements StructuredSerializer<GReleasesVars> {
 
   @override
   GReleasesVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GReleasesVarsBuilder();
 
@@ -979,7 +1007,7 @@ class _$GReleasesVarsSerializer implements StructuredSerializer<GReleasesVars> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'name':
           result.name = serializers.deserialize(value,
@@ -1008,14 +1036,15 @@ class _$GPageInfoPartsVarsSerializer
   final String wireName = 'GPageInfoPartsVars';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GPageInfoPartsVars object,
+  Iterable<Object?> serialize(
+      Serializers serializers, GPageInfoPartsVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    return <Object>[];
+    return <Object?>[];
   }
 
   @override
   GPageInfoPartsVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     return new GPageInfoPartsVarsBuilder().build();
   }
@@ -1028,14 +1057,14 @@ class _$GRepoItemVarsSerializer implements StructuredSerializer<GRepoItemVars> {
   final String wireName = 'GRepoItemVars';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GRepoItemVars object,
+  Iterable<Object?> serialize(Serializers serializers, GRepoItemVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    return <Object>[];
+    return <Object?>[];
   }
 
   @override
   GRepoItemVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     return new GRepoItemVarsBuilder().build();
   }
@@ -1048,14 +1077,14 @@ class _$GUserItemVarsSerializer implements StructuredSerializer<GUserItemVars> {
   final String wireName = 'GUserItemVars';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GUserItemVars object,
+  Iterable<Object?> serialize(Serializers serializers, GUserItemVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    return <Object>[];
+    return <Object?>[];
   }
 
   @override
   GUserItemVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     return new GUserItemVarsBuilder().build();
   }
@@ -1069,14 +1098,15 @@ class _$GReposRepoItemVarsSerializer
   final String wireName = 'GReposRepoItemVars';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GReposRepoItemVars object,
+  Iterable<Object?> serialize(
+      Serializers serializers, GReposRepoItemVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    return <Object>[];
+    return <Object?>[];
   }
 
   @override
   GReposRepoItemVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     return new GReposRepoItemVarsBuilder().build();
   }
@@ -1090,14 +1120,14 @@ class _$GUserPartsVarsSerializer
   final String wireName = 'GUserPartsVars';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GUserPartsVars object,
+  Iterable<Object?> serialize(Serializers serializers, GUserPartsVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    return <Object>[];
+    return <Object?>[];
   }
 
   @override
   GUserPartsVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     return new GUserPartsVarsBuilder().build();
   }
@@ -1111,14 +1141,14 @@ class _$GRepoCommitVarsSerializer
   final String wireName = 'GRepoCommitVars';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GRepoCommitVars object,
+  Iterable<Object?> serialize(Serializers serializers, GRepoCommitVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    return <Object>[];
+    return <Object?>[];
   }
 
   @override
   GRepoCommitVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     return new GRepoCommitVarsBuilder().build();
   }
@@ -1131,13 +1161,14 @@ class _$GRepoRefVarsSerializer implements StructuredSerializer<GRepoRefVars> {
   final String wireName = 'GRepoRefVars';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GRepoRefVars object,
+  Iterable<Object?> serialize(Serializers serializers, GRepoRefVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    return <Object>[];
+    return <Object?>[];
   }
 
   @override
-  GRepoRefVars deserialize(Serializers serializers, Iterable<Object> serialized,
+  GRepoRefVars deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     return new GRepoRefVarsBuilder().build();
   }
@@ -1154,14 +1185,16 @@ class _$GCommitsRefCommitVarsSerializer
   final String wireName = 'GCommitsRefCommitVars';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GCommitsRefCommitVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
-    if (object.after != null) {
+    final result = <Object?>[];
+    Object? value;
+    value = object.after;
+    if (value != null) {
       result
         ..add('after')
-        ..add(serializers.serialize(object.after,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
@@ -1169,7 +1202,7 @@ class _$GCommitsRefCommitVarsSerializer
 
   @override
   GCommitsRefCommitVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GCommitsRefCommitVarsBuilder();
 
@@ -1177,7 +1210,7 @@ class _$GCommitsRefCommitVarsSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'after':
           result.after = serializers.deserialize(value,
@@ -1198,13 +1231,15 @@ class _$GCommitsRefVarsSerializer
   final String wireName = 'GCommitsRefVars';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GCommitsRefVars object,
+  Iterable<Object?> serialize(Serializers serializers, GCommitsRefVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
-    if (object.after != null) {
+    final result = <Object?>[];
+    Object? value;
+    value = object.after;
+    if (value != null) {
       result
         ..add('after')
-        ..add(serializers.serialize(object.after,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
@@ -1212,7 +1247,7 @@ class _$GCommitsRefVarsSerializer
 
   @override
   GCommitsRefVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GCommitsRefVarsBuilder();
 
@@ -1220,7 +1255,7 @@ class _$GCommitsRefVarsSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'after':
           result.after = serializers.deserialize(value,
@@ -1241,14 +1276,14 @@ class _$GCommentPartsVarsSerializer
   final String wireName = 'GCommentPartsVars';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GCommentPartsVars object,
+  Iterable<Object?> serialize(Serializers serializers, GCommentPartsVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    return <Object>[];
+    return <Object?>[];
   }
 
   @override
   GCommentPartsVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     return new GCommentPartsVarsBuilder().build();
   }
@@ -1265,15 +1300,15 @@ class _$GReactionConnectionPartsVarsSerializer
   final String wireName = 'GReactionConnectionPartsVars';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GReactionConnectionPartsVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    return <Object>[];
+    return <Object?>[];
   }
 
   @override
   GReactionConnectionPartsVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     return new GReactionConnectionPartsVarsBuilder().build();
   }
@@ -1290,15 +1325,15 @@ class _$GReactablePartsVarsSerializer
   final String wireName = 'GReactablePartsVars';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GReactablePartsVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    return <Object>[];
+    return <Object?>[];
   }
 
   @override
   GReactablePartsVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     return new GReactablePartsVarsBuilder().build();
   }
@@ -1315,15 +1350,15 @@ class _$GReferencedEventPartsVarsSerializer
   final String wireName = 'GReferencedEventPartsVars';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GReferencedEventPartsVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    return <Object>[];
+    return <Object?>[];
   }
 
   @override
   GReferencedEventPartsVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     return new GReferencedEventPartsVarsBuilder().build();
   }
@@ -1340,15 +1375,15 @@ class _$GRenamedTitleEventPartsVarsSerializer
   final String wireName = 'GRenamedTitleEventPartsVars';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GRenamedTitleEventPartsVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    return <Object>[];
+    return <Object?>[];
   }
 
   @override
   GRenamedTitleEventPartsVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     return new GRenamedTitleEventPartsVarsBuilder().build();
   }
@@ -1365,15 +1400,15 @@ class _$GClosedEventPartsVarsSerializer
   final String wireName = 'GClosedEventPartsVars';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GClosedEventPartsVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    return <Object>[];
+    return <Object?>[];
   }
 
   @override
   GClosedEventPartsVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     return new GClosedEventPartsVarsBuilder().build();
   }
@@ -1390,15 +1425,15 @@ class _$GReopenedEventPartsVarsSerializer
   final String wireName = 'GReopenedEventPartsVars';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GReopenedEventPartsVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    return <Object>[];
+    return <Object?>[];
   }
 
   @override
   GReopenedEventPartsVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     return new GReopenedEventPartsVarsBuilder().build();
   }
@@ -1415,15 +1450,15 @@ class _$GCrossReferencedEventPartsVarsSerializer
   final String wireName = 'GCrossReferencedEventPartsVars';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GCrossReferencedEventPartsVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    return <Object>[];
+    return <Object?>[];
   }
 
   @override
   GCrossReferencedEventPartsVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     return new GCrossReferencedEventPartsVarsBuilder().build();
   }
@@ -1440,15 +1475,15 @@ class _$GLabeledEventPartsVarsSerializer
   final String wireName = 'GLabeledEventPartsVars';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GLabeledEventPartsVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    return <Object>[];
+    return <Object?>[];
   }
 
   @override
   GLabeledEventPartsVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     return new GLabeledEventPartsVarsBuilder().build();
   }
@@ -1465,15 +1500,15 @@ class _$GUnlabeledEventPartsVarsSerializer
   final String wireName = 'GUnlabeledEventPartsVars';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GUnlabeledEventPartsVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    return <Object>[];
+    return <Object?>[];
   }
 
   @override
   GUnlabeledEventPartsVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     return new GUnlabeledEventPartsVarsBuilder().build();
   }
@@ -1490,15 +1525,15 @@ class _$GMilestonedEventPartsVarsSerializer
   final String wireName = 'GMilestonedEventPartsVars';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GMilestonedEventPartsVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    return <Object>[];
+    return <Object?>[];
   }
 
   @override
   GMilestonedEventPartsVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     return new GMilestonedEventPartsVarsBuilder().build();
   }
@@ -1515,15 +1550,15 @@ class _$GDemilestonedEventPartsVarsSerializer
   final String wireName = 'GDemilestonedEventPartsVars';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GDemilestonedEventPartsVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    return <Object>[];
+    return <Object?>[];
   }
 
   @override
   GDemilestonedEventPartsVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     return new GDemilestonedEventPartsVarsBuilder().build();
   }
@@ -1540,15 +1575,15 @@ class _$GLockedEventPartsVarsSerializer
   final String wireName = 'GLockedEventPartsVars';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GLockedEventPartsVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    return <Object>[];
+    return <Object?>[];
   }
 
   @override
   GLockedEventPartsVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     return new GLockedEventPartsVarsBuilder().build();
   }
@@ -1565,15 +1600,15 @@ class _$GUnlockedEventPartsVarsSerializer
   final String wireName = 'GUnlockedEventPartsVars';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GUnlockedEventPartsVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    return <Object>[];
+    return <Object?>[];
   }
 
   @override
   GUnlockedEventPartsVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     return new GUnlockedEventPartsVarsBuilder().build();
   }
@@ -1590,15 +1625,15 @@ class _$GAssignedEventPartsVarsSerializer
   final String wireName = 'GAssignedEventPartsVars';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GAssignedEventPartsVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    return <Object>[];
+    return <Object?>[];
   }
 
   @override
   GAssignedEventPartsVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     return new GAssignedEventPartsVarsBuilder().build();
   }
@@ -1615,15 +1650,15 @@ class _$GUnassignedEventPartsVarsSerializer
   final String wireName = 'GUnassignedEventPartsVars';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GUnassignedEventPartsVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    return <Object>[];
+    return <Object?>[];
   }
 
   @override
   GUnassignedEventPartsVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     return new GUnassignedEventPartsVarsBuilder().build();
   }
@@ -1640,15 +1675,15 @@ class _$GSubscribedEventPartsVarsSerializer
   final String wireName = 'GSubscribedEventPartsVars';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GSubscribedEventPartsVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    return <Object>[];
+    return <Object?>[];
   }
 
   @override
   GSubscribedEventPartsVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     return new GSubscribedEventPartsVarsBuilder().build();
   }
@@ -1665,15 +1700,15 @@ class _$GUnsubscribedEventPartsVarsSerializer
   final String wireName = 'GUnsubscribedEventPartsVars';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GUnsubscribedEventPartsVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    return <Object>[];
+    return <Object?>[];
   }
 
   @override
   GUnsubscribedEventPartsVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     return new GUnsubscribedEventPartsVarsBuilder().build();
   }
@@ -1690,15 +1725,15 @@ class _$GMentionedEventPartsVarsSerializer
   final String wireName = 'GMentionedEventPartsVars';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GMentionedEventPartsVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    return <Object>[];
+    return <Object?>[];
   }
 
   @override
   GMentionedEventPartsVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     return new GMentionedEventPartsVarsBuilder().build();
   }
@@ -1715,15 +1750,15 @@ class _$GPinnedEventPartsVarsSerializer
   final String wireName = 'GPinnedEventPartsVars';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GPinnedEventPartsVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    return <Object>[];
+    return <Object?>[];
   }
 
   @override
   GPinnedEventPartsVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     return new GPinnedEventPartsVarsBuilder().build();
   }
@@ -1740,15 +1775,15 @@ class _$GTransferredEventPartsVarsSerializer
   final String wireName = 'GTransferredEventPartsVars';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GTransferredEventPartsVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    return <Object>[];
+    return <Object?>[];
   }
 
   @override
   GTransferredEventPartsVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     return new GTransferredEventPartsVarsBuilder().build();
   }
@@ -1765,15 +1800,15 @@ class _$GPullRequestCommitPartsVarsSerializer
   final String wireName = 'GPullRequestCommitPartsVars';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GPullRequestCommitPartsVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    return <Object>[];
+    return <Object?>[];
   }
 
   @override
   GPullRequestCommitPartsVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     return new GPullRequestCommitPartsVarsBuilder().build();
   }
@@ -1790,15 +1825,15 @@ class _$GDeployedEventPartsVarsSerializer
   final String wireName = 'GDeployedEventPartsVars';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GDeployedEventPartsVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    return <Object>[];
+    return <Object?>[];
   }
 
   @override
   GDeployedEventPartsVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     return new GDeployedEventPartsVarsBuilder().build();
   }
@@ -1816,15 +1851,15 @@ class _$GDeploymentEnvironmentChangedEventPartsVarsSerializer
   final String wireName = 'GDeploymentEnvironmentChangedEventPartsVars';
 
   @override
-  Iterable<Object> serialize(Serializers serializers,
+  Iterable<Object?> serialize(Serializers serializers,
       GDeploymentEnvironmentChangedEventPartsVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    return <Object>[];
+    return <Object?>[];
   }
 
   @override
   GDeploymentEnvironmentChangedEventPartsVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     return new GDeploymentEnvironmentChangedEventPartsVarsBuilder().build();
   }
@@ -1841,15 +1876,15 @@ class _$GHeadRefRestoredEventPartsVarsSerializer
   final String wireName = 'GHeadRefRestoredEventPartsVars';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GHeadRefRestoredEventPartsVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    return <Object>[];
+    return <Object?>[];
   }
 
   @override
   GHeadRefRestoredEventPartsVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     return new GHeadRefRestoredEventPartsVarsBuilder().build();
   }
@@ -1866,15 +1901,15 @@ class _$GBaseRefForcePushedEventPartsVarsSerializer
   final String wireName = 'GBaseRefForcePushedEventPartsVars';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GBaseRefForcePushedEventPartsVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    return <Object>[];
+    return <Object?>[];
   }
 
   @override
   GBaseRefForcePushedEventPartsVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     return new GBaseRefForcePushedEventPartsVarsBuilder().build();
   }
@@ -1891,15 +1926,15 @@ class _$GHeadRefForcePushedEventPartsVarsSerializer
   final String wireName = 'GHeadRefForcePushedEventPartsVars';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GHeadRefForcePushedEventPartsVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    return <Object>[];
+    return <Object?>[];
   }
 
   @override
   GHeadRefForcePushedEventPartsVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     return new GHeadRefForcePushedEventPartsVarsBuilder().build();
   }
@@ -1916,15 +1951,15 @@ class _$GReviewRequestedEventPartsVarsSerializer
   final String wireName = 'GReviewRequestedEventPartsVars';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GReviewRequestedEventPartsVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    return <Object>[];
+    return <Object?>[];
   }
 
   @override
   GReviewRequestedEventPartsVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     return new GReviewRequestedEventPartsVarsBuilder().build();
   }
@@ -1941,15 +1976,15 @@ class _$GReviewRequestRemovedEventPartsVarsSerializer
   final String wireName = 'GReviewRequestRemovedEventPartsVars';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GReviewRequestRemovedEventPartsVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    return <Object>[];
+    return <Object?>[];
   }
 
   @override
   GReviewRequestRemovedEventPartsVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     return new GReviewRequestRemovedEventPartsVarsBuilder().build();
   }
@@ -1966,15 +2001,15 @@ class _$GReviewDismissedEventPartsVarsSerializer
   final String wireName = 'GReviewDismissedEventPartsVars';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GReviewDismissedEventPartsVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    return <Object>[];
+    return <Object?>[];
   }
 
   @override
   GReviewDismissedEventPartsVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     return new GReviewDismissedEventPartsVarsBuilder().build();
   }
@@ -1991,15 +2026,15 @@ class _$GPullRequestReviewPartsVarsSerializer
   final String wireName = 'GPullRequestReviewPartsVars';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GPullRequestReviewPartsVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    return <Object>[];
+    return <Object?>[];
   }
 
   @override
   GPullRequestReviewPartsVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     return new GPullRequestReviewPartsVarsBuilder().build();
   }
@@ -2016,15 +2051,15 @@ class _$GMergedEventPartsVarsSerializer
   final String wireName = 'GMergedEventPartsVars';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GMergedEventPartsVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    return <Object>[];
+    return <Object?>[];
   }
 
   @override
   GMergedEventPartsVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     return new GMergedEventPartsVarsBuilder().build();
   }
@@ -2041,15 +2076,15 @@ class _$GHeadRefDeletedEventPartsVarsSerializer
   final String wireName = 'GHeadRefDeletedEventPartsVars';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, GHeadRefDeletedEventPartsVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    return <Object>[];
+    return <Object?>[];
   }
 
   @override
   GHeadRefDeletedEventPartsVars deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     return new GHeadRefDeletedEventPartsVarsBuilder().build();
   }
@@ -2059,15 +2094,13 @@ class _$GGistsVars extends GGistsVars {
   @override
   final String login;
   @override
-  final String after;
+  final String? after;
 
-  factory _$GGistsVars([void Function(GGistsVarsBuilder) updates]) =>
+  factory _$GGistsVars([void Function(GGistsVarsBuilder)? updates]) =>
       (new GGistsVarsBuilder()..update(updates)).build();
 
-  _$GGistsVars._({this.login, this.after}) : super._() {
-    if (login == null) {
-      throw new BuiltValueNullFieldError('GGistsVars', 'login');
-    }
+  _$GGistsVars._({required this.login, this.after}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(login, 'GGistsVars', 'login');
   }
 
   @override
@@ -2098,22 +2131,23 @@ class _$GGistsVars extends GGistsVars {
 }
 
 class GGistsVarsBuilder implements Builder<GGistsVars, GGistsVarsBuilder> {
-  _$GGistsVars _$v;
+  _$GGistsVars? _$v;
 
-  String _login;
-  String get login => _$this._login;
-  set login(String login) => _$this._login = login;
+  String? _login;
+  String? get login => _$this._login;
+  set login(String? login) => _$this._login = login;
 
-  String _after;
-  String get after => _$this._after;
-  set after(String after) => _$this._after = after;
+  String? _after;
+  String? get after => _$this._after;
+  set after(String? after) => _$this._after = after;
 
   GGistsVarsBuilder();
 
   GGistsVarsBuilder get _$this {
-    if (_$v != null) {
-      _login = _$v.login;
-      _after = _$v.after;
+    final $v = _$v;
+    if ($v != null) {
+      _login = $v.login;
+      _after = $v.after;
       _$v = null;
     }
     return this;
@@ -2121,20 +2155,22 @@ class GGistsVarsBuilder implements Builder<GGistsVars, GGistsVarsBuilder> {
 
   @override
   void replace(GGistsVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GGistsVars;
   }
 
   @override
-  void update(void Function(GGistsVarsBuilder) updates) {
+  void update(void Function(GGistsVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
   _$GGistsVars build() {
-    final _$result = _$v ?? new _$GGistsVars._(login: login, after: after);
+    final _$result = _$v ??
+        new _$GGistsVars._(
+            login: BuiltValueNullFieldError.checkNotNull(
+                login, 'GGistsVars', 'login'),
+            after: after);
     replace(_$result);
     return _$result;
   }
@@ -2146,16 +2182,12 @@ class _$GGistVars extends GGistVars {
   @override
   final String name;
 
-  factory _$GGistVars([void Function(GGistVarsBuilder) updates]) =>
+  factory _$GGistVars([void Function(GGistVarsBuilder)? updates]) =>
       (new GGistVarsBuilder()..update(updates)).build();
 
-  _$GGistVars._({this.login, this.name}) : super._() {
-    if (login == null) {
-      throw new BuiltValueNullFieldError('GGistVars', 'login');
-    }
-    if (name == null) {
-      throw new BuiltValueNullFieldError('GGistVars', 'name');
-    }
+  _$GGistVars._({required this.login, required this.name}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(login, 'GGistVars', 'login');
+    BuiltValueNullFieldError.checkNotNull(name, 'GGistVars', 'name');
   }
 
   @override
@@ -2186,22 +2218,23 @@ class _$GGistVars extends GGistVars {
 }
 
 class GGistVarsBuilder implements Builder<GGistVars, GGistVarsBuilder> {
-  _$GGistVars _$v;
+  _$GGistVars? _$v;
 
-  String _login;
-  String get login => _$this._login;
-  set login(String login) => _$this._login = login;
+  String? _login;
+  String? get login => _$this._login;
+  set login(String? login) => _$this._login = login;
 
-  String _name;
-  String get name => _$this._name;
-  set name(String name) => _$this._name = name;
+  String? _name;
+  String? get name => _$this._name;
+  set name(String? name) => _$this._name = name;
 
   GGistVarsBuilder();
 
   GGistVarsBuilder get _$this {
-    if (_$v != null) {
-      _login = _$v.login;
-      _name = _$v.name;
+    final $v = _$v;
+    if ($v != null) {
+      _login = $v.login;
+      _name = $v.name;
       _$v = null;
     }
     return this;
@@ -2209,20 +2242,23 @@ class GGistVarsBuilder implements Builder<GGistVars, GGistVarsBuilder> {
 
   @override
   void replace(GGistVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GGistVars;
   }
 
   @override
-  void update(void Function(GGistVarsBuilder) updates) {
+  void update(void Function(GGistVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
   _$GGistVars build() {
-    final _$result = _$v ?? new _$GGistVars._(login: login, name: name);
+    final _$result = _$v ??
+        new _$GGistVars._(
+            login: BuiltValueNullFieldError.checkNotNull(
+                login, 'GGistVars', 'login'),
+            name: BuiltValueNullFieldError.checkNotNull(
+                name, 'GGistVars', 'name'));
     replace(_$result);
     return _$result;
   }
@@ -2232,15 +2268,13 @@ class _$GFollowersVars extends GFollowersVars {
   @override
   final String login;
   @override
-  final String after;
+  final String? after;
 
-  factory _$GFollowersVars([void Function(GFollowersVarsBuilder) updates]) =>
+  factory _$GFollowersVars([void Function(GFollowersVarsBuilder)? updates]) =>
       (new GFollowersVarsBuilder()..update(updates)).build();
 
-  _$GFollowersVars._({this.login, this.after}) : super._() {
-    if (login == null) {
-      throw new BuiltValueNullFieldError('GFollowersVars', 'login');
-    }
+  _$GFollowersVars._({required this.login, this.after}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(login, 'GFollowersVars', 'login');
   }
 
   @override
@@ -2275,22 +2309,23 @@ class _$GFollowersVars extends GFollowersVars {
 
 class GFollowersVarsBuilder
     implements Builder<GFollowersVars, GFollowersVarsBuilder> {
-  _$GFollowersVars _$v;
+  _$GFollowersVars? _$v;
 
-  String _login;
-  String get login => _$this._login;
-  set login(String login) => _$this._login = login;
+  String? _login;
+  String? get login => _$this._login;
+  set login(String? login) => _$this._login = login;
 
-  String _after;
-  String get after => _$this._after;
-  set after(String after) => _$this._after = after;
+  String? _after;
+  String? get after => _$this._after;
+  set after(String? after) => _$this._after = after;
 
   GFollowersVarsBuilder();
 
   GFollowersVarsBuilder get _$this {
-    if (_$v != null) {
-      _login = _$v.login;
-      _after = _$v.after;
+    final $v = _$v;
+    if ($v != null) {
+      _login = $v.login;
+      _after = $v.after;
       _$v = null;
     }
     return this;
@@ -2298,20 +2333,22 @@ class GFollowersVarsBuilder
 
   @override
   void replace(GFollowersVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GFollowersVars;
   }
 
   @override
-  void update(void Function(GFollowersVarsBuilder) updates) {
+  void update(void Function(GFollowersVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
   _$GFollowersVars build() {
-    final _$result = _$v ?? new _$GFollowersVars._(login: login, after: after);
+    final _$result = _$v ??
+        new _$GFollowersVars._(
+            login: BuiltValueNullFieldError.checkNotNull(
+                login, 'GFollowersVars', 'login'),
+            after: after);
     replace(_$result);
     return _$result;
   }
@@ -2321,15 +2358,13 @@ class _$GFollowingVars extends GFollowingVars {
   @override
   final String login;
   @override
-  final String after;
+  final String? after;
 
-  factory _$GFollowingVars([void Function(GFollowingVarsBuilder) updates]) =>
+  factory _$GFollowingVars([void Function(GFollowingVarsBuilder)? updates]) =>
       (new GFollowingVarsBuilder()..update(updates)).build();
 
-  _$GFollowingVars._({this.login, this.after}) : super._() {
-    if (login == null) {
-      throw new BuiltValueNullFieldError('GFollowingVars', 'login');
-    }
+  _$GFollowingVars._({required this.login, this.after}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(login, 'GFollowingVars', 'login');
   }
 
   @override
@@ -2364,22 +2399,23 @@ class _$GFollowingVars extends GFollowingVars {
 
 class GFollowingVarsBuilder
     implements Builder<GFollowingVars, GFollowingVarsBuilder> {
-  _$GFollowingVars _$v;
+  _$GFollowingVars? _$v;
 
-  String _login;
-  String get login => _$this._login;
-  set login(String login) => _$this._login = login;
+  String? _login;
+  String? get login => _$this._login;
+  set login(String? login) => _$this._login = login;
 
-  String _after;
-  String get after => _$this._after;
-  set after(String after) => _$this._after = after;
+  String? _after;
+  String? get after => _$this._after;
+  set after(String? after) => _$this._after = after;
 
   GFollowingVarsBuilder();
 
   GFollowingVarsBuilder get _$this {
-    if (_$v != null) {
-      _login = _$v.login;
-      _after = _$v.after;
+    final $v = _$v;
+    if ($v != null) {
+      _login = $v.login;
+      _after = $v.after;
       _$v = null;
     }
     return this;
@@ -2387,20 +2423,22 @@ class GFollowingVarsBuilder
 
   @override
   void replace(GFollowingVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GFollowingVars;
   }
 
   @override
-  void update(void Function(GFollowingVarsBuilder) updates) {
+  void update(void Function(GFollowingVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
   _$GFollowingVars build() {
-    final _$result = _$v ?? new _$GFollowingVars._(login: login, after: after);
+    final _$result = _$v ??
+        new _$GFollowingVars._(
+            login: BuiltValueNullFieldError.checkNotNull(
+                login, 'GFollowingVars', 'login'),
+            after: after);
     replace(_$result);
     return _$result;
   }
@@ -2410,15 +2448,13 @@ class _$GMembersVars extends GMembersVars {
   @override
   final String login;
   @override
-  final String after;
+  final String? after;
 
-  factory _$GMembersVars([void Function(GMembersVarsBuilder) updates]) =>
+  factory _$GMembersVars([void Function(GMembersVarsBuilder)? updates]) =>
       (new GMembersVarsBuilder()..update(updates)).build();
 
-  _$GMembersVars._({this.login, this.after}) : super._() {
-    if (login == null) {
-      throw new BuiltValueNullFieldError('GMembersVars', 'login');
-    }
+  _$GMembersVars._({required this.login, this.after}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(login, 'GMembersVars', 'login');
   }
 
   @override
@@ -2452,22 +2488,23 @@ class _$GMembersVars extends GMembersVars {
 
 class GMembersVarsBuilder
     implements Builder<GMembersVars, GMembersVarsBuilder> {
-  _$GMembersVars _$v;
+  _$GMembersVars? _$v;
 
-  String _login;
-  String get login => _$this._login;
-  set login(String login) => _$this._login = login;
+  String? _login;
+  String? get login => _$this._login;
+  set login(String? login) => _$this._login = login;
 
-  String _after;
-  String get after => _$this._after;
-  set after(String after) => _$this._after = after;
+  String? _after;
+  String? get after => _$this._after;
+  set after(String? after) => _$this._after = after;
 
   GMembersVarsBuilder();
 
   GMembersVarsBuilder get _$this {
-    if (_$v != null) {
-      _login = _$v.login;
-      _after = _$v.after;
+    final $v = _$v;
+    if ($v != null) {
+      _login = $v.login;
+      _after = $v.after;
       _$v = null;
     }
     return this;
@@ -2475,20 +2512,22 @@ class GMembersVarsBuilder
 
   @override
   void replace(GMembersVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GMembersVars;
   }
 
   @override
-  void update(void Function(GMembersVarsBuilder) updates) {
+  void update(void Function(GMembersVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
   _$GMembersVars build() {
-    final _$result = _$v ?? new _$GMembersVars._(login: login, after: after);
+    final _$result = _$v ??
+        new _$GMembersVars._(
+            login: BuiltValueNullFieldError.checkNotNull(
+                login, 'GMembersVars', 'login'),
+            after: after);
     replace(_$result);
     return _$result;
   }
@@ -2500,18 +2539,15 @@ class _$GWatchersVars extends GWatchersVars {
   @override
   final String name;
   @override
-  final String after;
+  final String? after;
 
-  factory _$GWatchersVars([void Function(GWatchersVarsBuilder) updates]) =>
+  factory _$GWatchersVars([void Function(GWatchersVarsBuilder)? updates]) =>
       (new GWatchersVarsBuilder()..update(updates)).build();
 
-  _$GWatchersVars._({this.owner, this.name, this.after}) : super._() {
-    if (owner == null) {
-      throw new BuiltValueNullFieldError('GWatchersVars', 'owner');
-    }
-    if (name == null) {
-      throw new BuiltValueNullFieldError('GWatchersVars', 'name');
-    }
+  _$GWatchersVars._({required this.owner, required this.name, this.after})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(owner, 'GWatchersVars', 'owner');
+    BuiltValueNullFieldError.checkNotNull(name, 'GWatchersVars', 'name');
   }
 
   @override
@@ -2547,27 +2583,28 @@ class _$GWatchersVars extends GWatchersVars {
 
 class GWatchersVarsBuilder
     implements Builder<GWatchersVars, GWatchersVarsBuilder> {
-  _$GWatchersVars _$v;
+  _$GWatchersVars? _$v;
 
-  String _owner;
-  String get owner => _$this._owner;
-  set owner(String owner) => _$this._owner = owner;
+  String? _owner;
+  String? get owner => _$this._owner;
+  set owner(String? owner) => _$this._owner = owner;
 
-  String _name;
-  String get name => _$this._name;
-  set name(String name) => _$this._name = name;
+  String? _name;
+  String? get name => _$this._name;
+  set name(String? name) => _$this._name = name;
 
-  String _after;
-  String get after => _$this._after;
-  set after(String after) => _$this._after = after;
+  String? _after;
+  String? get after => _$this._after;
+  set after(String? after) => _$this._after = after;
 
   GWatchersVarsBuilder();
 
   GWatchersVarsBuilder get _$this {
-    if (_$v != null) {
-      _owner = _$v.owner;
-      _name = _$v.name;
-      _after = _$v.after;
+    final $v = _$v;
+    if ($v != null) {
+      _owner = $v.owner;
+      _name = $v.name;
+      _after = $v.after;
       _$v = null;
     }
     return this;
@@ -2575,21 +2612,24 @@ class GWatchersVarsBuilder
 
   @override
   void replace(GWatchersVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GWatchersVars;
   }
 
   @override
-  void update(void Function(GWatchersVarsBuilder) updates) {
+  void update(void Function(GWatchersVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
   _$GWatchersVars build() {
-    final _$result =
-        _$v ?? new _$GWatchersVars._(owner: owner, name: name, after: after);
+    final _$result = _$v ??
+        new _$GWatchersVars._(
+            owner: BuiltValueNullFieldError.checkNotNull(
+                owner, 'GWatchersVars', 'owner'),
+            name: BuiltValueNullFieldError.checkNotNull(
+                name, 'GWatchersVars', 'name'),
+            after: after);
     replace(_$result);
     return _$result;
   }
@@ -2601,18 +2641,15 @@ class _$GStargazersVars extends GStargazersVars {
   @override
   final String name;
   @override
-  final String after;
+  final String? after;
 
-  factory _$GStargazersVars([void Function(GStargazersVarsBuilder) updates]) =>
+  factory _$GStargazersVars([void Function(GStargazersVarsBuilder)? updates]) =>
       (new GStargazersVarsBuilder()..update(updates)).build();
 
-  _$GStargazersVars._({this.owner, this.name, this.after}) : super._() {
-    if (owner == null) {
-      throw new BuiltValueNullFieldError('GStargazersVars', 'owner');
-    }
-    if (name == null) {
-      throw new BuiltValueNullFieldError('GStargazersVars', 'name');
-    }
+  _$GStargazersVars._({required this.owner, required this.name, this.after})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(owner, 'GStargazersVars', 'owner');
+    BuiltValueNullFieldError.checkNotNull(name, 'GStargazersVars', 'name');
   }
 
   @override
@@ -2649,27 +2686,28 @@ class _$GStargazersVars extends GStargazersVars {
 
 class GStargazersVarsBuilder
     implements Builder<GStargazersVars, GStargazersVarsBuilder> {
-  _$GStargazersVars _$v;
+  _$GStargazersVars? _$v;
 
-  String _owner;
-  String get owner => _$this._owner;
-  set owner(String owner) => _$this._owner = owner;
+  String? _owner;
+  String? get owner => _$this._owner;
+  set owner(String? owner) => _$this._owner = owner;
 
-  String _name;
-  String get name => _$this._name;
-  set name(String name) => _$this._name = name;
+  String? _name;
+  String? get name => _$this._name;
+  set name(String? name) => _$this._name = name;
 
-  String _after;
-  String get after => _$this._after;
-  set after(String after) => _$this._after = after;
+  String? _after;
+  String? get after => _$this._after;
+  set after(String? after) => _$this._after = after;
 
   GStargazersVarsBuilder();
 
   GStargazersVarsBuilder get _$this {
-    if (_$v != null) {
-      _owner = _$v.owner;
-      _name = _$v.name;
-      _after = _$v.after;
+    final $v = _$v;
+    if ($v != null) {
+      _owner = $v.owner;
+      _name = $v.name;
+      _after = $v.after;
       _$v = null;
     }
     return this;
@@ -2677,21 +2715,24 @@ class GStargazersVarsBuilder
 
   @override
   void replace(GStargazersVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GStargazersVars;
   }
 
   @override
-  void update(void Function(GStargazersVarsBuilder) updates) {
+  void update(void Function(GStargazersVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
   _$GStargazersVars build() {
-    final _$result =
-        _$v ?? new _$GStargazersVars._(owner: owner, name: name, after: after);
+    final _$result = _$v ??
+        new _$GStargazersVars._(
+            owner: BuiltValueNullFieldError.checkNotNull(
+                owner, 'GStargazersVars', 'owner'),
+            name: BuiltValueNullFieldError.checkNotNull(
+                name, 'GStargazersVars', 'name'),
+            after: after);
     replace(_$result);
     return _$result;
   }
@@ -2701,15 +2742,13 @@ class _$GReposVars extends GReposVars {
   @override
   final String login;
   @override
-  final String after;
+  final String? after;
 
-  factory _$GReposVars([void Function(GReposVarsBuilder) updates]) =>
+  factory _$GReposVars([void Function(GReposVarsBuilder)? updates]) =>
       (new GReposVarsBuilder()..update(updates)).build();
 
-  _$GReposVars._({this.login, this.after}) : super._() {
-    if (login == null) {
-      throw new BuiltValueNullFieldError('GReposVars', 'login');
-    }
+  _$GReposVars._({required this.login, this.after}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(login, 'GReposVars', 'login');
   }
 
   @override
@@ -2740,22 +2779,23 @@ class _$GReposVars extends GReposVars {
 }
 
 class GReposVarsBuilder implements Builder<GReposVars, GReposVarsBuilder> {
-  _$GReposVars _$v;
+  _$GReposVars? _$v;
 
-  String _login;
-  String get login => _$this._login;
-  set login(String login) => _$this._login = login;
+  String? _login;
+  String? get login => _$this._login;
+  set login(String? login) => _$this._login = login;
 
-  String _after;
-  String get after => _$this._after;
-  set after(String after) => _$this._after = after;
+  String? _after;
+  String? get after => _$this._after;
+  set after(String? after) => _$this._after = after;
 
   GReposVarsBuilder();
 
   GReposVarsBuilder get _$this {
-    if (_$v != null) {
-      _login = _$v.login;
-      _after = _$v.after;
+    final $v = _$v;
+    if ($v != null) {
+      _login = $v.login;
+      _after = $v.after;
       _$v = null;
     }
     return this;
@@ -2763,20 +2803,22 @@ class GReposVarsBuilder implements Builder<GReposVars, GReposVarsBuilder> {
 
   @override
   void replace(GReposVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GReposVars;
   }
 
   @override
-  void update(void Function(GReposVarsBuilder) updates) {
+  void update(void Function(GReposVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
   _$GReposVars build() {
-    final _$result = _$v ?? new _$GReposVars._(login: login, after: after);
+    final _$result = _$v ??
+        new _$GReposVars._(
+            login: BuiltValueNullFieldError.checkNotNull(
+                login, 'GReposVars', 'login'),
+            after: after);
     replace(_$result);
     return _$result;
   }
@@ -2786,15 +2828,13 @@ class _$GStarsVars extends GStarsVars {
   @override
   final String login;
   @override
-  final String after;
+  final String? after;
 
-  factory _$GStarsVars([void Function(GStarsVarsBuilder) updates]) =>
+  factory _$GStarsVars([void Function(GStarsVarsBuilder)? updates]) =>
       (new GStarsVarsBuilder()..update(updates)).build();
 
-  _$GStarsVars._({this.login, this.after}) : super._() {
-    if (login == null) {
-      throw new BuiltValueNullFieldError('GStarsVars', 'login');
-    }
+  _$GStarsVars._({required this.login, this.after}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(login, 'GStarsVars', 'login');
   }
 
   @override
@@ -2825,22 +2865,23 @@ class _$GStarsVars extends GStarsVars {
 }
 
 class GStarsVarsBuilder implements Builder<GStarsVars, GStarsVarsBuilder> {
-  _$GStarsVars _$v;
+  _$GStarsVars? _$v;
 
-  String _login;
-  String get login => _$this._login;
-  set login(String login) => _$this._login = login;
+  String? _login;
+  String? get login => _$this._login;
+  set login(String? login) => _$this._login = login;
 
-  String _after;
-  String get after => _$this._after;
-  set after(String after) => _$this._after = after;
+  String? _after;
+  String? get after => _$this._after;
+  set after(String? after) => _$this._after = after;
 
   GStarsVarsBuilder();
 
   GStarsVarsBuilder get _$this {
-    if (_$v != null) {
-      _login = _$v.login;
-      _after = _$v.after;
+    final $v = _$v;
+    if ($v != null) {
+      _login = $v.login;
+      _after = $v.after;
       _$v = null;
     }
     return this;
@@ -2848,27 +2889,29 @@ class GStarsVarsBuilder implements Builder<GStarsVars, GStarsVarsBuilder> {
 
   @override
   void replace(GStarsVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GStarsVars;
   }
 
   @override
-  void update(void Function(GStarsVarsBuilder) updates) {
+  void update(void Function(GStarsVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
   _$GStarsVars build() {
-    final _$result = _$v ?? new _$GStarsVars._(login: login, after: after);
+    final _$result = _$v ??
+        new _$GStarsVars._(
+            login: BuiltValueNullFieldError.checkNotNull(
+                login, 'GStarsVars', 'login'),
+            after: after);
     replace(_$result);
     return _$result;
   }
 }
 
 class _$GViewerVars extends GViewerVars {
-  factory _$GViewerVars([void Function(GViewerVarsBuilder) updates]) =>
+  factory _$GViewerVars([void Function(GViewerVarsBuilder)? updates]) =>
       (new GViewerVarsBuilder()..update(updates)).build();
 
   _$GViewerVars._() : super._();
@@ -2898,20 +2941,18 @@ class _$GViewerVars extends GViewerVars {
 }
 
 class GViewerVarsBuilder implements Builder<GViewerVars, GViewerVarsBuilder> {
-  _$GViewerVars _$v;
+  _$GViewerVars? _$v;
 
   GViewerVarsBuilder();
 
   @override
   void replace(GViewerVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GViewerVars;
   }
 
   @override
-  void update(void Function(GViewerVarsBuilder) updates) {
+  void update(void Function(GViewerVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -2927,13 +2968,11 @@ class _$GUserVars extends GUserVars {
   @override
   final String login;
 
-  factory _$GUserVars([void Function(GUserVarsBuilder) updates]) =>
+  factory _$GUserVars([void Function(GUserVarsBuilder)? updates]) =>
       (new GUserVarsBuilder()..update(updates)).build();
 
-  _$GUserVars._({this.login}) : super._() {
-    if (login == null) {
-      throw new BuiltValueNullFieldError('GUserVars', 'login');
-    }
+  _$GUserVars._({required this.login}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(login, 'GUserVars', 'login');
   }
 
   @override
@@ -2962,17 +3001,18 @@ class _$GUserVars extends GUserVars {
 }
 
 class GUserVarsBuilder implements Builder<GUserVars, GUserVarsBuilder> {
-  _$GUserVars _$v;
+  _$GUserVars? _$v;
 
-  String _login;
-  String get login => _$this._login;
-  set login(String login) => _$this._login = login;
+  String? _login;
+  String? get login => _$this._login;
+  set login(String? login) => _$this._login = login;
 
   GUserVarsBuilder();
 
   GUserVarsBuilder get _$this {
-    if (_$v != null) {
-      _login = _$v.login;
+    final $v = _$v;
+    if ($v != null) {
+      _login = $v.login;
       _$v = null;
     }
     return this;
@@ -2980,20 +3020,21 @@ class GUserVarsBuilder implements Builder<GUserVars, GUserVarsBuilder> {
 
   @override
   void replace(GUserVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GUserVars;
   }
 
   @override
-  void update(void Function(GUserVarsBuilder) updates) {
+  void update(void Function(GUserVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
   _$GUserVars build() {
-    final _$result = _$v ?? new _$GUserVars._(login: login);
+    final _$result = _$v ??
+        new _$GUserVars._(
+            login: BuiltValueNullFieldError.checkNotNull(
+                login, 'GUserVars', 'login'));
     replace(_$result);
     return _$result;
   }
@@ -3009,23 +3050,20 @@ class _$GRepoVars extends GRepoVars {
   @override
   final String branch;
 
-  factory _$GRepoVars([void Function(GRepoVarsBuilder) updates]) =>
+  factory _$GRepoVars([void Function(GRepoVarsBuilder)? updates]) =>
       (new GRepoVarsBuilder()..update(updates)).build();
 
-  _$GRepoVars._({this.owner, this.name, this.branchSpecified, this.branch})
+  _$GRepoVars._(
+      {required this.owner,
+      required this.name,
+      required this.branchSpecified,
+      required this.branch})
       : super._() {
-    if (owner == null) {
-      throw new BuiltValueNullFieldError('GRepoVars', 'owner');
-    }
-    if (name == null) {
-      throw new BuiltValueNullFieldError('GRepoVars', 'name');
-    }
-    if (branchSpecified == null) {
-      throw new BuiltValueNullFieldError('GRepoVars', 'branchSpecified');
-    }
-    if (branch == null) {
-      throw new BuiltValueNullFieldError('GRepoVars', 'branch');
-    }
+    BuiltValueNullFieldError.checkNotNull(owner, 'GRepoVars', 'owner');
+    BuiltValueNullFieldError.checkNotNull(name, 'GRepoVars', 'name');
+    BuiltValueNullFieldError.checkNotNull(
+        branchSpecified, 'GRepoVars', 'branchSpecified');
+    BuiltValueNullFieldError.checkNotNull(branch, 'GRepoVars', 'branch');
   }
 
   @override
@@ -3065,33 +3103,34 @@ class _$GRepoVars extends GRepoVars {
 }
 
 class GRepoVarsBuilder implements Builder<GRepoVars, GRepoVarsBuilder> {
-  _$GRepoVars _$v;
+  _$GRepoVars? _$v;
 
-  String _owner;
-  String get owner => _$this._owner;
-  set owner(String owner) => _$this._owner = owner;
+  String? _owner;
+  String? get owner => _$this._owner;
+  set owner(String? owner) => _$this._owner = owner;
 
-  String _name;
-  String get name => _$this._name;
-  set name(String name) => _$this._name = name;
+  String? _name;
+  String? get name => _$this._name;
+  set name(String? name) => _$this._name = name;
 
-  bool _branchSpecified;
-  bool get branchSpecified => _$this._branchSpecified;
-  set branchSpecified(bool branchSpecified) =>
+  bool? _branchSpecified;
+  bool? get branchSpecified => _$this._branchSpecified;
+  set branchSpecified(bool? branchSpecified) =>
       _$this._branchSpecified = branchSpecified;
 
-  String _branch;
-  String get branch => _$this._branch;
-  set branch(String branch) => _$this._branch = branch;
+  String? _branch;
+  String? get branch => _$this._branch;
+  set branch(String? branch) => _$this._branch = branch;
 
   GRepoVarsBuilder();
 
   GRepoVarsBuilder get _$this {
-    if (_$v != null) {
-      _owner = _$v.owner;
-      _name = _$v.name;
-      _branchSpecified = _$v.branchSpecified;
-      _branch = _$v.branch;
+    final $v = _$v;
+    if ($v != null) {
+      _owner = $v.owner;
+      _name = $v.name;
+      _branchSpecified = $v.branchSpecified;
+      _branch = $v.branch;
       _$v = null;
     }
     return this;
@@ -3099,14 +3138,12 @@ class GRepoVarsBuilder implements Builder<GRepoVars, GRepoVarsBuilder> {
 
   @override
   void replace(GRepoVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GRepoVars;
   }
 
   @override
-  void update(void Function(GRepoVarsBuilder) updates) {
+  void update(void Function(GRepoVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -3114,10 +3151,14 @@ class GRepoVarsBuilder implements Builder<GRepoVars, GRepoVarsBuilder> {
   _$GRepoVars build() {
     final _$result = _$v ??
         new _$GRepoVars._(
-            owner: owner,
-            name: name,
-            branchSpecified: branchSpecified,
-            branch: branch);
+            owner: BuiltValueNullFieldError.checkNotNull(
+                owner, 'GRepoVars', 'owner'),
+            name: BuiltValueNullFieldError.checkNotNull(
+                name, 'GRepoVars', 'name'),
+            branchSpecified: BuiltValueNullFieldError.checkNotNull(
+                branchSpecified, 'GRepoVars', 'branchSpecified'),
+            branch: BuiltValueNullFieldError.checkNotNull(
+                branch, 'GRepoVars', 'branch'));
     replace(_$result);
     return _$result;
   }
@@ -3133,25 +3174,22 @@ class _$GCommitsVars extends GCommitsVars {
   @override
   final bool hasRef;
   @override
-  final String after;
+  final String? after;
 
-  factory _$GCommitsVars([void Function(GCommitsVarsBuilder) updates]) =>
+  factory _$GCommitsVars([void Function(GCommitsVarsBuilder)? updates]) =>
       (new GCommitsVarsBuilder()..update(updates)).build();
 
-  _$GCommitsVars._({this.owner, this.name, this.ref, this.hasRef, this.after})
+  _$GCommitsVars._(
+      {required this.owner,
+      required this.name,
+      required this.ref,
+      required this.hasRef,
+      this.after})
       : super._() {
-    if (owner == null) {
-      throw new BuiltValueNullFieldError('GCommitsVars', 'owner');
-    }
-    if (name == null) {
-      throw new BuiltValueNullFieldError('GCommitsVars', 'name');
-    }
-    if (ref == null) {
-      throw new BuiltValueNullFieldError('GCommitsVars', 'ref');
-    }
-    if (hasRef == null) {
-      throw new BuiltValueNullFieldError('GCommitsVars', 'hasRef');
-    }
+    BuiltValueNullFieldError.checkNotNull(owner, 'GCommitsVars', 'owner');
+    BuiltValueNullFieldError.checkNotNull(name, 'GCommitsVars', 'name');
+    BuiltValueNullFieldError.checkNotNull(ref, 'GCommitsVars', 'ref');
+    BuiltValueNullFieldError.checkNotNull(hasRef, 'GCommitsVars', 'hasRef');
   }
 
   @override
@@ -3194,37 +3232,38 @@ class _$GCommitsVars extends GCommitsVars {
 
 class GCommitsVarsBuilder
     implements Builder<GCommitsVars, GCommitsVarsBuilder> {
-  _$GCommitsVars _$v;
+  _$GCommitsVars? _$v;
 
-  String _owner;
-  String get owner => _$this._owner;
-  set owner(String owner) => _$this._owner = owner;
+  String? _owner;
+  String? get owner => _$this._owner;
+  set owner(String? owner) => _$this._owner = owner;
 
-  String _name;
-  String get name => _$this._name;
-  set name(String name) => _$this._name = name;
+  String? _name;
+  String? get name => _$this._name;
+  set name(String? name) => _$this._name = name;
 
-  String _ref;
-  String get ref => _$this._ref;
-  set ref(String ref) => _$this._ref = ref;
+  String? _ref;
+  String? get ref => _$this._ref;
+  set ref(String? ref) => _$this._ref = ref;
 
-  bool _hasRef;
-  bool get hasRef => _$this._hasRef;
-  set hasRef(bool hasRef) => _$this._hasRef = hasRef;
+  bool? _hasRef;
+  bool? get hasRef => _$this._hasRef;
+  set hasRef(bool? hasRef) => _$this._hasRef = hasRef;
 
-  String _after;
-  String get after => _$this._after;
-  set after(String after) => _$this._after = after;
+  String? _after;
+  String? get after => _$this._after;
+  set after(String? after) => _$this._after = after;
 
   GCommitsVarsBuilder();
 
   GCommitsVarsBuilder get _$this {
-    if (_$v != null) {
-      _owner = _$v.owner;
-      _name = _$v.name;
-      _ref = _$v.ref;
-      _hasRef = _$v.hasRef;
-      _after = _$v.after;
+    final $v = _$v;
+    if ($v != null) {
+      _owner = $v.owner;
+      _name = $v.name;
+      _ref = $v.ref;
+      _hasRef = $v.hasRef;
+      _after = $v.after;
       _$v = null;
     }
     return this;
@@ -3232,14 +3271,12 @@ class GCommitsVarsBuilder
 
   @override
   void replace(GCommitsVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GCommitsVars;
   }
 
   @override
-  void update(void Function(GCommitsVarsBuilder) updates) {
+  void update(void Function(GCommitsVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -3247,7 +3284,15 @@ class GCommitsVarsBuilder
   _$GCommitsVars build() {
     final _$result = _$v ??
         new _$GCommitsVars._(
-            owner: owner, name: name, ref: ref, hasRef: hasRef, after: after);
+            owner: BuiltValueNullFieldError.checkNotNull(
+                owner, 'GCommitsVars', 'owner'),
+            name: BuiltValueNullFieldError.checkNotNull(
+                name, 'GCommitsVars', 'name'),
+            ref: BuiltValueNullFieldError.checkNotNull(
+                ref, 'GCommitsVars', 'ref'),
+            hasRef: BuiltValueNullFieldError.checkNotNull(
+                hasRef, 'GCommitsVars', 'hasRef'),
+            after: after);
     replace(_$result);
     return _$result;
   }
@@ -3259,18 +3304,15 @@ class _$GIssuesVars extends GIssuesVars {
   @override
   final String name;
   @override
-  final String cursor;
+  final String? cursor;
 
-  factory _$GIssuesVars([void Function(GIssuesVarsBuilder) updates]) =>
+  factory _$GIssuesVars([void Function(GIssuesVarsBuilder)? updates]) =>
       (new GIssuesVarsBuilder()..update(updates)).build();
 
-  _$GIssuesVars._({this.owner, this.name, this.cursor}) : super._() {
-    if (owner == null) {
-      throw new BuiltValueNullFieldError('GIssuesVars', 'owner');
-    }
-    if (name == null) {
-      throw new BuiltValueNullFieldError('GIssuesVars', 'name');
-    }
+  _$GIssuesVars._({required this.owner, required this.name, this.cursor})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(owner, 'GIssuesVars', 'owner');
+    BuiltValueNullFieldError.checkNotNull(name, 'GIssuesVars', 'name');
   }
 
   @override
@@ -3306,27 +3348,28 @@ class _$GIssuesVars extends GIssuesVars {
 }
 
 class GIssuesVarsBuilder implements Builder<GIssuesVars, GIssuesVarsBuilder> {
-  _$GIssuesVars _$v;
+  _$GIssuesVars? _$v;
 
-  String _owner;
-  String get owner => _$this._owner;
-  set owner(String owner) => _$this._owner = owner;
+  String? _owner;
+  String? get owner => _$this._owner;
+  set owner(String? owner) => _$this._owner = owner;
 
-  String _name;
-  String get name => _$this._name;
-  set name(String name) => _$this._name = name;
+  String? _name;
+  String? get name => _$this._name;
+  set name(String? name) => _$this._name = name;
 
-  String _cursor;
-  String get cursor => _$this._cursor;
-  set cursor(String cursor) => _$this._cursor = cursor;
+  String? _cursor;
+  String? get cursor => _$this._cursor;
+  set cursor(String? cursor) => _$this._cursor = cursor;
 
   GIssuesVarsBuilder();
 
   GIssuesVarsBuilder get _$this {
-    if (_$v != null) {
-      _owner = _$v.owner;
-      _name = _$v.name;
-      _cursor = _$v.cursor;
+    final $v = _$v;
+    if ($v != null) {
+      _owner = $v.owner;
+      _name = $v.name;
+      _cursor = $v.cursor;
       _$v = null;
     }
     return this;
@@ -3334,21 +3377,24 @@ class GIssuesVarsBuilder implements Builder<GIssuesVars, GIssuesVarsBuilder> {
 
   @override
   void replace(GIssuesVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GIssuesVars;
   }
 
   @override
-  void update(void Function(GIssuesVarsBuilder) updates) {
+  void update(void Function(GIssuesVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
   _$GIssuesVars build() {
-    final _$result =
-        _$v ?? new _$GIssuesVars._(owner: owner, name: name, cursor: cursor);
+    final _$result = _$v ??
+        new _$GIssuesVars._(
+            owner: BuiltValueNullFieldError.checkNotNull(
+                owner, 'GIssuesVars', 'owner'),
+            name: BuiltValueNullFieldError.checkNotNull(
+                name, 'GIssuesVars', 'name'),
+            cursor: cursor);
     replace(_$result);
     return _$result;
   }
@@ -3360,18 +3406,15 @@ class _$GPullsVars extends GPullsVars {
   @override
   final String name;
   @override
-  final String cursor;
+  final String? cursor;
 
-  factory _$GPullsVars([void Function(GPullsVarsBuilder) updates]) =>
+  factory _$GPullsVars([void Function(GPullsVarsBuilder)? updates]) =>
       (new GPullsVarsBuilder()..update(updates)).build();
 
-  _$GPullsVars._({this.owner, this.name, this.cursor}) : super._() {
-    if (owner == null) {
-      throw new BuiltValueNullFieldError('GPullsVars', 'owner');
-    }
-    if (name == null) {
-      throw new BuiltValueNullFieldError('GPullsVars', 'name');
-    }
+  _$GPullsVars._({required this.owner, required this.name, this.cursor})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(owner, 'GPullsVars', 'owner');
+    BuiltValueNullFieldError.checkNotNull(name, 'GPullsVars', 'name');
   }
 
   @override
@@ -3407,27 +3450,28 @@ class _$GPullsVars extends GPullsVars {
 }
 
 class GPullsVarsBuilder implements Builder<GPullsVars, GPullsVarsBuilder> {
-  _$GPullsVars _$v;
+  _$GPullsVars? _$v;
 
-  String _owner;
-  String get owner => _$this._owner;
-  set owner(String owner) => _$this._owner = owner;
+  String? _owner;
+  String? get owner => _$this._owner;
+  set owner(String? owner) => _$this._owner = owner;
 
-  String _name;
-  String get name => _$this._name;
-  set name(String name) => _$this._name = name;
+  String? _name;
+  String? get name => _$this._name;
+  set name(String? name) => _$this._name = name;
 
-  String _cursor;
-  String get cursor => _$this._cursor;
-  set cursor(String cursor) => _$this._cursor = cursor;
+  String? _cursor;
+  String? get cursor => _$this._cursor;
+  set cursor(String? cursor) => _$this._cursor = cursor;
 
   GPullsVarsBuilder();
 
   GPullsVarsBuilder get _$this {
-    if (_$v != null) {
-      _owner = _$v.owner;
-      _name = _$v.name;
-      _cursor = _$v.cursor;
+    final $v = _$v;
+    if ($v != null) {
+      _owner = $v.owner;
+      _name = $v.name;
+      _cursor = $v.cursor;
       _$v = null;
     }
     return this;
@@ -3435,21 +3479,24 @@ class GPullsVarsBuilder implements Builder<GPullsVars, GPullsVarsBuilder> {
 
   @override
   void replace(GPullsVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GPullsVars;
   }
 
   @override
-  void update(void Function(GPullsVarsBuilder) updates) {
+  void update(void Function(GPullsVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
   _$GPullsVars build() {
-    final _$result =
-        _$v ?? new _$GPullsVars._(owner: owner, name: name, cursor: cursor);
+    final _$result = _$v ??
+        new _$GPullsVars._(
+            owner: BuiltValueNullFieldError.checkNotNull(
+                owner, 'GPullsVars', 'owner'),
+            name: BuiltValueNullFieldError.checkNotNull(
+                name, 'GPullsVars', 'name'),
+            cursor: cursor);
     replace(_$result);
     return _$result;
   }
@@ -3463,22 +3510,20 @@ class _$GIssueVars extends GIssueVars {
   @override
   final int number;
   @override
-  final String cursor;
+  final String? cursor;
 
-  factory _$GIssueVars([void Function(GIssueVarsBuilder) updates]) =>
+  factory _$GIssueVars([void Function(GIssueVarsBuilder)? updates]) =>
       (new GIssueVarsBuilder()..update(updates)).build();
 
-  _$GIssueVars._({this.owner, this.name, this.number, this.cursor})
+  _$GIssueVars._(
+      {required this.owner,
+      required this.name,
+      required this.number,
+      this.cursor})
       : super._() {
-    if (owner == null) {
-      throw new BuiltValueNullFieldError('GIssueVars', 'owner');
-    }
-    if (name == null) {
-      throw new BuiltValueNullFieldError('GIssueVars', 'name');
-    }
-    if (number == null) {
-      throw new BuiltValueNullFieldError('GIssueVars', 'number');
-    }
+    BuiltValueNullFieldError.checkNotNull(owner, 'GIssueVars', 'owner');
+    BuiltValueNullFieldError.checkNotNull(name, 'GIssueVars', 'name');
+    BuiltValueNullFieldError.checkNotNull(number, 'GIssueVars', 'number');
   }
 
   @override
@@ -3517,32 +3562,33 @@ class _$GIssueVars extends GIssueVars {
 }
 
 class GIssueVarsBuilder implements Builder<GIssueVars, GIssueVarsBuilder> {
-  _$GIssueVars _$v;
+  _$GIssueVars? _$v;
 
-  String _owner;
-  String get owner => _$this._owner;
-  set owner(String owner) => _$this._owner = owner;
+  String? _owner;
+  String? get owner => _$this._owner;
+  set owner(String? owner) => _$this._owner = owner;
 
-  String _name;
-  String get name => _$this._name;
-  set name(String name) => _$this._name = name;
+  String? _name;
+  String? get name => _$this._name;
+  set name(String? name) => _$this._name = name;
 
-  int _number;
-  int get number => _$this._number;
-  set number(int number) => _$this._number = number;
+  int? _number;
+  int? get number => _$this._number;
+  set number(int? number) => _$this._number = number;
 
-  String _cursor;
-  String get cursor => _$this._cursor;
-  set cursor(String cursor) => _$this._cursor = cursor;
+  String? _cursor;
+  String? get cursor => _$this._cursor;
+  set cursor(String? cursor) => _$this._cursor = cursor;
 
   GIssueVarsBuilder();
 
   GIssueVarsBuilder get _$this {
-    if (_$v != null) {
-      _owner = _$v.owner;
-      _name = _$v.name;
-      _number = _$v.number;
-      _cursor = _$v.cursor;
+    final $v = _$v;
+    if ($v != null) {
+      _owner = $v.owner;
+      _name = $v.name;
+      _number = $v.number;
+      _cursor = $v.cursor;
       _$v = null;
     }
     return this;
@@ -3550,14 +3596,12 @@ class GIssueVarsBuilder implements Builder<GIssueVars, GIssueVarsBuilder> {
 
   @override
   void replace(GIssueVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GIssueVars;
   }
 
   @override
-  void update(void Function(GIssueVarsBuilder) updates) {
+  void update(void Function(GIssueVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -3565,7 +3609,13 @@ class GIssueVarsBuilder implements Builder<GIssueVars, GIssueVarsBuilder> {
   _$GIssueVars build() {
     final _$result = _$v ??
         new _$GIssueVars._(
-            owner: owner, name: name, number: number, cursor: cursor);
+            owner: BuiltValueNullFieldError.checkNotNull(
+                owner, 'GIssueVars', 'owner'),
+            name: BuiltValueNullFieldError.checkNotNull(
+                name, 'GIssueVars', 'name'),
+            number: BuiltValueNullFieldError.checkNotNull(
+                number, 'GIssueVars', 'number'),
+            cursor: cursor);
     replace(_$result);
     return _$result;
   }
@@ -3577,18 +3627,15 @@ class _$GReleasesVars extends GReleasesVars {
   @override
   final String owner;
   @override
-  final String cursor;
+  final String? cursor;
 
-  factory _$GReleasesVars([void Function(GReleasesVarsBuilder) updates]) =>
+  factory _$GReleasesVars([void Function(GReleasesVarsBuilder)? updates]) =>
       (new GReleasesVarsBuilder()..update(updates)).build();
 
-  _$GReleasesVars._({this.name, this.owner, this.cursor}) : super._() {
-    if (name == null) {
-      throw new BuiltValueNullFieldError('GReleasesVars', 'name');
-    }
-    if (owner == null) {
-      throw new BuiltValueNullFieldError('GReleasesVars', 'owner');
-    }
+  _$GReleasesVars._({required this.name, required this.owner, this.cursor})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(name, 'GReleasesVars', 'name');
+    BuiltValueNullFieldError.checkNotNull(owner, 'GReleasesVars', 'owner');
   }
 
   @override
@@ -3625,27 +3672,28 @@ class _$GReleasesVars extends GReleasesVars {
 
 class GReleasesVarsBuilder
     implements Builder<GReleasesVars, GReleasesVarsBuilder> {
-  _$GReleasesVars _$v;
+  _$GReleasesVars? _$v;
 
-  String _name;
-  String get name => _$this._name;
-  set name(String name) => _$this._name = name;
+  String? _name;
+  String? get name => _$this._name;
+  set name(String? name) => _$this._name = name;
 
-  String _owner;
-  String get owner => _$this._owner;
-  set owner(String owner) => _$this._owner = owner;
+  String? _owner;
+  String? get owner => _$this._owner;
+  set owner(String? owner) => _$this._owner = owner;
 
-  String _cursor;
-  String get cursor => _$this._cursor;
-  set cursor(String cursor) => _$this._cursor = cursor;
+  String? _cursor;
+  String? get cursor => _$this._cursor;
+  set cursor(String? cursor) => _$this._cursor = cursor;
 
   GReleasesVarsBuilder();
 
   GReleasesVarsBuilder get _$this {
-    if (_$v != null) {
-      _name = _$v.name;
-      _owner = _$v.owner;
-      _cursor = _$v.cursor;
+    final $v = _$v;
+    if ($v != null) {
+      _name = $v.name;
+      _owner = $v.owner;
+      _cursor = $v.cursor;
       _$v = null;
     }
     return this;
@@ -3653,21 +3701,24 @@ class GReleasesVarsBuilder
 
   @override
   void replace(GReleasesVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GReleasesVars;
   }
 
   @override
-  void update(void Function(GReleasesVarsBuilder) updates) {
+  void update(void Function(GReleasesVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
   _$GReleasesVars build() {
-    final _$result =
-        _$v ?? new _$GReleasesVars._(name: name, owner: owner, cursor: cursor);
+    final _$result = _$v ??
+        new _$GReleasesVars._(
+            name: BuiltValueNullFieldError.checkNotNull(
+                name, 'GReleasesVars', 'name'),
+            owner: BuiltValueNullFieldError.checkNotNull(
+                owner, 'GReleasesVars', 'owner'),
+            cursor: cursor);
     replace(_$result);
     return _$result;
   }
@@ -3675,7 +3726,7 @@ class GReleasesVarsBuilder
 
 class _$GPageInfoPartsVars extends GPageInfoPartsVars {
   factory _$GPageInfoPartsVars(
-          [void Function(GPageInfoPartsVarsBuilder) updates]) =>
+          [void Function(GPageInfoPartsVarsBuilder)? updates]) =>
       (new GPageInfoPartsVarsBuilder()..update(updates)).build();
 
   _$GPageInfoPartsVars._() : super._();
@@ -3708,20 +3759,18 @@ class _$GPageInfoPartsVars extends GPageInfoPartsVars {
 
 class GPageInfoPartsVarsBuilder
     implements Builder<GPageInfoPartsVars, GPageInfoPartsVarsBuilder> {
-  _$GPageInfoPartsVars _$v;
+  _$GPageInfoPartsVars? _$v;
 
   GPageInfoPartsVarsBuilder();
 
   @override
   void replace(GPageInfoPartsVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GPageInfoPartsVars;
   }
 
   @override
-  void update(void Function(GPageInfoPartsVarsBuilder) updates) {
+  void update(void Function(GPageInfoPartsVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -3734,7 +3783,7 @@ class GPageInfoPartsVarsBuilder
 }
 
 class _$GRepoItemVars extends GRepoItemVars {
-  factory _$GRepoItemVars([void Function(GRepoItemVarsBuilder) updates]) =>
+  factory _$GRepoItemVars([void Function(GRepoItemVarsBuilder)? updates]) =>
       (new GRepoItemVarsBuilder()..update(updates)).build();
 
   _$GRepoItemVars._() : super._();
@@ -3765,20 +3814,18 @@ class _$GRepoItemVars extends GRepoItemVars {
 
 class GRepoItemVarsBuilder
     implements Builder<GRepoItemVars, GRepoItemVarsBuilder> {
-  _$GRepoItemVars _$v;
+  _$GRepoItemVars? _$v;
 
   GRepoItemVarsBuilder();
 
   @override
   void replace(GRepoItemVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GRepoItemVars;
   }
 
   @override
-  void update(void Function(GRepoItemVarsBuilder) updates) {
+  void update(void Function(GRepoItemVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -3791,7 +3838,7 @@ class GRepoItemVarsBuilder
 }
 
 class _$GUserItemVars extends GUserItemVars {
-  factory _$GUserItemVars([void Function(GUserItemVarsBuilder) updates]) =>
+  factory _$GUserItemVars([void Function(GUserItemVarsBuilder)? updates]) =>
       (new GUserItemVarsBuilder()..update(updates)).build();
 
   _$GUserItemVars._() : super._();
@@ -3822,20 +3869,18 @@ class _$GUserItemVars extends GUserItemVars {
 
 class GUserItemVarsBuilder
     implements Builder<GUserItemVars, GUserItemVarsBuilder> {
-  _$GUserItemVars _$v;
+  _$GUserItemVars? _$v;
 
   GUserItemVarsBuilder();
 
   @override
   void replace(GUserItemVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GUserItemVars;
   }
 
   @override
-  void update(void Function(GUserItemVarsBuilder) updates) {
+  void update(void Function(GUserItemVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -3849,7 +3894,7 @@ class GUserItemVarsBuilder
 
 class _$GReposRepoItemVars extends GReposRepoItemVars {
   factory _$GReposRepoItemVars(
-          [void Function(GReposRepoItemVarsBuilder) updates]) =>
+          [void Function(GReposRepoItemVarsBuilder)? updates]) =>
       (new GReposRepoItemVarsBuilder()..update(updates)).build();
 
   _$GReposRepoItemVars._() : super._();
@@ -3882,20 +3927,18 @@ class _$GReposRepoItemVars extends GReposRepoItemVars {
 
 class GReposRepoItemVarsBuilder
     implements Builder<GReposRepoItemVars, GReposRepoItemVarsBuilder> {
-  _$GReposRepoItemVars _$v;
+  _$GReposRepoItemVars? _$v;
 
   GReposRepoItemVarsBuilder();
 
   @override
   void replace(GReposRepoItemVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GReposRepoItemVars;
   }
 
   @override
-  void update(void Function(GReposRepoItemVarsBuilder) updates) {
+  void update(void Function(GReposRepoItemVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -3908,7 +3951,7 @@ class GReposRepoItemVarsBuilder
 }
 
 class _$GUserPartsVars extends GUserPartsVars {
-  factory _$GUserPartsVars([void Function(GUserPartsVarsBuilder) updates]) =>
+  factory _$GUserPartsVars([void Function(GUserPartsVarsBuilder)? updates]) =>
       (new GUserPartsVarsBuilder()..update(updates)).build();
 
   _$GUserPartsVars._() : super._();
@@ -3940,20 +3983,18 @@ class _$GUserPartsVars extends GUserPartsVars {
 
 class GUserPartsVarsBuilder
     implements Builder<GUserPartsVars, GUserPartsVarsBuilder> {
-  _$GUserPartsVars _$v;
+  _$GUserPartsVars? _$v;
 
   GUserPartsVarsBuilder();
 
   @override
   void replace(GUserPartsVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GUserPartsVars;
   }
 
   @override
-  void update(void Function(GUserPartsVarsBuilder) updates) {
+  void update(void Function(GUserPartsVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -3966,7 +4007,7 @@ class GUserPartsVarsBuilder
 }
 
 class _$GRepoCommitVars extends GRepoCommitVars {
-  factory _$GRepoCommitVars([void Function(GRepoCommitVarsBuilder) updates]) =>
+  factory _$GRepoCommitVars([void Function(GRepoCommitVarsBuilder)? updates]) =>
       (new GRepoCommitVarsBuilder()..update(updates)).build();
 
   _$GRepoCommitVars._() : super._();
@@ -3998,20 +4039,18 @@ class _$GRepoCommitVars extends GRepoCommitVars {
 
 class GRepoCommitVarsBuilder
     implements Builder<GRepoCommitVars, GRepoCommitVarsBuilder> {
-  _$GRepoCommitVars _$v;
+  _$GRepoCommitVars? _$v;
 
   GRepoCommitVarsBuilder();
 
   @override
   void replace(GRepoCommitVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GRepoCommitVars;
   }
 
   @override
-  void update(void Function(GRepoCommitVarsBuilder) updates) {
+  void update(void Function(GRepoCommitVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -4024,7 +4063,7 @@ class GRepoCommitVarsBuilder
 }
 
 class _$GRepoRefVars extends GRepoRefVars {
-  factory _$GRepoRefVars([void Function(GRepoRefVarsBuilder) updates]) =>
+  factory _$GRepoRefVars([void Function(GRepoRefVarsBuilder)? updates]) =>
       (new GRepoRefVarsBuilder()..update(updates)).build();
 
   _$GRepoRefVars._() : super._();
@@ -4055,20 +4094,18 @@ class _$GRepoRefVars extends GRepoRefVars {
 
 class GRepoRefVarsBuilder
     implements Builder<GRepoRefVars, GRepoRefVarsBuilder> {
-  _$GRepoRefVars _$v;
+  _$GRepoRefVars? _$v;
 
   GRepoRefVarsBuilder();
 
   @override
   void replace(GRepoRefVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GRepoRefVars;
   }
 
   @override
-  void update(void Function(GRepoRefVarsBuilder) updates) {
+  void update(void Function(GRepoRefVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -4082,10 +4119,10 @@ class GRepoRefVarsBuilder
 
 class _$GCommitsRefCommitVars extends GCommitsRefCommitVars {
   @override
-  final String after;
+  final String? after;
 
   factory _$GCommitsRefCommitVars(
-          [void Function(GCommitsRefCommitVarsBuilder) updates]) =>
+          [void Function(GCommitsRefCommitVarsBuilder)? updates]) =>
       (new GCommitsRefCommitVarsBuilder()..update(updates)).build();
 
   _$GCommitsRefCommitVars._({this.after}) : super._();
@@ -4120,17 +4157,18 @@ class _$GCommitsRefCommitVars extends GCommitsRefCommitVars {
 
 class GCommitsRefCommitVarsBuilder
     implements Builder<GCommitsRefCommitVars, GCommitsRefCommitVarsBuilder> {
-  _$GCommitsRefCommitVars _$v;
+  _$GCommitsRefCommitVars? _$v;
 
-  String _after;
-  String get after => _$this._after;
-  set after(String after) => _$this._after = after;
+  String? _after;
+  String? get after => _$this._after;
+  set after(String? after) => _$this._after = after;
 
   GCommitsRefCommitVarsBuilder();
 
   GCommitsRefCommitVarsBuilder get _$this {
-    if (_$v != null) {
-      _after = _$v.after;
+    final $v = _$v;
+    if ($v != null) {
+      _after = $v.after;
       _$v = null;
     }
     return this;
@@ -4138,14 +4176,12 @@ class GCommitsRefCommitVarsBuilder
 
   @override
   void replace(GCommitsRefCommitVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GCommitsRefCommitVars;
   }
 
   @override
-  void update(void Function(GCommitsRefCommitVarsBuilder) updates) {
+  void update(void Function(GCommitsRefCommitVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -4159,9 +4195,9 @@ class GCommitsRefCommitVarsBuilder
 
 class _$GCommitsRefVars extends GCommitsRefVars {
   @override
-  final String after;
+  final String? after;
 
-  factory _$GCommitsRefVars([void Function(GCommitsRefVarsBuilder) updates]) =>
+  factory _$GCommitsRefVars([void Function(GCommitsRefVarsBuilder)? updates]) =>
       (new GCommitsRefVarsBuilder()..update(updates)).build();
 
   _$GCommitsRefVars._({this.after}) : super._();
@@ -4194,17 +4230,18 @@ class _$GCommitsRefVars extends GCommitsRefVars {
 
 class GCommitsRefVarsBuilder
     implements Builder<GCommitsRefVars, GCommitsRefVarsBuilder> {
-  _$GCommitsRefVars _$v;
+  _$GCommitsRefVars? _$v;
 
-  String _after;
-  String get after => _$this._after;
-  set after(String after) => _$this._after = after;
+  String? _after;
+  String? get after => _$this._after;
+  set after(String? after) => _$this._after = after;
 
   GCommitsRefVarsBuilder();
 
   GCommitsRefVarsBuilder get _$this {
-    if (_$v != null) {
-      _after = _$v.after;
+    final $v = _$v;
+    if ($v != null) {
+      _after = $v.after;
       _$v = null;
     }
     return this;
@@ -4212,14 +4249,12 @@ class GCommitsRefVarsBuilder
 
   @override
   void replace(GCommitsRefVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GCommitsRefVars;
   }
 
   @override
-  void update(void Function(GCommitsRefVarsBuilder) updates) {
+  void update(void Function(GCommitsRefVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -4233,7 +4268,7 @@ class GCommitsRefVarsBuilder
 
 class _$GCommentPartsVars extends GCommentPartsVars {
   factory _$GCommentPartsVars(
-          [void Function(GCommentPartsVarsBuilder) updates]) =>
+          [void Function(GCommentPartsVarsBuilder)? updates]) =>
       (new GCommentPartsVarsBuilder()..update(updates)).build();
 
   _$GCommentPartsVars._() : super._();
@@ -4265,20 +4300,18 @@ class _$GCommentPartsVars extends GCommentPartsVars {
 
 class GCommentPartsVarsBuilder
     implements Builder<GCommentPartsVars, GCommentPartsVarsBuilder> {
-  _$GCommentPartsVars _$v;
+  _$GCommentPartsVars? _$v;
 
   GCommentPartsVarsBuilder();
 
   @override
   void replace(GCommentPartsVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GCommentPartsVars;
   }
 
   @override
-  void update(void Function(GCommentPartsVarsBuilder) updates) {
+  void update(void Function(GCommentPartsVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -4292,7 +4325,7 @@ class GCommentPartsVarsBuilder
 
 class _$GReactionConnectionPartsVars extends GReactionConnectionPartsVars {
   factory _$GReactionConnectionPartsVars(
-          [void Function(GReactionConnectionPartsVarsBuilder) updates]) =>
+          [void Function(GReactionConnectionPartsVarsBuilder)? updates]) =>
       (new GReactionConnectionPartsVarsBuilder()..update(updates)).build();
 
   _$GReactionConnectionPartsVars._() : super._();
@@ -4328,20 +4361,18 @@ class GReactionConnectionPartsVarsBuilder
     implements
         Builder<GReactionConnectionPartsVars,
             GReactionConnectionPartsVarsBuilder> {
-  _$GReactionConnectionPartsVars _$v;
+  _$GReactionConnectionPartsVars? _$v;
 
   GReactionConnectionPartsVarsBuilder();
 
   @override
   void replace(GReactionConnectionPartsVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GReactionConnectionPartsVars;
   }
 
   @override
-  void update(void Function(GReactionConnectionPartsVarsBuilder) updates) {
+  void update(void Function(GReactionConnectionPartsVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -4355,7 +4386,7 @@ class GReactionConnectionPartsVarsBuilder
 
 class _$GReactablePartsVars extends GReactablePartsVars {
   factory _$GReactablePartsVars(
-          [void Function(GReactablePartsVarsBuilder) updates]) =>
+          [void Function(GReactablePartsVarsBuilder)? updates]) =>
       (new GReactablePartsVarsBuilder()..update(updates)).build();
 
   _$GReactablePartsVars._() : super._();
@@ -4388,20 +4419,18 @@ class _$GReactablePartsVars extends GReactablePartsVars {
 
 class GReactablePartsVarsBuilder
     implements Builder<GReactablePartsVars, GReactablePartsVarsBuilder> {
-  _$GReactablePartsVars _$v;
+  _$GReactablePartsVars? _$v;
 
   GReactablePartsVarsBuilder();
 
   @override
   void replace(GReactablePartsVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GReactablePartsVars;
   }
 
   @override
-  void update(void Function(GReactablePartsVarsBuilder) updates) {
+  void update(void Function(GReactablePartsVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -4415,7 +4444,7 @@ class GReactablePartsVarsBuilder
 
 class _$GReferencedEventPartsVars extends GReferencedEventPartsVars {
   factory _$GReferencedEventPartsVars(
-          [void Function(GReferencedEventPartsVarsBuilder) updates]) =>
+          [void Function(GReferencedEventPartsVarsBuilder)? updates]) =>
       (new GReferencedEventPartsVarsBuilder()..update(updates)).build();
 
   _$GReferencedEventPartsVars._() : super._();
@@ -4449,20 +4478,18 @@ class _$GReferencedEventPartsVars extends GReferencedEventPartsVars {
 class GReferencedEventPartsVarsBuilder
     implements
         Builder<GReferencedEventPartsVars, GReferencedEventPartsVarsBuilder> {
-  _$GReferencedEventPartsVars _$v;
+  _$GReferencedEventPartsVars? _$v;
 
   GReferencedEventPartsVarsBuilder();
 
   @override
   void replace(GReferencedEventPartsVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GReferencedEventPartsVars;
   }
 
   @override
-  void update(void Function(GReferencedEventPartsVarsBuilder) updates) {
+  void update(void Function(GReferencedEventPartsVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -4476,7 +4503,7 @@ class GReferencedEventPartsVarsBuilder
 
 class _$GRenamedTitleEventPartsVars extends GRenamedTitleEventPartsVars {
   factory _$GRenamedTitleEventPartsVars(
-          [void Function(GRenamedTitleEventPartsVarsBuilder) updates]) =>
+          [void Function(GRenamedTitleEventPartsVarsBuilder)? updates]) =>
       (new GRenamedTitleEventPartsVarsBuilder()..update(updates)).build();
 
   _$GRenamedTitleEventPartsVars._() : super._();
@@ -4512,20 +4539,18 @@ class GRenamedTitleEventPartsVarsBuilder
     implements
         Builder<GRenamedTitleEventPartsVars,
             GRenamedTitleEventPartsVarsBuilder> {
-  _$GRenamedTitleEventPartsVars _$v;
+  _$GRenamedTitleEventPartsVars? _$v;
 
   GRenamedTitleEventPartsVarsBuilder();
 
   @override
   void replace(GRenamedTitleEventPartsVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GRenamedTitleEventPartsVars;
   }
 
   @override
-  void update(void Function(GRenamedTitleEventPartsVarsBuilder) updates) {
+  void update(void Function(GRenamedTitleEventPartsVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -4539,7 +4564,7 @@ class GRenamedTitleEventPartsVarsBuilder
 
 class _$GClosedEventPartsVars extends GClosedEventPartsVars {
   factory _$GClosedEventPartsVars(
-          [void Function(GClosedEventPartsVarsBuilder) updates]) =>
+          [void Function(GClosedEventPartsVarsBuilder)? updates]) =>
       (new GClosedEventPartsVarsBuilder()..update(updates)).build();
 
   _$GClosedEventPartsVars._() : super._();
@@ -4572,20 +4597,18 @@ class _$GClosedEventPartsVars extends GClosedEventPartsVars {
 
 class GClosedEventPartsVarsBuilder
     implements Builder<GClosedEventPartsVars, GClosedEventPartsVarsBuilder> {
-  _$GClosedEventPartsVars _$v;
+  _$GClosedEventPartsVars? _$v;
 
   GClosedEventPartsVarsBuilder();
 
   @override
   void replace(GClosedEventPartsVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GClosedEventPartsVars;
   }
 
   @override
-  void update(void Function(GClosedEventPartsVarsBuilder) updates) {
+  void update(void Function(GClosedEventPartsVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -4599,7 +4622,7 @@ class GClosedEventPartsVarsBuilder
 
 class _$GReopenedEventPartsVars extends GReopenedEventPartsVars {
   factory _$GReopenedEventPartsVars(
-          [void Function(GReopenedEventPartsVarsBuilder) updates]) =>
+          [void Function(GReopenedEventPartsVarsBuilder)? updates]) =>
       (new GReopenedEventPartsVarsBuilder()..update(updates)).build();
 
   _$GReopenedEventPartsVars._() : super._();
@@ -4633,20 +4656,18 @@ class _$GReopenedEventPartsVars extends GReopenedEventPartsVars {
 class GReopenedEventPartsVarsBuilder
     implements
         Builder<GReopenedEventPartsVars, GReopenedEventPartsVarsBuilder> {
-  _$GReopenedEventPartsVars _$v;
+  _$GReopenedEventPartsVars? _$v;
 
   GReopenedEventPartsVarsBuilder();
 
   @override
   void replace(GReopenedEventPartsVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GReopenedEventPartsVars;
   }
 
   @override
-  void update(void Function(GReopenedEventPartsVarsBuilder) updates) {
+  void update(void Function(GReopenedEventPartsVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -4660,7 +4681,7 @@ class GReopenedEventPartsVarsBuilder
 
 class _$GCrossReferencedEventPartsVars extends GCrossReferencedEventPartsVars {
   factory _$GCrossReferencedEventPartsVars(
-          [void Function(GCrossReferencedEventPartsVarsBuilder) updates]) =>
+          [void Function(GCrossReferencedEventPartsVarsBuilder)? updates]) =>
       (new GCrossReferencedEventPartsVarsBuilder()..update(updates)).build();
 
   _$GCrossReferencedEventPartsVars._() : super._();
@@ -4696,20 +4717,18 @@ class GCrossReferencedEventPartsVarsBuilder
     implements
         Builder<GCrossReferencedEventPartsVars,
             GCrossReferencedEventPartsVarsBuilder> {
-  _$GCrossReferencedEventPartsVars _$v;
+  _$GCrossReferencedEventPartsVars? _$v;
 
   GCrossReferencedEventPartsVarsBuilder();
 
   @override
   void replace(GCrossReferencedEventPartsVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GCrossReferencedEventPartsVars;
   }
 
   @override
-  void update(void Function(GCrossReferencedEventPartsVarsBuilder) updates) {
+  void update(void Function(GCrossReferencedEventPartsVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -4723,7 +4742,7 @@ class GCrossReferencedEventPartsVarsBuilder
 
 class _$GLabeledEventPartsVars extends GLabeledEventPartsVars {
   factory _$GLabeledEventPartsVars(
-          [void Function(GLabeledEventPartsVarsBuilder) updates]) =>
+          [void Function(GLabeledEventPartsVarsBuilder)? updates]) =>
       (new GLabeledEventPartsVarsBuilder()..update(updates)).build();
 
   _$GLabeledEventPartsVars._() : super._();
@@ -4756,20 +4775,18 @@ class _$GLabeledEventPartsVars extends GLabeledEventPartsVars {
 
 class GLabeledEventPartsVarsBuilder
     implements Builder<GLabeledEventPartsVars, GLabeledEventPartsVarsBuilder> {
-  _$GLabeledEventPartsVars _$v;
+  _$GLabeledEventPartsVars? _$v;
 
   GLabeledEventPartsVarsBuilder();
 
   @override
   void replace(GLabeledEventPartsVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GLabeledEventPartsVars;
   }
 
   @override
-  void update(void Function(GLabeledEventPartsVarsBuilder) updates) {
+  void update(void Function(GLabeledEventPartsVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -4783,7 +4800,7 @@ class GLabeledEventPartsVarsBuilder
 
 class _$GUnlabeledEventPartsVars extends GUnlabeledEventPartsVars {
   factory _$GUnlabeledEventPartsVars(
-          [void Function(GUnlabeledEventPartsVarsBuilder) updates]) =>
+          [void Function(GUnlabeledEventPartsVarsBuilder)? updates]) =>
       (new GUnlabeledEventPartsVarsBuilder()..update(updates)).build();
 
   _$GUnlabeledEventPartsVars._() : super._();
@@ -4817,20 +4834,18 @@ class _$GUnlabeledEventPartsVars extends GUnlabeledEventPartsVars {
 class GUnlabeledEventPartsVarsBuilder
     implements
         Builder<GUnlabeledEventPartsVars, GUnlabeledEventPartsVarsBuilder> {
-  _$GUnlabeledEventPartsVars _$v;
+  _$GUnlabeledEventPartsVars? _$v;
 
   GUnlabeledEventPartsVarsBuilder();
 
   @override
   void replace(GUnlabeledEventPartsVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GUnlabeledEventPartsVars;
   }
 
   @override
-  void update(void Function(GUnlabeledEventPartsVarsBuilder) updates) {
+  void update(void Function(GUnlabeledEventPartsVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -4844,7 +4859,7 @@ class GUnlabeledEventPartsVarsBuilder
 
 class _$GMilestonedEventPartsVars extends GMilestonedEventPartsVars {
   factory _$GMilestonedEventPartsVars(
-          [void Function(GMilestonedEventPartsVarsBuilder) updates]) =>
+          [void Function(GMilestonedEventPartsVarsBuilder)? updates]) =>
       (new GMilestonedEventPartsVarsBuilder()..update(updates)).build();
 
   _$GMilestonedEventPartsVars._() : super._();
@@ -4878,20 +4893,18 @@ class _$GMilestonedEventPartsVars extends GMilestonedEventPartsVars {
 class GMilestonedEventPartsVarsBuilder
     implements
         Builder<GMilestonedEventPartsVars, GMilestonedEventPartsVarsBuilder> {
-  _$GMilestonedEventPartsVars _$v;
+  _$GMilestonedEventPartsVars? _$v;
 
   GMilestonedEventPartsVarsBuilder();
 
   @override
   void replace(GMilestonedEventPartsVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GMilestonedEventPartsVars;
   }
 
   @override
-  void update(void Function(GMilestonedEventPartsVarsBuilder) updates) {
+  void update(void Function(GMilestonedEventPartsVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -4905,7 +4918,7 @@ class GMilestonedEventPartsVarsBuilder
 
 class _$GDemilestonedEventPartsVars extends GDemilestonedEventPartsVars {
   factory _$GDemilestonedEventPartsVars(
-          [void Function(GDemilestonedEventPartsVarsBuilder) updates]) =>
+          [void Function(GDemilestonedEventPartsVarsBuilder)? updates]) =>
       (new GDemilestonedEventPartsVarsBuilder()..update(updates)).build();
 
   _$GDemilestonedEventPartsVars._() : super._();
@@ -4941,20 +4954,18 @@ class GDemilestonedEventPartsVarsBuilder
     implements
         Builder<GDemilestonedEventPartsVars,
             GDemilestonedEventPartsVarsBuilder> {
-  _$GDemilestonedEventPartsVars _$v;
+  _$GDemilestonedEventPartsVars? _$v;
 
   GDemilestonedEventPartsVarsBuilder();
 
   @override
   void replace(GDemilestonedEventPartsVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GDemilestonedEventPartsVars;
   }
 
   @override
-  void update(void Function(GDemilestonedEventPartsVarsBuilder) updates) {
+  void update(void Function(GDemilestonedEventPartsVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -4968,7 +4979,7 @@ class GDemilestonedEventPartsVarsBuilder
 
 class _$GLockedEventPartsVars extends GLockedEventPartsVars {
   factory _$GLockedEventPartsVars(
-          [void Function(GLockedEventPartsVarsBuilder) updates]) =>
+          [void Function(GLockedEventPartsVarsBuilder)? updates]) =>
       (new GLockedEventPartsVarsBuilder()..update(updates)).build();
 
   _$GLockedEventPartsVars._() : super._();
@@ -5001,20 +5012,18 @@ class _$GLockedEventPartsVars extends GLockedEventPartsVars {
 
 class GLockedEventPartsVarsBuilder
     implements Builder<GLockedEventPartsVars, GLockedEventPartsVarsBuilder> {
-  _$GLockedEventPartsVars _$v;
+  _$GLockedEventPartsVars? _$v;
 
   GLockedEventPartsVarsBuilder();
 
   @override
   void replace(GLockedEventPartsVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GLockedEventPartsVars;
   }
 
   @override
-  void update(void Function(GLockedEventPartsVarsBuilder) updates) {
+  void update(void Function(GLockedEventPartsVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -5028,7 +5037,7 @@ class GLockedEventPartsVarsBuilder
 
 class _$GUnlockedEventPartsVars extends GUnlockedEventPartsVars {
   factory _$GUnlockedEventPartsVars(
-          [void Function(GUnlockedEventPartsVarsBuilder) updates]) =>
+          [void Function(GUnlockedEventPartsVarsBuilder)? updates]) =>
       (new GUnlockedEventPartsVarsBuilder()..update(updates)).build();
 
   _$GUnlockedEventPartsVars._() : super._();
@@ -5062,20 +5071,18 @@ class _$GUnlockedEventPartsVars extends GUnlockedEventPartsVars {
 class GUnlockedEventPartsVarsBuilder
     implements
         Builder<GUnlockedEventPartsVars, GUnlockedEventPartsVarsBuilder> {
-  _$GUnlockedEventPartsVars _$v;
+  _$GUnlockedEventPartsVars? _$v;
 
   GUnlockedEventPartsVarsBuilder();
 
   @override
   void replace(GUnlockedEventPartsVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GUnlockedEventPartsVars;
   }
 
   @override
-  void update(void Function(GUnlockedEventPartsVarsBuilder) updates) {
+  void update(void Function(GUnlockedEventPartsVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -5089,7 +5096,7 @@ class GUnlockedEventPartsVarsBuilder
 
 class _$GAssignedEventPartsVars extends GAssignedEventPartsVars {
   factory _$GAssignedEventPartsVars(
-          [void Function(GAssignedEventPartsVarsBuilder) updates]) =>
+          [void Function(GAssignedEventPartsVarsBuilder)? updates]) =>
       (new GAssignedEventPartsVarsBuilder()..update(updates)).build();
 
   _$GAssignedEventPartsVars._() : super._();
@@ -5123,20 +5130,18 @@ class _$GAssignedEventPartsVars extends GAssignedEventPartsVars {
 class GAssignedEventPartsVarsBuilder
     implements
         Builder<GAssignedEventPartsVars, GAssignedEventPartsVarsBuilder> {
-  _$GAssignedEventPartsVars _$v;
+  _$GAssignedEventPartsVars? _$v;
 
   GAssignedEventPartsVarsBuilder();
 
   @override
   void replace(GAssignedEventPartsVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GAssignedEventPartsVars;
   }
 
   @override
-  void update(void Function(GAssignedEventPartsVarsBuilder) updates) {
+  void update(void Function(GAssignedEventPartsVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -5150,7 +5155,7 @@ class GAssignedEventPartsVarsBuilder
 
 class _$GUnassignedEventPartsVars extends GUnassignedEventPartsVars {
   factory _$GUnassignedEventPartsVars(
-          [void Function(GUnassignedEventPartsVarsBuilder) updates]) =>
+          [void Function(GUnassignedEventPartsVarsBuilder)? updates]) =>
       (new GUnassignedEventPartsVarsBuilder()..update(updates)).build();
 
   _$GUnassignedEventPartsVars._() : super._();
@@ -5184,20 +5189,18 @@ class _$GUnassignedEventPartsVars extends GUnassignedEventPartsVars {
 class GUnassignedEventPartsVarsBuilder
     implements
         Builder<GUnassignedEventPartsVars, GUnassignedEventPartsVarsBuilder> {
-  _$GUnassignedEventPartsVars _$v;
+  _$GUnassignedEventPartsVars? _$v;
 
   GUnassignedEventPartsVarsBuilder();
 
   @override
   void replace(GUnassignedEventPartsVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GUnassignedEventPartsVars;
   }
 
   @override
-  void update(void Function(GUnassignedEventPartsVarsBuilder) updates) {
+  void update(void Function(GUnassignedEventPartsVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -5211,7 +5214,7 @@ class GUnassignedEventPartsVarsBuilder
 
 class _$GSubscribedEventPartsVars extends GSubscribedEventPartsVars {
   factory _$GSubscribedEventPartsVars(
-          [void Function(GSubscribedEventPartsVarsBuilder) updates]) =>
+          [void Function(GSubscribedEventPartsVarsBuilder)? updates]) =>
       (new GSubscribedEventPartsVarsBuilder()..update(updates)).build();
 
   _$GSubscribedEventPartsVars._() : super._();
@@ -5245,20 +5248,18 @@ class _$GSubscribedEventPartsVars extends GSubscribedEventPartsVars {
 class GSubscribedEventPartsVarsBuilder
     implements
         Builder<GSubscribedEventPartsVars, GSubscribedEventPartsVarsBuilder> {
-  _$GSubscribedEventPartsVars _$v;
+  _$GSubscribedEventPartsVars? _$v;
 
   GSubscribedEventPartsVarsBuilder();
 
   @override
   void replace(GSubscribedEventPartsVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GSubscribedEventPartsVars;
   }
 
   @override
-  void update(void Function(GSubscribedEventPartsVarsBuilder) updates) {
+  void update(void Function(GSubscribedEventPartsVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -5272,7 +5273,7 @@ class GSubscribedEventPartsVarsBuilder
 
 class _$GUnsubscribedEventPartsVars extends GUnsubscribedEventPartsVars {
   factory _$GUnsubscribedEventPartsVars(
-          [void Function(GUnsubscribedEventPartsVarsBuilder) updates]) =>
+          [void Function(GUnsubscribedEventPartsVarsBuilder)? updates]) =>
       (new GUnsubscribedEventPartsVarsBuilder()..update(updates)).build();
 
   _$GUnsubscribedEventPartsVars._() : super._();
@@ -5308,20 +5309,18 @@ class GUnsubscribedEventPartsVarsBuilder
     implements
         Builder<GUnsubscribedEventPartsVars,
             GUnsubscribedEventPartsVarsBuilder> {
-  _$GUnsubscribedEventPartsVars _$v;
+  _$GUnsubscribedEventPartsVars? _$v;
 
   GUnsubscribedEventPartsVarsBuilder();
 
   @override
   void replace(GUnsubscribedEventPartsVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GUnsubscribedEventPartsVars;
   }
 
   @override
-  void update(void Function(GUnsubscribedEventPartsVarsBuilder) updates) {
+  void update(void Function(GUnsubscribedEventPartsVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -5335,7 +5334,7 @@ class GUnsubscribedEventPartsVarsBuilder
 
 class _$GMentionedEventPartsVars extends GMentionedEventPartsVars {
   factory _$GMentionedEventPartsVars(
-          [void Function(GMentionedEventPartsVarsBuilder) updates]) =>
+          [void Function(GMentionedEventPartsVarsBuilder)? updates]) =>
       (new GMentionedEventPartsVarsBuilder()..update(updates)).build();
 
   _$GMentionedEventPartsVars._() : super._();
@@ -5369,20 +5368,18 @@ class _$GMentionedEventPartsVars extends GMentionedEventPartsVars {
 class GMentionedEventPartsVarsBuilder
     implements
         Builder<GMentionedEventPartsVars, GMentionedEventPartsVarsBuilder> {
-  _$GMentionedEventPartsVars _$v;
+  _$GMentionedEventPartsVars? _$v;
 
   GMentionedEventPartsVarsBuilder();
 
   @override
   void replace(GMentionedEventPartsVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GMentionedEventPartsVars;
   }
 
   @override
-  void update(void Function(GMentionedEventPartsVarsBuilder) updates) {
+  void update(void Function(GMentionedEventPartsVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -5396,7 +5393,7 @@ class GMentionedEventPartsVarsBuilder
 
 class _$GPinnedEventPartsVars extends GPinnedEventPartsVars {
   factory _$GPinnedEventPartsVars(
-          [void Function(GPinnedEventPartsVarsBuilder) updates]) =>
+          [void Function(GPinnedEventPartsVarsBuilder)? updates]) =>
       (new GPinnedEventPartsVarsBuilder()..update(updates)).build();
 
   _$GPinnedEventPartsVars._() : super._();
@@ -5429,20 +5426,18 @@ class _$GPinnedEventPartsVars extends GPinnedEventPartsVars {
 
 class GPinnedEventPartsVarsBuilder
     implements Builder<GPinnedEventPartsVars, GPinnedEventPartsVarsBuilder> {
-  _$GPinnedEventPartsVars _$v;
+  _$GPinnedEventPartsVars? _$v;
 
   GPinnedEventPartsVarsBuilder();
 
   @override
   void replace(GPinnedEventPartsVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GPinnedEventPartsVars;
   }
 
   @override
-  void update(void Function(GPinnedEventPartsVarsBuilder) updates) {
+  void update(void Function(GPinnedEventPartsVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -5456,7 +5451,7 @@ class GPinnedEventPartsVarsBuilder
 
 class _$GTransferredEventPartsVars extends GTransferredEventPartsVars {
   factory _$GTransferredEventPartsVars(
-          [void Function(GTransferredEventPartsVarsBuilder) updates]) =>
+          [void Function(GTransferredEventPartsVarsBuilder)? updates]) =>
       (new GTransferredEventPartsVarsBuilder()..update(updates)).build();
 
   _$GTransferredEventPartsVars._() : super._();
@@ -5490,20 +5485,18 @@ class _$GTransferredEventPartsVars extends GTransferredEventPartsVars {
 class GTransferredEventPartsVarsBuilder
     implements
         Builder<GTransferredEventPartsVars, GTransferredEventPartsVarsBuilder> {
-  _$GTransferredEventPartsVars _$v;
+  _$GTransferredEventPartsVars? _$v;
 
   GTransferredEventPartsVarsBuilder();
 
   @override
   void replace(GTransferredEventPartsVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GTransferredEventPartsVars;
   }
 
   @override
-  void update(void Function(GTransferredEventPartsVarsBuilder) updates) {
+  void update(void Function(GTransferredEventPartsVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -5517,7 +5510,7 @@ class GTransferredEventPartsVarsBuilder
 
 class _$GPullRequestCommitPartsVars extends GPullRequestCommitPartsVars {
   factory _$GPullRequestCommitPartsVars(
-          [void Function(GPullRequestCommitPartsVarsBuilder) updates]) =>
+          [void Function(GPullRequestCommitPartsVarsBuilder)? updates]) =>
       (new GPullRequestCommitPartsVarsBuilder()..update(updates)).build();
 
   _$GPullRequestCommitPartsVars._() : super._();
@@ -5553,20 +5546,18 @@ class GPullRequestCommitPartsVarsBuilder
     implements
         Builder<GPullRequestCommitPartsVars,
             GPullRequestCommitPartsVarsBuilder> {
-  _$GPullRequestCommitPartsVars _$v;
+  _$GPullRequestCommitPartsVars? _$v;
 
   GPullRequestCommitPartsVarsBuilder();
 
   @override
   void replace(GPullRequestCommitPartsVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GPullRequestCommitPartsVars;
   }
 
   @override
-  void update(void Function(GPullRequestCommitPartsVarsBuilder) updates) {
+  void update(void Function(GPullRequestCommitPartsVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -5580,7 +5571,7 @@ class GPullRequestCommitPartsVarsBuilder
 
 class _$GDeployedEventPartsVars extends GDeployedEventPartsVars {
   factory _$GDeployedEventPartsVars(
-          [void Function(GDeployedEventPartsVarsBuilder) updates]) =>
+          [void Function(GDeployedEventPartsVarsBuilder)? updates]) =>
       (new GDeployedEventPartsVarsBuilder()..update(updates)).build();
 
   _$GDeployedEventPartsVars._() : super._();
@@ -5614,20 +5605,18 @@ class _$GDeployedEventPartsVars extends GDeployedEventPartsVars {
 class GDeployedEventPartsVarsBuilder
     implements
         Builder<GDeployedEventPartsVars, GDeployedEventPartsVarsBuilder> {
-  _$GDeployedEventPartsVars _$v;
+  _$GDeployedEventPartsVars? _$v;
 
   GDeployedEventPartsVarsBuilder();
 
   @override
   void replace(GDeployedEventPartsVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GDeployedEventPartsVars;
   }
 
   @override
-  void update(void Function(GDeployedEventPartsVarsBuilder) updates) {
+  void update(void Function(GDeployedEventPartsVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -5642,7 +5631,7 @@ class GDeployedEventPartsVarsBuilder
 class _$GDeploymentEnvironmentChangedEventPartsVars
     extends GDeploymentEnvironmentChangedEventPartsVars {
   factory _$GDeploymentEnvironmentChangedEventPartsVars(
-          [void Function(GDeploymentEnvironmentChangedEventPartsVarsBuilder)
+          [void Function(GDeploymentEnvironmentChangedEventPartsVarsBuilder)?
               updates]) =>
       (new GDeploymentEnvironmentChangedEventPartsVarsBuilder()
             ..update(updates))
@@ -5683,21 +5672,19 @@ class GDeploymentEnvironmentChangedEventPartsVarsBuilder
     implements
         Builder<GDeploymentEnvironmentChangedEventPartsVars,
             GDeploymentEnvironmentChangedEventPartsVarsBuilder> {
-  _$GDeploymentEnvironmentChangedEventPartsVars _$v;
+  _$GDeploymentEnvironmentChangedEventPartsVars? _$v;
 
   GDeploymentEnvironmentChangedEventPartsVarsBuilder();
 
   @override
   void replace(GDeploymentEnvironmentChangedEventPartsVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GDeploymentEnvironmentChangedEventPartsVars;
   }
 
   @override
   void update(
-      void Function(GDeploymentEnvironmentChangedEventPartsVarsBuilder)
+      void Function(GDeploymentEnvironmentChangedEventPartsVarsBuilder)?
           updates) {
     if (updates != null) updates(this);
   }
@@ -5713,7 +5700,7 @@ class GDeploymentEnvironmentChangedEventPartsVarsBuilder
 
 class _$GHeadRefRestoredEventPartsVars extends GHeadRefRestoredEventPartsVars {
   factory _$GHeadRefRestoredEventPartsVars(
-          [void Function(GHeadRefRestoredEventPartsVarsBuilder) updates]) =>
+          [void Function(GHeadRefRestoredEventPartsVarsBuilder)? updates]) =>
       (new GHeadRefRestoredEventPartsVarsBuilder()..update(updates)).build();
 
   _$GHeadRefRestoredEventPartsVars._() : super._();
@@ -5749,20 +5736,18 @@ class GHeadRefRestoredEventPartsVarsBuilder
     implements
         Builder<GHeadRefRestoredEventPartsVars,
             GHeadRefRestoredEventPartsVarsBuilder> {
-  _$GHeadRefRestoredEventPartsVars _$v;
+  _$GHeadRefRestoredEventPartsVars? _$v;
 
   GHeadRefRestoredEventPartsVarsBuilder();
 
   @override
   void replace(GHeadRefRestoredEventPartsVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GHeadRefRestoredEventPartsVars;
   }
 
   @override
-  void update(void Function(GHeadRefRestoredEventPartsVarsBuilder) updates) {
+  void update(void Function(GHeadRefRestoredEventPartsVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -5777,7 +5762,7 @@ class GHeadRefRestoredEventPartsVarsBuilder
 class _$GBaseRefForcePushedEventPartsVars
     extends GBaseRefForcePushedEventPartsVars {
   factory _$GBaseRefForcePushedEventPartsVars(
-          [void Function(GBaseRefForcePushedEventPartsVarsBuilder) updates]) =>
+          [void Function(GBaseRefForcePushedEventPartsVarsBuilder)? updates]) =>
       (new GBaseRefForcePushedEventPartsVarsBuilder()..update(updates)).build();
 
   _$GBaseRefForcePushedEventPartsVars._() : super._();
@@ -5813,20 +5798,19 @@ class GBaseRefForcePushedEventPartsVarsBuilder
     implements
         Builder<GBaseRefForcePushedEventPartsVars,
             GBaseRefForcePushedEventPartsVarsBuilder> {
-  _$GBaseRefForcePushedEventPartsVars _$v;
+  _$GBaseRefForcePushedEventPartsVars? _$v;
 
   GBaseRefForcePushedEventPartsVarsBuilder();
 
   @override
   void replace(GBaseRefForcePushedEventPartsVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GBaseRefForcePushedEventPartsVars;
   }
 
   @override
-  void update(void Function(GBaseRefForcePushedEventPartsVarsBuilder) updates) {
+  void update(
+      void Function(GBaseRefForcePushedEventPartsVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -5841,7 +5825,7 @@ class GBaseRefForcePushedEventPartsVarsBuilder
 class _$GHeadRefForcePushedEventPartsVars
     extends GHeadRefForcePushedEventPartsVars {
   factory _$GHeadRefForcePushedEventPartsVars(
-          [void Function(GHeadRefForcePushedEventPartsVarsBuilder) updates]) =>
+          [void Function(GHeadRefForcePushedEventPartsVarsBuilder)? updates]) =>
       (new GHeadRefForcePushedEventPartsVarsBuilder()..update(updates)).build();
 
   _$GHeadRefForcePushedEventPartsVars._() : super._();
@@ -5877,20 +5861,19 @@ class GHeadRefForcePushedEventPartsVarsBuilder
     implements
         Builder<GHeadRefForcePushedEventPartsVars,
             GHeadRefForcePushedEventPartsVarsBuilder> {
-  _$GHeadRefForcePushedEventPartsVars _$v;
+  _$GHeadRefForcePushedEventPartsVars? _$v;
 
   GHeadRefForcePushedEventPartsVarsBuilder();
 
   @override
   void replace(GHeadRefForcePushedEventPartsVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GHeadRefForcePushedEventPartsVars;
   }
 
   @override
-  void update(void Function(GHeadRefForcePushedEventPartsVarsBuilder) updates) {
+  void update(
+      void Function(GHeadRefForcePushedEventPartsVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -5904,7 +5887,7 @@ class GHeadRefForcePushedEventPartsVarsBuilder
 
 class _$GReviewRequestedEventPartsVars extends GReviewRequestedEventPartsVars {
   factory _$GReviewRequestedEventPartsVars(
-          [void Function(GReviewRequestedEventPartsVarsBuilder) updates]) =>
+          [void Function(GReviewRequestedEventPartsVarsBuilder)? updates]) =>
       (new GReviewRequestedEventPartsVarsBuilder()..update(updates)).build();
 
   _$GReviewRequestedEventPartsVars._() : super._();
@@ -5940,20 +5923,18 @@ class GReviewRequestedEventPartsVarsBuilder
     implements
         Builder<GReviewRequestedEventPartsVars,
             GReviewRequestedEventPartsVarsBuilder> {
-  _$GReviewRequestedEventPartsVars _$v;
+  _$GReviewRequestedEventPartsVars? _$v;
 
   GReviewRequestedEventPartsVarsBuilder();
 
   @override
   void replace(GReviewRequestedEventPartsVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GReviewRequestedEventPartsVars;
   }
 
   @override
-  void update(void Function(GReviewRequestedEventPartsVarsBuilder) updates) {
+  void update(void Function(GReviewRequestedEventPartsVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -5968,7 +5949,7 @@ class GReviewRequestedEventPartsVarsBuilder
 class _$GReviewRequestRemovedEventPartsVars
     extends GReviewRequestRemovedEventPartsVars {
   factory _$GReviewRequestRemovedEventPartsVars(
-          [void Function(GReviewRequestRemovedEventPartsVarsBuilder)
+          [void Function(GReviewRequestRemovedEventPartsVarsBuilder)?
               updates]) =>
       (new GReviewRequestRemovedEventPartsVarsBuilder()..update(updates))
           .build();
@@ -6006,21 +5987,19 @@ class GReviewRequestRemovedEventPartsVarsBuilder
     implements
         Builder<GReviewRequestRemovedEventPartsVars,
             GReviewRequestRemovedEventPartsVarsBuilder> {
-  _$GReviewRequestRemovedEventPartsVars _$v;
+  _$GReviewRequestRemovedEventPartsVars? _$v;
 
   GReviewRequestRemovedEventPartsVarsBuilder();
 
   @override
   void replace(GReviewRequestRemovedEventPartsVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GReviewRequestRemovedEventPartsVars;
   }
 
   @override
   void update(
-      void Function(GReviewRequestRemovedEventPartsVarsBuilder) updates) {
+      void Function(GReviewRequestRemovedEventPartsVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -6034,7 +6013,7 @@ class GReviewRequestRemovedEventPartsVarsBuilder
 
 class _$GReviewDismissedEventPartsVars extends GReviewDismissedEventPartsVars {
   factory _$GReviewDismissedEventPartsVars(
-          [void Function(GReviewDismissedEventPartsVarsBuilder) updates]) =>
+          [void Function(GReviewDismissedEventPartsVarsBuilder)? updates]) =>
       (new GReviewDismissedEventPartsVarsBuilder()..update(updates)).build();
 
   _$GReviewDismissedEventPartsVars._() : super._();
@@ -6070,20 +6049,18 @@ class GReviewDismissedEventPartsVarsBuilder
     implements
         Builder<GReviewDismissedEventPartsVars,
             GReviewDismissedEventPartsVarsBuilder> {
-  _$GReviewDismissedEventPartsVars _$v;
+  _$GReviewDismissedEventPartsVars? _$v;
 
   GReviewDismissedEventPartsVarsBuilder();
 
   @override
   void replace(GReviewDismissedEventPartsVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GReviewDismissedEventPartsVars;
   }
 
   @override
-  void update(void Function(GReviewDismissedEventPartsVarsBuilder) updates) {
+  void update(void Function(GReviewDismissedEventPartsVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -6097,7 +6074,7 @@ class GReviewDismissedEventPartsVarsBuilder
 
 class _$GPullRequestReviewPartsVars extends GPullRequestReviewPartsVars {
   factory _$GPullRequestReviewPartsVars(
-          [void Function(GPullRequestReviewPartsVarsBuilder) updates]) =>
+          [void Function(GPullRequestReviewPartsVarsBuilder)? updates]) =>
       (new GPullRequestReviewPartsVarsBuilder()..update(updates)).build();
 
   _$GPullRequestReviewPartsVars._() : super._();
@@ -6133,20 +6110,18 @@ class GPullRequestReviewPartsVarsBuilder
     implements
         Builder<GPullRequestReviewPartsVars,
             GPullRequestReviewPartsVarsBuilder> {
-  _$GPullRequestReviewPartsVars _$v;
+  _$GPullRequestReviewPartsVars? _$v;
 
   GPullRequestReviewPartsVarsBuilder();
 
   @override
   void replace(GPullRequestReviewPartsVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GPullRequestReviewPartsVars;
   }
 
   @override
-  void update(void Function(GPullRequestReviewPartsVarsBuilder) updates) {
+  void update(void Function(GPullRequestReviewPartsVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -6160,7 +6135,7 @@ class GPullRequestReviewPartsVarsBuilder
 
 class _$GMergedEventPartsVars extends GMergedEventPartsVars {
   factory _$GMergedEventPartsVars(
-          [void Function(GMergedEventPartsVarsBuilder) updates]) =>
+          [void Function(GMergedEventPartsVarsBuilder)? updates]) =>
       (new GMergedEventPartsVarsBuilder()..update(updates)).build();
 
   _$GMergedEventPartsVars._() : super._();
@@ -6193,20 +6168,18 @@ class _$GMergedEventPartsVars extends GMergedEventPartsVars {
 
 class GMergedEventPartsVarsBuilder
     implements Builder<GMergedEventPartsVars, GMergedEventPartsVarsBuilder> {
-  _$GMergedEventPartsVars _$v;
+  _$GMergedEventPartsVars? _$v;
 
   GMergedEventPartsVarsBuilder();
 
   @override
   void replace(GMergedEventPartsVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GMergedEventPartsVars;
   }
 
   @override
-  void update(void Function(GMergedEventPartsVarsBuilder) updates) {
+  void update(void Function(GMergedEventPartsVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -6220,7 +6193,7 @@ class GMergedEventPartsVarsBuilder
 
 class _$GHeadRefDeletedEventPartsVars extends GHeadRefDeletedEventPartsVars {
   factory _$GHeadRefDeletedEventPartsVars(
-          [void Function(GHeadRefDeletedEventPartsVarsBuilder) updates]) =>
+          [void Function(GHeadRefDeletedEventPartsVarsBuilder)? updates]) =>
       (new GHeadRefDeletedEventPartsVarsBuilder()..update(updates)).build();
 
   _$GHeadRefDeletedEventPartsVars._() : super._();
@@ -6256,20 +6229,18 @@ class GHeadRefDeletedEventPartsVarsBuilder
     implements
         Builder<GHeadRefDeletedEventPartsVars,
             GHeadRefDeletedEventPartsVarsBuilder> {
-  _$GHeadRefDeletedEventPartsVars _$v;
+  _$GHeadRefDeletedEventPartsVars? _$v;
 
   GHeadRefDeletedEventPartsVarsBuilder();
 
   @override
   void replace(GHeadRefDeletedEventPartsVars other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GHeadRefDeletedEventPartsVars;
   }
 
   @override
-  void update(void Function(GHeadRefDeletedEventPartsVarsBuilder) updates) {
+  void update(void Function(GHeadRefDeletedEventPartsVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 

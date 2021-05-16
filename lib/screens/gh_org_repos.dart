@@ -20,12 +20,12 @@ class GhOrgReposScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold<Repository, int>(
-      title: AppBarTitle(AppLocalizations.of(context).repositories),
+      title: AppBarTitle(AppLocalizations.of(context)!.repositories),
       fetch: (page) async {
         page = page ?? 1;
         final rs = await context
             .read<AuthModel>()
-            .ghClient
+            .ghClient!
             .getJSON<List, List<Repository>>(
               '/orgs/$owner/repos?sort=updated&page=$page',
               convert: (vs) => [for (var v in vs) Repository.fromJson(v)],
@@ -38,15 +38,15 @@ class GhOrgReposScreen extends StatelessWidget {
       },
       itemBuilder: (v) {
         return RepositoryItem.gh(
-          owner: v.owner.login,
-          avatarUrl: v.owner.avatarUrl,
+          owner: v.owner!.login,
+          avatarUrl: v.owner!.avatarUrl,
           name: v.name,
           description: v.description,
           starCount: v.stargazersCount,
           forkCount: v.forksCount,
           primaryLanguageName: v.language,
           primaryLanguageColor: null,
-          note: 'Updated ${timeago.format(v.updatedAt)}',
+          note: 'Updated ${timeago.format(v.updatedAt!)}',
           isPrivate: v.isPrivate,
           isFork: v.isFork,
         );

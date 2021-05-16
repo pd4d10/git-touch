@@ -21,10 +21,10 @@ class NilStore extends Store {
   Iterable<String> get keys => [];
 
   @override
-  void put(String dataId, Map<String, dynamic> value) {}
+  void put(String dataId, Map<String, dynamic>? value) {}
 
   @override
-  void putAll(Map<String, Map<String, dynamic>> data) {}
+  void putAll(Map<String, Map<String, dynamic>?> data) {}
 
   @override
   Stream<Map<String, dynamic>> watch(String dataId) {

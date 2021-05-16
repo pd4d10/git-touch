@@ -26,14 +26,14 @@ class StatusPayload {
 class GeRepoScreen extends StatelessWidget {
   final String owner;
   final String name;
-  final String branch;
+  final String? branch;
   GeRepoScreen(this.owner, this.name, {this.branch});
 
   @override
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold<
         Tuple4<GiteeRepo, MarkdownViewData, List<GiteeBranch>, StatusPayload>>(
-      title: AppBarTitle(AppLocalizations.of(context).repository),
+      title: AppBarTitle(AppLocalizations.of(context)!.repository),
       fetch: () async {
         final auth = context.read<AuthModel>();
         final repo = await auth.fetchGitee('/repos/$owner/$name').then((v) {
@@ -42,11 +42,11 @@ class GeRepoScreen extends StatelessWidget {
 
         final md =
             () => auth.fetchGitee('/repos/$owner/$name/readme').then((v) {
-                  return (v['content'] as String)?.base64ToUtf8;
+                  return (v['content'] as String?)?.base64ToUtf8 ?? '';
                 });
         final html = () => md().then((v) async {
               final res = await http.post(
-                Uri.parse('${auth.activeAccount.domain}/api/v5/markdown'),
+                Uri.parse('${auth.activeAccount!.domain}/api/v5/markdown'),
                 headers: {'Authorization': 'token ${auth.token}'},
                 body: {'text': v},
               );
@@ -75,9 +75,9 @@ class GeRepoScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             RepoHeader(
-                avatarUrl: p.owner.avatarUrl,
-                avatarLink: '/gitee/${p.namespace.path}',
-                owner: p.namespace.path,
+                avatarUrl: p.owner!.avatarUrl,
+                avatarLink: '/gitee/${p.namespace!.path}',
+                owner: p.namespace!.path,
                 name: p.path,
                 description: p.description,
                 homepageUrl: p.homepage,
@@ -148,7 +148,7 @@ class GeRepoScreen extends StatelessWidget {
                   rightWidget: Text(numberFormat.format(p.openIssuesCount)),
                   url: '/gitee/$owner/$name/issues',
                 ),
-                if (p.pullRequestsEnabled)
+                if (p.pullRequestsEnabled!)
                   TableViewItem(
                     leftIconData: Octicons.git_pull_request,
                     text: Text('Pull requests'),
@@ -163,9 +163,9 @@ class GeRepoScreen extends StatelessWidget {
                 if (branches != null)
                   TableViewItem(
                     leftIconData: Octicons.git_branch,
-                    text: Text(AppLocalizations.of(context).branches),
+                    text: Text(AppLocalizations.of(context)!.branches),
                     rightWidget: Text(
-                        (branch == null ? p.defaultBranch : branch) +
+                        (branch == null ? p.defaultBranch : branch)! +
                             ' • ' +
                             branches.length.toString()),
                     onTap: () async {

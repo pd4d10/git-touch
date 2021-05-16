@@ -14,8 +14,8 @@ class GhObjectScreen extends StatelessWidget {
   final String owner;
   final String name;
   final String ref;
-  final String path;
-  final String raw;
+  final String? path;
+  final String? raw;
   GhObjectScreen(this.owner, this.name, this.ref, {this.path, this.raw});
 
   @override
@@ -27,7 +27,7 @@ class GhObjectScreen extends StatelessWidget {
         // Do not request again for images
         if (path != null &&
             raw != null &&
-            ['png', 'jpg', 'jpeg', 'gif', 'webp'].contains(path.ext)) {
+            ['png', 'jpg', 'jpeg', 'gif', 'webp'].contains(path!.ext)) {
           return RepositoryContents(
             file: GitHubFile(downloadUrl: raw, content: ''),
           );
@@ -36,11 +36,11 @@ class GhObjectScreen extends StatelessWidget {
         final suffix = path == null ? '' : '/$path';
         final res = await context
             .read<AuthModel>()
-            .ghClient
+            .ghClient!
             .repositories
             .getContents(RepositorySlug(owner, name), suffix, ref: ref);
         if (res.isDirectory) {
-          res.tree.sort((a, b) {
+          res.tree!.sort((a, b) {
             return sortByKey('dir', a.type, b.type);
           });
         }
@@ -59,7 +59,7 @@ class GhObjectScreen extends StatelessWidget {
       bodyBuilder: (data, _) {
         if (data.isDirectory) {
           return ObjectTree(
-            items: data.tree.map((v) {
+            items: data.tree!.map((v) {
               // if (item.type == 'commit') return null;
               final uri = Uri(
                 path: '/github/$owner/$name/blob/$ref',
@@ -82,8 +82,8 @@ class GhObjectScreen extends StatelessWidget {
           // basePaths: [owner, name, branch, ...paths]
           return BlobView(
             path,
-            text: data.file.text,
-            networkUrl: data.file.downloadUrl,
+            text: data.file!.text,
+            networkUrl: data.file!.downloadUrl,
           );
         }
       },

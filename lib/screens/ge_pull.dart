@@ -86,8 +86,8 @@ class GePullScreen extends StatelessWidget {
         var additions = 0;
         var deletions = 0;
         for (var file in files) {
-          additions += int.parse(file.additions);
-          deletions += int.parse(file.deletions);
+          additions += int.parse(file.additions!);
+          deletions += int.parse(file.deletions!);
         }
         return Column(children: <Widget>[
           Container(
@@ -95,18 +95,18 @@ class GePullScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Link(
+                  LinkWidget(
                     child: Container(
                       padding: EdgeInsets.symmetric(vertical: 8),
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Link(
+                            LinkWidget(
                               url: '/gitee/$owner/$name',
                               child: Row(
                                 children: <Widget>[
                                   Avatar(
-                                    url: pull.user.avatarUrl,
+                                    url: pull.user!.avatarUrl,
                                     size: AvatarSize.extraSmall,
                                   ),
                                   SizedBox(width: 4),
@@ -130,7 +130,7 @@ class GePullScreen extends StatelessWidget {
                             ),
                             SizedBox(height: 8),
                             Text(
-                              pull.title,
+                              pull.title!,
                               style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w600,
@@ -145,7 +145,7 @@ class GePullScreen extends StatelessWidget {
                             SizedBox(height: 16),
                             CommonStyle.border,
                             CommonStyle.border,
-                            Link(
+                            LinkWidget(
                               url: '/gitee/$owner/$name/pulls/$number/files',
                               child: Container(
                                 padding: EdgeInsets.symmetric(vertical: 8),
@@ -201,7 +201,7 @@ class GePullScreen extends StatelessWidget {
                                   ),
                                   children: [
                                     for (var commit in commits) ...[
-                                      Link(
+                                      LinkWidget(
                                         url:
                                             '/gitee/$owner/$name/commits/${commit.sha}',
                                         child: Container(
@@ -212,7 +212,7 @@ class GePullScreen extends StatelessWidget {
                                                 MainAxisAlignment.spaceBetween,
                                             children: <Widget>[
                                               Text(
-                                                '${commit.sha.substring(0, 7)}',
+                                                '${commit.sha!.substring(0, 7)}',
                                                 style: TextStyle(
                                                   color: theme.palette.primary,
                                                   fontSize: 17,
@@ -240,12 +240,12 @@ class GePullScreen extends StatelessWidget {
                   padding: EdgeInsets.only(left: 10),
                   child: CommentItem(
                     avatar: Avatar(
-                      url: comment.user.avatarUrl,
-                      linkUrl: '/gitee/${comment.user.login}',
+                      url: comment.user!.avatarUrl,
+                      linkUrl: '/gitee/${comment.user!.login}',
                     ),
-                    createdAt: DateTime.parse(comment.createdAt),
+                    createdAt: DateTime.parse(comment.createdAt!),
                     body: comment.body,
-                    login: comment.user.login,
+                    login: comment.user!.login,
                     prefix: 'gitee',
                     commentActionItemList:
                         _buildCommentActionItem(context, comment),

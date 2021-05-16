@@ -20,17 +20,17 @@ class EmojiPayload {
   int count;
   bool reacted;
   EmojiPayload({
-    @required this.key,
-    @required this.text,
-    @required this.count,
-    @required this.reacted,
+    required this.key,
+    required this.text,
+    required this.count,
+    required this.reacted,
   });
 }
 
 typedef EmojiUpdateCallaback = void Function(GReactionContent data);
 
 class GhEmojiAction extends StatefulWidget {
-  final String id;
+  final String? id;
   final Iterable<EmojiPayload> items;
   final EmojiUpdateCallaback onReaction;
 
@@ -120,7 +120,7 @@ mutation {
       children: [
         for (final item in widget.items)
           if (item.count > 0)
-            Link(
+            LinkWidget(
               onTap: () {
                 _onReaction(item);
               },
@@ -145,7 +145,7 @@ mutation {
                 ),
               ),
             ),
-        Link(
+        LinkWidget(
           onTap: () async {
             await theme.showActions(context, [
               for (final item in widget.items)
@@ -175,12 +175,12 @@ mutation {
 
 class CommentItem extends StatelessWidget {
   final Avatar avatar;
-  final String login;
-  final DateTime createdAt;
-  final String body;
+  final String? login;
+  final DateTime? createdAt;
+  final String? body;
   final String prefix;
-  final List<Widget> widgets;
-  final List<ActionItem> commentActionItemList;
+  final List<Widget>? widgets;
+  final List<ActionItem>? commentActionItemList;
 
   // p.author could be null (deleted user)
   CommentItem.gql(
@@ -198,11 +198,11 @@ class CommentItem extends StatelessWidget {
         commentActionItemList = []; // TODO
 
   CommentItem({
-    @required this.avatar,
-    @required this.login,
-    @required this.createdAt,
-    @required this.body,
-    @required this.prefix,
+    required this.avatar,
+    required this.login,
+    required this.createdAt,
+    required this.body,
+    required this.prefix,
     this.widgets,
     this.commentActionItemList,
   });
@@ -223,7 +223,7 @@ class CommentItem extends StatelessWidget {
                 UserName(login, prefix),
                 SizedBox(height: 2),
                 Text(
-                  timeago.format(createdAt),
+                  timeago.format(createdAt!),
                   style: TextStyle(
                       color: theme.palette.tertiaryText, fontSize: 13),
                 ),
@@ -236,14 +236,14 @@ class CommentItem extends StatelessWidget {
                 iconData: Octicons.kebab_horizontal,
                 title: 'Comment Actions',
                 items: [
-                  if (commentActionItemList != null) ...commentActionItemList
+                  if (commentActionItemList != null) ...commentActionItemList!
                 ],
               )),
         ]),
         SizedBox(height: 12),
         MarkdownFlutterView(body, padding: EdgeInsets.zero), // TODO: link
         SizedBox(height: 12),
-        if (widgets != null) ...widgets
+        if (widgets != null) ...widgets!
       ],
     );
   }

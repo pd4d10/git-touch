@@ -19,7 +19,7 @@ class GlGroupScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold<Tuple2<GitlabGroup, int>>(
-      title: Text(AppLocalizations.of(context).group),
+      title: Text(AppLocalizations.of(context)!.group),
       fetch: () async {
         final auth = context.read<AuthModel>();
         final res = await Future.wait([
@@ -53,10 +53,10 @@ class GlGroupScreen extends StatelessWidget {
             CommonStyle.border,
             Column(
               children: <Widget>[
-                for (var v in p.projects)
+                for (var v in p.projects!)
                   RepositoryItem.gl(
                     payload: v,
-                    note: 'Updated ${timeago.format(v.lastActivityAt)}',
+                    note: 'Updated ${timeago.format(v.lastActivityAt!)}',
                   )
               ],
             )

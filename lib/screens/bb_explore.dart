@@ -10,8 +10,8 @@ import 'package:flutter_gen/gen_l10n/S.dart';
 class BbExploreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ListStatefulScaffold<BbRepo, String>(
-      title: AppBarTitle(AppLocalizations.of(context).explore),
+    return ListStatefulScaffold<BbRepo, String?>(
+      title: AppBarTitle(AppLocalizations.of(context)!.explore),
       fetch: (nextUrl) async {
         final res = await context.read<AuthModel>().fetchBbWithPage(
             nextUrl ?? '/repositories?role=member&sort=-updated_on');
@@ -19,7 +19,7 @@ class BbExploreScreen extends StatelessWidget {
           cursor: res.cursor,
           hasMore: res.hasMore,
           items: <BbRepo>[
-            for (var v in res.data) BbRepo.fromJson(v),
+            for (var v in res.data!) BbRepo.fromJson(v),
           ],
         );
       },

@@ -8,20 +8,20 @@ import 'package:provider/provider.dart';
 class TabScaffold extends StatelessWidget {
   final Widget title;
   final Widget body;
-  final Widget action;
+  final Widget? action;
   final void Function() onRefresh;
   final List<String> tabs;
   final int activeTab;
   final Function(int index) onTabSwitch;
 
   TabScaffold({
-    @required this.title,
-    @required this.body,
+    required this.title,
+    required this.body,
     this.action,
-    @required this.onRefresh,
-    @required this.tabs,
-    @required this.activeTab,
-    @required this.onTabSwitch,
+    required this.onRefresh,
+    required this.tabs,
+    required this.activeTab,
+    required this.onTabSwitch,
   });
 
   Widget _buildTitle(BuildContext context) {
@@ -32,9 +32,12 @@ class TabScaffold extends StatelessWidget {
           child: Row(
             children: [
               Expanded(
-                child: CupertinoSlidingSegmentedControl(
+                child: CupertinoSlidingSegmentedControl<int>(
                   groupValue: activeTab,
-                  onValueChanged: onTabSwitch,
+                  onValueChanged: (v) {
+                    if (v == null) return;
+                    onTabSwitch(v);
+                  },
                   children: tabs.asMap().map((key, text) => MapEntry(
                       key,
                       Padding(

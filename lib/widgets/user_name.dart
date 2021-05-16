@@ -4,7 +4,7 @@ import 'package:git_touch/widgets/link.dart';
 import 'package:provider/provider.dart';
 
 class UserName extends StatelessWidget {
-  final String login;
+  final String? login;
   final String prefix;
 
   UserName(this.login, this.prefix);
@@ -12,7 +12,7 @@ class UserName extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
-    return Link(
+    return LinkWidget(
       url: '/$prefix/$login',
       child: Container(
         // padding: EdgeInsets.all(2),
@@ -20,7 +20,7 @@ class UserName extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(4)),
         ),
         child: Text(
-          login,
+          login!,
           style: TextStyle(
             fontWeight: FontWeight.w600,
             color: theme.palette.primary,

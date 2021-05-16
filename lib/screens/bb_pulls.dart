@@ -15,8 +15,8 @@ class BbPullsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthModel>(context);
-    return ListStatefulScaffold<BbPulls, String>(
-      title: AppBarTitle(AppLocalizations.of(context).pullRequests),
+    return ListStatefulScaffold<BbPulls, String?>(
+      title: AppBarTitle(AppLocalizations.of(context)!.pullRequests),
       fetch: (nextUrl) async {
         final res = await context.read<AuthModel>().fetchBbWithPage(
             nextUrl ?? '/repositories/$owner/$name/pullrequests');
@@ -24,22 +24,22 @@ class BbPullsScreen extends StatelessWidget {
           cursor: res.cursor,
           hasMore: res.hasMore,
           items: <BbPulls>[
-            for (var v in res.data) BbPulls.fromJson(v),
+            for (var v in res.data!) BbPulls.fromJson(v),
           ],
         );
       },
       itemBuilder: (v) {
         int pullNumber =
-            int.parse(v.pullRequestLink.replaceFirst(RegExp(r'.*\/'), ''));
+            int.parse(v.pullRequestLink!.replaceFirst(RegExp(r'.*\/'), ''));
         return IssueItem(
-          avatarUrl: v.author.avatarUrl,
-          author: v.author.displayName,
+          avatarUrl: v.author!.avatarUrl,
+          author: v.author!.displayName,
           title: v.title,
           subtitle: '#' + pullNumber.toString(),
           commentCount: 0,
           updatedAt: v.createdOn,
           url:
-              '${auth.activeAccount.domain}/$owner/$name/pull-requests/$pullNumber',
+              '${auth.activeAccount!.domain}/$owner/$name/pull-requests/$pullNumber',
         );
       },
     );

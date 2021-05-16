@@ -18,7 +18,7 @@ class GeTreeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold<List<GiteeTreeItem>>(
-      title: AppBarTitle(AppLocalizations.of(context).files),
+      title: AppBarTitle(AppLocalizations.of(context)!.files),
       fetch: () async {
         final res = await context
             .read<AuthModel>()
@@ -41,9 +41,9 @@ class GeTreeScreen extends StatelessWidget {
                 url: (() {
                   switch (item.type) {
                     case 'tree':
-                      return '/gitee/$owner/$name/tree/${item.sha}?path=${item.path.urlencode}';
+                      return '/gitee/$owner/$name/tree/${item.sha}?path=${item.path!.urlencode}';
                     case 'blob':
-                      return '/gitee/$owner/$name/blob/${item.sha}?path=${item.path.urlencode}';
+                      return '/gitee/$owner/$name/blob/${item.sha}?path=${item.path!.urlencode}';
                     default:
                       return null;
                   }

@@ -48,12 +48,12 @@ class BbIssueScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Link(
+                  LinkWidget(
                     url: '/bitbucket/$owner/$name',
                     child: Row(
                       children: <Widget>[
                         Avatar(
-                          url: issue.reporter.avatarUrl,
+                          url: issue.reporter!.avatarUrl,
                           size: AvatarSize.extraSmall,
                         ),
                         SizedBox(width: 4),
@@ -77,7 +77,7 @@ class BbIssueScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 8),
                   Text(
-                    issue.title,
+                    issue.title!,
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
@@ -95,12 +95,12 @@ class BbIssueScreen extends StatelessWidget {
                   padding: EdgeInsets.only(left: 10),
                   child: CommentItem(
                       avatar: Avatar(
-                        url: comment.user.avatarUrl,
-                        linkUrl: '/bitbucket/${comment.user.displayName}',
+                        url: comment.user!.avatarUrl,
+                        linkUrl: '/bitbucket/${comment.user!.displayName}',
                       ),
-                      createdAt: DateTime.parse(comment.createdOn),
-                      body: comment.content.raw,
-                      login: comment.user.displayName,
+                      createdAt: DateTime.parse(comment.createdOn!),
+                      body: comment.content!.raw,
+                      login: comment.user!.displayName,
                       prefix: 'bitbucket')),
               CommonStyle.border,
               SizedBox(height: 16),

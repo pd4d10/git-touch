@@ -17,36 +17,36 @@ const darkMapper = {
 };
 
 class HideScrollbar extends StatelessWidget {
-  final Widget child;
-  const HideScrollbar({Key key, this.child}) : super(key: key);
+  final Widget? child;
+  const HideScrollbar({Key? key, this.child}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return NotificationListener<ScrollNotification>(
       onNotification: (_) => true,
-      child: child,
+      child: child!,
     );
   }
 }
 
 class ContributionDay {
-  String hexColor;
-  int count;
+  String? hexColor;
+  int? count;
   ContributionDay({this.hexColor, this.count})
       : assert(hexColor != null || count != null);
 }
 
 class ContributionWidget extends StatelessWidget {
-  final Iterable<Iterable<ContributionDay>> weeks;
-  ContributionWidget({@required this.weeks}) {
-    int maxCount;
-    for (var week in weeks) {
+  final Iterable<Iterable<ContributionDay>>? weeks;
+  ContributionWidget({required this.weeks}) {
+    int? maxCount;
+    for (var week in weeks!) {
       for (var day in week) {
         if (day.count != null) {
           if (maxCount == null) {
-            for (var week in weeks) {
+            for (var week in weeks!) {
               for (var day in week) {
-                maxCount = max(day.count, maxCount ?? 0);
+                maxCount = max(day.count!, maxCount ?? 0);
               }
             }
           }
@@ -54,7 +54,7 @@ class ContributionWidget extends StatelessWidget {
             day.hexColor = contributionEmptyColor;
           } else {
             // TODO: algorithm
-            final level = (day.count * 4) ~/ (maxCount + 1);
+            final level = (day.count! * 4) ~/ (maxCount! + 1);
             day.hexColor = contributionColors[level];
           }
         }
@@ -75,7 +75,7 @@ class ContributionWidget extends StatelessWidget {
         child: Wrap(
           spacing: 3,
           children: [
-            for (final week in weeks)
+            for (final week in weeks!)
               Wrap(
                 direction: Axis.vertical,
                 spacing: 3,
@@ -88,7 +88,7 @@ class ContributionWidget extends StatelessWidget {
                         decoration: BoxDecoration(
                             color: convertColor(
                               theme.brightness == Brightness.dark
-                                  ? darkMapper[day.hexColor]
+                                  ? darkMapper[day.hexColor!]
                                   : day.hexColor,
                             ),
                             borderRadius: BorderRadius.circular(2)),

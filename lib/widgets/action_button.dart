@@ -6,27 +6,27 @@ import 'package:git_touch/models/theme.dart';
 import 'package:share/share.dart';
 
 class ActionItem {
-  String text;
-  String url;
+  String? text;
+  String? url;
   bool isDestructiveAction;
-  void Function(BuildContext context) onTap;
-  IconData iconData;
+  void Function(BuildContext context)? onTap;
+  IconData? iconData;
 
   ActionItem({
-    @required this.text,
+    required this.text,
     this.onTap,
     this.url,
     this.iconData,
     this.isDestructiveAction = false,
   });
 
-  static List<ActionItem> getUrlActions(String url) {
+  static List<ActionItem> getUrlActions(String? url) {
     return [
       ActionItem(
         text: 'Share',
         iconData: Octicons.rocket,
         onTap: (_) {
-          Share.share(url);
+          Share.share(url!);
         },
       ),
       ActionItem(
@@ -44,11 +44,11 @@ class ActionButton extends StatelessWidget {
   final String title;
   final List<ActionItem> items;
   final IconData iconData;
-  final int selected;
+  final int? selected;
 
   ActionButton({
-    @required this.title,
-    @required this.items,
+    required this.title,
+    required this.items,
     this.iconData = Ionicons.ellipsis_horizontal,
     this.selected,
   });
@@ -75,7 +75,7 @@ class ActionButton extends StatelessWidget {
                           Icon(entry.value.iconData),
                           SizedBox(width: 10),
                           Text(
-                            entry.value.text,
+                            entry.value.text!,
                             style: TextStyle(
                                 fontWeight: selected == entry.key
                                     ? FontWeight.w500
@@ -100,9 +100,9 @@ class ActionButton extends StatelessWidget {
             );
 
             if (value != null) {
-              if (items[value].onTap != null) items[value].onTap(context);
+              if (items[value].onTap != null) items[value].onTap!(context);
               if (items[value].url != null)
-                theme.push(context, items[value].url);
+                theme.push(context, items[value].url!);
             }
           },
         );
@@ -118,14 +118,14 @@ class ActionButton extends StatelessWidget {
                   children: [
                     Icon(entry.value.iconData),
                     SizedBox(width: 10),
-                    Text(entry.value.text)
+                    Text(entry.value.text!)
                   ],
                 ),
               );
             }).toList();
           },
-          onSelected: (value) {
-            items[value].onTap(context);
+          onSelected: (dynamic value) {
+            items[value].onTap!(context);
           },
         );
     }

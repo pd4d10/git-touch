@@ -15,10 +15,10 @@ class GhTrendingScreen extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return TabStatefulScaffold<List>(
-      title: AppBarTitle(AppLocalizations.of(context).trending),
+      title: AppBarTitle(AppLocalizations.of(context)!.trending),
       tabs: [
-        AppLocalizations.of(context).repositories,
-        AppLocalizations.of(context).developers
+        AppLocalizations.of(context)!.repositories,
+        AppLocalizations.of(context)!.developers
       ],
       fetchData: (tabIndex) async {
         if (tabIndex == 0) {
@@ -58,8 +58,8 @@ class GhTrendingScreen extends StatelessWidget {
                         avatarUrl: v.avatar,
                         bio: v.repo == null
                             ? null
-                            : Link(
-                                url: '/github/${v.username}/${v.repo.name}',
+                            : LinkWidget(
+                                url: '/github/${v.username}/${v.repo!.name}',
                                 child: Row(
                                   children: <Widget>[
                                     Icon(
@@ -70,7 +70,7 @@ class GhTrendingScreen extends StatelessWidget {
                                     SizedBox(width: 4),
                                     Expanded(
                                         child: Text(
-                                      '${v.username} / ${v.repo.name}',
+                                      '${v.username} / ${v.repo!.name}',
                                       style: TextStyle(
                                         fontSize: 17,
                                         color: theme.palette.secondaryText,

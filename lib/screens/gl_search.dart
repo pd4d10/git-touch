@@ -19,14 +19,14 @@ class GlSearchScreen extends StatefulWidget {
 }
 
 class _GlSearchScreenState extends State<GlSearchScreen> {
-  int _activeTab = 0;
+  int? _activeTab = 0;
   bool _loading = false;
   List<GitlabProject> _projects = [];
   List<GitlabUser> _users = [];
 
-  TextEditingController _controller;
+  TextEditingController? _controller;
 
-  String get _keyword => _controller.text?.trim() ?? '';
+  String get _keyword => _controller!.text?.trim() ?? '';
 
   @override
   void initState() {
@@ -36,14 +36,14 @@ class _GlSearchScreenState extends State<GlSearchScreen> {
 
   @override
   void dispose() {
-    _controller.dispose();
+    _controller!.dispose();
     super.dispose();
   }
 
   Future<void> _query() async {
     if (_loading || _keyword.isEmpty) return;
 
-    var keyword = _controller.text;
+    var keyword = _controller!.text;
     setState(() {
       _loading = true;
     });
@@ -75,7 +75,7 @@ class _GlSearchScreenState extends State<GlSearchScreen> {
                 Icon(Octicons.search, size: 20, color: PrimerColors.gray400),
               ],
             ),
-            placeholder: AppLocalizations.of(context).search,
+            placeholder: AppLocalizations.of(context)!.search,
             clearButtonMode: OverlayVisibilityMode.editing,
             textInputAction: TextInputAction.go,
             onSubmitted: (_) => _query(),
@@ -85,7 +85,7 @@ class _GlSearchScreenState extends State<GlSearchScreen> {
       default:
         return TextField(
           decoration: InputDecoration.collapsed(
-              hintText: AppLocalizations.of(context).search),
+              hintText: AppLocalizations.of(context)!.search),
           textInputAction: TextInputAction.go,
           onSubmitted: (_) => _query(),
           controller: _controller,
@@ -93,7 +93,7 @@ class _GlSearchScreenState extends State<GlSearchScreen> {
     }
   }
 
-  _onTabSwitch(int index) {
+  _onTabSwitch(int? index) {
     setState(() {
       _activeTab = index;
     });
@@ -107,7 +107,7 @@ class _GlSearchScreenState extends State<GlSearchScreen> {
   Widget _buildItem(_p) {
     if (_activeTab == 0) {
       final p = _p as GitlabProject;
-      final updatedAt = timeago.format(p.lastActivityAt);
+      final updatedAt = timeago.format(p.lastActivityAt!);
       return RepositoryItem.gl(
         payload: p,
         note: 'Updated $updatedAt',

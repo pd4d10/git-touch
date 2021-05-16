@@ -14,7 +14,7 @@ import 'package:flutter_gen/gen_l10n/S.dart';
 // TODO:
 class GlCommitScreen extends StatelessWidget {
   final String id;
-  final String sha;
+  final String? sha;
   GlCommitScreen(this.id, {this.sha});
 
   Future<List<GitlabDiff>> _query(BuildContext context) async {
@@ -30,7 +30,7 @@ class GlCommitScreen extends StatelessWidget {
     final theme = Provider.of<ThemeModel>(context);
 
     return RefreshStatefulScaffold<List<GitlabDiff>>(
-      title: AppBarTitle(AppLocalizations.of(context).commits),
+      title: AppBarTitle(AppLocalizations.of(context)!.commits),
       fetch: () => _query(context),
       bodyBuilder: (items, _) {
         return Column(
@@ -40,11 +40,11 @@ class GlCommitScreen extends StatelessWidget {
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: HighlightView(
-                  item.diff,
+                  item.diff!,
                   language: 'diff',
                   theme: themeMap[theme.brightness == Brightness.dark
                       ? codeProvider.themeDark
-                      : codeProvider.theme],
+                      : codeProvider.theme]!,
                   padding: CommonStyle.padding,
                   textStyle: TextStyle(
                       fontSize: codeProvider.fontSize.toDouble(),

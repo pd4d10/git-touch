@@ -80,12 +80,12 @@ class GtIssueScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Link(
+                  LinkWidget(
                     url: '/gitea/$owner/$name',
                     child: Row(
                       children: <Widget>[
                         Avatar(
-                          url: issue.user.avatarUrl,
+                          url: issue.user!.avatarUrl,
                           size: AvatarSize.extraSmall,
                         ),
                         SizedBox(width: 4),
@@ -109,7 +109,7 @@ class GtIssueScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 8),
                   Text(
-                    issue.title,
+                    issue.title!,
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
@@ -131,12 +131,12 @@ class GtIssueScreen extends StatelessWidget {
                   padding: EdgeInsets.only(left: 10),
                   child: CommentItem(
                     avatar: Avatar(
-                      url: comment.user.avatarUrl,
-                      linkUrl: '/gitea/${comment.user.login}',
+                      url: comment.user!.avatarUrl,
+                      linkUrl: '/gitea/${comment.user!.login}',
                     ),
                     createdAt: comment.createdAt,
                     body: comment.body,
-                    login: comment.user.login,
+                    login: comment.user!.login,
                     prefix: 'gitea',
                     commentActionItemList:
                         _buildCommentActionItem(context, comment),

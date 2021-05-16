@@ -24,7 +24,7 @@ class GlMembersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GitlabUser, int>(
-      title: AppBarTitle(AppLocalizations.of(context).members),
+      title: AppBarTitle(AppLocalizations.of(context)!.members),
       fetch: (page) async {
         page = page ?? 1;
         final auth = context.read<AuthModel>();
@@ -43,7 +43,7 @@ class GlMembersScreen extends StatelessWidget {
           avatarUrl: v.avatarUrl,
           login: v.username,
           name: v.name,
-          bio: Text(accessLevelMap[v.accessLevel] ?? ''),
+          bio: Text(accessLevelMap[v.accessLevel!] ?? ''),
           id: v.id,
         );
       },

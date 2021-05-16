@@ -13,14 +13,14 @@ import 'package:provider/provider.dart';
 class GoObjectScreen extends StatelessWidget {
   final String owner;
   final String name;
-  final String path;
-  final String ref;
+  final String? path;
+  final String? ref;
   GoObjectScreen(this.owner, this.name, {this.path, this.ref});
 
   @override
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold(
-      title: AppBarTitle(path ?? AppLocalizations.of(context).files),
+      title: AppBarTitle(path ?? AppLocalizations.of(context)!.files),
       fetch: () async {
         final suffix = path == null ? '' : '/$path';
         final res = await context
@@ -28,7 +28,7 @@ class GoObjectScreen extends StatelessWidget {
             .fetchGogs('/repos/$owner/$name/contents$suffix?ref=$ref');
         return res;
       },
-      actionBuilder: (p, _) {
+      actionBuilder: (dynamic p, _) {
         if (p is List) {
           return null;
         } else {
@@ -38,7 +38,7 @@ class GoObjectScreen extends StatelessWidget {
           );
         }
       },
-      bodyBuilder: (p, _) {
+      bodyBuilder: (dynamic p, _) {
         if (p is List) {
           final items = p.map((t) => GogsTree.fromJson(t)).toList();
           items.sort((a, b) {
@@ -51,7 +51,7 @@ class GoObjectScreen extends StatelessWidget {
                 type: v.type,
                 size: v.type == 'file' ? v.size : null,
                 url:
-                    '/gogs/$owner/$name/blob?path=${v.path.urlencode}&ref=$ref',
+                    '/gogs/$owner/$name/blob?path=${v.path!.urlencode}&ref=$ref',
                 downloadUrl: v.downloadUrl,
               ),
           ]);

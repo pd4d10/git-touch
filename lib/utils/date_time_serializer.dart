@@ -9,7 +9,7 @@ class DateTimeSerializer implements PrimitiveSerializer<DateTime> {
   }) {
     assert(serialized is String,
         "DateTimeSerializer expected 'String' but got ${serialized.runtimeType}");
-    return DateTime.parse(serialized);
+    return DateTime.parse(serialized as String);
   }
 
   @override

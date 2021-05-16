@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:git_touch/utils/utils.dart';
 
 class MyLabel extends StatelessWidget {
-  final String name;
-  final Color color;
-  final String cssColor;
-  final Color textColor;
+  final String? name;
+  final Color? color;
+  final String? cssColor;
+  final Color? textColor;
 
   MyLabel({
-    @required this.name,
+    required this.name,
     this.color,
     this.cssColor,
     this.textColor,
@@ -24,7 +24,7 @@ class MyLabel extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(4)),
       ),
       child: Text(
-        name,
+        name!,
         style: TextStyle(
           fontSize: 13,
           color: textColor ?? getFontColorByBrightness(_color),

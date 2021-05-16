@@ -28,17 +28,17 @@ class GePullsScreen extends StatelessWidget {
         );
       },
       itemBuilder: (p) => IssueItem(
-        author: p.user.login,
-        avatarUrl: p.user.avatarUrl,
+        author: p.user!.login,
+        avatarUrl: p.user!.avatarUrl,
         commentCount: 0, // fix this
         subtitle: '#' + p.number.toString(),
         title: p.title,
-        updatedAt: DateTime.parse(p.updatedAt),
+        updatedAt: DateTime.parse(p.updatedAt!),
         url: '/gitee/$owner/$name/pulls/${p.number}',
-        labels: p.labels.isEmpty
+        labels: p.labels!.isEmpty
             ? null
             : Wrap(spacing: 4, runSpacing: 4, children: [
-                for (var label in p.labels)
+                for (var label in p.labels!)
                   MyLabel(name: label.name, cssColor: label.color)
               ]),
       ),

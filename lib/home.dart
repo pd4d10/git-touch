@@ -48,7 +48,7 @@ class _HomeState extends State<Home> {
     // return Image.asset('images/spinner.webp', width: 32, height: 32);
     // return GhRepoScreen('shreyas1599', 'test');
     final auth = Provider.of<AuthModel>(context);
-    switch (auth.activeAccount.platform) {
+    switch (auth.activeAccount!.platform) {
       case PlatformType.github:
         switch (index) {
           case 0:
@@ -90,7 +90,7 @@ class _HomeState extends State<Home> {
           case 0:
             return GtOrgsScreen();
           case 1:
-            return GtUserScreen(auth.activeAccount.login, isViewer: true);
+            return GtUserScreen(auth.activeAccount!.login, isViewer: true);
         }
         break;
       case PlatformType.gitee:
@@ -98,7 +98,7 @@ class _HomeState extends State<Home> {
           case 0:
             return GeSearchScreen();
           case 1:
-            return GeUserScreen(auth.activeAccount.login, isViewer: true);
+            return GeUserScreen(auth.activeAccount!.login, isViewer: true);
         }
         break;
       case PlatformType.gogs:
@@ -106,7 +106,7 @@ class _HomeState extends State<Home> {
           case 0:
             return GoSearchScreen();
           case 1:
-            return GoUserScreen(auth.activeAccount.login, isViewer: true);
+            return GoUserScreen(auth.activeAccount!.login, isViewer: true);
         }
     }
   }
@@ -151,22 +151,22 @@ class _HomeState extends State<Home> {
     final search = BottomNavigationBarItem(
       icon: Icon(Ionicons.search_outline),
       activeIcon: Icon(Ionicons.search),
-      label: AppLocalizations.of(context).search,
+      label: AppLocalizations.of(context)!.search,
     );
     final group = BottomNavigationBarItem(
       icon: Icon(Ionicons.people_outline),
       activeIcon: Icon(Ionicons.people),
-      label: AppLocalizations.of(context).organizations,
+      label: AppLocalizations.of(context)!.organizations,
     );
     final me = BottomNavigationBarItem(
       icon: Icon(Ionicons.person_outline),
       activeIcon: Icon(Ionicons.person),
-      label: AppLocalizations.of(context).me,
+      label: AppLocalizations.of(context)!.me,
     );
     final explore = BottomNavigationBarItem(
       icon: Icon(Ionicons.compass_outline),
       activeIcon: Icon(Ionicons.compass),
-      label: AppLocalizations.of(context).explore,
+      label: AppLocalizations.of(context)!.explore,
     );
 
     switch (platform) {
@@ -175,18 +175,18 @@ class _HomeState extends State<Home> {
           BottomNavigationBarItem(
             icon: Icon(Ionicons.newspaper_outline),
             activeIcon: Icon(Ionicons.newspaper),
-            label: AppLocalizations.of(context).news,
+            label: AppLocalizations.of(context)!.news,
           ),
           BottomNavigationBarItem(
             icon:
                 _buildNotificationIcon(context, Ionicons.notifications_outline),
             activeIcon: _buildNotificationIcon(context, Ionicons.notifications),
-            label: AppLocalizations.of(context).notification,
+            label: AppLocalizations.of(context)!.notification,
           ),
           BottomNavigationBarItem(
             icon: Icon(Ionicons.flame_outline),
             activeIcon: Icon(Ionicons.flame),
-            label: AppLocalizations.of(context).trending,
+            label: AppLocalizations.of(context)!.trending,
           ),
           search,
           me,
@@ -219,15 +219,15 @@ class _HomeState extends State<Home> {
       return LoginScreen();
     }
 
-    final navigationItems = _buildNavigationItems(auth.activeAccount.platform);
+    final navigationItems = _buildNavigationItems(auth.activeAccount!.platform);
 
     switch (theme.theme) {
       case AppThemeType.cupertino:
         return WillPopScope(
           onWillPop: () async {
-            return !await getNavigatorKey(auth.activeTab)
+            return !(await getNavigatorKey(auth.activeTab)
                 .currentState
-                ?.maybePop();
+                ?.maybePop())!;
           },
           child: CupertinoTabScaffold(
             tabBuilder: (context, index) {

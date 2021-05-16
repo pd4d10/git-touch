@@ -4,12 +4,12 @@ import 'package:git_touch/utils/utils.dart';
 class TextWithAt extends StatelessWidget {
   final String text;
   final String Function(String text) linkFactory;
-  final TextStyle style;
+  final TextStyle? style;
   final bool oneLine;
 
   TextWithAt({
-    @required this.text,
-    @required this.linkFactory,
+    required this.text,
+    required this.linkFactory,
     this.style,
     this.oneLine = false,
   });
@@ -26,8 +26,8 @@ class TextWithAt extends StatelessWidget {
       if (chunks[index].isNotEmpty) {
         spans.add(TextSpan(text: chunks[index]));
       }
-      spans.add(
-          createLinkSpan(context, matches[index], linkFactory(matches[index])));
+      spans.add(createLinkSpan(
+          context, matches[index], linkFactory(matches[index] ?? '')));
     }
     if (chunks.last.isNotEmpty) {
       spans.add(TextSpan(text: chunks.last));
