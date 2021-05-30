@@ -208,15 +208,16 @@ class AuthModel with ChangeNotifier {
     final res = await http.get(Uri.parse('${activeAccount!.domain}/api/v4$p'),
         headers: {'Private-Token': token});
     final next = int.tryParse(
-        res.headers['X-Next-Pages'] ?? res.headers['x-next-page'] ?? '')!;
+        res.headers['X-Next-Pages'] ?? res.headers['x-next-page'] ?? '');
     final info = json.decode(utf8.decode(res.bodyBytes));
     if (info is Map && info['message'] != null) throw info['message'];
     return DataWithPage(
       data: info,
-      cursor: next,
+      cursor: next ?? 1,
       hasMore: next != null,
-      total:
-          int.tryParse(res.headers['X-Total'] ?? res.headers['x-total'] ?? '')!,
+      total: int.tryParse(
+              res.headers['X-Total'] ?? res.headers['x-total'] ?? '') ??
+          TOTAL_COUNT_FALLBACK,
     );
   }
 
@@ -318,7 +319,8 @@ class AuthModel with ChangeNotifier {
       data: info,
       cursor: page + 1,
       hasMore: info is List && info.length > 0,
-      total: int.tryParse(res.headers['x-total-count'] ?? '')!,
+      total: int.tryParse(res.headers['x-total-count'] ?? '') ??
+          TOTAL_COUNT_FALLBACK,
     );
   }
 
@@ -421,7 +423,8 @@ class AuthModel with ChangeNotifier {
       data: info,
       cursor: page + 1,
       hasMore: info is List && info.length > 0,
-      total: int.tryParse(res.headers['x-total-count'] ?? '')!,
+      total: int.tryParse(res.headers['x-total-count'] ?? '') ??
+          TOTAL_COUNT_FALLBACK,
     );
   }
 
@@ -504,7 +507,8 @@ class AuthModel with ChangeNotifier {
     final info = json.decode(utf8.decode(res.bodyBytes));
 
     final totalPage = int.tryParse(res.headers['total_page'] ?? '');
-    final totalCount = int.tryParse(res.headers['total_count'] ?? '')!;
+    final totalCount =
+        int.tryParse(res.headers['total_count'] ?? '') ?? TOTAL_COUNT_FALLBACK;
 
     return DataWithPage(
       data: info,
@@ -584,7 +588,7 @@ class AuthModel with ChangeNotifier {
     final v = BbPagination.fromJson(data);
     return BbPagePayload(
       cursor: v.next,
-      total: v.size!,
+      total: v.size ?? TOTAL_COUNT_FALLBACK,
       data: v.values,
       hasMore: v.next != null,
     );

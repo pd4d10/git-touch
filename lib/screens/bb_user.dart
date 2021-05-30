@@ -34,10 +34,7 @@ class BbUserScreen extends StatelessWidget {
         ]);
         return Tuple2(
           BbUser.fromJson(res[0]),
-          [
-            for (var v in (res[1] as BbPagePayload<List>).data)
-              BbRepo.fromJson(v)
-          ],
+          [for (var v in res[1].data) BbRepo.fromJson(v)],
         );
       },
       action: isViewer

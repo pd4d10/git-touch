@@ -189,3 +189,5 @@ int sortByKey<T>(T key, T a, T b) {
   if (a != key && b == key) return 1;
   return 0;
 }
+
+const TOTAL_COUNT_FALLBACK = 999; // TODO:

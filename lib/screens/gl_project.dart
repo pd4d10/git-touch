@@ -206,7 +206,8 @@ class GlProjectScreen extends StatelessWidget {
                     leftIconData: Octicons.git_branch,
                     text: Text(AppLocalizations.of(context)!.branches),
                     rightWidget: Text(
-                        (branch == null ? p.defaultBranch : branch)! +
+                        ((branch == null ? p.defaultBranch : branch) ??
+                                '' /** empty project */) +
                             ' • ' +
                             branches.length.toString()),
                     onTap: () async {
