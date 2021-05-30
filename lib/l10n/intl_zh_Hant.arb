@@ -71,7 +71,7 @@
   "@githubAccount": {
     "description": "Gitea Account"
   },
-  "somethingBadHappens": "糟糕的事情发生了。",
+  "somethingBadHappens": "糟糕的事情发生了：",
   "@somethingBadHappens": {
     "description": "error message"
   },
