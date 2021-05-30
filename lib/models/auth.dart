@@ -65,15 +65,15 @@ class AuthModel with ChangeNotifier {
   // static final inAppReview = InAppReview.instance;
   var hasRequestedReview = false;
 
-  List<Account>? _accounts;
+  List<Account> _accounts = [];
   int? activeAccountIndex;
   late StreamSubscription<Uri?> _sub;
   bool loading = false;
 
   List<Account>? get accounts => _accounts;
   Account? get activeAccount {
-    if (activeAccountIndex == null || _accounts == null) return null;
-    return _accounts![activeAccountIndex!];
+    if (activeAccountIndex == null || _accounts.isEmpty) return null;
+    return _accounts[activeAccountIndex!];
   }
 
   String get token => activeAccount!.token;
@@ -89,7 +89,7 @@ class AuthModel with ChangeNotifier {
     if (activeAccountIndex == index) {
       activeAccountIndex = null;
     }
-    _accounts!.removeAt(index);
+    _accounts.removeAt(index);
     // Save
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(StorageKeys.accounts, json.encode(_accounts));
