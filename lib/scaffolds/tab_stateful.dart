@@ -22,7 +22,7 @@ class TabStatefulScaffold<T> extends StatefulWidget {
   _TabStatefulScaffoldState<T> createState() => _TabStatefulScaffoldState();
 }
 
-class _TabStatefulScaffoldState<T> extends State<TabStatefulScaffold<T?>> {
+class _TabStatefulScaffoldState<T> extends State<TabStatefulScaffold<T>> {
   late bool _loading;
   T? _payload0;
   T? _payload1;
@@ -90,7 +90,7 @@ class _TabStatefulScaffoldState<T> extends State<TabStatefulScaffold<T?>> {
       title: widget.title,
       action: widget.actionBuilder == null
           ? null
-          : widget.actionBuilder!(_payload, _refresh),
+          : widget.actionBuilder!(_payload!, _refresh),
       tabs: widget.tabs,
       activeTab: _activeTab,
       onTabSwitch: (selected) async {
@@ -105,7 +105,7 @@ class _TabStatefulScaffoldState<T> extends State<TabStatefulScaffold<T?>> {
       },
       onRefresh: _refresh,
       body: ErrorLoadingWrapper(
-        bodyBuilder: () => widget.bodyBuilder(_payload, _activeTab),
+        bodyBuilder: () => widget.bodyBuilder(_payload!, _activeTab),
         error: _error,
         loading: _payload == null,
         reload: _refresh,

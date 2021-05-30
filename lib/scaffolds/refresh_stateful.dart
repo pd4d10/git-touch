@@ -7,7 +7,8 @@ class RefreshStatefulScaffold<T> extends StatefulWidget {
   final Widget title;
   final Widget? Function(T data, void Function(T newData) setData) bodyBuilder;
   final Future<T> Function() fetch;
-  final Widget? Function(T data, void Function(T newData) setData)? actionBuilder;
+  final Widget? Function(T data, void Function(T newData) setData)?
+      actionBuilder;
   final Widget? action;
   final canRefresh;
 
@@ -26,7 +27,7 @@ class RefreshStatefulScaffold<T> extends StatefulWidget {
 }
 
 class _RefreshStatefulScaffoldState<T>
-    extends State<RefreshStatefulScaffold<T?>> {
+    extends State<RefreshStatefulScaffold<T>> {
   // bool _loading;
   T? _data;
   String _error = '';
@@ -60,7 +61,7 @@ class _RefreshStatefulScaffoldState<T>
   Widget? get _action {
     if (widget.action != null) return widget.action;
     if (widget.actionBuilder == null || _data == null) return null;
-    return widget.actionBuilder!(_data, (v) {
+    return widget.actionBuilder!(_data!, (v) {
       setState(() {
         _data = v;
       });
@@ -70,7 +71,7 @@ class _RefreshStatefulScaffoldState<T>
   @override
   Widget build(BuildContext context) {
     Widget child = ErrorLoadingWrapper(
-      bodyBuilder: () => widget.bodyBuilder(_data, (v) {
+      bodyBuilder: () => widget.bodyBuilder(_data!, (v) {
         setState(() {
           _data = v;
         });

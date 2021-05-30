@@ -42,7 +42,6 @@ class _NotificationItemState extends State<NotificationItem> {
           default:
             return _buildIcon(Octicons.person);
         }
-        break;
       case 'PullRequest':
         switch (payload.state) {
           case 'OPEN':
@@ -54,7 +53,6 @@ class _NotificationItemState extends State<NotificationItem> {
           default:
             return _buildIcon(Octicons.person);
         }
-        break;
       // color: Color.fromRGBO(0x6f, 0x42, 0xc1, 1),
       case 'Release':
         return _buildIcon(Octicons.tag);

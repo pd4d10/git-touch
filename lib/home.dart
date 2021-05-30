@@ -191,20 +191,15 @@ class _HomeState extends State<Home> {
           search,
           me,
         ];
-        break;
       case PlatformType.gitlab:
         return [explore, group, search, me];
-        break;
       case PlatformType.bitbucket:
         return [explore, group, me];
-        break;
       case PlatformType.gitea:
         return [group, me];
-        break;
       case PlatformType.gitee:
       case PlatformType.gogs:
         return [search, me];
-        break;
       default:
         return [];
     }

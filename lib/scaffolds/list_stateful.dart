@@ -26,7 +26,7 @@ class ListStatefulScaffold<T, K> extends StatefulWidget {
   final Widget title;
   final Widget Function()? actionBuilder;
   final Widget Function(T payload) itemBuilder;
-  final Future<ListPayload<T, K>> Function(K cursor) fetch;
+  final Future<ListPayload<T, K>> Function(K? cursor) fetch;
 
   ListStatefulScaffold({
     required this.title,
@@ -41,7 +41,7 @@ class ListStatefulScaffold<T, K> extends StatefulWidget {
 }
 
 class _ListStatefulScaffoldState<T, K>
-    extends State<ListStatefulScaffold<T, K?>> {
+    extends State<ListStatefulScaffold<T, K>> {
   bool loading = false;
   bool loadingMore = false;
   String error = '';

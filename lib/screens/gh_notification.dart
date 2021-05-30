@@ -20,7 +20,7 @@ class GhNotificationScreen extends StatefulWidget {
 }
 
 class GhNotificationScreenState extends State<GhNotificationScreen> {
-  Future<Map<String?, NotificationGroup>> fetchNotifications(int index) async {
+  Future<Map<String, NotificationGroup>> fetchNotifications(int index) async {
     final ns = await context.read<AuthModel>().ghClient!.getJSON(
           '/notifications?all=${index == 2}&participating=${index == 1}',
           convert: (dynamic vs) =>
@@ -30,10 +30,10 @@ class GhNotificationScreenState extends State<GhNotificationScreen> {
       context.read<NotificationModel>().setCount(ns.length);
     }
 
-    Map<String?, NotificationGroup> _groupMap = {};
+    Map<String, NotificationGroup> _groupMap = {};
 
     ns.forEach((item) {
-      final repo = item.repository!.fullName;
+      final repo = item.repository!.fullName ?? ''; // TODO: nullable
       if (_groupMap[repo] == null) {
         _groupMap[repo] = NotificationGroup(repo);
       }
@@ -155,7 +155,7 @@ ${item.key}: pullRequest(number: ${item.subject!.number}) {
 
   @override
   Widget build(context) {
-    return TabStatefulScaffold(
+    return TabStatefulScaffold<Map<String, NotificationGroup>>(
       title: AppBarTitle(AppLocalizations.of(context)!.notification),
       tabs: [
         AppLocalizations.of(context)!.unread,
