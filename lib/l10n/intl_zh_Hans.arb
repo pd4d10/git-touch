@@ -291,7 +291,7 @@
   "@commits": {
     "description": "Commits"
   },
-  "pullRequests": "拉动请求",
+  "pullRequests": "拉取请求",
   "@pullRequests": {
     "description": "Pull Requests"
   },
