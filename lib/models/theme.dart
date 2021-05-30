@@ -166,10 +166,14 @@ class ThemeModel with ChangeNotifier {
   String? _locale;
   String? get locale => _locale;
 
-  Future<void> setLocale(String v) async {
+  Future<void> setLocale(String? v) async {
     _locale = v;
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(StorageKeys.locale, v);
+    if (v == null) {
+      await prefs.remove(StorageKeys.locale);
+    } else {
+      await prefs.setString(StorageKeys.locale, v);
+    }
     notifyListeners();
   }
 
