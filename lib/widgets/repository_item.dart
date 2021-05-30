@@ -100,7 +100,7 @@ class RepositoryItem extends StatelessWidget {
     this.note,
     required bool? isPrivate,
     required bool? isFork,
-  })   : iconData = _buildIconData(isPrivate, isFork),
+  })  : iconData = _buildIconData(isPrivate, isFork),
         avatarLink = '/github/$owner',
         url = '/github/$owner/$name';
 

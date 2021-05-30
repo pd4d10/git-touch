@@ -319,7 +319,8 @@ class GhUser extends StatelessWidget {
               if (p.viewerCanFollow)
                 MutationButton(
                   active: p.viewerIsFollowing,
-                  text: p.viewerIsFollowing? AppLocalizations.of(context)!.unfollow
+                  text: p.viewerIsFollowing
+                      ? AppLocalizations.of(context)!.unfollow
                       : AppLocalizations.of(context)!.follow,
                   onTap: () async {
                     if (p.viewerIsFollowing) {

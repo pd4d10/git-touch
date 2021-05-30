@@ -170,7 +170,7 @@ class GhRepoScreen extends StatelessWidget {
                     SizedBox(width: 8),
                     MutationButton(
                       active: repo.viewerHasStarred,
-                      text: repo.viewerHasStarred? 'Unstar' : 'Star',
+                      text: repo.viewerHasStarred ? 'Unstar' : 'Star',
                       onTap: () async {
                         final activityApi =
                             context.read<AuthModel>().ghClient!.activity;
@@ -232,7 +232,7 @@ class GhRepoScreen extends StatelessWidget {
                 for (var edge in repo.languages!.edges!)
                   LanguageBarItem(
                     name: edge.node.name,
-                    ratio: edge.size/ repo.languages!.totalSize,
+                    ratio: edge.size / repo.languages!.totalSize,
                     hexColor: edge.node.color,
                   )
               ]),
@@ -278,7 +278,7 @@ class GhRepoScreen extends StatelessWidget {
                     TableViewItem(
                       leftIconData: Octicons.git_branch,
                       text: Text(AppLocalizations.of(context)!.branches),
-                      rightWidget: Text(ref.name+
+                      rightWidget: Text(ref.name +
                           ' • ' +
                           numberFormat.format(repo.refs!.totalCount)),
                       onTap: () async {

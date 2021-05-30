@@ -64,7 +64,8 @@ class GlIssueScreen extends StatelessWidget {
                       padding: CommonStyle.padding,
                       child: Text.rich(
                         TextSpan(children: [
-                          WidgetSpan(child: Avatar(url: note.author!.avatarUrl)),
+                          WidgetSpan(
+                              child: Avatar(url: note.author!.avatarUrl)),
                           TextSpan(text: note.author!.name),
                           TextSpan(text: note.body),
                         ]),

@@ -22,7 +22,8 @@ class GhEventsScreen extends StatelessWidget {
         page = page ?? 1;
         final events = await context.read<AuthModel>().ghClient!.getJSON(
             '/users/$login/events?page=$page&per_page=$pageSize',
-            convert: (dynamic vs) => [for (var v in vs) GithubEvent.fromJson(v)]);
+            convert: (dynamic vs) =>
+                [for (var v in vs) GithubEvent.fromJson(v)]);
         return ListPayload(
           cursor: page + 1,
           hasMore: events.length == pageSize,

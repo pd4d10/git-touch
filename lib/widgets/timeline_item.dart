@@ -264,7 +264,8 @@ class TimelineItem extends StatelessWidget {
           textSpan: TextSpan(
             children: [
               TextSpan(
-                  text: ' transferred this issue from ' + p.fromRepository!.name)
+                  text:
+                      ' transferred this issue from ' + p.fromRepository!.name)
             ],
           ),
         );
@@ -331,7 +332,8 @@ class TimelineItem extends StatelessWidget {
         return TimelineEventItem(
           actor: p.actor!.login,
           textSpan: TextSpan(
-              text: ' deployed the pull request ' + p.pullRequest.headRef!.name),
+              text:
+                  ' deployed the pull request ' + p.pullRequest.headRef!.name),
         );
       case 'DeploymentEnvironmentChangedEvent':
         final p = node as GDeploymentEnvironmentChangedEventParts;
