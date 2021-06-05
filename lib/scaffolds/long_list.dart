@@ -9,17 +9,17 @@ import '../widgets/link.dart';
 import '../widgets/error_reload.dart';
 
 class LongListPayload<T, K> {
-  T? header;
-  int? totalCount;
-  String? cursor;
-  List<K>? leadingItems;
+  T header;
+  int totalCount;
+  String cursor;
+  List<K> leadingItems;
   List<K>? trailingItems;
 
   LongListPayload({
-    this.header,
-    this.totalCount,
-    this.cursor,
-    this.leadingItems,
+    required this.header,
+    required this.totalCount,
+    required this.cursor,
+    required this.leadingItems,
     this.trailingItems,
   });
 }
@@ -51,12 +51,12 @@ class LongListStatefulScaffold<T, K> extends StatefulWidget {
 }
 
 class _LongListStatefulScaffoldState<T, K>
-    extends State<LongListStatefulScaffold<T?, K>> {
+    extends State<LongListStatefulScaffold<T, K>> {
   late bool loading;
   bool loadingMore = false;
   String error = '';
 
-  LongListPayload<T?, K>? payload;
+  LongListPayload<T, K>? payload;
 
   @override
   void initState() {
@@ -94,7 +94,7 @@ class _LongListStatefulScaffoldState<T, K>
           await widget.onLoadMore(payload!.cursor);
       payload!.totalCount = _payload.totalCount;
       payload!.cursor = _payload.cursor;
-      payload!.leadingItems!.addAll(_payload.leadingItems!);
+      payload!.leadingItems.addAll(_payload.leadingItems);
     } finally {
       if (mounted) {
         setState(() {
@@ -113,11 +113,11 @@ class _LongListStatefulScaffoldState<T, K>
 
     int realIndex = index ~/ 2;
 
-    if (realIndex < payload!.leadingItems!.length) {
-      return widget.itemBuilder(payload!.leadingItems![realIndex]);
-    } else if (realIndex == payload!.leadingItems!.length) {
-      var count = payload!.totalCount! -
-          payload!.leadingItems!.length +
+    if (realIndex < payload!.leadingItems.length) {
+      return widget.itemBuilder(payload!.leadingItems[realIndex]);
+    } else if (realIndex == payload!.leadingItems.length) {
+      var count = payload!.totalCount -
+          payload!.leadingItems.length +
           payload!.trailingItems!.length;
       return Container(
         padding: CommonStyle.padding,
@@ -150,13 +150,13 @@ class _LongListStatefulScaffoldState<T, K>
       );
     } else {
       return widget.itemBuilder(payload!
-          .trailingItems![realIndex - payload!.leadingItems!.length - 1]);
+          .trailingItems![realIndex - payload!.leadingItems.length - 1]);
     }
   }
 
   int get _itemCount {
-    int count = payload!.leadingItems!.length + payload!.trailingItems!.length;
-    if (payload!.totalCount! > count) {
+    int count = payload!.leadingItems.length + payload!.trailingItems!.length;
+    if (payload!.totalCount > count) {
       count++;
     }
     return 2 * count; // including bottom border

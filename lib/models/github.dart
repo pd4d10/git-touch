@@ -166,7 +166,7 @@ class GithubNotificationItemSubject {
   int? _number;
   int? get number {
     if (_number == null) {
-      _number = int.parse(url?.split('/')?.last ?? '0');
+      _number = int.parse(url?.split('/').last ?? '0');
     }
     return _number;
   }

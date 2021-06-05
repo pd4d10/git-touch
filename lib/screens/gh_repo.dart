@@ -270,7 +270,7 @@ class GhRepoScreen extends StatelessWidget {
                     leftIconData: Octicons.history,
                     text: Text(AppLocalizations.of(context)!.commits),
                     rightWidget: Text(
-                        ((ref.target as GRepoCommit).history?.totalCount ?? 0)
+                        ((ref.target as GRepoCommit).history.totalCount)
                             .toString()),
                     url: '/github/$owner/$name/commits/${ref.name}',
                   ),

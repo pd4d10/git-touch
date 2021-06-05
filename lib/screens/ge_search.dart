@@ -25,7 +25,7 @@ class _GeSearchScreenState extends State<GeSearchScreen> {
   List<List> _payloads = [[], [], []];
 
   TextEditingController? _controller;
-  String get _keyword => _controller!.text?.trim() ?? '';
+  String get _keyword => _controller!.text.trim();
 
   @override
   void initState() {

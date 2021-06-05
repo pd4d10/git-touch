@@ -87,7 +87,7 @@ class GhIssueScreen extends StatelessWidget {
     );
   }
 
-  Future<GIssueData_repository?> _queryIssue(BuildContext context,
+  Future<GIssueData_repository> _queryIssue(BuildContext context,
       {String? cursor}) async {
     final req = GIssueReq((b) {
       b.vars.owner = owner;
@@ -97,7 +97,7 @@ class GhIssueScreen extends StatelessWidget {
     });
     OperationResponse<GIssueData, GIssueVars?> res =
         await context.read<AuthModel>().gqlClient!.request(req).first;
-    return res.data!.repository;
+    return res.data!.repository!;
   }
 
   @override
@@ -257,15 +257,14 @@ class GhIssueScreen extends StatelessWidget {
       },
       itemBuilder: (p) => TimelineItem(p),
       onRefresh: () async {
-        final res =
-            await (_queryIssue(context) as Future<GIssueData_repository>);
+        final res = await _queryIssue(context);
         if (res.issueOrPullRequest!.G__typename == 'Issue') {
           final issue = res.issueOrPullRequest
               as GIssueData_repository_issueOrPullRequest__asIssue;
           return LongListPayload(
             header: res,
             totalCount: issue.timelineItems.totalCount,
-            cursor: issue.timelineItems.pageInfo.endCursor,
+            cursor: issue.timelineItems.pageInfo.endCursor!,
             leadingItems: issue.timelineItems.nodes!.toList(),
             trailingItems: [],
           );
@@ -275,22 +274,21 @@ class GhIssueScreen extends StatelessWidget {
           return LongListPayload(
             header: res,
             totalCount: pr.timelineItems.totalCount,
-            cursor: pr.timelineItems.pageInfo.endCursor,
+            cursor: pr.timelineItems.pageInfo.endCursor!,
             leadingItems: pr.timelineItems.nodes!.toList(),
             trailingItems: [],
           );
         }
       },
       onLoadMore: (_cursor) async {
-        final res = await (_queryIssue(context, cursor: _cursor)
-            as Future<GIssueData_repository>);
+        final res = await _queryIssue(context, cursor: _cursor);
         if (res.issueOrPullRequest!.G__typename == 'Issue') {
           final issue = res.issueOrPullRequest
               as GIssueData_repository_issueOrPullRequest__asIssue;
           return LongListPayload(
             header: res,
             totalCount: issue.timelineItems.totalCount,
-            cursor: issue.timelineItems.pageInfo.endCursor,
+            cursor: issue.timelineItems.pageInfo.endCursor!,
             leadingItems: issue.timelineItems.nodes!.toList(),
           );
         } else {
@@ -299,7 +297,7 @@ class GhIssueScreen extends StatelessWidget {
           return LongListPayload(
             header: res,
             totalCount: pr.timelineItems.totalCount,
-            cursor: pr.timelineItems.pageInfo.endCursor,
+            cursor: pr.timelineItems.pageInfo.endCursor!,
             leadingItems: pr.timelineItems.nodes!.toList(),
           );
         }
