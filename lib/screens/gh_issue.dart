@@ -102,11 +102,11 @@ class GhIssueScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LongListStatefulScaffold<GIssueData_repository, dynamic>(
+    return LongListStatefulScaffold<GIssueData_repository?, dynamic>(
       title: Text('$owner/$name #$number'),
       trailingBuilder: (p) {
-        if (p.issueOrPullRequest!.G__typename == 'Issue') {
-          final d = p.issueOrPullRequest
+        if (p?.issueOrPullRequest!.G__typename == 'Issue') {
+          final d = p?.issueOrPullRequest
               as GIssueData_repository_issueOrPullRequest__asIssue;
           return ActionButton(
             title: 'Actions',
@@ -126,7 +126,7 @@ class GhIssueScreen extends StatelessWidget {
             ],
           );
         } else {
-          final d = p.issueOrPullRequest
+          final d = p?.issueOrPullRequest
               as GIssueData_repository_issueOrPullRequest__asPullRequest;
           return ActionButton(
             title: 'Actions',
@@ -138,8 +138,8 @@ class GhIssueScreen extends StatelessWidget {
       },
       headerBuilder: (p) {
         final theme = Provider.of<ThemeModel>(context);
-        if (p.issueOrPullRequest!.G__typename == 'Issue') {
-          final issue = p.issueOrPullRequest
+        if (p?.issueOrPullRequest!.G__typename == 'Issue') {
+          final issue = p?.issueOrPullRequest
               as GIssueData_repository_issueOrPullRequest__asIssue;
 
           return _buildHeader(
@@ -204,7 +204,7 @@ class GhIssueScreen extends StatelessWidget {
             }),
           );
         } else {
-          final pr = p.issueOrPullRequest
+          final pr = p?.issueOrPullRequest
               as GIssueData_repository_issueOrPullRequest__asPullRequest;
           return _buildHeader(
             context,
@@ -257,10 +257,9 @@ class GhIssueScreen extends StatelessWidget {
       },
       itemBuilder: (p) => TimelineItem(p),
       onRefresh: () async {
-        final res =
-            await (_queryIssue(context) as Future<GIssueData_repository>);
-        if (res.issueOrPullRequest!.G__typename == 'Issue') {
-          final issue = res.issueOrPullRequest
+        final res = await _queryIssue(context);
+        if (res?.issueOrPullRequest!.G__typename == 'Issue') {
+          final issue = res?.issueOrPullRequest
               as GIssueData_repository_issueOrPullRequest__asIssue;
           return LongListPayload(
             header: res,
@@ -270,7 +269,7 @@ class GhIssueScreen extends StatelessWidget {
             trailingItems: [],
           );
         } else {
-          final pr = res.issueOrPullRequest
+          final pr = res?.issueOrPullRequest
               as GIssueData_repository_issueOrPullRequest__asPullRequest;
           return LongListPayload(
             header: res,

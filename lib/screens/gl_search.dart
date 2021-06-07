@@ -26,7 +26,7 @@ class _GlSearchScreenState extends State<GlSearchScreen> {
 
   TextEditingController? _controller;
 
-  String get _keyword => _controller!.text?.trim() ?? '';
+  String get _keyword => _controller!.text.trim();
 
   @override
   void initState() {
