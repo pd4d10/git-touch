@@ -61,8 +61,8 @@ class ReleaseItem extends StatelessWidget {
                     color: theme.palette.secondaryText,
                     fontSize: 16,
                   ),
-                  child:
-                      Text(login! + " released " + timeago.format(publishedAt!)),
+                  child: Text(
+                      login! + " released " + timeago.format(publishedAt!)),
                 ),
               ],
             ),
