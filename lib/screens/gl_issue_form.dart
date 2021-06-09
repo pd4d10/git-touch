@@ -62,6 +62,8 @@ class _GlIssueFormScreenState extends State<GlIssueFormScreen> {
               ).then((v) {
                 return GitlabIssue.fromJson(v);
               });
+              final snackBar = SnackBar(content: Text('Issue submitted'));
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
               await theme.push(
                 context,
                 '/gitlab/projects/${widget.id}/issues/${res.iid}',

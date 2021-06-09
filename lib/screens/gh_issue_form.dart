@@ -62,6 +62,8 @@ class _GhIssueFormScreenState extends State<GhIssueFormScreen> {
                   .ghClient!
                   .issues
                   .create(slug, IssueRequest(title: _title, body: _body));
+              final snackBar = SnackBar(content: Text('Issue submitted'));
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
               await theme.push(
                 context,
                 '/github/${widget.owner}/${widget.name}/issues/${res.number}',
