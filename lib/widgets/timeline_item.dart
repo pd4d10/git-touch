@@ -8,6 +8,7 @@ import 'package:git_touch/widgets/label.dart';
 import 'package:provider/provider.dart';
 import '../utils/utils.dart';
 import 'comment_item.dart';
+import 'package:flutter_gen/gen_l10n/S.dart';
 
 TextSpan createUserSpan(BuildContext context, String? login) {
   return createLinkSpan(context, login, '/github/$login');
@@ -57,12 +58,14 @@ class TimelineItem extends StatelessWidget {
   final dynamic node;
   TimelineItem(this.node);
 
-  Widget _buildFallback(String? type) {
+  Widget _buildFallback(String? type, BuildContext context) {
     return TimelineEventItem(
       actor: '',
       iconData: Octicons.octoface,
       textSpan: TextSpan(children: [
-        TextSpan(text: 'Woops, $type type not implemented yet'),
+        TextSpan(
+            text:
+                '$type ${AppLocalizations.of(context)!.timelineTypeNotImplemented}'),
       ]),
     );
   }
@@ -78,8 +81,9 @@ class TimelineItem extends StatelessWidget {
           actor: p.commit.author!.user?.login,
           iconData: Octicons.git_commit,
           textSpan: TextSpan(children: [
-            TextSpan(text: ' added commit '),
-            TextSpan(text: p.commit.oid.substring(0, 8))
+            TextSpan(
+                text:
+                    ' ${AppLocalizations.of(context)!.pullRequestCommitMessage(p.commit.oid.substring(0, 8))} '),
           ]),
         );
       case 'IssueComment':
@@ -97,7 +101,9 @@ class TimelineItem extends StatelessWidget {
           iconData: Octicons.primitive_dot,
           iconColor: GithubPalette.open,
           textSpan: TextSpan(children: [
-            TextSpan(text: ' referenced this on '),
+            TextSpan(
+                text:
+                    ' ${AppLocalizations.of(context)!.crossReferencedEventMessage} '),
             createLinkSpan(context, '$owner/$name#$number',
                 '/github/$owner/$name/$prefix/$number'),
           ]),
@@ -108,7 +114,8 @@ class TimelineItem extends StatelessWidget {
           actor: p.actor!.login,
           iconData: Octicons.circle_slash,
           iconColor: GithubPalette.closed,
-          textSpan: TextSpan(text: ' closed this '),
+          textSpan: TextSpan(
+              text: ' ${AppLocalizations.of(context)!.closedEventMessage} '),
         );
 
       case 'ReopenedEvent':
@@ -117,19 +124,24 @@ class TimelineItem extends StatelessWidget {
           actor: p.actor!.login,
           iconData: Octicons.primitive_dot,
           iconColor: GithubPalette.open,
-          textSpan: TextSpan(text: ' reopened this '),
+          textSpan: TextSpan(
+              text: ' ${AppLocalizations.of(context)!.reopenedEventMessage} '),
         );
       case 'SubscribedEvent':
         final p = node as GSubscribedEventParts;
         return TimelineEventItem(
           actor: p.actor!.login,
-          textSpan: TextSpan(text: ' subscribed to this issue '),
+          textSpan: TextSpan(
+              text:
+                  ' ${AppLocalizations.of(context)!.subscribedEventMessage} '),
         );
       case 'UnsubscribedEvent':
         final p = node as GUnsubscribedEventParts;
         return TimelineEventItem(
           actor: p.actor!.login,
-          textSpan: TextSpan(text: ' unsubscribed from this issue '),
+          textSpan: TextSpan(
+              text:
+                  ' ${AppLocalizations.of(context)!.unsubscribedEventMessage} '),
         );
       case 'ReferencedEvent':
         final p = node as GReferencedEventParts;
@@ -142,9 +154,9 @@ class TimelineItem extends StatelessWidget {
             actor: p.actor!.login,
             iconData: Octicons.bookmark,
             textSpan: TextSpan(children: [
-              TextSpan(text: ' referenced this pull request from commit '),
-              TextSpan(text: p.commit!.oid.substring(0, 8)),
-              TextSpan(text: ' from ' + p.commitRepository.name),
+              TextSpan(
+                  text:
+                      ' ${AppLocalizations.of(context)!.referencedEventMessage(p.commit!.oid.substring(0, 8), p.commitRepository.name)} '),
             ]),
           );
         }
@@ -152,8 +164,9 @@ class TimelineItem extends StatelessWidget {
           actor: p.actor!.login,
           iconData: Octicons.bookmark,
           textSpan: TextSpan(children: [
-            TextSpan(text: ' referenced this pull request from commit '),
-            TextSpan(text: p.commit!.oid.substring(0, 8)),
+            TextSpan(
+                text:
+                    ' ${AppLocalizations.of(context)!.referencedEventMessage(p.commit!.oid.substring(0, 8), '')} '),
           ]),
         );
       case 'AssignedEvent':
@@ -163,7 +176,9 @@ class TimelineItem extends StatelessWidget {
           actor: p.actor!.login,
           iconData: Octicons.key,
           textSpan: TextSpan(children: [
-            TextSpan(text: ' assigned this to '),
+            TextSpan(
+                text:
+                    ' ${AppLocalizations.of(context)!.assignedEventMessage} '),
             createLinkSpan(context, assignee, '/github/$assignee'),
           ]),
         );
@@ -174,7 +189,9 @@ class TimelineItem extends StatelessWidget {
           actor: p.actor!.login,
           iconData: Octicons.key,
           textSpan: TextSpan(children: [
-            TextSpan(text: ' unassigned this from '),
+            TextSpan(
+                text:
+                    ' ${AppLocalizations.of(context)!.unassignedEventMessage} '),
             createLinkSpan(context, assignee, '/github/$assignee')
           ]),
         );
@@ -184,10 +201,10 @@ class TimelineItem extends StatelessWidget {
           actor: p.actor!.login,
           iconData: Octicons.tag,
           textSpan: TextSpan(children: [
-            TextSpan(text: ' added '),
+            TextSpan(text: ' ${AppLocalizations.of(context)!.added} '),
             WidgetSpan(
                 child: MyLabel(name: p.label.name, cssColor: p.label.color)),
-            TextSpan(text: ' label'),
+            TextSpan(text: ' ${AppLocalizations.of(context)!.label}'),
           ]),
         );
       case 'UnlabeledEvent':
@@ -196,10 +213,10 @@ class TimelineItem extends StatelessWidget {
           actor: p.actor!.login,
           iconData: Octicons.tag,
           textSpan: TextSpan(children: [
-            TextSpan(text: ' removed '),
+            TextSpan(text: ' ${AppLocalizations.of(context)!.removed} '),
             WidgetSpan(
                 child: MyLabel(name: p.label.name, cssColor: p.label.color)),
-            TextSpan(text: ' label'),
+            TextSpan(text: ' ${AppLocalizations.of(context)!.label}'),
           ]),
         );
       case 'MilestonedEvent':
@@ -208,9 +225,9 @@ class TimelineItem extends StatelessWidget {
           actor: p.actor!.login,
           iconData: Octicons.milestone,
           textSpan: TextSpan(children: [
-            TextSpan(text: ' added this to '),
-            TextSpan(text: p.milestoneTitle),
-            TextSpan(text: ' milestone'),
+            TextSpan(
+                text:
+                    ' ${AppLocalizations.of(context)!.milestonedEventMessage(p.milestoneTitle)} '),
           ]),
         );
       case 'DemilestonedEvent':
@@ -219,9 +236,9 @@ class TimelineItem extends StatelessWidget {
           actor: p.actor!.login,
           iconData: Octicons.milestone,
           textSpan: TextSpan(children: [
-            TextSpan(text: ' removed this from '),
-            TextSpan(text: p.milestoneTitle),
-            TextSpan(text: ' milestone'),
+            TextSpan(
+                text:
+                    ' ${AppLocalizations.of(context)!.demilestonedEventMessage(p.milestoneTitle)} '),
           ]),
         );
       case 'RenamedTitleEvent':
@@ -230,13 +247,13 @@ class TimelineItem extends StatelessWidget {
           actor: p.actor!.login,
           iconData: Octicons.pencil,
           textSpan: TextSpan(children: [
-            TextSpan(text: ' changed the title '),
+            TextSpan(
+                text:
+                    ' ${AppLocalizations.of(context)!.renamedTitleEventMessage(p.currentTitle)} '),
             TextSpan(
               text: p.previousTitle,
               style: TextStyle(decoration: TextDecoration.lineThrough),
             ),
-            TextSpan(text: ' to '),
-            TextSpan(text: p.currentTitle)
           ]),
         );
       case 'LockedEvent':
@@ -245,7 +262,9 @@ class TimelineItem extends StatelessWidget {
           actor: p.actor!.login,
           iconData: Octicons.lock,
           textSpan: TextSpan(children: [
-            TextSpan(text: ' locked this conversation '),
+            TextSpan(
+                text:
+                    ' ${AppLocalizations.of(context)!.lockedConversationEventMessage} '),
           ]),
         );
       case 'UnlockedEvent':
@@ -254,7 +273,9 @@ class TimelineItem extends StatelessWidget {
           actor: p.actor!.login,
           iconData: Octicons.key,
           textSpan: TextSpan(children: [
-            TextSpan(text: ' unlocked this conversation '),
+            TextSpan(
+                text:
+                    ' ${AppLocalizations.of(context)!.unlockedConversationEventMessage} '),
           ]),
         );
       case 'TransferredEvent':
@@ -265,14 +286,14 @@ class TimelineItem extends StatelessWidget {
             children: [
               TextSpan(
                   text:
-                      ' transferred this issue from ' + p.fromRepository!.name)
+                      ' ${AppLocalizations.of(context)!.transferredEventMessage(p.fromRepository!.name)} ')
             ],
           ),
         );
 
       // pull request only types
       case 'CommitCommentThread':
-        return _buildFallback(type); // TODO:
+        return _buildFallback(type, context); // TODO:
       case 'PullRequestReview':
         final p = node as GPullRequestReviewParts;
         return Column(
@@ -282,9 +303,12 @@ class TimelineItem extends StatelessWidget {
                 iconColor: GithubPalette.open,
                 iconData: Octicons.check,
                 textSpan: p.state == GPullRequestReviewState.APPROVED
-                    ? TextSpan(text: ' approved these changes')
+                    ? TextSpan(
+                        text:
+                            ' ${AppLocalizations.of(context)!.approvedChanges}')
                     : p.state == GPullRequestReviewState.COMMENTED
-                        ? TextSpan(text: ' reviewed ')
+                        ? TextSpan(
+                            text: ' ${AppLocalizations.of(context)!.reviewed} ')
                         : warningSpan),
             Container(
               padding: CommonStyle.padding.copyWith(left: 50),
@@ -299,7 +323,7 @@ class TimelineItem extends StatelessWidget {
         );
       case 'PullRequestReviewThread':
       case 'PullRequestReviewComment':
-        return _buildFallback(type); // TODO:
+        return _buildFallback(type, context); // TODO:
       case 'MergedEvent':
         final p = node as GMergedEventParts;
         return TimelineEventItem(
@@ -307,10 +331,9 @@ class TimelineItem extends StatelessWidget {
           iconData: Octicons.git_merge,
           iconColor: GithubPalette.merged,
           textSpan: TextSpan(children: [
-            TextSpan(text: ' merged commit '),
-            TextSpan(text: p.commit!.oid.substring(0, 8)),
-            TextSpan(text: ' into '),
-            TextSpan(text: p.mergeRefName),
+            TextSpan(
+                text:
+                    ' ${AppLocalizations.of(context)!.mergedEventMessage(p.commit!.oid.substring(0, 8), p.mergeRefName)} '),
           ]),
         );
       case 'MentionedEvent':
@@ -318,14 +341,16 @@ class TimelineItem extends StatelessWidget {
         return TimelineEventItem(
           actor: p.actor!.login,
           iconData: Octicons.bookmark,
-          textSpan: TextSpan(text: ' was mentioned '),
+          textSpan: TextSpan(
+              text: ' ${AppLocalizations.of(context)!.mentionedEventMessage} '),
         );
       case 'PinnedEvent':
         final p = node as GPinnedEventParts;
         return TimelineEventItem(
           actor: p.actor!.login,
           iconData: Octicons.pin,
-          textSpan: TextSpan(text: ' pinned this issue '),
+          textSpan: TextSpan(
+              text: ' ${AppLocalizations.of(context)!.pinnedEventMessage} '),
         );
       case 'DeployedEvent':
         final p = node as GDeployedEventParts;
@@ -333,15 +358,15 @@ class TimelineItem extends StatelessWidget {
           actor: p.actor!.login,
           textSpan: TextSpan(
               text:
-                  ' deployed the pull request ' + p.pullRequest.headRef!.name),
+                  ' ${AppLocalizations.of(context)!.deployedPR(p.pullRequest.headRef!.name)} '),
         );
       case 'DeploymentEnvironmentChangedEvent':
         final p = node as GDeploymentEnvironmentChangedEventParts;
         return TimelineEventItem(
           actor: p.actor!.login,
           textSpan: TextSpan(
-              text: ' changed the deployment environment to ' +
-                  p.deploymentStatus.deployment.environment!),
+              text:
+                  ' ${AppLocalizations.of(context)!.deploymentEnvironmentChangedEventMessage(p.deploymentStatus.deployment.environment!)} '),
         );
       case 'HeadRefDeletedEvent':
         final p = node as GHeadRefDeletedEventParts;
@@ -349,9 +374,9 @@ class TimelineItem extends StatelessWidget {
           actor: p.actor!.login,
           iconData: Octicons.git_branch,
           textSpan: TextSpan(children: [
-            TextSpan(text: ' deleted the '),
-            TextSpan(text: p.headRefName),
-            TextSpan(text: ' branch'),
+            TextSpan(
+                text:
+                    ' ${AppLocalizations.of(context)!.headRefDeletedEventMessage(p.headRefName)} '),
           ]),
         );
       case 'HeadRefRestoredEvent':
@@ -359,9 +384,9 @@ class TimelineItem extends StatelessWidget {
         return TimelineEventItem(
           actor: p.actor!.login,
           textSpan: TextSpan(children: [
-            TextSpan(text: ' restored the '),
-            WidgetSpan(child: PrimerBranchName(p.pullRequest.headRefName)),
-            TextSpan(text: ' branch')
+            TextSpan(
+                text:
+                    ' ${AppLocalizations.of(context)!.headRefRestoredEventMessage(p.pullRequest.headRefName)} '),
           ]),
         );
       case 'HeadRefForcePushedEvent':
@@ -371,14 +396,18 @@ class TimelineItem extends StatelessWidget {
           actor: p.actor!.login,
           textSpan: TextSpan(
             children: [
-              TextSpan(text: ' force-pushed the '),
+              TextSpan(
+                  text:
+                      ' ${AppLocalizations.of(context)!.headRefForcedPushedEventFirstMessage} '),
               WidgetSpan(child: PrimerBranchName(p.pullRequest.headRefName)),
-              TextSpan(text: ' branch from '),
+              TextSpan(
+                  text:
+                      ' ${AppLocalizations.of(context)!.headRefForcedPushedEventSecondMessage} '),
               TextSpan(
                 text: p.beforeCommit!.oid.substring(0, 7),
                 style: TextStyle(color: theme.palette.primary),
               ),
-              TextSpan(text: ' to '),
+              TextSpan(text: ' ${AppLocalizations.of(context)!.to} '),
               TextSpan(
                 text: p.afterCommit!.oid.substring(0, 7),
                 style: TextStyle(color: theme.palette.primary),
@@ -393,14 +422,18 @@ class TimelineItem extends StatelessWidget {
           actor: p.actor!.login,
           textSpan: TextSpan(
             children: [
-              TextSpan(text: ' force-pushed the '),
+              TextSpan(
+                  text:
+                      ' ${AppLocalizations.of(context)!.headRefForcedPushedEventFirstMessage} '),
               WidgetSpan(child: PrimerBranchName(p.pullRequest.baseRef!.name)),
-              TextSpan(text: ' branch from '),
+              TextSpan(
+                  text:
+                      ' ${AppLocalizations.of(context)!.headRefForcedPushedEventSecondMessage} '),
               TextSpan(
                 text: p.beforeCommit!.oid.substring(0, 7),
                 style: TextStyle(color: theme.palette.primary),
               ),
-              TextSpan(text: ' to '),
+              TextSpan(text: ' ${AppLocalizations.of(context)!.to} '),
               TextSpan(
                 text: p.afterCommit!.oid.substring(0, 7),
                 style: TextStyle(color: theme.palette.primary),
@@ -414,7 +447,9 @@ class TimelineItem extends StatelessWidget {
           iconData: Octicons.eye,
           actor: p.actor!.login,
           textSpan: TextSpan(children: [
-            TextSpan(text: ' requested a review from '),
+            TextSpan(
+                text:
+                    ' ${AppLocalizations.of(context)!.reviewRequestEventMessage} '),
             createUserSpan(
                 context,
                 (p.requestedReviewer
@@ -434,7 +469,8 @@ class TimelineItem extends StatelessWidget {
                 (p.requestedReviewer
                         as GReviewRequestRemovedEventParts_requestedReviewer__asUser)
                     .login),
-            TextSpan(text: ' from the review request '),
+            TextSpan(
+                text: ' ${AppLocalizations.of(context)!.fromReviewRequest} '),
           ]),
         );
       case 'ReviewDismissedEvent':
@@ -443,12 +479,14 @@ class TimelineItem extends StatelessWidget {
           iconData: Octicons.eye,
           actor: p.actor!.login,
           textSpan: TextSpan(children: [
-            TextSpan(text: ' dismissed the pull request review requested by '),
+            TextSpan(
+                text:
+                    ' ${AppLocalizations.of(context)!.reviewDismissedEventMessage} '),
             createUserSpan(context, p.pullRequest.author!.login),
           ]),
         );
       default:
-        return _buildFallback(type);
+        return _buildFallback(type, context);
     }
   }
 

@@ -8,6 +8,7 @@ import 'package:git_touch/widgets/markdown_view.dart';
 import 'package:git_touch/widgets/table_view.dart';
 import 'package:provider/provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
+import 'package:flutter_gen/gen_l10n/S.dart';
 
 class ReleaseItem extends StatelessWidget {
   final String? login;
@@ -61,8 +62,9 @@ class ReleaseItem extends StatelessWidget {
                     color: theme.palette.secondaryText,
                     fontSize: 16,
                   ),
-                  child: Text(
-                      login! + " released " + timeago.format(publishedAt!)),
+                  child: Text(login! +
+                      " ${AppLocalizations.of(context)!.released} " +
+                      timeago.format(publishedAt!)),
                 ),
               ],
             ),

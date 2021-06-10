@@ -69,7 +69,7 @@ class SettingsScreen extends StatelessWidget {
               rightWidget: Text(auth.activeAccount!.login),
             ),
             TableViewItem(
-              text: Text('App Language'),
+              text: Text(AppLocalizations.of(context)!.appLanguage),
               rightWidget: Text(theme.locale == null
                   ? AppLocalizations.of(context)!.followSystem
                   : localeNameMap[theme.locale!] ?? theme.locale!),
@@ -102,14 +102,14 @@ class SettingsScreen extends StatelessWidget {
             )
           ]),
           CommonStyle.verticalGap,
-          TableView(headerText: 'theme', items: [
+          TableView(headerText: AppLocalizations.of(context)!.theme, items: [
             TableViewItem(
               text: Text(AppLocalizations.of(context)!.brightness),
               rightWidget: Text(theme.brighnessValue == AppBrightnessType.light
-                  ? 'Light'
+                  ? AppLocalizations.of(context)!.light
                   : theme.brighnessValue == AppBrightnessType.dark
-                      ? 'Dark'
-                      : 'Follow system'),
+                      ? AppLocalizations.of(context)!.dark
+                      : AppLocalizations.of(context)!.followSystem),
               onTap: () {
                 theme.showActions(context, [
                   for (var t in [

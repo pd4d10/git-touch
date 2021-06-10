@@ -316,7 +316,7 @@ class GhRepoScreen extends StatelessWidget {
                   ),
                   TableViewItem(
                     leftIconData: Octicons.book,
-                    text: Text("Releases"),
+                    text: Text(AppLocalizations.of(context)!.releases),
                     url: '/github/$owner/$name/releases',
                     rightWidget: Text(repo.releases.totalCount.toString()),
                   ),
