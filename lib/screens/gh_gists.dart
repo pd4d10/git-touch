@@ -28,7 +28,7 @@ class GhGistsScreen extends StatelessWidget {
         final gists = res.data!.user!.gists;
         return ListPayload(
           cursor: gists.pageInfo.endCursor,
-          items: gists.nodes,
+          items: gists.nodes ?? [],
           hasMore: gists.pageInfo.hasNextPage,
         );
       },

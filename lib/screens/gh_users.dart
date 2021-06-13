@@ -29,7 +29,7 @@ class GhFollowers extends StatelessWidget {
         return ListPayload(
           cursor: p.pageInfo.endCursor,
           hasMore: p.pageInfo.hasNextPage,
-          items: p.nodes,
+          items: p.nodes!,
         );
       },
       itemBuilder: (p) {
@@ -59,7 +59,7 @@ class GhFollowing extends StatelessWidget {
         return ListPayload(
           cursor: p.pageInfo.endCursor,
           hasMore: p.pageInfo.hasNextPage,
-          items: p.nodes,
+          items: p.nodes!,
         );
       },
       itemBuilder: (p) {
@@ -89,7 +89,7 @@ class GhMembers extends StatelessWidget {
         return ListPayload(
           cursor: p.pageInfo.endCursor,
           hasMore: p.pageInfo.hasNextPage,
-          items: p.nodes,
+          items: p.nodes!,
         );
       },
       itemBuilder: (p) {
@@ -121,7 +121,7 @@ class GhWachers extends StatelessWidget {
         return ListPayload(
           cursor: p.pageInfo.endCursor,
           hasMore: p.pageInfo.hasNextPage,
-          items: p.nodes,
+          items: p.nodes!,
         );
       },
       itemBuilder: (p) {
@@ -153,7 +153,7 @@ class GhStargazers extends StatelessWidget {
         return ListPayload(
           cursor: p.pageInfo.endCursor,
           hasMore: p.pageInfo.hasNextPage,
-          items: p.nodes,
+          items: p.nodes!,
         );
       },
       itemBuilder: (p) {

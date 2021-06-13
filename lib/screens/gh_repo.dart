@@ -75,7 +75,7 @@ class GhRepoScreen extends StatelessWidget {
               return res.body;
             }).catchError((err) {
               // 404
-              return null;
+              return '';
             });
           };
         };

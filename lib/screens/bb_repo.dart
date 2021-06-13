@@ -82,34 +82,33 @@ class BbRepoScreen extends StatelessWidget {
                   url:
                       '/bitbucket/$owner/$name/commits/${branch ?? p.mainbranch!.name}',
                 ),
-                if (branches != null)
-                  TableViewItem(
-                    leftIconData: Octicons.git_branch,
-                    text: Text(AppLocalizations.of(context)!.branches),
-                    rightWidget: Text((branch ?? p.mainbranch!.name)! +
-                        ' • ' +
-                        branches.length.toString()),
-                    onTap: () async {
-                      if (branches.length < 2) return;
+                TableViewItem(
+                  leftIconData: Octicons.git_branch,
+                  text: Text(AppLocalizations.of(context)!.branches),
+                  rightWidget: Text((branch ?? p.mainbranch!.name)! +
+                      ' • ' +
+                      branches.length.toString()),
+                  onTap: () async {
+                    if (branches.length < 2) return;
 
-                      await theme.showPicker(
-                        context,
-                        PickerGroupItem(
-                          value: branch,
-                          items: branches
-                              .map((b) => PickerItem(b.name, text: b.name))
-                              .toList(),
-                          onClose: (ref) {
-                            if (ref != branch) {
-                              theme.push(context,
-                                  '/bitbucket/$owner/$name?branch=$ref',
-                                  replace: true);
-                            }
-                          },
-                        ),
-                      );
-                    },
-                  ),
+                    await theme.showPicker(
+                      context,
+                      PickerGroupItem(
+                        value: branch,
+                        items: branches
+                            .map((b) => PickerItem(b.name, text: b.name))
+                            .toList(),
+                        onClose: (ref) {
+                          if (ref != branch) {
+                            theme.push(
+                                context, '/bitbucket/$owner/$name?branch=$ref',
+                                replace: true);
+                          }
+                        },
+                      ),
+                    );
+                  },
+                ),
               ],
             ),
             CommonStyle.verticalGap,

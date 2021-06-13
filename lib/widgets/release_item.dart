@@ -101,9 +101,7 @@ class ReleaseItem extends StatelessWidget {
                       ),
                       rightWidget: IconButton(
                           onPressed: () {
-                            if (asset.downloadUrl != null) {
-                              theme.push(context, asset.downloadUrl);
-                            }
+                            theme.push(context, asset.downloadUrl);
                           },
                           icon: Icon(Ionicons.download_outline)),
                       hideRightChevron: true,

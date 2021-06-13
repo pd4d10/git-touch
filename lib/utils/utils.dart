@@ -119,7 +119,7 @@ List<T> join<T>(T seperator, List<T> xs) {
 List<T> joinAll<T>(T seperator, List<List<T>> xss) {
   List<T> result = [];
   xss.asMap().forEach((index, x) {
-    if (x == null || x.isEmpty) return;
+    if (x.isEmpty) return;
 
     result.addAll(x);
     if (index < xss.length - 1) {
@@ -134,11 +134,6 @@ final numberFormat = NumberFormat();
 
 bool isNotNullOrEmpty(String? text) {
   return text != null && text.isNotEmpty;
-}
-
-String getBranchQueryKey(String branch, {bool withParams = false}) {
-  if (branch == null) return 'defaultBranchRef';
-  return 'ref' + (withParams ? '(qualifiedName: "$branch")' : '');
 }
 
 // TODO: Primer

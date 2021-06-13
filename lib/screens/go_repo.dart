@@ -114,12 +114,10 @@ class GoRepoScreen extends StatelessWidget {
                 TableViewItem(
                   leftIconData: Octicons.git_branch,
                   text: Text(AppLocalizations.of(context)!.branches),
-                  rightWidget: Text((branch ?? 'master')! +
+                  rightWidget: Text((branch ?? 'master') +
                       ' • ' +
-                      '${branches == null ? '1' : branches.length.toString()}'),
+                      '${branches.length.toString()}'),
                   onTap: () async {
-                    if (branches == null) return;
-
                     await theme.showPicker(
                       context,
                       PickerGroupItem(

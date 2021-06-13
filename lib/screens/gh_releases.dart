@@ -30,7 +30,7 @@ class GhReleasesScreen extends StatelessWidget {
         final releases = res.data!.repository!.releases;
         return ListPayload(
           cursor: releases.pageInfo.endCursor,
-          items: releases.nodes,
+          items: releases.nodes ?? [],
           hasMore: releases.pageInfo.hasNextPage,
         );
       },

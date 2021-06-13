@@ -50,7 +50,7 @@ class GhCommits extends StatelessWidget {
         return ListPayload(
           cursor: history.pageInfo.endCursor,
           hasMore: history.pageInfo.hasNextPage,
-          items: history.nodes,
+          items: history.nodes ?? [],
         );
       },
       itemBuilder: (p) {

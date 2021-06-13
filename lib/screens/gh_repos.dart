@@ -30,7 +30,7 @@ class GhRepos extends StatelessWidget {
         return ListPayload(
           cursor: p.pageInfo.endCursor,
           hasMore: p.pageInfo.hasNextPage,
-          items: p.nodes,
+          items: p.nodes!,
         );
       },
       itemBuilder: (p) {
@@ -61,7 +61,7 @@ class GhStars extends StatelessWidget {
         return ListPayload(
           cursor: p.pageInfo.endCursor,
           hasMore: p.pageInfo.hasNextPage,
-          items: p.nodes,
+          items: p.nodes!,
         );
       },
       itemBuilder: (p) {
