@@ -57,8 +57,7 @@ class GoObjectScreen extends StatelessWidget {
           ]);
         } else {
           final v = GogsBlob.fromJson(p);
-          return BlobView(v.name,
-              base64Text: v.content == null ? '' : v.content);
+          return BlobView(v.name, base64Text: v.content);
         }
       },
     );

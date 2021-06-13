@@ -199,17 +199,16 @@ class GlProjectScreen extends StatelessWidget {
                       ? null
                       : Text(p.statistics!.commitCount.toString()),
                   url:
-                      '/gitlab/projects/$id/commits?prefix=$prefix&branch=${branch == null ? p.defaultBranch : branch}', // EDIT
+                      '/gitlab/projects/$id/commits?prefix=$prefix&branch=${branch ?? p.defaultBranch}', // EDIT
                 ),
                 if (branches != null)
                   TableViewItem(
                     leftIconData: Octicons.git_branch,
                     text: Text(AppLocalizations.of(context)!.branches),
-                    rightWidget: Text(
-                        ((branch == null ? p.defaultBranch : branch) ??
-                                '' /** empty project */) +
-                            ' • ' +
-                            branches.length.toString()),
+                    rightWidget: Text(((branch ?? p.defaultBranch) ??
+                            '' /** empty project */) +
+                        ' • ' +
+                        branches.length.toString()),
                     onTap: () async {
                       if (branches.length < 2) return;
 

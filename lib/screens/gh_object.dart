@@ -22,7 +22,7 @@ class GhObjectScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold<RepositoryContents>(
       // canRefresh: !_isImage, // TODO:
-      title: AppBarTitle(path == null ? 'Files' : path),
+      title: AppBarTitle(path ?? 'Files'),
       fetch: () async {
         // Do not request again for images
         if (path != null &&

@@ -213,7 +213,7 @@ class _ListStatefulScaffoldState<T, K>
     return CommonScaffold(
       title: widget.title,
       body: _buildBody(),
-      action: widget.actionBuilder == null ? null : widget.actionBuilder!(),
+      action: widget.actionBuilder?.call(),
     );
   }
 }

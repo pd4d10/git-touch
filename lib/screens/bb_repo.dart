@@ -64,7 +64,7 @@ class BbRepoScreen extends StatelessWidget {
                   text: Text('Code'),
                   rightWidget: Text(filesize(p.size)),
                   url:
-                      '/bitbucket/$owner/$name/src/${branch == null ? p.mainbranch!.name : branch}',
+                      '/bitbucket/$owner/$name/src/${branch ?? p.mainbranch!.name}',
                 ),
                 TableViewItem(
                   leftIconData: Octicons.issue_opened,
@@ -80,16 +80,15 @@ class BbRepoScreen extends StatelessWidget {
                   leftIconData: Octicons.history,
                   text: Text('Commits'),
                   url:
-                      '/bitbucket/$owner/$name/commits/${branch == null ? p.mainbranch!.name : branch}',
+                      '/bitbucket/$owner/$name/commits/${branch ?? p.mainbranch!.name}',
                 ),
                 if (branches != null)
                   TableViewItem(
                     leftIconData: Octicons.git_branch,
                     text: Text(AppLocalizations.of(context)!.branches),
-                    rightWidget: Text(
-                        (branch == null ? p.mainbranch!.name : branch)! +
-                            ' • ' +
-                            branches.length.toString()),
+                    rightWidget: Text((branch ?? p.mainbranch!.name)! +
+                        ' • ' +
+                        branches.length.toString()),
                     onTap: () async {
                       if (branches.length < 2) return;
 
