@@ -36,7 +36,7 @@ class BbRepoScreen extends StatelessWidget {
         final branches = await auth
             .fetchBbWithPage('/repositories/$owner/$name/refs/branches')
             .then((v) {
-          return [for (var branch in v.data!) BbBranch.fromJson(branch)];
+          return [for (var branch in v.items) BbBranch.fromJson(branch)];
         });
         return Tuple3(repo, readme, branches);
       },

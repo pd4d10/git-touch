@@ -3,12 +3,9 @@ part 'bitbucket.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class BbPagination {
-  int? pagelen;
-  int? size;
-  int? page;
   String? next;
-  List? values;
-  BbPagination();
+  List values;
+  BbPagination({required this.values});
   factory BbPagination.fromJson(Map<String, dynamic> json) =>
       _$BbPaginationFromJson(json);
 }

@@ -8,18 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:git_touch/widgets/error_reload.dart';
 import 'package:git_touch/widgets/loading.dart';
 import 'package:git_touch/widgets/empty.dart';
-
-class ListPayload<T, K> {
-  K cursor;
-  Iterable<T> items;
-  bool hasMore;
-
-  ListPayload({
-    required this.items,
-    required this.cursor,
-    required this.hasMore,
-  });
-}
+export 'package:git_touch/utils/utils.dart';
 
 // This is a scaffold for infinite scroll screens
 class ListStatefulScaffold<T, K> extends StatefulWidget {

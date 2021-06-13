@@ -5,6 +5,7 @@ import 'package:git_touch/scaffolds/list_stateful.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/issue_item.dart';
 import 'package:provider/provider.dart';
+import 'package:git_touch/utils/utils.dart';
 import 'package:flutter_gen/gen_l10n/S.dart';
 
 class BbPullsScreen extends StatelessWidget {
@@ -24,7 +25,7 @@ class BbPullsScreen extends StatelessWidget {
           cursor: res.cursor,
           hasMore: res.hasMore,
           items: <BbPulls>[
-            for (var v in res.data!) BbPulls.fromJson(v),
+            for (var v in res.items) BbPulls.fromJson(v),
           ],
         );
       },

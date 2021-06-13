@@ -186,3 +186,15 @@ int sortByKey<T>(T key, T a, T b) {
 }
 
 const TOTAL_COUNT_FALLBACK = 999; // TODO:
+
+class ListPayload<T, K> {
+  K cursor;
+  Iterable<T> items;
+  bool hasMore;
+
+  ListPayload({
+    required this.items,
+    required this.cursor,
+    required this.hasMore,
+  });
+}

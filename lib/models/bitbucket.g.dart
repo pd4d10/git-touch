@@ -7,19 +7,13 @@ part of 'bitbucket.dart';
 // **************************************************************************
 
 BbPagination _$BbPaginationFromJson(Map<String, dynamic> json) {
-  return BbPagination()
-    ..pagelen = json['pagelen'] as int?
-    ..size = json['size'] as int?
-    ..page = json['page'] as int?
-    ..next = json['next'] as String?
-    ..values = json['values'] as List<dynamic>?;
+  return BbPagination(
+    values: json['values'] as List<dynamic>,
+  )..next = json['next'] as String?;
 }
 
 Map<String, dynamic> _$BbPaginationToJson(BbPagination instance) =>
     <String, dynamic>{
-      'pagelen': instance.pagelen,
-      'size': instance.size,
-      'page': instance.page,
       'next': instance.next,
       'values': instance.values,
     };

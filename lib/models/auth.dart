@@ -39,19 +39,6 @@ class DataWithPage<T> {
   bool hasMore;
   int total;
   DataWithPage({
-    /*required*/ required this.data,
-    /*required*/ required this.cursor,
-    /*required*/ required this.hasMore,
-    required this.total,
-  });
-}
-
-class BbPagePayload<T> {
-  T data;
-  String? cursor;
-  bool hasMore;
-  int total;
-  BbPagePayload({
     required this.data,
     required this.cursor,
     required this.hasMore,
@@ -583,13 +570,12 @@ class AuthModel with ChangeNotifier {
     return json.decode(utf8.decode(res.bodyBytes));
   }
 
-  Future<BbPagePayload<List?>> fetchBbWithPage(String p) async {
+  Future<ListPayload<dynamic, String?>> fetchBbWithPage(String p) async {
     final data = await fetchBbJson(p);
     final v = BbPagination.fromJson(data);
-    return BbPagePayload(
+    return ListPayload(
       cursor: v.next,
-      total: v.size ?? TOTAL_COUNT_FALLBACK,
-      data: v.values,
+      items: v.values,
       hasMore: v.next != null,
     );
   }
