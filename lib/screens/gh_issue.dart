@@ -264,7 +264,7 @@ class GhIssueScreen extends StatelessWidget {
           return LongListPayload(
             header: res,
             totalCount: issue.timelineItems.totalCount,
-            cursor: issue.timelineItems.pageInfo.endCursor!,
+            cursor: issue.timelineItems.pageInfo.endCursor,
             leadingItems: issue.timelineItems.nodes!.toList(),
             trailingItems: [],
           );
@@ -274,7 +274,7 @@ class GhIssueScreen extends StatelessWidget {
           return LongListPayload(
             header: res,
             totalCount: pr.timelineItems.totalCount,
-            cursor: pr.timelineItems.pageInfo.endCursor!,
+            cursor: pr.timelineItems.pageInfo.endCursor,
             leadingItems: pr.timelineItems.nodes!.toList(),
             trailingItems: [],
           );
@@ -288,7 +288,7 @@ class GhIssueScreen extends StatelessWidget {
           return LongListPayload(
             header: res,
             totalCount: issue.timelineItems.totalCount,
-            cursor: issue.timelineItems.pageInfo.endCursor!,
+            cursor: issue.timelineItems.pageInfo.endCursor,
             leadingItems: issue.timelineItems.nodes!.toList(),
           );
         } else {
@@ -297,7 +297,7 @@ class GhIssueScreen extends StatelessWidget {
           return LongListPayload(
             header: res,
             totalCount: pr.timelineItems.totalCount,
-            cursor: pr.timelineItems.pageInfo.endCursor!,
+            cursor: pr.timelineItems.pageInfo.endCursor,
             leadingItems: pr.timelineItems.nodes!.toList(),
           );
         }

@@ -30,8 +30,10 @@ class GoUserScreen extends StatelessWidget {
               limit: 6),
         ]);
 
-        return Tuple2(GogsUser.fromJson(res[0]),
-            [for (var repo in res[1].data) GogsRepository.fromJson(repo)]);
+        return Tuple2(GogsUser.fromJson(res[0]), [
+          for (var repo in (res[1] as DataWithPage).data)
+            GogsRepository.fromJson(repo)
+        ]);
       },
       action: isViewer
           ? ActionEntry(
