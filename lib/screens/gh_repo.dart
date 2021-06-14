@@ -57,10 +57,10 @@ class GhRepoScreen extends StatelessWidget {
           ..vars.branchSpecified = branch != null
           ..vars.branch = branch ?? '');
         final OperationResponse<GRepoData, GRepoVars?> res =
-            await context.read<AuthModel>().gqlClient!.request(req).first;
+            await context.read<AuthModel>().gqlClient.request(req).first;
         final repo = res.data!.repository;
 
-        final ghClient = context.read<AuthModel>().ghClient!;
+        final ghClient = context.read<AuthModel>().ghClient;
         final countFuture = ghClient
             .getJSON('/repos/$owner/$name/stats/contributors')
             .then((v) => (v as List).length);
@@ -132,10 +132,8 @@ class GhRepoScreen extends StatelessWidget {
                             ActionItem(
                               text: _buildWatchState(v),
                               onTap: (_) async {
-                                final activityApi = context
-                                    .read<AuthModel>()
-                                    .ghClient!
-                                    .activity;
+                                final activityApi =
+                                    context.read<AuthModel>().ghClient.activity;
                                 switch (v) {
                                   case GSubscriptionState.SUBSCRIBED:
                                   case GSubscriptionState.IGNORED:
@@ -173,7 +171,7 @@ class GhRepoScreen extends StatelessWidget {
                       text: repo.viewerHasStarred ? 'Unstar' : 'Star',
                       onTap: () async {
                         final activityApi =
-                            context.read<AuthModel>().ghClient!.activity;
+                            context.read<AuthModel>().ghClient.activity;
                         if (repo.viewerHasStarred) {
                           await activityApi.unstar(
                               RepositorySlug(repo.owner.login, repo.name));

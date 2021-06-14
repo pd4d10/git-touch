@@ -43,7 +43,7 @@ class GhCommits extends StatelessWidget {
           b.vars.after = cursor;
         });
         final OperationResponse<GCommitsData, GCommitsVars?> res =
-            await context.read<AuthModel>().gqlClient!.request(req).first;
+            await context.read<AuthModel>().gqlClient.request(req).first;
         final ref = res.data!.repository!.defaultBranchRef ??
             res.data!.repository!.ref!;
         final history = (ref.target as GCommitsRefCommit).history;

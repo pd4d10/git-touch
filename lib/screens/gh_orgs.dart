@@ -19,7 +19,7 @@ class GhUserOrganizationScreen extends StatelessWidget {
         page = page ?? 1;
         final res = await context
             .read<AuthModel>()
-            .ghClient!
+            .ghClient
             .getJSON<List, List<GithubUserOrganizationItem>>(
               '/users/$login/orgs?page=$page',
               convert: (vs) =>

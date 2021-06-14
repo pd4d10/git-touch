@@ -20,7 +20,7 @@ class GhComparisonScreen extends StatelessWidget {
     return RefreshStatefulScaffold(
       title: AppBarTitle(AppLocalizations.of(context)!.files),
       fetch: () async {
-        final res = await context.read<AuthModel>().ghClient!.getJSON(
+        final res = await context.read<AuthModel>().ghClient.getJSON(
             '/repos/$owner/$name/compare/$before...$head',
             convert: (dynamic vs) => GithubComparisonItem.fromJson(vs));
         return res.files;

@@ -26,7 +26,7 @@ class GhGistsFilesScreen extends StatelessWidget {
           ..vars.login = login
           ..vars.name = id);
         final OperationResponse<GGistData, GGistVars?> res =
-            await context.read<AuthModel>().gqlClient!.request(req).first;
+            await context.read<AuthModel>().gqlClient.request(req).first;
         final gist = res.data!.user!.gist;
         return gist;
       },

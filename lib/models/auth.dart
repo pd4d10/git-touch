@@ -688,18 +688,15 @@ class AuthModel with ChangeNotifier {
   // var _timeoutDuration = Duration(seconds: 1);
 
   GitHub? _ghClient;
-  GitHub? get ghClient {
-    if (token == null) return null;
+  GitHub get ghClient {
     if (_ghClient == null) {
       _ghClient = GitHub(auth: Authentication.withToken(token));
     }
-    return _ghClient;
+    return _ghClient!;
   }
 
   Client? _gqlClient;
-  Client? get gqlClient {
-    if (token == null) return null;
-
+  Client get gqlClient {
     if (_gqlClient == null) {
       _gqlClient = Client(
         link: HttpLink(
@@ -710,15 +707,12 @@ class AuthModel with ChangeNotifier {
       );
     }
 
-    return _gqlClient;
+    return _gqlClient!;
   }
 
   Future<dynamic> query(String query, [String? _token]) async {
     if (_token == null) {
       _token = token;
-    }
-    if (_token == null) {
-      throw 'token is null';
     }
 
     final res = await http

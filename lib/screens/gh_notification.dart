@@ -21,7 +21,7 @@ class GhNotificationScreen extends StatefulWidget {
 
 class GhNotificationScreenState extends State<GhNotificationScreen> {
   Future<Map<String, NotificationGroup>> fetchNotifications(int index) async {
-    final ns = await context.read<AuthModel>().ghClient!.getJSON(
+    final ns = await context.read<AuthModel>().ghClient.getJSON(
           '/notifications?all=${index == 2}&participating=${index == 1}',
           convert: (dynamic vs) =>
               [for (var v in vs) GithubNotificationItem.fromJson(v)],
@@ -123,7 +123,7 @@ ${item.key}: pullRequest(number: ${item.subject!.number}) {
             onTap: () async {
               await context
                   .read<AuthModel>()
-                  .ghClient!
+                  .ghClient
                   .activity
                   .markRepositoryNotificationsRead(
                       RepositorySlug.full(group.fullName!));

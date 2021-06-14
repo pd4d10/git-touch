@@ -44,62 +44,58 @@ class GoUserScreen extends StatelessWidget {
       bodyBuilder: (p, _) {
         final user = p.item1;
         final repos = p.item2;
-        if (p.item1 != null) {
-          return Column(
-            children: <Widget>[
-              UserHeader(
-                login: user.username,
-                avatarUrl: user.avatarUrl,
-                name: user.fullName,
-                createdAt:
-                    null, // TODO: API response does not have this attribute
-                isViewer: isViewer,
-                bio: null, // TODO: API response does not have this attribute
+        return Column(
+          children: <Widget>[
+            UserHeader(
+              login: user.username,
+              avatarUrl: user.avatarUrl,
+              name: user.fullName,
+              createdAt:
+                  null, // TODO: API response does not have this attribute
+              isViewer: isViewer,
+              bio: null, // TODO: API response does not have this attribute
+            ),
+            CommonStyle.border,
+            Row(children: [
+              EntryItem(
+                text: 'Repositories',
+                url: '/gogs/$login?tab=repositories&isViewer=$isViewer',
               ),
-              CommonStyle.border,
-              Row(children: [
-                EntryItem(
-                  text: 'Repositories',
-                  url: '/gogs/$login?tab=repositories&isViewer=$isViewer',
+              EntryItem(
+                text: 'Followers',
+                url: '/gogs/$login?tab=followers',
+              ),
+              EntryItem(
+                text: 'Following',
+                url: '/gogs/$login?tab=following',
+              ),
+            ]),
+            CommonStyle.border,
+            TableView(
+              items: [
+                TableViewItem(
+                  leftIconData: Octicons.home,
+                  text: Text('Organizations'),
+                  url:
+                      '/gogs/${user.username}?tab=organizations&isViewer=$isViewer',
                 ),
-                EntryItem(
-                  text: 'Followers',
-                  url: '/gogs/$login?tab=followers',
-                ),
-                EntryItem(
-                  text: 'Following',
-                  url: '/gogs/$login?tab=following',
-                ),
-              ]),
-              CommonStyle.border,
-              TableView(
-                items: [
-                  TableViewItem(
-                    leftIconData: Octicons.home,
-                    text: Text('Organizations'),
-                    url:
-                        '/gogs/${user.username}?tab=organizations&isViewer=$isViewer',
+              ],
+            ),
+            CommonStyle.border,
+            Column(
+              children: <Widget>[
+                for (var v in repos) ...[
+                  RepositoryItem.go(
+                    payload: v,
+                    name: v.fullName!.split('/')[1],
+                    owner: v.owner!.username,
                   ),
-                ],
-              ),
-              CommonStyle.border,
-              Column(
-                children: <Widget>[
-                  for (var v in repos) ...[
-                    RepositoryItem.go(
-                      payload: v,
-                      name: v.fullName!.split('/')[1],
-                      owner: v.owner!.username,
-                    ),
-                    CommonStyle.border,
-                  ]
-                ],
-              ),
-            ],
-          );
-        } else {
-          return Text('404'); // TODO:
-        }
+                  CommonStyle.border,
+                ]
+              ],
+            ),
+          ],
+        );
       },
     );
   }

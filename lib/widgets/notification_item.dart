@@ -83,7 +83,7 @@ class _NotificationItemState extends State<NotificationItem> {
       try {
         await context
             .read<AuthModel>()
-            .ghClient!
+            .ghClient
             .activity
             .markThreadRead(payload.id!);
         widget.markAsRead();

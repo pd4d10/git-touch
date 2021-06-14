@@ -31,7 +31,7 @@ class GhFilesScreen extends StatelessWidget {
         page = page ?? 1;
         final res = await context
             .read<AuthModel>()
-            .ghClient!
+            .ghClient
             .getJSON<List, List<GithubFilesItem>>(
               '/repos/$owner/$name/pulls/$pullNumber/files?page=$page',
               convert: (vs) => [for (var v in vs) GithubFilesItem.fromJson(v)],

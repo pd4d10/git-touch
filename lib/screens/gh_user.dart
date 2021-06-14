@@ -272,7 +272,7 @@ class GhViewer extends StatelessWidget {
       fetch: () async {
         final req = GViewerReq();
         final OperationResponse<GViewerData, GViewerVars?> res =
-            await auth.gqlClient!.request(req).first;
+            await auth.gqlClient.request(req).first;
         return res.data!.viewer;
       },
       title: AppBarTitle(AppLocalizations.of(context)!.me),
@@ -298,7 +298,7 @@ class GhUser extends StatelessWidget {
       fetch: () async {
         final req = GUserReq((b) => b..vars.login = login);
         final OperationResponse<GUserData, GUserVars?> res =
-            await auth.gqlClient!.request(req).first;
+            await auth.gqlClient.request(req).first;
         return res.data;
       },
       title: AppBarTitle(login),
@@ -322,9 +322,9 @@ class GhUser extends StatelessWidget {
                       : AppLocalizations.of(context)!.follow,
                   onTap: () async {
                     if (p.viewerIsFollowing) {
-                      await auth.ghClient!.users.unfollowUser(p.login);
+                      await auth.ghClient.users.unfollowUser(p.login);
                     } else {
-                      await auth.ghClient!.users.followUser(p.login);
+                      await auth.ghClient.users.followUser(p.login);
                     }
                     setData(data.rebuild((b) {
                       final u = b.repositoryOwner

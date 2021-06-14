@@ -28,7 +28,7 @@ class GhPullsScreen extends StatelessWidget {
           b.vars.cursor = cursor;
         });
         final OperationResponse<GPullsData, GPullsVars?> res =
-            await context.read<AuthModel>().gqlClient!.request(req).first;
+            await context.read<AuthModel>().gqlClient.request(req).first;
         final pulls = res.data!.repository!.pullRequests;
         return ListPayload(
           cursor: pulls.pageInfo.endCursor,

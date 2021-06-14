@@ -96,7 +96,7 @@ class GhIssueScreen extends StatelessWidget {
       b.vars.cursor = cursor;
     });
     OperationResponse<GIssueData, GIssueVars?> res =
-        await context.read<AuthModel>().gqlClient!.request(req).first;
+        await context.read<AuthModel>().gqlClient.request(req).first;
     return res.data!.repository!;
   }
 
@@ -115,7 +115,7 @@ class GhIssueScreen extends StatelessWidget {
                 ActionItem(
                   text: d.closed ? 'Reopen issue' : 'Close issue',
                   onTap: (_) async {
-                    await context.read<AuthModel>().ghClient!.issues.edit(
+                    await context.read<AuthModel>().ghClient.issues.edit(
                         github.RepositorySlug(owner, name),
                         number,
                         github.IssueRequest(

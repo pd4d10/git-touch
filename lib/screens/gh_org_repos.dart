@@ -25,7 +25,7 @@ class GhOrgReposScreen extends StatelessWidget {
         page = page ?? 1;
         final rs = await context
             .read<AuthModel>()
-            .ghClient!
+            .ghClient
             .getJSON<List, List<Repository>>(
               '/orgs/$owner/repos?sort=updated&page=$page',
               convert: (vs) => [for (var v in vs) Repository.fromJson(v)],
