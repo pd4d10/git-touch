@@ -51,6 +51,7 @@ dependencies:
   url_launcher: ^6.0.3
   webview_flutter: ^2.0.4
   sentry_flutter: ^5.1.0
+  pub_semver: ^2.0.0
 
 dev_dependencies:
   flutter_test:
