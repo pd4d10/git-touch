@@ -95,7 +95,7 @@ class GithubPalette {
 }
 
 // final pageSize = 5;
-final pageSize = 30;
+final PAGE_SIZE = 30;
 
 var createWarning =
     (String text) => Text(text, style: TextStyle(color: Colors.redAccent));
@@ -189,12 +189,12 @@ const TOTAL_COUNT_FALLBACK = 999; // TODO:
 
 class ListPayload<T, K> {
   K cursor;
-  Iterable<T> items;
   bool hasMore;
+  Iterable<T> items;
 
   ListPayload({
-    required this.items,
     required this.cursor,
     required this.hasMore,
+    required this.items,
   });
 }

@@ -19,8 +19,8 @@ class ListStatefulScaffold<T, K> extends StatefulWidget {
 
   ListStatefulScaffold({
     required this.title,
-    required this.itemBuilder,
     required this.fetch,
+    required this.itemBuilder,
     this.actionBuilder,
   });
 

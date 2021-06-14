@@ -7,6 +7,7 @@ import 'package:git_touch/widgets/blob_view.dart';
 import 'package:git_touch/widgets/object_tree.dart';
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/auth.dart';
+import 'package:git_touch/widgets/table_view.dart';
 import 'package:github/github.dart';
 import 'package:provider/provider.dart';
 
@@ -58,7 +59,7 @@ class GhObjectScreen extends StatelessWidget {
       },
       bodyBuilder: (data, _) {
         if (data.isDirectory) {
-          return ObjectTree(
+          return TableView(
             items: data.tree!.map((v) {
               // if (item.type == 'commit') return null;
               final uri = Uri(
@@ -69,8 +70,8 @@ class GhObjectScreen extends StatelessWidget {
                 },
               ).toString();
               return ObjectTreeItem(
-                name: v.name,
-                type: v.type,
+                name: v.name ?? '',
+                type: v.type ?? '',
                 url: uri.toString(),
                 downloadUrl: v.downloadUrl,
                 size: v.type == 'file' ? v.size : null,

@@ -81,9 +81,10 @@ Map<String, dynamic> _$GiteaRepositoryToJson(GiteaRepository instance) =>
     };
 
 GiteaTree _$GiteaTreeFromJson(Map<String, dynamic> json) {
-  return GiteaTree()
-    ..type = json['type'] as String?
-    ..name = json['name'] as String?
+  return GiteaTree(
+    type: json['type'] as String,
+    name: json['name'] as String,
+  )
     ..path = json['path'] as String?
     ..size = json['size'] as int?
     ..downloadUrl = json['download_url'] as String?;
@@ -98,9 +99,10 @@ Map<String, dynamic> _$GiteaTreeToJson(GiteaTree instance) => <String, dynamic>{
     };
 
 GiteaBlob _$GiteaBlobFromJson(Map<String, dynamic> json) {
-  return GiteaBlob()
-    ..type = json['type'] as String?
-    ..name = json['name'] as String?
+  return GiteaBlob(
+    type: json['type'] as String,
+    name: json['name'] as String,
+  )
     ..path = json['path'] as String?
     ..size = json['size'] as int?
     ..downloadUrl = json['download_url'] as String?

@@ -118,7 +118,6 @@ class _User extends StatelessWidget {
         ),
         CommonStyle.border,
         TableView(
-          hasIcon: true,
           items: [
             TableViewItem(
               leftIconData: Octicons.rss,
@@ -217,7 +216,6 @@ class _Org extends StatelessWidget {
           ),
         ]),
         TableView(
-          hasIcon: true,
           items: [
             TableViewItem(
               leftIconData: Octicons.rss,

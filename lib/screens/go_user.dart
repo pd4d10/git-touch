@@ -71,7 +71,6 @@ class GoUserScreen extends StatelessWidget {
               ]),
               CommonStyle.border,
               TableView(
-                hasIcon: true,
                 items: [
                   TableViewItem(
                     leftIconData: Octicons.home,

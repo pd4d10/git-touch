@@ -128,10 +128,10 @@ class GitlabProjectNamespace {
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GitlabTreeItem {
-  String? type;
-  String? path;
-  String? name;
-  GitlabTreeItem();
+  String type;
+  String path;
+  String name;
+  GitlabTreeItem({required this.type, required this.path, required this.name});
   factory GitlabTreeItem.fromJson(Map<String, dynamic> json) =>
       _$GitlabTreeItemFromJson(json);
 }

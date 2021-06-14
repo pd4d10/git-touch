@@ -46,6 +46,7 @@ class MyApp extends StatelessWidget {
           CommonStyle.verticalGap,
           TableView(
             headerText: AppLocalizations.of(context)!.fontStyle,
+            hasIcon: false,
             items: [
               TableViewItem(
                 text: Text(AppLocalizations.of(context)!.fontSize),

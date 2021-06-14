@@ -289,7 +289,7 @@ class AuthModel with ChangeNotifier {
   Future<DataWithPage> fetchGiteaWithPage(String path,
       {int? page, int? limit}) async {
     page = page ?? 1;
-    limit = limit ?? pageSize;
+    limit = limit ?? PAGE_SIZE;
 
     var uri = Uri.parse('${activeAccount!.domain}/api/v1$path');
     uri = uri.replace(
@@ -393,7 +393,7 @@ class AuthModel with ChangeNotifier {
   Future<DataWithPage> fetchGogsWithPage(String path,
       {int? page, int? limit}) async {
     page = page ?? 1;
-    limit = limit ?? pageSize;
+    limit = limit ?? PAGE_SIZE;
 
     var uri = Uri.parse('${activeAccount!.domain}/api/v1$path');
     uri = uri.replace(
@@ -480,7 +480,7 @@ class AuthModel with ChangeNotifier {
   Future<DataWithPage> fetchGiteeWithPage(String path,
       {int? page, int? limit}) async {
     page = page ?? 1;
-    limit = limit ?? pageSize;
+    limit = limit ?? PAGE_SIZE;
 
     var uri = Uri.parse('${activeAccount!.domain}/api/v5$path');
     uri = uri.replace(
@@ -545,7 +545,10 @@ class AuthModel with ChangeNotifier {
     final uri = Uri.parse(activeAccount!.domain).replace(
       userInfo: '${activeAccount!.login}:${activeAccount!.appPassword}',
       path: input.path,
-      query: input.query,
+      queryParameters: {
+        'pagelen': PAGE_SIZE.toString(),
+        ...input.queryParameters
+      },
     );
     if (isPost) {
       return http.post(

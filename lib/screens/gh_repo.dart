@@ -238,7 +238,6 @@ class GhRepoScreen extends StatelessWidget {
               ]),
             ],
             TableView(
-              hasIcon: true,
               items: [
                 if (ref != null)
                   TableViewItem(

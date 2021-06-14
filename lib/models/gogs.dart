@@ -50,12 +50,12 @@ class GogsOrg {
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GogsTree {
-  String? type;
-  String? name;
+  String type;
+  String name;
   String? path;
   int? size;
   String? downloadUrl;
-  GogsTree();
+  GogsTree({required this.type, required this.name});
   factory GogsTree.fromJson(Map<String, dynamic> json) =>
       _$GogsTreeFromJson(json);
 }
@@ -63,7 +63,8 @@ class GogsTree {
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GogsBlob extends GogsTree {
   String? content;
-  GogsBlob();
+  GogsBlob({required String type, required String name})
+      : super(name: name, type: type);
   factory GogsBlob.fromJson(Map<String, dynamic> json) =>
       _$GogsBlobFromJson(json);
 }

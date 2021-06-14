@@ -6,6 +6,7 @@ import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/object_tree.dart';
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/auth.dart';
+import 'package:git_touch/widgets/table_view.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/S.dart';
 
@@ -30,7 +31,7 @@ class GeTreeScreen extends StatelessWidget {
         return items;
       },
       bodyBuilder: (data, _) {
-        return ObjectTree(
+        return TableView(
           items: [
             for (var item in data)
               ObjectTreeItem(
@@ -41,9 +42,9 @@ class GeTreeScreen extends StatelessWidget {
                 url: (() {
                   switch (item.type) {
                     case 'tree':
-                      return '/gitee/$owner/$name/tree/${item.sha}?path=${item.path!.urlencode}';
+                      return '/gitee/$owner/$name/tree/${item.sha}?path=${item.path.urlencode}';
                     case 'blob':
-                      return '/gitee/$owner/$name/blob/${item.sha}?path=${item.path!.urlencode}';
+                      return '/gitee/$owner/$name/blob/${item.sha}?path=${item.path.urlencode}';
                     default:
                       return null;
                   }

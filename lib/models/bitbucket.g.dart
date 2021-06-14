@@ -115,9 +115,10 @@ Map<String, dynamic> _$BbRepoMainbranchToJson(BbRepoMainbranch instance) =>
     };
 
 BbTree _$BbTreeFromJson(Map<String, dynamic> json) {
-  return BbTree()
-    ..type = json['type'] as String?
-    ..path = json['path'] as String?
+  return BbTree(
+    type: json['type'] as String,
+    path: json['path'] as String,
+  )
     ..size = json['size'] as int?
     ..links = json['links'] as Map<String, dynamic>?;
 }

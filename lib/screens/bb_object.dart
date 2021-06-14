@@ -1,9 +1,9 @@
 import 'dart:convert';
+import 'package:git_touch/scaffolds/list_stateful.dart';
 import 'package:universal_io/io.dart';
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/bitbucket.dart';
-import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/action_entry.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
@@ -22,50 +22,54 @@ class BbObjectScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthModel>(context);
-    return RefreshStatefulScaffold(
+
+    return ListStatefulScaffold<dynamic, String?>(
       title: AppBarTitle(path ?? 'Files'),
-      fetch: () async {
-        final res = await auth
-            .fetchBb('/repositories/$owner/$name/src/$ref/${path ?? ''}');
+      fetch: (next) async {
+        final res = await auth.fetchBb(
+            next ?? '/repositories/$owner/$name/src/$ref/${path ?? ''}');
         if (res.headers[HttpHeaders.contentTypeHeader] == 'text/plain') {
-          return utf8.decode(res.bodyBytes);
-        } else {
-          return BbPagination.fromJson(json.decode(utf8.decode(res.bodyBytes)))
-              .values;
-        }
-      },
-      actionBuilder: (dynamic p, _) {
-        if (p is String) {
-          return ActionEntry(
-            iconData: Ionicons.cog,
-            url: '/choose-code-theme',
+          return ListPayload(
+            cursor: '',
+            hasMore: false,
+            items: [utf8.decode(res.bodyBytes)],
           );
         } else {
-          return null;
-        }
-      },
-      bodyBuilder: (dynamic pl, _) {
-        if (pl is String) {
-          return BlobView(path, text: pl);
-        } else if (pl is List) {
-          final items = pl.map((t) => BbTree.fromJson(t)).toList();
+          final v =
+              BbPagination.fromJson(json.decode(utf8.decode(res.bodyBytes)));
+          final items = [for (var t in v.values) BbTree.fromJson(t)];
           items.sort((a, b) {
             return sortByKey('dir', a.type, b.type);
           });
-          return ObjectTree(items: [
-            for (var v in items)
-              ObjectTreeItem(
-                name: p.basename(v.path!),
-                type: v.type,
-                size: v.type == 'commit_file' ? v.size : null,
-                url:
-                    '/bitbucket/$owner/$name/src/$ref?path=${v.path!.urlencode}',
-                downloadUrl: v.links!['self']['href'] as String?,
-              ),
-          ]);
-        } else {
-          return null;
+
+          return ListPayload(
+            cursor: v.next,
+            hasMore: v.next != null,
+            items: items,
+          );
         }
+      },
+      itemBuilder: (pl) {
+        if (pl is String) {
+          return BlobView(path, text: pl);
+        } else if (pl is BbTree) {
+          return ObjectTreeItem(
+            name: p.basename(pl.path),
+            type: pl.type,
+            // size: v.type == 'commit_file' ? v.size : null,
+            size: pl.size,
+            url: '/bitbucket/$owner/$name/src/$ref?path=${pl.path.urlencode}',
+            downloadUrl: pl.links!['self']['href'] as String?,
+          );
+        } else {
+          return Container();
+        }
+      },
+      actionBuilder: () {
+        return ActionEntry(
+          iconData: Ionicons.cog,
+          url: '/choose-code-theme',
+        );
       },
     );
   }

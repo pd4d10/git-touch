@@ -26,81 +26,86 @@ class SettingsScreen extends StatelessWidget {
       body: Column(
         children: <Widget>[
           CommonStyle.verticalGap,
-          TableView(headerText: AppLocalizations.of(context)!.system, items: [
-            if (auth.activeAccount!.platform == PlatformType.github) ...[
+          TableView(
+            hasIcon: false,
+            headerText: AppLocalizations.of(context)!.system,
+            items: [
+              if (auth.activeAccount!.platform == PlatformType.github) ...[
+                TableViewItem(
+                  text: Text(AppLocalizations.of(context)!.githubStatus),
+                  url: 'https://www.githubstatus.com/',
+                ),
+                TableViewItem(
+                  text: Text(AppLocalizations.of(context)!.reviewPermissions),
+                  url:
+                      'https://github.com/settings/connections/applications/$clientId',
+                  rightWidget: Text(auth.activeAccount!.login),
+                ),
+              ],
+              if (auth.activeAccount!.platform == PlatformType.gitlab)
+                TableViewItem(
+                  text: Text(AppLocalizations.of(context)!.gitlabStatus),
+                  url: '${auth.activeAccount!.domain}/help',
+                  rightWidget: FutureBuilder<String>(
+                    future:
+                        auth.fetchGitlab('/version').then((v) => v['version']),
+                    builder: (context, snapshot) {
+                      return Text(snapshot.data ?? '');
+                    },
+                  ),
+                ),
+              if (auth.activeAccount!.platform == PlatformType.gitea)
+                TableViewItem(
+                  leftIconData: Octicons.info,
+                  text: Text(AppLocalizations.of(context)!.giteaStatus),
+                  url: '/gitea/status',
+                  rightWidget: FutureBuilder<String>(
+                    future:
+                        auth.fetchGitea('/version').then((v) => v['version']),
+                    builder: (context, snapshot) {
+                      return Text(snapshot.data ?? '');
+                    },
+                  ),
+                ),
               TableViewItem(
-                text: Text(AppLocalizations.of(context)!.githubStatus),
-                url: 'https://www.githubstatus.com/',
-              ),
-              TableViewItem(
-                text: Text(AppLocalizations.of(context)!.reviewPermissions),
-                url:
-                    'https://github.com/settings/connections/applications/$clientId',
+                text: Text(AppLocalizations.of(context)!.switchAccounts),
+                url: '/login',
                 rightWidget: Text(auth.activeAccount!.login),
               ),
+              TableViewItem(
+                text: Text('App Language'),
+                rightWidget: Text(theme.locale == null
+                    ? AppLocalizations.of(context)!.followSystem
+                    : localeNameMap[theme.locale!] ?? theme.locale!),
+                onTap: () {
+                  theme.showActions(context, [
+                    for (final key in [
+                      null,
+                      ...AppLocalizations.supportedLocales
+                          .map((l) => l.toString())
+                          .where((key) => localeNameMap[key] != null)
+                    ])
+                      ActionItem(
+                        text: key == null
+                            ? AppLocalizations.of(context)!.followSystem
+                            : localeNameMap[key],
+                        onTap: (_) async {
+                          final res = await theme.showConfirm(
+                            context,
+                            Text(
+                                'The app will reload to make the language setting take effect'),
+                          );
+                          if (res == true && theme.locale != key) {
+                            await theme.setLocale(key);
+                            auth.reloadApp();
+                          }
+                        },
+                      )
+                  ]);
+                },
+              )
             ],
-            if (auth.activeAccount!.platform == PlatformType.gitlab)
-              TableViewItem(
-                text: Text(AppLocalizations.of(context)!.gitlabStatus),
-                url: '${auth.activeAccount!.domain}/help',
-                rightWidget: FutureBuilder<String>(
-                  future:
-                      auth.fetchGitlab('/version').then((v) => v['version']),
-                  builder: (context, snapshot) {
-                    return Text(snapshot.data ?? '');
-                  },
-                ),
-              ),
-            if (auth.activeAccount!.platform == PlatformType.gitea)
-              TableViewItem(
-                leftIconData: Octicons.info,
-                text: Text(AppLocalizations.of(context)!.giteaStatus),
-                url: '/gitea/status',
-                rightWidget: FutureBuilder<String>(
-                  future: auth.fetchGitea('/version').then((v) => v['version']),
-                  builder: (context, snapshot) {
-                    return Text(snapshot.data ?? '');
-                  },
-                ),
-              ),
-            TableViewItem(
-              text: Text(AppLocalizations.of(context)!.switchAccounts),
-              url: '/login',
-              rightWidget: Text(auth.activeAccount!.login),
-            ),
-            TableViewItem(
-              text: Text('App Language'),
-              rightWidget: Text(theme.locale == null
-                  ? AppLocalizations.of(context)!.followSystem
-                  : localeNameMap[theme.locale!] ?? theme.locale!),
-              onTap: () {
-                theme.showActions(context, [
-                  for (final key in [
-                    null,
-                    ...AppLocalizations.supportedLocales
-                        .map((l) => l.toString())
-                        .where((key) => localeNameMap[key] != null)
-                  ])
-                    ActionItem(
-                      text: key == null
-                          ? AppLocalizations.of(context)!.followSystem
-                          : localeNameMap[key],
-                      onTap: (_) async {
-                        final res = await theme.showConfirm(
-                          context,
-                          Text(
-                              'The app will reload to make the language setting take effect'),
-                        );
-                        if (res == true && theme.locale != key) {
-                          await theme.setLocale(key);
-                          auth.reloadApp();
-                        }
-                      },
-                    )
-                ]);
-              },
-            )
-          ]),
+          ),
           CommonStyle.verticalGap,
           TableView(headerText: 'theme', items: [
             TableViewItem(

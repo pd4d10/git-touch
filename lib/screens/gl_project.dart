@@ -156,7 +156,6 @@ class GlProjectScreen extends StatelessWidget {
             ),
             CommonStyle.border,
             TableView(
-              hasIcon: true,
               items: [
                 TableViewItem(
                   leftIconData: Octicons.code,

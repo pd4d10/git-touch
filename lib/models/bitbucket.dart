@@ -65,11 +65,11 @@ class BbRepoMainbranch {
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class BbTree {
-  String? type;
-  String? path;
+  String type;
+  String path;
   int? size;
   Map<String, dynamic>? links;
-  BbTree();
+  BbTree({required this.type, required this.path});
   factory BbTree.fromJson(Map<String, dynamic> json) => _$BbTreeFromJson(json);
 }
 
