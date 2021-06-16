@@ -19,12 +19,17 @@ import 'package:git_touch/screens/login.dart';
 import 'package:git_touch/screens/gh_notification.dart';
 import 'package:git_touch/screens/gh_user.dart';
 import 'package:git_touch/utils/utils.dart';
+import 'package:launch_review/launch_review.dart';
+import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/screens/gh_news.dart';
 import 'package:git_touch/screens/gh_search.dart';
 import 'package:git_touch/screens/gh_trending.dart';
 import 'package:git_touch/screens/ge_search.dart';
+import 'package:github/github.dart';
 import 'package:flutter_gen/gen_l10n/S.dart';
+import 'package:pub_semver/pub_semver.dart';
+import 'package:universal_io/io.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -38,6 +43,32 @@ class _HomeState extends State<Home> {
   final GlobalKey<NavigatorState> tab3 = GlobalKey<NavigatorState>();
   final GlobalKey<NavigatorState> tab4 = GlobalKey<NavigatorState>();
   final GlobalKey<NavigatorState> tab5 = GlobalKey<NavigatorState>();
+
+  @override
+  initState() {
+    super.initState();
+    Future.delayed(Duration(seconds: 5), () async {
+      final latest = await GitHub()
+          .repositories
+          .getLatestRelease(RepositorySlug.full('git-touch/git-touch'));
+      final current =
+          await PackageInfo.fromPlatform().then((value) => value.version);
+      if (Version.parse(latest.tagName!.substring(1))
+              .compareTo(Version.parse(current)) ==
+          1) {
+        final res = await context.read<ThemeModel>().showConfirm(context,
+            Text('New version released. Would you like to download it?'));
+        if (res == true) {
+          if (Platform.isIOS) {
+            // go to app store
+            LaunchReview.launch(writeReview: false);
+          } else {
+            context.read<ThemeModel>().push(context, latest.htmlUrl!);
+          }
+        }
+      }
+    });
+  }
 
   _buildScreen(int index) {
     // print(Localizations.localeOf(context).toString());

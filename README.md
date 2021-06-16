@@ -51,7 +51,9 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ## Contributors
 
-[![](https://sourcerer.io/fame/pd4d10/pd4d10/git-touch/images/0)![](https://sourcerer.io/fame/pd4d10/pd4d10/git-touch/images/1)![](https://sourcerer.io/fame/pd4d10/pd4d10/git-touch/images/2)![](https://sourcerer.io/fame/pd4d10/pd4d10/git-touch/images/3)![](https://sourcerer.io/fame/pd4d10/pd4d10/git-touch/images/4)![](https://sourcerer.io/fame/pd4d10/pd4d10/git-touch/images/5)![](https://sourcerer.io/fame/pd4d10/pd4d10/git-touch/images/6)![](https://sourcerer.io/fame/pd4d10/pd4d10/git-touch/images/7)](https://github.com/pd4d10/git-touch/graphs/contributors)
+<a href="https://github.com/git-touch/git-touch/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=git-touch/git-touch" />
+</a>
 
 ## License
 

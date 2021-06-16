@@ -7,6 +7,7 @@ import 'package:git_touch/graphql/github.var.gql.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/object_tree.dart';
+import 'package:git_touch/widgets/table_view.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:flutter_gen/gen_l10n/S.dart';
@@ -25,12 +26,12 @@ class GhGistsFilesScreen extends StatelessWidget {
           ..vars.login = login
           ..vars.name = id);
         final OperationResponse<GGistData, GGistVars?> res =
-            await context.read<AuthModel>().gqlClient!.request(req).first;
+            await context.read<AuthModel>().gqlClient.request(req).first;
         final gist = res.data!.user!.gist;
         return gist;
       },
       bodyBuilder: (payload, _) {
-        return ObjectTree(
+        return TableView(
           items: payload!.files!.map((v) {
             final uri = Uri(
               path: '/github/$login/gists/$id/${v.name}',
@@ -41,7 +42,7 @@ class GhGistsFilesScreen extends StatelessWidget {
             return ObjectTreeItem(
               url: uri,
               type: 'file',
-              name: v.name,
+              name: v.name ?? '',
               downloadUrl: null,
               size: v.size,
             );

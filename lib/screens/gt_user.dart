@@ -131,7 +131,6 @@ class GtUserScreen extends StatelessWidget {
               ContributionWidget(weeks: p.userHeatmap),
               CommonStyle.border,
               TableView(
-                hasIcon: true,
                 items: [
                   TableViewItem(
                     leftIconData: Octicons.home,

@@ -1,3 +1,4 @@
+import 'package:fimber/fimber.dart';
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/widgets/link.dart';
@@ -31,10 +32,12 @@ class Avatar extends StatelessWidget {
         ? 'images/avatar.png'
         : 'images/avatar-dark.png';
 
+    final fallbackWidget = Image.asset(fallback, width: size, height: size);
+
     final widget = ClipRRect(
       borderRadius: borderRadius ?? BorderRadius.circular(size / 2),
       child: url == null
-          ? Image.asset(fallback, width: size, height: size)
+          ? fallbackWidget
           : FadeInImage.assetNetwork(
               placeholder: fallback,
               image: url!,
@@ -42,6 +45,10 @@ class Avatar extends StatelessWidget {
               height: size,
               fadeInDuration: Duration(milliseconds: 200),
               fadeOutDuration: Duration(milliseconds: 100),
+              imageErrorBuilder: (_, __, ___) {
+                Fimber.e('image error: ' + url!);
+                return fallbackWidget;
+              },
             ),
     );
     if (linkUrl == null) return widget;

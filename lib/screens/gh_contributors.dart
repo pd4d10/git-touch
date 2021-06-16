@@ -20,7 +20,7 @@ class GhContributorsScreen extends StatelessWidget {
         page = page ?? 1;
         final res = await context
             .read<AuthModel>()
-            .ghClient!
+            .ghClient
             .getJSON<List, List<GithubContributorItem>>(
               '/repos/$owner/$name/contributors?page=$page',
               convert: (vs) =>

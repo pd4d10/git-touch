@@ -107,11 +107,11 @@ class GiteeCommitAuthor {
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GiteeTreeItem {
-  String? path;
-  String? type;
+  String path;
+  String type;
   String? sha;
   int? size;
-  GiteeTreeItem();
+  GiteeTreeItem({required this.path, required this.type});
   factory GiteeTreeItem.fromJson(Map<String, dynamic> json) =>
       _$GiteeTreeItemFromJson(json);
 }

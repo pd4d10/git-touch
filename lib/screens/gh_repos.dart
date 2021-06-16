@@ -25,12 +25,12 @@ class GhRepos extends StatelessWidget {
           b.vars.after = cursor;
         });
         final OperationResponse<GReposData, GReposVars?> res =
-            await auth.gqlClient!.request(req).first;
+            await auth.gqlClient.request(req).first;
         final p = res.data!.user!.repositories;
         return ListPayload(
           cursor: p.pageInfo.endCursor,
           hasMore: p.pageInfo.hasNextPage,
-          items: p.nodes,
+          items: p.nodes!,
         );
       },
       itemBuilder: (p) {
@@ -56,12 +56,12 @@ class GhStars extends StatelessWidget {
           b.vars.after = cursor;
         });
         final OperationResponse<GStarsData, GStarsVars?> res =
-            await auth.gqlClient!.request(req).first;
+            await auth.gqlClient.request(req).first;
         final p = res.data!.user!.starredRepositories;
         return ListPayload(
           cursor: p.pageInfo.endCursor,
           hasMore: p.pageInfo.hasNextPage,
-          items: p.nodes,
+          items: p.nodes!,
         );
       },
       itemBuilder: (p) {

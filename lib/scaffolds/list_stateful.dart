@@ -5,21 +5,10 @@ import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/common.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:provider/provider.dart';
-import '../widgets/error_reload.dart';
-import '../widgets/loading.dart';
-import '../widgets/empty.dart';
-
-class ListPayload<T, K> {
-  K cursor;
-  Iterable<T>? items;
-  bool? hasMore;
-
-  ListPayload({
-    required this.items,
-    required this.cursor,
-    required this.hasMore,
-  });
-}
+import 'package:git_touch/widgets/error_reload.dart';
+import 'package:git_touch/widgets/loading.dart';
+import 'package:git_touch/widgets/empty.dart';
+export 'package:git_touch/utils/utils.dart';
 
 // This is a scaffold for infinite scroll screens
 class ListStatefulScaffold<T, K> extends StatefulWidget {
@@ -30,8 +19,8 @@ class ListStatefulScaffold<T, K> extends StatefulWidget {
 
   ListStatefulScaffold({
     required this.title,
-    required this.itemBuilder,
     required this.fetch,
+    required this.itemBuilder,
     this.actionBuilder,
   });
 
@@ -56,7 +45,15 @@ class _ListStatefulScaffoldState<T, K>
   void initState() {
     super.initState();
     _refresh();
-    _controller.addListener(onScroll);
+    _controller.addListener(() {
+      if (_controller.position.maxScrollExtent - _controller.offset < 100 &&
+          !_controller.position.outOfRange &&
+          !loading &&
+          !loadingMore &&
+          hasMore != false) {
+        _loadMore();
+      }
+    });
   }
 
   @override
@@ -65,40 +62,17 @@ class _ListStatefulScaffoldState<T, K>
     super.dispose();
   }
 
-  void onScroll() {
-    // Fimber.d(_controller.position.maxScrollExtent - _controller.offset);
-    if (_controller.position.maxScrollExtent - _controller.offset < 100 &&
-        !_controller.position.outOfRange &&
-        !loading &&
-        !loadingMore &&
-        hasMore!) {
-      _loadMore();
-    }
-  }
-
-  // if items not enough, fetch next page
-  // This should be triggered after build
-  // TODO: disabled
-  void _makeSureItemsFill() {
-    // Future.delayed(Duration(milliseconds: 300)).then((_) {
-    //   onScroll();
-    // });
-  }
-
-  Future<void> _refresh({bool force = false}) async {
+  Future<void> _refresh() async {
     // Fimber.d('list scaffold refresh');
     setState(() {
       error = '';
       loading = true;
-      if (force) {
-        items = [];
-      }
     });
     try {
-      final ListPayload<T, K?> _payload = await widget.fetch(null);
-      items = _payload.items!.toList();
-      cursor = _payload.cursor;
-      hasMore = _payload.hasMore;
+      final ListPayload<T, K> p = await widget.fetch(null);
+      items = p.items.toList();
+      cursor = p.cursor;
+      hasMore = p.hasMore;
     } catch (err) {
       error = err.toString();
       throw err;
@@ -107,7 +81,6 @@ class _ListStatefulScaffoldState<T, K>
         setState(() {
           loading = false;
         });
-        _makeSureItemsFill();
       }
     }
   }
@@ -118,10 +91,10 @@ class _ListStatefulScaffoldState<T, K>
       loadingMore = true;
     });
     try {
-      ListPayload<T, K?> _payload = await widget.fetch(cursor);
-      items.addAll(_payload.items!);
-      cursor = _payload.cursor;
-      hasMore = _payload.hasMore;
+      ListPayload<T, K> p = await widget.fetch(cursor);
+      items.addAll(p.items);
+      cursor = p.cursor;
+      hasMore = p.hasMore;
     } catch (err) {
       error = err.toString();
       throw err;
@@ -130,25 +103,22 @@ class _ListStatefulScaffoldState<T, K>
         setState(() {
           loadingMore = false;
         });
-        _makeSureItemsFill();
       }
     }
   }
 
   Widget _buildItem(BuildContext context, int index) {
     if (index == 2 * items.length) {
-      if (hasMore!) {
+      if (hasMore != false) {
         return Loading(more: true);
       } else {
         return Container();
       }
-    }
-
-    if (index % 2 == 1) {
+    } else if (index % 2 == 1) {
       return CommonStyle.border;
+    } else {
+      return widget.itemBuilder(items[index ~/ 2]);
     }
-
-    return widget.itemBuilder(items[index ~/ 2]);
   }
 
   Widget _buildCupertinoSliver() {
@@ -213,7 +183,7 @@ class _ListStatefulScaffoldState<T, K>
     return CommonScaffold(
       title: widget.title,
       body: _buildBody(),
-      action: widget.actionBuilder == null ? null : widget.actionBuilder!(),
+      action: widget.actionBuilder?.call(),
     );
   }
 }

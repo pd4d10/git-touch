@@ -27,14 +27,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  // @override
-  // initState() {
-  //   super.initState();
-  //   _tokenController.addListener(() {
-  //     print(_tokenController.text);
-  //   });
-  // }
-
   Widget _buildAccountItem(int index) {
     final theme = Provider.of<ThemeModel>(context);
     final auth = Provider.of<AuthModel>(context);

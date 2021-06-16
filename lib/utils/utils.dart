@@ -95,7 +95,7 @@ class GithubPalette {
 }
 
 // final pageSize = 5;
-final pageSize = 30;
+final PAGE_SIZE = 30;
 
 var createWarning =
     (String text) => Text(text, style: TextStyle(color: Colors.redAccent));
@@ -119,7 +119,7 @@ List<T> join<T>(T seperator, List<T> xs) {
 List<T> joinAll<T>(T seperator, List<List<T>> xss) {
   List<T> result = [];
   xss.asMap().forEach((index, x) {
-    if (x == null || x.isEmpty) return;
+    if (x.isEmpty) return;
 
     result.addAll(x);
     if (index < xss.length - 1) {
@@ -134,11 +134,6 @@ final numberFormat = NumberFormat();
 
 bool isNotNullOrEmpty(String? text) {
   return text != null && text.isNotEmpty;
-}
-
-String getBranchQueryKey(String branch, {bool withParams = false}) {
-  if (branch == null) return 'defaultBranchRef';
-  return 'ref' + (withParams ? '(qualifiedName: "$branch")' : '');
 }
 
 // TODO: Primer
@@ -191,3 +186,15 @@ int sortByKey<T>(T key, T a, T b) {
 }
 
 const TOTAL_COUNT_FALLBACK = 999; // TODO:
+
+class ListPayload<T, K> {
+  K cursor;
+  bool hasMore;
+  Iterable<T> items;
+
+  ListPayload({
+    required this.cursor,
+    required this.hasMore,
+    required this.items,
+  });
+}

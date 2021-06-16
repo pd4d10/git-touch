@@ -26,32 +26,52 @@ class SettingsScreen extends StatelessWidget {
       body: Column(
         children: <Widget>[
           CommonStyle.verticalGap,
-          TableView(headerText: AppLocalizations.of(context)!.system, items: [
-            if (auth.activeAccount!.platform == PlatformType.github) ...[
+          TableView(
+            hasIcon: false,
+            headerText: AppLocalizations.of(context)!.system,
+            items: [
+              if (auth.activeAccount!.platform == PlatformType.github) ...[
+                TableViewItem(
+                  text: Text(AppLocalizations.of(context)!.githubStatus),
+                  url: 'https://www.githubstatus.com/',
+                ),
+                TableViewItem(
+                  text: Text(AppLocalizations.of(context)!.reviewPermissions),
+                  url:
+                      'https://github.com/settings/connections/applications/$clientId',
+                  rightWidget: Text(auth.activeAccount!.login),
+                ),
+              ],
+              if (auth.activeAccount!.platform == PlatformType.gitlab)
+                TableViewItem(
+                  text: Text(AppLocalizations.of(context)!.gitlabStatus),
+                  url: '${auth.activeAccount!.domain}/help',
+                  rightWidget: FutureBuilder<String>(
+                    future:
+                        auth.fetchGitlab('/version').then((v) => v['version']),
+                    builder: (context, snapshot) {
+                      return Text(snapshot.data ?? '');
+                    },
+                  ),
+                ),
+              if (auth.activeAccount!.platform == PlatformType.gitea)
+                TableViewItem(
+                  leftIconData: Octicons.info,
+                  text: Text(AppLocalizations.of(context)!.giteaStatus),
+                  url: '/gitea/status',
+                  rightWidget: FutureBuilder<String>(
+                    future:
+                        auth.fetchGitea('/version').then((v) => v['version']),
+                    builder: (context, snapshot) {
+                      return Text(snapshot.data ?? '');
+                    },
+                  ),
+                ),
               TableViewItem(
-                text: Text(AppLocalizations.of(context)!.githubStatus),
-                url: 'https://www.githubstatus.com/',
-              ),
-              TableViewItem(
-                text: Text(AppLocalizations.of(context)!.reviewPermissions),
-                url:
-                    'https://github.com/settings/connections/applications/$clientId',
+                text: Text(AppLocalizations.of(context)!.switchAccounts),
+                url: '/login',
                 rightWidget: Text(auth.activeAccount!.login),
               ),
-            ],
-            if (auth.activeAccount!.platform == PlatformType.gitlab)
-              TableViewItem(
-                text: Text(AppLocalizations.of(context)!.gitlabStatus),
-                url: '${auth.activeAccount!.domain}/help',
-                rightWidget: FutureBuilder<String>(
-                  future:
-                      auth.fetchGitlab('/version').then((v) => v['version']),
-                  builder: (context, snapshot) {
-                    return Text(snapshot.data ?? '');
-                  },
-                ),
-              ),
-            if (auth.activeAccount!.platform == PlatformType.gitea)
               TableViewItem(
                 leftIconData: Octicons.info,
                 text: Text(AppLocalizations.of(context)!.giteaStatus),

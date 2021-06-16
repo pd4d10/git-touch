@@ -11,7 +11,7 @@ import '../widgets/error_reload.dart';
 class LongListPayload<T, K> {
   T header;
   int totalCount;
-  String cursor;
+  String? cursor;
   List<K> leadingItems;
   List<K>? trailingItems;
 

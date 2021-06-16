@@ -89,28 +89,29 @@ class ReleaseItem extends StatelessWidget {
               ),
             ),
             children: <Widget>[
-              TableView(items: [
-                if (releaseAssets != null)
-                  for (var asset in releaseAssets!.nodes!)
-                    TableViewItem(
-                      text: Text(
-                        asset.name,
-                        style: TextStyle(
-                          color: theme.palette.primary,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
+              TableView(
+                hasIcon: false,
+                items: [
+                  if (releaseAssets != null)
+                    for (var asset in releaseAssets!.nodes!)
+                      TableViewItem(
+                        text: Text(
+                          asset.name,
+                          style: TextStyle(
+                            color: theme.palette.primary,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
-                      ),
-                      rightWidget: IconButton(
-                          onPressed: () {
-                            if (asset.downloadUrl != null) {
+                        rightWidget: IconButton(
+                            onPressed: () {
                               theme.push(context, asset.downloadUrl);
-                            }
-                          },
-                          icon: Icon(Ionicons.download_outline)),
-                      hideRightChevron: true,
-                    ),
-              ])
+                            },
+                            icon: Icon(Ionicons.download_outline)),
+                        hideRightChevron: true,
+                      ),
+                ],
+              )
             ],
           ),
         )

@@ -181,9 +181,10 @@ Map<String, dynamic> _$GiteeCommitAuthorToJson(GiteeCommitAuthor instance) =>
     };
 
 GiteeTreeItem _$GiteeTreeItemFromJson(Map<String, dynamic> json) {
-  return GiteeTreeItem()
-    ..path = json['path'] as String?
-    ..type = json['type'] as String?
+  return GiteeTreeItem(
+    path: json['path'] as String,
+    type: json['type'] as String,
+  )
     ..sha = json['sha'] as String?
     ..size = json['size'] as int?;
 }

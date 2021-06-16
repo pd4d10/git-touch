@@ -96,7 +96,7 @@ class GhIssueScreen extends StatelessWidget {
       b.vars.cursor = cursor;
     });
     OperationResponse<GIssueData, GIssueVars?> res =
-        await context.read<AuthModel>().gqlClient!.request(req).first;
+        await context.read<AuthModel>().gqlClient.request(req).first;
     return res.data!.repository!;
   }
 
@@ -115,7 +115,7 @@ class GhIssueScreen extends StatelessWidget {
                 ActionItem(
                   text: d.closed ? 'Reopen issue' : 'Close issue',
                   onTap: (_) async {
-                    await context.read<AuthModel>().ghClient!.issues.edit(
+                    await context.read<AuthModel>().ghClient.issues.edit(
                         github.RepositorySlug(owner, name),
                         number,
                         github.IssueRequest(
@@ -264,7 +264,7 @@ class GhIssueScreen extends StatelessWidget {
           return LongListPayload(
             header: res,
             totalCount: issue.timelineItems.totalCount,
-            cursor: issue.timelineItems.pageInfo.endCursor!,
+            cursor: issue.timelineItems.pageInfo.endCursor,
             leadingItems: issue.timelineItems.nodes!.toList(),
             trailingItems: [],
           );
@@ -274,7 +274,7 @@ class GhIssueScreen extends StatelessWidget {
           return LongListPayload(
             header: res,
             totalCount: pr.timelineItems.totalCount,
-            cursor: pr.timelineItems.pageInfo.endCursor!,
+            cursor: pr.timelineItems.pageInfo.endCursor,
             leadingItems: pr.timelineItems.nodes!.toList(),
             trailingItems: [],
           );
@@ -288,7 +288,7 @@ class GhIssueScreen extends StatelessWidget {
           return LongListPayload(
             header: res,
             totalCount: issue.timelineItems.totalCount,
-            cursor: issue.timelineItems.pageInfo.endCursor!,
+            cursor: issue.timelineItems.pageInfo.endCursor,
             leadingItems: issue.timelineItems.nodes!.toList(),
           );
         } else {
@@ -297,7 +297,7 @@ class GhIssueScreen extends StatelessWidget {
           return LongListPayload(
             header: res,
             totalCount: pr.timelineItems.totalCount,
-            cursor: pr.timelineItems.pageInfo.endCursor!,
+            cursor: pr.timelineItems.pageInfo.endCursor,
             leadingItems: pr.timelineItems.nodes!.toList(),
           );
         }

@@ -8,6 +8,7 @@ import 'package:git_touch/widgets/action_entry.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/blob_view.dart';
 import 'package:git_touch/widgets/object_tree.dart';
+import 'package:git_touch/widgets/table_view.dart';
 import 'package:provider/provider.dart';
 
 class GoObjectScreen extends StatelessWidget {
@@ -44,7 +45,7 @@ class GoObjectScreen extends StatelessWidget {
           items.sort((a, b) {
             return sortByKey('dir', a.type, b.type);
           });
-          return ObjectTree(items: [
+          return TableView(items: [
             for (var v in items)
               ObjectTreeItem(
                 name: v.name,
@@ -57,8 +58,7 @@ class GoObjectScreen extends StatelessWidget {
           ]);
         } else {
           final v = GogsBlob.fromJson(p);
-          return BlobView(v.name,
-              base64Text: v.content == null ? '' : v.content);
+          return BlobView(v.name, base64Text: v.content);
         }
       },
     );

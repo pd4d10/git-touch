@@ -50,7 +50,7 @@ class _GhSearchScreenState extends State<GhSearchScreen> {
       final auth = context.read<AuthModel>();
       final data = await auth.query('''
 {
-  repository: search(first: $pageSize, type: REPOSITORY, query: "$keyword") {
+  repository: search(first: $PAGE_SIZE, type: REPOSITORY, query: "$keyword") {
     nodes {
       ... on Repository {
         owner {
@@ -76,7 +76,7 @@ class _GhSearchScreenState extends State<GhSearchScreen> {
       }
     }
   }
-  user: search(first: $pageSize, type: USER, query: "$keyword") {
+  user: search(first: $PAGE_SIZE, type: USER, query: "$keyword") {
     nodes {
       ... on Organization {
         __typename
@@ -90,7 +90,7 @@ class _GhSearchScreenState extends State<GhSearchScreen> {
       }
     }
   }
-  issue: search(first: $pageSize, type: ISSUE, query: "$keyword") {
+  issue: search(first: $PAGE_SIZE, type: ISSUE, query: "$keyword") {
     nodes {
       ... on PullRequest {
         __typename

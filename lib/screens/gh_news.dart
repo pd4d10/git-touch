@@ -24,7 +24,7 @@ class GhNewsScreenState extends State<GhNewsScreen> {
       // 1 item is enough since count is not displayed for now.
       var items = await context
           .read<AuthModel>()
-          .ghClient!
+          .ghClient
           .getJSON('/notifications?per_page=1');
 
       if (items is List && items.isNotEmpty) {
@@ -43,13 +43,13 @@ class GhNewsScreenState extends State<GhNewsScreen> {
         final auth = context.read<AuthModel>();
         final login = auth.activeAccount!.login;
 
-        final events = await auth.ghClient!.getJSON(
-          '/users/$login/received_events?page=$page&per_page=$pageSize',
+        final events = await auth.ghClient.getJSON(
+          '/users/$login/received_events?page=$page&per_page=$PAGE_SIZE',
           convert: (dynamic vs) => [for (var v in vs) GithubEvent.fromJson(v)],
         );
         return ListPayload(
           cursor: page + 1,
-          hasMore: events.length == pageSize,
+          hasMore: events.length == PAGE_SIZE,
           items: events,
         );
       },

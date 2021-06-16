@@ -85,9 +85,10 @@ Map<String, dynamic> _$GogsOrgToJson(GogsOrg instance) => <String, dynamic>{
     };
 
 GogsTree _$GogsTreeFromJson(Map<String, dynamic> json) {
-  return GogsTree()
-    ..type = json['type'] as String?
-    ..name = json['name'] as String?
+  return GogsTree(
+    type: json['type'] as String,
+    name: json['name'] as String,
+  )
     ..path = json['path'] as String?
     ..size = json['size'] as int?
     ..downloadUrl = json['download_url'] as String?;
@@ -102,9 +103,10 @@ Map<String, dynamic> _$GogsTreeToJson(GogsTree instance) => <String, dynamic>{
     };
 
 GogsBlob _$GogsBlobFromJson(Map<String, dynamic> json) {
-  return GogsBlob()
-    ..type = json['type'] as String?
-    ..name = json['name'] as String?
+  return GogsBlob(
+    type: json['type'] as String,
+    name: json['name'] as String,
+  )
     ..path = json['path'] as String?
     ..size = json['size'] as int?
     ..downloadUrl = json['download_url'] as String?

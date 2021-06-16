@@ -156,7 +156,6 @@ class GlProjectScreen extends StatelessWidget {
             ),
             CommonStyle.border,
             TableView(
-              hasIcon: true,
               items: [
                 TableViewItem(
                   leftIconData: Octicons.code,
@@ -199,38 +198,36 @@ class GlProjectScreen extends StatelessWidget {
                       ? null
                       : Text(p.statistics!.commitCount.toString()),
                   url:
-                      '/gitlab/projects/$id/commits?prefix=$prefix&branch=${branch == null ? p.defaultBranch : branch}', // EDIT
+                      '/gitlab/projects/$id/commits?prefix=$prefix&branch=${branch ?? p.defaultBranch}', // EDIT
                 ),
-                if (branches != null)
-                  TableViewItem(
-                    leftIconData: Octicons.git_branch,
-                    text: Text(AppLocalizations.of(context)!.branches),
-                    rightWidget: Text(
-                        ((branch == null ? p.defaultBranch : branch) ??
-                                '' /** empty project */) +
-                            ' • ' +
-                            branches.length.toString()),
-                    onTap: () async {
-                      if (branches.length < 2) return;
+                TableViewItem(
+                  leftIconData: Octicons.git_branch,
+                  text: Text(AppLocalizations.of(context)!.branches),
+                  rightWidget: Text(
+                      ((branch ?? p.defaultBranch) ?? '' /** empty project */) +
+                          ' • ' +
+                          branches.length.toString()),
+                  onTap: () async {
+                    if (branches.length < 2) return;
 
-                      await theme.showPicker(
-                        context,
-                        PickerGroupItem(
-                          value: branch,
-                          items: branches
-                              .map((b) => PickerItem(b.name, text: b.name))
-                              .toList(),
-                          onClose: (ref) {
-                            if (ref != branch) {
-                              theme.push(
-                                  context, '/gitlab/projects/$id?branch=$ref',
-                                  replace: true);
-                            }
-                          },
-                        ),
-                      );
-                    },
-                  ),
+                    await theme.showPicker(
+                      context,
+                      PickerGroupItem(
+                        value: branch,
+                        items: branches
+                            .map((b) => PickerItem(b.name, text: b.name))
+                            .toList(),
+                        onClose: (ref) {
+                          if (ref != branch) {
+                            theme.push(
+                                context, '/gitlab/projects/$id?branch=$ref',
+                                replace: true);
+                          }
+                        },
+                      ),
+                    );
+                  },
+                ),
               ],
             ),
             CommonStyle.verticalGap,

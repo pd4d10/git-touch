@@ -133,14 +133,12 @@ class GeRepoScreen extends StatelessWidget {
             ),
             CommonStyle.border,
             TableView(
-              hasIcon: true,
               items: [
                 TableViewItem(
                   leftIconData: Octicons.code,
                   text: Text('Code'),
                   rightWidget: Text(p.license ?? ''),
-                  url:
-                      '/gitee/$owner/$name/tree/${branch == null ? p.defaultBranch : branch}',
+                  url: '/gitee/$owner/$name/tree/${branch ?? p.defaultBranch}',
                 ),
                 TableViewItem(
                   leftIconData: Octicons.issue_opened,
@@ -158,37 +156,35 @@ class GeRepoScreen extends StatelessWidget {
                   leftIconData: Octicons.history,
                   text: Text('Commits'),
                   url:
-                      '/gitee/$owner/$name/commits?branch=${branch == null ? p.defaultBranch : branch}',
+                      '/gitee/$owner/$name/commits?branch=${branch ?? p.defaultBranch}',
                 ),
-                if (branches != null)
-                  TableViewItem(
-                    leftIconData: Octicons.git_branch,
-                    text: Text(AppLocalizations.of(context)!.branches),
-                    rightWidget: Text(
-                        (branch == null ? p.defaultBranch : branch)! +
-                            ' • ' +
-                            branches.length.toString()),
-                    onTap: () async {
-                      if (branches.length < 2) return;
+                TableViewItem(
+                  leftIconData: Octicons.git_branch,
+                  text: Text(AppLocalizations.of(context)!.branches),
+                  rightWidget: Text((branch ?? p.defaultBranch)! +
+                      ' • ' +
+                      branches.length.toString()),
+                  onTap: () async {
+                    if (branches.length < 2) return;
 
-                      await theme.showPicker(
-                        context,
-                        PickerGroupItem(
-                          value: branch,
-                          items: branches
-                              .map((b) => PickerItem(b.name, text: b.name))
-                              .toList(),
-                          onClose: (ref) {
-                            if (ref != branch) {
-                              theme.push(
-                                  context, '/gitee/$owner/$name?branch=$ref',
-                                  replace: true);
-                            }
-                          },
-                        ),
-                      );
-                    },
-                  ),
+                    await theme.showPicker(
+                      context,
+                      PickerGroupItem(
+                        value: branch,
+                        items: branches
+                            .map((b) => PickerItem(b.name, text: b.name))
+                            .toList(),
+                        onClose: (ref) {
+                          if (ref != branch) {
+                            theme.push(
+                                context, '/gitee/$owner/$name?branch=$ref',
+                                replace: true);
+                          }
+                        },
+                      ),
+                    );
+                  },
+                ),
                 TableViewItem(
                     leftIconData: Octicons.organization,
                     text: Text('Contributors'),

@@ -39,19 +39,6 @@ class DataWithPage<T> {
   bool hasMore;
   int total;
   DataWithPage({
-    /*required*/ required this.data,
-    /*required*/ required this.cursor,
-    /*required*/ required this.hasMore,
-    required this.total,
-  });
-}
-
-class BbPagePayload<T> {
-  T data;
-  String? cursor;
-  bool hasMore;
-  int total;
-  BbPagePayload({
     required this.data,
     required this.cursor,
     required this.hasMore,
@@ -302,7 +289,7 @@ class AuthModel with ChangeNotifier {
   Future<DataWithPage> fetchGiteaWithPage(String path,
       {int? page, int? limit}) async {
     page = page ?? 1;
-    limit = limit ?? pageSize;
+    limit = limit ?? PAGE_SIZE;
 
     var uri = Uri.parse('${activeAccount!.domain}/api/v1$path');
     uri = uri.replace(
@@ -406,7 +393,7 @@ class AuthModel with ChangeNotifier {
   Future<DataWithPage> fetchGogsWithPage(String path,
       {int? page, int? limit}) async {
     page = page ?? 1;
-    limit = limit ?? pageSize;
+    limit = limit ?? PAGE_SIZE;
 
     var uri = Uri.parse('${activeAccount!.domain}/api/v1$path');
     uri = uri.replace(
@@ -493,7 +480,7 @@ class AuthModel with ChangeNotifier {
   Future<DataWithPage> fetchGiteeWithPage(String path,
       {int? page, int? limit}) async {
     page = page ?? 1;
-    limit = limit ?? pageSize;
+    limit = limit ?? PAGE_SIZE;
 
     var uri = Uri.parse('${activeAccount!.domain}/api/v5$path');
     uri = uri.replace(
@@ -558,7 +545,10 @@ class AuthModel with ChangeNotifier {
     final uri = Uri.parse(activeAccount!.domain).replace(
       userInfo: '${activeAccount!.login}:${activeAccount!.appPassword}',
       path: input.path,
-      query: input.query,
+      queryParameters: {
+        'pagelen': PAGE_SIZE.toString(),
+        ...input.queryParameters
+      },
     );
     if (isPost) {
       return http.post(
@@ -583,13 +573,12 @@ class AuthModel with ChangeNotifier {
     return json.decode(utf8.decode(res.bodyBytes));
   }
 
-  Future<BbPagePayload<List?>> fetchBbWithPage(String p) async {
+  Future<ListPayload<dynamic, String?>> fetchBbWithPage(String p) async {
     final data = await fetchBbJson(p);
     final v = BbPagination.fromJson(data);
-    return BbPagePayload(
+    return ListPayload(
       cursor: v.next,
-      total: v.size ?? TOTAL_COUNT_FALLBACK,
-      data: v.values,
+      items: v.values,
       hasMore: v.next != null,
     );
   }
@@ -699,18 +688,15 @@ class AuthModel with ChangeNotifier {
   // var _timeoutDuration = Duration(seconds: 1);
 
   GitHub? _ghClient;
-  GitHub? get ghClient {
-    if (token == null) return null;
+  GitHub get ghClient {
     if (_ghClient == null) {
       _ghClient = GitHub(auth: Authentication.withToken(token));
     }
-    return _ghClient;
+    return _ghClient!;
   }
 
   Client? _gqlClient;
-  Client? get gqlClient {
-    if (token == null) return null;
-
+  Client get gqlClient {
     if (_gqlClient == null) {
       _gqlClient = Client(
         link: HttpLink(
@@ -721,15 +707,12 @@ class AuthModel with ChangeNotifier {
       );
     }
 
-    return _gqlClient;
+    return _gqlClient!;
   }
 
   Future<dynamic> query(String query, [String? _token]) async {
     if (_token == null) {
       _token = token;
-    }
-    if (_token == null) {
-      throw 'token is null';
     }
 
     final res = await http

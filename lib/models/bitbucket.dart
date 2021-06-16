@@ -3,12 +3,9 @@ part 'bitbucket.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class BbPagination {
-  int? pagelen;
-  int? size;
-  int? page;
   String? next;
-  List? values;
-  BbPagination();
+  List values;
+  BbPagination({required this.values});
   factory BbPagination.fromJson(Map<String, dynamic> json) =>
       _$BbPaginationFromJson(json);
 }
@@ -68,11 +65,11 @@ class BbRepoMainbranch {
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class BbTree {
-  String? type;
-  String? path;
+  String type;
+  String path;
   int? size;
   Map<String, dynamic>? links;
-  BbTree();
+  BbTree({required this.type, required this.path});
   factory BbTree.fromJson(Map<String, dynamic> json) => _$BbTreeFromJson(json);
 }
 

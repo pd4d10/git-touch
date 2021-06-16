@@ -24,12 +24,12 @@ class GhFollowers extends StatelessWidget {
           b.vars.after = cursor;
         });
         final OperationResponse<GFollowersData, GFollowersVars?> res =
-            await auth.gqlClient!.request(req).first;
+            await auth.gqlClient.request(req).first;
         final p = res.data!.user!.followers;
         return ListPayload(
           cursor: p.pageInfo.endCursor,
           hasMore: p.pageInfo.hasNextPage,
-          items: p.nodes,
+          items: p.nodes!,
         );
       },
       itemBuilder: (p) {
@@ -54,12 +54,12 @@ class GhFollowing extends StatelessWidget {
           b.vars.after = cursor;
         });
         final OperationResponse<GFollowingData, GFollowingVars?> res =
-            await auth.gqlClient!.request(req).first;
+            await auth.gqlClient.request(req).first;
         final p = res.data!.user!.following;
         return ListPayload(
           cursor: p.pageInfo.endCursor,
           hasMore: p.pageInfo.hasNextPage,
-          items: p.nodes,
+          items: p.nodes!,
         );
       },
       itemBuilder: (p) {
@@ -84,12 +84,12 @@ class GhMembers extends StatelessWidget {
           b.vars.after = cursor;
         });
         final OperationResponse<GMembersData, GMembersVars?> res =
-            await auth.gqlClient!.request(req).first;
+            await auth.gqlClient.request(req).first;
         final p = res.data!.organization!.membersWithRole;
         return ListPayload(
           cursor: p.pageInfo.endCursor,
           hasMore: p.pageInfo.hasNextPage,
-          items: p.nodes,
+          items: p.nodes!,
         );
       },
       itemBuilder: (p) {
@@ -116,12 +116,12 @@ class GhWachers extends StatelessWidget {
           b.vars.after = cursor;
         });
         final OperationResponse<GWatchersData, GWatchersVars?> res =
-            await auth.gqlClient!.request(req).first;
+            await auth.gqlClient.request(req).first;
         final p = res.data!.repository!.watchers;
         return ListPayload(
           cursor: p.pageInfo.endCursor,
           hasMore: p.pageInfo.hasNextPage,
-          items: p.nodes,
+          items: p.nodes!,
         );
       },
       itemBuilder: (p) {
@@ -148,12 +148,12 @@ class GhStargazers extends StatelessWidget {
           b.vars.after = cursor;
         });
         final OperationResponse<GStargazersData, GStargazersVars?> res =
-            await auth.gqlClient!.request(req).first;
+            await auth.gqlClient.request(req).first;
         final p = res.data!.repository!.stargazers;
         return ListPayload(
           cursor: p.pageInfo.endCursor,
           hasMore: p.pageInfo.hasNextPage,
-          items: p.nodes,
+          items: p.nodes!,
         );
       },
       itemBuilder: (p) {

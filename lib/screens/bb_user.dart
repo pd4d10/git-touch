@@ -29,13 +29,14 @@ class BbUserScreen extends StatelessWidget {
               : 'User'),
       fetch: () async {
         final res = await Future.wait([
-          auth.fetchBbJson('/${isTeam ? 'teams' : 'users'}/$_accountId'),
-          auth.fetchBbWithPage('/repositories/$_login'),
+          auth
+              .fetchBbJson('/${isTeam ? 'teams' : 'users'}/$_accountId')
+              .then((value) => BbUser.fromJson(value)),
+          auth
+              .fetchBbWithPage('/repositories/$_login')
+              .then((value) => [for (var v in value.items) BbRepo.fromJson(v)]),
         ]);
-        return Tuple2(
-          BbUser.fromJson(res[0]),
-          [for (var v in res[1].data) BbRepo.fromJson(v)],
-        );
+        return Tuple2(res[0] as BbUser, res[1] as Iterable<BbRepo>);
       },
       action: isViewer
           ? ActionEntry(

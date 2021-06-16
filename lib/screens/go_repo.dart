@@ -89,13 +89,11 @@ class GoRepoScreen extends StatelessWidget {
             ),
             CommonStyle.border,
             TableView(
-              hasIcon: true,
               items: [
                 TableViewItem(
                   leftIconData: Octicons.code,
                   text: Text('Code'),
-                  url:
-                      '/gogs/$owner/$name/blob?ref=${branch == null ? 'master' : branch}',
+                  url: '/gogs/$owner/$name/blob?ref=${branch ?? 'master'}',
                 ),
                 TableViewItem(
                   leftIconData: Octicons.issue_opened,
@@ -110,18 +108,15 @@ class GoRepoScreen extends StatelessWidget {
                 TableViewItem(
                   leftIconData: Octicons.history,
                   text: Text('Commits'),
-                  url:
-                      '/gogs/$owner/$name/commits?ref=${branch == null ? 'master' : branch}',
+                  url: '/gogs/$owner/$name/commits?ref=${branch ?? 'master'}',
                 ),
                 TableViewItem(
                   leftIconData: Octicons.git_branch,
                   text: Text(AppLocalizations.of(context)!.branches),
-                  rightWidget: Text((branch == null ? 'master' : branch)! +
+                  rightWidget: Text((branch ?? 'master') +
                       ' • ' +
-                      '${branches == null ? '1' : branches.length.toString()}'),
+                      '${branches.length.toString()}'),
                   onTap: () async {
-                    if (branches == null) return;
-
                     await theme.showPicker(
                       context,
                       PickerGroupItem(

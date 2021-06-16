@@ -229,10 +229,11 @@ Map<String, dynamic> _$GitlabProjectNamespaceToJson(
     };
 
 GitlabTreeItem _$GitlabTreeItemFromJson(Map<String, dynamic> json) {
-  return GitlabTreeItem()
-    ..type = json['type'] as String?
-    ..path = json['path'] as String?
-    ..name = json['name'] as String?;
+  return GitlabTreeItem(
+    type: json['type'] as String,
+    path: json['path'] as String,
+    name: json['name'] as String,
+  );
 }
 
 Map<String, dynamic> _$GitlabTreeItemToJson(GitlabTreeItem instance) =>

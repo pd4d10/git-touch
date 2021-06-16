@@ -60,7 +60,7 @@ class _GhIssueFormScreenState extends State<GhIssueFormScreen> {
               final slug = RepositorySlug(widget.owner, widget.name);
               final res = await context
                   .read<AuthModel>()
-                  .ghClient!
+                  .ghClient
                   .issues
                   .create(slug, IssueRequest(title: _title, body: _body));
               await theme.push(

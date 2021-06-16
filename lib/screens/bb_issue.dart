@@ -22,17 +22,21 @@ class BbIssueScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RefreshStatefulScaffold<Tuple2<BbIssues, List<BbComment>>>(
+    return RefreshStatefulScaffold<Tuple2<BbIssues, Iterable<BbComment>>>(
       title: Text("Issue: #$number"),
       fetch: () async {
         final auth = context.read<AuthModel>();
-        final items = await Future.wait([
-          auth.fetchBbJson('/repositories/$owner/$name/issues/$number'),
-          auth.fetchBbWithPage(
-              '/repositories/$owner/$name/issues/$number/comments')
+        final res = await Future.wait([
+          auth
+              .fetchBbJson('/repositories/$owner/$name/issues/$number')
+              .then((value) => BbIssues.fromJson(value)),
+          auth
+              .fetchBbWithPage(
+                  '/repositories/$owner/$name/issues/$number/comments')
+              .then(
+                  (value) => [for (var v in value.items) BbComment.fromJson(v)])
         ]);
-        return Tuple2(BbIssues.fromJson(items[0]),
-            [for (var v in items[1].data) BbComment.fromJson(v)]);
+        return Tuple2(res[0] as BbIssues, res[1] as Iterable<BbComment>);
       },
       actionBuilder: (data, _) => ActionEntry(
         iconData: Octicons.plus,
