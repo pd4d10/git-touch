@@ -9,6 +9,7 @@ import 'package:timeago/timeago.dart' as timeago;
 import 'avatar.dart';
 import '../widgets/link.dart';
 import '../utils/utils.dart';
+import 'package:flutter_gen/gen_l10n/S.dart';
 
 class EventItem extends StatelessWidget {
   final GithubEvent e;
@@ -104,7 +105,8 @@ class EventItem extends StatelessWidget {
           style: TextStyle(color: theme.palette.primary),
         )
       ],
-      card: Text('Woops, ${e.type} not implemented yet'),
+      card: Text(
+          '${e.type} ${AppLocalizations.of(context)!.timelineTypeNotImplemented}'),
     );
   }
 
@@ -126,8 +128,8 @@ class EventItem extends StatelessWidget {
                 style: TextStyle(color: theme.palette.text, fontSize: 15),
                 children: [
                   TextSpan(
-                      text: e.payload!.commits!.length.toString() +
-                          ' commits to '),
+                      text:
+                          '${AppLocalizations.of(context)!.nCommitsTo(e.payload!.commits!.length)} '),
                   WidgetSpan(
                     child: PrimerBranchName(
                         e.payload!.ref!.replaceFirst('refs/heads/', '')),
@@ -302,7 +304,7 @@ class EventItem extends StatelessWidget {
         return _buildItem(context: context, spans: [
           TextSpan(
               text:
-                  ' ${e.payload!.action} a check run for ${e.payload!.checkRun!.name} '),
+                  '${AppLocalizations.of(context)!.checkRunEventMessage(e.payload!.action!, e.payload!.checkRun!.name!)} '),
         ]);
       case 'CheckSuiteEvent':
         // Needs checks permission
@@ -310,16 +312,19 @@ class EventItem extends StatelessWidget {
         switch (e.payload!.checkSuite!.conclusion) {
           case 'success':
           case 'failure':
-            conclusion = 'it is a ' + e.payload!.checkSuite!.conclusion!;
+            conclusion =
+                '${AppLocalizations.of(context)!.checkSuiteEventConclusionMessage(e.payload!.checkSuite!.conclusion!)} ';
             break;
           case 'neutral':
           case 'cancelled':
           case 'timed_out':
           case 'stale':
-            conclusion = 'it is ' + e.payload!.checkSuite!.conclusion!;
+            conclusion =
+                '${AppLocalizations.of(context)!.checkSuiteEventConclusionMessage(e.payload!.checkSuite!.conclusion!)} ';
             break;
           case 'action_required':
-            conclusion = ' it requires more action';
+            conclusion =
+                ' ${AppLocalizations.of(context)!.actionRequiredConclusion}';
             break;
         }
         return _buildItem(
@@ -327,22 +332,25 @@ class EventItem extends StatelessWidget {
           spans: [
             TextSpan(
                 text:
-                    ' ${e.payload!.action} the check suite and the conclusion is that $conclusion'),
+                    ' ${AppLocalizations.of(context)!.checkSuiteEventMessage(e.payload!.action!)} $conclusion'),
           ],
         );
       case 'CommitCommentEvent':
         return _buildItem(
           context: context,
           spans: [
-            TextSpan(text: ' commented on a commit '),
-            TextSpan(text: ' at '),
+            TextSpan(
+                text:
+                    ' ${AppLocalizations.of(context)!.commitCommentEventMessage} '),
             _buildRepo(context),
           ],
           card: _buildCommitCommentCard(context),
         );
       case 'ContentReferenceEvent':
         return _buildItem(context: context, spans: [
-          TextSpan(text: ' ${e.payload!.action} a content reference at '),
+          TextSpan(
+              text:
+                  ' ${AppLocalizations.of(context)!.contentReferenceEventMessage(e.payload!.action!)} '),
           _buildLinkSpan(context, e.payload!.contentReference!.reference,
               e.payload!.contentReference!.reference),
         ]);
@@ -350,10 +358,9 @@ class EventItem extends StatelessWidget {
         return _buildItem(
           context: context,
           spans: <InlineSpan>[
-            TextSpan(text: ' created a ${e.payload!.refType}'),
             TextSpan(
                 text:
-                    '${e.payload!.ref == null ? '' : ' ' + e.payload!.ref! + ' at'} '),
+                    ' ${AppLocalizations.of(context)!.createdEventMessage(e.payload!.refType!, e.payload!.ref ?? '')}'),
             _buildRepo(context),
           ],
         );
@@ -361,10 +368,9 @@ class EventItem extends StatelessWidget {
         return _buildItem(
           context: context,
           spans: <InlineSpan>[
-            TextSpan(text: ' deleted the ${e.payload!.refType}'),
             TextSpan(
                 text:
-                    '${e.payload!.ref == null ? '' : ' ' + e.payload!.ref! + ' at'} '),
+                    ' ${AppLocalizations.of(context)!.deletedEventMessage(e.payload!.refType!, e.payload!.ref ?? '')}'),
             _buildRepo(context),
           ],
         );
@@ -374,9 +380,9 @@ class EventItem extends StatelessWidget {
         return _buildItem(
           context: context,
           spans: [
-            TextSpan(text: ' forked '),
+            TextSpan(text: ' ${AppLocalizations.of(context)!.forked} '),
             _buildRepo(context, '$forkeeOwner/$forkeeName'),
-            TextSpan(text: ' from '),
+            TextSpan(text: ' ${AppLocalizations.of(context)!.from} '),
             _buildRepo(context),
           ],
         );
@@ -391,10 +397,12 @@ class EventItem extends StatelessWidget {
           }
         }
         if (pageNamesCreated.length > 0) {
-          pageNamesCreated = " created the pages: \n" + pageNamesCreated + "\n";
+          pageNamesCreated =
+              " ${AppLocalizations.of(context)!.createdPages(pageNamesCreated)}";
         }
         if (pageNamesEdited.length > 0) {
-          pageNamesEdited = " edited the pages: \n" + pageNamesEdited + "\n";
+          pageNamesEdited =
+              " ${AppLocalizations.of(context)!.editedPages(pageNamesEdited)}";
         }
 
         return _buildItem(
@@ -403,14 +411,14 @@ class EventItem extends StatelessWidget {
       case 'InstallationEvent':
         String? action = e.payload!.action;
         if (action == 'new_permissions_accepted') {
-          action = "new permission were accepted for";
+          action = "${AppLocalizations.of(context)!.newPermissionsAccepted}";
         }
         return _buildItem(
           context: context,
           spans: [
             TextSpan(
                 text:
-                    ' $action for the Github App with id ${e.payload!.installation!.id}'),
+                    ' $action ${AppLocalizations.of(context)!.forGithubAppWithId(e.payload!.installation!.id.toString())}'),
           ],
         );
       case 'InstallationRepositoriesEvent':
@@ -428,17 +436,17 @@ class EventItem extends StatelessWidget {
         }
         String finalListOfRepos = "";
         if (addedRepos != "") {
-          finalListOfRepos += addedRepos + " were added to\n ";
+          finalListOfRepos +=
+              "${AppLocalizations.of(context)!.wereAddedTo(addedRepos, e.payload!.installation!.id.toString())}\n ";
         }
         if (removedRepos != "") {
-          finalListOfRepos += removedRepos + " were removed from";
+          finalListOfRepos += removedRepos +
+              " ${AppLocalizations.of(context)!.wereRemovedFrom(removedRepos, e.payload!.installation!.id.toString())}";
         }
         return _buildItem(
           context: context,
           spans: [
-            TextSpan(
-                text:
-                    ' $finalListOfRepos the installation id ${e.payload!.installation!.id} '),
+            TextSpan(text: '$finalListOfRepos'),
           ],
         );
       case 'IssueCommentEvent':
@@ -447,13 +455,13 @@ class EventItem extends StatelessWidget {
           spans: [
             TextSpan(
                 text:
-                    ' commented on ${e.payload!.issue!.isPullRequestComment ? 'pull request' : 'issue'} '),
+                    ' ${AppLocalizations.of(context)!.commentedOn} ${e.payload!.issue!.isPullRequestComment ? 'pull request' : 'issue'} '),
             _buildIssue(
               context,
               e.payload!.issue!.number,
               isPullRequest: e.payload!.issue!.isPullRequestComment,
             ),
-            TextSpan(text: ' at '),
+            TextSpan(text: ' ${AppLocalizations.of(context)!.at} '),
             _buildRepo(context),
           ],
           card: _buildIssueCard(
@@ -468,9 +476,11 @@ class EventItem extends StatelessWidget {
         return _buildItem(
           context: context,
           spans: [
-            TextSpan(text: ' ${e.payload!.action} issue '),
+            TextSpan(
+                text:
+                    ' ${e.payload!.action} ${AppLocalizations.of(context)!.issue} '),
             _buildIssue(context, issue.number),
-            TextSpan(text: ' at '),
+            TextSpan(text: ' ${AppLocalizations.of(context)!.at} '),
             _buildRepo(context),
           ],
           card: _buildIssueCard(context, issue, issue.body),
@@ -480,19 +490,24 @@ class EventItem extends StatelessWidget {
         var messageToDisplay;
         switch (action) {
           case "purchased":
-            messageToDisplay = "purchased a Marketplace Plan";
+            messageToDisplay =
+                AppLocalizations.of(context)!.purchasedMarketplacePlan;
             break;
           case "cancelled":
-            messageToDisplay = "cancelled their Marketplace Plan";
+            messageToDisplay =
+                AppLocalizations.of(context)!.cancelledMarketplacePlan;
             break;
           case "pending_change":
-            messageToDisplay = " Marketplace Plan is pending change";
+            messageToDisplay =
+                AppLocalizations.of(context)!.pendingMarketplacePlan;
             break;
           case "pending_change_cancelled":
-            messageToDisplay = " Pending Marketplace Plan was cancelled";
+            messageToDisplay =
+                AppLocalizations.of(context)!.pendingChangeCancelled;
             break;
           case "changed":
-            messageToDisplay = " changed their Marketplace Plan";
+            messageToDisplay =
+                AppLocalizations.of(context)!.changedMarketplacePlan;
             break;
         }
         return _buildItem(
@@ -511,21 +526,22 @@ class EventItem extends StatelessWidget {
           spans: [
             TextSpan(
                 text:
-                    ' was ${e.payload!.action} ${action == 'added' ? 'to' : 'from'} '),
+                    ' ${AppLocalizations.of(context)!.was} ${e.payload!.action} ${action == 'added' ? AppLocalizations.of(context)!.to : AppLocalizations.of(context)!.from} '),
             _buildRepo(context),
           ],
         );
       case 'ProjectCardEvent':
         String? action = e.payload!.action;
         if (action == 'converted') {
-          action = ' converted the project card into an issue ';
+          action = ' ${AppLocalizations.of(context)!.convertProjectCard} ';
         } else {
-          action = action! + ' the project card ';
+          action =
+              action! + ' ${AppLocalizations.of(context)!.theProjectCard} ';
         }
         return _buildItem(
           context: context,
           spans: [
-            TextSpan(text: ' $action at '),
+            TextSpan(text: ' $action ${AppLocalizations.of(context)!.at} '),
             _buildRepo(context),
           ],
         );
@@ -533,22 +549,22 @@ class EventItem extends StatelessWidget {
         return _buildItem(context: context, spans: [
           TextSpan(
               text:
-                  ' ${e.payload!.action} the project column ${e.payload!.projectColumn!.name} at '),
+                  ' ${AppLocalizations.of(context)!.projectColumnEventMessage(e.payload!.action!, e.payload!.projectColumn!.name!)} '),
           _buildRepo(context),
         ]);
       case 'ProjectEvent':
         return _buildItem(context: context, spans: [
           TextSpan(
               text:
-                  ' ${e.payload!.action} the project ${e.payload!.project!.name} '),
+                  ' ${AppLocalizations.of(context)!.projectEventMessage(e.payload!.action!, e.payload!.project!.name!)}} '),
         ]);
       case 'PublicEvent':
         return _buildItem(
           context: context,
           spans: [
-            TextSpan(text: ' made '),
+            TextSpan(text: ' ${AppLocalizations.of(context)!.made} '),
             _buildRepo(context),
-            TextSpan(text: ' public'),
+            TextSpan(text: ' ${AppLocalizations.of(context)!.public}'),
           ],
         );
       case 'PullRequestEvent':
@@ -556,9 +572,11 @@ class EventItem extends StatelessWidget {
         return _buildItem(
           context: context,
           spans: [
-            TextSpan(text: ' ${e.payload!.action} pull request '),
+            TextSpan(
+                text:
+                    ' ${AppLocalizations.of(context)!.pullRequestEventMessage(e.payload!.action!)} '),
             _buildIssue(context, pr.number, isPullRequest: true),
-            TextSpan(text: ' at '),
+            TextSpan(text: ' ${AppLocalizations.of(context)!.at} '),
             _buildRepo(context),
           ],
           card: _buildIssueCard(context, pr, pr.body, isPullRequest: true),
@@ -566,9 +584,11 @@ class EventItem extends StatelessWidget {
       case 'PullRequestReviewEvent':
         final pr = e.payload!.pullRequest!;
         return _buildItem(context: context, spans: [
-          TextSpan(text: ' ${e.payload!.action} the pull request review '),
+          TextSpan(
+              text:
+                  ' ${AppLocalizations.of(context)!.pullRequestReviewEventMessage(e.payload!.action!)} '),
           _buildIssue(context, pr.number, isPullRequest: true),
-          TextSpan(text: ' at '),
+          TextSpan(text: ' ${AppLocalizations.of(context)!.at} '),
           _buildRepo(context),
         ]);
       case 'PullRequestReviewCommentEvent':
@@ -576,9 +596,11 @@ class EventItem extends StatelessWidget {
         return _buildItem(
           context: context,
           spans: [
-            TextSpan(text: ' reviewed pull request '),
+            TextSpan(
+                text:
+                    ' ${AppLocalizations.of(context)!.pullRequestReviewCommentEventMessage} '),
             _buildIssue(context, pr.number, isPullRequest: true),
-            TextSpan(text: ' at '),
+            TextSpan(text: ' ${AppLocalizations.of(context)!.at} '),
             _buildRepo(context),
           ],
           card: _buildIssueCard(context, pr, e.payload!.comment!.body,
@@ -587,14 +609,17 @@ class EventItem extends StatelessWidget {
       case 'PushEvent':
         return _buildItem(
           context: context,
-          spans: [TextSpan(text: ' pushed to '), _buildRepo(context)],
+          spans: [
+            TextSpan(text: ' ${AppLocalizations.of(context)!.pushedTo} '),
+            _buildRepo(context)
+          ],
           card: _buildCommitsCard(context),
         );
       case 'ReleaseEvent':
         return _buildItem(
           context: context,
           spans: [
-            TextSpan(text: ' released '),
+            TextSpan(text: '${AppLocalizations.of(context)!.released} '),
             _buildLinkSpan(context, e.payload!.release!.tagName,
                 e.payload!.release!.htmlUrl),
             TextSpan(text: ' at '),
@@ -607,20 +632,23 @@ class EventItem extends StatelessWidget {
         return _buildItem(context: context, spans: [
           TextSpan(
             text:
-                ' Security alert involving the package ${e.payload!.alert!.affectedPackageName} between versions ${e.payload!.alert!.affectedRange} was {e.payload.action}ed',
+                ' ${AppLocalizations.of(context)!.securityAlertInvolvingPackage(e.payload!.alert!.affectedPackageName!, e.payload!.alert!.affectedRange!, e.payload!.action!)}',
           )
         ]);
       case 'SecurityAdvisoryEvent':
         return _buildItem(context: context, spans: [
           TextSpan(
             text:
-                ' Security advisory regarding ${e.payload!.securityAdvisory!.summary} was ${e.payload!.action} ',
+                ' ${AppLocalizations.of(context)!.securityAdvisory(e.payload!.securityAdvisory!.summary!, e.payload!.action!)} ',
           )
         ]);
       case 'WatchEvent':
         return _buildItem(
           context: context,
-          spans: [TextSpan(text: ' starred '), _buildRepo(context)],
+          spans: [
+            TextSpan(text: ' ${AppLocalizations.of(context)!.starred} '),
+            _buildRepo(context)
+          ],
         );
       default:
         return _buildDefaultItem(context);

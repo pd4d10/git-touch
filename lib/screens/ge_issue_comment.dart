@@ -5,6 +5,7 @@ import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/common.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/S.dart';
 
 class GeIssueCommentScreen extends StatefulWidget {
   final String owner;
@@ -46,7 +47,7 @@ class _GeIssueCommentScreenState extends State<GeIssueCommentScreen> {
             child: CupertinoTextField(
               controller: _controller,
               style: TextStyle(color: theme.palette.text),
-              placeholder: 'Body',
+              placeholder: AppLocalizations.of(context)!.body,
               maxLines: 10,
             ),
           ),
