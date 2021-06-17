@@ -453,7 +453,7 @@ class TimelineItem extends StatelessWidget {
             createUserSpan(
                 context,
                 (p.requestedReviewer
-                        as GReviewRequestedEventParts_requestedReviewer__asUser)
+                        as GIssueData_repository_issueOrPullRequest__asPullRequest_timelineItems_nodes__asReviewRequestedEvent_requestedReviewer__asUser)
                     .login),
           ]),
         );
