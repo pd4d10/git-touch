@@ -74,23 +74,6 @@ class SettingsScreen extends StatelessWidget {
                   rightWidget: Text(auth.activeAccount!.login),
                 ),
                 TableViewItem(
-                  leftIconData: Octicons.info,
-                  text: Text(AppLocalizations.of(context)!.giteaStatus),
-                  url: '/gitea/status',
-                  rightWidget: FutureBuilder<String>(
-                    future:
-                        auth.fetchGitea('/version').then((v) => v['version']),
-                    builder: (context, snapshot) {
-                      return Text(snapshot.data ?? '');
-                    },
-                  ),
-                ),
-                TableViewItem(
-                  text: Text(AppLocalizations.of(context)!.switchAccounts),
-                  url: '/login',
-                  rightWidget: Text(auth.activeAccount!.login),
-                ),
-                TableViewItem(
                   text: Text(AppLocalizations.of(context)!.appLanguage),
                   rightWidget: Text(theme.locale == null
                       ? AppLocalizations.of(context)!.followSystem
@@ -124,134 +107,147 @@ class SettingsScreen extends StatelessWidget {
                 )
               ]),
           CommonStyle.verticalGap,
-          TableView(headerText: AppLocalizations.of(context)!.theme, items: [
-            TableViewItem(
-              text: Text(AppLocalizations.of(context)!.brightness),
-              rightWidget: Text(theme.brighnessValue == AppBrightnessType.light
-                  ? AppLocalizations.of(context)!.light
-                  : theme.brighnessValue == AppBrightnessType.dark
-                      ? AppLocalizations.of(context)!.dark
-                      : AppLocalizations.of(context)!.followSystem),
-              onTap: () {
-                theme.showActions(context, [
-                  for (var t in [
-                    Tuple2(AppLocalizations.of(context)!.followSystem,
-                        AppBrightnessType.followSystem),
-                    Tuple2(AppLocalizations.of(context)!.light,
-                        AppBrightnessType.light),
-                    Tuple2(AppLocalizations.of(context)!.dark,
-                        AppBrightnessType.dark),
-                  ])
-                    ActionItem(
-                      text: t.item1,
-                      onTap: (_) {
-                        if (theme.brighnessValue != t.item2)
-                          theme.setBrightness(t.item2);
-                      },
-                    )
-                ]);
-              },
-            ),
-            TableViewItem(
-              text: Text(AppLocalizations.of(context)!.scaffoldTheme),
-              rightWidget: Text(theme.theme == AppThemeType.cupertino
-                  ? AppLocalizations.of(context)!.cupertino
-                  : AppLocalizations.of(context)!.material),
-              onTap: () {
-                theme.showActions(context, [
-                  for (var t in [
-                    Tuple2(AppLocalizations.of(context)!.material,
-                        AppThemeType.material),
-                    Tuple2(AppLocalizations.of(context)!.cupertino,
-                        AppThemeType.cupertino),
-                  ])
-                    ActionItem(
-                      text: t.item1,
-                      onTap: (_) {
-                        if (theme.theme != t.item2) {
-                          theme.setTheme(t.item2);
-                        }
-                      },
-                    )
-                ]);
-              },
-            ),
-            TableViewItem(
-              text: Text(AppLocalizations.of(context)!.codeTheme),
-              url: '/choose-code-theme',
-              rightWidget: Text('${code.fontFamily}, ${code.fontSize}pt'),
-            ),
-            TableViewItem(
-              text: Text(AppLocalizations.of(context)!.markdownRenderEngine),
-              rightWidget: Text(theme.markdown == AppMarkdownType.flutter
-                  ? AppLocalizations.of(context)!.flutter
-                  : AppLocalizations.of(context)!.webview),
-              onTap: () {
-                theme.showActions(context, [
-                  for (var t in [
-                    Tuple2(AppLocalizations.of(context)!.flutter,
-                        AppMarkdownType.flutter),
-                    Tuple2(AppLocalizations.of(context)!.webview,
-                        AppMarkdownType.webview),
-                  ])
-                    ActionItem(
-                      text: t.item1,
-                      onTap: (_) {
-                        if (theme.markdown != t.item2) {
-                          theme.setMarkdown(t.item2);
-                        }
-                      },
-                    )
-                ]);
-              },
-            ),
-          ]),
+          TableView(
+            hasIcon: false,
+            headerText: AppLocalizations.of(context)!.theme,
+            items: [
+              TableViewItem(
+                text: Text(AppLocalizations.of(context)!.brightness),
+                rightWidget:
+                    Text(theme.brighnessValue == AppBrightnessType.light
+                        ? AppLocalizations.of(context)!.light
+                        : theme.brighnessValue == AppBrightnessType.dark
+                            ? AppLocalizations.of(context)!.dark
+                            : AppLocalizations.of(context)!.followSystem),
+                onTap: () {
+                  theme.showActions(context, [
+                    for (var t in [
+                      Tuple2(AppLocalizations.of(context)!.followSystem,
+                          AppBrightnessType.followSystem),
+                      Tuple2(AppLocalizations.of(context)!.light,
+                          AppBrightnessType.light),
+                      Tuple2(AppLocalizations.of(context)!.dark,
+                          AppBrightnessType.dark),
+                    ])
+                      ActionItem(
+                        text: t.item1,
+                        onTap: (_) {
+                          if (theme.brighnessValue != t.item2)
+                            theme.setBrightness(t.item2);
+                        },
+                      )
+                  ]);
+                },
+              ),
+              TableViewItem(
+                text: Text(AppLocalizations.of(context)!.scaffoldTheme),
+                rightWidget: Text(theme.theme == AppThemeType.cupertino
+                    ? AppLocalizations.of(context)!.cupertino
+                    : AppLocalizations.of(context)!.material),
+                onTap: () {
+                  theme.showActions(context, [
+                    for (var t in [
+                      Tuple2(AppLocalizations.of(context)!.material,
+                          AppThemeType.material),
+                      Tuple2(AppLocalizations.of(context)!.cupertino,
+                          AppThemeType.cupertino),
+                    ])
+                      ActionItem(
+                        text: t.item1,
+                        onTap: (_) {
+                          if (theme.theme != t.item2) {
+                            theme.setTheme(t.item2);
+                          }
+                        },
+                      )
+                  ]);
+                },
+              ),
+              TableViewItem(
+                text: Text(AppLocalizations.of(context)!.codeTheme),
+                url: '/choose-code-theme',
+                rightWidget: Text('${code.fontFamily}, ${code.fontSize}pt'),
+              ),
+              TableViewItem(
+                text: Text(AppLocalizations.of(context)!.markdownRenderEngine),
+                rightWidget: Text(theme.markdown == AppMarkdownType.flutter
+                    ? AppLocalizations.of(context)!.flutter
+                    : AppLocalizations.of(context)!.webview),
+                onTap: () {
+                  theme.showActions(context, [
+                    for (var t in [
+                      Tuple2(AppLocalizations.of(context)!.flutter,
+                          AppMarkdownType.flutter),
+                      Tuple2(AppLocalizations.of(context)!.webview,
+                          AppMarkdownType.webview),
+                    ])
+                      ActionItem(
+                        text: t.item1,
+                        onTap: (_) {
+                          if (theme.markdown != t.item2) {
+                            theme.setMarkdown(t.item2);
+                          }
+                        },
+                      )
+                  ]);
+                },
+              ),
+            ],
+          ),
           CommonStyle.verticalGap,
-          TableView(headerText: AppLocalizations.of(context)!.feedback, items: [
-            TableViewItem(
-              text: Text(AppLocalizations.of(context)!.submitAnIssue),
-              rightWidget: Text('git-touch/git-touch'),
-              url: (auth.activeAccount!.platform == PlatformType.github
-                      ? '/github'
-                      : 'https://github.com') +
-                  '/git-touch/git-touch/issues/new',
-            ),
-            TableViewItem(
-              text: Text(AppLocalizations.of(context)!.rateThisApp),
-              onTap: () {
-                LaunchReview.launch(
-                  androidAppId: 'io.github.pd4d10.gittouch',
-                  iOSAppId: '1452042346',
-                );
-              },
-            ),
-            TableViewItem(
-              text: Text(AppLocalizations.of(context)!.email),
-              rightWidget: Text('pd4d10@gmail.com'),
-              hideRightChevron: true,
-              url: 'mailto:pd4d10@gmail.com',
-            ),
-          ]),
+          TableView(
+            hasIcon: false,
+            headerText: AppLocalizations.of(context)!.feedback,
+            items: [
+              TableViewItem(
+                text: Text(AppLocalizations.of(context)!.submitAnIssue),
+                rightWidget: Text('git-touch/git-touch'),
+                url: (auth.activeAccount!.platform == PlatformType.github
+                        ? '/github'
+                        : 'https://github.com') +
+                    '/git-touch/git-touch/issues/new',
+              ),
+              TableViewItem(
+                text: Text(AppLocalizations.of(context)!.rateThisApp),
+                onTap: () {
+                  LaunchReview.launch(
+                    androidAppId: 'io.github.pd4d10.gittouch',
+                    iOSAppId: '1452042346',
+                  );
+                },
+              ),
+              TableViewItem(
+                text: Text(AppLocalizations.of(context)!.email),
+                rightWidget: Text('pd4d10@gmail.com'),
+                hideRightChevron: true,
+                url: 'mailto:pd4d10@gmail.com',
+              ),
+            ],
+          ),
           CommonStyle.verticalGap,
-          TableView(headerText: AppLocalizations.of(context)!.about, items: [
-            TableViewItem(
-                text: Text(AppLocalizations.of(context)!.version),
-                rightWidget: FutureBuilder<String>(
-                  future:
-                      PackageInfo.fromPlatform().then((info) => info.version),
-                  builder: (context, snapshot) {
-                    return Text(snapshot.data ?? '');
-                  },
-                )),
-            TableViewItem(
-              text: Text(AppLocalizations.of(context)!.sourceCode),
-              rightWidget: Text('git-touch/git-touch'),
-              url: (auth.activeAccount!.platform == PlatformType.github
-                      ? '/github'
-                      : 'https://github.com') +
-                  '/git-touch/git-touch',
-            ),
-          ])
+          TableView(
+            hasIcon: false,
+            headerText: AppLocalizations.of(context)!.about,
+            items: [
+              TableViewItem(
+                  text: Text(AppLocalizations.of(context)!.version),
+                  rightWidget: FutureBuilder<String>(
+                    future:
+                        PackageInfo.fromPlatform().then((info) => info.version),
+                    builder: (context, snapshot) {
+                      return Text(snapshot.data ?? '');
+                    },
+                  )),
+              TableViewItem(
+                text: Text(AppLocalizations.of(context)!.sourceCode),
+                rightWidget: Text('git-touch/git-touch'),
+                url: (auth.activeAccount!.platform == PlatformType.github
+                        ? '/github'
+                        : 'https://github.com') +
+                    '/git-touch/git-touch',
+              ),
+            ],
+          ),
         ],
       ),
     );
