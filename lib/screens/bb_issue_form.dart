@@ -65,6 +65,8 @@ class _BbIssueFormScreenState extends State<BbIssueFormScreen> {
                 return BbIssues.fromJson(v);
               });
               Navigator.pop(context, true);
+              final snackBar = SnackBar(content: Text('Issue submitted'));
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
               await theme.push(
                 context,
                 '/bitbucket/${widget.owner}/${widget.name}/issues',

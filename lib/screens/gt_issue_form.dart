@@ -65,6 +65,8 @@ class _GtIssueFormScreenState extends State<GtIssueFormScreen> {
                 return GiteaIssue.fromJson(v);
               });
               Navigator.pop(context);
+              final snackBar = SnackBar(content: Text('Issue submitted'));
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
               await theme.push(
                 context,
                 '/gitea/${widget.owner}/${widget.name}/issues',

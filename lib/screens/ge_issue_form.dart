@@ -64,6 +64,8 @@ class _GeIssueFormScreenState extends State<GeIssueFormScreen> {
               ).then((v) {
                 return GiteeIssue.fromJson(v);
               });
+              final snackBar = SnackBar(content: Text('Issue submitted'));
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
               await theme.push(
                 context,
                 '/gitee/${widget.owner}/${widget.name}/issues/${res.number}',
