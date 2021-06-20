@@ -215,6 +215,10 @@
   "@commits": {
     "description": "Commits"
   },
+  "commit": "Commit",
+  "@commit": {
+    "description": "Commit"
+  },
   "branches": "Branches",
   "@branches": {
     "description": "branches"
@@ -843,5 +847,18 @@
   "starred": "starred",
   "@starred": {
     "description": "starred"
+  },
+  "filesChanged": "{count,plural, =1{{count} file changed} other{{count} files changed}}",
+  "@filesChanged": {
+    "description": "no. of files changed",
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "blankDiff": "No text to be shown here",
+  "@blankDiff": {
+    "description": "text to show for a blank diff"
   }
 }

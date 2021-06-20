@@ -379,6 +379,7 @@ fragment CommitsRefCommit on Commit {
       url
       messageHeadline
       committedDate
+      oid
       author {
         name
         avatarUrl

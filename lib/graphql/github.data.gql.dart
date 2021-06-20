@@ -4710,6 +4710,7 @@ abstract class GCommitsData_repository_defaultBranchRef_target__asCommit_history
   String get url;
   String get messageHeadline;
   DateTime get committedDate;
+  String get oid;
   GCommitsData_repository_defaultBranchRef_target__asCommit_history_nodes_author?
       get author;
   GCommitsData_repository_defaultBranchRef_target__asCommit_history_nodes_status?
@@ -5032,6 +5033,7 @@ abstract class GCommitsData_repository_ref_target__asCommit_history_nodes
   String get url;
   String get messageHeadline;
   DateTime get committedDate;
+  String get oid;
   GCommitsData_repository_ref_target__asCommit_history_nodes_author? get author;
   GCommitsData_repository_ref_target__asCommit_history_nodes_status? get status;
   static Serializer<GCommitsData_repository_ref_target__asCommit_history_nodes>
@@ -16385,6 +16387,7 @@ abstract class GCommitsRefCommit_history_nodes {
   String get url;
   String get messageHeadline;
   DateTime get committedDate;
+  String get oid;
   GCommitsRefCommit_history_nodes_author? get author;
   GCommitsRefCommit_history_nodes_status? get status;
   Map<String, dynamic> toJson();
@@ -16509,6 +16512,7 @@ abstract class GCommitsRefCommitData_history_nodes
   String get url;
   String get messageHeadline;
   DateTime get committedDate;
+  String get oid;
   GCommitsRefCommitData_history_nodes_author? get author;
   GCommitsRefCommitData_history_nodes_status? get status;
   static Serializer<GCommitsRefCommitData_history_nodes> get serializer =>
@@ -16652,6 +16656,7 @@ abstract class GCommitsRef_target__asCommit_history_nodes
   String get url;
   String get messageHeadline;
   DateTime get committedDate;
+  String get oid;
   GCommitsRef_target__asCommit_history_nodes_author? get author;
   GCommitsRef_target__asCommit_history_nodes_status? get status;
   Map<String, dynamic> toJson();
@@ -16847,6 +16852,7 @@ abstract class GCommitsRefData_target__asCommit_history_nodes
   String get url;
   String get messageHeadline;
   DateTime get committedDate;
+  String get oid;
   GCommitsRefData_target__asCommit_history_nodes_author? get author;
   GCommitsRefData_target__asCommit_history_nodes_status? get status;
   static Serializer<GCommitsRefData_target__asCommit_history_nodes>

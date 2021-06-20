@@ -56,7 +56,7 @@ class GhCommits extends StatelessWidget {
       itemBuilder: (p) {
         final login = p.author?.user?.login;
         return CommitItem(
-          url: p.url,
+          url: '/github/$owner/$name/commit/${p.oid}',
           avatarUrl: p.author?.avatarUrl,
           avatarLink: login == null ? null : '/github/$login',
           message: p.messageHeadline,
