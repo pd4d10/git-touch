@@ -122,7 +122,7 @@ class GhCommit extends StatelessWidget {
           title: AppLocalizations.of(context)!.actions,
           items: [
             ...ActionItem.getUrlActions(
-                'https://github.com/$owner/$name/commits/$sha'),
+                'https://github.com/$owner/$name/commit/$sha'),
           ],
         );
       },
