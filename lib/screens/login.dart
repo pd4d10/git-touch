@@ -104,17 +104,16 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget _buildPopup(
-    BuildContext context, {
-    List<Widget>? notes,
-    bool showDomain = false,
-  }) {
+  Widget _buildPopup(BuildContext context,
+      {List<Widget>? notes,
+      bool showDomain = false,
+      String placeholder = 'Access token'}) {
     return Column(
       children: <Widget>[
         if (showDomain)
           MyTextField(controller: _domainController, placeholder: 'Domain'),
         SizedBox(height: 8),
-        MyTextField(placeholder: 'Access token', controller: _tokenController),
+        MyTextField(placeholder: placeholder, controller: _tokenController),
         SizedBox(height: 8),
         if (notes != null) ...notes,
       ],
@@ -124,6 +123,15 @@ class _LoginScreenState extends State<LoginScreen> {
   void showError(err) {
     context.read<ThemeModel>().showConfirm(context,
         Text(AppLocalizations.of(context)!.somethingBadHappens + '$err'));
+  }
+
+  // TODO: handle email
+  bool _checkAccountExists(BuildContext context, String domain, String login) {
+    final auth = context.read<AuthModel>();
+    final accountExists = auth.accounts?.any(
+            (account) => account.domain == domain && account.login == login) ??
+        false;
+    return accountExists;
   }
 
   @override
@@ -145,14 +153,50 @@ class _LoginScreenState extends State<LoginScreen> {
                       theme.showActions(context, [
                         ActionItem(
                           text: 'via OAuth',
-                          onTap: (_) {
-                            auth.redirectToGithubOauth();
+                          onTap: (_) async {
+                            await theme.showConfirm(
+                              context,
+                              _buildPopup(
+                                context,
+                                placeholder: 'Username',
+                              ),
+                            );
+
+                            bool accountExists = _checkAccountExists(context,
+                                'https://github.com', _tokenController.text);
+
+                            if (accountExists) {
+                              await theme.showWarning(
+                                  context, "Account already exists");
+                            } else {
+                              auth.redirectToGithubOauth(_tokenController.text);
+                            }
+
+                            _tokenController.clear();
                           },
                         ),
                         ActionItem(
                           text: 'via OAuth (Public repos only)',
-                          onTap: (_) {
-                            auth.redirectToGithubOauth(true);
+                          onTap: (_) async {
+                            await theme.showConfirm(
+                                context,
+                                _buildPopup(
+                                  context,
+                                  placeholder: 'Username or email',
+                                ));
+
+                            bool accountExists = _checkAccountExists(context,
+                                'https://github.com', _tokenController.text);
+
+                            if (accountExists) {
+                              await theme.showWarning(
+                                  context, "Account already exists");
+                            } else {
+                              auth.redirectToGithubOauth(
+                                  _tokenController.text, true);
+                            }
+
+                            _tokenController.clear();
                           },
                         ),
                         ActionItem(
