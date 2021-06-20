@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:meta/meta.dart';
 
 part 'account.g.dart';
 
@@ -10,9 +9,9 @@ class Account {
   String token;
   String login;
   String avatarUrl;
-  int gitlabId; // For GitLab
-  String appPassword; // For Bitbucket
-  String accountId; // For Bitbucket
+  int? gitlabId; // For GitLab
+  String? appPassword; // For Bitbucket
+  String? accountId; // For Bitbucket
 
   // equals(Account a) {
   //   final uri = Uri.parse(domain);
@@ -27,11 +26,11 @@ class Account {
   // }
 
   Account({
-    @required this.platform,
-    @required this.domain,
-    @required this.token,
-    @required this.login,
-    @required this.avatarUrl,
+    required this.platform,
+    required this.domain,
+    required this.token,
+    required this.login,
+    required this.avatarUrl,
     this.gitlabId,
     this.appPassword,
     this.accountId,

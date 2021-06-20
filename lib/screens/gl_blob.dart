@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 class GlBlobScreen extends StatelessWidget {
   final int id;
   final String ref;
-  final String path;
+  final String? path;
   GlBlobScreen(this.id, this.ref, {this.path});
 
   @override
@@ -21,10 +21,10 @@ class GlBlobScreen extends StatelessWidget {
       fetch: () async {
         final auth = context.read<AuthModel>();
         final res = await auth.fetchGitlab(
-            '/projects/$id/repository/files/${path.urlencode}?ref=$ref');
+            '/projects/$id/repository/files/${path!.urlencode}?ref=$ref');
         return GitlabBlob.fromJson(res);
       },
-      action: ActionEntry(iconData: Icons.settings, url: '/choose-code-theme'),
+      action: ActionEntry(iconData: Ionicons.cog, url: '/choose-code-theme'),
       bodyBuilder: (data, _) {
         return BlobView(path, base64Text: data.content);
       },

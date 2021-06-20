@@ -1,0 +1,350 @@
+{
+  "fontStyle": "STYLE DE LA POLICE",
+  "@fontStyle": {
+    "description": "font style"
+  },
+  "fontSize": "Taille de la police",
+  "@fontSize": {
+    "description": "font size"
+  },
+  "fontFamily": "Famille de polices",
+  "@fontFamily": {
+    "description": "Font Family"
+  },
+  "syntaxHighlighting": "MISE EN ÉVIDENCE DE LA SYNTAXE",
+  "@syntaxHighlighting": {
+    "description": "Syntax Highlighting"
+  },
+  "projectActions": "Actions du projet",
+  "@projectActions": {
+    "description": "Project Actions"
+  },
+  "code": "Code",
+  "@code": {
+    "description": "Code"
+  },
+  "issue": "Problème",
+  "@issue": {
+    "description": "issue"
+  },
+  "group": "Groupe",
+  "@group": {
+    "description": "group"
+  },
+  "user": "Utilisateur",
+  "@user": {
+    "description": "user"
+  },
+  "giteeAccount": "Compte Gitee",
+  "@giteeAccount": {
+    "description": "Gitee Account"
+  },
+  "giteaAccount": "Compte Gitea",
+  "@giteaAccount": {
+    "description": "Gitea Account"
+  },
+  "longPressToRemoveAccount": "Longue pression pour supprimer un compte",
+  "@longPressToRemoveAccount": {
+    "description": "Long Press to remove account"
+  },
+  "bitbucketAccount": "Compte Bitbucket",
+  "@bitbucketAccount": {
+    "description": "Bitbucket Account"
+  },
+  "gitlabAccount": "Compte GitLab",
+  "@gitlabAccount": {
+    "description": "Gitlab Account"
+  },
+  "notFoundTextDisplay": "Oups, cette page n'est pas encore implémentée.",
+  "@notFoundTextDisplay": {
+    "description": "Not found error message"
+  },
+  "notFoundMessage": "Non trouvé",
+  "@notFoundMessage": {
+    "description": "Not found page header"
+  },
+  "permissionRequiredMessage": "GitTouch a besoin de ces autorisations",
+  "@permissionRequiredMessage": {
+    "description": "Permission Required Message"
+  },
+  "githubAccount": "Compte GitHub",
+  "@githubAccount": {
+    "description": "Gitea Account"
+  },
+  "somethingBadHappens": "Quelque chose de mal se passe :",
+  "@somethingBadHappens": {
+    "description": "error message"
+  },
+  "removeAccount": "Supprimer le compte",
+  "@removeAccount": {
+    "description": "remove account"
+  },
+  "selectAccount": "Sélectionner un compte",
+  "@selectAccount": {
+    "description": "select account message"
+  },
+  "project": "Projet",
+  "@project": {
+    "description": "project"
+  },
+  "activity": "Activité",
+  "@activity": {
+    "description": "activity"
+  },
+  "mergeRequests": "Fusionner les demandes",
+  "@mergeRequests": {
+    "description": "Merge request"
+  },
+  "groups": "Groupes",
+  "@groups": {
+    "description": "groups"
+  },
+  "actions": "Actions",
+  "@actions": {
+    "description": "actions"
+  },
+  "files": "Fichiers",
+  "@files": {
+    "description": "file plural"
+  },
+  "file": "Dossier",
+  "@file": {
+    "description": "file"
+  },
+  "teams": "Équipes",
+  "@teams": {
+    "description": "teams"
+  },
+  "explore": "Explorez",
+  "@explore": {
+    "description": "explore"
+  },
+  "developers": "Développeurs",
+  "@developers": {
+    "description": "developers"
+  },
+  "all": "Tous",
+  "@all": {
+    "description": "all"
+  },
+  "unread": "Non lu",
+  "@unread": {
+    "description": "unread"
+  },
+  "contributors": "Contributeurs",
+  "@contributors": {
+    "description": "contributors"
+  },
+  "branches": "Branches",
+  "@branches": {
+    "description": "branches"
+  },
+  "commits": "Engage",
+  "@commits": {
+    "description": "Commits"
+  },
+  "pullRequests": "Demandes de retrait",
+  "@pullRequests": {
+    "description": "Pull Requests"
+  },
+  "issues": "Problèmes",
+  "@issues": {
+    "description": "issues"
+  },
+  "forks": "Duplications",
+  "@forks": {
+    "description": "forks"
+  },
+  "watchers": "Observateurs",
+  "@watchers": {
+    "description": "watchers"
+  },
+  "releases": "Versions finales",
+  "@releases": {
+    "description": "releases"
+  },
+  "projects": "Projets",
+  "@projects": {
+    "description": "projects"
+  },
+  "repositoryActions": "Actions de dépôt",
+  "@repositoryActions": {
+    "description": "Repository Actions"
+  },
+  "repository": "Dépôt",
+  "@repository": {
+    "description": "Repository screen title"
+  },
+  "sourceCode": "Code source",
+  "@sourceCode": {
+    "description": "source code for app"
+  },
+  "version": "Version",
+  "@version": {
+    "description": "app version"
+  },
+  "about": "à propos de",
+  "@about": {
+    "description": "about section"
+  },
+  "email": "Courriel",
+  "@email": {
+    "description": "Email to report issues"
+  },
+  "rateThisApp": "Evaluez cette application",
+  "@rateThisApp": {
+    "description": "rate the app"
+  },
+  "submitAnIssue": "Soumettre une question",
+  "@submitAnIssue": {
+    "description": "submit issue for app"
+  },
+  "feedback": "retour d'information",
+  "@feedback": {
+    "description": "provide feedback"
+  },
+  "webview": "WebView",
+  "@webview": {
+    "description": "render webview for markdown"
+  },
+  "flutter": "Flutter",
+  "@flutter": {
+    "description": "render flutter for markdown"
+  },
+  "markdownRenderEngine": "Moteur de rendu Markdown",
+  "@markdownRenderEngine": {
+    "description": "flutter or webview rendering for markdown"
+  },
+  "codeTheme": "Thème du code",
+  "@codeTheme": {
+    "description": "code theme"
+  },
+  "material": "Matériel",
+  "@material": {
+    "description": "Material scaffold theme"
+  },
+  "cupertino": "Cupertino",
+  "@cupertino": {
+    "description": "Cupertino scaffold theme"
+  },
+  "scaffoldTheme": "Thème de l'échafaudage",
+  "@scaffoldTheme": {
+    "description": "Kind of theme - cupertino or material"
+  },
+  "dark": "Foncé",
+  "@dark": {
+    "description": "dark mode"
+  },
+  "light": "Clair",
+  "@light": {
+    "description": "light mode"
+  },
+  "followSystem": "Suivre le système",
+  "@followSystem": {
+    "description": "follow systems setting"
+  },
+  "brightness": "Luminosité",
+  "@brightness": {
+    "description": "brightness"
+  },
+  "switchAccounts": "Changer de compte",
+  "@switchAccounts": {
+    "description": "Switch accounts"
+  },
+  "giteaStatus": "Statut de Gitea",
+  "@giteaStatus": {
+    "description": "Gitea status"
+  },
+  "gitlabStatus": "Statut du GitLab",
+  "@gitlabStatus": {
+    "description": "GitLab status"
+  },
+  "reviewPermissions": "Examiner les autorisations",
+  "@reviewPermissions": {
+    "description": "review Permissions"
+  },
+  "githubStatus": "Statut de GitHub",
+  "@githubStatus": {
+    "description": "github status"
+  },
+  "system": "système",
+  "@system": {
+    "description": "system"
+  },
+  "settings": "Paramètres",
+  "@settings": {
+    "description": "settings"
+  },
+  "pinnedRepositories": "dépôts épinglés",
+  "@pinnedRepositories": {
+    "description": "pinned repositories"
+  },
+  "popularRepositories": "les dépôts populaires",
+  "@popularRepositories": {
+    "description": "popular repositories"
+  },
+  "members": "Membres",
+  "@members": {
+    "description": "members of an organization"
+  },
+  "organizations": "Organisations",
+  "@organizations": {
+    "description": "organizations for a user"
+  },
+  "gists": "Gists",
+  "@gists": {
+    "description": "gists for a user"
+  },
+  "events": "Événements",
+  "@events": {
+    "description": "events for a user"
+  },
+  "following": "Suivant",
+  "@following": {
+    "description": "people followed by a person"
+  },
+  "followers": "Suivants",
+  "@followers": {
+    "description": "followers for a person"
+  },
+  "stars": "Étoiles",
+  "@stars": {
+    "description": "stars on a repo"
+  },
+  "follow": "Suivre",
+  "@follow": {
+    "description": "follow someone"
+  },
+  "unfollow": "Ne plus suivre",
+  "@unfollow": {
+    "description": "unfollow someone"
+  },
+  "repositories": "Dépôts",
+  "@repositories": {
+    "description": "repository text"
+  },
+  "participating": "Participer",
+  "@participating": {
+    "description": "The participating Tab"
+  },
+  "me": "Moi",
+  "@me": {
+    "description": "The Me tab"
+  },
+  "search": "Recherchez",
+  "@search": {
+    "description": "The Search tab"
+  },
+  "trending": "Tendance",
+  "@trending": {
+    "description": "Trending"
+  },
+  "notification": "Notification",
+  "@notification": {
+    "description": "The Notification tab"
+  },
+  "news": "Nouvelles",
+  "@news": {
+    "description": "The News tab"
+  }
+}

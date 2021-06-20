@@ -1,0 +1,350 @@
+{
+  "fontStyle": "GAYA FONT",
+  "@fontStyle": {
+    "description": "font style"
+  },
+  "fontSize": "Ukutan Font",
+  "@fontSize": {
+    "description": "font size"
+  },
+  "fontFamily": "Keluarga Font",
+  "@fontFamily": {
+    "description": "Font Family"
+  },
+  "syntaxHighlighting": "PENYOROTAN SINTAKS",
+  "@syntaxHighlighting": {
+    "description": "Syntax Highlighting"
+  },
+  "code": "Kode",
+  "@code": {
+    "description": "Code"
+  },
+  "issue": "Isu",
+  "@issue": {
+    "description": "issue"
+  },
+  "group": "Grup",
+  "@group": {
+    "description": "group"
+  },
+  "user": "Pengguna",
+  "@user": {
+    "description": "user"
+  },
+  "giteeAccount": "Akun Gitee",
+  "@giteeAccount": {
+    "description": "Gitee Account"
+  },
+  "giteaAccount": "Akun Gitea",
+  "@giteaAccount": {
+    "description": "Gitea Account"
+  },
+  "longPressToRemoveAccount": "Tekan dan tahan untuk menghapus akun",
+  "@longPressToRemoveAccount": {
+    "description": "Long Press to remove account"
+  },
+  "bitbucketAccount": "Akun Bitbucket",
+  "@bitbucketAccount": {
+    "description": "Bitbucket Account"
+  },
+  "gitlabAccount": "Akun GitLab",
+  "@gitlabAccount": {
+    "description": "Gitlab Account"
+  },
+  "notFoundTextDisplay": "Ups, halaman ini belum diimplementasikan.",
+  "@notFoundTextDisplay": {
+    "description": "Not found error message"
+  },
+  "notFoundMessage": "Tak Ditemukan",
+  "@notFoundMessage": {
+    "description": "Not found page header"
+  },
+  "permissionRequiredMessage": "GitTouch membutuhkan izin berikut",
+  "@permissionRequiredMessage": {
+    "description": "Permission Required Message"
+  },
+  "githubAccount": "Akun GitHub",
+  "@githubAccount": {
+    "description": "Gitea Account"
+  },
+  "somethingBadHappens": "Sesuatu yang buruk terjadi:",
+  "@somethingBadHappens": {
+    "description": "error message"
+  },
+  "removeAccount": "Hapus akun",
+  "@removeAccount": {
+    "description": "remove account"
+  },
+  "selectAccount": "Pilih akun",
+  "@selectAccount": {
+    "description": "select account message"
+  },
+  "project": "Proyek",
+  "@project": {
+    "description": "project"
+  },
+  "activity": "Aktivitas",
+  "@activity": {
+    "description": "activity"
+  },
+  "mergeRequests": "Merge Request",
+  "@mergeRequests": {
+    "description": "Merge request"
+  },
+  "groups": "Grup",
+  "@groups": {
+    "description": "groups"
+  },
+  "actions": "Aksi",
+  "@actions": {
+    "description": "actions"
+  },
+  "files": "Berkas",
+  "@files": {
+    "description": "file plural"
+  },
+  "file": "Berkas",
+  "@file": {
+    "description": "file"
+  },
+  "teams": "Tim",
+  "@teams": {
+    "description": "teams"
+  },
+  "explore": "Jelajah",
+  "@explore": {
+    "description": "explore"
+  },
+  "developers": "Pengembang",
+  "@developers": {
+    "description": "developers"
+  },
+  "all": "Semua",
+  "@all": {
+    "description": "all"
+  },
+  "unread": "Belum dibaca",
+  "@unread": {
+    "description": "unread"
+  },
+  "contributors": "Kontributor",
+  "@contributors": {
+    "description": "contributors"
+  },
+  "projectActions": "Aksi Proyek",
+  "@projectActions": {
+    "description": "Project Actions"
+  },
+  "commits": "Commit",
+  "@commits": {
+    "description": "Commits"
+  },
+  "branches": "Branch",
+  "@branches": {
+    "description": "branches"
+  },
+  "pullRequests": "Pull request",
+  "@pullRequests": {
+    "description": "Pull Requests"
+  },
+  "issues": "Isu",
+  "@issues": {
+    "description": "issues"
+  },
+  "forks": "Fork",
+  "@forks": {
+    "description": "forks"
+  },
+  "watchers": "Pengamat",
+  "@watchers": {
+    "description": "watchers"
+  },
+  "releases": "Rilisan",
+  "@releases": {
+    "description": "releases"
+  },
+  "projects": "Proyek",
+  "@projects": {
+    "description": "projects"
+  },
+  "repositoryActions": "Aksi Repositori",
+  "@repositoryActions": {
+    "description": "Repository Actions"
+  },
+  "repository": "Repositori",
+  "@repository": {
+    "description": "Repository screen title"
+  },
+  "sourceCode": "Kode Sumber",
+  "@sourceCode": {
+    "description": "source code for app"
+  },
+  "version": "Versi",
+  "@version": {
+    "description": "app version"
+  },
+  "about": "tentang",
+  "@about": {
+    "description": "about section"
+  },
+  "email": "Surel",
+  "@email": {
+    "description": "Email to report issues"
+  },
+  "rateThisApp": "Nilai Aplikasi Ini",
+  "@rateThisApp": {
+    "description": "rate the app"
+  },
+  "submitAnIssue": "Kirimkan isu",
+  "@submitAnIssue": {
+    "description": "submit issue for app"
+  },
+  "feedback": "umpan balik",
+  "@feedback": {
+    "description": "provide feedback"
+  },
+  "webview": "WebView",
+  "@webview": {
+    "description": "render webview for markdown"
+  },
+  "flutter": "Flutter",
+  "@flutter": {
+    "description": "render flutter for markdown"
+  },
+  "markdownRenderEngine": "Mesin Render Markdown",
+  "@markdownRenderEngine": {
+    "description": "flutter or webview rendering for markdown"
+  },
+  "codeTheme": "Tema Kode",
+  "@codeTheme": {
+    "description": "code theme"
+  },
+  "material": "Material",
+  "@material": {
+    "description": "Material scaffold theme"
+  },
+  "cupertino": "Cupertino",
+  "@cupertino": {
+    "description": "Cupertino scaffold theme"
+  },
+  "scaffoldTheme": "Tema Scaffold",
+  "@scaffoldTheme": {
+    "description": "Kind of theme - cupertino or material"
+  },
+  "dark": "Gelap",
+  "@dark": {
+    "description": "dark mode"
+  },
+  "light": "Terang",
+  "@light": {
+    "description": "light mode"
+  },
+  "followSystem": "Ikuti Sistem",
+  "@followSystem": {
+    "description": "follow systems setting"
+  },
+  "brightness": "Kecerahan",
+  "@brightness": {
+    "description": "brightness"
+  },
+  "switchAccounts": "Ganti akun",
+  "@switchAccounts": {
+    "description": "Switch accounts"
+  },
+  "giteaStatus": "Status Gitea",
+  "@giteaStatus": {
+    "description": "Gitea status"
+  },
+  "reviewPermissions": "Tinjau Izin",
+  "@reviewPermissions": {
+    "description": "review Permissions"
+  },
+  "trending": "Trending",
+  "@trending": {
+    "description": "Trending"
+  },
+  "gitlabStatus": "Status GitLab",
+  "@gitlabStatus": {
+    "description": "GitLab status"
+  },
+  "githubStatus": "Status GitHub",
+  "@githubStatus": {
+    "description": "github status"
+  },
+  "system": "sistem",
+  "@system": {
+    "description": "system"
+  },
+  "settings": "Pengaturan",
+  "@settings": {
+    "description": "settings"
+  },
+  "pinnedRepositories": "repositori yang disematkan",
+  "@pinnedRepositories": {
+    "description": "pinned repositories"
+  },
+  "popularRepositories": "repositori populer",
+  "@popularRepositories": {
+    "description": "popular repositories"
+  },
+  "members": "Anggota",
+  "@members": {
+    "description": "members of an organization"
+  },
+  "organizations": "Organisasi",
+  "@organizations": {
+    "description": "organizations for a user"
+  },
+  "gists": "Gist",
+  "@gists": {
+    "description": "gists for a user"
+  },
+  "events": "Event",
+  "@events": {
+    "description": "events for a user"
+  },
+  "following": "Mengikuti",
+  "@following": {
+    "description": "people followed by a person"
+  },
+  "followers": "Pengikut",
+  "@followers": {
+    "description": "followers for a person"
+  },
+  "stars": "Bintang",
+  "@stars": {
+    "description": "stars on a repo"
+  },
+  "follow": "Ikuti",
+  "@follow": {
+    "description": "follow someone"
+  },
+  "unfollow": "Batal mengikuti",
+  "@unfollow": {
+    "description": "unfollow someone"
+  },
+  "repositories": "Repositori",
+  "@repositories": {
+    "description": "repository text"
+  },
+  "participating": "Partisipasi",
+  "@participating": {
+    "description": "The participating Tab"
+  },
+  "me": "Saya",
+  "@me": {
+    "description": "The Me tab"
+  },
+  "search": "Cari",
+  "@search": {
+    "description": "The Search tab"
+  },
+  "notification": "Notifikasi",
+  "@notification": {
+    "description": "The Notification tab"
+  },
+  "news": "Berita",
+  "@news": {
+    "description": "The News tab"
+  }
+}

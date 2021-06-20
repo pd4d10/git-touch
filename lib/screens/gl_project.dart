@@ -19,15 +19,15 @@ import 'package:flutter_gen/gen_l10n/S.dart';
 
 class GlProjectScreen extends StatelessWidget {
   final int id;
-  final String branch;
+  final String? branch;
   GlProjectScreen(this.id, {this.branch});
 
   @override
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold<
         Tuple5<GitlabProject, Future<Map<String, double>>, Future<int>,
-            MarkdownViewData, List<GitlabBranch>>>(
-      title: AppBarTitle(AppLocalizations.of(context).project),
+            MarkdownViewData?, List<GitlabBranch>>>(
+      title: AppBarTitle(AppLocalizations.of(context)!.project),
       fetch: () async {
         final auth = context.read<AuthModel>();
         final p =
@@ -44,10 +44,10 @@ class GlProjectScreen extends StatelessWidget {
             .fetchGitlabWithPage('/projects/$id/members?per_page=1')
             .then((v) => v.total);
 
-        MarkdownViewData readmeData;
+        MarkdownViewData? readmeData;
         if (p.readmeUrl != null) {
           final md = () => auth.fetchWithGitlabToken(
-              p.readmeUrl.replaceFirst(r'/blob/', '/raw/'));
+              p.readmeUrl!.replaceFirst(r'/blob/', '/raw/'));
           readmeData = MarkdownViewData(
             context,
             md: md,
@@ -59,7 +59,7 @@ class GlProjectScreen extends StatelessWidget {
                   body: {
                     'text': md,
                     'gfm': true,
-                    'project': '${p.namespace.name}/${p.name}'
+                    'project': '${p.namespace!.name}/${p.name}'
                   });
               return (res['html'] as String).normalizedHtml;
             }),
@@ -76,7 +76,7 @@ class GlProjectScreen extends StatelessWidget {
       },
       actionBuilder: (t, _) {
         return ActionButton(
-          title: AppLocalizations.of(context).projectActions,
+          title: AppLocalizations.of(context)!.projectActions,
           items: [
             ...ActionItem.getUrlActions(t.item1.webUrl),
           ],
@@ -92,17 +92,17 @@ class GlProjectScreen extends StatelessWidget {
         final theme = Provider.of<ThemeModel>(context);
         final auth = Provider.of<AuthModel>(context);
         final prefix =
-            '${auth.activeAccount.domain}/${p.namespace.path}/${p.name}'
+            '${auth.activeAccount!.domain}/${p.namespace!.path}/${p.name}'
                 .urlencode;
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             RepoHeader(
               avatarUrl: p.avatarUrl,
-              avatarLink: p.namespace.kind == 'group'
-                  ? '/gitlab/group/${p.namespace.id}'
-                  : '/gitlab/user/${p.namespace.id}',
-              owner: p.namespace.name,
+              avatarLink: p.namespace!.kind == 'group'
+                  ? '/gitlab/group/${p.namespace!.id}'
+                  : '/gitlab/user/${p.namespace!.id}',
+              owner: p.namespace!.name,
               name: p.name,
               description: p.description,
               // trailings: <Widget>[
@@ -121,19 +121,19 @@ class GlProjectScreen extends StatelessWidget {
                   builder: (context, snapshot) {
                     return EntryItem(
                       count: snapshot.data,
-                      text: AppLocalizations.of(context).members,
+                      text: AppLocalizations.of(context)!.members,
                       url: '/gitlab/projects/$id/members',
                     );
                   },
                 ),
                 EntryItem(
                   count: p.starCount,
-                  text: AppLocalizations.of(context).stars,
+                  text: AppLocalizations.of(context)!.stars,
                   url: '/gitlab/projects/$id/starrers',
                 ),
                 EntryItem(
                   count: p.forksCount,
-                  text: AppLocalizations.of(context).forks, // TODO:
+                  text: AppLocalizations.of(context)!.forks, // TODO:
                 ),
               ],
             ),
@@ -141,13 +141,14 @@ class GlProjectScreen extends StatelessWidget {
             FutureBuilder<Map<String, double>>(
               future: langFuture,
               builder: (context, snapshot) {
-                if (snapshot.data == null) {
+                final data = snapshot.data;
+                if (data == null) {
                   return LanguageBar([
                     LanguageBarItem(name: '', ratio: 1),
                   ]);
                 } else {
                   return LanguageBar([
-                    for (var e in snapshot.data?.entries ?? [])
+                    for (var e in data.entries)
                       LanguageBarItem(name: e.key, ratio: e.value / 100)
                   ]);
                 }
@@ -155,7 +156,6 @@ class GlProjectScreen extends StatelessWidget {
             ),
             CommonStyle.border,
             TableView(
-              hasIcon: true,
               items: [
                 TableViewItem(
                   leftIconData: Octicons.code,
@@ -165,70 +165,69 @@ class GlProjectScreen extends StatelessWidget {
                       if (snapshot.data == null) {
                         return Text('');
                       } else {
-                        final langs = snapshot.data.keys;
+                        final langs = snapshot.data!.keys;
                         return Text(langs.isEmpty
-                            ? AppLocalizations.of(context).code
+                            ? AppLocalizations.of(context)!.code
                             : langs.first);
                       }
                     },
                   ),
                   rightWidget: p.statistics == null
                       ? null
-                      : Text(filesize(p.statistics.repositorySize)),
+                      : Text(filesize(p.statistics!.repositorySize)),
                   url:
                       '/gitlab/projects/$id/tree/${branch == null ? p.defaultBranch : branch}',
                 ),
-                if (p.issuesEnabled)
+                if (p.issuesEnabled!)
                   TableViewItem(
                     leftIconData: Octicons.issue_opened,
-                    text: Text(AppLocalizations.of(context).issues),
+                    text: Text(AppLocalizations.of(context)!.issues),
                     rightWidget: Text(numberFormat.format(p.openIssuesCount)),
                     url: '/gitlab/projects/$id/issues?prefix=$prefix',
                   ),
-                if (p.mergeRequestsEnabled)
+                if (p.mergeRequestsEnabled!)
                   TableViewItem(
                     leftIconData: Octicons.git_pull_request,
-                    text: Text(AppLocalizations.of(context).mergeRequests),
+                    text: Text(AppLocalizations.of(context)!.mergeRequests),
                     url: '/gitlab/projects/$id/merge_requests?prefix=$prefix',
                   ),
                 TableViewItem(
                   leftIconData: Octicons.history,
-                  text: Text(AppLocalizations.of(context).commits),
+                  text: Text(AppLocalizations.of(context)!.commits),
                   rightWidget: p.statistics == null
                       ? null
-                      : Text(p.statistics.commitCount.toString()),
+                      : Text(p.statistics!.commitCount.toString()),
                   url:
-                      '/gitlab/projects/$id/commits?prefix=$prefix&branch=${branch == null ? p.defaultBranch : branch}', // EDIT
+                      '/gitlab/projects/$id/commits?prefix=$prefix&branch=${branch ?? p.defaultBranch}', // EDIT
                 ),
-                if (branches != null)
-                  TableViewItem(
-                    leftIconData: Octicons.git_branch,
-                    text: Text(AppLocalizations.of(context).branches),
-                    rightWidget: Text(
-                        (branch == null ? p.defaultBranch : branch) +
-                            ' • ' +
-                            branches.length.toString()),
-                    onTap: () async {
-                      if (branches.length < 2) return;
+                TableViewItem(
+                  leftIconData: Octicons.git_branch,
+                  text: Text(AppLocalizations.of(context)!.branches),
+                  rightWidget: Text(
+                      ((branch ?? p.defaultBranch) ?? '' /** empty project */) +
+                          ' • ' +
+                          branches.length.toString()),
+                  onTap: () async {
+                    if (branches.length < 2) return;
 
-                      await theme.showPicker(
-                        context,
-                        PickerGroupItem(
-                          value: branch,
-                          items: branches
-                              .map((b) => PickerItem(b.name, text: b.name))
-                              .toList(),
-                          onClose: (ref) {
-                            if (ref != branch) {
-                              theme.push(
-                                  context, '/gitlab/projects/$id?branch=$ref',
-                                  replace: true);
-                            }
-                          },
-                        ),
-                      );
-                    },
-                  ),
+                    await theme.showPicker(
+                      context,
+                      PickerGroupItem(
+                        value: branch,
+                        items: branches
+                            .map((b) => PickerItem(b.name, text: b.name))
+                            .toList(),
+                        onClose: (ref) {
+                          if (ref != branch) {
+                            theme.push(
+                                context, '/gitlab/projects/$id?branch=$ref',
+                                replace: true);
+                          }
+                        },
+                      ),
+                    );
+                  },
+                ),
               ],
             ),
             CommonStyle.verticalGap,

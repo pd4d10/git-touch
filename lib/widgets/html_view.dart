@@ -6,7 +6,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 class HtmlView extends StatefulWidget {
   final String html;
-  HtmlView(String text, {String cssText, List<String> cssLinks = const []})
+  HtmlView(String text, {String? cssText, List<String> cssLinks = const []})
       : html = '<meta name="viewport" content="width=device-width">' +
             cssLinks
                 .map((link) =>
@@ -20,9 +20,9 @@ class HtmlView extends StatefulWidget {
 }
 
 class _HtmlViewState extends State<HtmlView> {
-  Timer timer;
-  double height;
-  WebViewController controller;
+  late Timer timer;
+  double? height;
+  late WebViewController controller;
   var loaded = false;
 
   updateHeight() async {

@@ -10,9 +10,9 @@ class ListGroup<T> extends StatelessWidget {
   final EdgeInsetsGeometry padding;
 
   ListGroup({
-    @required this.title,
-    @required this.items,
-    @required this.itemBuilder,
+    required this.title,
+    required this.items,
+    required this.itemBuilder,
     this.padding = const EdgeInsets.only(left: 10, right: 10, bottom: 10),
   });
 

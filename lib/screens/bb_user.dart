@@ -11,7 +11,7 @@ import 'package:tuple/tuple.dart';
 import 'package:git_touch/utils/utils.dart';
 
 class BbUserScreen extends StatelessWidget {
-  final String login;
+  final String? login;
   final bool isTeam;
   BbUserScreen(this.login, {this.isTeam = false});
   bool get isViewer => login == null;
@@ -19,8 +19,8 @@ class BbUserScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthModel>(context);
-    final _accountId = auth.activeAccount.accountId;
-    final _login = login ?? auth.activeAccount.login;
+    final _accountId = auth.activeAccount!.accountId;
+    final _login = login ?? auth.activeAccount!.login;
     return RefreshStatefulScaffold<Tuple2<BbUser, Iterable<BbRepo>>>(
       title: Text(isViewer
           ? 'Me'
@@ -29,20 +29,18 @@ class BbUserScreen extends StatelessWidget {
               : 'User'),
       fetch: () async {
         final res = await Future.wait([
-          auth.fetchBbJson('/${isTeam ? 'teams' : 'users'}/$_accountId'),
-          auth.fetchBbWithPage('/repositories/$_login'),
+          auth
+              .fetchBbJson('/${isTeam ? 'teams' : 'users'}/$_accountId')
+              .then((value) => BbUser.fromJson(value)),
+          auth
+              .fetchBbWithPage('/repositories/$_login')
+              .then((value) => [for (var v in value.items) BbRepo.fromJson(v)]),
         ]);
-        return Tuple2(
-          BbUser.fromJson(res[0]),
-          [
-            for (var v in (res[1] as BbPagePayload<List>).data)
-              BbRepo.fromJson(v)
-          ],
-        );
+        return Tuple2(res[0] as BbUser, res[1] as Iterable<BbRepo>);
       },
       action: isViewer
           ? ActionEntry(
-              iconData: Icons.settings,
+              iconData: Ionicons.cog,
               url: '/settings',
             )
           : null,

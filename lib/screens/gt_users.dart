@@ -45,7 +45,7 @@ class GtUsersScreen extends StatelessWidget {
           login: payload.login,
           name: payload.fullName,
           avatarUrl: payload.avatarUrl,
-          bio: Text('Joined on ${timeago.format(payload.created)}'),
+          bio: Text('Joined on ${timeago.format(payload.created!)}'),
         );
       },
     );

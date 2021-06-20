@@ -10,8 +10,8 @@ class RefreshWrapper extends StatelessWidget {
   final void Function() onRefresh;
 
   RefreshWrapper({
-    @required this.onRefresh,
-    @required this.body,
+    required this.onRefresh,
+    required this.body,
   });
 
   @override
@@ -21,14 +21,15 @@ class RefreshWrapper extends StatelessWidget {
         return CupertinoScrollbar(
           child: CustomScrollView(
             slivers: <Widget>[
-              CupertinoSliverRefreshControl(onRefresh: onRefresh),
+              CupertinoSliverRefreshControl(
+                  onRefresh: onRefresh as Future<void> Function()?),
               SliverToBoxAdapter(child: body),
             ],
           ),
         );
       default:
         return RefreshIndicator(
-          onRefresh: onRefresh,
+          onRefresh: onRefresh as Future<void> Function(),
           child: Scrollbar(
             child: SingleChildScrollView(child: body),
           ),
@@ -41,13 +42,13 @@ class ErrorLoadingWrapper extends StatelessWidget {
   final String error;
   final bool loading;
   final void Function() reload;
-  final Widget Function() bodyBuilder;
+  final Widget? Function() bodyBuilder;
 
   ErrorLoadingWrapper({
-    @required this.error,
-    @required this.loading,
-    @required this.reload,
-    @required this.bodyBuilder,
+    required this.error,
+    required this.loading,
+    required this.reload,
+    required this.bodyBuilder,
   });
 
   @override
@@ -60,11 +61,6 @@ class ErrorLoadingWrapper extends StatelessWidget {
       return Loading();
     }
 
-    return bodyBuilder();
+    return bodyBuilder()!;
   }
-}
-
-Widget wrapBuilder(Widget Function() builder) {
-  if (builder == null) return null;
-  return builder();
 }

@@ -55,7 +55,7 @@
   "@gitlabAccount": {
     "description": "Gitlab Account"
   },
-  "notFoundTextDisplay": "Esta página ainda não foi implementada",
+  "notFoundTextDisplay": "Ops, esta página ainda não foi implementada.",
   "@notFoundTextDisplay": {
     "description": "Not found error message"
   },
@@ -346,9 +346,5 @@
   "news": "Notícias",
   "@news": {
     "description": "The News tab"
-  },
-  "helloWorld": "Olá Mundo!",
-  "@helloWorld": {
-    "description": "The conventional newborn programmer greeting"
   }
 }

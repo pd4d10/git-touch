@@ -10,8 +10,8 @@ import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
 import 'package:url_launcher/url_launcher.dart';
 export 'extensions.dart';
-export 'package:flutter_vector_icons/flutter_vector_icons.dart' show Octicons;
-export 'package:ionicons/ionicons.dart';
+export 'package:flutter_vector_icons/flutter_vector_icons.dart'
+    show Octicons, Ionicons;
 
 class StorageKeys {
   @deprecated
@@ -26,7 +26,9 @@ class StorageKeys {
   static const codeThemeDark = 'code-theme-dark';
   static const iCodeFontSize = 'code-font-size';
   static const codeFontFamily = 'code-font-family';
-  static const markdown = 'markdown';
+  static const iMarkdown = 'markdown';
+  static const iDefaultAccount = 'default-account';
+  static const locale = 'locale';
 
   static getDefaultStartTabKey(String platform) =>
       'default-start-tab-$platform';
@@ -39,7 +41,7 @@ class CommonStyle {
   static final monospace = Platform.isIOS ? 'Menlo' : 'monospace'; // FIXME:
 }
 
-Color convertColor(String cssHex) {
+Color convertColor(String? cssHex) {
   if (cssHex == null) {
     return Color(0xffededed); // Default color
   }
@@ -63,7 +65,7 @@ Color getFontColorByBrightness(Color color) {
 
 TextSpan createLinkSpan(
   BuildContext context,
-  String text,
+  String? text,
   String url,
 ) {
   final theme = Provider.of<ThemeModel>(context);
@@ -93,7 +95,7 @@ class GithubPalette {
 }
 
 // final pageSize = 5;
-final pageSize = 30;
+final PAGE_SIZE = 30;
 
 var createWarning =
     (String text) => Text(text, style: TextStyle(color: Colors.redAccent));
@@ -117,7 +119,7 @@ List<T> join<T>(T seperator, List<T> xs) {
 List<T> joinAll<T>(T seperator, List<List<T>> xss) {
   List<T> result = [];
   xss.asMap().forEach((index, x) {
-    if (x == null || x.isEmpty) return;
+    if (x.isEmpty) return;
 
     result.addAll(x);
     if (index < xss.length - 1) {
@@ -130,18 +132,13 @@ List<T> joinAll<T>(T seperator, List<List<T>> xss) {
 
 final numberFormat = NumberFormat();
 
-bool isNotNullOrEmpty(String text) {
+bool isNotNullOrEmpty(String? text) {
   return text != null && text.isNotEmpty;
-}
-
-String getBranchQueryKey(String branch, {bool withParams = false}) {
-  if (branch == null) return 'defaultBranchRef';
-  return 'ref' + (withParams ? '(qualifiedName: "$branch")' : '');
 }
 
 // TODO: Primer
 class PrimerBranchName extends StatelessWidget {
-  final String name;
+  final String? name;
 
   PrimerBranchName(this.name);
 
@@ -158,7 +155,7 @@ class PrimerBranchName extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(3)),
       ),
       child: Text(
-        name,
+        name!,
         style: TextStyle(
           color: theme.palette.primary,
           fontSize: 14,
@@ -170,7 +167,7 @@ class PrimerBranchName extends StatelessWidget {
   }
 }
 
-launchUrl(String url) async {
+launchUrl(String? url) async {
   if (url == null) return;
 
   if (await canLaunch(url)) {
@@ -186,4 +183,18 @@ int sortByKey<T>(T key, T a, T b) {
   if (a == key && b != key) return -1;
   if (a != key && b == key) return 1;
   return 0;
+}
+
+const TOTAL_COUNT_FALLBACK = 999; // TODO:
+
+class ListPayload<T, K> {
+  K cursor;
+  bool hasMore;
+  Iterable<T> items;
+
+  ListPayload({
+    required this.cursor,
+    required this.hasMore,
+    required this.items,
+  });
 }

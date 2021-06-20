@@ -80,12 +80,12 @@ class GeIssueScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Link(
+                  LinkWidget(
                     url: '/gitee/$owner/$name',
                     child: Row(
                       children: <Widget>[
                         Avatar(
-                          url: issue.user.avatarUrl,
+                          url: issue.user!.avatarUrl,
                           size: AvatarSize.extraSmall,
                         ),
                         SizedBox(width: 4),
@@ -109,7 +109,7 @@ class GeIssueScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 8),
                   Text(
-                    issue.title,
+                    issue.title!,
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
@@ -131,12 +131,12 @@ class GeIssueScreen extends StatelessWidget {
                   padding: EdgeInsets.only(left: 10),
                   child: CommentItem(
                     avatar: Avatar(
-                      url: comment.user.avatarUrl,
-                      linkUrl: '/gitee/${comment.user.login}',
+                      url: comment.user!.avatarUrl,
+                      linkUrl: '/gitee/${comment.user!.login}',
                     ),
-                    createdAt: DateTime.parse(comment.createdAt),
+                    createdAt: DateTime.parse(comment.createdAt!),
                     body: comment.body,
-                    login: comment.user.login,
+                    login: comment.user!.login,
                     prefix: 'gitee',
                     commentActionItemList:
                         _buildCommentActionItem(context, comment),

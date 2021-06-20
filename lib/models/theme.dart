@@ -9,12 +9,7 @@ import 'package:git_touch/widgets/action_button.dart';
 import 'package:primer/primer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/services.dart';
-
-class DialogOption<T> {
-  final T value;
-  final Widget widget;
-  DialogOption({this.value, this.widget});
-}
+import 'package:flutter_gen/gen_l10n/S.dart';
 
 class AppThemeType {
   static const material = 0;
@@ -41,19 +36,19 @@ class AppMarkdownType {
 
 class PickerItem<T> {
   final T value;
-  final String text;
-  PickerItem(this.value, {@required this.text});
+  final String? text;
+  PickerItem(this.value, {required this.text});
 }
 
 class PickerGroupItem<T> {
   final T value;
   final List<PickerItem<T>> items;
-  final Function(T value) onChange;
-  final Function(T value) onClose;
+  final Function(T value)? onChange;
+  final Function(T value)? onClose;
 
   PickerGroupItem({
-    @required this.value,
-    @required this.items,
+    required this.value,
+    required this.items,
     this.onChange,
     this.onClose,
   });
@@ -62,18 +57,18 @@ class PickerGroupItem<T> {
 class SelectorItem<T> {
   T value;
   String text;
-  SelectorItem({@required this.value, @required this.text});
+  SelectorItem({required this.value, required this.text});
 }
 
 // No animation. For replacing route
 // TODO: Go back
 class StaticRoute extends PageRouteBuilder {
-  final WidgetBuilder builder;
+  final WidgetBuilder? builder;
   StaticRoute({this.builder})
       : super(
           pageBuilder: (BuildContext context, Animation<double> animation,
               Animation<double> secondaryAnimation) {
-            return builder(context);
+            return builder!(context);
           },
           transitionsBuilder: (BuildContext context,
               Animation<double> animation,
@@ -94,21 +89,21 @@ class Palette {
   final Color border;
 
   const Palette({
-    this.primary,
-    this.text,
-    this.secondaryText,
-    this.tertiaryText,
-    this.background,
-    this.grayBackground,
-    this.border,
+    required this.primary,
+    required this.text,
+    required this.secondaryText,
+    required this.tertiaryText,
+    required this.background,
+    required this.grayBackground,
+    required this.border,
   });
 }
 
 class ThemeModel with ChangeNotifier {
-  String markdownCss;
+  String? markdownCss;
 
-  int _theme;
-  int get theme => _theme;
+  int? _theme;
+  int? get theme => _theme;
   bool get ready => _theme != null;
 
   Brightness systemBrightness = Brightness.light;
@@ -121,8 +116,8 @@ class ThemeModel with ChangeNotifier {
     }
   }
 
-  int _brightnessValue = AppBrightnessType.followSystem;
-  int get brighnessValue => _brightnessValue;
+  int? _brightnessValue = AppBrightnessType.followSystem;
+  int? get brighnessValue => _brightnessValue;
 
   // could be null
   Brightness get brightness {
@@ -145,19 +140,41 @@ class ThemeModel with ChangeNotifier {
   }
 
   // markdown render engine
-  int _markdown;
-  int get markdown => _markdown;
+  int? _markdown;
+  int? get markdown => _markdown;
   Future<void> setMarkdown(int v) async {
     _markdown = v;
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setInt(StorageKeys.markdown, v);
+    await prefs.setInt(StorageKeys.iMarkdown, v);
     Fimber.d('write markdown engine: $v');
     notifyListeners();
   }
 
   bool get shouldUseMarkdownFlutterView {
-    // WebView on macOS not working
-    return Platform.isMacOS || markdown == AppMarkdownType.flutter;
+    // webview on macOS not working
+    if (Platform.isMacOS) return true;
+
+    // android webview has some issues, prefer flutter
+    // https://github.com/git-touch/git-touch/issues/132
+    if (Platform.isAndroid && markdown == null) return true;
+
+    // otherwise, prefer webview
+    return markdown == AppMarkdownType.flutter;
+  }
+
+  // supported languages
+  String? _locale;
+  String? get locale => _locale;
+
+  Future<void> setLocale(String? v) async {
+    _locale = v;
+    final prefs = await SharedPreferences.getInstance();
+    if (v == null) {
+      await prefs.remove(StorageKeys.locale);
+    } else {
+      await prefs.setString(StorageKeys.locale, v);
+    }
+    notifyListeners();
   }
 
   final router = FluroRouter();
@@ -210,9 +227,13 @@ class ThemeModel with ChangeNotifier {
     if (AppBrightnessType.values.contains(b)) {
       _brightnessValue = b;
     }
-    final m = prefs.getInt(StorageKeys.markdown);
+    final m = prefs.getInt(StorageKeys.iMarkdown);
     if (AppMarkdownType.values.contains(m)) {
       _markdown = m;
+    }
+    final l = prefs.getString(StorageKeys.locale);
+    if (AppLocalizations.supportedLocales.any((v) => l == v.toString())) {
+      _locale = l;
     }
 
     notifyListeners();
@@ -261,7 +282,7 @@ class ThemeModel with ChangeNotifier {
     );
   }
 
-  Future<bool> showConfirm(BuildContext context, Widget content) {
+  Future<bool?> showConfirm(BuildContext context, Widget content) {
     return showCupertinoDialog(
       context: context,
       builder: (context) {
@@ -310,10 +331,10 @@ class ThemeModel with ChangeNotifier {
     //   );
   }
 
-  static Timer _debounce;
-  String _selectedItem;
+  static Timer? _debounce;
+  String? _selectedItem;
 
-  showPicker(BuildContext context, PickerGroupItem<String> groupItem) async {
+  showPicker(BuildContext context, PickerGroupItem<String?> groupItem) async {
     await showCupertinoModalPopup(
       context: context,
       builder: (context) {
@@ -349,7 +370,7 @@ class ThemeModel with ChangeNotifier {
                     child: Text('Confirm'),
                     onPressed: () {
                       Navigator.pop(context);
-                      groupItem.onClose(_selectedItem);
+                      groupItem.onClose!(_selectedItem);
                     },
                     padding: const EdgeInsets.symmetric(
                       horizontal: 16.0,
@@ -365,7 +386,7 @@ class ThemeModel with ChangeNotifier {
                 backgroundColor: palette.background,
                 children: <Widget>[
                   for (var v in groupItem.items)
-                    Text(v.text, style: TextStyle(color: palette.text)),
+                    Text(v.text!, style: TextStyle(color: palette.text)),
                 ],
                 itemExtent: 40,
                 scrollController: FixedExtentScrollController(
@@ -377,11 +398,11 @@ class ThemeModel with ChangeNotifier {
 
                   if (groupItem.onChange != null) {
                     if (_debounce?.isActive ?? false) {
-                      _debounce.cancel();
+                      _debounce!.cancel();
                     }
 
                     _debounce = Timer(const Duration(milliseconds: 500), () {
-                      groupItem.onChange(_selectedItem);
+                      groupItem.onChange!(_selectedItem);
                     });
                   }
                 },
@@ -394,7 +415,6 @@ class ThemeModel with ChangeNotifier {
   }
 
   showActions(BuildContext context, List<ActionItem> actionItems) async {
-    if (actionItems == null) return;
     final value = await showCupertinoModalPopup<int>(
       context: context,
       builder: (BuildContext context) {
@@ -402,7 +422,7 @@ class ThemeModel with ChangeNotifier {
           title: Text('Actions'),
           actions: actionItems.asMap().entries.map((entry) {
             return CupertinoActionSheetAction(
-              child: Text(entry.value.text),
+              child: Text(entry.value.text!),
               isDestructiveAction: entry.value.isDestructiveAction,
               onPressed: () {
                 Navigator.pop(context, entry.key);
@@ -421,7 +441,7 @@ class ThemeModel with ChangeNotifier {
     );
 
     if (value != null) {
-      actionItems[value].onTap(context);
+      actionItems[value].onTap!(context);
     }
   }
 }

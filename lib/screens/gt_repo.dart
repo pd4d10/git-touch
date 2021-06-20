@@ -24,7 +24,7 @@ class GtRepoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold<Tuple2<GiteaRepository, MarkdownViewData>>(
-      title: AppBarTitle(AppLocalizations.of(context).repository),
+      title: AppBarTitle(AppLocalizations.of(context)!.repository),
       fetch: () async {
         final auth = context.read<AuthModel>();
         final repo = await auth.fetchGitea('/repos/$owner/$name').then((v) {
@@ -33,11 +33,11 @@ class GtRepoScreen extends StatelessWidget {
 
         final md = () =>
             auth.fetchGitea('/repos/$owner/$name/contents/README.md').then((v) {
-              return (v['content'] as String)?.base64ToUtf8;
+              return (v['content'] as String?)?.base64ToUtf8 ?? '';
             });
         final html = () => md().then((v) async {
               final res = await http.post(
-                '${auth.activeAccount.domain}/api/v1/markdown/raw',
+                Uri.parse('${auth.activeAccount!.domain}/api/v1/markdown/raw'),
                 headers: {'Authorization': 'token ${auth.token}'},
                 body: v,
               );
@@ -53,9 +53,9 @@ class GtRepoScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             RepoHeader(
-              avatarUrl: p.owner.avatarUrl,
-              avatarLink: '/gitea/${p.owner.login}',
-              owner: p.owner.login,
+              avatarUrl: p.owner!.avatarUrl,
+              avatarLink: '/gitea/${p.owner!.login}',
+              owner: p.owner!.login,
               name: p.name,
               description: p.description,
               homepageUrl: p.website,
@@ -81,12 +81,11 @@ class GtRepoScreen extends StatelessWidget {
             ),
             CommonStyle.border,
             TableView(
-              hasIcon: true,
               items: [
                 TableViewItem(
                   leftIconData: Octicons.code,
                   text: Text('Code'),
-                  rightWidget: Text(filesize(p.size * 1000)),
+                  rightWidget: Text(filesize(p.size! * 1000)),
                   url: '/gitea/$owner/$name/blob',
                 ),
                 TableViewItem(

@@ -4,14 +4,14 @@ import 'package:git_touch/widgets/link.dart';
 import 'package:provider/provider.dart';
 
 class MutationButton extends StatelessWidget {
-  final bool active;
+  final bool? active;
   final String text;
-  final String url;
-  final VoidCallback onTap;
+  final String? url;
+  final VoidCallback? onTap;
 
   MutationButton({
-    @required this.active,
-    @required this.text,
+    required this.active,
+    required this.text,
     this.url,
     this.onTap,
   });
@@ -19,10 +19,11 @@ class MutationButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
-    final textColor = active ? theme.palette.background : theme.palette.primary;
+    final textColor =
+        active! ? theme.palette.background : theme.palette.primary;
     final backgroundColor =
-        active ? theme.palette.primary : theme.palette.background;
-    return Link(
+        active! ? theme.palette.primary : theme.palette.background;
+    return LinkWidget(
       url: url,
       onTap: onTap,
       child: Container(

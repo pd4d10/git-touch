@@ -11,15 +11,15 @@ import '../widgets/error_reload.dart';
 class LongListPayload<T, K> {
   T header;
   int totalCount;
-  String cursor;
+  String? cursor;
   List<K> leadingItems;
-  List<K> trailingItems;
+  List<K>? trailingItems;
 
   LongListPayload({
-    this.header,
-    this.totalCount,
-    this.cursor,
-    this.leadingItems,
+    required this.header,
+    required this.totalCount,
+    required this.cursor,
+    required this.leadingItems,
     this.trailingItems,
   });
 }
@@ -30,19 +30,19 @@ class LongListPayload<T, K> {
 // e.g. https://github.com/reactjs/rfcs/pull/68
 class LongListStatefulScaffold<T, K> extends StatefulWidget {
   final Widget title;
-  final Widget Function(T t) trailingBuilder;
+  final Widget Function(T t)? trailingBuilder;
   final Widget Function(T t) headerBuilder;
   final Widget Function(K k) itemBuilder;
   final Future<LongListPayload<T, K>> Function() onRefresh;
-  final Future<LongListPayload<T, K>> Function(String cursor) onLoadMore;
+  final Future<LongListPayload<T, K>> Function(String? cursor) onLoadMore;
 
   LongListStatefulScaffold({
-    @required this.title,
+    required this.title,
     this.trailingBuilder,
-    @required this.headerBuilder,
-    @required this.itemBuilder,
-    @required this.onRefresh,
-    @required this.onLoadMore,
+    required this.headerBuilder,
+    required this.itemBuilder,
+    required this.onRefresh,
+    required this.onLoadMore,
   });
 
   @override
@@ -52,11 +52,11 @@ class LongListStatefulScaffold<T, K> extends StatefulWidget {
 
 class _LongListStatefulScaffoldState<T, K>
     extends State<LongListStatefulScaffold<T, K>> {
-  bool loading;
+  late bool loading;
   bool loadingMore = false;
   String error = '';
 
-  LongListPayload<T, K> payload;
+  LongListPayload<T, K>? payload;
 
   @override
   void initState() {
@@ -90,10 +90,11 @@ class _LongListStatefulScaffoldState<T, K>
       loadingMore = true;
     });
     try {
-      var _payload = await widget.onLoadMore(payload.cursor);
-      payload.totalCount = _payload.totalCount;
-      payload.cursor = _payload.cursor;
-      payload.leadingItems.addAll(_payload.leadingItems);
+      LongListPayload<T?, K> _payload =
+          await widget.onLoadMore(payload!.cursor);
+      payload!.totalCount = _payload.totalCount;
+      payload!.cursor = _payload.cursor;
+      payload!.leadingItems.addAll(_payload.leadingItems);
     } finally {
       if (mounted) {
         setState(() {
@@ -112,16 +113,16 @@ class _LongListStatefulScaffoldState<T, K>
 
     int realIndex = index ~/ 2;
 
-    if (realIndex < payload.leadingItems.length) {
-      return widget.itemBuilder(payload.leadingItems[realIndex]);
-    } else if (realIndex == payload.leadingItems.length) {
-      var count = payload.totalCount -
-          payload.leadingItems.length +
-          payload.trailingItems.length;
+    if (realIndex < payload!.leadingItems.length) {
+      return widget.itemBuilder(payload!.leadingItems[realIndex]);
+    } else if (realIndex == payload!.leadingItems.length) {
+      var count = payload!.totalCount -
+          payload!.leadingItems.length +
+          payload!.trailingItems!.length;
       return Container(
         padding: CommonStyle.padding,
         child: Center(
-          child: Link(
+          child: LinkWidget(
             onTap: _loadMore,
             child: Container(
               padding: CommonStyle.padding,
@@ -148,14 +149,14 @@ class _LongListStatefulScaffoldState<T, K>
         ),
       );
     } else {
-      return widget.itemBuilder(
-          payload.trailingItems[realIndex - payload.leadingItems.length - 1]);
+      return widget.itemBuilder(payload!
+          .trailingItems![realIndex - payload!.leadingItems.length - 1]);
     }
   }
 
   int get _itemCount {
-    int count = payload.leadingItems.length + payload.trailingItems.length;
-    if (payload.totalCount > count) {
+    int count = payload!.leadingItems.length + payload!.trailingItems!.length;
+    if (payload!.totalCount > count) {
       count++;
     }
     return 2 * count; // including bottom border
@@ -185,7 +186,7 @@ class _LongListStatefulScaffoldState<T, K>
         ];
         if (payload != null) {
           slivers.add(
-            SliverToBoxAdapter(child: widget.headerBuilder(payload.header)),
+            SliverToBoxAdapter(child: widget.headerBuilder(payload!.header)),
           );
         }
         slivers.add(_buildSliver());
@@ -193,8 +194,9 @@ class _LongListStatefulScaffoldState<T, K>
         return CupertinoPageScaffold(
           navigationBar: CupertinoNavigationBar(
             middle: widget.title,
-            trailing:
-                payload == null ? null : widget.trailingBuilder(payload.header),
+            trailing: payload == null
+                ? null
+                : widget.trailingBuilder!(payload!.header),
           ),
           child: SafeArea(
             child: CupertinoScrollbar(
@@ -208,7 +210,7 @@ class _LongListStatefulScaffoldState<T, K>
             title: widget.title,
             actions: payload == null
                 ? null
-                : [widget.trailingBuilder(payload.header)],
+                : [widget.trailingBuilder!(payload!.header)],
           ),
           body: RefreshIndicator(
             onRefresh: _refresh,
@@ -216,7 +218,7 @@ class _LongListStatefulScaffoldState<T, K>
               child: CustomScrollView(slivers: [
                 if (payload != null)
                   SliverToBoxAdapter(
-                      child: widget.headerBuilder(payload.header)),
+                      child: widget.headerBuilder(payload!.header)),
                 _buildSliver(),
               ]),
             ),

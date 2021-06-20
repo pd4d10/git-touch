@@ -12,13 +12,13 @@ class GoOrgsScreen extends StatelessWidget {
   final String api;
   final bool isViewer;
   // TODO: implement list of orgs screen when API is available
-  GoOrgsScreen.ofUser(String login, {this.isViewer})
+  GoOrgsScreen.ofUser(String login, {required this.isViewer})
       : api = isViewer ? '/users/$login/orgs' : '/user/orgs';
 
   @override
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold<List<GogsOrg>>(
-      title: AppBarTitle(AppLocalizations.of(context).organizations),
+      title: AppBarTitle(AppLocalizations.of(context)!.organizations),
       fetch: () async {
         final res = await context.read<AuthModel>().fetchGogs(api);
         return [for (var v in res) GogsOrg.fromJson(v)];
@@ -31,7 +31,7 @@ class GoOrgsScreen extends StatelessWidget {
                 avatarUrl: org.avatarUrl,
                 login: org.username,
                 name: org.fullName,
-                bio: Text(org.description ?? org.website ?? org.location),
+                bio: Text(org.description ?? org.website ?? org.location!),
               ),
               CommonStyle.border,
             ]

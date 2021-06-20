@@ -9,14 +9,14 @@ import 'package:flutter_gen/gen_l10n/S.dart';
 
 class GlCommitsScreen extends StatelessWidget {
   final String id;
-  final String prefix;
-  final String branch;
+  final String? prefix;
+  final String? branch;
   GlCommitsScreen(this.id, {this.prefix, this.branch});
 
   @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GitlabCommit, int>(
-      title: AppBarTitle(AppLocalizations.of(context).commits),
+      title: AppBarTitle(AppLocalizations.of(context)!.commits),
       fetch: (page) async {
         page = page ?? 1;
         final auth = context.read<AuthModel>();

@@ -39,16 +39,17 @@ class MyApp extends StatelessWidget {
     var theme = Provider.of<ThemeModel>(context);
 
     return SingleScaffold(
-      title: AppBarTitle(AppLocalizations.of(context).codeTheme),
+      title: AppBarTitle(AppLocalizations.of(context)!.codeTheme),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           CommonStyle.verticalGap,
           TableView(
-            headerText: AppLocalizations.of(context).fontStyle,
+            headerText: AppLocalizations.of(context)!.fontStyle,
+            hasIcon: false,
             items: [
               TableViewItem(
-                text: Text(AppLocalizations.of(context).fontSize),
+                text: Text(AppLocalizations.of(context)!.fontSize),
                 rightWidget: Text(codeProvider.fontSize.toString()),
                 onTap: () {
                   theme.showPicker(
@@ -60,14 +61,14 @@ class MyApp extends StatelessWidget {
                               PickerItem(v.toString(), text: v.toString()))
                           .toList(),
                       onChange: (value) {
-                        codeProvider.setFontSize(int.tryParse(value) ?? 16);
+                        codeProvider.setFontSize(int.tryParse(value!) ?? 16);
                       },
                     ),
                   );
                 },
               ),
               TableViewItem(
-                text: Text(AppLocalizations.of(context).fontFamily),
+                text: Text(AppLocalizations.of(context)!.fontFamily),
                 rightWidget: Text(codeProvider.fontFamily),
                 onTap: () {
                   theme.showPicker(
@@ -77,8 +78,8 @@ class MyApp extends StatelessWidget {
                       items: CodeModel.fontFamilies
                           .map((v) => PickerItem(v, text: v))
                           .toList(),
-                      onChange: (String value) {
-                        codeProvider.setFontFamily(value);
+                      onChange: (String? value) {
+                        codeProvider.setFontFamily(value!);
                       },
                     ),
                   );
@@ -88,10 +89,10 @@ class MyApp extends StatelessWidget {
           ),
           CommonStyle.verticalGap,
           TableView(
-            headerText: AppLocalizations.of(context).syntaxHighlighting,
+            headerText: AppLocalizations.of(context)!.syntaxHighlighting,
             items: [
               TableViewItem(
-                text: Text(AppLocalizations.of(context).light),
+                text: Text(AppLocalizations.of(context)!.light),
                 rightWidget: Text(codeProvider.theme),
                 onTap: () {
                   theme.showPicker(
@@ -102,14 +103,14 @@ class MyApp extends StatelessWidget {
                           .map((v) => PickerItem(v, text: v))
                           .toList(),
                       onChange: (value) {
-                        codeProvider.setTheme(value);
+                        codeProvider.setTheme(value!);
                       },
                     ),
                   );
                 },
               ),
               TableViewItem(
-                text: Text(AppLocalizations.of(context).dark),
+                text: Text(AppLocalizations.of(context)!.dark),
                 rightWidget: Text(codeProvider.themeDark),
                 onTap: () {
                   theme.showPicker(
@@ -120,7 +121,7 @@ class MyApp extends StatelessWidget {
                           .map((v) => PickerItem(v, text: v))
                           .toList(),
                       onChange: (value) {
-                        codeProvider.setThemeDark(value);
+                        codeProvider.setThemeDark(value!);
                       },
                     ),
                   );
@@ -131,7 +132,7 @@ class MyApp extends StatelessWidget {
           HighlightView(
             _getCode(false),
             language: 'dart',
-            theme: themeMap[codeProvider.theme],
+            theme: themeMap[codeProvider.theme]!,
             textStyle: TextStyle(
               fontSize: codeProvider.fontSize.toDouble(),
               fontFamily: codeProvider.fontFamilyUsed,
@@ -141,7 +142,7 @@ class MyApp extends StatelessWidget {
           HighlightView(
             _getCode(true),
             language: 'dart',
-            theme: themeMap[codeProvider.themeDark],
+            theme: themeMap[codeProvider.themeDark]!,
             textStyle: TextStyle(
               fontSize: codeProvider.fontSize.toDouble(),
               fontFamily: codeProvider.fontFamilyUsed,

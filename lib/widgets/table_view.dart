@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import 'link.dart';
 
 class TableViewHeader extends StatelessWidget {
-  final String title;
+  final String? title;
 
   TableViewHeader(this.title);
 
@@ -17,24 +17,24 @@ class TableViewHeader extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       child: Text(
-        title.toUpperCase(),
+        title!.toUpperCase(),
         style: TextStyle(color: theme.palette.secondaryText, fontSize: 13),
       ),
     );
   }
 }
 
-class TableViewItem {
+class TableViewItem extends StatelessWidget {
   final Widget text;
-  final IconData leftIconData;
-  final Widget leftWidget;
-  final Widget rightWidget;
-  final void Function() onTap;
-  final String url;
+  final IconData? leftIconData;
+  final Widget? leftWidget;
+  final Widget? rightWidget;
+  final void Function()? onTap;
+  final String? url;
   final bool hideRightChevron;
 
   TableViewItem({
-    @required this.text,
+    required this.text,
     this.leftIconData,
     this.leftWidget,
     this.rightWidget,
@@ -42,78 +42,74 @@ class TableViewItem {
     this.url,
     this.hideRightChevron = false,
   }) : assert(leftIconData == null || leftWidget == null);
-}
-
-class TableView extends StatelessWidget {
-  final String headerText;
-  final Iterable<TableViewItem> items;
-  final bool hasIcon;
-
-  double get _leftPadding => hasIcon ? 44 : 12;
-
-  TableView({this.headerText, @required this.items, this.hasIcon = false});
 
   @override
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
 
+    return LinkWidget(
+      onTap: onTap,
+      url: url,
+      child: DefaultTextStyle(
+        style: TextStyle(fontSize: 17, color: theme.palette.text),
+        overflow: TextOverflow.ellipsis,
+        child: Container(
+          height: 44,
+          child: Row(
+            children: [
+              SizedBox(
+                width: (leftWidget == null && leftIconData == null) ? 12 : 44,
+                child: Center(
+                    child: leftWidget ??
+                        Icon(
+                          leftIconData,
+                          color: theme.palette.primary,
+                          size: 20,
+                        )),
+              ),
+              Expanded(child: text),
+              if (rightWidget != null) ...[
+                DefaultTextStyle(
+                  style: TextStyle(
+                    fontSize: 17,
+                    color: theme.palette.tertiaryText,
+                  ),
+                  child: rightWidget!,
+                ),
+                SizedBox(width: 6)
+              ],
+              if ((onTap != null || url != null) && !hideRightChevron)
+                Icon(Ionicons.chevron_forward,
+                    size: 20, color: theme.palette.tertiaryText)
+              else
+                SizedBox(width: 2),
+              SizedBox(width: 8),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class TableView extends StatelessWidget {
+  final String? headerText;
+  final Iterable<Widget> items;
+  final bool? hasIcon;
+
+  TableView({this.headerText, required this.items, this.hasIcon = true});
+
+  double get _leftPadding => hasIcon == true ? 44 : 12;
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         if (headerText != null) TableViewHeader(headerText),
-        CommonStyle.border,
         ...join(
           BorderView(leftPadding: _leftPadding),
-          items.map((item) {
-            if (item == null) return null;
-
-            var leftWidget = item.leftWidget;
-            if (leftWidget == null && hasIcon) {
-              leftWidget = Icon(
-                item.leftIconData,
-                color: theme.palette.primary,
-                size: 20,
-              );
-            }
-
-            return Link(
-              onTap: item.onTap,
-              url: item.url,
-              child: DefaultTextStyle(
-                style: TextStyle(fontSize: 17, color: theme.palette.text),
-                overflow: TextOverflow.ellipsis,
-                child: Container(
-                  height: 44,
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: _leftPadding,
-                        child: Center(child: leftWidget),
-                      ),
-                      Expanded(child: item.text),
-                      if (item.rightWidget != null) ...[
-                        DefaultTextStyle(
-                          style: TextStyle(
-                            fontSize: 17,
-                            color: theme.palette.tertiaryText,
-                          ),
-                          child: item.rightWidget,
-                        ),
-                        SizedBox(width: 6)
-                      ],
-                      if ((item.onTap != null || item.url != null) &&
-                          !item.hideRightChevron)
-                        Icon(CupertinoIcons.right_chevron,
-                            size: 20, color: theme.palette.tertiaryText)
-                      else
-                        SizedBox(width: 2),
-                      SizedBox(width: 8),
-                    ],
-                  ),
-                ),
-              ),
-            );
-          }).toList(),
+          items.toList(),
         ),
         CommonStyle.border,
       ],

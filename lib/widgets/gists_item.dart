@@ -8,28 +8,28 @@ import 'package:timeago/timeago.dart' as timeago;
 import 'package:github/github.dart' as github;
 
 class GistsItem extends StatelessWidget {
-  final String description;
+  final String? description;
   final String login;
-  final List<String> filenames;
-  final String language;
-  final String avatarUrl;
-  final DateTime updatedAt;
-  final String id;
+  final List<String?> filenames;
+  final String? language;
+  final String? avatarUrl;
+  final DateTime? updatedAt;
+  final String? id;
 
   GistsItem({
-    @required this.description,
-    @required this.login,
-    @required this.filenames,
-    @required this.language,
-    @required this.avatarUrl,
-    @required this.updatedAt,
-    @required this.id,
+    required this.description,
+    required this.login,
+    required this.filenames,
+    required this.language,
+    required this.avatarUrl,
+    required this.updatedAt,
+    required this.id,
   });
 
   @override
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
-    return Link(
+    return LinkWidget(
       url: '/github/$login/gists/$id',
       child: Container(
         padding: CommonStyle.padding,
@@ -73,9 +73,9 @@ class GistsItem extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: 8),
-                  if (description != null && description.isNotEmpty) ...[
+                  if (description != null && description!.isNotEmpty) ...[
                     Text(
-                      description,
+                      description!,
                       style: TextStyle(
                         color: theme.palette.secondaryText,
                         fontSize: 16,
@@ -85,7 +85,7 @@ class GistsItem extends StatelessWidget {
                   ],
                   if (updatedAt != null) ...[
                     Text(
-                      'Updated ${timeago.format(updatedAt)}',
+                      'Updated ${timeago.format(updatedAt!)}',
                       style: TextStyle(
                         fontSize: 14,
                         color: theme.palette.tertiaryText,
@@ -102,15 +102,15 @@ class GistsItem extends StatelessWidget {
                             width: 12,
                             height: 12,
                             decoration: BoxDecoration(
-                              color:
-                                  convertColor(github.languageColors[language]),
+                              color: convertColor(
+                                  github.languageColors[language!]),
                               shape: BoxShape.circle,
                             ),
                           ),
                         SizedBox(width: 4),
                         if (language != null)
                           Text(
-                            language,
+                            language!,
                             overflow: TextOverflow.ellipsis,
                           ),
                         SizedBox(width: 24),

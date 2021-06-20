@@ -12,13 +12,13 @@ import 'package:flutter_gen/gen_l10n/S.dart';
 
 class GlIssuesScreen extends StatelessWidget {
   final String id;
-  final String prefix;
+  final String? prefix;
   GlIssuesScreen(this.id, {this.prefix});
 
   @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GitlabIssue, int>(
-      title: AppBarTitle(AppLocalizations.of(context).issues),
+      title: AppBarTitle(AppLocalizations.of(context)!.issues),
       fetch: (page) async {
         page = page ?? 1;
         final auth = context.read<AuthModel>();
@@ -36,16 +36,16 @@ class GlIssuesScreen extends StatelessWidget {
         url: '/gitlab/projects/$id/issues/new',
       ),
       itemBuilder: (p) => IssueItem(
-        author: p.author.username,
-        avatarUrl: p.author.avatarUrl,
+        author: p.author!.username,
+        avatarUrl: p.author!.avatarUrl,
         commentCount: p.userNotesCount,
         subtitle: '#' + p.iid.toString(),
         title: p.title,
         updatedAt: p.updatedAt,
-        labels: p.labels.isEmpty
+        labels: p.labels!.isEmpty
             ? null
             : Wrap(spacing: 4, runSpacing: 4, children: [
-                for (var label in p.labels)
+                for (var label in p.labels!)
                   MyLabel(name: label, cssColor: '#428BCA')
               ]),
         url: '/gitlab/projects/${p.projectId}/issues/${p.iid}',

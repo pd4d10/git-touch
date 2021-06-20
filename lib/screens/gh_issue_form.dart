@@ -6,6 +6,7 @@ import 'package:git_touch/scaffolds/common.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:github/github.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/S.dart';
 
 class GhIssueFormScreen extends StatefulWidget {
   final String owner;
@@ -25,14 +26,14 @@ class _GhIssueFormScreenState extends State<GhIssueFormScreen> {
     final theme = Provider.of<ThemeModel>(context);
 
     return CommonScaffold(
-      title: Text('Submit an issue'),
+      title: Text(AppLocalizations.of(context)!.submitAnIssue),
       body: Column(
         children: <Widget>[
           Padding(
             padding: CommonStyle.padding,
             child: CupertinoTextField(
               style: TextStyle(color: theme.palette.text),
-              placeholder: 'Title',
+              placeholder: AppLocalizations.of(context)!.title,
               onChanged: (v) {
                 setState(() {
                   _title = v;
@@ -44,7 +45,7 @@ class _GhIssueFormScreenState extends State<GhIssueFormScreen> {
             padding: CommonStyle.padding,
             child: CupertinoTextField(
               style: TextStyle(color: theme.palette.text),
-              placeholder: 'Body',
+              placeholder: AppLocalizations.of(context)!.body,
               onChanged: (v) {
                 setState(() {
                   _body = v;
@@ -54,7 +55,7 @@ class _GhIssueFormScreenState extends State<GhIssueFormScreen> {
             ),
           ),
           CupertinoButton.filled(
-            child: Text('Submit'),
+            child: Text(AppLocalizations.of(context)!.submit),
             onPressed: () async {
               final slug = RepositorySlug(widget.owner, widget.name);
               final res = await context

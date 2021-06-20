@@ -1,7 +1,9 @@
+import 'package:ferry/ferry.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:git_touch/graphql/github.data.gql.dart';
 import 'package:git_touch/graphql/github.req.gql.dart';
+import 'package:git_touch/graphql/github.var.gql.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/utils/utils.dart';
@@ -23,10 +25,10 @@ class GhIssueScreen extends StatelessWidget {
 
   Widget _buildHeader(
     BuildContext context, {
-    @required String avatarUrl,
-    @required String title,
-    @required StateLabelStatus status,
-    @required Widget body,
+    required String? avatarUrl,
+    required String title,
+    required StateLabelStatus status,
+    required Widget body,
     Iterable<Widget> extraWidgets = const [],
   }) {
     final theme = Provider.of<ThemeModel>(context);
@@ -38,7 +40,7 @@ class GhIssueScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Link(
+              LinkWidget(
                 url: '/github/$owner/$name',
                 child: Row(
                   children: <Widget>[
@@ -86,14 +88,16 @@ class GhIssueScreen extends StatelessWidget {
   }
 
   Future<GIssueData_repository> _queryIssue(BuildContext context,
-      {String cursor}) async {
+      {String? cursor}) async {
     final req = GIssueReq((b) {
       b.vars.owner = owner;
       b.vars.name = name;
       b.vars.number = number;
+      b.vars.cursor = cursor;
     });
-    var res = await context.read<AuthModel>().gqlClient.request(req).first;
-    return res.data.repository;
+    OperationResponse<GIssueData, GIssueVars?> res =
+        await context.read<AuthModel>().gqlClient.request(req).first;
+    return res.data!.repository!;
   }
 
   @override
@@ -101,7 +105,7 @@ class GhIssueScreen extends StatelessWidget {
     return LongListStatefulScaffold<GIssueData_repository, dynamic>(
       title: Text('$owner/$name #$number'),
       trailingBuilder: (p) {
-        if (p.issueOrPullRequest.G__typename == 'Issue') {
+        if (p.issueOrPullRequest!.G__typename == 'Issue') {
           final d = p.issueOrPullRequest
               as GIssueData_repository_issueOrPullRequest__asIssue;
           return ActionButton(
@@ -134,13 +138,13 @@ class GhIssueScreen extends StatelessWidget {
       },
       headerBuilder: (p) {
         final theme = Provider.of<ThemeModel>(context);
-        if (p.issueOrPullRequest.G__typename == 'Issue') {
+        if (p.issueOrPullRequest!.G__typename == 'Issue') {
           final issue = p.issueOrPullRequest
               as GIssueData_repository_issueOrPullRequest__asIssue;
 
           return _buildHeader(
             context,
-            avatarUrl: issue.author.avatarUrl,
+            avatarUrl: issue.author!.avatarUrl,
             title: issue.title,
             status: issue.closed
                 ? StateLabelStatus.issueClosed
@@ -204,7 +208,7 @@ class GhIssueScreen extends StatelessWidget {
               as GIssueData_repository_issueOrPullRequest__asPullRequest;
           return _buildHeader(
             context,
-            avatarUrl: pr.author.avatarUrl,
+            avatarUrl: pr.author!.avatarUrl,
             title: pr.title,
             status: pr.merged
                 ? StateLabelStatus.pullMerged
@@ -213,7 +217,7 @@ class GhIssueScreen extends StatelessWidget {
                     : StateLabelStatus.pullOpened,
             body: CommentItem.gql(pr, pr, (key) {}),
             extraWidgets: [
-              Link(
+              LinkWidget(
                 child: Container(
                   padding: EdgeInsets.symmetric(vertical: 8),
                   child: Row(
@@ -237,7 +241,7 @@ class GhIssueScreen extends StatelessWidget {
                                 color: Colors.red,
                                 fontSize: 15,
                               )),
-                          Icon(Icons.chevron_right,
+                          Icon(Ionicons.chevron_forward,
                               color: theme.palette.border),
                         ],
                       )
@@ -254,14 +258,14 @@ class GhIssueScreen extends StatelessWidget {
       itemBuilder: (p) => TimelineItem(p),
       onRefresh: () async {
         final res = await _queryIssue(context);
-        if (res.issueOrPullRequest.G__typename == 'Issue') {
+        if (res.issueOrPullRequest!.G__typename == 'Issue') {
           final issue = res.issueOrPullRequest
               as GIssueData_repository_issueOrPullRequest__asIssue;
           return LongListPayload(
             header: res,
             totalCount: issue.timelineItems.totalCount,
             cursor: issue.timelineItems.pageInfo.endCursor,
-            leadingItems: issue.timelineItems.nodes.toList(),
+            leadingItems: issue.timelineItems.nodes!.toList(),
             trailingItems: [],
           );
         } else {
@@ -271,21 +275,21 @@ class GhIssueScreen extends StatelessWidget {
             header: res,
             totalCount: pr.timelineItems.totalCount,
             cursor: pr.timelineItems.pageInfo.endCursor,
-            leadingItems: pr.timelineItems.nodes.toList(),
+            leadingItems: pr.timelineItems.nodes!.toList(),
             trailingItems: [],
           );
         }
       },
       onLoadMore: (_cursor) async {
         final res = await _queryIssue(context, cursor: _cursor);
-        if (res.issueOrPullRequest.G__typename == 'Issue') {
+        if (res.issueOrPullRequest!.G__typename == 'Issue') {
           final issue = res.issueOrPullRequest
               as GIssueData_repository_issueOrPullRequest__asIssue;
           return LongListPayload(
             header: res,
             totalCount: issue.timelineItems.totalCount,
             cursor: issue.timelineItems.pageInfo.endCursor,
-            leadingItems: issue.timelineItems.nodes.toList(),
+            leadingItems: issue.timelineItems.nodes!.toList(),
           );
         } else {
           final pr = res.issueOrPullRequest
@@ -294,7 +298,7 @@ class GhIssueScreen extends StatelessWidget {
             header: res,
             totalCount: pr.timelineItems.totalCount,
             cursor: pr.timelineItems.pageInfo.endCursor,
-            leadingItems: pr.timelineItems.nodes.toList(),
+            leadingItems: pr.timelineItems.nodes!.toList(),
           );
         }
       },

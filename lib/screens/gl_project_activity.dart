@@ -18,7 +18,7 @@ class GlProjectActivityScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
     return ListStatefulScaffold<GitlabEvent, int>(
-      title: AppBarTitle(AppLocalizations.of(context).activity),
+      title: AppBarTitle(AppLocalizations.of(context)!.activity),
       fetch: (page) async {
         page = page ?? 1;
         final auth = context.read<AuthModel>();
@@ -28,13 +28,13 @@ class GlProjectActivityScreen extends StatelessWidget {
         return ListPayload(cursor: page, items: events, hasMore: false);
       },
       itemBuilder: (data) {
-        return Link(
+        return LinkWidget(
           url: '',
           child: Container(
             padding: CommonStyle.padding,
             child: Row(
               children: <Widget>[
-                Avatar(url: data.author.avatarUrl),
+                Avatar(url: data.author!.avatarUrl),
                 SizedBox(width: 12),
                 Expanded(
                   child: Column(
@@ -43,18 +43,19 @@ class GlProjectActivityScreen extends StatelessWidget {
                         TextSpan(
                           children: [
                             TextSpan(
-                              text: data.author.name,
+                              text: data.author!.name,
                               style: TextStyle(
                                 color: theme.palette.primary,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
                             TextSpan(
-                                text: ' ' + data.actionName + data.targetType),
+                                text:
+                                    ' ' + data.actionName! + data.targetType!),
                           ],
                         ),
                       ),
-                      Text(data.note.body)
+                      Text(data.note!.body!)
                     ],
                   ),
                 ),

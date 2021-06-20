@@ -39,15 +39,15 @@ class GtReposScreen extends StatelessWidget {
       },
       itemBuilder: (v) {
         return RepositoryItem(
-          owner: v.owner.login,
-          avatarUrl: v.owner.avatarUrl,
+          owner: v.owner!.login,
+          avatarUrl: v.owner!.avatarUrl,
           name: v.name,
           description: v.description,
           starCount: v.starsCount,
           forkCount: v.forksCount,
-          note: 'Updated ${timeago.format(v.updatedAt)}',
-          url: '/gitea/${v.owner.login}/${v.name}',
-          avatarLink: '/gitea/${v.owner.login}',
+          note: 'Updated ${timeago.format(v.updatedAt!)}',
+          url: '/gitea/${v.owner!.login}/${v.name}',
+          avatarLink: '/gitea/${v.owner!.login}',
         );
       },
     );

@@ -11,10 +11,10 @@ import 'package:provider/provider.dart';
 import 'package:git_touch/utils/utils.dart';
 
 class BlobView extends StatelessWidget {
-  final String name;
-  final String text;
-  final String base64Text;
-  final String networkUrl;
+  final String? name;
+  final String? text;
+  final String? base64Text;
+  final String? networkUrl;
   BlobView(
     this.name, {
     this.text,
@@ -22,13 +22,13 @@ class BlobView extends StatelessWidget {
     this.networkUrl,
   });
 
-  String get _text => text ?? base64Text.base64ToUtf8;
+  String get _text => text ?? base64Text!.base64ToUtf8;
 
   @override
   Widget build(BuildContext context) {
     final codeProvider = Provider.of<CodeModel>(context);
     final theme = Provider.of<ThemeModel>(context);
-    switch (name.ext) {
+    switch (name!.ext) {
       // TODO: All image types
       case 'png':
       case 'jpg':
@@ -41,14 +41,14 @@ class BlobView extends StatelessWidget {
         // );
         return base64Text == null
             ? Image.network(
-                networkUrl,
+                networkUrl!,
                 loadingBuilder: (_, child, p) {
                   if (p == null) return child;
                   // TODO: progress
                   return Loading();
                 },
               )
-            : Image.memory(base64.decode(base64Text));
+            : Image.memory(base64.decode(base64Text!));
       case 'md':
       case 'markdown':
         return MarkdownFlutterView(_text);
@@ -57,10 +57,10 @@ class BlobView extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           child: HighlightView(
             _text,
-            language: name.ext ?? 'plaintext',
+            language: name!.ext ?? 'plaintext',
             theme: themeMap[theme.brightness == Brightness.dark
                 ? codeProvider.themeDark
-                : codeProvider.theme],
+                : codeProvider.theme]!,
             padding: CommonStyle.padding,
             textStyle: TextStyle(
                 fontSize: codeProvider.fontSize.toDouble(),

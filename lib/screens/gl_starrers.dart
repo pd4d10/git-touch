@@ -15,7 +15,7 @@ class GlStarrersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GitlabStarrer, int>(
-      title: AppBarTitle(AppLocalizations.of(context).members),
+      title: AppBarTitle(AppLocalizations.of(context)!.members),
       fetch: (page) async {
         page = page ?? 1;
         final res = await context
@@ -31,11 +31,11 @@ class GlStarrersScreen extends StatelessWidget {
       },
       itemBuilder: (v) {
         return UserItem.gitlab(
-          avatarUrl: v.user.avatarUrl,
-          login: v.user.username,
-          name: v.user.name,
-          bio: Text('Starred ' + timeago.format(v.starredSince)),
-          id: v.user.id,
+          avatarUrl: v.user!.avatarUrl,
+          login: v.user!.username,
+          name: v.user!.name,
+          bio: Text('Starred ' + timeago.format(v.starredSince!)),
+          id: v.user!.id,
         );
       },
     );

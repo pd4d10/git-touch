@@ -6,21 +6,21 @@ import 'package:git_touch/widgets/link.dart';
 import 'package:provider/provider.dart';
 
 class RepoHeader extends StatelessWidget {
-  final String avatarUrl;
-  final String avatarLink;
-  final String owner;
-  final String name;
-  final String description;
-  final String homepageUrl;
-  final List<Widget> actions;
-  final List<Widget> trailings;
+  final String? avatarUrl;
+  final String? avatarLink;
+  final String? owner;
+  final String? name;
+  final String? description;
+  final String? homepageUrl;
+  final List<Widget>? actions;
+  final List<Widget>? trailings;
 
   RepoHeader({
-    @required this.avatarUrl,
-    @required this.avatarLink,
-    @required this.owner,
-    @required this.name,
-    @required this.description,
+    required this.avatarUrl,
+    required this.avatarLink,
+    required this.owner,
+    required this.name,
+    required this.description,
     this.homepageUrl,
     this.actions,
     this.trailings,
@@ -55,27 +55,27 @@ class RepoHeader extends StatelessWidget {
               ),
             ],
           ),
-          if (actions != null) ...actions,
-          if (description != null && description.isNotEmpty)
+          if (actions != null) ...actions!,
+          if (description != null && description!.isNotEmpty)
             Text(
-              description,
+              description!,
               style: TextStyle(
                 color: theme.palette.secondaryText,
                 fontSize: 17,
               ),
             ),
-          if (homepageUrl != null && homepageUrl.isNotEmpty)
-            Link(
+          if (homepageUrl != null && homepageUrl!.isNotEmpty)
+            LinkWidget(
               url: homepageUrl,
               child: Text(
-                homepageUrl,
+                homepageUrl!,
                 style: TextStyle(
                   color: theme.palette.primary,
                   fontSize: 17,
                 ),
               ),
             ),
-          if (trailings != null) ...trailings
+          if (trailings != null) ...trailings!
         ]),
       ),
     );

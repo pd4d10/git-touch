@@ -16,7 +16,7 @@ class GeContributorsScreen extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GiteeContributor, int>(
-      title: AppBarTitle(AppLocalizations.of(context).contributors),
+      title: AppBarTitle(AppLocalizations.of(context)!.contributors),
       fetch: (page) async {
         page = page ?? 1;
         final res = await context
@@ -49,7 +49,7 @@ class GeContributorsScreen extends StatelessWidget {
                     Row(
                       children: <Widget>[
                         Text(
-                          v.name,
+                          v.name!,
                           style: TextStyle(
                             color: theme.palette.primary,
                             fontSize: 18,

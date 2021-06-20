@@ -6,14 +6,14 @@ import 'package:provider/provider.dart';
 import 'package:github/github.dart' as github;
 
 class LanguageBarItem {
-  String name;
-  String hexColor;
-  double ratio;
+  String? name;
+  String? hexColor;
+  double? ratio;
   LanguageBarItem({
-    @required this.name,
-    @required this.ratio,
-    String hexColor,
-  }) : hexColor = hexColor ?? github.languageColors[name];
+    required this.name,
+    required this.ratio,
+    String? hexColor,
+  }) : hexColor = hexColor ?? github.languageColors[name!];
 }
 
 class LanguageBar extends StatelessWidget {
@@ -47,7 +47,7 @@ class LanguageBar extends StatelessWidget {
                 items
                     .map((lang) => Container(
                         color: convertColor(lang.hexColor),
-                        width: langWidth * lang.ratio))
+                        width: langWidth * lang.ratio!))
                     .toList(),
               ),
             ),
@@ -80,7 +80,7 @@ class LanguageBar extends StatelessWidget {
                   ),
                   SizedBox(width: 8),
                   Text(
-                    edge.name,
+                    edge.name!,
                     style: TextStyle(
                       color: theme.palette.text,
                       fontSize: 18,
@@ -93,7 +93,7 @@ class LanguageBar extends StatelessWidget {
               Container(
                 padding: CommonStyle.padding,
                 child: Text(
-                  '${(edge.ratio * 100).toStringAsFixed(1)}%',
+                  '${(edge.ratio! * 100).toStringAsFixed(1)}%',
                   style: TextStyle(
                     color: theme.palette.secondaryText,
                     fontSize: 18,

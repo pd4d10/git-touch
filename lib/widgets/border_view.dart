@@ -3,7 +3,7 @@ import 'package:git_touch/models/theme.dart';
 import 'package:provider/provider.dart';
 
 class BorderView extends StatelessWidget {
-  final double height;
+  final double? height;
   final double leftPadding;
 
   BorderView({

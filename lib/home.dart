@@ -19,12 +19,17 @@ import 'package:git_touch/screens/login.dart';
 import 'package:git_touch/screens/gh_notification.dart';
 import 'package:git_touch/screens/gh_user.dart';
 import 'package:git_touch/utils/utils.dart';
+import 'package:launch_review/launch_review.dart';
+import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
 import 'package:git_touch/screens/gh_news.dart';
 import 'package:git_touch/screens/gh_search.dart';
 import 'package:git_touch/screens/gh_trending.dart';
 import 'package:git_touch/screens/ge_search.dart';
+import 'package:github/github.dart';
 import 'package:flutter_gen/gen_l10n/S.dart';
+import 'package:pub_semver/pub_semver.dart';
+import 'package:universal_io/io.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -39,7 +44,34 @@ class _HomeState extends State<Home> {
   final GlobalKey<NavigatorState> tab4 = GlobalKey<NavigatorState>();
   final GlobalKey<NavigatorState> tab5 = GlobalKey<NavigatorState>();
 
+  @override
+  initState() {
+    super.initState();
+    Future.delayed(Duration(seconds: 5), () async {
+      final latest = await GitHub()
+          .repositories
+          .getLatestRelease(RepositorySlug.full('git-touch/git-touch'));
+      final current =
+          await PackageInfo.fromPlatform().then((value) => value.version);
+      if (Version.parse(latest.tagName!.substring(1))
+              .compareTo(Version.parse(current)) ==
+          1) {
+        final res = await context.read<ThemeModel>().showConfirm(context,
+            Text('New version released. Would you like to download it?'));
+        if (res == true) {
+          if (Platform.isIOS) {
+            // go to app store
+            LaunchReview.launch(writeReview: false);
+          } else {
+            context.read<ThemeModel>().push(context, latest.htmlUrl!);
+          }
+        }
+      }
+    });
+  }
+
   _buildScreen(int index) {
+    // print(Localizations.localeOf(context).toString());
     // return GlProjectScreen(32221);
     // return GhIssuesScreen('flutter', 'flutter', isPullRequest: true);
     // return GhIssueScreen('reactjs', 'rfcs', 29);
@@ -47,7 +79,7 @@ class _HomeState extends State<Home> {
     // return Image.asset('images/spinner.webp', width: 32, height: 32);
     // return GhRepoScreen('shreyas1599', 'test');
     final auth = Provider.of<AuthModel>(context);
-    switch (auth.activeAccount.platform) {
+    switch (auth.activeAccount!.platform) {
       case PlatformType.github:
         switch (index) {
           case 0:
@@ -89,7 +121,7 @@ class _HomeState extends State<Home> {
           case 0:
             return GtOrgsScreen();
           case 1:
-            return GtUserScreen(auth.activeAccount.login, isViewer: true);
+            return GtUserScreen(auth.activeAccount!.login, isViewer: true);
         }
         break;
       case PlatformType.gitee:
@@ -97,7 +129,7 @@ class _HomeState extends State<Home> {
           case 0:
             return GeSearchScreen();
           case 1:
-            return GeUserScreen(auth.activeAccount.login, isViewer: true);
+            return GeUserScreen(auth.activeAccount!.login, isViewer: true);
         }
         break;
       case PlatformType.gogs:
@@ -105,7 +137,7 @@ class _HomeState extends State<Home> {
           case 0:
             return GoSearchScreen();
           case 1:
-            return GoUserScreen(auth.activeAccount.login, isViewer: true);
+            return GoUserScreen(auth.activeAccount!.login, isViewer: true);
         }
     }
   }
@@ -150,22 +182,22 @@ class _HomeState extends State<Home> {
     final search = BottomNavigationBarItem(
       icon: Icon(Ionicons.search_outline),
       activeIcon: Icon(Ionicons.search),
-      label: AppLocalizations.of(context).search,
+      label: AppLocalizations.of(context)!.search,
     );
     final group = BottomNavigationBarItem(
       icon: Icon(Ionicons.people_outline),
       activeIcon: Icon(Ionicons.people),
-      label: AppLocalizations.of(context).organizations,
+      label: AppLocalizations.of(context)!.organizations,
     );
     final me = BottomNavigationBarItem(
       icon: Icon(Ionicons.person_outline),
       activeIcon: Icon(Ionicons.person),
-      label: AppLocalizations.of(context).me,
+      label: AppLocalizations.of(context)!.me,
     );
     final explore = BottomNavigationBarItem(
       icon: Icon(Ionicons.compass_outline),
       activeIcon: Icon(Ionicons.compass),
-      label: AppLocalizations.of(context).explore,
+      label: AppLocalizations.of(context)!.explore,
     );
 
     switch (platform) {
@@ -174,36 +206,31 @@ class _HomeState extends State<Home> {
           BottomNavigationBarItem(
             icon: Icon(Ionicons.newspaper_outline),
             activeIcon: Icon(Ionicons.newspaper),
-            label: AppLocalizations.of(context).news,
+            label: AppLocalizations.of(context)!.news,
           ),
           BottomNavigationBarItem(
             icon:
                 _buildNotificationIcon(context, Ionicons.notifications_outline),
             activeIcon: _buildNotificationIcon(context, Ionicons.notifications),
-            label: AppLocalizations.of(context).notification,
+            label: AppLocalizations.of(context)!.notification,
           ),
           BottomNavigationBarItem(
             icon: Icon(Ionicons.flame_outline),
             activeIcon: Icon(Ionicons.flame),
-            label: AppLocalizations.of(context).trending,
+            label: AppLocalizations.of(context)!.trending,
           ),
           search,
           me,
         ];
-        break;
       case PlatformType.gitlab:
         return [explore, group, search, me];
-        break;
       case PlatformType.bitbucket:
         return [explore, group, me];
-        break;
       case PlatformType.gitea:
         return [group, me];
-        break;
       case PlatformType.gitee:
       case PlatformType.gogs:
         return [search, me];
-        break;
       default:
         return [];
     }
@@ -218,15 +245,15 @@ class _HomeState extends State<Home> {
       return LoginScreen();
     }
 
-    final navigationItems = _buildNavigationItems(auth.activeAccount.platform);
+    final navigationItems = _buildNavigationItems(auth.activeAccount!.platform);
 
     switch (theme.theme) {
       case AppThemeType.cupertino:
         return WillPopScope(
           onWillPop: () async {
-            return !await getNavigatorKey(auth.activeTab)
+            return !(await getNavigatorKey(auth.activeTab)
                 .currentState
-                ?.maybePop();
+                ?.maybePop())!;
           },
           child: CupertinoTabScaffold(
             tabBuilder: (context, index) {

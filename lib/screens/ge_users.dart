@@ -44,7 +44,7 @@ class GeUsersScreen extends StatelessWidget {
           login: p.login,
           name: p.name,
           avatarUrl: p.avatarUrl,
-          bio: Text(p.htmlUrl),
+          bio: Text(p.htmlUrl!),
         );
       },
     );

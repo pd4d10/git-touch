@@ -33,24 +33,24 @@ comments {
 ''';
 
 class IssueItem extends StatelessWidget {
-  final String url;
+  final String? url;
   final String subtitle;
-  final String title;
-  final int commentCount;
-  final DateTime updatedAt;
-  final String avatarUrl;
-  final String author;
-  final Widget labels;
+  final String? title;
+  final int? commentCount;
+  final DateTime? updatedAt;
+  final String? avatarUrl;
+  final String? author;
+  final Widget? labels;
   final bool isPr;
 
   IssueItem({
-    @required this.url,
-    @required this.subtitle,
-    @required this.title,
-    @required this.commentCount,
-    @required this.updatedAt,
-    @required this.avatarUrl,
-    @required this.author,
+    required this.url,
+    required this.subtitle,
+    required this.title,
+    required this.commentCount,
+    required this.updatedAt,
+    required this.avatarUrl,
+    required this.author,
     this.labels,
     this.isPr = false,
   });
@@ -59,7 +59,7 @@ class IssueItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
 
-    return Link(
+    return LinkWidget(
       url: url,
       child: Container(
         padding: CommonStyle.padding,
@@ -97,7 +97,7 @@ class IssueItem extends StatelessWidget {
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        if (labels != null) labels,
+                        if (labels != null) labels!,
                         DefaultTextStyle(
                           style: TextStyle(
                             fontSize: 14,
@@ -114,20 +114,20 @@ class IssueItem extends StatelessWidget {
                                 ),
                                 SizedBox(width: 4),
                                 Text(
-                                  author,
+                                  author!,
                                   style: TextStyle(fontWeight: FontWeight.w600),
                                 ),
                               ],
                               Expanded(
                                   child: Text(
-                                ' opened ' + timeago.format(updatedAt),
+                                ' opened ' + timeago.format(updatedAt!),
                                 style: TextStyle(
                                   fontSize: 17,
                                   color: theme.palette.secondaryText,
                                 ),
                                 overflow: TextOverflow.ellipsis,
                               )),
-                              if (commentCount > 0) ...[
+                              if (commentCount! > 0) ...[
                                 Expanded(child: SizedBox()),
                                 Icon(Octicons.comment,
                                     size: 14,

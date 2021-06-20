@@ -13,6 +13,7 @@
 <p align="center">
   <a href="https://apps.apple.com/us/app/gittouch/id1452042346"><img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-US" alt="Download on the App Store" height="48"></a>
   <a href="https://play.google.com/store/apps/details?id=io.github.pd4d10.gittouch"><img alt="Get it on Google Play" title="Google Play" src="https://raw.githubusercontent.com/pd4d10/git-touch/main/assets/google-play-badge.png" height="48" /></a>
+  <a href="https://f-droid.org/packages/io.github.pd4d10.gittouch/"><img alt="Get it on F-Droid" src="https://upload.wikimedia.org/wikipedia/commons/9/96/%22Get_it_on_F-droid%22_Badge.png" height="48" /></a>
 </p>
 
 ## Installation
@@ -50,7 +51,9 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ## Contributors
 
-[![](https://sourcerer.io/fame/pd4d10/pd4d10/git-touch/images/0)![](https://sourcerer.io/fame/pd4d10/pd4d10/git-touch/images/1)![](https://sourcerer.io/fame/pd4d10/pd4d10/git-touch/images/2)![](https://sourcerer.io/fame/pd4d10/pd4d10/git-touch/images/3)![](https://sourcerer.io/fame/pd4d10/pd4d10/git-touch/images/4)![](https://sourcerer.io/fame/pd4d10/pd4d10/git-touch/images/5)![](https://sourcerer.io/fame/pd4d10/pd4d10/git-touch/images/6)![](https://sourcerer.io/fame/pd4d10/pd4d10/git-touch/images/7)](https://github.com/pd4d10/git-touch/graphs/contributors)
+<a href="https://github.com/git-touch/git-touch/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=git-touch/git-touch" />
+</a>
 
 ## License
 

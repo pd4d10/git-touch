@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/gitee.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
+import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/action_entry.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/blob_view.dart';
@@ -17,14 +18,14 @@ class GeBlobScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RefreshStatefulScaffold<String>(
-      title: AppBarTitle(AppLocalizations.of(context).file),
+    return RefreshStatefulScaffold<String?>(
+      title: AppBarTitle(AppLocalizations.of(context)!.file),
       fetch: () async {
         final auth = context.read<AuthModel>();
         final res = await auth.fetchGitee('/repos/$owner/$name/git/blobs/$sha');
         return GiteeBlob.fromJson(res).content;
       },
-      action: ActionEntry(iconData: Icons.settings, url: '/choose-code-theme'),
+      action: ActionEntry(iconData: Ionicons.cog, url: '/choose-code-theme'),
       bodyBuilder: (content, _) {
         return BlobView(path, base64Text: content);
       },

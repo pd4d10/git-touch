@@ -16,8 +16,8 @@ class BbIssuesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListStatefulScaffold<BbIssues, String>(
-      title: AppBarTitle(AppLocalizations.of(context).issues),
+    return ListStatefulScaffold<BbIssues, String?>(
+      title: AppBarTitle(AppLocalizations.of(context)!.issues),
       actionBuilder: () {
         return ActionEntry(
             iconData: Octicons.plus, url: '/bitbucket/$owner/$name/issues/new');
@@ -30,16 +30,16 @@ class BbIssuesScreen extends StatelessWidget {
           cursor: res.cursor,
           hasMore: res.hasMore,
           items: <BbIssues>[
-            for (var v in res.data) BbIssues.fromJson(v),
+            for (var v in res.items) BbIssues.fromJson(v),
           ],
         );
       },
       itemBuilder: (v) {
         int issueNumber =
-            int.parse(v.issueLink.replaceFirst(RegExp(r'.*\/'), ''));
+            int.parse(v.issueLink!.replaceFirst(RegExp(r'.*\/'), ''));
         return IssueItem(
-          avatarUrl: v.reporter.avatarUrl,
-          author: v.reporter.displayName,
+          avatarUrl: v.reporter!.avatarUrl,
+          author: v.reporter!.displayName,
           title: v.title,
           subtitle: '#' + issueNumber.toString(),
           commentCount: 0,

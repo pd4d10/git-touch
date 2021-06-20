@@ -14,7 +14,7 @@ class GhUserOrganizationScreen extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GithubUserOrganizationItem, int>(
-      title: AppBarTitle(AppLocalizations.of(context).organizations),
+      title: AppBarTitle(AppLocalizations.of(context)!.organizations),
       fetch: (page) async {
         page = page ?? 1;
         final res = await context
@@ -36,7 +36,7 @@ class GhUserOrganizationScreen extends StatelessWidget {
           avatarUrl: v.avatarUrl,
           login: v.login,
           name: null, // TODO: organization name
-          bio: v.description == null ? null : Text(v.description),
+          bio: v.description == null ? null : Text(v.description!),
         );
       },
     );

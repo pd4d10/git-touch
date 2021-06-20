@@ -4,11 +4,11 @@ import 'package:git_touch/scaffolds/common.dart';
 class SingleScaffold extends StatelessWidget {
   final Widget title;
   final Widget body;
-  final Widget action;
+  final Widget? action;
 
   SingleScaffold({
-    @required this.title,
-    @required this.body,
+    required this.title,
+    required this.body,
     this.action,
   });
 

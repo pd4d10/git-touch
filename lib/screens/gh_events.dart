@@ -16,16 +16,17 @@ class GhEventsScreen extends StatelessWidget {
   @override
   Widget build(context) {
     return ListStatefulScaffold<GithubEvent, int>(
-      title: AppBarTitle(AppLocalizations.of(context).events),
+      title: AppBarTitle(AppLocalizations.of(context)!.events),
       itemBuilder: (payload) => EventItem(payload),
       fetch: (page) async {
         page = page ?? 1;
         final events = await context.read<AuthModel>().ghClient.getJSON(
-            '/users/$login/events?page=$page&per_page=$pageSize',
-            convert: (vs) => [for (var v in vs) GithubEvent.fromJson(v)]);
+            '/users/$login/events?page=$page&per_page=$PAGE_SIZE',
+            convert: (dynamic vs) =>
+                [for (var v in vs) GithubEvent.fromJson(v)]);
         return ListPayload(
           cursor: page + 1,
-          hasMore: events.length == pageSize,
+          hasMore: events.length == PAGE_SIZE,
           items: events,
         );
       },

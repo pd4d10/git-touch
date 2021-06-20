@@ -4,7 +4,7 @@ class ErrorReload extends StatelessWidget {
   final String text;
   final Function onTap;
 
-  ErrorReload({@required this.text, @required this.onTap});
+  ErrorReload({required this.text, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class ErrorReload extends StatelessWidget {
               'Reload',
               style: TextStyle(fontSize: 20, color: Colors.blueAccent),
             ),
-            onTap: onTap,
+            onTap: onTap as void Function()?,
           ),
         ],
       ),

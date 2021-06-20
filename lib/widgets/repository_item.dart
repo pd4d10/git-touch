@@ -13,51 +13,51 @@ import 'package:timeago/timeago.dart' as timeago;
 import 'package:github/github.dart' as github;
 
 class RepositoryItem extends StatelessWidget {
-  final String owner;
-  final String avatarUrl;
-  final String name;
-  final String description;
-  final IconData iconData;
-  final int starCount;
-  final int forkCount;
-  final String primaryLanguageName;
-  final String primaryLanguageColor;
-  final String note;
+  final String? owner;
+  final String? avatarUrl;
+  final String? name;
+  final String? description;
+  final IconData? iconData;
+  final int? starCount;
+  final int? forkCount;
+  final String? primaryLanguageName;
+  final String? primaryLanguageColor;
+  final String? note;
   final String url;
-  final String avatarLink;
+  final String? avatarLink;
 
   RepositoryItem({
-    @required this.owner,
-    @required this.avatarUrl,
-    @required this.name,
-    @required this.description,
-    @required this.starCount,
-    @required this.forkCount,
+    required this.owner,
+    required this.avatarUrl,
+    required this.name,
+    required this.description,
+    required this.starCount,
+    required this.forkCount,
     this.primaryLanguageName,
     this.primaryLanguageColor,
     this.note,
     this.iconData,
-    @required this.url,
-    @required this.avatarLink,
+    required this.url,
+    required this.avatarLink,
   });
 
   RepositoryItem.go({
-    @required GogsRepository payload,
+    required GogsRepository payload,
     this.primaryLanguageName,
     this.primaryLanguageColor,
     this.note,
     this.owner,
     this.name,
   })  : url = '/gogs/${payload.fullName}',
-        avatarUrl = payload.owner.avatarUrl,
+        avatarUrl = payload.owner!.avatarUrl,
         avatarLink = '/gogs/${payload.fullName}',
         description = payload.description,
         forkCount = payload.forksCount,
         starCount = payload.starsCount,
-        iconData = payload.private ? Octicons.lock : null;
+        iconData = payload.private! ? Octicons.lock : null;
 
   RepositoryItem.bb({
-    @required BbRepo payload,
+    required BbRepo payload,
     this.primaryLanguageName,
     this.primaryLanguageColor,
   })  : owner = payload.ownerLogin,
@@ -65,46 +65,46 @@ class RepositoryItem extends StatelessWidget {
         url = '/bitbucket/${payload.fullName}',
         avatarUrl = payload.avatarUrl,
         avatarLink = null,
-        note = 'Updated ${timeago.format(payload.updatedOn)}',
+        note = 'Updated ${timeago.format(payload.updatedOn!)}',
         description = payload.description,
         forkCount = 0,
         starCount = 0,
-        iconData = payload.isPrivate ? Octicons.lock : null;
+        iconData = payload.isPrivate! ? Octicons.lock : null;
 
   RepositoryItem.gl({
-    @required GitlabProject payload,
+    required GitlabProject payload,
     this.primaryLanguageName,
     this.primaryLanguageColor,
     this.note,
-  })  : owner = payload.namespace.path,
+  })  : owner = payload.namespace!.path,
         avatarUrl = payload.owner?.avatarUrl,
         name = payload.name,
         description = payload.description,
         starCount = payload.starCount,
         forkCount = payload.forksCount,
         url = '/gitlab/projects/${payload.id}',
-        avatarLink = payload.namespace.kind == 'group'
-            ? '/gitlab/group/${payload.namespace.id}'
-            : '/gitlab/user/${payload.namespace.id}',
+        avatarLink = payload.namespace!.kind == 'group'
+            ? '/gitlab/group/${payload.namespace!.id}'
+            : '/gitlab/user/${payload.namespace!.id}',
         iconData = _buildGlIconData(payload.visibility);
 
   RepositoryItem.gh({
-    @required this.owner,
-    @required this.avatarUrl,
-    @required this.name,
-    @required this.description,
-    @required this.starCount,
-    @required this.forkCount,
+    required this.owner,
+    required this.avatarUrl,
+    required this.name,
+    required this.description,
+    required this.starCount,
+    required this.forkCount,
     this.primaryLanguageName,
     this.primaryLanguageColor,
     this.note,
-    @required bool isPrivate,
-    @required bool isFork,
+    required bool? isPrivate,
+    required bool? isFork,
   })  : iconData = _buildIconData(isPrivate, isFork),
         avatarLink = '/github/$owner',
         url = '/github/$owner/$name';
 
-  factory RepositoryItem.gql(GRepoItem v, {@required note}) {
+  factory RepositoryItem.gql(GRepoItem v, {required note}) {
     return RepositoryItem.gh(
       owner: v.owner.login,
       avatarUrl: v.owner.avatarUrl,
@@ -120,13 +120,13 @@ class RepositoryItem extends StatelessWidget {
     );
   }
 
-  static IconData _buildIconData(bool isPrivate, bool isFork) {
+  static IconData? _buildIconData(bool? isPrivate, bool? isFork) {
     if (isPrivate == true) return Octicons.lock;
     if (isFork == true) return Octicons.repo_forked;
     return null;
   }
 
-  static IconData _buildGlIconData(String visibility) {
+  static IconData _buildGlIconData(String? visibility) {
     switch (visibility) {
       case 'internal':
         return Ionicons.shield_outline;
@@ -142,7 +142,7 @@ class RepositoryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
-    return Link(
+    return LinkWidget(
       url: url,
       child: Container(
         padding: CommonStyle.padding,
@@ -195,9 +195,9 @@ class RepositoryItem extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: 8),
-                  if (description != null && description.isNotEmpty) ...[
+                  if (description != null && description!.isNotEmpty) ...[
                     Text(
-                      description,
+                      description!,
                       style: TextStyle(
                         color: theme.palette.secondaryText,
                         fontSize: 16,
@@ -207,7 +207,7 @@ class RepositoryItem extends StatelessWidget {
                   ],
                   if (note != null) ...[
                     Text(
-                      note,
+                      note!,
                       style: TextStyle(
                         fontSize: 14,
                         color: theme.palette.tertiaryText,
@@ -225,25 +225,25 @@ class RepositoryItem extends StatelessWidget {
                             height: 12,
                             decoration: BoxDecoration(
                               color: convertColor(primaryLanguageColor ??
-                                  github.languageColors[primaryLanguageName]),
+                                  github.languageColors[primaryLanguageName!]),
                               shape: BoxShape.circle,
                             ),
                           ),
                           SizedBox(width: 4),
                           Text(
-                            primaryLanguageName,
+                            primaryLanguageName!,
                             overflow: TextOverflow.ellipsis,
                           ),
                           SizedBox(width: 24),
                         ],
-                        if (starCount > 0) ...[
+                        if (starCount! > 0) ...[
                           Icon(Octicons.star,
                               size: 16, color: theme.palette.text),
                           SizedBox(width: 2),
                           Text(numberFormat.format(starCount)),
                           SizedBox(width: 24),
                         ],
-                        if (forkCount > 0) ...[
+                        if (forkCount! > 0) ...[
                           Icon(Octicons.repo_forked,
                               size: 16, color: theme.palette.text),
                           SizedBox(width: 2),

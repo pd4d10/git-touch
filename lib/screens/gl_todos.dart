@@ -12,7 +12,7 @@ class GlTodosScreen extends StatelessWidget {
   InlineSpan _buildActor(BuildContext context, GitlabTodo p) {
     final theme = Provider.of<ThemeModel>(context);
     return TextSpan(
-      text: p.author.name,
+      text: p.author!.name,
       style: TextStyle(color: theme.palette.primary),
     );
   }
@@ -20,7 +20,7 @@ class GlTodosScreen extends StatelessWidget {
   InlineSpan _buildIssue(BuildContext context, GitlabTodo p) {
     final theme = Provider.of<ThemeModel>(context);
     return TextSpan(
-      text: '${p.project.pathWithNamespace}!${p.target.iid}',
+      text: '${p.project!.pathWithNamespace}!${p.target!.iid}',
       style: TextStyle(color: theme.palette.primary),
     );
   }
@@ -71,16 +71,16 @@ class GlTodosScreen extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: data.map((item) {
-            return Link(
+            return LinkWidget(
               url:
-                  '/projects/${item.target.projectId}/${item.targetType == 'MergeRequest' ? 'merge_requests' : 'issue'}/${item.target.iid}',
+                  '/projects/${item.target!.projectId}/${item.targetType == 'MergeRequest' ? 'merge_requests' : 'issue'}/${item.target!.iid}',
               child: Container(
                 padding: CommonStyle.padding,
                 child: Row(
                   children: <Widget>[
                     Avatar(
-                        url: item.author.avatarUrl,
-                        linkUrl: '/gitlab/user/${item.author.id}'),
+                        url: item.author!.avatarUrl,
+                        linkUrl: '/gitlab/user/${item.author!.id}'),
                     SizedBox(width: 12),
                     Expanded(
                       child: Text.rich(

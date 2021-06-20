@@ -5,22 +5,22 @@ import 'package:tuple/tuple.dart';
 import '../utils/utils.dart';
 
 class NotificationGroup {
-  String fullName;
+  String? fullName;
   List<GithubNotificationItem> items = [];
 
-  Tuple2<String, String> _repo;
+  Tuple2<String, String>? _repo;
   String get owner {
     if (_repo == null) {
-      _repo = parseRepositoryFullName(fullName);
+      _repo = parseRepositoryFullName(fullName!);
     }
-    return _repo.item1;
+    return _repo!.item1;
   }
 
   String get name {
     if (_repo == null) {
-      _repo = parseRepositoryFullName(fullName);
+      _repo = parseRepositoryFullName(fullName!);
     }
-    return _repo.item2;
+    return _repo!.item2;
   }
 
   String get key => '_$hashCode';

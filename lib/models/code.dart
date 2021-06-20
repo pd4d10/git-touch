@@ -18,8 +18,8 @@ class CodeModel with ChangeNotifier {
     'Cascadia Code',
   ];
 
-  String _theme = 'tomorrow';
-  String _themeDark = 'tomorrow-night';
+  String _theme = 'vs';
+  String _themeDark = 'vs2015';
   int _fontSize = 14;
   String _fontFamily = 'JetBrains Mono';
 
@@ -39,16 +39,16 @@ class CodeModel with ChangeNotifier {
 
     Fimber.d('read code: $vh, $vs, $vf');
     if (themeMap.keys.contains(vh)) {
-      _theme = vh;
+      _theme = vh!;
     }
     if (themeMap.keys.contains(vdh)) {
-      _themeDark = vdh;
+      _themeDark = vdh!;
     }
     if (fontSizes.contains(vs)) {
-      _fontSize = vs;
+      _fontSize = vs!;
     }
     if (fontFamilies.contains(vf)) {
-      _fontFamily = vf;
+      _fontFamily = vf!;
     }
 
     notifyListeners();

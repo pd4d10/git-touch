@@ -5,8 +5,8 @@ import 'package:provider/provider.dart';
 
 class MyTextField extends StatelessWidget {
   final TextEditingController controller;
-  final String placeholder;
-  MyTextField({@required this.controller, this.placeholder});
+  final String? placeholder;
+  MyTextField({required this.controller, this.placeholder});
 
   @override
   Widget build(BuildContext context) {

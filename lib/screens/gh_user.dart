@@ -1,7 +1,9 @@
+import 'package:ferry/ferry.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:git_touch/graphql/github.data.gql.dart';
 import 'package:git_touch/graphql/github.req.gql.dart';
+import 'package:git_touch/graphql/github.var.gql.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
@@ -21,9 +23,9 @@ import 'package:flutter_gen/gen_l10n/S.dart';
 
 class _Repos extends StatelessWidget {
   final String title;
-  final Iterable<GRepoItem> repos;
+  final Iterable<GRepoItem>? repos;
 
-  _Repos(final Iterable<GRepoItem> pinned, final Iterable<GRepoItem> repos)
+  _Repos(final Iterable<GRepoItem> pinned, final Iterable<GRepoItem>? repos)
       : title =
             pinned.isNotEmpty ? 'pinned repositories' : 'popular repositories',
         repos = pinned.isNotEmpty ? pinned : repos;
@@ -36,7 +38,7 @@ class _Repos extends StatelessWidget {
         TableViewHeader(title),
         ...join(
           CommonStyle.border,
-          repos.map((v) {
+          repos!.map((v) {
             return RepositoryItem.gh(
               owner: v.owner.login,
               avatarUrl: v.owner.avatarUrl,
@@ -57,7 +59,7 @@ class _Repos extends StatelessWidget {
 }
 
 class _User extends StatelessWidget {
-  final GUserParts p;
+  final GUserParts? p;
   final bool isViewer;
   final List<Widget> rightWidgets;
   const _User(this.p, {this.isViewer = false, this.rightWidgets = const []});
@@ -65,40 +67,40 @@ class _User extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
-    final login = p.login;
+    final login = p!.login;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         UserHeader(
-          avatarUrl: p.avatarUrl,
-          name: p.name,
-          login: p.login,
-          createdAt: p.createdAt,
-          bio: p.bio,
+          avatarUrl: p!.avatarUrl,
+          name: p!.name,
+          login: p!.login,
+          createdAt: p!.createdAt,
+          bio: p!.bio,
           isViewer: isViewer,
           rightWidgets: rightWidgets,
         ),
         CommonStyle.border,
         Row(children: [
           EntryItem(
-            count: p.repositories.totalCount,
-            text: AppLocalizations.of(context).repositories,
+            count: p!.repositories.totalCount,
+            text: AppLocalizations.of(context)!.repositories,
             url: '/github/$login?tab=repositories',
           ),
           EntryItem(
-            count: p.starredRepositories.totalCount,
-            text: AppLocalizations.of(context).stars,
+            count: p!.starredRepositories.totalCount,
+            text: AppLocalizations.of(context)!.stars,
             url: '/github/$login?tab=stars',
           ),
           EntryItem(
-            count: p.followers.totalCount,
-            text: AppLocalizations.of(context).followers,
+            count: p!.followers.totalCount,
+            text: AppLocalizations.of(context)!.followers,
             url: '/github/$login?tab=followers',
           ),
           EntryItem(
-            count: p.following.totalCount,
-            text: AppLocalizations.of(context).following,
+            count: p!.following.totalCount,
+            text: AppLocalizations.of(context)!.following,
             url: '/github/$login?tab=following',
           ),
         ]),
@@ -106,7 +108,7 @@ class _User extends StatelessWidget {
         ContributionWidget(
           weeks: [
             for (final week
-                in p.contributionsCollection.contributionCalendar.weeks)
+                in p!.contributionsCollection.contributionCalendar.weeks)
               [
                 //  https://github.com/git-touch/git-touch/issues/122
                 for (final day in week.contributionDays)
@@ -116,56 +118,55 @@ class _User extends StatelessWidget {
         ),
         CommonStyle.border,
         TableView(
-          hasIcon: true,
           items: [
             TableViewItem(
-              leftIconData: Icons.rss_feed,
-              text: Text(AppLocalizations.of(context).events),
+              leftIconData: Octicons.rss,
+              text: Text(AppLocalizations.of(context)!.events),
               url: '/github/$login?tab=events',
             ),
             TableViewItem(
               leftIconData: Octicons.book,
-              text: Text(AppLocalizations.of(context).gists),
+              text: Text(AppLocalizations.of(context)!.gists),
               url: '/github/$login?tab=gists',
             ),
             TableViewItem(
               leftIconData: Octicons.home,
-              text: Text(AppLocalizations.of(context).organizations),
+              text: Text(AppLocalizations.of(context)!.organizations),
               url: '/github/$login?tab=organizations',
             ),
-            if (isNotNullOrEmpty(p.company))
+            if (isNotNullOrEmpty(p!.company))
               TableViewItem(
                 leftIconData: Octicons.organization,
                 text: TextWithAt(
-                  text: p.company,
+                  text: p!.company!,
                   linkFactory: (text) => '/github/' + text.substring(1),
                   style: TextStyle(fontSize: 17, color: theme.palette.text),
                   oneLine: true,
                 ),
               ),
-            if (isNotNullOrEmpty(p.location))
+            if (isNotNullOrEmpty(p!.location))
               TableViewItem(
                 leftIconData: Octicons.location,
-                text: Text(p.location),
+                text: Text(p!.location!),
                 onTap: () {
                   launchUrl('https://www.google.com/maps/place/' +
-                      p.location.replaceAll(RegExp(r'\s+'), ''));
+                      p!.location!.replaceAll(RegExp(r'\s+'), ''));
                 },
               ),
-            if (isNotNullOrEmpty(p.email))
+            if (isNotNullOrEmpty(p!.email))
               TableViewItem(
                 leftIconData: Octicons.mail,
-                text: Text(p.email),
+                text: Text(p!.email),
                 onTap: () {
-                  launchUrl('mailto:' + p.email);
+                  launchUrl('mailto:' + p!.email);
                 },
               ),
-            if (isNotNullOrEmpty(p.websiteUrl))
+            if (isNotNullOrEmpty(p!.websiteUrl))
               TableViewItem(
                 leftIconData: Octicons.link,
-                text: Text(p.websiteUrl),
+                text: Text(p!.websiteUrl!),
                 onTap: () {
-                  var url = p.websiteUrl;
+                  var url = p!.websiteUrl!;
                   if (!url.startsWith('http')) {
                     url = 'http://$url';
                   }
@@ -176,8 +177,8 @@ class _User extends StatelessWidget {
         ),
         CommonStyle.verticalGap,
         _Repos(
-          p.pinnedItems.nodes.whereType<GRepoItem>(),
-          p.repositories.nodes,
+          p!.pinnedItems.nodes!.whereType<GRepoItem>(),
+          p!.repositories.nodes,
         ),
         CommonStyle.verticalGap,
       ],
@@ -186,7 +187,7 @@ class _User extends StatelessWidget {
 }
 
 class _Org extends StatelessWidget {
-  final GUserData_repositoryOwner__asOrganization p;
+  final GUserData_repositoryOwner__asOrganization? p;
   _Org(this.p);
 
   @override
@@ -195,56 +196,55 @@ class _Org extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         UserHeader(
-          avatarUrl: p.avatarUrl,
-          name: p.name,
-          login: p.login,
-          createdAt: p.createdAt,
-          bio: p.description,
+          avatarUrl: p!.avatarUrl,
+          name: p!.name,
+          login: p!.login,
+          createdAt: p!.createdAt,
+          bio: p!.description,
         ),
         CommonStyle.border,
         Row(children: [
           EntryItem(
-            count: p.pinnableItems.totalCount,
-            text: AppLocalizations.of(context).repositories,
-            url: '/github/${p.login}?tab=orgrepo',
+            count: p!.pinnableItems.totalCount,
+            text: AppLocalizations.of(context)!.repositories,
+            url: '/github/${p!.login}?tab=orgrepo',
           ),
           EntryItem(
-            count: p.membersWithRole.totalCount,
-            text: AppLocalizations.of(context).members,
-            url: '/github/${p.login}?tab=people',
+            count: p!.membersWithRole.totalCount,
+            text: AppLocalizations.of(context)!.members,
+            url: '/github/${p!.login}?tab=people',
           ),
         ]),
         TableView(
-          hasIcon: true,
           items: [
             TableViewItem(
-              leftIconData: Icons.rss_feed,
-              text: Text(AppLocalizations.of(context).events),
-              url: '/github/${p.login}?tab=events',
+              leftIconData: Octicons.rss,
+              text: Text(AppLocalizations.of(context)!.events),
+              url: '/github/${p!.login}?tab=events',
             ),
-            if (isNotNullOrEmpty(p.location))
+            if (isNotNullOrEmpty(p!.location))
               TableViewItem(
                 leftIconData: Octicons.location,
-                text: Text(p.location),
+                text: Text(p!.location!),
                 onTap: () {
                   launchUrl('https://www.google.com/maps/place/' +
-                      p.location.replaceAll(RegExp(r'\s+'), ''));
+                      p!.location!.replaceAll(RegExp(r'\s+'), ''));
                 },
               ),
-            if (isNotNullOrEmpty(p.email))
+            if (isNotNullOrEmpty(p!.email))
               TableViewItem(
                 leftIconData: Octicons.mail,
-                text: Text(p.email),
+                text: Text(p!.email!),
                 onTap: () {
-                  launchUrl('mailto:' + p.email);
+                  launchUrl('mailto:' + p!.email!);
                 },
               ),
-            if (isNotNullOrEmpty(p.websiteUrl))
+            if (isNotNullOrEmpty(p!.websiteUrl))
               TableViewItem(
                 leftIconData: Octicons.link,
-                text: Text(p.websiteUrl),
+                text: Text(p!.websiteUrl!),
                 onTap: () {
-                  var url = p.websiteUrl;
+                  var url = p!.websiteUrl!;
                   if (!url.startsWith('http')) {
                     url = 'http://$url';
                   }
@@ -255,8 +255,8 @@ class _Org extends StatelessWidget {
         ),
         CommonStyle.verticalGap,
         _Repos(
-          p.pinnedItems.nodes.whereType<GRepoItem>(),
-          p.pinnableItems.nodes.whereType<GRepoItem>(),
+          p!.pinnedItems.nodes!.whereType<GRepoItem>(),
+          p!.pinnableItems.nodes!.whereType<GRepoItem>(),
         ),
         CommonStyle.verticalGap,
       ],
@@ -268,15 +268,16 @@ class GhViewer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthModel>(context);
-    return RefreshStatefulScaffold<GUserParts>(
+    return RefreshStatefulScaffold<GUserParts?>(
       fetch: () async {
         final req = GViewerReq();
-        final res = await auth.gqlClient.request(req).first;
-        return res.data.viewer;
+        final OperationResponse<GViewerData, GViewerVars?> res =
+            await auth.gqlClient.request(req).first;
+        return res.data!.viewer;
       },
-      title: AppBarTitle(AppLocalizations.of(context).me),
+      title: AppBarTitle(AppLocalizations.of(context)!.me),
       action: ActionEntry(
-        iconData: Icons.settings,
+        iconData: Ionicons.cog,
         url: '/settings',
       ),
       bodyBuilder: (p, _) {
@@ -293,21 +294,22 @@ class GhUser extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthModel>(context);
-    return RefreshStatefulScaffold<GUserData>(
+    return RefreshStatefulScaffold<GUserData?>(
       fetch: () async {
         final req = GUserReq((b) => b..vars.login = login);
-        final res = await auth.gqlClient.request(req).first;
+        final OperationResponse<GUserData, GUserVars?> res =
+            await auth.gqlClient.request(req).first;
         return res.data;
       },
       title: AppBarTitle(login),
       actionBuilder: (payload, _) {
         return ActionButton(
           title: 'User Actions',
-          items: ActionItem.getUrlActions(payload.repositoryOwner.url),
+          items: ActionItem.getUrlActions(payload!.repositoryOwner!.url),
         );
       },
       bodyBuilder: (data, setData) {
-        if (data.repositoryOwner.G__typename == 'User') {
+        if (data!.repositoryOwner!.G__typename == 'User') {
           final p = data.repositoryOwner as GUserData_repositoryOwner__asUser;
           return _User(
             p,
@@ -316,8 +318,8 @@ class GhUser extends StatelessWidget {
                 MutationButton(
                   active: p.viewerIsFollowing,
                   text: p.viewerIsFollowing
-                      ? AppLocalizations.of(context).unfollow
-                      : AppLocalizations.of(context).follow,
+                      ? AppLocalizations.of(context)!.unfollow
+                      : AppLocalizations.of(context)!.follow,
                   onTap: () async {
                     if (p.viewerIsFollowing) {
                       await auth.ghClient.users.unfollowUser(p.login);
@@ -328,7 +330,7 @@ class GhUser extends StatelessWidget {
                       final u = b.repositoryOwner
                           as GUserData_repositoryOwner__asUser;
                       b.repositoryOwner = u.rebuild((b1) {
-                        b1.viewerIsFollowing = !b1.viewerIsFollowing;
+                        b1.viewerIsFollowing = !b1.viewerIsFollowing!;
                       });
                     }));
                   },
@@ -337,7 +339,7 @@ class GhUser extends StatelessWidget {
           );
         } else {
           return _Org(data.repositoryOwner
-              as GUserData_repositoryOwner__asOrganization);
+              as GUserData_repositoryOwner__asOrganization?);
         }
       },
     );

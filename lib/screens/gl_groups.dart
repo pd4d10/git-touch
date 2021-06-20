@@ -11,7 +11,7 @@ class GlGroupsScreenn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GitlabGroup, int>(
-      title: AppBarTitle(AppLocalizations.of(context).groups),
+      title: AppBarTitle(AppLocalizations.of(context)!.groups),
       fetch: (page) async {
         page = page ?? 1;
         final auth = context.read<AuthModel>();

@@ -1,0 +1,290 @@
+{
+  "code": "Код",
+  "@code": {
+    "description": "Code"
+  },
+  "notFoundTextDisplay": "Ой, эта страница еще не реализована.",
+  "@notFoundTextDisplay": {
+    "description": "Not found error message"
+  },
+  "commits": "Коммиты",
+  "@commits": {
+    "description": "Commits"
+  },
+  "forks": "Форки",
+  "@forks": {
+    "description": "forks"
+  },
+  "email": "Эл. почта",
+  "@email": {
+    "description": "Email to report issues"
+  },
+  "webview": "WebView",
+  "@webview": {
+    "description": "render webview for markdown"
+  },
+  "flutter": "Flutter",
+  "@flutter": {
+    "description": "render flutter for markdown"
+  },
+  "dark": "Тёмный",
+  "@dark": {
+    "description": "dark mode"
+  },
+  "light": "Светлый",
+  "@light": {
+    "description": "light mode"
+  },
+  "members": "Участники",
+  "@members": {
+    "description": "members of an organization"
+  },
+  "fontStyle": "СТИЛЬ ШРИФТА",
+  "@fontStyle": {
+    "description": "font style"
+  },
+  "fontSize": "Размер шрифта",
+  "@fontSize": {
+    "description": "font size"
+  },
+  "fontFamily": "Семейство шрифтов",
+  "@fontFamily": {
+    "description": "Font Family"
+  },
+  "syntaxHighlighting": "ПОДСВЕТКА СИНТАКСИСА",
+  "@syntaxHighlighting": {
+    "description": "Syntax Highlighting"
+  },
+  "group": "Группа",
+  "@group": {
+    "description": "group"
+  },
+  "user": "Пользователь",
+  "@user": {
+    "description": "user"
+  },
+  "giteeAccount": "Аккаунт Gitee",
+  "@giteeAccount": {
+    "description": "Gitee Account"
+  },
+  "giteaAccount": "Аккаунт Gitea",
+  "@giteaAccount": {
+    "description": "Gitea Account"
+  },
+  "longPressToRemoveAccount": "Длительное нажатие для удаления учетной записи",
+  "@longPressToRemoveAccount": {
+    "description": "Long Press to remove account"
+  },
+  "bitbucketAccount": "Аккаунт Bitbucket",
+  "@bitbucketAccount": {
+    "description": "Bitbucket Account"
+  },
+  "gitlabAccount": "Аккаунт GitLab",
+  "@gitlabAccount": {
+    "description": "Gitlab Account"
+  },
+  "notFoundMessage": "Не найдено",
+  "@notFoundMessage": {
+    "description": "Not found page header"
+  },
+  "permissionRequiredMessage": "GitTouch нужны эти разрешения",
+  "@permissionRequiredMessage": {
+    "description": "Permission Required Message"
+  },
+  "githubAccount": "Аккаунт GitHub",
+  "@githubAccount": {
+    "description": "Gitea Account"
+  },
+  "somethingBadHappens": "Происходит что-то плохое:",
+  "@somethingBadHappens": {
+    "description": "error message"
+  },
+  "removeAccount": "Удалить аккаунт",
+  "@removeAccount": {
+    "description": "remove account"
+  },
+  "selectAccount": "Выберите аккаунт",
+  "@selectAccount": {
+    "description": "select account message"
+  },
+  "project": "Проект",
+  "@project": {
+    "description": "project"
+  },
+  "activity": "Активность",
+  "@activity": {
+    "description": "activity"
+  },
+  "mergeRequests": "Запросы на слияние",
+  "@mergeRequests": {
+    "description": "Merge request"
+  },
+  "groups": "Группы",
+  "@groups": {
+    "description": "groups"
+  },
+  "actions": "Действия",
+  "@actions": {
+    "description": "actions"
+  },
+  "files": "Файлы",
+  "@files": {
+    "description": "file plural"
+  },
+  "file": "Файл",
+  "@file": {
+    "description": "file"
+  },
+  "teams": "Команды",
+  "@teams": {
+    "description": "teams"
+  },
+  "developers": "Разработчики",
+  "@developers": {
+    "description": "developers"
+  },
+  "all": "Все",
+  "@all": {
+    "description": "all"
+  },
+  "unread": "Не прочитано",
+  "@unread": {
+    "description": "unread"
+  },
+  "releases": "Релизы",
+  "@releases": {
+    "description": "releases"
+  },
+  "projects": "Проекты",
+  "@projects": {
+    "description": "projects"
+  },
+  "repositoryActions": "Действия в репозитории",
+  "@repositoryActions": {
+    "description": "Repository Actions"
+  },
+  "repository": "Репозиторий",
+  "@repository": {
+    "description": "Repository screen title"
+  },
+  "sourceCode": "Исходный код",
+  "@sourceCode": {
+    "description": "source code for app"
+  },
+  "version": "Версия",
+  "@version": {
+    "description": "app version"
+  },
+  "about": "о приложении",
+  "@about": {
+    "description": "about section"
+  },
+  "rateThisApp": "Оценить это приложение",
+  "@rateThisApp": {
+    "description": "rate the app"
+  },
+  "feedback": "обратная связь",
+  "@feedback": {
+    "description": "provide feedback"
+  },
+  "markdownRenderEngine": "Механизм рендеринга Markdown",
+  "@markdownRenderEngine": {
+    "description": "flutter or webview rendering for markdown"
+  },
+  "codeTheme": "Тема кода",
+  "@codeTheme": {
+    "description": "code theme"
+  },
+  "cupertino": "Купертино",
+  "@cupertino": {
+    "description": "Cupertino scaffold theme"
+  },
+  "brightness": "Яркость",
+  "@brightness": {
+    "description": "brightness"
+  },
+  "switchAccounts": "Сменить аккаунт",
+  "@switchAccounts": {
+    "description": "Switch accounts"
+  },
+  "giteaStatus": "Статус Gitea",
+  "@giteaStatus": {
+    "description": "Gitea status"
+  },
+  "gitlabStatus": "Статус GitLab",
+  "@gitlabStatus": {
+    "description": "GitLab status"
+  },
+  "reviewPermissions": "Просмотр разрешений",
+  "@reviewPermissions": {
+    "description": "review Permissions"
+  },
+  "githubStatus": "Статус GitHub",
+  "@githubStatus": {
+    "description": "github status"
+  },
+  "system": "система",
+  "@system": {
+    "description": "system"
+  },
+  "settings": "Настройки",
+  "@settings": {
+    "description": "settings"
+  },
+  "pinnedRepositories": "закрепленные репозитории",
+  "@pinnedRepositories": {
+    "description": "pinned repositories"
+  },
+  "popularRepositories": "популярные репозитории",
+  "@popularRepositories": {
+    "description": "popular repositories"
+  },
+  "organizations": "Организации",
+  "@organizations": {
+    "description": "organizations for a user"
+  },
+  "events": "События",
+  "@events": {
+    "description": "events for a user"
+  },
+  "followers": "Подписчики",
+  "@followers": {
+    "description": "followers for a person"
+  },
+  "stars": "Звезды",
+  "@stars": {
+    "description": "stars on a repo"
+  },
+  "follow": "Подписаться",
+  "@follow": {
+    "description": "follow someone"
+  },
+  "unfollow": "Отписаться",
+  "@unfollow": {
+    "description": "unfollow someone"
+  },
+  "repositories": "Репозитории",
+  "@repositories": {
+    "description": "repository text"
+  },
+  "me": "Я",
+  "@me": {
+    "description": "The Me tab"
+  },
+  "search": "Поиск",
+  "@search": {
+    "description": "The Search tab"
+  },
+  "trending": "Тренды",
+  "@trending": {
+    "description": "Trending"
+  },
+  "notification": "Уведомления",
+  "@notification": {
+    "description": "The Notification tab"
+  },
+  "news": "Новости",
+  "@news": {
+    "description": "The News tab"
+  }
+}

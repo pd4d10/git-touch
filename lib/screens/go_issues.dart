@@ -20,8 +20,8 @@ class GoIssuesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GogsIssue, int>(
       title: AppBarTitle(isPr
-          ? AppLocalizations.of(context).pullRequests
-          : AppLocalizations.of(context).issues),
+          ? AppLocalizations.of(context)!.pullRequests
+          : AppLocalizations.of(context)!.issues),
       fetch: (page) async {
         final type = isPr ? 'pulls' : 'issues';
         final res = await context.read<AuthModel>().fetchGogsWithPage(
@@ -40,8 +40,8 @@ class GoIssuesScreen extends StatelessWidget {
             : '/gogs/$owner/$name/issues/new',
       ),
       itemBuilder: (p) => IssueItem(
-        author: p.user.username,
-        avatarUrl: p.user.avatarUrl,
+        author: p.user!.username,
+        avatarUrl: p.user!.avatarUrl,
         commentCount: p.comments,
         subtitle: '#' + p.number.toString(),
         title: p.title,
@@ -51,10 +51,10 @@ class GoIssuesScreen extends StatelessWidget {
             : '/gogs/$owner/$name/issues/${p.number}',
         labels: isPr
             ? null
-            : p.labels.isEmpty
+            : p.labels!.isEmpty
                 ? null
                 : Wrap(spacing: 4, runSpacing: 4, children: [
-                    for (var label in p.labels)
+                    for (var label in p.labels!)
                       MyLabel(name: label.name, cssColor: label.color)
                   ]),
       ),

@@ -1,0 +1,350 @@
+{
+  "fontStyle": "フォントスタイル",
+  "@fontStyle": {
+    "description": "font style"
+  },
+  "fontSize": "文字サイズ",
+  "@fontSize": {
+    "description": "font size"
+  },
+  "fontFamily": "フォントファミリ",
+  "@fontFamily": {
+    "description": "Font Family"
+  },
+  "syntaxHighlighting": "シンタックスハイライト",
+  "@syntaxHighlighting": {
+    "description": "Syntax Highlighting"
+  },
+  "projectActions": "プロジェクトアクション",
+  "@projectActions": {
+    "description": "Project Actions"
+  },
+  "code": "コード",
+  "@code": {
+    "description": "Code"
+  },
+  "issue": "問題",
+  "@issue": {
+    "description": "issue"
+  },
+  "group": "グループ",
+  "@group": {
+    "description": "group"
+  },
+  "user": "ユーザー",
+  "@user": {
+    "description": "user"
+  },
+  "giteeAccount": "ギティーアカウント",
+  "@giteeAccount": {
+    "description": "Gitee Account"
+  },
+  "giteaAccount": "Giteaアカウント",
+  "@giteaAccount": {
+    "description": "Gitea Account"
+  },
+  "longPressToRemoveAccount": "長押しでアカウントを削除",
+  "@longPressToRemoveAccount": {
+    "description": "Long Press to remove account"
+  },
+  "bitbucketAccount": "ビットバケットアカウント",
+  "@bitbucketAccount": {
+    "description": "Bitbucket Account"
+  },
+  "gitlabAccount": "GitLab アカウント",
+  "@gitlabAccount": {
+    "description": "Gitlab Account"
+  },
+  "notFoundTextDisplay": "おっと、このページはまだ実装されていません。",
+  "@notFoundTextDisplay": {
+    "description": "Not found error message"
+  },
+  "notFoundMessage": "見つかりません",
+  "@notFoundMessage": {
+    "description": "Not found page header"
+  },
+  "permissionRequiredMessage": "GitTouch には以下のような権限が必要です。",
+  "@permissionRequiredMessage": {
+    "description": "Permission Required Message"
+  },
+  "githubAccount": "GitHub アカウント",
+  "@githubAccount": {
+    "description": "Gitea Account"
+  },
+  "somethingBadHappens": "何か悪いことが起こる。",
+  "@somethingBadHappens": {
+    "description": "error message"
+  },
+  "removeAccount": "アカウントの削除",
+  "@removeAccount": {
+    "description": "remove account"
+  },
+  "selectAccount": "アカウントを選択",
+  "@selectAccount": {
+    "description": "select account message"
+  },
+  "project": "プロジェクト",
+  "@project": {
+    "description": "project"
+  },
+  "activity": "活動内容",
+  "@activity": {
+    "description": "activity"
+  },
+  "mergeRequests": "マージ要求",
+  "@mergeRequests": {
+    "description": "Merge request"
+  },
+  "groups": "グループ",
+  "@groups": {
+    "description": "groups"
+  },
+  "actions": "アクション",
+  "@actions": {
+    "description": "actions"
+  },
+  "files": "ファイル",
+  "@files": {
+    "description": "file plural"
+  },
+  "file": "ファイル",
+  "@file": {
+    "description": "file"
+  },
+  "teams": "チーム紹介",
+  "@teams": {
+    "description": "teams"
+  },
+  "explore": "探索",
+  "@explore": {
+    "description": "explore"
+  },
+  "developers": "開発者",
+  "@developers": {
+    "description": "developers"
+  },
+  "all": "すべての",
+  "@all": {
+    "description": "all"
+  },
+  "unread": "未読",
+  "@unread": {
+    "description": "unread"
+  },
+  "contributors": "投稿者",
+  "@contributors": {
+    "description": "contributors"
+  },
+  "branches": "枝",
+  "@branches": {
+    "description": "branches"
+  },
+  "commits": "コミット",
+  "@commits": {
+    "description": "Commits"
+  },
+  "pullRequests": "プルリクエスト",
+  "@pullRequests": {
+    "description": "Pull Requests"
+  },
+  "issues": "問題点",
+  "@issues": {
+    "description": "issues"
+  },
+  "forks": "フォーク",
+  "@forks": {
+    "description": "forks"
+  },
+  "watchers": "ウォッチャー",
+  "@watchers": {
+    "description": "watchers"
+  },
+  "releases": "リリース",
+  "@releases": {
+    "description": "releases"
+  },
+  "projects": "プロジェクト",
+  "@projects": {
+    "description": "projects"
+  },
+  "repositoryActions": "リポジトリの操作",
+  "@repositoryActions": {
+    "description": "Repository Actions"
+  },
+  "repository": "リポジトリ",
+  "@repository": {
+    "description": "Repository screen title"
+  },
+  "sourceCode": "ソースコード",
+  "@sourceCode": {
+    "description": "source code for app"
+  },
+  "version": "バージョン",
+  "@version": {
+    "description": "app version"
+  },
+  "about": "ぐらい",
+  "@about": {
+    "description": "about section"
+  },
+  "email": "電子メール",
+  "@email": {
+    "description": "Email to report issues"
+  },
+  "rateThisApp": "このアプリを評価する",
+  "@rateThisApp": {
+    "description": "rate the app"
+  },
+  "submitAnIssue": "課題を提出する",
+  "@submitAnIssue": {
+    "description": "submit issue for app"
+  },
+  "feedback": "フィードバック",
+  "@feedback": {
+    "description": "provide feedback"
+  },
+  "webview": "ウェブビュー",
+  "@webview": {
+    "description": "render webview for markdown"
+  },
+  "flutter": "ひらひらと",
+  "@flutter": {
+    "description": "render flutter for markdown"
+  },
+  "markdownRenderEngine": "マークダウンレンダリングエンジン",
+  "@markdownRenderEngine": {
+    "description": "flutter or webview rendering for markdown"
+  },
+  "codeTheme": "コードテーマ",
+  "@codeTheme": {
+    "description": "code theme"
+  },
+  "material": "材料",
+  "@material": {
+    "description": "Material scaffold theme"
+  },
+  "cupertino": "クパチーノ",
+  "@cupertino": {
+    "description": "Cupertino scaffold theme"
+  },
+  "scaffoldTheme": "足場のテーマ",
+  "@scaffoldTheme": {
+    "description": "Kind of theme - cupertino or material"
+  },
+  "dark": "暗い",
+  "@dark": {
+    "description": "dark mode"
+  },
+  "light": "灯り",
+  "@light": {
+    "description": "light mode"
+  },
+  "followSystem": "フォローシステム",
+  "@followSystem": {
+    "description": "follow systems setting"
+  },
+  "brightness": "明るさ",
+  "@brightness": {
+    "description": "brightness"
+  },
+  "switchAccounts": "アカウントの切り替え",
+  "@switchAccounts": {
+    "description": "Switch accounts"
+  },
+  "giteaStatus": "ギテアステータス",
+  "@giteaStatus": {
+    "description": "Gitea status"
+  },
+  "gitlabStatus": "GitLab のステータス",
+  "@gitlabStatus": {
+    "description": "GitLab status"
+  },
+  "reviewPermissions": "許可を確認する",
+  "@reviewPermissions": {
+    "description": "review Permissions"
+  },
+  "githubStatus": "GitHubのステータス",
+  "@githubStatus": {
+    "description": "github status"
+  },
+  "system": "系統",
+  "@system": {
+    "description": "system"
+  },
+  "settings": "設定",
+  "@settings": {
+    "description": "settings"
+  },
+  "pinnedRepositories": "ピン留めリポジトリ",
+  "@pinnedRepositories": {
+    "description": "pinned repositories"
+  },
+  "popularRepositories": "ポピュラーリポジトリ",
+  "@popularRepositories": {
+    "description": "popular repositories"
+  },
+  "members": "メンバー",
+  "@members": {
+    "description": "members of an organization"
+  },
+  "organizations": "組織",
+  "@organizations": {
+    "description": "organizations for a user"
+  },
+  "gists": "ジスト",
+  "@gists": {
+    "description": "gists for a user"
+  },
+  "events": "イベント情報",
+  "@events": {
+    "description": "events for a user"
+  },
+  "following": "続いて",
+  "@following": {
+    "description": "people followed by a person"
+  },
+  "followers": "フォロワー数",
+  "@followers": {
+    "description": "followers for a person"
+  },
+  "stars": "星",
+  "@stars": {
+    "description": "stars on a repo"
+  },
+  "follow": "フォロー",
+  "@follow": {
+    "description": "follow someone"
+  },
+  "unfollow": "アンフォロー",
+  "@unfollow": {
+    "description": "unfollow someone"
+  },
+  "repositories": "リポジトリ",
+  "@repositories": {
+    "description": "repository text"
+  },
+  "participating": "参加している",
+  "@participating": {
+    "description": "The participating Tab"
+  },
+  "me": "吾輩",
+  "@me": {
+    "description": "The Me tab"
+  },
+  "search": "検索",
+  "@search": {
+    "description": "The Search tab"
+  },
+  "trending": "トレンド",
+  "@trending": {
+    "description": "Trending"
+  },
+  "notification": "お知らせ",
+  "@notification": {
+    "description": "The Notification tab"
+  },
+  "news": "ニュース",
+  "@news": {
+    "description": "The News tab"
+  }
+}

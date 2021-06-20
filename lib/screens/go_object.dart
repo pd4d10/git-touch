@@ -8,19 +8,20 @@ import 'package:git_touch/widgets/action_entry.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/blob_view.dart';
 import 'package:git_touch/widgets/object_tree.dart';
+import 'package:git_touch/widgets/table_view.dart';
 import 'package:provider/provider.dart';
 
 class GoObjectScreen extends StatelessWidget {
   final String owner;
   final String name;
-  final String path;
-  final String ref;
+  final String? path;
+  final String? ref;
   GoObjectScreen(this.owner, this.name, {this.path, this.ref});
 
   @override
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold(
-      title: AppBarTitle(path ?? AppLocalizations.of(context).files),
+      title: AppBarTitle(path ?? AppLocalizations.of(context)!.files),
       fetch: () async {
         final suffix = path == null ? '' : '/$path';
         final res = await context
@@ -28,37 +29,36 @@ class GoObjectScreen extends StatelessWidget {
             .fetchGogs('/repos/$owner/$name/contents$suffix?ref=$ref');
         return res;
       },
-      actionBuilder: (p, _) {
+      actionBuilder: (dynamic p, _) {
         if (p is List) {
           return null;
         } else {
           return ActionEntry(
-            iconData: Icons.settings,
+            iconData: Ionicons.cog,
             url: '/choose-code-theme',
           );
         }
       },
-      bodyBuilder: (p, _) {
+      bodyBuilder: (dynamic p, _) {
         if (p is List) {
           final items = p.map((t) => GogsTree.fromJson(t)).toList();
           items.sort((a, b) {
             return sortByKey('dir', a.type, b.type);
           });
-          return ObjectTree(items: [
+          return TableView(items: [
             for (var v in items)
               ObjectTreeItem(
                 name: v.name,
                 type: v.type,
                 size: v.type == 'file' ? v.size : null,
                 url:
-                    '/gogs/$owner/$name/blob?path=${v.path.urlencode}&ref=$ref',
+                    '/gogs/$owner/$name/blob?path=${v.path!.urlencode}&ref=$ref',
                 downloadUrl: v.downloadUrl,
               ),
           ]);
         } else {
           final v = GogsBlob.fromJson(p);
-          return BlobView(v.name,
-              base64Text: v.content == null ? '' : v.content);
+          return BlobView(v.name, base64Text: v.content);
         }
       },
     );

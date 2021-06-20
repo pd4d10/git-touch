@@ -1,6 +1,8 @@
+import 'package:ferry/ferry.dart';
 import 'package:flutter/material.dart';
 import 'package:git_touch/graphql/github.data.gql.dart';
 import 'package:git_touch/graphql/github.req.gql.dart';
+import 'package:git_touch/graphql/github.var.gql.dart';
 import 'package:git_touch/scaffolds/list_stateful.dart';
 import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/user_item.dart';
@@ -13,7 +15,7 @@ class GhFollowers extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListStatefulScaffold<GUserItem, String>(
+    return ListStatefulScaffold<GUserItem, String?>(
       title: AppBarTitle('Followers'),
       fetch: (cursor) async {
         final auth = context.read<AuthModel>();
@@ -21,12 +23,13 @@ class GhFollowers extends StatelessWidget {
           b.vars.login = login;
           b.vars.after = cursor;
         });
-        final res = await auth.gqlClient.request(req).first;
-        final p = res.data.user.followers;
+        final OperationResponse<GFollowersData, GFollowersVars?> res =
+            await auth.gqlClient.request(req).first;
+        final p = res.data!.user!.followers;
         return ListPayload(
           cursor: p.pageInfo.endCursor,
           hasMore: p.pageInfo.hasNextPage,
-          items: p.nodes,
+          items: p.nodes!,
         );
       },
       itemBuilder: (p) {
@@ -42,7 +45,7 @@ class GhFollowing extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListStatefulScaffold<GUserItem, String>(
+    return ListStatefulScaffold<GUserItem, String?>(
       title: AppBarTitle('Following'),
       fetch: (cursor) async {
         final auth = context.read<AuthModel>();
@@ -50,12 +53,13 @@ class GhFollowing extends StatelessWidget {
           b.vars.login = login;
           b.vars.after = cursor;
         });
-        final res = await auth.gqlClient.request(req).first;
-        final p = res.data.user.following;
+        final OperationResponse<GFollowingData, GFollowingVars?> res =
+            await auth.gqlClient.request(req).first;
+        final p = res.data!.user!.following;
         return ListPayload(
           cursor: p.pageInfo.endCursor,
           hasMore: p.pageInfo.hasNextPage,
-          items: p.nodes,
+          items: p.nodes!,
         );
       },
       itemBuilder: (p) {
@@ -71,7 +75,7 @@ class GhMembers extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListStatefulScaffold<GUserItem, String>(
+    return ListStatefulScaffold<GUserItem, String?>(
       title: AppBarTitle('Members'),
       fetch: (cursor) async {
         final auth = context.read<AuthModel>();
@@ -79,12 +83,13 @@ class GhMembers extends StatelessWidget {
           b.vars.login = login;
           b.vars.after = cursor;
         });
-        final res = await auth.gqlClient.request(req).first;
-        final p = res.data.organization.membersWithRole;
+        final OperationResponse<GMembersData, GMembersVars?> res =
+            await auth.gqlClient.request(req).first;
+        final p = res.data!.organization!.membersWithRole;
         return ListPayload(
           cursor: p.pageInfo.endCursor,
           hasMore: p.pageInfo.hasNextPage,
-          items: p.nodes,
+          items: p.nodes!,
         );
       },
       itemBuilder: (p) {
@@ -101,7 +106,7 @@ class GhWachers extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListStatefulScaffold<GUserItem, String>(
+    return ListStatefulScaffold<GUserItem, String?>(
       title: AppBarTitle('Wachers'),
       fetch: (cursor) async {
         final auth = context.read<AuthModel>();
@@ -110,12 +115,13 @@ class GhWachers extends StatelessWidget {
           b.vars.name = name;
           b.vars.after = cursor;
         });
-        final res = await auth.gqlClient.request(req).first;
-        final p = res.data.repository.watchers;
+        final OperationResponse<GWatchersData, GWatchersVars?> res =
+            await auth.gqlClient.request(req).first;
+        final p = res.data!.repository!.watchers;
         return ListPayload(
           cursor: p.pageInfo.endCursor,
           hasMore: p.pageInfo.hasNextPage,
-          items: p.nodes,
+          items: p.nodes!,
         );
       },
       itemBuilder: (p) {
@@ -132,7 +138,7 @@ class GhStargazers extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListStatefulScaffold<GUserItem, String>(
+    return ListStatefulScaffold<GUserItem, String?>(
       title: AppBarTitle('Stargazers'),
       fetch: (cursor) async {
         final auth = context.read<AuthModel>();
@@ -141,12 +147,13 @@ class GhStargazers extends StatelessWidget {
           b.vars.name = name;
           b.vars.after = cursor;
         });
-        final res = await auth.gqlClient.request(req).first;
-        final p = res.data.repository.stargazers;
+        final OperationResponse<GStargazersData, GStargazersVars?> res =
+            await auth.gqlClient.request(req).first;
+        final p = res.data!.repository!.stargazers;
         return ListPayload(
           cursor: p.pageInfo.endCursor,
           hasMore: p.pageInfo.hasNextPage,
-          items: p.nodes,
+          items: p.nodes!,
         );
       },
       itemBuilder: (p) {

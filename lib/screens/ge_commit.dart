@@ -35,12 +35,12 @@ class GeCommitScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Link(
+                  LinkWidget(
                     url: '/gitee/$owner/$name',
                     child: Row(
                       children: <Widget>[
                         Avatar(
-                          url: data.author.avatarUrl,
+                          url: data.author!.avatarUrl,
                           size: AvatarSize.extraSmall,
                         ),
                         SizedBox(width: 4),
@@ -64,7 +64,7 @@ class GeCommitScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 8),
                   Text(
-                    data.commit.message,
+                    data.commit!.message!,
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
@@ -73,7 +73,7 @@ class GeCommitScreen extends StatelessWidget {
                 ],
               )),
           Wrap(
-            children: data.files
+            children: data.files!
                 .map<Widget>((file) => FilesItem(
                       filename: file.filename,
                       additions: file.additions,

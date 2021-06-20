@@ -22,17 +22,21 @@ class BbIssueScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RefreshStatefulScaffold<Tuple2<BbIssues, List<BbComment>>>(
+    return RefreshStatefulScaffold<Tuple2<BbIssues, Iterable<BbComment>>>(
       title: Text("Issue: #$number"),
       fetch: () async {
         final auth = context.read<AuthModel>();
-        final items = await Future.wait([
-          auth.fetchBbJson('/repositories/$owner/$name/issues/$number'),
-          auth.fetchBbWithPage(
-              '/repositories/$owner/$name/issues/$number/comments')
+        final res = await Future.wait([
+          auth
+              .fetchBbJson('/repositories/$owner/$name/issues/$number')
+              .then((value) => BbIssues.fromJson(value)),
+          auth
+              .fetchBbWithPage(
+                  '/repositories/$owner/$name/issues/$number/comments')
+              .then(
+                  (value) => [for (var v in value.items) BbComment.fromJson(v)])
         ]);
-        return Tuple2(BbIssues.fromJson(items[0]),
-            [for (var v in items[1].data) BbComment.fromJson(v)]);
+        return Tuple2(res[0] as BbIssues, res[1] as Iterable<BbComment>);
       },
       actionBuilder: (data, _) => ActionEntry(
         iconData: Octicons.plus,
@@ -48,12 +52,12 @@ class BbIssueScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Link(
+                  LinkWidget(
                     url: '/bitbucket/$owner/$name',
                     child: Row(
                       children: <Widget>[
                         Avatar(
-                          url: issue.reporter.avatarUrl,
+                          url: issue.reporter!.avatarUrl,
                           size: AvatarSize.extraSmall,
                         ),
                         SizedBox(width: 4),
@@ -77,7 +81,7 @@ class BbIssueScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 8),
                   Text(
-                    issue.title,
+                    issue.title!,
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
@@ -95,12 +99,12 @@ class BbIssueScreen extends StatelessWidget {
                   padding: EdgeInsets.only(left: 10),
                   child: CommentItem(
                       avatar: Avatar(
-                        url: comment.user.avatarUrl,
-                        linkUrl: '/bitbucket/${comment.user.displayName}',
+                        url: comment.user!.avatarUrl,
+                        linkUrl: '/bitbucket/${comment.user!.displayName}',
                       ),
-                      createdAt: DateTime.parse(comment.createdOn),
-                      body: comment.content.raw,
-                      login: comment.user.displayName,
+                      createdAt: DateTime.parse(comment.createdOn!),
+                      body: comment.content!.raw,
+                      login: comment.user!.displayName,
                       prefix: 'bitbucket')),
               CommonStyle.border,
               SizedBox(height: 16),

@@ -1,1 +1,350 @@
-{}
+{
+  "fontStyle": "字体样式",
+  "@fontStyle": {
+    "description": "font style"
+  },
+  "fontSize": "字体大小",
+  "@fontSize": {
+    "description": "font size"
+  },
+  "fontFamily": "字体",
+  "@fontFamily": {
+    "description": "Font Family"
+  },
+  "syntaxHighlighting": "语法高亮",
+  "@syntaxHighlighting": {
+    "description": "Syntax Highlighting"
+  },
+  "code": "代码",
+  "@code": {
+    "description": "Code"
+  },
+  "group": "小组",
+  "@group": {
+    "description": "group"
+  },
+  "user": "用户",
+  "@user": {
+    "description": "user"
+  },
+  "giteeAccount": "Gitee 账户",
+  "@giteeAccount": {
+    "description": "Gitee Account"
+  },
+  "giteaAccount": "Gitea 账户",
+  "@giteaAccount": {
+    "description": "Gitea Account"
+  },
+  "longPressToRemoveAccount": "长按以移除账户",
+  "@longPressToRemoveAccount": {
+    "description": "Long Press to remove account"
+  },
+  "bitbucketAccount": "Bitbucket 账户",
+  "@bitbucketAccount": {
+    "description": "Bitbucket Account"
+  },
+  "gitlabAccount": "GitLab 账户",
+  "@gitlabAccount": {
+    "description": "Gitlab Account"
+  },
+  "notFoundTextDisplay": "这个页面还没有实现。",
+  "@notFoundTextDisplay": {
+    "description": "Not found error message"
+  },
+  "notFoundMessage": "未找到",
+  "@notFoundMessage": {
+    "description": "Not found page header"
+  },
+  "permissionRequiredMessage": "GitTouch 需要这些权限",
+  "@permissionRequiredMessage": {
+    "description": "Permission Required Message"
+  },
+  "githubAccount": "GitHub 账户",
+  "@githubAccount": {
+    "description": "Gitea Account"
+  },
+  "removeAccount": "移除账户",
+  "@removeAccount": {
+    "description": "remove account"
+  },
+  "selectAccount": "选择账户",
+  "@selectAccount": {
+    "description": "select account message"
+  },
+  "project": "项目",
+  "@project": {
+    "description": "project"
+  },
+  "activity": "活动",
+  "@activity": {
+    "description": "activity"
+  },
+  "groups": "小组",
+  "@groups": {
+    "description": "groups"
+  },
+  "actions": "操作",
+  "@actions": {
+    "description": "actions"
+  },
+  "files": "文件",
+  "@files": {
+    "description": "file plural"
+  },
+  "file": "文件",
+  "@file": {
+    "description": "file"
+  },
+  "teams": "团队",
+  "@teams": {
+    "description": "teams"
+  },
+  "explore": "发现",
+  "@explore": {
+    "description": "explore"
+  },
+  "developers": "开发者",
+  "@developers": {
+    "description": "developers"
+  },
+  "all": "所有",
+  "@all": {
+    "description": "all"
+  },
+  "unread": "未读",
+  "@unread": {
+    "description": "unread"
+  },
+  "contributors": "贡献者",
+  "@contributors": {
+    "description": "contributors"
+  },
+  "watchers": "关注者",
+  "@watchers": {
+    "description": "watchers"
+  },
+  "projects": "项目介绍",
+  "@projects": {
+    "description": "projects"
+  },
+  "repositoryActions": "仓库操作",
+  "@repositoryActions": {
+    "description": "Repository Actions"
+  },
+  "repository": "仓库",
+  "@repository": {
+    "description": "Repository screen title"
+  },
+  "sourceCode": "源代码",
+  "@sourceCode": {
+    "description": "source code for app"
+  },
+  "version": "版本",
+  "@version": {
+    "description": "app version"
+  },
+  "about": "关于",
+  "@about": {
+    "description": "about section"
+  },
+  "email": "电子邮件",
+  "@email": {
+    "description": "Email to report issues"
+  },
+  "rateThisApp": "评价此应用",
+  "@rateThisApp": {
+    "description": "rate the app"
+  },
+  "submitAnIssue": "提交 issue",
+  "@submitAnIssue": {
+    "description": "submit issue for app"
+  },
+  "feedback": "用户反馈",
+  "@feedback": {
+    "description": "provide feedback"
+  },
+  "markdownRenderEngine": "Markdown 渲染引擎",
+  "@markdownRenderEngine": {
+    "description": "flutter or webview rendering for markdown"
+  },
+  "codeTheme": "代码主题",
+  "@codeTheme": {
+    "description": "code theme"
+  },
+  "dark": "深色",
+  "@dark": {
+    "description": "dark mode"
+  },
+  "light": "浅色",
+  "@light": {
+    "description": "light mode"
+  },
+  "followSystem": "跟随系统",
+  "@followSystem": {
+    "description": "follow systems setting"
+  },
+  "brightness": "亮度",
+  "@brightness": {
+    "description": "brightness"
+  },
+  "switchAccounts": "切换账户",
+  "@switchAccounts": {
+    "description": "Switch accounts"
+  },
+  "giteaStatus": "Gitea 系统状态",
+  "@giteaStatus": {
+    "description": "Gitea status"
+  },
+  "gitlabStatus": "GitLab 系统状态",
+  "@gitlabStatus": {
+    "description": "GitLab status"
+  },
+  "githubStatus": "GitHub 系统状态",
+  "@githubStatus": {
+    "description": "github status"
+  },
+  "system": "系统默认",
+  "@system": {
+    "description": "system"
+  },
+  "settings": "设置",
+  "@settings": {
+    "description": "settings"
+  },
+  "members": "成员",
+  "@members": {
+    "description": "members of an organization"
+  },
+  "organizations": "组织",
+  "@organizations": {
+    "description": "organizations for a user"
+  },
+  "events": "事件",
+  "@events": {
+    "description": "events for a user"
+  },
+  "following": "正在关注",
+  "@following": {
+    "description": "people followed by a person"
+  },
+  "followers": "关注者",
+  "@followers": {
+    "description": "followers for a person"
+  },
+  "stars": "已加星标",
+  "@stars": {
+    "description": "stars on a repo"
+  },
+  "follow": "关注",
+  "@follow": {
+    "description": "follow someone"
+  },
+  "unfollow": "取消关注",
+  "@unfollow": {
+    "description": "unfollow someone"
+  },
+  "repositories": "仓库",
+  "@repositories": {
+    "description": "repository text"
+  },
+  "participating": "参与",
+  "@participating": {
+    "description": "The participating Tab"
+  },
+  "me": "我",
+  "@me": {
+    "description": "The Me tab"
+  },
+  "search": "搜索",
+  "@search": {
+    "description": "The Search tab"
+  },
+  "trending": "趋势",
+  "@trending": {
+    "description": "Trending"
+  },
+  "notification": "通知",
+  "@notification": {
+    "description": "The Notification tab"
+  },
+  "projectActions": "项目操作",
+  "@projectActions": {
+    "description": "Project Actions"
+  },
+  "issue": "问题",
+  "@issue": {
+    "description": "issue"
+  },
+  "somethingBadHappens": "糟糕的事情发生了：",
+  "@somethingBadHappens": {
+    "description": "error message"
+  },
+  "mergeRequests": "合并请求",
+  "@mergeRequests": {
+    "description": "Merge request"
+  },
+  "branches": "分支",
+  "@branches": {
+    "description": "branches"
+  },
+  "commits": "提交",
+  "@commits": {
+    "description": "Commits"
+  },
+  "pullRequests": "拉取请求",
+  "@pullRequests": {
+    "description": "Pull Requests"
+  },
+  "issues": "问题",
+  "@issues": {
+    "description": "issues"
+  },
+  "forks": "分叉",
+  "@forks": {
+    "description": "forks"
+  },
+  "releases": "发布",
+  "@releases": {
+    "description": "releases"
+  },
+  "webview": "WebView",
+  "@webview": {
+    "description": "render webview for markdown"
+  },
+  "flutter": "Flutter",
+  "@flutter": {
+    "description": "render flutter for markdown"
+  },
+  "material": "材质设计",
+  "@material": {
+    "description": "Material scaffold theme"
+  },
+  "cupertino": "Cupertino",
+  "@cupertino": {
+    "description": "Cupertino scaffold theme"
+  },
+  "scaffoldTheme": "Scaffold主题",
+  "@scaffoldTheme": {
+    "description": "Kind of theme - cupertino or material"
+  },
+  "reviewPermissions": "审查权限",
+  "@reviewPermissions": {
+    "description": "review Permissions"
+  },
+  "pinnedRepositories": "置顶仓库",
+  "@pinnedRepositories": {
+    "description": "pinned repositories"
+  },
+  "popularRepositories": "热门库",
+  "@popularRepositories": {
+    "description": "popular repositories"
+  },
+  "gists": "代码片段",
+  "@gists": {
+    "description": "gists for a user"
+  },
+  "news": "新闻",
+  "@news": {
+    "description": "The News tab"
+  }
+}

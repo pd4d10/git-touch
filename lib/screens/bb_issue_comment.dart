@@ -5,6 +5,7 @@ import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/common.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/S.dart';
 
 class BbIssueCommentScreen extends StatefulWidget {
   final String owner;
@@ -31,7 +32,7 @@ class _BbIssueCommentScreenState extends State<BbIssueCommentScreen> {
             padding: CommonStyle.padding,
             child: CupertinoTextField(
               style: TextStyle(color: theme.palette.text),
-              placeholder: 'Body',
+              placeholder: AppLocalizations.of(context)!.body,
               onChanged: (v) {
                 setState(() {
                   _body = v;

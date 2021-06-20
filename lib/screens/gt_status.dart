@@ -11,7 +11,7 @@ class GtStatusScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold<String>(
-      title: Text(AppLocalizations.of(context).giteaStatus),
+      title: Text(AppLocalizations.of(context)!.giteaStatus),
       fetch: () async {
         final auth = context.read<AuthModel>();
         final res = await Future.wait([

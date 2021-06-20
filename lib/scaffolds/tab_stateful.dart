@@ -8,13 +8,13 @@ class TabStatefulScaffold<T> extends StatefulWidget {
   final Widget Function(T payload, int activeTab) bodyBuilder;
   final Future<T> Function(int activeTab) fetchData;
   final List<String> tabs;
-  final Widget Function(T payload, void Function() refresh) actionBuilder;
+  final Widget Function(T payload, void Function() refresh)? actionBuilder;
 
   TabStatefulScaffold({
-    @required this.title,
-    @required this.bodyBuilder,
-    @required this.fetchData,
-    @required this.tabs,
+    required this.title,
+    required this.bodyBuilder,
+    required this.fetchData,
+    required this.tabs,
     this.actionBuilder,
   });
 
@@ -23,14 +23,14 @@ class TabStatefulScaffold<T> extends StatefulWidget {
 }
 
 class _TabStatefulScaffoldState<T> extends State<TabStatefulScaffold<T>> {
-  bool _loading;
-  T _payload0;
-  T _payload1;
-  T _payload2;
+  late bool _loading;
+  T? _payload0;
+  T? _payload1;
+  T? _payload2;
   String _error = '';
   int _activeTab = 0;
 
-  T _getPayload(int selected) {
+  T? _getPayload(int selected) {
     switch (selected) {
       case 0:
         return _payload0;
@@ -43,9 +43,9 @@ class _TabStatefulScaffoldState<T> extends State<TabStatefulScaffold<T>> {
     }
   }
 
-  T get _payload => _getPayload(_activeTab);
+  T? get _payload => _getPayload(_activeTab);
 
-  set _payload(T v) {
+  set _payload(T? v) {
     switch (_activeTab) {
       case 0:
         _payload0 = v;
@@ -84,30 +84,28 @@ class _TabStatefulScaffoldState<T> extends State<TabStatefulScaffold<T>> {
     }
   }
 
-  Future<void> _switch(int selected) async {
-    if (_loading) return;
-
-    setState(() {
-      _activeTab = selected;
-    });
-    if (_getPayload(selected) == null) {
-      await _refresh();
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return TabScaffold(
       title: widget.title,
       action: widget.actionBuilder == null
           ? null
-          : widget.actionBuilder(_payload, _refresh),
+          : widget.actionBuilder!(_payload!, _refresh),
       tabs: widget.tabs,
       activeTab: _activeTab,
-      onTabSwitch: _switch,
+      onTabSwitch: (selected) async {
+        if (_loading) return;
+
+        setState(() {
+          _activeTab = selected;
+        });
+        if (_getPayload(selected) == null) {
+          await _refresh();
+        }
+      },
       onRefresh: _refresh,
       body: ErrorLoadingWrapper(
-        bodyBuilder: () => widget.bodyBuilder(_payload, _activeTab),
+        bodyBuilder: () => widget.bodyBuilder(_payload!, _activeTab),
         error: _error,
         loading: _payload == null,
         reload: _refresh,

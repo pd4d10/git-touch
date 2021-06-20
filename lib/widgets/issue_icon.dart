@@ -11,7 +11,7 @@ enum IssueIconState {
 
 class IssueIcon extends StatelessWidget {
   final IssueIconState state;
-  final double size;
+  final double? size;
 
   IssueIcon(this.state, {this.size});
 
@@ -34,7 +34,7 @@ class IssueIcon extends StatelessWidget {
         return Icon(Octicons.git_merge,
             color: GithubPalette.merged, size: size);
       default:
-        return null;
+        return Container();
     }
   }
 }

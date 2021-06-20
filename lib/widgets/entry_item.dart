@@ -5,12 +5,12 @@ import 'package:provider/provider.dart';
 import 'link.dart';
 
 class EntryItem extends StatelessWidget {
-  final int count;
+  final int? count;
   final String text;
-  final String url;
+  final String? url;
 
   EntryItem({
-    @required this.text,
+    required this.text,
     this.count,
     this.url,
   });
@@ -20,7 +20,7 @@ class EntryItem extends StatelessWidget {
     final theme = Provider.of<ThemeModel>(context);
 
     return Expanded(
-      child: Link(
+      child: LinkWidget(
         url: url,
         child: Container(
           padding: EdgeInsets.symmetric(vertical: 14),

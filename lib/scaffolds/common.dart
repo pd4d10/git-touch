@@ -6,12 +6,12 @@ import 'package:provider/provider.dart';
 class CommonScaffold extends StatelessWidget {
   final Widget title;
   final Widget body;
-  final Widget action;
-  final PreferredSizeWidget bottom;
+  final Widget? action;
+  final PreferredSizeWidget? bottom;
 
   CommonScaffold({
-    @required this.title,
-    @required this.body,
+    required this.title,
+    required this.body,
     this.action,
     this.bottom,
   });
@@ -36,7 +36,7 @@ class CommonScaffold extends StatelessWidget {
           appBar: AppBar(
             title: title,
             actions: [
-              if (action != null) action,
+              if (action != null) action!,
             ],
             bottom: bottom,
           ),

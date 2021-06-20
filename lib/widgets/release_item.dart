@@ -8,23 +8,24 @@ import 'package:git_touch/widgets/markdown_view.dart';
 import 'package:git_touch/widgets/table_view.dart';
 import 'package:provider/provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
+import 'package:flutter_gen/gen_l10n/S.dart';
 
 class ReleaseItem extends StatelessWidget {
-  final String login;
-  final DateTime publishedAt;
-  final String name;
-  final String avatarUrl;
-  final String tagName;
-  final String description;
-  final GReleasesData_repository_releases_nodes_releaseAssets releaseAssets;
+  final String? login;
+  final DateTime? publishedAt;
+  final String? name;
+  final String? avatarUrl;
+  final String? tagName;
+  final String? description;
+  final GReleasesData_repository_releases_nodes_releaseAssets? releaseAssets;
 
   ReleaseItem(
-      {@required this.login,
-      @required this.publishedAt,
-      @required this.name,
-      @required this.tagName,
-      @required this.avatarUrl,
-      @required this.description,
+      {required this.login,
+      required this.publishedAt,
+      required this.name,
+      required this.tagName,
+      required this.avatarUrl,
+      required this.description,
       this.releaseAssets});
 
   @override
@@ -46,7 +47,7 @@ class ReleaseItem extends StatelessWidget {
                 Row(
                   children: <Widget>[
                     Text(
-                      tagName,
+                      tagName!,
                       style: TextStyle(
                         color: theme.palette.primary,
                         fontSize: 18,
@@ -61,14 +62,15 @@ class ReleaseItem extends StatelessWidget {
                     color: theme.palette.secondaryText,
                     fontSize: 16,
                   ),
-                  child:
-                      Text(login + " released " + timeago.format(publishedAt)),
+                  child: Text(login! +
+                      " ${AppLocalizations.of(context)!.released} " +
+                      timeago.format(publishedAt!)),
                 ),
               ],
             ),
           ),
         ]),
-        if (description != null && description.isNotEmpty) ...[
+        if (description != null && description!.isNotEmpty) ...[
           MarkdownFlutterView(
             description,
           ),
@@ -87,28 +89,29 @@ class ReleaseItem extends StatelessWidget {
               ),
             ),
             children: <Widget>[
-              TableView(items: [
-                if (releaseAssets != null)
-                  for (var asset in releaseAssets.nodes)
-                    TableViewItem(
-                      text: Text(
-                        asset.name,
-                        style: TextStyle(
-                          color: theme.palette.primary,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
+              TableView(
+                hasIcon: false,
+                items: [
+                  if (releaseAssets != null)
+                    for (var asset in releaseAssets!.nodes!)
+                      TableViewItem(
+                        text: Text(
+                          asset.name,
+                          style: TextStyle(
+                            color: theme.palette.primary,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
-                      ),
-                      rightWidget: IconButton(
-                          onPressed: () {
-                            if (asset.downloadUrl != null) {
+                        rightWidget: IconButton(
+                            onPressed: () {
                               theme.push(context, asset.downloadUrl);
-                            }
-                          },
-                          icon: Icon(Ionicons.download_outline)),
-                      hideRightChevron: true,
-                    ),
-              ])
+                            },
+                            icon: Icon(Ionicons.download_outline)),
+                        hideRightChevron: true,
+                      ),
+                ],
+              )
             ],
           ),
         )

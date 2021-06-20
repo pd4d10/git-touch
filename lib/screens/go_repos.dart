@@ -35,8 +35,8 @@ class GoReposScreen extends StatelessWidget {
       itemBuilder: (v) {
         return RepositoryItem.go(
           payload: v,
-          name: v.fullName.split('/')[1],
-          owner: v.owner.username,
+          name: v.fullName!.split('/')[1],
+          owner: v.owner!.username,
         );
       },
     );

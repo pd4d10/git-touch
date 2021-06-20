@@ -4,9 +4,9 @@ import 'package:git_touch/models/theme.dart';
 import 'package:provider/provider.dart';
 
 class ActionEntry extends StatelessWidget {
-  final IconData iconData;
-  final String url;
-  final VoidCallback onTap;
+  final IconData? iconData;
+  final String? url;
+  final VoidCallback? onTap;
   ActionEntry({this.url, this.iconData, this.onTap});
 
   @override
@@ -19,16 +19,16 @@ class ActionEntry extends StatelessWidget {
           child: Icon(iconData, size: 22),
           padding: EdgeInsets.zero,
           onPressed: () {
-            if (onTap != null) onTap();
-            if (url != null) theme.push(context, url);
+            if (onTap != null) onTap!();
+            if (url != null) theme.push(context, url!);
           },
         );
       default:
         return IconButton(
           icon: Icon(iconData),
           onPressed: () {
-            if (onTap != null) onTap();
-            if (url != null) theme.push(context, url);
+            if (onTap != null) onTap!();
+            if (url != null) theme.push(context, url!);
           },
         );
     }

@@ -1,3 +1,4 @@
+import 'package:fimber/fimber.dart';
 import 'package:flutter/material.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/widgets/link.dart';
@@ -12,13 +13,13 @@ class AvatarSize {
 }
 
 class Avatar extends StatelessWidget {
-  final String url;
+  final String? url;
   final double size;
-  final String linkUrl;
-  final BorderRadius borderRadius;
+  final String? linkUrl;
+  final BorderRadius? borderRadius;
 
   Avatar({
-    @required this.url,
+    required this.url,
     this.size = AvatarSize.medium,
     this.linkUrl,
     this.borderRadius,
@@ -31,24 +32,30 @@ class Avatar extends StatelessWidget {
         ? 'images/avatar.png'
         : 'images/avatar-dark.png';
 
+    final fallbackWidget = Image.asset(fallback, width: size, height: size);
+
     final widget = ClipRRect(
       borderRadius: borderRadius ?? BorderRadius.circular(size / 2),
       child: url == null
-          ? Image.asset(fallback, width: size, height: size)
+          ? fallbackWidget
           : FadeInImage.assetNetwork(
               placeholder: fallback,
-              image: url,
+              image: url!,
               width: size,
               height: size,
               fadeInDuration: Duration(milliseconds: 200),
               fadeOutDuration: Duration(milliseconds: 100),
+              imageErrorBuilder: (_, __, ___) {
+                Fimber.e('image error: ' + url!);
+                return fallbackWidget;
+              },
             ),
     );
     if (linkUrl == null) return widget;
-    return Link(
+    return LinkWidget(
       child: widget,
       onTap: () {
-        context.read<ThemeModel>().push(context, linkUrl);
+        context.read<ThemeModel>().push(context, linkUrl!);
       },
     );
   }

@@ -17,7 +17,7 @@ class GhFilesScreen extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GithubFilesItem, int>(
-      title: AppBarTitle(AppLocalizations.of(context).files),
+      title: AppBarTitle(AppLocalizations.of(context)!.files),
       actionBuilder: () {
         return ActionButton(
           title: 'Actions',

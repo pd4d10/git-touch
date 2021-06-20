@@ -27,26 +27,18 @@ class _LoginScreenState extends State<LoginScreen> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  // @override
-  // initState() {
-  //   super.initState();
-  //   _tokenController.addListener(() {
-  //     print(_tokenController.text);
-  //   });
-  // }
-
   Widget _buildAccountItem(int index) {
     final theme = Provider.of<ThemeModel>(context);
     final auth = Provider.of<AuthModel>(context);
-    final account = auth.accounts[index];
-    return Link(
+    final account = auth.accounts![index];
+    return LinkWidget(
       onTap: () {
         auth.setActiveAccountAndReload(index);
       },
       onLongPress: () {
         theme.showActions(context, [
           ActionItem(
-            text: AppLocalizations.of(context).removeAccount,
+            text: AppLocalizations.of(context)!.removeAccount,
             isDestructiveAction: true,
             onTap: (_) {
               auth.removeAccount(index);
@@ -80,7 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             (index == auth.activeAccountIndex)
-                ? Icon(Icons.check)
+                ? Icon(Ionicons.checkmark)
                 : Container(),
           ],
         ),
@@ -88,9 +80,10 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget _buildAddItem({IconData brand, String text, Function onTap}) {
+  Widget _buildAddItem(
+      {IconData? brand, required String text, Function? onTap}) {
     final theme = Provider.of<ThemeModel>(context);
-    return Link(
+    return LinkWidget(
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 20),
         decoration: BoxDecoration(
@@ -99,7 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Icon(Icons.add),
+            Icon(Ionicons.add),
             SizedBox(width: 4),
             Icon(brand),
             SizedBox(width: 8),
@@ -112,7 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget _buildPopup(BuildContext context,
-      {List<Widget> notes,
+      {List<Widget>? notes,
       bool showDomain = false,
       String placeholder = 'Access token'}) {
     return Column(
@@ -129,7 +122,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void showError(err) {
     context.read<ThemeModel>().showConfirm(context,
-        Text(AppLocalizations.of(context).somethingBadHappens + '$err'));
+        Text(AppLocalizations.of(context)!.somethingBadHappens + '$err'));
   }
 
   // TODO: handle email
@@ -145,15 +138,15 @@ class _LoginScreenState extends State<LoginScreen> {
     final auth = Provider.of<AuthModel>(context);
     final theme = Provider.of<ThemeModel>(context);
     return SingleScaffold(
-      title: AppBarTitle(AppLocalizations.of(context).selectAccount),
+      title: AppBarTitle(AppLocalizations.of(context)!.selectAccount),
       body: auth.loading
           ? Center(child: Loading())
           : Container(
               child: Column(
                 children: [
-                  ...List.generate(auth.accounts.length, _buildAccountItem),
+                  ...List.generate(auth.accounts!.length, _buildAccountItem),
                   _buildAddItem(
-                    text: AppLocalizations.of(context).githubAccount,
+                    text: AppLocalizations.of(context)!.githubAccount,
                     brand: Ionicons.logo_github,
                     onTap: () async {
                       theme.showActions(context, [
@@ -212,7 +205,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               context,
                               _buildPopup(context, notes: [
                                 Text(
-                                  AppLocalizations.of(context)
+                                  AppLocalizations.of(context)!
                                       .permissionRequiredMessage,
                                   style: TextStyle(
                                       fontSize: 14,
@@ -242,8 +235,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                   ),
                   _buildAddItem(
-                    text: AppLocalizations.of(context).gitlabAccount,
-                    brand: Ionicons.logo_gitlab,
+                    text: AppLocalizations.of(context)!.gitlabAccount,
+                    brand: Ionicons.git_branch_outline,
                     onTap: () async {
                       _domainController.text = 'https://gitlab.com';
                       final result = await theme.showConfirm(
@@ -253,7 +246,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           showDomain: true,
                           notes: [
                             Text(
-                              AppLocalizations.of(context)
+                              AppLocalizations.of(context)!
                                   .permissionRequiredMessage,
                               style: TextStyle(
                                   fontSize: 14, fontWeight: FontWeight.w400),
@@ -279,7 +272,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                   ),
                   _buildAddItem(
-                    text: AppLocalizations.of(context).bitbucketAccount,
+                    text: AppLocalizations.of(context)!.bitbucketAccount,
                     brand: Ionicons.logo_bitbucket,
                     onTap: () async {
                       _domainController.text = 'https://bitbucket.org';
@@ -320,7 +313,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             SizedBox(height: 8),
                             Text(
-                              AppLocalizations.of(context)
+                              AppLocalizations.of(context)!
                                   .permissionRequiredMessage,
                               style: TextStyle(
                                   fontSize: 14, fontWeight: FontWeight.w400),
@@ -347,8 +340,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                   ),
                   _buildAddItem(
-                    text: AppLocalizations.of(context).giteaAccount,
-                    brand: Octicons.git_branch, // TODO: brand icon
+                    text: AppLocalizations.of(context)!.giteaAccount,
+                    brand: Ionicons.git_branch_outline, // TODO: brand icon
                     onTap: () async {
                       _domainController.text = 'https://gitea.com';
                       final result = await theme.showConfirm(
@@ -382,8 +375,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                   ),
                   _buildAddItem(
-                    text: AppLocalizations.of(context).giteeAccount + '(码云)',
-                    brand: Octicons.git_branch, // TODO: brand icon
+                    text: AppLocalizations.of(context)!.giteeAccount + '(码云)',
+                    brand: Ionicons.git_branch_outline, // TODO: brand icon
                     onTap: () async {
                       final result = await theme.showConfirm(
                         context,
@@ -401,7 +394,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   _buildAddItem(
                     text: 'Gogs Account',
-                    brand: Octicons.git_branch, // TODO: brand icon
+                    brand: Ionicons.git_branch_outline, // TODO: brand icon
                     onTap: () async {
                       _domainController.text = 'https://gogs.com';
                       final result = await theme.showConfirm(
@@ -422,7 +415,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Container(
                     padding: CommonStyle.padding,
                     child: Text(
-                      AppLocalizations.of(context).longPressToRemoveAccount,
+                      AppLocalizations.of(context)!.longPressToRemoveAccount,
                       style: TextStyle(
                         fontSize: 16,
                         color: theme.palette.secondaryText,
