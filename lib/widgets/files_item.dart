@@ -29,6 +29,10 @@ class FilesItem extends StatelessWidget {
       color: theme.palette.background,
       margin: EdgeInsets.all(0),
       child: ExpansionTile(
+        trailing: Icon(
+          Ionicons.caret_down_circle,
+          color: theme.palette.grayBackground,
+        ),
         title: Text(
           filename!,
           style: TextStyle(

@@ -26,6 +26,7 @@ import 'package:git_touch/screens/ge_search.dart';
 import 'package:git_touch/screens/ge_tree.dart';
 import 'package:git_touch/screens/ge_user.dart';
 import 'package:git_touch/screens/ge_users.dart';
+import 'package:git_touch/screens/gh_commit.dart';
 import 'package:git_touch/screens/gh_commits.dart';
 import 'package:git_touch/screens/gh_contributors.dart';
 import 'package:git_touch/screens/gh_events.dart';
@@ -125,6 +126,7 @@ class GithubRouter {
     GithubRouter.gistObject,
     GithubRouter.compare,
     GithubRouter.releases,
+    GithubRouter.commit,
   ];
   static final user = RouterScreen('/:login', (context, parameters) {
     final login = parameters['login']!.first;
@@ -216,6 +218,10 @@ class GithubRouter {
       (context, parameters) => GhCommits(
           parameters['owner']!.first, parameters['name']!.first,
           branch: parameters['branch']!.first));
+  static final commit = RouterScreen(
+      '/:owner/:name/commit/:sha',
+      (context, parameters) => GhCommit(parameters['owner']!.first,
+          parameters['name']!.first, parameters['sha']!.first));
   static final object =
       RouterScreen('/:owner/:name/blob/:ref', (context, parameters) {
     return GhObjectScreen(

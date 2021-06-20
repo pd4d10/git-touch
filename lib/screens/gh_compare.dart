@@ -42,7 +42,8 @@ class GhComparisonScreen extends StatelessWidget {
                     additions: vs.additions,
                     deletions: vs.deletions,
                     status: vs.status,
-                    patch: vs.patch ?? "No text to be shown here",
+                    patch: vs.patch ??
+                        "${AppLocalizations.of(context)!.blankDiff}",
                   ))
               .toList(),
         );
