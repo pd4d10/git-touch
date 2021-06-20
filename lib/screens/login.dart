@@ -128,8 +128,9 @@ class _LoginScreenState extends State<LoginScreen> {
   // TODO: handle email
   bool _checkAccountExists(BuildContext context, String domain, String login) {
     final auth = context.read<AuthModel>();
-    final accountExists = auth.accounts
-        .any((account) => account.domain == domain && account.login == login);
+    final accountExists = auth.accounts?.any(
+            (account) => account.domain == domain && account.login == login) ??
+        false;
     return accountExists;
   }
 
