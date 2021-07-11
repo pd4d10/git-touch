@@ -83,7 +83,7 @@
   "@permissionRequiredMessage": {
     "description": "Permission Required Message"
   },
-  "somethingBadHappens": "Etwas schlechtes ist passiert:",
+  "somethingBadHappens": "Etwas Schlechtes ist passiert:",
   "@somethingBadHappens": {
     "description": "error message"
   },
@@ -283,11 +283,11 @@
   "@settings": {
     "description": "settings"
   },
-  "pinnedRepositories": "angeheftete Repositories",
+  "pinnedRepositories": "Angeheftete Repositories",
   "@pinnedRepositories": {
     "description": "pinned repositories"
   },
-  "popularRepositories": "beliebte Repositories",
+  "popularRepositories": "Beliebte Repositories",
   "@popularRepositories": {
     "description": "popular repositories"
   },
@@ -346,5 +346,122 @@
   "followSystem": "System folgen",
   "@followSystem": {
     "description": "follow systems setting"
+  },
+  "pullRequestCommitMessage": "Commit {commit} wurde hinzugefügt",
+  "@pullRequestCommitMessage": {
+    "description": "pull request commit message",
+    "placeholders": {
+      "commit": {
+        "type": "String"
+      }
+    }
+  },
+  "timelineTypeNotImplemented": "Typ noch nicht implementiert",
+  "@timelineTypeNotImplemented": {
+    "description": "Timeline type not implemented"
+  },
+  "body": "Körper",
+  "@body": {
+    "description": "body"
+  },
+  "title": "Titel",
+  "@title": {
+    "description": "title"
+  },
+  "theme": "Theme",
+  "@theme": {
+    "description": "Theme header text"
+  },
+  "reloadMessage": "Die App wird neu geladen, damit die Spracheinstellung etwas bringt",
+  "@reloadMessage": {
+    "description": "Reload message"
+  },
+  "appLanguage": "App-Sprache",
+  "@appLanguage": {
+    "description": "The app's language"
+  },
+  "released": "released",
+  "@released": {
+    "description": "released"
+  },
+  "submit": "Einreichen",
+  "@submit": {
+    "description": "submit button text"
+  },
+  "forked": "geforkt",
+  "@forked": {
+    "description": "forked"
+  },
+  "headRefRestoredEventMessage": "hat den Branch {headRefName} wiederhergestellt",
+  "@headRefRestoredEventMessage": {
+    "description": "head ref restored event",
+    "placeholders": {
+      "headRefName": {
+        "type": "String"
+      }
+    }
+  },
+  "headRefDeletedEventMessage": "hat den Branch {headRefName} gelöscht",
+  "@headRefDeletedEventMessage": {
+    "description": "head ref deleted event",
+    "placeholders": {
+      "headRefName": {
+        "type": "String"
+      }
+    }
+  },
+  "pinnedEventMessage": "hat diesen Issue angepinnt",
+  "@pinnedEventMessage": {
+    "description": "pinned this issue"
+  },
+  "approvedChanges": "hat die Änderungen genehmigt",
+  "@approvedChanges": {
+    "description": "approved these changes"
+  },
+  "unlockedConversationEventMessage": "hat diese Konversation entsperrt",
+  "@unlockedConversationEventMessage": {
+    "description": "unlocked this conversation"
+  },
+  "lockedConversationEventMessage": "hat diese Konversation gesperrt",
+  "@lockedConversationEventMessage": {
+    "description": "locked this conversation"
+  },
+  "demilestonedEventMessage": "hat das vom Meilenstein {milestone} entfernt",
+  "@demilestonedEventMessage": {
+    "description": "demilestoned event",
+    "placeholders": {
+      "milestone": {
+        "type": "String"
+      }
+    }
+  },
+  "milestonedEventMessage": "hat das zum Meilenstein {milestone} hinzugefügt",
+  "@milestonedEventMessage": {
+    "description": "milestone event",
+    "placeholders": {
+      "milestone": {
+        "type": "String"
+      }
+    }
+  },
+  "label": "Label",
+  "@label": {
+    "description": "label"
+  },
+  "removed": "entfernt",
+  "@removed": {
+    "description": "removed"
+  },
+  "subscribedEventMessage": "hat diesen Issue abonniert",
+  "@subscribedEventMessage": {
+    "description": "subscribed event"
+  },
+  "reopenedEventMessage": "hat das wieder geöffnet",
+  "@reopenedEventMessage": {
+    "description": "reopened event"
+  },
+  "closedEventMessage": "hat das geschlossen",
+  "@closedEventMessage": {
+    "description": "closed event"
   }
 }
