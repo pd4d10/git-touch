@@ -11,7 +11,7 @@
   "@trending": {
     "description": "Trending"
   },
-  "fontStyle": "Schriftstyle",
+  "fontStyle": "SCHRIFTSTIL",
   "@fontStyle": {
     "description": "font style"
   },
@@ -51,23 +51,23 @@
   "@longPressToRemoveAccount": {
     "description": "Long Press to remove account"
   },
-  "giteeAccount": "Gitee Konto",
+  "giteeAccount": "Gitee-Konto",
   "@giteeAccount": {
     "description": "Gitee Account"
   },
-  "giteaAccount": "Gitea Konto",
+  "giteaAccount": "Gitea-Konto",
   "@giteaAccount": {
     "description": "Gitea Account"
   },
-  "githubAccount": "GitHub Konto",
+  "githubAccount": "GitHub-Konto",
   "@githubAccount": {
     "description": "Gitea Account"
   },
-  "gitlabAccount": "GitLab Konto",
+  "gitlabAccount": "GitLab-Konto",
   "@gitlabAccount": {
     "description": "Gitlab Account"
   },
-  "bitbucketAccount": "Bitbucket Konto",
+  "bitbucketAccount": "Bitbucket-Konto",
   "@bitbucketAccount": {
     "description": "Bitbucket Account"
   },
@@ -87,7 +87,7 @@
   "@somethingBadHappens": {
     "description": "error message"
   },
-  "removeAccount": "Konto löschen",
+  "removeAccount": "Konto entfernen",
   "@removeAccount": {
     "description": "remove account"
   },
@@ -179,7 +179,7 @@
   "@projects": {
     "description": "projects"
   },
-  "repositoryActions": "Repository Aktionen",
+  "repositoryActions": "Repository-Aktionen",
   "@repositoryActions": {
     "description": "Repository Actions"
   },
@@ -211,7 +211,7 @@
   "@submitAnIssue": {
     "description": "submit issue for app"
   },
-  "feedback": "Feedback",
+  "feedback": "Rückmeldung",
   "@feedback": {
     "description": "provide feedback"
   },
@@ -227,7 +227,7 @@
   "@markdownRenderEngine": {
     "description": "flutter or webview rendering for markdown"
   },
-  "codeTheme": "Code Design",
+  "codeTheme": "Code-Design",
   "@codeTheme": {
     "description": "code theme"
   },
@@ -239,7 +239,7 @@
   "@cupertino": {
     "description": "Cupertino scaffold theme"
   },
-  "scaffoldTheme": "Menü Design",
+  "scaffoldTheme": "Menü-Design",
   "@scaffoldTheme": {
     "description": "Kind of theme - cupertino or material"
   },
