@@ -7,7 +7,7 @@
   "@syntaxHighlighting": {
     "description": "Syntax Highlighting"
   },
-  "somethingBadHappens": "Algo malo sucede:",
+  "somethingBadHappens": "Algo Malo Sucede:",
   "@somethingBadHappens": {
     "description": "error message"
   },
@@ -99,11 +99,11 @@
   "@githubAccount": {
     "description": "Gitea Account"
   },
-  "removeAccount": "Eliminar cuenta",
+  "removeAccount": "Eliminar Cuenta",
   "@removeAccount": {
     "description": "remove account"
   },
-  "selectAccount": "Seleccione una cuenta",
+  "selectAccount": "Seleccione una Cuenta",
   "@selectAccount": {
     "description": "select account message"
   },
@@ -167,7 +167,7 @@
   "@commits": {
     "description": "Commits"
   },
-  "pullRequests": "Solicitudes de incorporación",
+  "pullRequests": "Solicitudes de Incorporación (Pull Requests)",
   "@pullRequests": {
     "description": "Pull Requests"
   },
@@ -195,7 +195,7 @@
   "@version": {
     "description": "app version"
   },
-  "about": "acerca de",
+  "about": "Acerca de",
   "@about": {
     "description": "about section"
   },
@@ -207,7 +207,7 @@
   "@rateThisApp": {
     "description": "rate the app"
   },
-  "submitAnIssue": "Informar de un problema",
+  "submitAnIssue": "Informar de un Problema",
   "@submitAnIssue": {
     "description": "submit issue for app"
   },
@@ -247,7 +247,7 @@
   "@brightness": {
     "description": "brightness"
   },
-  "switchAccounts": "Cambiar de cuenta",
+  "switchAccounts": "Cambiar de Cuentas",
   "@switchAccounts": {
     "description": "Switch accounts"
   },
@@ -267,7 +267,7 @@
   "@githubStatus": {
     "description": "github status"
   },
-  "system": "sistema",
+  "system": "Sistema",
   "@system": {
     "description": "system"
   },
@@ -275,11 +275,11 @@
   "@settings": {
     "description": "settings"
   },
-  "pinnedRepositories": "repositorios anclados",
+  "pinnedRepositories": "Repositorios Anclados",
   "@pinnedRepositories": {
     "description": "pinned repositories"
   },
-  "popularRepositories": "repositorios populares",
+  "popularRepositories": "Repositorios Populares",
   "@popularRepositories": {
     "description": "popular repositories"
   },
@@ -346,5 +346,66 @@
   "news": "Noticias",
   "@news": {
     "description": "The News tab"
+  },
+  "assignedEventMessage": "asignado a",
+  "@assignedEventMessage": {
+    "description": "assigned event"
+  },
+  "unsubscribedEventMessage": "Subscripcion cancelada a este asunto (issue)",
+  "@unsubscribedEventMessage": {
+    "description": "unsubscribed event"
+  },
+  "subscribedEventMessage": "Suscrito a este asunto (issue)",
+  "@subscribedEventMessage": {
+    "description": "subscribed event"
+  },
+  "reopenedEventMessage": "Se reabrió esto",
+  "@reopenedEventMessage": {
+    "description": "reopened event"
+  },
+  "closedEventMessage": "Se cerró esto",
+  "@closedEventMessage": {
+    "description": "closed event"
+  },
+  "pullRequestCommitMessage": "Se añadio el commit {commit}",
+  "@pullRequestCommitMessage": {
+    "description": "pull request commit message",
+    "placeholders": {
+      "commit": {
+        "type": "String"
+      }
+    }
+  },
+  "timelineTypeNotImplemented": "Tipo aún no implementado",
+  "@timelineTypeNotImplemented": {
+    "description": "Timeline type not implemented"
+  },
+  "body": "Cuerpo",
+  "@body": {
+    "description": "body"
+  },
+  "title": "Título",
+  "@title": {
+    "description": "title"
+  },
+  "theme": "Tema",
+  "@theme": {
+    "description": "Theme header text"
+  },
+  "reloadMessage": "La aplicación se volverá a cargar para que la configuración de idioma tome efecto",
+  "@reloadMessage": {
+    "description": "Reload message"
+  },
+  "appLanguage": "Idioma de la Aplicación",
+  "@appLanguage": {
+    "description": "The app's language"
+  },
+  "released": "Lanzado",
+  "@released": {
+    "description": "released"
+  },
+  "submit": "Enviar",
+  "@submit": {
+    "description": "submit button text"
   }
 }

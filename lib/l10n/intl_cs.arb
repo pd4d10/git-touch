@@ -1,0 +1,110 @@
+{
+  "reviewPermissions": "Zkontrolovat povolení",
+  "@reviewPermissions": {
+    "description": "review Permissions"
+  },
+  "trending": "Trendy",
+  "@trending": {
+    "description": "Trending"
+  },
+  "repository": "Repozitář",
+  "@repository": {
+    "description": "Repository screen title"
+  },
+  "sourceCode": "Zdrojový kód",
+  "@sourceCode": {
+    "description": "source code for app"
+  },
+  "version": "Verze",
+  "@version": {
+    "description": "app version"
+  },
+  "about": "O aplikaci",
+  "@about": {
+    "description": "about section"
+  },
+  "email": "E-mail",
+  "@email": {
+    "description": "Email to report issues"
+  },
+  "feedback": "zpětná vazba",
+  "@feedback": {
+    "description": "provide feedback"
+  },
+  "webview": "WebView",
+  "@webview": {
+    "description": "render webview for markdown"
+  },
+  "flutter": "Flutter",
+  "@flutter": {
+    "description": "render flutter for markdown"
+  },
+  "cupertino": "Cupertino",
+  "@cupertino": {
+    "description": "Cupertino scaffold theme"
+  },
+  "dark": "Tmavý",
+  "@dark": {
+    "description": "dark mode"
+  },
+  "light": "Světlý",
+  "@light": {
+    "description": "light mode"
+  },
+  "brightness": "Jas",
+  "@brightness": {
+    "description": "brightness"
+  },
+  "switchAccounts": "Přepnout účet",
+  "@switchAccounts": {
+    "description": "Switch accounts"
+  },
+  "system": "Systém",
+  "@system": {
+    "description": "system"
+  },
+  "settings": "Nastavení",
+  "@settings": {
+    "description": "settings"
+  },
+  "members": "Členi",
+  "@members": {
+    "description": "members of an organization"
+  },
+  "organizations": "Organizace",
+  "@organizations": {
+    "description": "organizations for a user"
+  },
+  "following": "Sleduji",
+  "@following": {
+    "description": "people followed by a person"
+  },
+  "followers": "Sledující",
+  "@followers": {
+    "description": "followers for a person"
+  },
+  "follow": "Sledovat",
+  "@follow": {
+    "description": "follow someone"
+  },
+  "unfollow": "Přestat sledovat",
+  "@unfollow": {
+    "description": "unfollow someone"
+  },
+  "repositories": "Repozitáře",
+  "@repositories": {
+    "description": "repository text"
+  },
+  "search": "Hledat",
+  "@search": {
+    "description": "The Search tab"
+  },
+  "notification": "Oznámení",
+  "@notification": {
+    "description": "The Notification tab"
+  },
+  "news": "Zprávy",
+  "@news": {
+    "description": "The News tab"
+  }
+}
