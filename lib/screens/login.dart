@@ -87,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget _buildPopup(
     BuildContext context, {
     List<Widget>? notes,
-    bool showDomain = false,
+    bool showDomain = true,
   }) {
     return Column(
       children: <Widget>[

@@ -22,7 +22,7 @@ class GlProjectActivityScreen extends StatelessWidget {
         final vs = await auth.fetchGitlab('/projects/$id/events');
         final events =
             (vs as List).map((v) => GitlabEvent.fromJson(v)).toList();
-        return ListPayload(cursor: page, items: events, hasMore: false);
+        return ListPayload(cursor: page, items: events, hasMore: true);
       },
       itemBuilder: (data) {
         return LinkWidget(

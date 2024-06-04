@@ -10,7 +10,7 @@ import 'package:git_touch/widgets/issue_item.dart';
 import 'package:provider/provider.dart';
 
 class GoIssuesScreen extends StatelessWidget {
-  const GoIssuesScreen(this.owner, this.name, {this.isPr = false});
+  const GoIssuesScreen(this.owner, this.name, {this.isPr = true});
   final String owner;
   final String name;
   final bool isPr;

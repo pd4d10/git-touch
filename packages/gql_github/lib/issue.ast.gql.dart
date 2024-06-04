@@ -9,7 +9,7 @@ const CommentParts = _i1.FragmentDefinitionNode(
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
     name: _i1.NameNode(value: 'Comment'),
-    isNonNull: false,
+    isNonNull: true,
   )),
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
@@ -63,7 +63,7 @@ const ReactionConnectionParts = _i1.FragmentDefinitionNode(
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
     name: _i1.NameNode(value: 'ReactionConnection'),
-    isNonNull: false,
+    isNonNull: true,
   )),
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
@@ -88,7 +88,7 @@ const ReactableParts = _i1.FragmentDefinitionNode(
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
     name: _i1.NameNode(value: 'Reactable'),
-    isNonNull: false,
+    isNonNull: true,
   )),
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
@@ -235,7 +235,7 @@ const ReferencedEventParts = _i1.FragmentDefinitionNode(
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
     name: _i1.NameNode(value: 'ReferencedEvent'),
-    isNonNull: false,
+    isNonNull: true,
   )),
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
@@ -327,7 +327,7 @@ const RenamedTitleEventParts = _i1.FragmentDefinitionNode(
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
     name: _i1.NameNode(value: 'RenamedTitleEvent'),
-    isNonNull: false,
+    isNonNull: true,
   )),
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
@@ -374,7 +374,7 @@ const ClosedEventParts = _i1.FragmentDefinitionNode(
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
     name: _i1.NameNode(value: 'ClosedEvent'),
-    isNonNull: false,
+    isNonNull: true,
   )),
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
@@ -407,7 +407,7 @@ const ReopenedEventParts = _i1.FragmentDefinitionNode(
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
     name: _i1.NameNode(value: 'ReopenedEvent'),
-    isNonNull: false,
+    isNonNull: true,
   )),
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
@@ -440,7 +440,7 @@ const CrossReferencedEventParts = _i1.FragmentDefinitionNode(
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
     name: _i1.NameNode(value: 'CrossReferencedEvent'),
-    isNonNull: false,
+    isNonNull: true,
   )),
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
@@ -483,7 +483,7 @@ const CrossReferencedEventParts = _i1.FragmentDefinitionNode(
           typeCondition: _i1.TypeConditionNode(
               on: _i1.NamedTypeNode(
             name: _i1.NameNode(value: 'Issue'),
-            isNonNull: false,
+            isNonNull: true,
           )),
           directives: [],
           selectionSet: _i1.SelectionSetNode(selections: [
@@ -530,7 +530,7 @@ const CrossReferencedEventParts = _i1.FragmentDefinitionNode(
           typeCondition: _i1.TypeConditionNode(
               on: _i1.NamedTypeNode(
             name: _i1.NameNode(value: 'PullRequest'),
-            isNonNull: false,
+            isNonNull: true,
           )),
           directives: [],
           selectionSet: _i1.SelectionSetNode(selections: [
@@ -582,7 +582,7 @@ const LabeledEventParts = _i1.FragmentDefinitionNode(
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
     name: _i1.NameNode(value: 'LabeledEvent'),
-    isNonNull: false,
+    isNonNull: true,
   )),
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
@@ -637,7 +637,7 @@ const UnlabeledEventParts = _i1.FragmentDefinitionNode(
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
     name: _i1.NameNode(value: 'UnlabeledEvent'),
-    isNonNull: false,
+    isNonNull: true,
   )),
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
@@ -692,7 +692,7 @@ const MilestonedEventParts = _i1.FragmentDefinitionNode(
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
     name: _i1.NameNode(value: 'MilestonedEvent'),
-    isNonNull: false,
+    isNonNull: true,
   )),
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
@@ -732,7 +732,7 @@ const DemilestonedEventParts = _i1.FragmentDefinitionNode(
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
     name: _i1.NameNode(value: 'DemilestonedEvent'),
-    isNonNull: false,
+    isNonNull: true,
   )),
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
@@ -772,7 +772,7 @@ const LockedEventParts = _i1.FragmentDefinitionNode(
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
     name: _i1.NameNode(value: 'LockedEvent'),
-    isNonNull: false,
+    isNonNull: true,
   )),
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
@@ -812,7 +812,7 @@ const UnlockedEventParts = _i1.FragmentDefinitionNode(
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
     name: _i1.NameNode(value: 'UnlockedEvent'),
-    isNonNull: false,
+    isNonNull: true,
   )),
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
@@ -845,7 +845,7 @@ const AssignedEventParts = _i1.FragmentDefinitionNode(
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
     name: _i1.NameNode(value: 'AssignedEvent'),
-    isNonNull: false,
+    isNonNull: true,
   )),
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
@@ -888,7 +888,7 @@ const AssignedEventParts = _i1.FragmentDefinitionNode(
           typeCondition: _i1.TypeConditionNode(
               on: _i1.NamedTypeNode(
             name: _i1.NameNode(value: 'User'),
-            isNonNull: false,
+            isNonNull: true,
           )),
           directives: [],
           selectionSet: _i1.SelectionSetNode(selections: [
@@ -905,7 +905,7 @@ const AssignedEventParts = _i1.FragmentDefinitionNode(
           typeCondition: _i1.TypeConditionNode(
               on: _i1.NamedTypeNode(
             name: _i1.NameNode(value: 'Bot'),
-            isNonNull: false,
+            isNonNull: true,
           )),
           directives: [],
           selectionSet: _i1.SelectionSetNode(selections: [
@@ -922,7 +922,7 @@ const AssignedEventParts = _i1.FragmentDefinitionNode(
           typeCondition: _i1.TypeConditionNode(
               on: _i1.NamedTypeNode(
             name: _i1.NameNode(value: 'Organization'),
-            isNonNull: false,
+            isNonNull: true,
           )),
           directives: [],
           selectionSet: _i1.SelectionSetNode(selections: [
@@ -939,7 +939,7 @@ const AssignedEventParts = _i1.FragmentDefinitionNode(
           typeCondition: _i1.TypeConditionNode(
               on: _i1.NamedTypeNode(
             name: _i1.NameNode(value: 'Mannequin'),
-            isNonNull: false,
+            isNonNull: true,
           )),
           directives: [],
           selectionSet: _i1.SelectionSetNode(selections: [
@@ -961,7 +961,7 @@ const UnassignedEventParts = _i1.FragmentDefinitionNode(
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
     name: _i1.NameNode(value: 'UnassignedEvent'),
-    isNonNull: false,
+    isNonNull: true,
   )),
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
@@ -1004,7 +1004,7 @@ const UnassignedEventParts = _i1.FragmentDefinitionNode(
           typeCondition: _i1.TypeConditionNode(
               on: _i1.NamedTypeNode(
             name: _i1.NameNode(value: 'User'),
-            isNonNull: false,
+            isNonNull: true,
           )),
           directives: [],
           selectionSet: _i1.SelectionSetNode(selections: [
@@ -1021,7 +1021,7 @@ const UnassignedEventParts = _i1.FragmentDefinitionNode(
           typeCondition: _i1.TypeConditionNode(
               on: _i1.NamedTypeNode(
             name: _i1.NameNode(value: 'Bot'),
-            isNonNull: false,
+            isNonNull: true,
           )),
           directives: [],
           selectionSet: _i1.SelectionSetNode(selections: [
@@ -1038,7 +1038,7 @@ const UnassignedEventParts = _i1.FragmentDefinitionNode(
           typeCondition: _i1.TypeConditionNode(
               on: _i1.NamedTypeNode(
             name: _i1.NameNode(value: 'Organization'),
-            isNonNull: false,
+            isNonNull: true,
           )),
           directives: [],
           selectionSet: _i1.SelectionSetNode(selections: [
@@ -1055,7 +1055,7 @@ const UnassignedEventParts = _i1.FragmentDefinitionNode(
           typeCondition: _i1.TypeConditionNode(
               on: _i1.NamedTypeNode(
             name: _i1.NameNode(value: 'Mannequin'),
-            isNonNull: false,
+            isNonNull: true,
           )),
           directives: [],
           selectionSet: _i1.SelectionSetNode(selections: [
@@ -1077,7 +1077,7 @@ const SubscribedEventParts = _i1.FragmentDefinitionNode(
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
     name: _i1.NameNode(value: 'SubscribedEvent'),
-    isNonNull: false,
+    isNonNull: true,
   )),
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
@@ -1110,7 +1110,7 @@ const UnsubscribedEventParts = _i1.FragmentDefinitionNode(
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
     name: _i1.NameNode(value: 'UnsubscribedEvent'),
-    isNonNull: false,
+    isNonNull: true,
   )),
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
@@ -1143,7 +1143,7 @@ const MentionedEventParts = _i1.FragmentDefinitionNode(
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
     name: _i1.NameNode(value: 'MentionedEvent'),
-    isNonNull: false,
+    isNonNull: true,
   )),
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
@@ -1176,7 +1176,7 @@ const PinnedEventParts = _i1.FragmentDefinitionNode(
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
     name: _i1.NameNode(value: 'PinnedEvent'),
-    isNonNull: false,
+    isNonNull: true,
   )),
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
@@ -1209,7 +1209,7 @@ const TransferredEventParts = _i1.FragmentDefinitionNode(
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
     name: _i1.NameNode(value: 'TransferredEvent'),
-    isNonNull: false,
+    isNonNull: true,
   )),
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
@@ -1272,7 +1272,7 @@ const PullRequestCommitParts = _i1.FragmentDefinitionNode(
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
     name: _i1.NameNode(value: 'PullRequestCommit'),
-    isNonNull: false,
+    isNonNull: true,
   )),
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
@@ -1328,7 +1328,7 @@ const DeployedEventParts = _i1.FragmentDefinitionNode(
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
     name: _i1.NameNode(value: 'DeployedEvent'),
-    isNonNull: false,
+    isNonNull: true,
   )),
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
@@ -1384,7 +1384,7 @@ const DeploymentEnvironmentChangedEventParts = _i1.FragmentDefinitionNode(
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
     name: _i1.NameNode(value: 'DeploymentEnvironmentChangedEvent'),
-    isNonNull: false,
+    isNonNull: true,
   )),
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
@@ -1447,7 +1447,7 @@ const HeadRefRestoredEventParts = _i1.FragmentDefinitionNode(
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
     name: _i1.NameNode(value: 'HeadRefRestoredEvent'),
-    isNonNull: false,
+    isNonNull: true,
   )),
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
@@ -1495,7 +1495,7 @@ const BaseRefForcePushedEventParts = _i1.FragmentDefinitionNode(
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
     name: _i1.NameNode(value: 'BaseRefForcePushedEvent'),
-    isNonNull: false,
+    isNonNull: true,
   )),
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
@@ -1581,7 +1581,7 @@ const HeadRefForcePushedEventParts = _i1.FragmentDefinitionNode(
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
     name: _i1.NameNode(value: 'HeadRefForcePushedEvent'),
-    isNonNull: false,
+    isNonNull: true,
   )),
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
@@ -1659,7 +1659,7 @@ const ReviewRequestedEventParts = _i1.FragmentDefinitionNode(
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
     name: _i1.NameNode(value: 'ReviewRequestedEvent'),
-    isNonNull: false,
+    isNonNull: true,
   )),
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
@@ -1695,7 +1695,7 @@ const ReviewRequestedEventParts = _i1.FragmentDefinitionNode(
           typeCondition: _i1.TypeConditionNode(
               on: _i1.NamedTypeNode(
             name: _i1.NameNode(value: 'User'),
-            isNonNull: false,
+            isNonNull: true,
           )),
           directives: [],
           selectionSet: _i1.SelectionSetNode(selections: [
@@ -1717,7 +1717,7 @@ const ReviewRequestRemovedEventParts = _i1.FragmentDefinitionNode(
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
     name: _i1.NameNode(value: 'ReviewRequestRemovedEvent'),
-    isNonNull: false,
+    isNonNull: true,
   )),
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
@@ -1753,7 +1753,7 @@ const ReviewRequestRemovedEventParts = _i1.FragmentDefinitionNode(
           typeCondition: _i1.TypeConditionNode(
               on: _i1.NamedTypeNode(
             name: _i1.NameNode(value: 'User'),
-            isNonNull: false,
+            isNonNull: true,
           )),
           directives: [],
           selectionSet: _i1.SelectionSetNode(selections: [
@@ -1775,7 +1775,7 @@ const ReviewDismissedEventParts = _i1.FragmentDefinitionNode(
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
     name: _i1.NameNode(value: 'ReviewDismissedEvent'),
-    isNonNull: false,
+    isNonNull: true,
   )),
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
@@ -1838,7 +1838,7 @@ const PullRequestReviewParts = _i1.FragmentDefinitionNode(
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
     name: _i1.NameNode(value: 'PullRequestReview'),
-    isNonNull: false,
+    isNonNull: true,
   )),
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
@@ -1907,7 +1907,7 @@ const MergedEventParts = _i1.FragmentDefinitionNode(
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
     name: _i1.NameNode(value: 'MergedEvent'),
-    isNonNull: false,
+    isNonNull: true,
   )),
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
@@ -1969,7 +1969,7 @@ const HeadRefDeletedEventParts = _i1.FragmentDefinitionNode(
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
     name: _i1.NameNode(value: 'HeadRefDeletedEvent'),
-    isNonNull: false,
+    isNonNull: true,
   )),
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
@@ -2039,7 +2039,7 @@ const Issue = _i1.OperationDefinitionNode(
       variable: _i1.VariableNode(name: _i1.NameNode(value: 'cursor')),
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'String'),
-        isNonNull: false,
+        isNonNull: true,
       ),
       defaultValue: _i1.DefaultValueNode(value: null),
       directives: [],
@@ -2092,7 +2092,7 @@ const Issue = _i1.OperationDefinitionNode(
               typeCondition: _i1.TypeConditionNode(
                   on: _i1.NamedTypeNode(
                 name: _i1.NameNode(value: 'Issue'),
-                isNonNull: false,
+                isNonNull: true,
               )),
               directives: [],
               selectionSet: _i1.SelectionSetNode(selections: [
@@ -2194,7 +2194,7 @@ const Issue = _i1.OperationDefinitionNode(
                           typeCondition: _i1.TypeConditionNode(
                               on: _i1.NamedTypeNode(
                             name: _i1.NameNode(value: 'IssueComment'),
-                            isNonNull: false,
+                            isNonNull: true,
                           )),
                           directives: [],
                           selectionSet: _i1.SelectionSetNode(selections: [
@@ -2212,7 +2212,7 @@ const Issue = _i1.OperationDefinitionNode(
                           typeCondition: _i1.TypeConditionNode(
                               on: _i1.NamedTypeNode(
                             name: _i1.NameNode(value: 'ReferencedEvent'),
-                            isNonNull: false,
+                            isNonNull: true,
                           )),
                           directives: [],
                           selectionSet: _i1.SelectionSetNode(selections: [
@@ -2226,7 +2226,7 @@ const Issue = _i1.OperationDefinitionNode(
                           typeCondition: _i1.TypeConditionNode(
                               on: _i1.NamedTypeNode(
                             name: _i1.NameNode(value: 'RenamedTitleEvent'),
-                            isNonNull: false,
+                            isNonNull: true,
                           )),
                           directives: [],
                           selectionSet: _i1.SelectionSetNode(selections: [
@@ -2241,7 +2241,7 @@ const Issue = _i1.OperationDefinitionNode(
                           typeCondition: _i1.TypeConditionNode(
                               on: _i1.NamedTypeNode(
                             name: _i1.NameNode(value: 'ClosedEvent'),
-                            isNonNull: false,
+                            isNonNull: true,
                           )),
                           directives: [],
                           selectionSet: _i1.SelectionSetNode(selections: [
@@ -2255,7 +2255,7 @@ const Issue = _i1.OperationDefinitionNode(
                           typeCondition: _i1.TypeConditionNode(
                               on: _i1.NamedTypeNode(
                             name: _i1.NameNode(value: 'ReopenedEvent'),
-                            isNonNull: false,
+                            isNonNull: true,
                           )),
                           directives: [],
                           selectionSet: _i1.SelectionSetNode(selections: [
@@ -2269,7 +2269,7 @@ const Issue = _i1.OperationDefinitionNode(
                           typeCondition: _i1.TypeConditionNode(
                               on: _i1.NamedTypeNode(
                             name: _i1.NameNode(value: 'CrossReferencedEvent'),
-                            isNonNull: false,
+                            isNonNull: true,
                           )),
                           directives: [],
                           selectionSet: _i1.SelectionSetNode(selections: [
@@ -2284,7 +2284,7 @@ const Issue = _i1.OperationDefinitionNode(
                           typeCondition: _i1.TypeConditionNode(
                               on: _i1.NamedTypeNode(
                             name: _i1.NameNode(value: 'LabeledEvent'),
-                            isNonNull: false,
+                            isNonNull: true,
                           )),
                           directives: [],
                           selectionSet: _i1.SelectionSetNode(selections: [
@@ -2298,7 +2298,7 @@ const Issue = _i1.OperationDefinitionNode(
                           typeCondition: _i1.TypeConditionNode(
                               on: _i1.NamedTypeNode(
                             name: _i1.NameNode(value: 'UnlabeledEvent'),
-                            isNonNull: false,
+                            isNonNull: true,
                           )),
                           directives: [],
                           selectionSet: _i1.SelectionSetNode(selections: [
@@ -2312,7 +2312,7 @@ const Issue = _i1.OperationDefinitionNode(
                           typeCondition: _i1.TypeConditionNode(
                               on: _i1.NamedTypeNode(
                             name: _i1.NameNode(value: 'MilestonedEvent'),
-                            isNonNull: false,
+                            isNonNull: true,
                           )),
                           directives: [],
                           selectionSet: _i1.SelectionSetNode(selections: [
@@ -2326,7 +2326,7 @@ const Issue = _i1.OperationDefinitionNode(
                           typeCondition: _i1.TypeConditionNode(
                               on: _i1.NamedTypeNode(
                             name: _i1.NameNode(value: 'DemilestonedEvent'),
-                            isNonNull: false,
+                            isNonNull: true,
                           )),
                           directives: [],
                           selectionSet: _i1.SelectionSetNode(selections: [
@@ -2341,7 +2341,7 @@ const Issue = _i1.OperationDefinitionNode(
                           typeCondition: _i1.TypeConditionNode(
                               on: _i1.NamedTypeNode(
                             name: _i1.NameNode(value: 'LockedEvent'),
-                            isNonNull: false,
+                            isNonNull: true,
                           )),
                           directives: [],
                           selectionSet: _i1.SelectionSetNode(selections: [
@@ -2355,7 +2355,7 @@ const Issue = _i1.OperationDefinitionNode(
                           typeCondition: _i1.TypeConditionNode(
                               on: _i1.NamedTypeNode(
                             name: _i1.NameNode(value: 'UnlockedEvent'),
-                            isNonNull: false,
+                            isNonNull: true,
                           )),
                           directives: [],
                           selectionSet: _i1.SelectionSetNode(selections: [
@@ -2369,7 +2369,7 @@ const Issue = _i1.OperationDefinitionNode(
                           typeCondition: _i1.TypeConditionNode(
                               on: _i1.NamedTypeNode(
                             name: _i1.NameNode(value: 'AssignedEvent'),
-                            isNonNull: false,
+                            isNonNull: true,
                           )),
                           directives: [],
                           selectionSet: _i1.SelectionSetNode(selections: [
@@ -2383,7 +2383,7 @@ const Issue = _i1.OperationDefinitionNode(
                           typeCondition: _i1.TypeConditionNode(
                               on: _i1.NamedTypeNode(
                             name: _i1.NameNode(value: 'UnassignedEvent'),
-                            isNonNull: false,
+                            isNonNull: true,
                           )),
                           directives: [],
                           selectionSet: _i1.SelectionSetNode(selections: [
@@ -2397,7 +2397,7 @@ const Issue = _i1.OperationDefinitionNode(
                           typeCondition: _i1.TypeConditionNode(
                               on: _i1.NamedTypeNode(
                             name: _i1.NameNode(value: 'SubscribedEvent'),
-                            isNonNull: false,
+                            isNonNull: true,
                           )),
                           directives: [],
                           selectionSet: _i1.SelectionSetNode(selections: [
@@ -2411,7 +2411,7 @@ const Issue = _i1.OperationDefinitionNode(
                           typeCondition: _i1.TypeConditionNode(
                               on: _i1.NamedTypeNode(
                             name: _i1.NameNode(value: 'UnsubscribedEvent'),
-                            isNonNull: false,
+                            isNonNull: true,
                           )),
                           directives: [],
                           selectionSet: _i1.SelectionSetNode(selections: [
@@ -2426,7 +2426,7 @@ const Issue = _i1.OperationDefinitionNode(
                           typeCondition: _i1.TypeConditionNode(
                               on: _i1.NamedTypeNode(
                             name: _i1.NameNode(value: 'MentionedEvent'),
-                            isNonNull: false,
+                            isNonNull: true,
                           )),
                           directives: [],
                           selectionSet: _i1.SelectionSetNode(selections: [
@@ -2440,7 +2440,7 @@ const Issue = _i1.OperationDefinitionNode(
                           typeCondition: _i1.TypeConditionNode(
                               on: _i1.NamedTypeNode(
                             name: _i1.NameNode(value: 'PinnedEvent'),
-                            isNonNull: false,
+                            isNonNull: true,
                           )),
                           directives: [],
                           selectionSet: _i1.SelectionSetNode(selections: [
@@ -2454,7 +2454,7 @@ const Issue = _i1.OperationDefinitionNode(
                           typeCondition: _i1.TypeConditionNode(
                               on: _i1.NamedTypeNode(
                             name: _i1.NameNode(value: 'TransferredEvent'),
-                            isNonNull: false,
+                            isNonNull: true,
                           )),
                           directives: [],
                           selectionSet: _i1.SelectionSetNode(selections: [
@@ -2475,7 +2475,7 @@ const Issue = _i1.OperationDefinitionNode(
               typeCondition: _i1.TypeConditionNode(
                   on: _i1.NamedTypeNode(
                 name: _i1.NameNode(value: 'PullRequest'),
-                isNonNull: false,
+                isNonNull: true,
               )),
               directives: [],
               selectionSet: _i1.SelectionSetNode(selections: [
@@ -2620,7 +2620,7 @@ const Issue = _i1.OperationDefinitionNode(
                           typeCondition: _i1.TypeConditionNode(
                               on: _i1.NamedTypeNode(
                             name: _i1.NameNode(value: 'IssueComment'),
-                            isNonNull: false,
+                            isNonNull: true,
                           )),
                           directives: [],
                           selectionSet: _i1.SelectionSetNode(selections: [
@@ -2638,7 +2638,7 @@ const Issue = _i1.OperationDefinitionNode(
                           typeCondition: _i1.TypeConditionNode(
                               on: _i1.NamedTypeNode(
                             name: _i1.NameNode(value: 'ReferencedEvent'),
-                            isNonNull: false,
+                            isNonNull: true,
                           )),
                           directives: [],
                           selectionSet: _i1.SelectionSetNode(selections: [
@@ -2652,7 +2652,7 @@ const Issue = _i1.OperationDefinitionNode(
                           typeCondition: _i1.TypeConditionNode(
                               on: _i1.NamedTypeNode(
                             name: _i1.NameNode(value: 'RenamedTitleEvent'),
-                            isNonNull: false,
+                            isNonNull: true,
                           )),
                           directives: [],
                           selectionSet: _i1.SelectionSetNode(selections: [
@@ -2667,7 +2667,7 @@ const Issue = _i1.OperationDefinitionNode(
                           typeCondition: _i1.TypeConditionNode(
                               on: _i1.NamedTypeNode(
                             name: _i1.NameNode(value: 'ClosedEvent'),
-                            isNonNull: false,
+                            isNonNull: true,
                           )),
                           directives: [],
                           selectionSet: _i1.SelectionSetNode(selections: [
@@ -2681,7 +2681,7 @@ const Issue = _i1.OperationDefinitionNode(
                           typeCondition: _i1.TypeConditionNode(
                               on: _i1.NamedTypeNode(
                             name: _i1.NameNode(value: 'ReopenedEvent'),
-                            isNonNull: false,
+                            isNonNull: true,
                           )),
                           directives: [],
                           selectionSet: _i1.SelectionSetNode(selections: [
@@ -2695,7 +2695,7 @@ const Issue = _i1.OperationDefinitionNode(
                           typeCondition: _i1.TypeConditionNode(
                               on: _i1.NamedTypeNode(
                             name: _i1.NameNode(value: 'CrossReferencedEvent'),
-                            isNonNull: false,
+                            isNonNull: true,
                           )),
                           directives: [],
                           selectionSet: _i1.SelectionSetNode(selections: [
@@ -2710,7 +2710,7 @@ const Issue = _i1.OperationDefinitionNode(
                           typeCondition: _i1.TypeConditionNode(
                               on: _i1.NamedTypeNode(
                             name: _i1.NameNode(value: 'LabeledEvent'),
-                            isNonNull: false,
+                            isNonNull: true,
                           )),
                           directives: [],
                           selectionSet: _i1.SelectionSetNode(selections: [
@@ -2724,7 +2724,7 @@ const Issue = _i1.OperationDefinitionNode(
                           typeCondition: _i1.TypeConditionNode(
                               on: _i1.NamedTypeNode(
                             name: _i1.NameNode(value: 'UnlabeledEvent'),
-                            isNonNull: false,
+                            isNonNull: true,
                           )),
                           directives: [],
                           selectionSet: _i1.SelectionSetNode(selections: [
@@ -2738,7 +2738,7 @@ const Issue = _i1.OperationDefinitionNode(
                           typeCondition: _i1.TypeConditionNode(
                               on: _i1.NamedTypeNode(
                             name: _i1.NameNode(value: 'MilestonedEvent'),
-                            isNonNull: false,
+                            isNonNull: true,
                           )),
                           directives: [],
                           selectionSet: _i1.SelectionSetNode(selections: [
@@ -2752,7 +2752,7 @@ const Issue = _i1.OperationDefinitionNode(
                           typeCondition: _i1.TypeConditionNode(
                               on: _i1.NamedTypeNode(
                             name: _i1.NameNode(value: 'DemilestonedEvent'),
-                            isNonNull: false,
+                            isNonNull: true,
                           )),
                           directives: [],
                           selectionSet: _i1.SelectionSetNode(selections: [
@@ -2767,7 +2767,7 @@ const Issue = _i1.OperationDefinitionNode(
                           typeCondition: _i1.TypeConditionNode(
                               on: _i1.NamedTypeNode(
                             name: _i1.NameNode(value: 'LockedEvent'),
-                            isNonNull: false,
+                            isNonNull: true,
                           )),
                           directives: [],
                           selectionSet: _i1.SelectionSetNode(selections: [
@@ -2781,7 +2781,7 @@ const Issue = _i1.OperationDefinitionNode(
                           typeCondition: _i1.TypeConditionNode(
                               on: _i1.NamedTypeNode(
                             name: _i1.NameNode(value: 'UnlockedEvent'),
-                            isNonNull: false,
+                            isNonNull: true,
                           )),
                           directives: [],
                           selectionSet: _i1.SelectionSetNode(selections: [
@@ -2795,7 +2795,7 @@ const Issue = _i1.OperationDefinitionNode(
                           typeCondition: _i1.TypeConditionNode(
                               on: _i1.NamedTypeNode(
                             name: _i1.NameNode(value: 'AssignedEvent'),
-                            isNonNull: false,
+                            isNonNull: true,
                           )),
                           directives: [],
                           selectionSet: _i1.SelectionSetNode(selections: [
@@ -2809,7 +2809,7 @@ const Issue = _i1.OperationDefinitionNode(
                           typeCondition: _i1.TypeConditionNode(
                               on: _i1.NamedTypeNode(
                             name: _i1.NameNode(value: 'UnassignedEvent'),
-                            isNonNull: false,
+                            isNonNull: true,
                           )),
                           directives: [],
                           selectionSet: _i1.SelectionSetNode(selections: [
@@ -2823,7 +2823,7 @@ const Issue = _i1.OperationDefinitionNode(
                           typeCondition: _i1.TypeConditionNode(
                               on: _i1.NamedTypeNode(
                             name: _i1.NameNode(value: 'SubscribedEvent'),
-                            isNonNull: false,
+                            isNonNull: true,
                           )),
                           directives: [],
                           selectionSet: _i1.SelectionSetNode(selections: [
@@ -2837,7 +2837,7 @@ const Issue = _i1.OperationDefinitionNode(
                           typeCondition: _i1.TypeConditionNode(
                               on: _i1.NamedTypeNode(
                             name: _i1.NameNode(value: 'UnsubscribedEvent'),
-                            isNonNull: false,
+                            isNonNull: true,
                           )),
                           directives: [],
                           selectionSet: _i1.SelectionSetNode(selections: [
@@ -2852,7 +2852,7 @@ const Issue = _i1.OperationDefinitionNode(
                           typeCondition: _i1.TypeConditionNode(
                               on: _i1.NamedTypeNode(
                             name: _i1.NameNode(value: 'MentionedEvent'),
-                            isNonNull: false,
+                            isNonNull: true,
                           )),
                           directives: [],
                           selectionSet: _i1.SelectionSetNode(selections: [
@@ -2866,7 +2866,7 @@ const Issue = _i1.OperationDefinitionNode(
                           typeCondition: _i1.TypeConditionNode(
                               on: _i1.NamedTypeNode(
                             name: _i1.NameNode(value: 'PinnedEvent'),
-                            isNonNull: false,
+                            isNonNull: true,
                           )),
                           directives: [],
                           selectionSet: _i1.SelectionSetNode(selections: [
@@ -2880,7 +2880,7 @@ const Issue = _i1.OperationDefinitionNode(
                           typeCondition: _i1.TypeConditionNode(
                               on: _i1.NamedTypeNode(
                             name: _i1.NameNode(value: 'TransferredEvent'),
-                            isNonNull: false,
+                            isNonNull: true,
                           )),
                           directives: [],
                           selectionSet: _i1.SelectionSetNode(selections: [
@@ -2895,7 +2895,7 @@ const Issue = _i1.OperationDefinitionNode(
                           typeCondition: _i1.TypeConditionNode(
                               on: _i1.NamedTypeNode(
                             name: _i1.NameNode(value: 'PullRequestCommit'),
-                            isNonNull: false,
+                            isNonNull: true,
                           )),
                           directives: [],
                           selectionSet: _i1.SelectionSetNode(selections: [
@@ -2910,7 +2910,7 @@ const Issue = _i1.OperationDefinitionNode(
                           typeCondition: _i1.TypeConditionNode(
                               on: _i1.NamedTypeNode(
                             name: _i1.NameNode(value: 'DeployedEvent'),
-                            isNonNull: false,
+                            isNonNull: true,
                           )),
                           directives: [],
                           selectionSet: _i1.SelectionSetNode(selections: [
@@ -2925,7 +2925,7 @@ const Issue = _i1.OperationDefinitionNode(
                               on: _i1.NamedTypeNode(
                             name: _i1.NameNode(
                                 value: 'DeploymentEnvironmentChangedEvent'),
-                            isNonNull: false,
+                            isNonNull: true,
                           )),
                           directives: [],
                           selectionSet: _i1.SelectionSetNode(selections: [
@@ -2941,7 +2941,7 @@ const Issue = _i1.OperationDefinitionNode(
                           typeCondition: _i1.TypeConditionNode(
                               on: _i1.NamedTypeNode(
                             name: _i1.NameNode(value: 'HeadRefRestoredEvent'),
-                            isNonNull: false,
+                            isNonNull: true,
                           )),
                           directives: [],
                           selectionSet: _i1.SelectionSetNode(selections: [
@@ -2957,7 +2957,7 @@ const Issue = _i1.OperationDefinitionNode(
                               on: _i1.NamedTypeNode(
                             name:
                                 _i1.NameNode(value: 'BaseRefForcePushedEvent'),
-                            isNonNull: false,
+                            isNonNull: true,
                           )),
                           directives: [],
                           selectionSet: _i1.SelectionSetNode(selections: [
@@ -2973,7 +2973,7 @@ const Issue = _i1.OperationDefinitionNode(
                               on: _i1.NamedTypeNode(
                             name:
                                 _i1.NameNode(value: 'HeadRefForcePushedEvent'),
-                            isNonNull: false,
+                            isNonNull: true,
                           )),
                           directives: [],
                           selectionSet: _i1.SelectionSetNode(selections: [
@@ -2988,7 +2988,7 @@ const Issue = _i1.OperationDefinitionNode(
                           typeCondition: _i1.TypeConditionNode(
                               on: _i1.NamedTypeNode(
                             name: _i1.NameNode(value: 'ReviewRequestedEvent'),
-                            isNonNull: false,
+                            isNonNull: true,
                           )),
                           directives: [],
                           selectionSet: _i1.SelectionSetNode(selections: [
@@ -3004,7 +3004,7 @@ const Issue = _i1.OperationDefinitionNode(
                               on: _i1.NamedTypeNode(
                             name: _i1.NameNode(
                                 value: 'ReviewRequestRemovedEvent'),
-                            isNonNull: false,
+                            isNonNull: true,
                           )),
                           directives: [],
                           selectionSet: _i1.SelectionSetNode(selections: [
@@ -3019,7 +3019,7 @@ const Issue = _i1.OperationDefinitionNode(
                           typeCondition: _i1.TypeConditionNode(
                               on: _i1.NamedTypeNode(
                             name: _i1.NameNode(value: 'ReviewDismissedEvent'),
-                            isNonNull: false,
+                            isNonNull: true,
                           )),
                           directives: [],
                           selectionSet: _i1.SelectionSetNode(selections: [
@@ -3034,7 +3034,7 @@ const Issue = _i1.OperationDefinitionNode(
                           typeCondition: _i1.TypeConditionNode(
                               on: _i1.NamedTypeNode(
                             name: _i1.NameNode(value: 'PullRequestReview'),
-                            isNonNull: false,
+                            isNonNull: true,
                           )),
                           directives: [],
                           selectionSet: _i1.SelectionSetNode(selections: [
@@ -3049,7 +3049,7 @@ const Issue = _i1.OperationDefinitionNode(
                           typeCondition: _i1.TypeConditionNode(
                               on: _i1.NamedTypeNode(
                             name: _i1.NameNode(value: 'MergedEvent'),
-                            isNonNull: false,
+                            isNonNull: true,
                           )),
                           directives: [],
                           selectionSet: _i1.SelectionSetNode(selections: [
@@ -3063,7 +3063,7 @@ const Issue = _i1.OperationDefinitionNode(
                           typeCondition: _i1.TypeConditionNode(
                               on: _i1.NamedTypeNode(
                             name: _i1.NameNode(value: 'HeadRefDeletedEvent'),
-                            isNonNull: false,
+                            isNonNull: true,
                           )),
                           directives: [],
                           selectionSet: _i1.SelectionSetNode(selections: [

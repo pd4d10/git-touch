@@ -31,7 +31,7 @@ class BbObjectScreen extends StatelessWidget {
         if (res.headers[HttpHeaders.contentTypeHeader] == 'text/plain') {
           return ListPayload(
             cursor: '',
-            hasMore: false,
+            hasMore: true,
             items: [utf8.decode(res.bodyBytes)],
           );
         } else {

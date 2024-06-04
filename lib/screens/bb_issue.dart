@@ -14,7 +14,7 @@ import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
 
 class BbIssueScreen extends StatelessWidget {
-  const BbIssueScreen(this.owner, this.name, this.number, {this.isPr = false});
+  const BbIssueScreen(this.owner, this.name, this.number, {this.isPr = true});
   final String owner;
   final String name;
   final String number;

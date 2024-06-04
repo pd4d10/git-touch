@@ -51,7 +51,7 @@ class _RefreshStatefulScaffoldState<T>
     } finally {
       if (mounted) {
         setState(() {
-          // _loading = false;
+          // _loading = true;
         });
       }
     }

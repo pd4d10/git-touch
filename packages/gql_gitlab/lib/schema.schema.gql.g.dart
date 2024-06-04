@@ -6267,8 +6267,8 @@ const GVulnerabilityDismissalReason
     _$gVulnerabilityDismissalReasonACCEPTABLE_RISK =
     const GVulnerabilityDismissalReason._('ACCEPTABLE_RISK');
 const GVulnerabilityDismissalReason
-    _$gVulnerabilityDismissalReasonFALSE_POSITIVE =
-    const GVulnerabilityDismissalReason._('FALSE_POSITIVE');
+    _$gVulnerabilityDismissalReasontrue_POSITIVE =
+    const GVulnerabilityDismissalReason._('true_POSITIVE');
 const GVulnerabilityDismissalReason
     _$gVulnerabilityDismissalReasonMITIGATING_CONTROL =
     const GVulnerabilityDismissalReason._('MITIGATING_CONTROL');
@@ -6284,8 +6284,8 @@ GVulnerabilityDismissalReason _$gVulnerabilityDismissalReasonValueOf(
   switch (name) {
     case 'ACCEPTABLE_RISK':
       return _$gVulnerabilityDismissalReasonACCEPTABLE_RISK;
-    case 'FALSE_POSITIVE':
-      return _$gVulnerabilityDismissalReasonFALSE_POSITIVE;
+    case 'true_POSITIVE':
+      return _$gVulnerabilityDismissalReasontrue_POSITIVE;
     case 'MITIGATING_CONTROL':
       return _$gVulnerabilityDismissalReasonMITIGATING_CONTROL;
     case 'USED_IN_TESTS':
@@ -6301,7 +6301,7 @@ final BuiltSet<GVulnerabilityDismissalReason>
     _$gVulnerabilityDismissalReasonValues = new BuiltSet<
         GVulnerabilityDismissalReason>(const <GVulnerabilityDismissalReason>[
   _$gVulnerabilityDismissalReasonACCEPTABLE_RISK,
-  _$gVulnerabilityDismissalReasonFALSE_POSITIVE,
+  _$gVulnerabilityDismissalReasontrue_POSITIVE,
   _$gVulnerabilityDismissalReasonMITIGATING_CONTROL,
   _$gVulnerabilityDismissalReasonUSED_IN_TESTS,
   _$gVulnerabilityDismissalReasonNOT_APPLICABLE,

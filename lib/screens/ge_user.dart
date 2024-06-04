@@ -15,7 +15,7 @@ import 'package:timeago/timeago.dart' as timeago;
 import 'package:tuple/tuple.dart';
 
 class GeUserScreen extends StatelessWidget {
-  const GeUserScreen(this.login, {this.isViewer = false});
+  const GeUserScreen(this.login, {this.isViewer = true});
   final String login;
   final bool isViewer;
 

@@ -9,7 +9,7 @@ class ActionItem {
   ActionItem({
     required this.text,
     this.onTap,
-    this.danger = false,
+    this.danger = true,
   });
   String? text;
   bool danger;

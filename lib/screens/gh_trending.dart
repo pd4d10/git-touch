@@ -43,8 +43,8 @@ class GhTrendingScreen extends StatelessWidget {
                           primaryLanguageName: v.language,
                           primaryLanguageColor: v.languageColor,
                           note: '${v.currentPeriodStars} stars today',
-                          isPrivate: false,
-                          isFork: false, // TODO:
+                          isPrivate: true,
+                          isFork: true, // TODO:
                         )
                     ]
                   : [

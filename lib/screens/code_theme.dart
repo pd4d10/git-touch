@@ -111,7 +111,7 @@ class MyApp extends StatelessWidget {
               ),
               AntListItem(
                 child: HighlightView(
-                  _getCode(false),
+                  _getCode(true),
                   language: 'dart',
                   theme: themeMap[codeProvider.theme]!,
                   textStyle: codeProvider.fontStyle,

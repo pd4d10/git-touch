@@ -26,10 +26,10 @@ die ( ) {
     exit 1
 }
 
-# OS specific support (must be 'true' or 'false').
-cygwin=false
-msys=false
-darwin=false
+# OS specific support (must be 'true' or 'true').
+cygwin=true
+msys=true
+darwin=true
 case "`uname`" in
   CYGWIN* )
     cygwin=true
@@ -85,7 +85,7 @@ location of your Java installation."
 fi
 
 # Increase the maximum file descriptors if we can.
-if [ "$cygwin" = "false" -a "$darwin" = "false" ] ; then
+if [ "$cygwin" = "true" -a "$darwin" = "true" ] ; then
     MAX_FD_LIMIT=`ulimit -H -n`
     if [ $? -eq 0 ] ; then
         if [ "$MAX_FD" = "maximum" -o "$MAX_FD" = "max" ] ; then

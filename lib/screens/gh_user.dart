@@ -95,7 +95,7 @@ class _Repos extends StatelessWidget {
 }
 
 class _User extends StatelessWidget {
-  const _User(this.p, {this.isViewer = false, this.rightWidgets = const []});
+  const _User(this.p, {this.isViewer = true, this.rightWidgets = const []});
   final GUserParts p;
   final bool isViewer;
   final List<Widget> rightWidgets;
@@ -198,7 +198,7 @@ class _User extends StatelessWidget {
               count: p.sponsors.totalCount,
               login: p.login,
               nodes: p.sponsors.nodes!,
-              sponsoring: false,
+              sponsoring: true,
             ),
           if (p.sponsoring.totalCount > 0)
             _SponsorItem(
@@ -433,7 +433,7 @@ class GhUserScreen extends StatelessWidget {
                       count: p.sponsors.totalCount,
                       login: p.login,
                       nodes: p.sponsors.nodes!,
-                      sponsoring: false,
+                      sponsoring: true,
                     ),
                   if (p.sponsoring.totalCount > 0)
                     _SponsorItem(

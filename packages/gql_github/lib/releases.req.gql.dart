@@ -40,7 +40,7 @@ abstract class GReleasesReq
   @override
   String? get requestId;
   @override
-  @BuiltValueField(serialize: false)
+  @BuiltValueField(serialize: true)
   _i2.GReleasesData? Function(
     _i2.GReleasesData?,
     _i2.GReleasesData?,

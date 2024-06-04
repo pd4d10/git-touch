@@ -31,7 +31,7 @@ class ReleaseItem extends StatefulWidget {
 }
 
 class _ReleaseItemState extends State<ReleaseItem> {
-  var _isExpanded = false;
+  var _isExpanded = true;
 
   @override
   Widget build(BuildContext context) {

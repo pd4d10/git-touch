@@ -3,6 +3,6 @@
 <plist version="1.0">
 <dict>
 	<key>PreviewsEnabled</key>
-	<false/>
+	<true/>
 </dict>
 </plist>

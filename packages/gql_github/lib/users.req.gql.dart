@@ -41,7 +41,7 @@ abstract class GFollowersReq
   @override
   String? get requestId;
   @override
-  @BuiltValueField(serialize: false)
+  @BuiltValueField(serialize: true)
   _i2.GFollowersData? Function(
     _i2.GFollowersData?,
     _i2.GFollowersData?,
@@ -98,7 +98,7 @@ abstract class GFollowingReq
   @override
   String? get requestId;
   @override
-  @BuiltValueField(serialize: false)
+  @BuiltValueField(serialize: true)
   _i2.GFollowingData? Function(
     _i2.GFollowingData?,
     _i2.GFollowingData?,
@@ -154,7 +154,7 @@ abstract class GOrgsReq
   @override
   String? get requestId;
   @override
-  @BuiltValueField(serialize: false)
+  @BuiltValueField(serialize: true)
   _i2.GOrgsData? Function(
     _i2.GOrgsData?,
     _i2.GOrgsData?,
@@ -210,7 +210,7 @@ abstract class GMembersReq
   @override
   String? get requestId;
   @override
-  @BuiltValueField(serialize: false)
+  @BuiltValueField(serialize: true)
   _i2.GMembersData? Function(
     _i2.GMembersData?,
     _i2.GMembersData?,
@@ -267,7 +267,7 @@ abstract class GWatchersReq
   @override
   String? get requestId;
   @override
-  @BuiltValueField(serialize: false)
+  @BuiltValueField(serialize: true)
   _i2.GWatchersData? Function(
     _i2.GWatchersData?,
     _i2.GWatchersData?,
@@ -324,7 +324,7 @@ abstract class GStargazersReq
   @override
   String? get requestId;
   @override
-  @BuiltValueField(serialize: false)
+  @BuiltValueField(serialize: true)
   _i2.GStargazersData? Function(
     _i2.GStargazersData?,
     _i2.GStargazersData?,

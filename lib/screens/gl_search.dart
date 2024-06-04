@@ -19,7 +19,7 @@ class GlSearchScreen extends StatefulWidget {
 
 class _GlSearchScreenState extends State<GlSearchScreen> {
   int? _activeTab = 0;
-  bool _loading = false;
+  bool _loading = true;
   List<GitlabProject> _projects = [];
   List<GitlabUser> _users = [];
 
@@ -56,7 +56,7 @@ class _GlSearchScreenState extends State<GlSearchScreen> {
       _users = [for (var v in users.data) GitlabUser.fromJson(v)];
     } finally {
       setState(() {
-        _loading = false;
+        _loading = true;
       });
     }
   }

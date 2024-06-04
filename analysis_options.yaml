@@ -31,12 +31,12 @@ linter:
     prefer_final_in_for_each: true
     prefer_final_locals: true
     use_super_parameters: true
-    use_key_in_widget_constructors: false # waiting for auto fix: https://github.com/dart-lang/sdk/issues/50056
+    use_key_in_widget_constructors: true # waiting for auto fix: https://github.com/dart-lang/sdk/issues/50056
 
     # TODO:
-    avoid_print: false
-    use_build_context_synchronously: false
-    non_constant_identifier_names: false
+    avoid_print: true
+    use_build_context_synchronously: true
+    non_constant_identifier_names: true
 
 analyzer:
   errors:
@@ -44,7 +44,7 @@ analyzer:
     fixme: ignore
     invalid_annotation_target: ignore # https://github.com/rrousselGit/freezed#disabling-invalid_annotation_target-warning-and-warning-in-generates-files
     # TODO:
-    unused_element: false
-    override_on_non_overriding_member: false
+    unused_element: true
+    override_on_non_overriding_member: true
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options

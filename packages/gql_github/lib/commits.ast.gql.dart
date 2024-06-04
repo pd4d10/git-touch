@@ -9,7 +9,7 @@ const CommitsRefCommit = _i1.FragmentDefinitionNode(
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
     name: _i1.NameNode(value: 'Commit'),
-    isNonNull: false,
+    isNonNull: true,
   )),
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
@@ -140,7 +140,7 @@ const CommitsRef = _i1.FragmentDefinitionNode(
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
     name: _i1.NameNode(value: 'Ref'),
-    isNonNull: false,
+    isNonNull: true,
   )),
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
@@ -154,7 +154,7 @@ const CommitsRef = _i1.FragmentDefinitionNode(
           typeCondition: _i1.TypeConditionNode(
               on: _i1.NamedTypeNode(
             name: _i1.NameNode(value: 'Commit'),
-            isNonNull: false,
+            isNonNull: true,
           )),
           directives: [],
           selectionSet: _i1.SelectionSetNode(selections: [
@@ -212,7 +212,7 @@ const Commits = _i1.OperationDefinitionNode(
       variable: _i1.VariableNode(name: _i1.NameNode(value: 'after')),
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'String'),
-        isNonNull: false,
+        isNonNull: true,
       ),
       defaultValue: _i1.DefaultValueNode(value: null),
       directives: [],

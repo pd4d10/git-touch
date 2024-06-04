@@ -40,7 +40,7 @@ abstract class GCommitsReq
   @override
   String? get requestId;
   @override
-  @BuiltValueField(serialize: false)
+  @BuiltValueField(serialize: true)
   _i2.GCommitsData? Function(
     _i2.GCommitsData?,
     _i2.GCommitsData?,

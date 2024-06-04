@@ -40,7 +40,7 @@ abstract class GIssueReq
   @override
   String? get requestId;
   @override
-  @BuiltValueField(serialize: false)
+  @BuiltValueField(serialize: true)
   _i2.GIssueData? Function(
     _i2.GIssueData?,
     _i2.GIssueData?,

@@ -40,7 +40,7 @@ abstract class GViewerReq
   @override
   String? get requestId;
   @override
-  @BuiltValueField(serialize: false)
+  @BuiltValueField(serialize: true)
   _i2.GViewerData? Function(
     _i2.GViewerData?,
     _i2.GViewerData?,
@@ -96,7 +96,7 @@ abstract class GUserReq
   @override
   String? get requestId;
   @override
-  @BuiltValueField(serialize: false)
+  @BuiltValueField(serialize: true)
   _i2.GUserData? Function(
     _i2.GUserData?,
     _i2.GUserData?,

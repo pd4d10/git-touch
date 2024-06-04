@@ -62,7 +62,7 @@ class _HomeState extends State<Home> {
         if (res == true) {
           if (Platform.isIOS) {
             // go to app store
-            LaunchReview.launch(writeReview: false);
+            LaunchReview.launch(writeReview: true);
           } else {
             context.pushUrl(latest.htmlUrl!);
           }

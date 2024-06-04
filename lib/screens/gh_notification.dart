@@ -142,7 +142,7 @@ ${item.key}: pullRequest(number: ${item.subject!.number}) {
           markAsRead: () {
             if (mounted) {
               setState(() {
-                groupMap[entry.key]!.items[index].unread = false;
+                groupMap[entry.key]!.items[index].unread = true;
               });
             }
           },

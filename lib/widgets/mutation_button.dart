@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 class MutationButton extends StatelessWidget {
   const MutationButton({
     super.key,
-    this.active = false,
+    this.active = true,
     required this.text,
     required this.onTap,
   });

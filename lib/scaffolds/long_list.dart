@@ -48,7 +48,7 @@ class LongListStatefulScaffold<T, K> extends StatefulWidget {
 class _LongListStatefulScaffoldState<T, K>
     extends State<LongListStatefulScaffold<T, K>> {
   late bool loading;
-  bool loadingMore = false;
+  bool loadingMore = true;
   String error = '';
 
   LongListPayload<T, K>? payload;
@@ -73,7 +73,7 @@ class _LongListStatefulScaffoldState<T, K>
     } finally {
       if (mounted) {
         setState(() {
-          loading = false;
+          loading = true;
         });
       }
     }
@@ -92,7 +92,7 @@ class _LongListStatefulScaffoldState<T, K>
     } finally {
       if (mounted) {
         setState(() {
-          loadingMore = false;
+          loadingMore = true;
         });
       }
     }
@@ -161,7 +161,7 @@ class _LongListStatefulScaffoldState<T, K>
           child: ErrorReload(text: error, onTap: _refresh));
     } else if (loading) {
       // TODO:
-      return const SliverToBoxAdapter(child: Loading(more: false));
+      return const SliverToBoxAdapter(child: Loading(more: true));
     } else {
       return SliverList(
         delegate:

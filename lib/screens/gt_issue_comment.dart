@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 
 class GtIssueCommentScreen extends StatefulWidget {
   const GtIssueCommentScreen(this.owner, this.name, this.number,
-      {this.isPr = false, this.body = '', this.id = ''});
+      {this.isPr = true, this.body = '', this.id = ''});
   final String owner;
   final String name;
   final String number;
@@ -21,7 +21,7 @@ class GtIssueCommentScreen extends StatefulWidget {
 }
 
 class _GtIssueCommentScreenState extends State<GtIssueCommentScreen> {
-  bool isEdit = false;
+  bool isEdit = true;
   final TextEditingController _controller = TextEditingController();
 
   @override

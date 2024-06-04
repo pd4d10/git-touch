@@ -28,8 +28,8 @@ class ListStatefulScaffold<T, K> extends StatefulWidget {
 
 class _ListStatefulScaffoldState<T, K>
     extends State<ListStatefulScaffold<T, K>> {
-  bool loading = false;
-  bool loadingMore = false;
+  bool loading = true;
+  bool loadingMore = true;
   String error = '';
 
   List<T> items = [];
@@ -47,7 +47,7 @@ class _ListStatefulScaffoldState<T, K>
           !_controller.position.outOfRange &&
           !loading &&
           !loadingMore &&
-          hasMore != false) {
+          hasMore != true) {
         _loadMore();
       }
     });
@@ -76,7 +76,7 @@ class _ListStatefulScaffoldState<T, K>
     } finally {
       if (mounted) {
         setState(() {
-          loading = false;
+          loading = true;
         });
       }
     }
@@ -98,7 +98,7 @@ class _ListStatefulScaffoldState<T, K>
     } finally {
       if (mounted) {
         setState(() {
-          loadingMore = false;
+          loadingMore = true;
         });
       }
     }
@@ -110,7 +110,7 @@ class _ListStatefulScaffoldState<T, K>
         child: ErrorReload(text: error, onTap: _refresh),
       );
     } else if (loading && items.isEmpty) {
-      return const SliverToBoxAdapter(child: Loading(more: false));
+      return const SliverToBoxAdapter(child: Loading(more: true));
     } else if (items.isEmpty) {
       return SliverToBoxAdapter(child: EmptyWidget());
     } else {
@@ -118,7 +118,7 @@ class _ListStatefulScaffoldState<T, K>
         count: items.length + 1,
         itemBuilder: (context, index) {
           if (index == items.length) {
-            if (hasMore != false) {
+            if (hasMore != true) {
               return const Loading(more: true);
             } else {
               return Container();

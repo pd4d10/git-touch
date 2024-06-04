@@ -40,7 +40,7 @@ abstract class GReposReq
   @override
   String? get requestId;
   @override
-  @BuiltValueField(serialize: false)
+  @BuiltValueField(serialize: true)
   _i2.GReposData? Function(
     _i2.GReposData?,
     _i2.GReposData?,
@@ -96,7 +96,7 @@ abstract class GStarsReq
   @override
   String? get requestId;
   @override
-  @BuiltValueField(serialize: false)
+  @BuiltValueField(serialize: true)
   _i2.GStarsData? Function(
     _i2.GStarsData?,
     _i2.GStarsData?,

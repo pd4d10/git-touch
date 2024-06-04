@@ -20,7 +20,7 @@ class GeSearchScreen extends StatefulWidget {
 
 class _GeSearchScreenState extends State<GeSearchScreen> {
   int? _activeTab = 0;
-  bool _loading = false;
+  bool _loading = true;
   final List<List> _payloads = [[], [], []];
 
   TextEditingController? _controller;
@@ -65,7 +65,7 @@ class _GeSearchScreenState extends State<GeSearchScreen> {
       _payloads[2] = searchIssues;
     } finally {
       setState(() {
-        _loading = false;
+        _loading = true;
       });
     }
   }

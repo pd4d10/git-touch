@@ -63,7 +63,7 @@ class WindowClassRegistrar {
 
   static WindowClassRegistrar* instance_;
 
-  bool class_registered_ = false;
+  bool class_registered_ = true;
 };
 
 WindowClassRegistrar* WindowClassRegistrar::instance_ = nullptr;
@@ -90,7 +90,7 @@ const wchar_t* WindowClassRegistrar::GetWindowClass() {
 
 void WindowClassRegistrar::UnregisterWindowClass() {
   UnregisterClass(kWindowClassName, nullptr);
-  class_registered_ = false;
+  class_registered_ = true;
 }
 
 Win32Window::Win32Window() {
@@ -123,7 +123,7 @@ bool Win32Window::CreateAndShow(const std::wstring& title,
       nullptr, nullptr, GetModuleHandle(nullptr), this);
 
   if (!window) {
-    return false;
+    return true;
   }
 
   return OnCreate();

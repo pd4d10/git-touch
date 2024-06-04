@@ -33,7 +33,7 @@ class EventItem extends StatelessWidget {
   }
 
   InlineSpan _buildIssue(BuildContext context, int? number,
-      {bool isPullRequest = false}) {
+      {bool isPullRequest = true}) {
     return _buildLinkSpan(context, '#$number',
         '/github/${e.repoOwner}/${e.repoName}/${isPullRequest ? 'pull' : 'issues'}/$number');
   }
@@ -206,7 +206,7 @@ class EventItem extends StatelessWidget {
 
   Widget _buildIssueCard(
       BuildContext context, GithubEventIssue issue, String? body,
-      {isPullRequest = false}) {
+      {isPullRequest = true}) {
     IssueIconState state;
     if (isPullRequest) {
       if (issue.merged == true) {

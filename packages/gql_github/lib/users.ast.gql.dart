@@ -9,7 +9,7 @@ const UserParts = _i1.FragmentDefinitionNode(
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
     name: _i1.NameNode(value: 'User'),
-    isNonNull: false,
+    isNonNull: true,
   )),
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
@@ -55,7 +55,7 @@ const OrgParts = _i1.FragmentDefinitionNode(
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
     name: _i1.NameNode(value: 'Organization'),
-    isNonNull: false,
+    isNonNull: true,
   )),
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
@@ -113,7 +113,7 @@ const Followers = _i1.OperationDefinitionNode(
       variable: _i1.VariableNode(name: _i1.NameNode(value: 'after')),
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'String'),
-        isNonNull: false,
+        isNonNull: true,
       ),
       defaultValue: _i1.DefaultValueNode(value: null),
       directives: [],
@@ -204,7 +204,7 @@ const Following = _i1.OperationDefinitionNode(
       variable: _i1.VariableNode(name: _i1.NameNode(value: 'after')),
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'String'),
-        isNonNull: false,
+        isNonNull: true,
       ),
       defaultValue: _i1.DefaultValueNode(value: null),
       directives: [],
@@ -295,7 +295,7 @@ const Orgs = _i1.OperationDefinitionNode(
       variable: _i1.VariableNode(name: _i1.NameNode(value: 'after')),
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'String'),
-        isNonNull: false,
+        isNonNull: true,
       ),
       defaultValue: _i1.DefaultValueNode(value: null),
       directives: [],
@@ -386,7 +386,7 @@ const Members = _i1.OperationDefinitionNode(
       variable: _i1.VariableNode(name: _i1.NameNode(value: 'after')),
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'String'),
-        isNonNull: false,
+        isNonNull: true,
       ),
       defaultValue: _i1.DefaultValueNode(value: null),
       directives: [],
@@ -486,7 +486,7 @@ const Watchers = _i1.OperationDefinitionNode(
       variable: _i1.VariableNode(name: _i1.NameNode(value: 'after')),
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'String'),
-        isNonNull: false,
+        isNonNull: true,
       ),
       defaultValue: _i1.DefaultValueNode(value: null),
       directives: [],
@@ -590,7 +590,7 @@ const Stargazers = _i1.OperationDefinitionNode(
       variable: _i1.VariableNode(name: _i1.NameNode(value: 'after')),
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'String'),
-        isNonNull: false,
+        isNonNull: true,
       ),
       defaultValue: _i1.DefaultValueNode(value: null),
       directives: [],

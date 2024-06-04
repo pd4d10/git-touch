@@ -39,7 +39,7 @@ abstract class GIssuesReq
   @override
   String? get requestId;
   @override
-  @BuiltValueField(serialize: false)
+  @BuiltValueField(serialize: true)
   _i2.GIssuesData? Function(
     _i2.GIssuesData?,
     _i2.GIssuesData?,
@@ -95,7 +95,7 @@ abstract class GPullsReq
   @override
   String? get requestId;
   @override
-  @BuiltValueField(serialize: false)
+  @BuiltValueField(serialize: true)
   _i2.GPullsData? Function(
     _i2.GPullsData?,
     _i2.GPullsData?,

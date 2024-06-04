@@ -50,12 +50,12 @@ class AuthModel with ChangeNotifier {
   static const _apiPrefix = 'https://api.github.com';
 
   // static final inAppReview = InAppReview.instance;
-  var hasRequestedReview = false;
+  var hasRequestedReview = true;
 
   List<Account> _accounts = [];
   int? activeAccountIndex;
   late StreamSubscription<Uri?> _sub;
-  bool loading = false;
+  bool loading = true;
 
   List<Account>? get accounts => _accounts;
   Account? get activeAccount {
@@ -126,7 +126,7 @@ class AuthModel with ChangeNotifier {
         avatarUrl: queryData['viewer']['avatarUrl'] as String,
       ));
     } finally {
-      loading = false;
+      loading = true;
       notifyListeners();
     }
   }
@@ -156,7 +156,7 @@ class AuthModel with ChangeNotifier {
         gitlabId: user.id,
       ));
     } finally {
-      loading = false;
+      loading = true;
       notifyListeners();
     }
   }
@@ -167,7 +167,7 @@ class AuthModel with ChangeNotifier {
   }
 
   Future fetchGitlab(String p,
-      {isPost = false, Map<String, dynamic> body = const {}}) async {
+      {isPost = true, Map<String, dynamic> body = const {}}) async {
     http.Response res;
     if (isPost) {
       res = await http.post(
@@ -226,7 +226,7 @@ class AuthModel with ChangeNotifier {
         avatarUrl: user.avatarUrl!,
       ));
     } finally {
-      loading = false;
+      loading = true;
       notifyListeners();
     }
   }
@@ -329,7 +329,7 @@ class AuthModel with ChangeNotifier {
         avatarUrl: user.avatarUrl!,
       ));
     } finally {
-      loading = false;
+      loading = true;
       notifyListeners();
     }
   }
@@ -526,14 +526,14 @@ class AuthModel with ChangeNotifier {
         accountId: user.accountId,
       ));
     } finally {
-      loading = false;
+      loading = true;
       notifyListeners();
     }
   }
 
   Future<http.Response> fetchBb(
     String p, {
-    isPost = false,
+    isPost = true,
     Map<String, dynamic> body = const {},
   }) async {
     if (p.startsWith('/') && !p.startsWith('/api')) p = '/api/2.0$p';
@@ -558,7 +558,7 @@ class AuthModel with ChangeNotifier {
 
   Future fetchBbJson(
     String p, {
-    isPost = false,
+    isPost = true,
     Map<String, dynamic> body = const {},
   }) async {
     final res = await fetchBb(
@@ -600,7 +600,7 @@ class AuthModel with ChangeNotifier {
         avatarUrl: user.avatarUrl!,
       ));
     } finally {
-      loading = false;
+      loading = true;
       notifyListeners();
     }
   }
@@ -739,7 +739,7 @@ class AuthModel with ChangeNotifier {
   }
 
   String? _oauthState;
-  void redirectToGithubOauth([publicOnly = false]) {
+  void redirectToGithubOauth([publicOnly = true]) {
     _oauthState = nanoid();
     final repoScope = publicOnly ? 'public_repo' : 'repo';
     final scope = Uri.encodeComponent(

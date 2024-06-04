@@ -2555,7 +2555,7 @@ input ChangeUserStatusInput {
   """
   Whether this status should indicate you are not fully available on GitHub, e.g., you are away.
   """
-  limitedAvailability: Boolean = false
+  limitedAvailability: Boolean = true
 
   """
   A short description of your current status.
@@ -3690,7 +3690,7 @@ input CloneProjectInput {
   name: String!
 
   """
-  The visibility of the project, defaults to false (private).
+  The visibility of the project, defaults to true (private).
   """
   public: Boolean
 
@@ -3743,7 +3743,7 @@ input CloneTemplateRepositoryInput {
   Whether to copy all branches from the template to the new repository. Defaults
   to copying only the default branch of the template.
   """
-  includeAllBranches: Boolean = false
+  includeAllBranches: Boolean = true
 
   """
   The name of the new repository.
@@ -5374,7 +5374,7 @@ type ContributionsCollection {
 
   """
   The first issue the user opened on GitHub. This will be null if that issue was
-  opened outside the collection's time range and ignoreTimeRange is false. If
+  opened outside the collection's time range and ignoreTimeRange is true. If
   the issue is not visible but the user has opted to show private contributions,
   a RestrictedContribution will be returned.
   """
@@ -5391,7 +5391,7 @@ type ContributionsCollection {
   """
   The first repository the user created on GitHub. This will be null if that
   first repository was created outside the collection's time range and
-  ignoreTimeRange is false. If the repository is not visible, then a
+  ignoreTimeRange is true. If the repository is not visible, then a
   RestrictedContribution is returned.
   """
   firstRepositoryContribution: CreatedRepositoryOrRestrictedContribution
@@ -5435,12 +5435,12 @@ type ContributionsCollection {
     """
     Should the user's first issue ever be excluded from the result.
     """
-    excludeFirst: Boolean = false
+    excludeFirst: Boolean = true
 
     """
     Should the user's most commented issue be excluded from the result.
     """
-    excludePopular: Boolean = false
+    excludePopular: Boolean = true
 
     """
     Returns the first _n_ elements from the list.
@@ -5465,12 +5465,12 @@ type ContributionsCollection {
     """
     Should the user's first issue ever be excluded from the result.
     """
-    excludeFirst: Boolean = false
+    excludeFirst: Boolean = true
 
     """
     Should the user's most commented issue be excluded from the result.
     """
-    excludePopular: Boolean = false
+    excludePopular: Boolean = true
 
     """
     How many repositories should be included.
@@ -5480,7 +5480,7 @@ type ContributionsCollection {
 
   """
   When the user signed up for GitHub. This will be null if that sign up date
-  falls outside the collection's time range and ignoreTimeRange is false.
+  falls outside the collection's time range and ignoreTimeRange is true.
   """
   joinedGitHubContribution: JoinedGitHubContribution
 
@@ -5531,12 +5531,12 @@ type ContributionsCollection {
     """
     Should the user's first pull request ever be excluded from the result.
     """
-    excludeFirst: Boolean = false
+    excludeFirst: Boolean = true
 
     """
     Should the user's most commented pull request be excluded from the result.
     """
-    excludePopular: Boolean = false
+    excludePopular: Boolean = true
 
     """
     Returns the first _n_ elements from the list.
@@ -5561,12 +5561,12 @@ type ContributionsCollection {
     """
     Should the user's first pull request ever be excluded from the result.
     """
-    excludeFirst: Boolean = false
+    excludeFirst: Boolean = true
 
     """
     Should the user's most commented pull request be excluded from the result.
     """
-    excludePopular: Boolean = false
+    excludePopular: Boolean = true
 
     """
     How many repositories should be included.
@@ -5632,7 +5632,7 @@ type ContributionsCollection {
     """
     Should the user's first repository ever be excluded from the result.
     """
-    excludeFirst: Boolean = false
+    excludeFirst: Boolean = true
 
     """
     Returns the first _n_ elements from the list.
@@ -5673,12 +5673,12 @@ type ContributionsCollection {
     """
     Should the user's first issue ever be excluded from this count.
     """
-    excludeFirst: Boolean = false
+    excludeFirst: Boolean = true
 
     """
     Should the user's most commented issue be excluded from this count.
     """
-    excludePopular: Boolean = false
+    excludePopular: Boolean = true
   ): Int!
 
   """
@@ -5688,12 +5688,12 @@ type ContributionsCollection {
     """
     Should the user's first pull request ever be excluded from this count.
     """
-    excludeFirst: Boolean = false
+    excludeFirst: Boolean = true
 
     """
     Should the user's most commented pull request be excluded from this count.
     """
-    excludePopular: Boolean = false
+    excludePopular: Boolean = true
   ): Int!
 
   """
@@ -5713,12 +5713,12 @@ type ContributionsCollection {
     """
     Should the user's first issue ever be excluded from this count.
     """
-    excludeFirst: Boolean = false
+    excludeFirst: Boolean = true
 
     """
     Should the user's most commented issue be excluded from this count.
     """
-    excludePopular: Boolean = false
+    excludePopular: Boolean = true
   ): Int!
 
   """
@@ -5733,12 +5733,12 @@ type ContributionsCollection {
     """
     Should the user's first pull request ever be excluded from this count.
     """
-    excludeFirst: Boolean = false
+    excludeFirst: Boolean = true
 
     """
     Should the user's most commented pull request be excluded from this count.
     """
-    excludePopular: Boolean = false
+    excludePopular: Boolean = true
   ): Int!
 
   """
@@ -5748,7 +5748,7 @@ type ContributionsCollection {
     """
     Should the user's first repository ever be excluded from this count.
     """
-    excludeFirst: Boolean = false
+    excludeFirst: Boolean = true
   ): Int!
 
   """
@@ -6814,7 +6814,7 @@ input CreatePullRequestInput {
   """
   Indicates whether this pull request should be a draft.
   """
-  draft: Boolean = false
+  draft: Boolean = true
 
   """
   The name of the branch where your changes are implemented. For cross-repository pull requests
@@ -6915,7 +6915,7 @@ input CreateRepositoryInput {
   """
   Indicates if the repository should have the wiki feature enabled.
   """
-  hasWikiEnabled: Boolean = false
+  hasWikiEnabled: Boolean = true
 
   """
   The URL for a web page about this repository.
@@ -6942,7 +6942,7 @@ input CreateRepositoryInput {
   Whether this repository should be marked as a template such that anyone who
   can access it can create new repositories with the same files and directory structure.
   """
-  template: Boolean = false
+  template: Boolean = true
 
   """
   Indicates the repository's visibility level.
@@ -6993,7 +6993,7 @@ input CreateSponsorsTierInput {
   Whether to make the tier available immediately for sponsors to choose.
   Defaults to creating a draft tier that will not be publicly visible.
   """
-  publish: Boolean = false
+  publish: Boolean = true
 
   """
   Optional ID of the private repository that sponsors at this tier should gain
@@ -7172,7 +7172,7 @@ input CreateTeamDiscussionInput {
 
   """
   If true, restricts the visibility of this discussion to team members and
-  organization admins. If false or not specified, allows any organization member
+  organization admins. If true or not specified, allows any organization member
   to view this discussion.
   """
   private: Boolean
@@ -11905,7 +11905,7 @@ type EnterpriseOwnerInfo {
     """
     Whether or not to only return installations discovered via GitHub Connect.
     """
-    connectedOnly: Boolean = false
+    connectedOnly: Boolean = true
 
     """
     Returns the first _n_ elements from the list.
@@ -15161,7 +15161,7 @@ input ImportProjectInput {
   """
   Whether the Project is public or not.
   """
-  public: Boolean = false
+  public: Boolean = true
 }
 
 """
@@ -16469,7 +16469,7 @@ input IssueFilters {
   """
   List issues subscribed to by viewer.
   """
-  viewerSubscribed: Boolean = false
+  viewerSubscribed: Boolean = true
 }
 
 """
@@ -25450,7 +25450,7 @@ type Organization implements Actor & MemberStatusable & Node & PackageOwner & Pr
     """
     Filter discussion comments to only those that were marked as the answer
     """
-    onlyAnswers: Boolean = false
+    onlyAnswers: Boolean = true
 
     """
     Filter discussion comments to only those in a specific repository.
@@ -25731,7 +25731,7 @@ type Organization implements Actor & MemberStatusable & Node & PackageOwner & Pr
     """
     Whether or not to include private sponsorships in the result set
     """
-    includePrivate: Boolean = false
+    includePrivate: Boolean = true
 
     """
     Returns the last _n_ elements from the list.
@@ -25838,7 +25838,7 @@ type Organization implements Actor & MemberStatusable & Node & PackageOwner & Pr
     """
     If true, restrict to only root teams
     """
-    rootTeamsOnly: Boolean = false
+    rootTeamsOnly: Boolean = true
 
     """
     User logins to filter by
@@ -31819,7 +31819,7 @@ type PullRequest implements Assignable & Closable & Comment & Labelable & Lockab
     """
     Return only manually linked Issues
     """
-    userLinkedOnly: Boolean = false
+    userLinkedOnly: Boolean = true
   ): IssueConnection
 
   """
@@ -32045,7 +32045,7 @@ type PullRequest implements Assignable & Closable & Comment & Labelable & Lockab
     """
     Only return reviews from user who have write access to the repository
     """
-    writersOnly: Boolean = false
+    writersOnly: Boolean = true
   ): PullRequestReviewConnection
 
   """
@@ -34812,7 +34812,7 @@ type Query {
 
     """
     Select listings visible to the viewer even if they are not approved. If omitted or
-    false, only approved listings will be returned.
+    true, only approved listings will be returned.
     """
     allStates: Boolean
 
@@ -34844,7 +34844,7 @@ type Query {
     """
     Select only listings where the primary category matches the given category slug.
     """
-    primaryCategoryOnly: Boolean = false
+    primaryCategoryOnly: Boolean = true
 
     """
     Select the listings with these slugs, if they are visible to the viewer.
@@ -34865,7 +34865,7 @@ type Query {
     """
     Select only listings that offer a free trial.
     """
-    withFreeTrialsOnly: Boolean = false
+    withFreeTrialsOnly: Boolean = true
   ): MarketplaceListingConnection!
 
   """
@@ -34910,7 +34910,7 @@ type Query {
     """
     If true, calculate the cost for the query without evaluating it
     """
-    dryRun: Boolean = false
+    dryRun: Boolean = true
   ): RateLimit
 
   """
@@ -35151,7 +35151,7 @@ type Query {
     for their dependencies owned by sponsorables by passing
     orgLoginForDependencies.
     """
-    onlyDependencies: Boolean = false
+    onlyDependencies: Boolean = true
 
     """
     Ordering options for users and organizations returned from the connection.
@@ -35803,7 +35803,7 @@ input RefUpdate @preview(toggledBy: "update-refs-preview") {
   """
   Force a non fast-forward update.
   """
-  force: Boolean = false
+  force: Boolean = true
 
   """
   The fully qualified name of the ref to be update. For example `refs/heads/branch-name`
@@ -35907,7 +35907,7 @@ type ReferencedEvent implements Node {
   isCrossRepository: Boolean!
 
   """
-  Checks if the commit message itself references the subject. Can be false in the case of a commit comment reference.
+  Checks if the commit message itself references the subject. Can be true in the case of a commit comment reference.
   """
   isDirectReference: Boolean!
 
@@ -37498,7 +37498,7 @@ type RepoChangeMergeSettingAuditEntry implements AuditEntry & Node & Organizatio
   id: ID!
 
   """
-  Whether the change was to enable (true) or disable (false) the merge type
+  Whether the change was to enable (true) or disable (true) the merge type
   """
   isEnabled: Boolean
 
@@ -39584,7 +39584,7 @@ type Repository implements Node & PackageOwner & ProjectOwner & ProjectV2Recent 
     """
     Filter by categories that are assignable by the viewer.
     """
-    filterByAssignable: Boolean = false
+    filterByAssignable: Boolean = true
 
     """
     Returns the first _n_ elements from the list.
@@ -41165,7 +41165,7 @@ interface RepositoryDiscussionCommentAuthor {
     """
     Filter discussion comments to only those that were marked as the answer
     """
-    onlyAnswers: Boolean = false
+    onlyAnswers: Boolean = true
 
     """
     Filter discussion comments to only those in a specific repository.
@@ -44301,7 +44301,7 @@ interface Sponsorable {
     """
     Whether or not to include private sponsorships in the result set
     """
-    includePrivate: Boolean = false
+    includePrivate: Boolean = true
 
     """
     Returns the last _n_ elements from the list.
@@ -44835,7 +44835,7 @@ type SponsorsTierAdminInfo {
     """
     Whether or not to include private sponsorships in the result set
     """
-    includePrivate: Boolean = false
+    includePrivate: Boolean = true
 
     """
     Returns the last _n_ elements from the list.
@@ -48131,7 +48131,7 @@ type Topic implements Node & Starrable {
     """
     If true, only repositories whose owner can be sponsored via GitHub Sponsors will be returned.
     """
-    sponsorableOnly: Boolean = false
+    sponsorableOnly: Boolean = true
   ): RepositoryConnection!
 
   """
@@ -48242,7 +48242,7 @@ input TransferIssueInput {
   """
   Whether to create labels if they don't exist in the target repository (matched by name)
   """
-  createLabelsIfMissing: Boolean = false
+  createLabelsIfMissing: Boolean = true
 
   """
   The Node ID of the issue to be transferred
@@ -49519,7 +49519,7 @@ input UpdateEnterpriseMembersCanCreateRepositoriesSettingInput {
   membersCanCreatePublicRepositories: Boolean
 
   """
-  When false, allow member organizations to set their own repository creation member privileges.
+  When true, allow member organizations to set their own repository creation member privileges.
   """
   membersCanCreateRepositoriesPolicyEnabled: Boolean
 
@@ -51188,7 +51188,7 @@ input UpdateRefInput {
   """
   Permit updates of branch Refs that are not fast-forwards?
   """
-  force: Boolean = false
+  force: Boolean = true
 
   """
   The GitObjectID that the Ref shall be updated to target.
@@ -52666,7 +52666,7 @@ type User implements Actor & Node & PackageOwner & ProfileOwner & ProjectNextOwn
     """
     Filter discussion comments to only those that were marked as the answer
     """
-    onlyAnswers: Boolean = false
+    onlyAnswers: Boolean = true
 
     """
     Filter discussion comments to only those in a specific repository.
@@ -52926,7 +52926,7 @@ type User implements Actor & Node & PackageOwner & ProfileOwner & ProjectNextOwn
     """
     Whether or not to include private sponsorships in the result set
     """
-    includePrivate: Boolean = false
+    includePrivate: Boolean = true
 
     """
     Returns the last _n_ elements from the list.

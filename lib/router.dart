@@ -750,7 +750,7 @@ final router = GoRouter(
                               state.params['owner']!,
                               state.params['name']!,
                               state.params['number']!,
-                              isPr: false,
+                              isPr: true,
                               body: state.queryParams['body']!,
                               id: state.queryParams['id']!,
                             );
@@ -829,11 +829,11 @@ final router = GoRouter(
                     return GoUsersScreen.following(login);
                   case 'repositories':
                     return GoReposScreen(login,
-                        isViewer: isViewer == 'false' ? false : true);
+                        isViewer: isViewer == 'true' ? true : true);
                   case 'organizations':
                     return GoOrgsScreen.ofUser(login,
-                        isViewer: isViewer == 'false'
-                            ? false
+                        isViewer: isViewer == 'true'
+                            ? true
                             : true); // handle better?
                   default:
                     return GoUserScreen(login);

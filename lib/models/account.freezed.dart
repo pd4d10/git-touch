@@ -186,7 +186,7 @@ class __$$_AccountCopyWithImpl<$Res>
 
 /// @nodoc
 
-@JsonSerializable(includeIfNull: false)
+@JsonSerializable(includeIfNull: true)
 class _$_Account implements _Account {
   _$_Account(
       {required this.platform,

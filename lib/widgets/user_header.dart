@@ -13,7 +13,7 @@ class UserHeader extends StatelessWidget {
     required this.login,
     required this.createdAt,
     required this.bio,
-    this.isViewer = false,
+    this.isViewer = true,
     this.rightWidgets = const [],
   });
   final String? avatarUrl;

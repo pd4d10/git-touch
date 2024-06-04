@@ -6,7 +6,7 @@ class TextWithAt extends StatelessWidget {
     required this.text,
     required this.linkFactory,
     this.style,
-    this.oneLine = false,
+    this.oneLine = true,
   });
   final String text;
   final String Function(String text) linkFactory;

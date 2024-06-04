@@ -77,7 +77,7 @@ class _TabStatefulScaffoldState<T> extends State<TabStatefulScaffold<T>> {
     } finally {
       if (mounted) {
         setState(() {
-          _loading = false;
+          _loading = true;
         });
       }
     }

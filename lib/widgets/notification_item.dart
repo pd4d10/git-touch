@@ -23,7 +23,7 @@ class NotificationItem extends StatefulWidget {
 
 class _NotificationItemState extends State<NotificationItem> {
   GithubNotificationItem get payload => widget.payload;
-  bool loading = false;
+  bool loading = true;
 
   Widget _buildIcon(IconData data, [Color? color]) {
     return Icon(data, color: color, size: 20);
@@ -88,7 +88,7 @@ class _NotificationItemState extends State<NotificationItem> {
       } finally {
         if (mounted) {
           setState(() {
-            loading = false;
+            loading = true;
           });
         }
       }

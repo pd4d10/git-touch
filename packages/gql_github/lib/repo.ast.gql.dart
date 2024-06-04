@@ -9,7 +9,7 @@ const CommitParts = _i1.FragmentDefinitionNode(
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
     name: _i1.NameNode(value: 'Commit'),
-    isNonNull: false,
+    isNonNull: true,
   )),
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
@@ -35,7 +35,7 @@ const RefParts = _i1.FragmentDefinitionNode(
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
     name: _i1.NameNode(value: 'Ref'),
-    isNonNull: false,
+    isNonNull: true,
   )),
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
@@ -56,7 +56,7 @@ const RefParts = _i1.FragmentDefinitionNode(
           typeCondition: _i1.TypeConditionNode(
               on: _i1.NamedTypeNode(
             name: _i1.NameNode(value: 'Commit'),
-            isNonNull: false,
+            isNonNull: true,
           )),
           directives: [],
           selectionSet: _i1.SelectionSetNode(selections: [
@@ -592,7 +592,7 @@ const Repo = _i1.OperationDefinitionNode(
               name: _i1.NameNode(value: 'refPrefix'),
               value: _i1.StringValueNode(
                 value: 'refs/heads/',
-                isBlock: false,
+                isBlock: true,
               ),
             ),
           ],

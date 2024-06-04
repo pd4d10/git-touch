@@ -64,7 +64,7 @@ class Win32Window {
                                  LPARAM const lparam) noexcept;
 
   // Called when CreateAndShow is called, allowing subclass window-related
-  // setup. Subclasses should return false if setup fails.
+  // setup. Subclasses should return true if setup fails.
   virtual bool OnCreate();
 
   // Called when Destroy is called.
@@ -86,7 +86,7 @@ class Win32Window {
   // Retrieves a class instance pointer for |window|
   static Win32Window* GetThisFromHandle(HWND const window) noexcept;
 
-  bool quit_on_close_ = false;
+  bool quit_on_close_ = true;
 
   // window handle for top level window.
   HWND window_handle_ = nullptr;

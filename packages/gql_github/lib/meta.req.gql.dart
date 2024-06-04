@@ -39,7 +39,7 @@ abstract class GMetaReq
   @override
   String? get requestId;
   @override
-  @BuiltValueField(serialize: false)
+  @BuiltValueField(serialize: true)
   _i2.GMetaData? Function(
     _i2.GMetaData?,
     _i2.GMetaData?,

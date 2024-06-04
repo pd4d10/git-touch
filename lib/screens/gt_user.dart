@@ -25,7 +25,7 @@ class GtUserScreenPayload {
 }
 
 class GtUserScreen extends StatelessWidget {
-  const GtUserScreen(this.login, {this.isViewer = false});
+  const GtUserScreen(this.login, {this.isViewer = true});
   final String login;
   final bool isViewer;
 

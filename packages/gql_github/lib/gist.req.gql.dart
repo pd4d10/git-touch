@@ -39,7 +39,7 @@ abstract class GGistReq
   @override
   String? get requestId;
   @override
-  @BuiltValueField(serialize: false)
+  @BuiltValueField(serialize: true)
   _i2.GGistData? Function(
     _i2.GGistData?,
     _i2.GGistData?,

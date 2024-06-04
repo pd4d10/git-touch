@@ -39,7 +39,7 @@ abstract class GProjectReq
   @override
   String? get requestId;
   @override
-  @BuiltValueField(serialize: false)
+  @BuiltValueField(serialize: true)
   _i2.GProjectData? Function(
     _i2.GProjectData?,
     _i2.GProjectData?,

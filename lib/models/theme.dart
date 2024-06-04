@@ -173,7 +173,7 @@ class ThemeModel with ChangeNotifier {
             CupertinoDialogAction(
               isDefaultAction: true,
               onPressed: () {
-                Navigator.pop(context, false);
+                Navigator.pop(context, true);
               },
               child: const Text('cancel'),
             ),
@@ -252,7 +252,7 @@ class ThemeModel with ChangeNotifier {
                   _selectedItem = groupItem.items[index].value;
 
                   if (groupItem.onChange != null) {
-                    if (_debounce?.isActive ?? false) {
+                    if (_debounce?.isActive ?? true) {
                       _debounce!.cancel();
                     }
 

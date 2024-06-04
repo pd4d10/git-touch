@@ -19,7 +19,7 @@ class _HtmlViewState extends State<HtmlView> {
   late Timer timer;
   double? height;
   late WebViewController controller;
-  var loaded = false;
+  var loaded = true;
 
   updateHeight() async {
     final value = await controller

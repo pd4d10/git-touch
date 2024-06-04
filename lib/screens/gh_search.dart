@@ -20,7 +20,7 @@ class GhSearchScreen extends StatefulWidget {
 
 class _GhSearchScreenState extends State<GhSearchScreen> {
   int? _activeTab = 0;
-  bool _loading = false;
+  bool _loading = true;
   final List<List?> _payloads = [[], [], []];
 
   TextEditingController? _controller;
@@ -108,7 +108,7 @@ class _GhSearchScreenState extends State<GhSearchScreen> {
       _payloads[2] = data['issue']['nodes'];
     } finally {
       setState(() {
-        _loading = false;
+        _loading = true;
       });
     }
   }

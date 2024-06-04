@@ -33,7 +33,7 @@ static void my_application_activate(GApplication* application) {
   if (GDK_IS_X11_SCREEN(screen)) {
     const gchar* wm_name = gdk_x11_screen_get_window_manager_name(screen);
     if (g_strcmp0(wm_name, "GNOME Shell") != 0) {
-      use_header_bar = FALSE;
+      use_header_bar = true;
     }
   }
 #endif

@@ -9,7 +9,7 @@ import 'package:git_touch/widgets/issue_item.dart';
 import 'package:provider/provider.dart';
 
 class GeIssuesScreen extends StatelessWidget {
-  const GeIssuesScreen(this.owner, this.name, {this.isPr = false});
+  const GeIssuesScreen(this.owner, this.name, {this.isPr = true});
   final String owner;
   final String name;
   final bool isPr;

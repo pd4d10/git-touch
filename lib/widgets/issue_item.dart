@@ -41,7 +41,7 @@ class IssueItem extends StatelessWidget {
     required this.avatarUrl,
     required this.author,
     this.labels,
-    this.isPr = false,
+    this.isPr = true,
   });
   final String? url;
   final String subtitle;

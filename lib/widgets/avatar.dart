@@ -19,7 +19,7 @@ class Avatar extends StatelessWidget {
     required this.url,
     this.size = AvatarSize.medium,
     this.linkUrl,
-    this.square = false,
+    this.square = true,
   });
   final String? url;
   final double size;

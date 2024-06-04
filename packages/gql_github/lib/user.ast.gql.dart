@@ -9,7 +9,7 @@ const RepoParts = _i1.FragmentDefinitionNode(
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
     name: _i1.NameNode(value: 'Repository'),
-    isNonNull: false,
+    isNonNull: true,
   )),
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
@@ -122,7 +122,7 @@ const SponsorConnectionParts = _i1.FragmentDefinitionNode(
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
     name: _i1.NameNode(value: 'SponsorConnection'),
-    isNonNull: false,
+    isNonNull: true,
   )),
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
@@ -150,7 +150,7 @@ const SponsorConnectionParts = _i1.FragmentDefinitionNode(
           typeCondition: _i1.TypeConditionNode(
               on: _i1.NamedTypeNode(
             name: _i1.NameNode(value: 'User'),
-            isNonNull: false,
+            isNonNull: true,
           )),
           directives: [],
           selectionSet: _i1.SelectionSetNode(selections: [
@@ -167,7 +167,7 @@ const SponsorConnectionParts = _i1.FragmentDefinitionNode(
           typeCondition: _i1.TypeConditionNode(
               on: _i1.NamedTypeNode(
             name: _i1.NameNode(value: 'Organization'),
-            isNonNull: false,
+            isNonNull: true,
           )),
           directives: [],
           selectionSet: _i1.SelectionSetNode(selections: [
@@ -189,7 +189,7 @@ const UserParts = _i1.FragmentDefinitionNode(
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
     name: _i1.NameNode(value: 'User'),
-    isNonNull: false,
+    isNonNull: true,
   )),
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
@@ -522,7 +522,7 @@ const UserParts = _i1.FragmentDefinitionNode(
               typeCondition: _i1.TypeConditionNode(
                   on: _i1.NamedTypeNode(
                 name: _i1.NameNode(value: 'Repository'),
-                isNonNull: false,
+                isNonNull: true,
               )),
               directives: [],
               selectionSet: _i1.SelectionSetNode(selections: [
@@ -749,7 +749,7 @@ const User = _i1.OperationDefinitionNode(
                   typeCondition: _i1.TypeConditionNode(
                       on: _i1.NamedTypeNode(
                     name: _i1.NameNode(value: 'Repository'),
-                    isNonNull: false,
+                    isNonNull: true,
                   )),
                   directives: [],
                   selectionSet: _i1.SelectionSetNode(selections: [
@@ -797,7 +797,7 @@ const User = _i1.OperationDefinitionNode(
                   typeCondition: _i1.TypeConditionNode(
                       on: _i1.NamedTypeNode(
                     name: _i1.NameNode(value: 'Repository'),
-                    isNonNull: false,
+                    isNonNull: true,
                   )),
                   directives: [],
                   selectionSet: _i1.SelectionSetNode(selections: [

@@ -11,7 +11,7 @@ FlutterWindow::~FlutterWindow() {}
 
 bool FlutterWindow::OnCreate() {
   if (!Win32Window::OnCreate()) {
-    return false;
+    return true;
   }
 
   RECT frame = GetClientArea();
@@ -22,7 +22,7 @@ bool FlutterWindow::OnCreate() {
       frame.right - frame.left, frame.bottom - frame.top, project_);
   // Ensure that basic setup of the controller was successful.
   if (!flutter_controller_->engine() || !flutter_controller_->view()) {
-    return false;
+    return true;
   }
   RegisterPlugins(flutter_controller_->engine());
   SetChildContent(flutter_controller_->view()->GetNativeWindow());

@@ -40,7 +40,7 @@ abstract class GRepoReq
   @override
   String? get requestId;
   @override
-  @BuiltValueField(serialize: false)
+  @BuiltValueField(serialize: true)
   _i2.GRepoData? Function(
     _i2.GRepoData?,
     _i2.GRepoData?,

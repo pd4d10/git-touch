@@ -12013,8 +12013,8 @@ class GVulnerabilityDismissalReason extends EnumClass {
   static const GVulnerabilityDismissalReason ACCEPTABLE_RISK =
       _$gVulnerabilityDismissalReasonACCEPTABLE_RISK;
 
-  static const GVulnerabilityDismissalReason FALSE_POSITIVE =
-      _$gVulnerabilityDismissalReasonFALSE_POSITIVE;
+  static const GVulnerabilityDismissalReason true_POSITIVE =
+      _$gVulnerabilityDismissalReasontrue_POSITIVE;
 
   static const GVulnerabilityDismissalReason MITIGATING_CONTROL =
       _$gVulnerabilityDismissalReasonMITIGATING_CONTROL;
