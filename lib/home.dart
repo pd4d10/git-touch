@@ -24,6 +24,7 @@ import 'package:git_touch/screens/go_user.dart';
 import 'package:git_touch/screens/gt_orgs.dart';
 import 'package:git_touch/screens/gt_user.dart';
 import 'package:git_touch/screens/login.dart';
+import 'package:git_touch/screens/rh_explore.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:github/github.dart';
 import 'package:launch_review/launch_review.dart';
@@ -31,6 +32,8 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:pub_semver/pub_semver.dart';
 import 'package:universal_io/io.dart';
+
+import 'screens/rh_user.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -140,6 +143,14 @@ class _HomeState extends State<Home> {
           case 1:
             return GoUserScreen(auth.activeAccount!.login, isViewer: true);
         }
+        break;
+      case PlatformType.rhodecode:
+        switch (index) {
+          case 0:
+            return RhExploreScreen();
+          case 1:
+            return RhUserScreen(null);
+        }
     }
   }
 
@@ -232,6 +243,8 @@ class _HomeState extends State<Home> {
       case PlatformType.gitee:
       case PlatformType.gogs:
         return [search, me];
+      case PlatformType.rhodecode:
+        return [explore, me];
       default:
         return [];
     }

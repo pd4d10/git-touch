@@ -355,6 +355,27 @@ class _LoginScreenState extends State<LoginScreen> {
                         }
                       },
                     ),
+                    _buildAddItem(
+                      text: 'Rhodecode Account',
+                      brand: Ionicons.git_branch_outline, // TODO: brand icon
+                      onTap: () async {
+                        _domainController.text =
+                            'https://rhodecode.local';
+                        final result = await theme.showConfirm(
+                          context,
+                          _buildPopup(context, showDomain: true),
+                        );
+                        if (result == true) {
+                          try {
+                            await auth.loginToRhodecode(
+                                _domainController.text, _tokenController.text);
+                            _tokenController.clear();
+                          } catch (err) {
+                            showError(err);
+                          }
+                        }
+                      },
+                    ),
                   ],
                 ),
                 Container(
