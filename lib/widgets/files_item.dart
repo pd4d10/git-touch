@@ -27,7 +27,7 @@ class FilesItem extends StatelessWidget {
     final theme = Provider.of<ThemeModel>(context);
     final codeProvider = Provider.of<CodeModel>(context);
     return AntCollapse(
-      activeKey: const {},
+      activeKey: {}, // removed const to fix 'Cannot change an unmodifiable set'
       onChange: (_) {
         // TODO: set active
       },
