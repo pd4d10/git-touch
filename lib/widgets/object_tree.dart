@@ -7,11 +7,11 @@ import 'package:git_touch/utils/utils.dart';
 Widget _buildIcon(String type, String name) {
   switch (type) {
     case 'blob': // github gql, gitlab
-    case 'file': // github rest, gitea
+    case 'file': // github rest, gitea, rhodecode
     case 'commit_file': // bitbucket
       return FileIcon(name, size: 26); // TODO: size
     case 'tree': // github gql, gitlab
-    case 'dir': // github rest, gitea
+    case 'dir': // github rest, gitea, rhodecode
     case 'commit_directory': // bitbucket
       return const Icon(AntIcons.folderOutline);
     case 'commit':

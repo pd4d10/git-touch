@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:ferry/ferry.dart';
 import 'package:fimber/fimber.dart';
@@ -11,6 +12,7 @@ import 'package:git_touch/models/gitea.dart';
 import 'package:git_touch/models/gitee.dart';
 import 'package:git_touch/models/gitlab.dart';
 import 'package:git_touch/models/gogs.dart';
+import 'package:git_touch/models/rhodecode.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:github/github.dart';
 import 'package:gql_http_link/gql_http_link.dart';
@@ -18,7 +20,6 @@ import 'package:http/http.dart' as http;
 import 'package:nanoid/nanoid.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uni_links/uni_links.dart';
-// import 'package:in_app_review/in_app_review.dart';
 import 'package:universal_io/io.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -31,6 +32,7 @@ class PlatformType {
   static const gitea = 'gitea';
   static const gitee = 'gitee';
   static const gogs = 'gogs';
+  static const rhodecode = 'rhodecode';
 }
 
 class DataWithPage<T> {
@@ -332,6 +334,71 @@ class AuthModel with ChangeNotifier {
       loading = false;
       notifyListeners();
     }
+  }
+
+  Future loginToRhodecode(String domain, String token) async {
+    domain = domain.trim();
+    token = token.trim();
+    final bodys =
+        '{"id":1,"auth_token":"$token","method":"get_user", "args":"{}"}';
+    try {
+      loading = true;
+      notifyListeners();
+      final res = await http.post(Uri.parse('$domain/_admin/api'),
+          headers: {'content-type': 'text/plain'}, body: bodys);
+      final info = json.decode(res.body);
+      if (info['error'] != null) {
+        throw info['error'];
+      }
+      final userResponse = GetUserResponse.fromJson(info);
+
+      await _addAccount(Account(
+        platform: PlatformType.rhodecode,
+        domain: domain,
+        token: token,
+        login: userResponse.result!.username!,
+        avatarUrl: 'TODO', // user.avatarUrl!,
+      ));
+    } finally {
+      loading = false;
+      notifyListeners();
+    }
+  }
+
+// TODO there is no real pagination
+  Future<DataWithPage> fetchRhodecodeWithPage(
+    String p, {
+    requestType = 'POST',
+    Map<String, dynamic> body = const {},
+  }) async {
+    final info = await fetchRhodecode(p, requestType: requestType, body: body);
+    var next = null;
+    return DataWithPage(
+      data: info,
+      cursor: next ?? 1,
+      hasMore: next != null,
+      total: info['result'].length ?? kTotalCountFallback,
+    );
+  }
+
+  Future fetchRhodecode(
+    String p, {
+    requestType = 'POST',
+    Map<String, dynamic> body = const {},
+  }) async {
+    late http.Response res;
+    final encoded = json.encode(body);
+    final fullBody =
+        '{"id":1,"auth_token":"${activeAccount!.token}","method":"$p", "args":$encoded}';
+    res = await http.post(Uri.parse('${activeAccount!.domain}/_admin/api'),
+        headers: {'content-type': 'text/plain'}, body: fullBody);
+    final info = json.decode(res.body);
+    if (info['error'] != null) {
+      // throw Exception(info['error']);
+      throw Error();
+    }
+
+    return info;
   }
 
   // TODO: refactor

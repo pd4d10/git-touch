@@ -7,8 +7,9 @@
   <a href="https://github.com/">GitHub</a>,
   <a href="https://gitlab.com/">GitLab</a>,
   <a href="https://bitbucket.org/">Bitbucket</a>,
-  <a href="https://gitea.com/">Gitea</a> and
-  <a href="https://gitee.com/">Gitee(码云)</a>, built with Flutter
+  <a href="https://gitea.com/">Gitea</a>,
+  <a href="https://gitee.com/">Gitee(码云)</a> and
+  <a href="https://rhodecode.com/">Rhodecode</a>, built with Flutter
 </p>
 <p align="center">
   <a href="https://apps.apple.com/us/app/gittouch/id1452042346"><img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-US" alt="Download on the App Store" height="48"></a>
@@ -44,6 +45,7 @@ https://github.com/git-touch/git-touch/issues/29
 | Gogs | https://try.gogs.io/ | [Gogs API](https://github.com/gogs/docs-api) | 🚧 | ✅ |
 | Gitea | https://gitea.com/ | [Gitea API](https://try.gitea.io/api/swagger#/) | ✅ | ✅ |
 | Gitee | https://gitee.com/ | [Gitee API](https://gitee.com/api/v5/swagger) | ✅ | 💬 |
+| Rhodecode | https://rhodecode.com | [Rhodecode API](https://docs.rhodecode.com/5.x/rce/api/api.html) | 🚧 | ✅ |
 
 ## Contributing
 

@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:flutter/cupertino.dart';
 import 'package:git_touch/home.dart';
 import 'package:git_touch/screens/bb_commits.dart';
 import 'package:git_touch/screens/bb_issue.dart';
@@ -79,10 +82,29 @@ import 'package:git_touch/screens/gt_status.dart';
 import 'package:git_touch/screens/gt_user.dart';
 import 'package:git_touch/screens/gt_users.dart';
 import 'package:git_touch/screens/login.dart';
+import 'package:git_touch/screens/rh_blob.dart';
+import 'package:git_touch/screens/rh_commit.dart';
+import 'package:git_touch/screens/rh_commits.dart';
+import 'package:git_touch/screens/rh_repo.dart';
+import 'package:git_touch/screens/rh_tree.dart';
+import 'package:git_touch/screens/rh_user.dart';
 import 'package:git_touch/screens/settings.dart';
 import 'package:go_router/go_router.dart';
 
+class MyNavigatorObserver extends NavigatorObserver {
+  @override
+  void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {
+    log('did push route ${route.settings.name}');
+  }
+
+  @override
+  void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) {
+    log('did pop route ${route.settings.name}');
+  }
+}
+
 final router = GoRouter(
+  observers: [MyNavigatorObserver()],
   routes: [
     GoRoute(
       path: '/',
@@ -874,6 +896,59 @@ final router = GoRouter(
                 )
               ],
             ),
+          ],
+        ),
+
+        // rhodecode
+        GoRoute(
+          path: 'rhodecode',
+          builder: (context, state) => Home(),
+          routes: [
+            GoRoute(
+              path: 'user/:id',
+              builder: (context, state) =>
+                  RhUserScreen(int.parse(state.params['id']!)),
+            ),
+            GoRoute(
+              path: 'repository/:id',
+              builder: (context, state) => RhRepoScreen(
+                int.parse(state.params['id']!),
+                branch: state.queryParams['branch'] ?? 'master',
+              ),
+              routes: [
+                GoRoute(
+                  path: 'commits',
+                  builder: (context, state) => RhCommitsScreen(
+                    int.parse(state.params['id']!),
+                    branch: state.queryParams['branch'],
+                  ),
+                ),
+                GoRoute(
+                  path: 'commit/:revision',
+                  builder: (context, state) => RhCommitScreen(
+                    int.parse(state.params['id']!),
+                    state.params['revision']!,
+                  ),
+                ),
+                GoRoute(
+                  path: 'blob/:ref',
+                  builder: (context, state) => RhBlobScreen(
+                    int.parse(state.params['id']!),
+                    state.params['ref']!,
+                    path: state.queryParams['path']!,
+                  ),
+                ),
+                GoRoute(
+                  path: 'tree/:branch',
+                  builder: (context, state) => RhTreeScreen(
+                    int.parse(state.params['id']!),
+                    state.params['branch']!,
+                    state.queryParams['revision']!,
+                    path: state.queryParams['path'],
+                  ),
+                ),
+              ],
+            )
           ],
         ),
       ],

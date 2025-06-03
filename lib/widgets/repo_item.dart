@@ -12,6 +12,8 @@ import 'package:github/github.dart' as github;
 import 'package:gql_github/repos.data.gql.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
+import '../models/rhodecode.dart';
+
 class RepoItem extends StatelessWidget {
   const RepoItem({
     required this.owner,
@@ -90,6 +92,21 @@ class RepoItem extends StatelessWidget {
   })  : iconData = _buildIconData(isPrivate, isFork),
         avatarLink = '/github/$owner',
         url = '/github/$owner/$name';
+
+  RepoItem.rh({
+    required RhRepo payload,
+    this.primaryLanguageName,
+    this.primaryLanguageColor,
+    this.note,
+  })  : name = payload.repoName,
+        description = payload.description,
+        url = '/rhodecode/repository/${payload.repoId}',
+        iconData = _buildIconData(payload.private, payload.forkOfId != null),
+        owner = payload.owner,
+        forkCount = 0, //TODO
+        starCount = 0, // TODO
+        avatarLink = 'TODO',
+        avatarUrl = 'TODO';
 
   factory RepoItem.gql(GRepoParts v, {String? note}) {
     return RepoItem.gh(
