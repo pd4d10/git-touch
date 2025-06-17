@@ -1,0 +1,1 @@
+Клиент для GitHub, GitLab, BitBucket, Gitea и Gitee (китайский хостинг кода)
