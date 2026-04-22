@@ -183,7 +183,7 @@
   "@version": {
     "description": "app version"
   },
-  "about": "ぐらい",
+  "about": "詳細",
   "@about": {
     "description": "about section"
   },
@@ -207,7 +207,7 @@
   "@webview": {
     "description": "render webview for markdown"
   },
-  "flutter": "ひらひらと",
+  "flutter": "フラッター",
   "@flutter": {
     "description": "render flutter for markdown"
   },
@@ -235,7 +235,7 @@
   "@dark": {
     "description": "dark mode"
   },
-  "light": "灯り",
+  "light": "明るい",
   "@light": {
     "description": "light mode"
   },
@@ -251,7 +251,7 @@
   "@switchAccounts": {
     "description": "Switch accounts"
   },
-  "giteaStatus": "ギテアステータス",
+  "giteaStatus": "Gitea のステータス",
   "@giteaStatus": {
     "description": "Gitea status"
   },
@@ -263,7 +263,7 @@
   "@reviewPermissions": {
     "description": "review Permissions"
   },
-  "githubStatus": "GitHubのステータス",
+  "githubStatus": "GitHub のステータス",
   "@githubStatus": {
     "description": "github status"
   },
@@ -315,7 +315,7 @@
   "@follow": {
     "description": "follow someone"
   },
-  "unfollow": "アンフォロー",
+  "unfollow": "フォロー解除",
   "@unfollow": {
     "description": "unfollow someone"
   },
@@ -327,7 +327,7 @@
   "@participating": {
     "description": "The participating Tab"
   },
-  "me": "吾輩",
+  "me": "私の情報",
   "@me": {
     "description": "The Me tab"
   },
@@ -346,5 +346,9 @@
   "news": "ニュース",
   "@news": {
     "description": "The News tab"
+  },
+  "submit": "提出する",
+  "@submit": {
+    "description": "submit button text"
   }
 }

@@ -11,7 +11,7 @@
   "@fontFamily": {
     "description": "Font Family"
   },
-  "syntaxHighlighting": "PENYOROTAN SINTAKS",
+  "syntaxHighlighting": "PENYOROTAN SINTAKSIS",
   "@syntaxHighlighting": {
     "description": "Syntax Highlighting"
   },
@@ -71,7 +71,7 @@
   "@somethingBadHappens": {
     "description": "error message"
   },
-  "removeAccount": "Hapus akun",
+  "removeAccount": "Hapus Akun",
   "@removeAccount": {
     "description": "remove account"
   },
@@ -143,7 +143,7 @@
   "@branches": {
     "description": "branches"
   },
-  "pullRequests": "Pull request",
+  "pullRequests": "Pull Request",
   "@pullRequests": {
     "description": "Pull Requests"
   },
@@ -159,7 +159,7 @@
   "@watchers": {
     "description": "watchers"
   },
-  "releases": "Rilisan",
+  "releases": "Rilis",
   "@releases": {
     "description": "releases"
   },
@@ -183,7 +183,7 @@
   "@version": {
     "description": "app version"
   },
-  "about": "tentang",
+  "about": "Tentang",
   "@about": {
     "description": "about section"
   },
@@ -195,7 +195,7 @@
   "@rateThisApp": {
     "description": "rate the app"
   },
-  "submitAnIssue": "Kirimkan isu",
+  "submitAnIssue": "Kirim Masalah",
   "@submitAnIssue": {
     "description": "submit issue for app"
   },
@@ -247,7 +247,7 @@
   "@brightness": {
     "description": "brightness"
   },
-  "switchAccounts": "Ganti akun",
+  "switchAccounts": "Ganti Akun",
   "@switchAccounts": {
     "description": "Switch accounts"
   },
@@ -259,7 +259,7 @@
   "@reviewPermissions": {
     "description": "review Permissions"
   },
-  "trending": "Trending",
+  "trending": "Sedang tren",
   "@trending": {
     "description": "Trending"
   },
@@ -271,7 +271,7 @@
   "@githubStatus": {
     "description": "github status"
   },
-  "system": "sistem",
+  "system": "Sistem",
   "@system": {
     "description": "system"
   },
@@ -279,11 +279,11 @@
   "@settings": {
     "description": "settings"
   },
-  "pinnedRepositories": "repositori yang disematkan",
+  "pinnedRepositories": "Repositori yang Disematkan",
   "@pinnedRepositories": {
     "description": "pinned repositories"
   },
-  "popularRepositories": "repositori populer",
+  "popularRepositories": "Repositori Populer",
   "@popularRepositories": {
     "description": "popular repositories"
   },
@@ -299,7 +299,7 @@
   "@gists": {
     "description": "gists for a user"
   },
-  "events": "Event",
+  "events": "Peristiwa",
   "@events": {
     "description": "events for a user"
   },
@@ -346,5 +346,519 @@
   "news": "Berita",
   "@news": {
     "description": "The News tab"
+  },
+  "forGithubAppWithId": "untuk Aplikasi Github dengan id {id}",
+  "@forGithubAppWithId": {
+    "description": "for the Github App with id",
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "newPermissionsAccepted": "izin baru diterima untuk ditindak ",
+  "@newPermissionsAccepted": {
+    "description": "new permissions were accepted for"
+  },
+  "editedPages": "mengedit halaman: {pageNames}",
+  "@editedPages": {
+    "description": "edited pages",
+    "placeholders": {
+      "pageAction": {
+        "type": "String"
+      }
+    }
+  },
+  "was": "telah",
+  "@was": {
+    "description": "was"
+  },
+  "from": "dari",
+  "@from": {
+    "description": "from"
+  },
+  "public": "publik",
+  "@public": {
+    "description": "public"
+  },
+  "unsubscribedEventMessage": "berhenti berlangganan dari masalah ini",
+  "@unsubscribedEventMessage": {
+    "description": "unsubscribed event"
+  },
+  "subscribedEventMessage": "berlangganan masalah ini",
+  "@subscribedEventMessage": {
+    "description": "subscribed event"
+  },
+  "reopenedEventMessage": "membuka kembali ini",
+  "@reopenedEventMessage": {
+    "description": "reopened event"
+  },
+  "closedEventMessage": "tutup ini",
+  "@closedEventMessage": {
+    "description": "closed event"
+  },
+  "crossReferencedEventMessage": "referensi ini di",
+  "@crossReferencedEventMessage": {
+    "description": "cross referenced event"
+  },
+  "pullRequestCommitMessage": "menambahkan commit {commit}",
+  "@pullRequestCommitMessage": {
+    "description": "pull request commit message",
+    "placeholders": {
+      "commit": {
+        "type": "String"
+      }
+    }
+  },
+  "timelineTypeNotImplemented": "Tipe belum diimplementasikan",
+  "@timelineTypeNotImplemented": {
+    "description": "Timeline type not implemented"
+  },
+  "body": "Badan",
+  "@body": {
+    "description": "body"
+  },
+  "title": "Judul",
+  "@title": {
+    "description": "title"
+  },
+  "theme": "Tema",
+  "@theme": {
+    "description": "Theme header text"
+  },
+  "appLanguage": "Bahasa Aplikasi",
+  "@appLanguage": {
+    "description": "The app's language"
+  },
+  "released": "dirilis",
+  "@released": {
+    "description": "released"
+  },
+  "submit": "Kirim",
+  "@submit": {
+    "description": "submit button text"
+  },
+  "approvedChanges": "menyetujui perubahan ini",
+  "@approvedChanges": {
+    "description": "approved these changes"
+  },
+  "reviewRequestEventMessage": "Meminta tinjauan dari",
+  "@reviewRequestEventMessage": {
+    "description": "requested a review from"
+  },
+  "reloadMessage": "Aplikasi akan memuat ulang untuk menerapkan perubahan bahasa",
+  "@reloadMessage": {
+    "description": "Reload message"
+  },
+  "referencedEventMessage": "dirujuk pull request ini dari commit {commit} dari {repoName}",
+  "@referencedEventMessage": {
+    "description": "referenced event",
+    "placeholders": {
+      "commit": {
+        "type": "String"
+      },
+      "repoName": {
+        "type": "String"
+      }
+    }
+  },
+  "added": "Ditambahkan",
+  "@added": {
+    "description": "added"
+  },
+  "milestonedEventMessage": "menambahkan ini {milestone} ke tonggak sejarah",
+  "@milestonedEventMessage": {
+    "description": "milestone event",
+    "placeholders": {
+      "milestone": {
+        "type": "String"
+      }
+    }
+  },
+  "transferredEventMessage": "mengalihkan issue ini dari {repoName}",
+  "@transferredEventMessage": {
+    "description": "transferred event",
+    "placeholders": {
+      "repoName": {
+        "type": "String"
+      }
+    }
+  },
+  "headRefRestoredEventMessage": "memulihkan branch {headRefName}",
+  "@headRefRestoredEventMessage": {
+    "description": "head ref restored event",
+    "placeholders": {
+      "headRefName": {
+        "type": "String"
+      }
+    }
+  },
+  "headRefForcedPushedEventSecondMessage": "branch dari",
+  "@headRefForcedPushedEventSecondMessage": {
+    "description": "head ref forced pushed event message second half"
+  },
+  "wereAddedTo": "{repos} ditambahkan ke id instalasi {id}",
+  "@wereAddedTo": {
+    "description": "example: repo1,repo2 were added to the installation id ID",
+    "placeholders": {
+      "repos": {
+        "type": "String"
+      },
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "commentedOn": "Dikomentari pada",
+  "@commentedOn": {
+    "description": "commented on"
+  },
+  "securityAlertInvolvingPackage": "Peringatan keamanan yang melibatkan paket {affectedPackageName} antara versi {affectedRange} adalah {action}ed",
+  "@securityAlertInvolvingPackage": {
+    "description": "Security alert involving package",
+    "placeholders": {
+      "affectedPackageName": {
+        "type": "String"
+      },
+      "affectedRange": {
+        "type": "String"
+      },
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "removed": "Dihapus",
+  "@removed": {
+    "description": "removed"
+  },
+  "label": "label",
+  "@label": {
+    "description": "label"
+  },
+  "deploymentEnvironmentChangedEventMessage": "mengubah lingkungan pengembangan menjadi {devEnv}",
+  "@deploymentEnvironmentChangedEventMessage": {
+    "description": "deployment environment changed event",
+    "placeholders": {
+      "devEnv": {
+        "type": "String"
+      }
+    }
+  },
+  "reviewDismissedEventMessage": "menolak tinjauan pull request yang diminta oleh",
+  "@reviewDismissedEventMessage": {
+    "description": "dismissed the pull request review requested by"
+  },
+  "checkSuiteEventMessage": "{action} check suite dan kesimpulannya adalah bahwa",
+  "@checkSuiteEventMessage": {
+    "description": "check suite event message conclusion",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "contentReferenceEventMessage": "{action} referensi konten di",
+  "@contentReferenceEventMessage": {
+    "description": "content reference event",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "createdEventMessage": "membuat {refType} {ref} di",
+  "@createdEventMessage": {
+    "description": "created event message",
+    "placeholders": {
+      "refType": {
+        "type": "String"
+      },
+      "ref": {
+        "type": "String"
+      }
+    }
+  },
+  "createdPages": "membuat halaman: {pageNames}",
+  "@createdPages": {
+    "description": "created pages",
+    "placeholders": {
+      "pageNames": {
+        "type": "String"
+      }
+    }
+  },
+  "wereRemovedFrom": "{repos} telah dihapus dari id instalasi {id}",
+  "@wereRemovedFrom": {
+    "description": "example: repo1,repo2 were removed from the installation id ID",
+    "placeholders": {
+      "repos": {
+        "type": "String"
+      },
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "to": "ke",
+  "@to": {
+    "description": "to"
+  },
+  "purchasedMarketplacePlan": "Membeli Paket Marketplace",
+  "@purchasedMarketplacePlan": {
+    "description": "purchased a Marketplace Plan"
+  },
+  "cancelledMarketplacePlan": "membatalkan paket Marketplace mereka",
+  "@cancelledMarketplacePlan": {
+    "description": "cancelled their Marketplace Plan"
+  },
+  "actionRequiredConclusion": "Membutuhkan lebih banyak tindakan",
+  "@actionRequiredConclusion": {
+    "description": "it requires more action"
+  },
+  "commitCommentEventMessage": "Mengomentari commit di",
+  "@commitCommentEventMessage": {
+    "description": "commit comment event message"
+  },
+  "at": "di",
+  "@at": {
+    "description": "at"
+  },
+  "changedMarketplacePlan": "Mengubah Paket Marketplace mereka",
+  "@changedMarketplacePlan": {
+    "description": "changed their Marketplace Plan"
+  },
+  "convertProjectCard": "mengubah project card menjadi issue",
+  "@convertProjectCard": {
+    "description": "converted the project card into an issue"
+  },
+  "forked": "forked",
+  "@forked": {
+    "description": "forked"
+  },
+  "nCommitsTo": "{count,plural, =1{{count} commit to} lainnya{{count} commits to}}",
+  "@nCommitsTo": {
+    "description": "no. of commits to a branch",
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "securityAdvisory": "Penasihat keamanan mengenai {summary} adalah {action}",
+  "@securityAdvisory": {
+    "description": "Security advisory",
+    "placeholders": {
+      "summary": {
+        "type": "String"
+      },
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "assignedEventMessage": "Tugaskan ini kepada",
+  "@assignedEventMessage": {
+    "description": "assigned event"
+  },
+  "unassignedEventMessage": "cabut tugas ini dari",
+  "@unassignedEventMessage": {
+    "description": "unassigned event"
+  },
+  "demilestonedEventMessage": "dihapus ini dari {milestone} tonggak sejarah",
+  "@demilestonedEventMessage": {
+    "description": "demilestoned event",
+    "placeholders": {
+      "milestone": {
+        "type": "String"
+      }
+    }
+  },
+  "renamedTitleEventMessage": "mengubah judul menjadi {title} dari",
+  "@renamedTitleEventMessage": {
+    "description": "changed title event",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "lockedConversationEventMessage": "kunci percakapan ini",
+  "@lockedConversationEventMessage": {
+    "description": "locked this conversation"
+  },
+  "unlockedConversationEventMessage": "membuka kunci percakapan ini",
+  "@unlockedConversationEventMessage": {
+    "description": "unlocked this conversation"
+  },
+  "reviewed": "Ditinjau",
+  "@reviewed": {
+    "description": "reviewed"
+  },
+  "mergedEventMessage": "merged commit {commit} ke {mergeRefName}",
+  "@mergedEventMessage": {
+    "description": "merged event message",
+    "placeholders": {
+      "commit": {
+        "type": "String"
+      },
+      "mergeRefName": {
+        "type": "String"
+      }
+    }
+  },
+  "mentionedEventMessage": "Disebutkan",
+  "@mentionedEventMessage": {
+    "description": "was mentioned"
+  },
+  "pinnedEventMessage": "menyematkan issue ini",
+  "@pinnedEventMessage": {
+    "description": "pinned this issue"
+  },
+  "headRefDeletedEventMessage": "menghapus branch {headRefName}",
+  "@headRefDeletedEventMessage": {
+    "description": "head ref deleted event",
+    "placeholders": {
+      "headRefName": {
+        "type": "String"
+      }
+    }
+  },
+  "deployedPR": "meluncurkan pull request {headRefName}",
+  "@deployedPR": {
+    "description": "deployed the pull request",
+    "placeholders": {
+      "headRefName": {
+        "type": "String"
+      }
+    }
+  },
+  "fromReviewRequest": "dari permintaan review",
+  "@fromReviewRequest": {
+    "description": "from the review request"
+  },
+  "checkRunEventMessage": "{action} check run untuk {name}",
+  "@checkRunEventMessage": {
+    "description": "check run event",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "checkSuiteEventConclusionMessage": "Ini adalah {conclusion}",
+  "@checkSuiteEventConclusionMessage": {
+    "description": "check suite event conclusion",
+    "placeholders": {
+      "conclusion": {
+        "type": "String"
+      }
+    }
+  },
+  "deletedEventMessage": "{refType} {ref} dihapus di",
+  "@deletedEventMessage": {
+    "description": "deleted event message",
+    "placeholders": {
+      "refType": {
+        "type": "String"
+      },
+      "ref": {
+        "type": "String"
+      }
+    }
+  },
+  "pendingMarketplacePlan": "Paket Marketplace sedang menunggu perubahan",
+  "@pendingMarketplacePlan": {
+    "description": "Marketplace Plan is pending change"
+  },
+  "pendingChangeCancelled": "Pending paket Marketplace dibatalkan",
+  "@pendingChangeCancelled": {
+    "description": "Pending Marketplace Plan was cancelled"
+  },
+  "theProjectCard": "Kartu proyek",
+  "@theProjectCard": {
+    "description": "the project card"
+  },
+  "projectColumnEventMessage": "{action} kolom proyek {projectColumnName} di ",
+  "@projectColumnEventMessage": {
+    "description": "the project column",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      },
+      "projectColumnName": {
+        "type": "String"
+      }
+    }
+  },
+  "projectEventMessage": "{action} proyek {projectName}",
+  "@projectEventMessage": {
+    "description": "the project",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      },
+      "projectName": {
+        "type": "String"
+      }
+    }
+  },
+  "made": "buat",
+  "@made": {
+    "description": "made"
+  },
+  "pullRequestEventMessage": "{action} permintaan pull",
+  "@pullRequestEventMessage": {
+    "description": "pull request event",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "pullRequestReviewEventMessage": "{action} ulasan pull request",
+  "@pullRequestReviewEventMessage": {
+    "description": "pull request review event message",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "pullRequestReviewCommentEventMessage": "pull request yang ditinjau",
+  "@pullRequestReviewCommentEventMessage": {
+    "description": "pull request review comment event"
+  },
+  "pushedTo": "didorong ke",
+  "@pushedTo": {
+    "description": "pushed to"
+  },
+  "starred": "Dibintangi",
+  "@starred": {
+    "description": "starred"
+  },
+  "headRefForcedPushedEventFirstMessage": "force-push",
+  "@headRefForcedPushedEventFirstMessage": {
+    "description": "head ref forced pushed event message first half"
+  },
+  "commit": "Commit",
+  "@commit": {
+    "description": "Commit"
+  },
+  "filesChanged": "{count,plural, =1{{count} file diubah} other{{count} file diubah}}",
+  "@filesChanged": {
+    "description": "no. of files changed",
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "blankDiff": "Tak ada teks yang ditampilkan di sini",
+  "@blankDiff": {
+    "description": "text to show for a blank diff"
   }
 }

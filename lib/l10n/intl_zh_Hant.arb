@@ -1,117 +1,117 @@
 {
-  "fontStyle": "字体样式",
+  "fontStyle": "字體樣式",
   "@fontStyle": {
     "description": "font style"
   },
-  "fontSize": "字体大小",
+  "fontSize": "字體大小",
   "@fontSize": {
     "description": "font size"
   },
-  "fontFamily": "字体家族",
+  "fontFamily": "字體家族",
   "@fontFamily": {
     "description": "Font Family"
   },
-  "syntaxHighlighting": "同义词高亮",
+  "syntaxHighlighting": "語法高光",
   "@syntaxHighlighting": {
     "description": "Syntax Highlighting"
   },
-  "projectActions": "项目行动",
+  "projectActions": "專案動作",
   "@projectActions": {
     "description": "Project Actions"
   },
-  "code": "编码",
+  "code": "程式碼",
   "@code": {
     "description": "Code"
   },
-  "issue": "问题",
+  "issue": "問題",
   "@issue": {
     "description": "issue"
   },
-  "group": "集团",
+  "group": "群組",
   "@group": {
     "description": "group"
   },
-  "user": "用户",
+  "user": "使用者",
   "@user": {
     "description": "user"
   },
-  "giteeAccount": "Gitee账户",
+  "giteeAccount": "Gitee 帳號",
   "@giteeAccount": {
     "description": "Gitee Account"
   },
-  "giteaAccount": "Gitea账户",
+  "giteaAccount": "Gitea 帳號",
   "@giteaAccount": {
     "description": "Gitea Account"
   },
-  "longPressToRemoveAccount": "长按删除账户",
+  "longPressToRemoveAccount": "長按刪除帳號",
   "@longPressToRemoveAccount": {
     "description": "Long Press to remove account"
   },
-  "bitbucketAccount": "Bitbucket账户",
+  "bitbucketAccount": "Bitbucket 帳號",
   "@bitbucketAccount": {
     "description": "Bitbucket Account"
   },
-  "gitlabAccount": "GitLab账户",
+  "gitlabAccount": "GitLab 帳號",
   "@gitlabAccount": {
     "description": "Gitlab Account"
   },
-  "notFoundTextDisplay": "哎呀，这个页面还没有实现。",
+  "notFoundTextDisplay": "哎呀，這個頁面還沒完成。",
   "@notFoundTextDisplay": {
     "description": "Not found error message"
   },
-  "notFoundMessage": "未找到",
+  "notFoundMessage": "找不到",
   "@notFoundMessage": {
     "description": "Not found page header"
   },
-  "permissionRequiredMessage": "GitTouch需要以下权限",
+  "permissionRequiredMessage": "GitTouch 需要以下權限",
   "@permissionRequiredMessage": {
     "description": "Permission Required Message"
   },
-  "githubAccount": "GitHub账户",
+  "githubAccount": "GitHub 帳號",
   "@githubAccount": {
     "description": "Gitea Account"
   },
-  "somethingBadHappens": "糟糕的事情发生了：",
+  "somethingBadHappens": "發生了些不好的事：",
   "@somethingBadHappens": {
     "description": "error message"
   },
-  "removeAccount": "删除账户",
+  "removeAccount": "刪除帳號",
   "@removeAccount": {
     "description": "remove account"
   },
-  "selectAccount": "选择账户",
+  "selectAccount": "選擇帳號",
   "@selectAccount": {
     "description": "select account message"
   },
-  "project": "项目介绍",
+  "project": "專案",
   "@project": {
     "description": "project"
   },
-  "activity": "活动",
+  "activity": "活動",
   "@activity": {
     "description": "activity"
   },
-  "mergeRequests": "合并请求",
+  "mergeRequests": "合併請求",
   "@mergeRequests": {
     "description": "Merge request"
   },
-  "groups": "群体",
+  "groups": "群組",
   "@groups": {
     "description": "groups"
   },
-  "actions": "行动",
+  "actions": "動作",
   "@actions": {
     "description": "actions"
   },
-  "files": "文件",
+  "files": "檔案",
   "@files": {
     "description": "file plural"
   },
-  "file": "文件",
+  "file": "檔案",
   "@file": {
     "description": "file"
   },
-  "teams": "队伍",
+  "teams": "團隊",
   "@teams": {
     "description": "teams"
   },
@@ -119,7 +119,7 @@
   "@explore": {
     "description": "explore"
   },
-  "developers": "开发商",
+  "developers": "開發者",
   "@developers": {
     "description": "developers"
   },
@@ -127,27 +127,27 @@
   "@all": {
     "description": "all"
   },
-  "unread": "未读",
+  "unread": "未讀",
   "@unread": {
     "description": "unread"
   },
-  "contributors": "贡献者",
+  "contributors": "貢獻者",
   "@contributors": {
     "description": "contributors"
   },
-  "branches": "分支机构",
+  "branches": "分支",
   "@branches": {
     "description": "branches"
   },
-  "commits": "承诺",
+  "commits": "承諾",
   "@commits": {
     "description": "Commits"
   },
-  "pullRequests": "拉动请求",
+  "pullRequests": "拉取請求",
   "@pullRequests": {
     "description": "Pull Requests"
   },
-  "issues": "问题",
+  "issues": "問題",
   "@issues": {
     "description": "issues"
   },
@@ -159,23 +159,23 @@
   "@watchers": {
     "description": "watchers"
   },
-  "releases": "发布",
+  "releases": "發布",
   "@releases": {
     "description": "releases"
   },
-  "projects": "项目介绍",
+  "projects": "專案",
   "@projects": {
     "description": "projects"
   },
-  "repositoryActions": "存储库行动",
+  "repositoryActions": "儲存庫動作",
   "@repositoryActions": {
     "description": "Repository Actions"
   },
-  "repository": "储存库",
+  "repository": "儲存庫",
   "@repository": {
     "description": "Repository screen title"
   },
-  "sourceCode": "源代码",
+  "sourceCode": "原始碼",
   "@sourceCode": {
     "description": "source code for app"
   },
@@ -183,23 +183,23 @@
   "@version": {
     "description": "app version"
   },
-  "about": "关于",
+  "about": "關於",
   "@about": {
     "description": "about section"
   },
-  "email": "电子邮件",
+  "email": "電子郵件",
   "@email": {
     "description": "Email to report issues"
   },
-  "rateThisApp": "给这个应用程序评分",
+  "rateThisApp": "給這個應用程式評分",
   "@rateThisApp": {
     "description": "rate the app"
   },
-  "submitAnIssue": "提交问题",
+  "submitAnIssue": "提交問題",
   "@submitAnIssue": {
     "description": "submit issue for app"
   },
-  "feedback": "反馈",
+  "feedback": "回饋",
   "@feedback": {
     "description": "provide feedback"
   },
@@ -215,7 +215,7 @@
   "@markdownRenderEngine": {
     "description": "flutter or webview rendering for markdown"
   },
-  "codeTheme": "代码主题",
+  "codeTheme": "程式碼主题",
   "@codeTheme": {
     "description": "code theme"
   },
@@ -247,47 +247,47 @@
   "@brightness": {
     "description": "brightness"
   },
-  "switchAccounts": "转换账户",
+  "switchAccounts": "切換帳號",
   "@switchAccounts": {
     "description": "Switch accounts"
   },
-  "giteaStatus": "基特阿地位",
+  "giteaStatus": "Gitea 狀態",
   "@giteaStatus": {
     "description": "Gitea status"
   },
-  "gitlabStatus": "GitLab状态",
+  "gitlabStatus": "GitLab 狀態",
   "@gitlabStatus": {
     "description": "GitLab status"
   },
-  "reviewPermissions": "审查权限",
+  "reviewPermissions": "審查權限",
   "@reviewPermissions": {
     "description": "review Permissions"
   },
-  "githubStatus": "GitHub状态",
+  "githubStatus": "GitHub 狀態",
   "@githubStatus": {
     "description": "github status"
   },
-  "system": "制度",
+  "system": "系統",
   "@system": {
     "description": "system"
   },
-  "settings": "设置",
+  "settings": "設定",
   "@settings": {
     "description": "settings"
   },
-  "pinnedRepositories": "钉住的存储库",
+  "pinnedRepositories": "釘選的儲存庫",
   "@pinnedRepositories": {
     "description": "pinned repositories"
   },
-  "popularRepositories": "热门库",
+  "popularRepositories": "受歡迎的儲存庫",
   "@popularRepositories": {
     "description": "popular repositories"
   },
-  "members": "成员",
+  "members": "成員",
   "@members": {
     "description": "members of an organization"
   },
-  "organizations": "组织机构",
+  "organizations": "組織",
   "@organizations": {
     "description": "organizations for a user"
   },
@@ -303,7 +303,7 @@
   "@following": {
     "description": "people followed by a person"
   },
-  "followers": "追随者",
+  "followers": "追蹤者",
   "@followers": {
     "description": "followers for a person"
   },
@@ -311,19 +311,19 @@
   "@stars": {
     "description": "stars on a repo"
   },
-  "follow": "遵循",
+  "follow": "追蹤",
   "@follow": {
     "description": "follow someone"
   },
-  "unfollow": "取消关注",
+  "unfollow": "取消追蹤",
   "@unfollow": {
     "description": "unfollow someone"
   },
-  "repositories": "储存库",
+  "repositories": "儲存庫",
   "@repositories": {
     "description": "repository text"
   },
-  "participating": "参与",
+  "participating": "參與",
   "@participating": {
     "description": "The participating Tab"
   },
@@ -331,11 +331,11 @@
   "@me": {
     "description": "The Me tab"
   },
-  "search": "检索",
+  "search": "搜尋",
   "@search": {
     "description": "The Search tab"
   },
-  "trending": "趋势",
+  "trending": "趨勢",
   "@trending": {
     "description": "Trending"
   },
@@ -343,8 +343,57 @@
   "@notification": {
     "description": "The Notification tab"
   },
-  "news": "新闻中心",
+  "news": "新聞",
   "@news": {
     "description": "The News tab"
+  },
+  "submit": "提交",
+  "@submit": {
+    "description": "submit button text"
+  },
+  "subscribedEventMessage": "訂閱這個問題",
+  "@subscribedEventMessage": {
+    "description": "subscribed event"
+  },
+  "released": "已釋出的",
+  "@released": {
+    "description": "released"
+  },
+  "pullRequestCommitMessage": "已加入提交 {commit}",
+  "@pullRequestCommitMessage": {
+    "description": "pull request commit message",
+    "placeholders": {
+      "commit": {
+        "type": "String"
+      }
+    }
+  },
+  "unsubscribedEventMessage": "取消訂閱這個問題",
+  "@unsubscribedEventMessage": {
+    "description": "unsubscribed event"
+  },
+  "appLanguage": "應用程式語言",
+  "@appLanguage": {
+    "description": "The app's language"
+  },
+  "reloadMessage": "這個應用程式會重新載入來套用語言設定",
+  "@reloadMessage": {
+    "description": "Reload message"
+  },
+  "title": "標題",
+  "@title": {
+    "description": "title"
+  },
+  "theme": "主題",
+  "@theme": {
+    "description": "Theme header text"
+  },
+  "body": "內文",
+  "@body": {
+    "description": "body"
+  },
+  "timelineTypeNotImplemented": "類型還沒實施",
+  "@timelineTypeNotImplemented": {
+    "description": "Timeline type not implemented"
   }
 }

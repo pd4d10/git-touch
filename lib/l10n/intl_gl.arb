@@ -1,0 +1,278 @@
+{
+  "news": "Noticias",
+  "@news": {
+    "description": "The News tab"
+  },
+  "notification": "Notificación",
+  "@notification": {
+    "description": "The Notification tab"
+  },
+  "trending": "Tendencias",
+  "@trending": {
+    "description": "Trending"
+  },
+  "search": "Buscar",
+  "@search": {
+    "description": "The Search tab"
+  },
+  "me": "Eu",
+  "@me": {
+    "description": "The Me tab"
+  },
+  "repositories": "Repositorios",
+  "@repositories": {
+    "description": "repository text"
+  },
+  "follow": "Seguir",
+  "@follow": {
+    "description": "follow someone"
+  },
+  "stars": "Estrelas",
+  "@stars": {
+    "description": "stars on a repo"
+  },
+  "pinnedRepositories": "Repositorios anclados",
+  "@pinnedRepositories": {
+    "description": "pinned repositories"
+  },
+  "system": "Sistema",
+  "@system": {
+    "description": "system"
+  },
+  "githubStatus": "Estado GitHub",
+  "@githubStatus": {
+    "description": "github status"
+  },
+  "reviewPermissions": "Permisos de Revisión",
+  "@reviewPermissions": {
+    "description": "review Permissions"
+  },
+  "gitlabStatus": "Estado GitLab",
+  "@gitlabStatus": {
+    "description": "GitLab status"
+  },
+  "switchAccounts": "Cambiar entre contas",
+  "@switchAccounts": {
+    "description": "Switch accounts"
+  },
+  "brightness": "Luminosidade",
+  "@brightness": {
+    "description": "brightness"
+  },
+  "followSystem": "Seguimento Sistema",
+  "@followSystem": {
+    "description": "follow systems setting"
+  },
+  "light": "Claro",
+  "@light": {
+    "description": "light mode"
+  },
+  "dark": "Oscuro",
+  "@dark": {
+    "description": "dark mode"
+  },
+  "codeTheme": "Tema do Código",
+  "@codeTheme": {
+    "description": "code theme"
+  },
+  "webview": "Vista Web",
+  "@webview": {
+    "description": "render webview for markdown"
+  },
+  "feedback": "comentarios retroalimentación",
+  "@feedback": {
+    "description": "provide feedback"
+  },
+  "submitAnIssue": "Presentar unha Issue",
+  "@submitAnIssue": {
+    "description": "submit issue for app"
+  },
+  "submit": "Entregar",
+  "@submit": {
+    "description": "submit button text"
+  },
+  "rateThisApp": "Valora esta app",
+  "@rateThisApp": {
+    "description": "rate the app"
+  },
+  "email": "Email",
+  "@email": {
+    "description": "Email to report issues"
+  },
+  "about": "Sobre",
+  "@about": {
+    "description": "about section"
+  },
+  "version": "Versión",
+  "@version": {
+    "description": "app version"
+  },
+  "sourceCode": "Código Fonte",
+  "@sourceCode": {
+    "description": "source code for app"
+  },
+  "repository": "Repositorio",
+  "@repository": {
+    "description": "Repository screen title"
+  },
+  "repositoryActions": "Accións de Repositorio",
+  "@repositoryActions": {
+    "description": "Repository Actions"
+  },
+  "projects": "Proxectos",
+  "@projects": {
+    "description": "projects"
+  },
+  "released": "publicado",
+  "@released": {
+    "description": "released"
+  },
+  "watchers": "Observadores",
+  "@watchers": {
+    "description": "watchers"
+  },
+  "forks": "Bifurcacións (Forks)",
+  "@forks": {
+    "description": "forks"
+  },
+  "pullRequests": "Pull Requests",
+  "@pullRequests": {
+    "description": "Pull Requests"
+  },
+  "commits": "Commits",
+  "@commits": {
+    "description": "Commits"
+  },
+  "commit": "Commit",
+  "@commit": {
+    "description": "Commit"
+  },
+  "branches": "Ramas",
+  "@branches": {
+    "description": "branches"
+  },
+  "contributors": "Contribuíntes",
+  "@contributors": {
+    "description": "contributors"
+  },
+  "unread": "Sen leer",
+  "@unread": {
+    "description": "unread"
+  },
+  "all": "Todo",
+  "@all": {
+    "description": "all"
+  },
+  "developers": "desenvolvedores",
+  "@developers": {
+    "description": "developers"
+  },
+  "teams": "Equipos",
+  "@teams": {
+    "description": "teams"
+  },
+  "file": "Arquivo",
+  "@file": {
+    "description": "file"
+  },
+  "files": "Arquivos",
+  "@files": {
+    "description": "file plural"
+  },
+  "groups": "Grupos",
+  "@groups": {
+    "description": "groups"
+  },
+  "activity": "Actividade",
+  "@activity": {
+    "description": "activity"
+  },
+  "project": "Proxecto",
+  "@project": {
+    "description": "project"
+  },
+  "selectAccount": "Selecciona unha conta",
+  "@selectAccount": {
+    "description": "select account message"
+  },
+  "githubAccount": "Conta de GitHub",
+  "@githubAccount": {
+    "description": "Gitea Account"
+  },
+  "permissionRequiredMessage": "GitTouch precisa estes permisos",
+  "@permissionRequiredMessage": {
+    "description": "Permission Required Message"
+  },
+  "unfollow": "Deixar de Seguir",
+  "@unfollow": {
+    "description": "unfollow someone"
+  },
+  "participating": "Participando",
+  "@participating": {
+    "description": "The participating Tab"
+  },
+  "followers": "Seguidores",
+  "@followers": {
+    "description": "followers for a person"
+  },
+  "following": "Seguindo",
+  "@following": {
+    "description": "people followed by a person"
+  },
+  "events": "Eventos",
+  "@events": {
+    "description": "events for a user"
+  },
+  "organizations": "Organizacións",
+  "@organizations": {
+    "description": "organizations for a user"
+  },
+  "members": "Membros",
+  "@members": {
+    "description": "members of an organization"
+  },
+  "popularRepositories": "Repositorios Populares",
+  "@popularRepositories": {
+    "description": "popular repositories"
+  },
+  "settings": "Axustes",
+  "@settings": {
+    "description": "settings"
+  },
+  "giteaStatus": "Estado Gitea",
+  "@giteaStatus": {
+    "description": "Gitea status"
+  },
+  "markdownRenderEngine": "Motor de Renderización de Markdown",
+  "@markdownRenderEngine": {
+    "description": "flutter or webview rendering for markdown"
+  },
+  "releases": "Lanzamentos",
+  "@releases": {
+    "description": "releases"
+  },
+  "issues": "Incidencias / Cuestións",
+  "@issues": {
+    "description": "issues"
+  },
+  "explore": "Explorar",
+  "@explore": {
+    "description": "explore"
+  },
+  "actions": "Accións",
+  "@actions": {
+    "description": "actions"
+  },
+  "mergeRequests": "Solicitudes de fusión",
+  "@mergeRequests": {
+    "description": "Merge request"
+  },
+  "removeAccount": "Eliminar Conta",
+  "@removeAccount": {
+    "description": "remove account"
+  },
+  "somethingBadHappens": "Algo pode ir mal:",
+  "@somethingBadHappens": {
+    "description": "error message"
+  }
+}

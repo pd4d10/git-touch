@@ -1,0 +1,638 @@
+{
+  "pullRequestReviewCommentEventMessage": "pull requesti gözden geçirdi",
+  "@pullRequestReviewCommentEventMessage": {
+    "description": "pull request review comment event"
+  },
+  "public": "public",
+  "@public": {
+    "description": "public"
+  },
+  "theProjectCard": "proje kartı",
+  "@theProjectCard": {
+    "description": "the project card"
+  },
+  "convertProjectCard": "proje kartını issue'ya dönüştürdü",
+  "@convertProjectCard": {
+    "description": "converted the project card into an issue"
+  },
+  "from": "şundan",
+  "@from": {
+    "description": "from"
+  },
+  "to": "şuna",
+  "@to": {
+    "description": "to"
+  },
+  "at": "şurada",
+  "@at": {
+    "description": "at"
+  },
+  "commentedOn": "şuna yorum yaptı",
+  "@commentedOn": {
+    "description": "commented on"
+  },
+  "timelineTypeNotImplemented": "Tip henüz gerçekleştirilmedi",
+  "@timelineTypeNotImplemented": {
+    "description": "Timeline type not implemented"
+  },
+  "issue": "Issue",
+  "@issue": {
+    "description": "issue"
+  },
+  "released": "yayınlandı",
+  "@released": {
+    "description": "released"
+  },
+  "releases": "Yayınlar",
+  "@releases": {
+    "description": "releases"
+  },
+  "repository": "Repository",
+  "@repository": {
+    "description": "Repository screen title"
+  },
+  "email": "Email",
+  "@email": {
+    "description": "Email to report issues"
+  },
+  "webview": "WebView",
+  "@webview": {
+    "description": "render webview for markdown"
+  },
+  "flutter": "Flutter",
+  "@flutter": {
+    "description": "render flutter for markdown"
+  },
+  "markdownRenderEngine": "Markdown Render Motoru",
+  "@markdownRenderEngine": {
+    "description": "flutter or webview rendering for markdown"
+  },
+  "material": "Material",
+  "@material": {
+    "description": "Material scaffold theme"
+  },
+  "cupertino": "Cupertino",
+  "@cupertino": {
+    "description": "Cupertino scaffold theme"
+  },
+  "popularRepositories": "Popüler Repositoryler",
+  "@popularRepositories": {
+    "description": "popular repositories"
+  },
+  "repositories": "Repositoryler",
+  "@repositories": {
+    "description": "repository text"
+  },
+  "gists": "Gistler",
+  "@gists": {
+    "description": "gists for a user"
+  },
+  "wereAddedTo": "{repos} repoları {id} kimlikli yüklemeye eklendi",
+  "@wereAddedTo": {
+    "description": "example: repo1,repo2 were added to the installation id ID",
+    "placeholders": {
+      "repos": {
+        "type": "String"
+      },
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "forGithubAppWithId": "{id} kimliğine sahip Github Uygulaması için",
+  "@forGithubAppWithId": {
+    "description": "for the Github App with id",
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "newPermissionsAccepted": "eylem için yeni izinler kabul edildi ",
+  "@newPermissionsAccepted": {
+    "description": "new permissions were accepted for"
+  },
+  "editedPages": "şu sayfaları düzenledi: {pageNames}",
+  "@editedPages": {
+    "description": "edited pages",
+    "placeholders": {
+      "pageAction": {
+        "type": "String"
+      }
+    }
+  },
+  "createdPages": "şu sayfaları oluşturdu: {pageNames}",
+  "@createdPages": {
+    "description": "created pages",
+    "placeholders": {
+      "pageNames": {
+        "type": "String"
+      }
+    }
+  },
+  "forked": "çatalladı",
+  "@forked": {
+    "description": "forked"
+  },
+  "commitCommentEventMessage": "şuradaki bir commiti yorumladı",
+  "@commitCommentEventMessage": {
+    "description": "commit comment event message"
+  },
+  "actionRequiredConclusion": "daha fazla eylem gerektirir",
+  "@actionRequiredConclusion": {
+    "description": "it requires more action"
+  },
+  "checkSuiteEventConclusionMessage": "bu bir {conclusion}",
+  "@checkSuiteEventConclusionMessage": {
+    "description": "check suite event conclusion",
+    "placeholders": {
+      "conclusion": {
+        "type": "String"
+      }
+    }
+  },
+  "nCommitsTo": "{count,plural, =1{{count} commit şuraya} other{{count} commit şuraya}}",
+  "@nCommitsTo": {
+    "description": "no. of commits to a branch",
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "reviewRequestEventMessage": "gözden geçirme talep etti",
+  "@reviewRequestEventMessage": {
+    "description": "requested a review from"
+  },
+  "headRefRestoredEventMessage": "{headRefName} branchini geri yükledi",
+  "@headRefRestoredEventMessage": {
+    "description": "head ref restored event",
+    "placeholders": {
+      "headRefName": {
+        "type": "String"
+      }
+    }
+  },
+  "headRefDeletedEventMessage": "{headRefName} branchini sildi",
+  "@headRefDeletedEventMessage": {
+    "description": "head ref deleted event",
+    "placeholders": {
+      "headRefName": {
+        "type": "String"
+      }
+    }
+  },
+  "pinnedEventMessage": "bu sorunu sabitledi",
+  "@pinnedEventMessage": {
+    "description": "pinned this issue"
+  },
+  "mentionedEventMessage": "bahsedildi",
+  "@mentionedEventMessage": {
+    "description": "was mentioned"
+  },
+  "mergedEventMessage": "{commit} commitini {mergeRefName} içine birleştirdi",
+  "@mergedEventMessage": {
+    "description": "merged event message",
+    "placeholders": {
+      "commit": {
+        "type": "String"
+      },
+      "mergeRefName": {
+        "type": "String"
+      }
+    }
+  },
+  "reviewed": "incelendi",
+  "@reviewed": {
+    "description": "reviewed"
+  },
+  "approvedChanges": "bu değişiklikleri onayladı",
+  "@approvedChanges": {
+    "description": "approved these changes"
+  },
+  "transferredEventMessage": "bu sorunu {repoName}'dan aktardı",
+  "@transferredEventMessage": {
+    "description": "transferred event",
+    "placeholders": {
+      "repoName": {
+        "type": "String"
+      }
+    }
+  },
+  "unlockedConversationEventMessage": "bu konuşmanın kilidini açtı",
+  "@unlockedConversationEventMessage": {
+    "description": "unlocked this conversation"
+  },
+  "lockedConversationEventMessage": "bu konuşmayı kilitledi",
+  "@lockedConversationEventMessage": {
+    "description": "locked this conversation"
+  },
+  "renamedTitleEventMessage": "başlığı {title} olarak değiştirdi",
+  "@renamedTitleEventMessage": {
+    "description": "changed title event",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "demilestonedEventMessage": "{milestone} milestone'dan kaldırıldı",
+  "@demilestonedEventMessage": {
+    "description": "demilestoned event",
+    "placeholders": {
+      "milestone": {
+        "type": "String"
+      }
+    }
+  },
+  "milestonedEventMessage": "{milestone} milestone'a eklendi",
+  "@milestonedEventMessage": {
+    "description": "milestone event",
+    "placeholders": {
+      "milestone": {
+        "type": "String"
+      }
+    }
+  },
+  "label": "etiket",
+  "@label": {
+    "description": "label"
+  },
+  "removed": "kaldırıldı",
+  "@removed": {
+    "description": "removed"
+  },
+  "added": "eklendi",
+  "@added": {
+    "description": "added"
+  },
+  "unassignedEventMessage": "atama kaldırıldı",
+  "@unassignedEventMessage": {
+    "description": "unassigned event"
+  },
+  "assignedEventMessage": "şuna atandı",
+  "@assignedEventMessage": {
+    "description": "assigned event"
+  },
+  "unsubscribedEventMessage": "şunun aboneliğinden çıktı",
+  "@unsubscribedEventMessage": {
+    "description": "unsubscribed event"
+  },
+  "subscribedEventMessage": "şuna abone oldu",
+  "@subscribedEventMessage": {
+    "description": "subscribed event"
+  },
+  "reopenedEventMessage": "şunu tekrar açtı",
+  "@reopenedEventMessage": {
+    "description": "reopened event"
+  },
+  "crossReferencedEventMessage": "şuraya referans verir",
+  "@crossReferencedEventMessage": {
+    "description": "cross referenced event"
+  },
+  "closedEventMessage": "şunu kapadı",
+  "@closedEventMessage": {
+    "description": "closed event"
+  },
+  "pullRequestCommitMessage": "{commit} commiti eklendi",
+  "@pullRequestCommitMessage": {
+    "description": "pull request commit message",
+    "placeholders": {
+      "commit": {
+        "type": "String"
+      }
+    }
+  },
+  "body": "Gövde",
+  "@body": {
+    "description": "body"
+  },
+  "title": "Başlık",
+  "@title": {
+    "description": "title"
+  },
+  "theme": "Tema",
+  "@theme": {
+    "description": "Theme header text"
+  },
+  "reloadMessage": "Dil ayarlarının geçerli olması için uygulama yeniden başlatılacak",
+  "@reloadMessage": {
+    "description": "Reload message"
+  },
+  "appLanguage": "Uygulama Dili",
+  "@appLanguage": {
+    "description": "The app's language"
+  },
+  "fontStyle": "YAZITİPİ STİLİ",
+  "@fontStyle": {
+    "description": "font style"
+  },
+  "fontFamily": "Yazıtipi Ailesi",
+  "@fontFamily": {
+    "description": "Font Family"
+  },
+  "fontSize": "Yazıtipi Boyutu",
+  "@fontSize": {
+    "description": "font size"
+  },
+  "syntaxHighlighting": "SÖZDİZİMİ VURGULAMA",
+  "@syntaxHighlighting": {
+    "description": "Syntax Highlighting"
+  },
+  "projectActions": "Proje Eylemleri",
+  "@projectActions": {
+    "description": "Project Actions"
+  },
+  "code": "Kod",
+  "@code": {
+    "description": "Code"
+  },
+  "group": "Grup",
+  "@group": {
+    "description": "group"
+  },
+  "user": "Kullanıcı",
+  "@user": {
+    "description": "user"
+  },
+  "giteeAccount": "Gitee Hesabı",
+  "@giteeAccount": {
+    "description": "Gitee Account"
+  },
+  "giteaAccount": "Gitea Hesabı",
+  "@giteaAccount": {
+    "description": "Gitea Account"
+  },
+  "longPressToRemoveAccount": "Hesabı kaldırmak için basılı tut",
+  "@longPressToRemoveAccount": {
+    "description": "Long Press to remove account"
+  },
+  "bitbucketAccount": "Bitbucket Hesabı",
+  "@bitbucketAccount": {
+    "description": "Bitbucket Account"
+  },
+  "gitlabAccount": "GitLab Hesabı",
+  "@gitlabAccount": {
+    "description": "Gitlab Account"
+  },
+  "notFoundTextDisplay": "Oops, bu sayfa henüz yapılmadı.",
+  "@notFoundTextDisplay": {
+    "description": "Not found error message"
+  },
+  "notFoundMessage": "Bulunamadı",
+  "@notFoundMessage": {
+    "description": "Not found page header"
+  },
+  "permissionRequiredMessage": "GitTouch şu izinleri istiyor",
+  "@permissionRequiredMessage": {
+    "description": "Permission Required Message"
+  },
+  "githubAccount": "GitHub Hesabı",
+  "@githubAccount": {
+    "description": "Gitea Account"
+  },
+  "somethingBadHappens": "Kötü Bir Şey Oldu:",
+  "@somethingBadHappens": {
+    "description": "error message"
+  },
+  "removeAccount": "Hesabı Kaldır",
+  "@removeAccount": {
+    "description": "remove account"
+  },
+  "selectAccount": "Hesap Seç",
+  "@selectAccount": {
+    "description": "select account message"
+  },
+  "project": "Proje",
+  "@project": {
+    "description": "project"
+  },
+  "activity": "Etkinlik",
+  "@activity": {
+    "description": "activity"
+  },
+  "mergeRequests": "Merge Requestler",
+  "@mergeRequests": {
+    "description": "Merge request"
+  },
+  "groups": "Gruplar",
+  "@groups": {
+    "description": "groups"
+  },
+  "actions": "Eylemler",
+  "@actions": {
+    "description": "actions"
+  },
+  "files": "Dosyalar",
+  "@files": {
+    "description": "file plural"
+  },
+  "file": "Dosya",
+  "@file": {
+    "description": "file"
+  },
+  "teams": "Takımlar",
+  "@teams": {
+    "description": "teams"
+  },
+  "explore": "Keşfet",
+  "@explore": {
+    "description": "explore"
+  },
+  "developers": "Geliştiriciler",
+  "@developers": {
+    "description": "developers"
+  },
+  "all": "Tümü",
+  "@all": {
+    "description": "all"
+  },
+  "unread": "Okunmamış",
+  "@unread": {
+    "description": "unread"
+  },
+  "contributors": "Katkıda Bulunanlar",
+  "@contributors": {
+    "description": "contributors"
+  },
+  "branches": "Branchler",
+  "@branches": {
+    "description": "branches"
+  },
+  "commits": "Commitler",
+  "@commits": {
+    "description": "Commits"
+  },
+  "pullRequests": "Pull Requestler",
+  "@pullRequests": {
+    "description": "Pull Requests"
+  },
+  "issues": "Sorunlar",
+  "@issues": {
+    "description": "issues"
+  },
+  "forks": "Çatallar",
+  "@forks": {
+    "description": "forks"
+  },
+  "watchers": "İzleyiciler",
+  "@watchers": {
+    "description": "watchers"
+  },
+  "projects": "Projeler",
+  "@projects": {
+    "description": "projects"
+  },
+  "repositoryActions": "Repository Eylemleri",
+  "@repositoryActions": {
+    "description": "Repository Actions"
+  },
+  "sourceCode": "Kaynak Kod",
+  "@sourceCode": {
+    "description": "source code for app"
+  },
+  "version": "Versiyon",
+  "@version": {
+    "description": "app version"
+  },
+  "about": "Hakkında",
+  "@about": {
+    "description": "about section"
+  },
+  "rateThisApp": "Uygulamayı Derecelendir",
+  "@rateThisApp": {
+    "description": "rate the app"
+  },
+  "submit": "Gönder",
+  "@submit": {
+    "description": "submit button text"
+  },
+  "submitAnIssue": "Issue Gönder",
+  "@submitAnIssue": {
+    "description": "submit issue for app"
+  },
+  "feedback": "Geri Bildirim",
+  "@feedback": {
+    "description": "provide feedback"
+  },
+  "codeTheme": "Kod Teması",
+  "@codeTheme": {
+    "description": "code theme"
+  },
+  "scaffoldTheme": "Scaffold Teması",
+  "@scaffoldTheme": {
+    "description": "Kind of theme - cupertino or material"
+  },
+  "dark": "Koyu",
+  "@dark": {
+    "description": "dark mode"
+  },
+  "light": "Açık",
+  "@light": {
+    "description": "light mode"
+  },
+  "followSystem": "Sistemi Takip Et",
+  "@followSystem": {
+    "description": "follow systems setting"
+  },
+  "brightness": "Parlaklık",
+  "@brightness": {
+    "description": "brightness"
+  },
+  "switchAccounts": "Hesap Değiştir",
+  "@switchAccounts": {
+    "description": "Switch accounts"
+  },
+  "giteaStatus": "Gitea Durumu",
+  "@giteaStatus": {
+    "description": "Gitea status"
+  },
+  "gitlabStatus": "GitLab Durumu",
+  "@gitlabStatus": {
+    "description": "GitLab status"
+  },
+  "reviewPermissions": "İzinleri Gözden Geçir",
+  "@reviewPermissions": {
+    "description": "review Permissions"
+  },
+  "githubStatus": "GitHub Durumu",
+  "@githubStatus": {
+    "description": "github status"
+  },
+  "system": "Sistem",
+  "@system": {
+    "description": "system"
+  },
+  "settings": "Ayarlar",
+  "@settings": {
+    "description": "settings"
+  },
+  "pinnedRepositories": "İğnelenmiş Repolar",
+  "@pinnedRepositories": {
+    "description": "pinned repositories"
+  },
+  "members": "Üyeler",
+  "@members": {
+    "description": "members of an organization"
+  },
+  "organizations": "Organizasyonlar",
+  "@organizations": {
+    "description": "organizations for a user"
+  },
+  "events": "Etkinlikler",
+  "@events": {
+    "description": "events for a user"
+  },
+  "following": "Takip Edilen",
+  "@following": {
+    "description": "people followed by a person"
+  },
+  "followers": "Takipçiler",
+  "@followers": {
+    "description": "followers for a person"
+  },
+  "stars": "Yıldız",
+  "@stars": {
+    "description": "stars on a repo"
+  },
+  "follow": "Takip Et",
+  "@follow": {
+    "description": "follow someone"
+  },
+  "unfollow": "Takibi Bırak",
+  "@unfollow": {
+    "description": "unfollow someone"
+  },
+  "participating": "Katılımcı",
+  "@participating": {
+    "description": "The participating Tab"
+  },
+  "me": "Ben",
+  "@me": {
+    "description": "The Me tab"
+  },
+  "search": "Ara",
+  "@search": {
+    "description": "The Search tab"
+  },
+  "trending": "Trend",
+  "@trending": {
+    "description": "Trending"
+  },
+  "notification": "Bildirim",
+  "@notification": {
+    "description": "The Notification tab"
+  },
+  "news": "Haberler",
+  "@news": {
+    "description": "The News tab"
+  },
+  "purchasedMarketplacePlan": "bir Marketplace Plan'ı satın alındı",
+  "@purchasedMarketplacePlan": {
+    "description": "purchased a Marketplace Plan"
+  },
+  "was": "idi",
+  "@was": {
+    "description": "was"
+  }
+}

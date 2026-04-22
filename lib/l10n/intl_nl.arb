@@ -183,7 +183,7 @@
   "@syntaxHighlighting": {
     "description": "Syntax Highlighting"
   },
-  "about": "over",
+  "about": "Over",
   "@about": {
     "description": "about section"
   },
@@ -267,7 +267,7 @@
   "@githubStatus": {
     "description": "github status"
   },
-  "system": "systeem",
+  "system": "Systeem",
   "@system": {
     "description": "system"
   },
@@ -275,11 +275,11 @@
   "@settings": {
     "description": "settings"
   },
-  "pinnedRepositories": "vastgemaakte repo's",
+  "pinnedRepositories": "Vastgemaakte repo's",
   "@pinnedRepositories": {
     "description": "pinned repositories"
   },
-  "popularRepositories": "populaire repo's",
+  "popularRepositories": "Populaire repo's",
   "@popularRepositories": {
     "description": "popular repositories"
   },
@@ -346,5 +346,519 @@
   "news": "Nieuws",
   "@news": {
     "description": "The News tab"
+  },
+  "starred": "toegevoegd aan favorieten",
+  "@starred": {
+    "description": "starred"
+  },
+  "securityAdvisory": "Het veiligheidsadvies aangaande {summary} is {action}",
+  "@securityAdvisory": {
+    "description": "Security advisory",
+    "placeholders": {
+      "summary": {
+        "type": "String"
+      },
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "securityAlertInvolvingPackage": "Er is actie ondernomen {action} op de veiligheidswaarschuwing ten aanzien van {affectedPackageName} tussen {affectedRange}",
+  "@securityAlertInvolvingPackage": {
+    "description": "Security alert involving package",
+    "placeholders": {
+      "affectedPackageName": {
+        "type": "String"
+      },
+      "affectedRange": {
+        "type": "String"
+      },
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "pushedTo": "heeft gepusht naar",
+  "@pushedTo": {
+    "description": "pushed to"
+  },
+  "pullRequestReviewCommentEventMessage": "heeft de pull request beoordeeld",
+  "@pullRequestReviewCommentEventMessage": {
+    "description": "pull request review comment event"
+  },
+  "pullRequestReviewEventMessage": "{action} de pull request-beoordeling",
+  "@pullRequestReviewEventMessage": {
+    "description": "pull request review event message",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "pullRequestEventMessage": "{action} pull request",
+  "@pullRequestEventMessage": {
+    "description": "pull request event",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "made": "is omgezet naar",
+  "@made": {
+    "description": "made"
+  },
+  "public": "openbaar",
+  "@public": {
+    "description": "public"
+  },
+  "projectEventMessage": "{action} het project ‘{projectName}’",
+  "@projectEventMessage": {
+    "description": "the project",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      },
+      "projectName": {
+        "type": "String"
+      }
+    }
+  },
+  "projectColumnEventMessage": "{action} de projectkolom {projectColumnName} op ",
+  "@projectColumnEventMessage": {
+    "description": "the project column",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      },
+      "projectColumnName": {
+        "type": "String"
+      }
+    }
+  },
+  "theProjectCard": "de projectkaart",
+  "@theProjectCard": {
+    "description": "the project card"
+  },
+  "convertProjectCard": "heeft de projectkaart omgezet naar een issue",
+  "@convertProjectCard": {
+    "description": "converted the project card into an issue"
+  },
+  "was": "is",
+  "@was": {
+    "description": "was"
+  },
+  "changedMarketplacePlan": "het Marketplace-pakket is aangepast",
+  "@changedMarketplacePlan": {
+    "description": "changed their Marketplace Plan"
+  },
+  "pendingChangeCancelled": "de aanpassing van het Marketplace-pakket is afgebroken",
+  "@pendingChangeCancelled": {
+    "description": "Pending Marketplace Plan was cancelled"
+  },
+  "pendingMarketplacePlan": "het Marketplace-pakket is afwachtend van een aanpassing",
+  "@pendingMarketplacePlan": {
+    "description": "Marketplace Plan is pending change"
+  },
+  "cancelledMarketplacePlan": "gebruikt het Marketplace-pakket niet meer",
+  "@cancelledMarketplacePlan": {
+    "description": "cancelled their Marketplace Plan"
+  },
+  "purchasedMarketplacePlan": "heeft een Marketplace-pakket aangeschaft",
+  "@purchasedMarketplacePlan": {
+    "description": "purchased a Marketplace Plan"
+  },
+  "from": "van",
+  "@from": {
+    "description": "from"
+  },
+  "to": "aan",
+  "@to": {
+    "description": "to"
+  },
+  "at": "om",
+  "@at": {
+    "description": "at"
+  },
+  "commentedOn": "heeft gereageerd op",
+  "@commentedOn": {
+    "description": "commented on"
+  },
+  "wereRemovedFrom": "{repos} zijn verwijderd uit installatie-id ‘{id}’",
+  "@wereRemovedFrom": {
+    "description": "example: repo1,repo2 were removed from the installation id ID",
+    "placeholders": {
+      "repos": {
+        "type": "String"
+      },
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "wereAddedTo": "{repos} zijn toegevoegd aan installatie-id ‘{id}’",
+  "@wereAddedTo": {
+    "description": "example: repo1,repo2 were added to the installation id ID",
+    "placeholders": {
+      "repos": {
+        "type": "String"
+      },
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "forGithubAppWithId": "voor de GitHub-app met id ‘{id}’",
+  "@forGithubAppWithId": {
+    "description": "for the Github App with id",
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "newPermissionsAccepted": "nieuwe bevoegdheden geaccepteerd voor ",
+  "@newPermissionsAccepted": {
+    "description": "new permissions were accepted for"
+  },
+  "editedPages": "heeft de volgende pagina's bewerkt: {pageNames}",
+  "@editedPages": {
+    "description": "edited pages",
+    "placeholders": {
+      "pageAction": {
+        "type": "String"
+      }
+    }
+  },
+  "createdPages": "heeft de volgende pagina's aangemaakt: {pageNames}",
+  "@createdPages": {
+    "description": "created pages",
+    "placeholders": {
+      "pageNames": {
+        "type": "String"
+      }
+    }
+  },
+  "forked": "heeft afgesplitst:",
+  "@forked": {
+    "description": "forked"
+  },
+  "deletedEventMessage": "heeft de {refType} {ref} verwijderd op",
+  "@deletedEventMessage": {
+    "description": "deleted event message",
+    "placeholders": {
+      "refType": {
+        "type": "String"
+      },
+      "ref": {
+        "type": "String"
+      }
+    }
+  },
+  "createdEventMessage": "heeft een {refType} {ref} aangemaakt op",
+  "@createdEventMessage": {
+    "description": "created event message",
+    "placeholders": {
+      "refType": {
+        "type": "String"
+      },
+      "ref": {
+        "type": "String"
+      }
+    }
+  },
+  "contentReferenceEventMessage": "{action} een inhoudsverwijzing op",
+  "@contentReferenceEventMessage": {
+    "description": "content reference event",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "commitCommentEventMessage": "heeft gereageerd op een commit op",
+  "@commitCommentEventMessage": {
+    "description": "commit comment event message"
+  },
+  "checkSuiteEventMessage": "{action} de inspectie en de conclusie is dat",
+  "@checkSuiteEventMessage": {
+    "description": "check suite event message conclusion",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "actionRequiredConclusion": "vereist meer werk",
+  "@actionRequiredConclusion": {
+    "description": "it requires more action"
+  },
+  "checkSuiteEventConclusionMessage": "het is een {conclusion)",
+  "@checkSuiteEventConclusionMessage": {
+    "description": "check suite event conclusion",
+    "placeholders": {
+      "conclusion": {
+        "type": "String"
+      }
+    }
+  },
+  "checkRunEventMessage": "{action} een controleslag van {name}",
+  "@checkRunEventMessage": {
+    "description": "check run event",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "nCommitsTo": "{count,plural, =1{{count} commit op} other{{count} commits op}}",
+  "@nCommitsTo": {
+    "description": "no. of commits to a branch",
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "reviewDismissedEventMessage": "heeft de pull request-beoordeling afgewezen die was aangevraagd door",
+  "@reviewDismissedEventMessage": {
+    "description": "dismissed the pull request review requested by"
+  },
+  "fromReviewRequest": "in het beoordelingsverzoek",
+  "@fromReviewRequest": {
+    "description": "from the review request"
+  },
+  "reviewRequestEventMessage": "heeft om beoordeling gevraagd van",
+  "@reviewRequestEventMessage": {
+    "description": "requested a review from"
+  },
+  "headRefForcedPushedEventSecondMessage": "afsplitsing geforceerd van",
+  "@headRefForcedPushedEventSecondMessage": {
+    "description": "head ref forced pushed event message second half"
+  },
+  "headRefForcedPushedEventFirstMessage": "heeft de",
+  "@headRefForcedPushedEventFirstMessage": {
+    "description": "head ref forced pushed event message first half"
+  },
+  "headRefRestoredEventMessage": "heeft de afsplitsing {headRefName} hersteld",
+  "@headRefRestoredEventMessage": {
+    "description": "head ref restored event",
+    "placeholders": {
+      "headRefName": {
+        "type": "String"
+      }
+    }
+  },
+  "headRefDeletedEventMessage": "heeft de afsplitsing ‘{headRefName}’ verwijderd",
+  "@headRefDeletedEventMessage": {
+    "description": "head ref deleted event",
+    "placeholders": {
+      "headRefName": {
+        "type": "String"
+      }
+    }
+  },
+  "deploymentEnvironmentChangedEventMessage": "heeft de ontwikkelomgeving aangepast naar {devEnv}",
+  "@deploymentEnvironmentChangedEventMessage": {
+    "description": "deployment environment changed event",
+    "placeholders": {
+      "devEnv": {
+        "type": "String"
+      }
+    }
+  },
+  "deployedPR": "heeft ‘{headRefName}’ uitgerold",
+  "@deployedPR": {
+    "description": "deployed the pull request",
+    "placeholders": {
+      "headRefName": {
+        "type": "String"
+      }
+    }
+  },
+  "pinnedEventMessage": "heeft dit vastgemaakt",
+  "@pinnedEventMessage": {
+    "description": "pinned this issue"
+  },
+  "mentionedEventMessage": "heeft vermeld:",
+  "@mentionedEventMessage": {
+    "description": "was mentioned"
+  },
+  "mergedEventMessage": "heeft ‘{commit}’ samengevoegd met ‘{mergeRefName}’",
+  "@mergedEventMessage": {
+    "description": "merged event message",
+    "placeholders": {
+      "commit": {
+        "type": "String"
+      },
+      "mergeRefName": {
+        "type": "String"
+      }
+    }
+  },
+  "reviewed": "heeft beoordeeld:",
+  "@reviewed": {
+    "description": "reviewed"
+  },
+  "approvedChanges": "heeft deze aanpassingen goedgekeurd",
+  "@approvedChanges": {
+    "description": "approved these changes"
+  },
+  "transferredEventMessage": "heeft dit overgezet uit ‘{repoName}’",
+  "@transferredEventMessage": {
+    "description": "transferred event",
+    "placeholders": {
+      "repoName": {
+        "type": "String"
+      }
+    }
+  },
+  "unlockedConversationEventMessage": "heeft dit gesprek ontgrendeld",
+  "@unlockedConversationEventMessage": {
+    "description": "unlocked this conversation"
+  },
+  "lockedConversationEventMessage": "heeft dit gesprek vergrendeld",
+  "@lockedConversationEventMessage": {
+    "description": "locked this conversation"
+  },
+  "renamedTitleEventMessage": "heeft de titel gewijzigd in ‘{title}’ - oude titel:",
+  "@renamedTitleEventMessage": {
+    "description": "changed title event",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "demilestonedEventMessage": "heeft dit losgekoppeld van ‘{milestone}’",
+  "@demilestonedEventMessage": {
+    "description": "demilestoned event",
+    "placeholders": {
+      "milestone": {
+        "type": "String"
+      }
+    }
+  },
+  "milestonedEventMessage": "heeft dit toegekend aan ‘{milestone}’",
+  "@milestonedEventMessage": {
+    "description": "milestone event",
+    "placeholders": {
+      "milestone": {
+        "type": "String"
+      }
+    }
+  },
+  "label": "label",
+  "@label": {
+    "description": "label"
+  },
+  "removed": "heeft verwijderd:",
+  "@removed": {
+    "description": "removed"
+  },
+  "added": "heeft toegevoegd:",
+  "@added": {
+    "description": "added"
+  },
+  "unassignedEventMessage": "heeft dit losgekoppeld van",
+  "@unassignedEventMessage": {
+    "description": "unassigned event"
+  },
+  "referencedEventMessage": "heeft hiernaar verwezen in ‘{commit}’ in ‘{repoName}’",
+  "@referencedEventMessage": {
+    "description": "referenced event",
+    "placeholders": {
+      "commit": {
+        "type": "String"
+      },
+      "repoName": {
+        "type": "String"
+      }
+    }
+  },
+  "assignedEventMessage": "heeft dit toegewezen aan",
+  "@assignedEventMessage": {
+    "description": "assigned event"
+  },
+  "crossReferencedEventMessage": "heeft hiernaar verwezen in",
+  "@crossReferencedEventMessage": {
+    "description": "cross referenced event"
+  },
+  "unsubscribedEventMessage": "heeft zich hiervan uitgeschreven",
+  "@unsubscribedEventMessage": {
+    "description": "unsubscribed event"
+  },
+  "subscribedEventMessage": "heeft zich hierop geabonneerd",
+  "@subscribedEventMessage": {
+    "description": "subscribed event"
+  },
+  "reopenedEventMessage": "heeft dit heropend",
+  "@reopenedEventMessage": {
+    "description": "reopened event"
+  },
+  "closedEventMessage": "heeft dit gesloten",
+  "@closedEventMessage": {
+    "description": "closed event"
+  },
+  "pullRequestCommitMessage": "‘{commit}’ is toegevoegd",
+  "@pullRequestCommitMessage": {
+    "description": "pull request commit message",
+    "placeholders": {
+      "commit": {
+        "type": "String"
+      }
+    }
+  },
+  "timelineTypeNotImplemented": "Nog niet geïmplementeerd",
+  "@timelineTypeNotImplemented": {
+    "description": "Timeline type not implemented"
+  },
+  "body": "Inhoud",
+  "@body": {
+    "description": "body"
+  },
+  "title": "Titel",
+  "@title": {
+    "description": "title"
+  },
+  "theme": "Thema",
+  "@theme": {
+    "description": "Theme header text"
+  },
+  "reloadMessage": "De app wordt opnieuw geladen om de wijziging toe te passen",
+  "@reloadMessage": {
+    "description": "Reload message"
+  },
+  "appLanguage": "Taal van app",
+  "@appLanguage": {
+    "description": "The app's language"
+  },
+  "released": "uitgebracht",
+  "@released": {
+    "description": "released"
+  },
+  "submit": "Indienen",
+  "@submit": {
+    "description": "submit button text"
+  },
+  "blankDiff": "Er is geen te tonen tekst",
+  "@blankDiff": {
+    "description": "text to show for a blank diff"
+  },
+  "commit": "Commit",
+  "@commit": {
+    "description": "Commit"
+  },
+  "filesChanged": "{count,plural, =1{{count} bestand gewijzigd} other{{count} bestanden gewijzigd}}",
+  "@filesChanged": {
+    "description": "no. of files changed",
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
   }
 }

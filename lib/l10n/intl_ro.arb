@@ -1,0 +1,864 @@
+{
+  "deployedPR": "s-a implementat solicitarea de tragere {headRefName}",
+  "@deployedPR": {
+    "description": "deployed the pull request",
+    "placeholders": {
+      "headRefName": {
+        "type": "String"
+      }
+    }
+  },
+  "pinnedEventMessage": "fixat această problemă",
+  "@pinnedEventMessage": {
+    "description": "pinned this issue"
+  },
+  "mentionedEventMessage": "a fost menționat",
+  "@mentionedEventMessage": {
+    "description": "was mentioned"
+  },
+  "mergedEventMessage": "comitere fuzionată {commit} în {mergeRefName}",
+  "@mergedEventMessage": {
+    "description": "merged event message",
+    "placeholders": {
+      "commit": {
+        "type": "String"
+      },
+      "mergeRefName": {
+        "type": "String"
+      }
+    }
+  },
+  "reviewed": "revizuit",
+  "@reviewed": {
+    "description": "reviewed"
+  },
+  "approvedChanges": "a aprobat aceste modificări",
+  "@approvedChanges": {
+    "description": "approved these changes"
+  },
+  "transferredEventMessage": "a transferat această problemă de la {repoName}",
+  "@transferredEventMessage": {
+    "description": "transferred event",
+    "placeholders": {
+      "repoName": {
+        "type": "String"
+      }
+    }
+  },
+  "unlockedConversationEventMessage": "a deblocat această conversație",
+  "@unlockedConversationEventMessage": {
+    "description": "unlocked this conversation"
+  },
+  "lockedConversationEventMessage": "a blocat această conversație",
+  "@lockedConversationEventMessage": {
+    "description": "locked this conversation"
+  },
+  "renamedTitleEventMessage": "a schimbat titlul în {title} de la",
+  "@renamedTitleEventMessage": {
+    "description": "changed title event",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "demilestonedEventMessage": "a eliminat acest lucru din etapa {milestone}",
+  "@demilestonedEventMessage": {
+    "description": "demilestoned event",
+    "placeholders": {
+      "milestone": {
+        "type": "String"
+      }
+    }
+  },
+  "milestonedEventMessage": "a adăugat acest lucru la etapă {milestone}",
+  "@milestonedEventMessage": {
+    "description": "milestone event",
+    "placeholders": {
+      "milestone": {
+        "type": "String"
+      }
+    }
+  },
+  "label": "etichetă",
+  "@label": {
+    "description": "label"
+  },
+  "removed": "îndepărtat",
+  "@removed": {
+    "description": "removed"
+  },
+  "added": "adăugat",
+  "@added": {
+    "description": "added"
+  },
+  "unassignedEventMessage": "neatribuit acest lucru din",
+  "@unassignedEventMessage": {
+    "description": "unassigned event"
+  },
+  "assignedEventMessage": "a atribuit acest lucru la",
+  "@assignedEventMessage": {
+    "description": "assigned event"
+  },
+  "referencedEventMessage": "a făcut referire la această solicitare de extragere de la commit {commit} de la {repoName}",
+  "@referencedEventMessage": {
+    "description": "referenced event",
+    "placeholders": {
+      "commit": {
+        "type": "String"
+      },
+      "repoName": {
+        "type": "String"
+      }
+    }
+  },
+  "unsubscribedEventMessage": "dezabonat de la această problemă",
+  "@unsubscribedEventMessage": {
+    "description": "unsubscribed event"
+  },
+  "subscribedEventMessage": "abonat la această problemă",
+  "@subscribedEventMessage": {
+    "description": "subscribed event"
+  },
+  "reopenedEventMessage": "a redeschis acest",
+  "@reopenedEventMessage": {
+    "description": "reopened event"
+  },
+  "closedEventMessage": "încheiat",
+  "@closedEventMessage": {
+    "description": "closed event"
+  },
+  "crossReferencedEventMessage": "face referire la aceasta pe",
+  "@crossReferencedEventMessage": {
+    "description": "cross referenced event"
+  },
+  "pullRequestCommitMessage": "adăugat commit {commit}",
+  "@pullRequestCommitMessage": {
+    "description": "pull request commit message",
+    "placeholders": {
+      "commit": {
+        "type": "String"
+      }
+    }
+  },
+  "timelineTypeNotImplemented": "Tipul nu este încă implementat",
+  "@timelineTypeNotImplemented": {
+    "description": "Timeline type not implemented"
+  },
+  "body": "corp",
+  "@body": {
+    "description": "body"
+  },
+  "title": "titlu",
+  "@title": {
+    "description": "title"
+  },
+  "theme": "tema",
+  "@theme": {
+    "description": "Theme header text"
+  },
+  "reloadMessage": "Aplicația se va reîncărca pentru ca setările de limbă să intre în vigoare",
+  "@reloadMessage": {
+    "description": "Reload message"
+  },
+  "appLanguage": "Limba aplicației",
+  "@appLanguage": {
+    "description": "The app's language"
+  },
+  "fontStyle": "STILUL FONT",
+  "@fontStyle": {
+    "description": "font style"
+  },
+  "fontSize": "mărimea fontului",
+  "@fontSize": {
+    "description": "font size"
+  },
+  "fontFamily": "Familie de fonturi",
+  "@fontFamily": {
+    "description": "Font Family"
+  },
+  "syntaxHighlighting": "EVIDENȚIEREA SINTAXEI",
+  "@syntaxHighlighting": {
+    "description": "Syntax Highlighting"
+  },
+  "projectActions": "Acțiuni ale proiectului",
+  "@projectActions": {
+    "description": "Project Actions"
+  },
+  "code": "cod",
+  "@code": {
+    "description": "Code"
+  },
+  "issue": "problemă",
+  "@issue": {
+    "description": "issue"
+  },
+  "group": "grup",
+  "@group": {
+    "description": "group"
+  },
+  "user": "utilizator",
+  "@user": {
+    "description": "user"
+  },
+  "giteeAccount": "Cont Gitee",
+  "@giteeAccount": {
+    "description": "Gitee Account"
+  },
+  "giteaAccount": "Cont Gitea",
+  "@giteaAccount": {
+    "description": "Gitea Account"
+  },
+  "longPressToRemoveAccount": "Apăsați lung pentru a elimina contul",
+  "@longPressToRemoveAccount": {
+    "description": "Long Press to remove account"
+  },
+  "bitbucketAccount": "Cont Bitbucket",
+  "@bitbucketAccount": {
+    "description": "Bitbucket Account"
+  },
+  "gitlabAccount": "Cont GitLab",
+  "@gitlabAccount": {
+    "description": "Gitlab Account"
+  },
+  "notFoundTextDisplay": "Oops, această pagină nu este încă implementată.",
+  "@notFoundTextDisplay": {
+    "description": "Not found error message"
+  },
+  "notFoundMessage": "Nu s-a găsit",
+  "@notFoundMessage": {
+    "description": "Not found page header"
+  },
+  "permissionRequiredMessage": "GitTouch are nevoie de aceste permisiuni",
+  "@permissionRequiredMessage": {
+    "description": "Permission Required Message"
+  },
+  "githubAccount": "Cont GitHub",
+  "@githubAccount": {
+    "description": "Gitea Account"
+  },
+  "somethingBadHappens": "Ceva rău se întâmplă:",
+  "@somethingBadHappens": {
+    "description": "error message"
+  },
+  "removeAccount": "Eliminarea contului",
+  "@removeAccount": {
+    "description": "remove account"
+  },
+  "selectAccount": "Selectați contul",
+  "@selectAccount": {
+    "description": "select account message"
+  },
+  "project": "proiect",
+  "@project": {
+    "description": "project"
+  },
+  "activity": "activitate",
+  "@activity": {
+    "description": "activity"
+  },
+  "mergeRequests": "Cereri de fuziune",
+  "@mergeRequests": {
+    "description": "Merge request"
+  },
+  "groups": "Grupuri",
+  "@groups": {
+    "description": "groups"
+  },
+  "actions": "acțiuni",
+  "@actions": {
+    "description": "actions"
+  },
+  "files": "fişierele",
+  "@files": {
+    "description": "file plural"
+  },
+  "file": "fișier",
+  "@file": {
+    "description": "file"
+  },
+  "teams": "echipe",
+  "@teams": {
+    "description": "teams"
+  },
+  "explore": "exploră",
+  "@explore": {
+    "description": "explore"
+  },
+  "developers": "Dezvoltatori",
+  "@developers": {
+    "description": "developers"
+  },
+  "all": "Tot",
+  "@all": {
+    "description": "all"
+  },
+  "unread": "Necitit",
+  "@unread": {
+    "description": "unread"
+  },
+  "commits": "Comiteri",
+  "@commits": {
+    "description": "Commits"
+  },
+  "contributors": "Contribuitori",
+  "@contributors": {
+    "description": "contributors"
+  },
+  "branches": "Ramuri",
+  "@branches": {
+    "description": "branches"
+  },
+  "pullRequests": "Solicitări de extragere",
+  "@pullRequests": {
+    "description": "Pull Requests"
+  },
+  "issues": "Probleme",
+  "@issues": {
+    "description": "issues"
+  },
+  "forks": "versiune (furcă)",
+  "@forks": {
+    "description": "forks"
+  },
+  "watchers": "Observatori",
+  "@watchers": {
+    "description": "watchers"
+  },
+  "released": "lansat",
+  "@released": {
+    "description": "released"
+  },
+  "releases": "Lansări",
+  "@releases": {
+    "description": "releases"
+  },
+  "projects": "Proiecte",
+  "@projects": {
+    "description": "projects"
+  },
+  "repositoryActions": "Acțiuni depozit",
+  "@repositoryActions": {
+    "description": "Repository Actions"
+  },
+  "repository": "Depozit",
+  "@repository": {
+    "description": "Repository screen title"
+  },
+  "sourceCode": "Codul sursă",
+  "@sourceCode": {
+    "description": "source code for app"
+  },
+  "version": "Versiune",
+  "@version": {
+    "description": "app version"
+  },
+  "about": "Despre",
+  "@about": {
+    "description": "about section"
+  },
+  "email": "E-mail",
+  "@email": {
+    "description": "Email to report issues"
+  },
+  "rateThisApp": "Evalueaza aceasta aplicatie",
+  "@rateThisApp": {
+    "description": "rate the app"
+  },
+  "submit": "Înaintare",
+  "@submit": {
+    "description": "submit button text"
+  },
+  "submitAnIssue": "remiterea unei probleme",
+  "@submitAnIssue": {
+    "description": "submit issue for app"
+  },
+  "feedback": "reacție",
+  "@feedback": {
+    "description": "provide feedback"
+  },
+  "webview": "WebView",
+  "@webview": {
+    "description": "render webview for markdown"
+  },
+  "flutter": "Flutter",
+  "@flutter": {
+    "description": "render flutter for markdown"
+  },
+  "markdownRenderEngine": "Motor de randare Markdown",
+  "@markdownRenderEngine": {
+    "description": "flutter or webview rendering for markdown"
+  },
+  "codeTheme": "Temă cod",
+  "@codeTheme": {
+    "description": "code theme"
+  },
+  "material": "material",
+  "@material": {
+    "description": "Material scaffold theme"
+  },
+  "cupertino": "Cupertino",
+  "@cupertino": {
+    "description": "Cupertino scaffold theme"
+  },
+  "scaffoldTheme": "Tema Scaffold",
+  "@scaffoldTheme": {
+    "description": "Kind of theme - cupertino or material"
+  },
+  "dark": "întunecat",
+  "@dark": {
+    "description": "dark mode"
+  },
+  "light": "Lumină",
+  "@light": {
+    "description": "light mode"
+  },
+  "followSystem": "ca la sistem",
+  "@followSystem": {
+    "description": "follow systems setting"
+  },
+  "brightness": "Luminozitate",
+  "@brightness": {
+    "description": "brightness"
+  },
+  "switchAccounts": "Schimbați conturile",
+  "@switchAccounts": {
+    "description": "Switch accounts"
+  },
+  "giteaStatus": "Statutul Gitea",
+  "@giteaStatus": {
+    "description": "Gitea status"
+  },
+  "gitlabStatus": "Starea GitLab",
+  "@gitlabStatus": {
+    "description": "GitLab status"
+  },
+  "reviewPermissions": "Permisiuni de revizuit",
+  "@reviewPermissions": {
+    "description": "review Permissions"
+  },
+  "githubStatus": "Starea GitHub",
+  "@githubStatus": {
+    "description": "github status"
+  },
+  "system": "Sistem",
+  "@system": {
+    "description": "system"
+  },
+  "settings": "Setări",
+  "@settings": {
+    "description": "settings"
+  },
+  "pinnedRepositories": "Depozite fixate",
+  "@pinnedRepositories": {
+    "description": "pinned repositories"
+  },
+  "popularRepositories": "Depozite populare",
+  "@popularRepositories": {
+    "description": "popular repositories"
+  },
+  "members": "Membrii",
+  "@members": {
+    "description": "members of an organization"
+  },
+  "organizations": "Organizaţii",
+  "@organizations": {
+    "description": "organizations for a user"
+  },
+  "gists": "Gist-uri",
+  "@gists": {
+    "description": "gists for a user"
+  },
+  "events": "Evenimente",
+  "@events": {
+    "description": "events for a user"
+  },
+  "following": "care aderă",
+  "@following": {
+    "description": "people followed by a person"
+  },
+  "follow": "aderă",
+  "@follow": {
+    "description": "follow someone"
+  },
+  "followers": "Adepţi",
+  "@followers": {
+    "description": "followers for a person"
+  },
+  "stars": "Stele",
+  "@stars": {
+    "description": "stars on a repo"
+  },
+  "unfollow": "Dezavuarea",
+  "@unfollow": {
+    "description": "unfollow someone"
+  },
+  "repositories": "Depozite",
+  "@repositories": {
+    "description": "repository text"
+  },
+  "participating": "Participare",
+  "@participating": {
+    "description": "The participating Tab"
+  },
+  "me": "EU",
+  "@me": {
+    "description": "The Me tab"
+  },
+  "search": "Căutare",
+  "@search": {
+    "description": "The Search tab"
+  },
+  "trending": "În trend",
+  "@trending": {
+    "description": "Trending"
+  },
+  "notification": "Notificare",
+  "@notification": {
+    "description": "The Notification tab"
+  },
+  "news": "Știri",
+  "@news": {
+    "description": "The News tab"
+  },
+  "starred": "cu stea",
+  "@starred": {
+    "description": "starred"
+  },
+  "securityAdvisory": "Aviz de securitate cu privire la {summary} a fost {action}",
+  "@securityAdvisory": {
+    "description": "Security advisory",
+    "placeholders": {
+      "summary": {
+        "type": "String"
+      },
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "securityAlertInvolvingPackage": "Alerta de securitate care implică pachetul {affectedPackageName} între versiunile {affectedRange} a fost {action}ed",
+  "@securityAlertInvolvingPackage": {
+    "description": "Security alert involving package",
+    "placeholders": {
+      "affectedPackageName": {
+        "type": "String"
+      },
+      "affectedRange": {
+        "type": "String"
+      },
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "pushedTo": "împins către",
+  "@pushedTo": {
+    "description": "pushed to"
+  },
+  "pullRequestReviewCommentEventMessage": "a revizuit cererea de tragere",
+  "@pullRequestReviewCommentEventMessage": {
+    "description": "pull request review comment event"
+  },
+  "pullRequestReviewEventMessage": "{action} revizuirea solicitării de tip pull request",
+  "@pullRequestReviewEventMessage": {
+    "description": "pull request review event message",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "pullRequestEventMessage": "{action} cerere de tragere",
+  "@pullRequestEventMessage": {
+    "description": "pull request event",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "public": "public",
+  "@public": {
+    "description": "public"
+  },
+  "made": "realizat",
+  "@made": {
+    "description": "made"
+  },
+  "projectEventMessage": "{action} proiectul {projectName}",
+  "@projectEventMessage": {
+    "description": "the project",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      },
+      "projectName": {
+        "type": "String"
+      }
+    }
+  },
+  "projectColumnEventMessage": "{action} coloana de proiect {projectColumnName} la ",
+  "@projectColumnEventMessage": {
+    "description": "the project column",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      },
+      "projectColumnName": {
+        "type": "String"
+      }
+    }
+  },
+  "theProjectCard": "fișa de proiect",
+  "@theProjectCard": {
+    "description": "the project card"
+  },
+  "convertProjectCard": "a transformat fișa de proiect într-o problemă",
+  "@convertProjectCard": {
+    "description": "converted the project card into an issue"
+  },
+  "was": "a fost",
+  "@was": {
+    "description": "was"
+  },
+  "changedMarketplacePlan": "și-au schimbat planul Marketplace",
+  "@changedMarketplacePlan": {
+    "description": "changed their Marketplace Plan"
+  },
+  "pendingChangeCancelled": "Planul Marketplace în așteptare a fost anulat",
+  "@pendingChangeCancelled": {
+    "description": "Pending Marketplace Plan was cancelled"
+  },
+  "pendingMarketplacePlan": "Planul Marketplace este în curs de modificare",
+  "@pendingMarketplacePlan": {
+    "description": "Marketplace Plan is pending change"
+  },
+  "cancelledMarketplacePlan": "și-au anulat planul Marketplace",
+  "@cancelledMarketplacePlan": {
+    "description": "cancelled their Marketplace Plan"
+  },
+  "purchasedMarketplacePlan": "a cumpărat un plan Marketplace",
+  "@purchasedMarketplacePlan": {
+    "description": "purchased a Marketplace Plan"
+  },
+  "from": "de la",
+  "@from": {
+    "description": "from"
+  },
+  "to": "către",
+  "@to": {
+    "description": "to"
+  },
+  "at": "la",
+  "@at": {
+    "description": "at"
+  },
+  "commentedOn": "a comentat pe",
+  "@commentedOn": {
+    "description": "commented on"
+  },
+  "wereRemovedFrom": "{repos} au fost eliminate din instalația id {id}",
+  "@wereRemovedFrom": {
+    "description": "example: repo1,repo2 were removed from the installation id ID",
+    "placeholders": {
+      "repos": {
+        "type": "String"
+      },
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "wereAddedTo": "{repos} au fost adăugate la ID-ul instalației {id}",
+  "@wereAddedTo": {
+    "description": "example: repo1,repo2 were added to the installation id ID",
+    "placeholders": {
+      "repos": {
+        "type": "String"
+      },
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "forGithubAppWithId": "pentru aplicația Github cu id {id}",
+  "@forGithubAppWithId": {
+    "description": "for the Github App with id",
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "newPermissionsAccepted": "noile autorizații au fost acceptate pentru acțiune ",
+  "@newPermissionsAccepted": {
+    "description": "new permissions were accepted for"
+  },
+  "editedPages": "a editat paginile: {pageNames}",
+  "@editedPages": {
+    "description": "edited pages",
+    "placeholders": {
+      "pageAction": {
+        "type": "String"
+      }
+    }
+  },
+  "createdPages": "a creat paginile: {pageNames}",
+  "@createdPages": {
+    "description": "created pages",
+    "placeholders": {
+      "pageNames": {
+        "type": "String"
+      }
+    }
+  },
+  "forked": "bifurcat",
+  "@forked": {
+    "description": "forked"
+  },
+  "deletedEventMessage": "a șters {refType} {ref} la",
+  "@deletedEventMessage": {
+    "description": "deleted event message",
+    "placeholders": {
+      "refType": {
+        "type": "String"
+      },
+      "ref": {
+        "type": "String"
+      }
+    }
+  },
+  "createdEventMessage": "a creat un {refType} {ref} la",
+  "@createdEventMessage": {
+    "description": "created event message",
+    "placeholders": {
+      "refType": {
+        "type": "String"
+      },
+      "ref": {
+        "type": "String"
+      }
+    }
+  },
+  "contentReferenceEventMessage": "{action} o referință de conținut la",
+  "@contentReferenceEventMessage": {
+    "description": "content reference event",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "commitCommentEventMessage": "a comentat un commit la",
+  "@commitCommentEventMessage": {
+    "description": "commit comment event message"
+  },
+  "checkSuiteEventMessage": "{action} suita de verificare și concluzia este că",
+  "@checkSuiteEventMessage": {
+    "description": "check suite event message conclusion",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "actionRequiredConclusion": "necesită mai multe acțiuni",
+  "@actionRequiredConclusion": {
+    "description": "it requires more action"
+  },
+  "checkSuiteEventConclusionMessage": "aceasta este o {conclusion}",
+  "@checkSuiteEventConclusionMessage": {
+    "description": "check suite event conclusion",
+    "placeholders": {
+      "conclusion": {
+        "type": "String"
+      }
+    }
+  },
+  "checkRunEventMessage": "{action} o execuție de control pentru {name}",
+  "@checkRunEventMessage": {
+    "description": "check run event",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "nCommitsTo": "{count,plural, =1{{count} commit to} other{{count} commits to}}",
+  "@nCommitsTo": {
+    "description": "no. of commits to a branch",
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "reviewDismissedEventMessage": "a respins revizuirea pull request-ului solicitat de",
+  "@reviewDismissedEventMessage": {
+    "description": "dismissed the pull request review requested by"
+  },
+  "fromReviewRequest": "din cererea de reexaminare",
+  "@fromReviewRequest": {
+    "description": "from the review request"
+  },
+  "reviewRequestEventMessage": "a solicitat o revizuire din partea",
+  "@reviewRequestEventMessage": {
+    "description": "requested a review from"
+  },
+  "headRefForcedPushedEventSecondMessage": "branșa de la",
+  "@headRefForcedPushedEventSecondMessage": {
+    "description": "head ref forced pushed event message second half"
+  },
+  "headRefForcedPushedEventFirstMessage": "împingere forțată",
+  "@headRefForcedPushedEventFirstMessage": {
+    "description": "head ref forced pushed event message first half"
+  },
+  "headRefRestoredEventMessage": "a restaurat branșa {headRefName}",
+  "@headRefRestoredEventMessage": {
+    "description": "head ref restored event",
+    "placeholders": {
+      "headRefName": {
+        "type": "String"
+      }
+    }
+  },
+  "headRefDeletedEventMessage": "a șters branșa {headRefName}",
+  "@headRefDeletedEventMessage": {
+    "description": "head ref deleted event",
+    "placeholders": {
+      "headRefName": {
+        "type": "String"
+      }
+    }
+  },
+  "deploymentEnvironmentChangedEventMessage": "a schimbat mediul de dezvoltare în {devEnv}",
+  "@deploymentEnvironmentChangedEventMessage": {
+    "description": "deployment environment changed event",
+    "placeholders": {
+      "devEnv": {
+        "type": "String"
+      }
+    }
+  },
+  "filesChanged": "{count,plural, =1{{count} fișier modificat} other{{count} fișiere modificate}}",
+  "@filesChanged": {
+    "description": "no. of files changed",
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "commit": "Angajament",
+  "@commit": {
+    "description": "Commit"
+  },
+  "blankDiff": "Nu se afișează niciun text aici",
+  "@blankDiff": {
+    "description": "text to show for a blank diff"
+  }
+}

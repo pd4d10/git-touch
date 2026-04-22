@@ -71,15 +71,15 @@
   "@githubAccount": {
     "description": "Gitea Account"
   },
-  "somethingBadHappens": "Algo ruim aconteceu:",
+  "somethingBadHappens": "Algo Ruim Aconteceu:",
   "@somethingBadHappens": {
     "description": "error message"
   },
-  "removeAccount": "Remover conta",
+  "removeAccount": "Remover Conta",
   "@removeAccount": {
     "description": "remove account"
   },
-  "selectAccount": "Selecionar conta",
+  "selectAccount": "Selecionar Conta",
   "@selectAccount": {
     "description": "select account message"
   },
@@ -143,7 +143,7 @@
   "@commits": {
     "description": "Commits"
   },
-  "pullRequests": "Pull requests",
+  "pullRequests": "Pull Requests",
   "@pullRequests": {
     "description": "Pull Requests"
   },
@@ -183,7 +183,7 @@
   "@version": {
     "description": "app version"
   },
-  "about": "sobre",
+  "about": "Sobre",
   "@about": {
     "description": "about section"
   },
@@ -195,7 +195,7 @@
   "@rateThisApp": {
     "description": "rate the app"
   },
-  "submitAnIssue": "Enviar um issue",
+  "submitAnIssue": "Enviar um Issue",
   "@submitAnIssue": {
     "description": "submit issue for app"
   },
@@ -247,7 +247,7 @@
   "@brightness": {
     "description": "brightness"
   },
-  "switchAccounts": "Trocar contas",
+  "switchAccounts": "Trocar Contas",
   "@switchAccounts": {
     "description": "Switch accounts"
   },
@@ -267,7 +267,7 @@
   "@githubStatus": {
     "description": "github status"
   },
-  "system": "sistema",
+  "system": "Sistema",
   "@system": {
     "description": "system"
   },
@@ -275,11 +275,11 @@
   "@settings": {
     "description": "settings"
   },
-  "pinnedRepositories": "repositórios fixados",
+  "pinnedRepositories": "Repositórios Fixados",
   "@pinnedRepositories": {
     "description": "pinned repositories"
   },
-  "popularRepositories": "repositórios populares",
+  "popularRepositories": "Repositórios Populares",
   "@popularRepositories": {
     "description": "popular repositories"
   },
@@ -346,5 +346,170 @@
   "news": "Notícias",
   "@news": {
     "description": "The News tab"
+  },
+  "pinnedEventMessage": "fixou este issue",
+  "@pinnedEventMessage": {
+    "description": "pinned this issue"
+  },
+  "mentionedEventMessage": "foi mencionado",
+  "@mentionedEventMessage": {
+    "description": "was mentioned"
+  },
+  "mergedEventMessage": "mesclou o commit {commit} em {mergeRefName}",
+  "@mergedEventMessage": {
+    "description": "merged event message",
+    "placeholders": {
+      "commit": {
+        "type": "String"
+      },
+      "mergeRefName": {
+        "type": "String"
+      }
+    }
+  },
+  "reviewed": "revisado",
+  "@reviewed": {
+    "description": "reviewed"
+  },
+  "approvedChanges": "aprovou essas mudanças",
+  "@approvedChanges": {
+    "description": "approved these changes"
+  },
+  "transferredEventMessage": "transferiu este issue de {repoName}",
+  "@transferredEventMessage": {
+    "description": "transferred event",
+    "placeholders": {
+      "repoName": {
+        "type": "String"
+      }
+    }
+  },
+  "unlockedConversationEventMessage": "desbloqueou esta conversa",
+  "@unlockedConversationEventMessage": {
+    "description": "unlocked this conversation"
+  },
+  "lockedConversationEventMessage": "bloqueou esta conversa",
+  "@lockedConversationEventMessage": {
+    "description": "locked this conversation"
+  },
+  "renamedTitleEventMessage": "mudou o título para {title} de",
+  "@renamedTitleEventMessage": {
+    "description": "changed title event",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "label": "rótulo",
+  "@label": {
+    "description": "label"
+  },
+  "milestonedEventMessage": "adicionou isso ao milestone {milestone}",
+  "@milestonedEventMessage": {
+    "description": "milestone event",
+    "placeholders": {
+      "milestone": {
+        "type": "String"
+      }
+    }
+  },
+  "demilestonedEventMessage": "removeu isso do milestone {milestone}",
+  "@demilestonedEventMessage": {
+    "description": "demilestoned event",
+    "placeholders": {
+      "milestone": {
+        "type": "String"
+      }
+    }
+  },
+  "removed": "removido",
+  "@removed": {
+    "description": "removed"
+  },
+  "added": "adicionado",
+  "@added": {
+    "description": "added"
+  },
+  "unassignedEventMessage": "desatribuiu isso de",
+  "@unassignedEventMessage": {
+    "description": "unassigned event"
+  },
+  "assignedEventMessage": "atribuiu isso a",
+  "@assignedEventMessage": {
+    "description": "assigned event"
+  },
+  "referencedEventMessage": "referenciou este pull request no commit {commit} em {repoName}",
+  "@referencedEventMessage": {
+    "description": "referenced event",
+    "placeholders": {
+      "commit": {
+        "type": "String"
+      },
+      "repoName": {
+        "type": "String"
+      }
+    }
+  },
+  "unsubscribedEventMessage": "se desinscreveu deste issue",
+  "@unsubscribedEventMessage": {
+    "description": "unsubscribed event"
+  },
+  "subscribedEventMessage": "se inscreveu neste issue",
+  "@subscribedEventMessage": {
+    "description": "subscribed event"
+  },
+  "reopenedEventMessage": "reabriu isso",
+  "@reopenedEventMessage": {
+    "description": "reopened event"
+  },
+  "closedEventMessage": "fechou isso",
+  "@closedEventMessage": {
+    "description": "closed event"
+  },
+  "crossReferencedEventMessage": "referenciou isso em",
+  "@crossReferencedEventMessage": {
+    "description": "cross referenced event"
+  },
+  "pullRequestCommitMessage": "adicionado commit {commit}",
+  "@pullRequestCommitMessage": {
+    "description": "pull request commit message",
+    "placeholders": {
+      "commit": {
+        "type": "String"
+      }
+    }
+  },
+  "timelineTypeNotImplemented": "Tipo ainda não implementado",
+  "@timelineTypeNotImplemented": {
+    "description": "Timeline type not implemented"
+  },
+  "body": "Corpo",
+  "@body": {
+    "description": "body"
+  },
+  "title": "Título",
+  "@title": {
+    "description": "title"
+  },
+  "theme": "Tema",
+  "@theme": {
+    "description": "Theme header text"
+  },
+  "reloadMessage": "O aplicativo será recarregado para fazer a configuração do idioma entrar em vigor",
+  "@reloadMessage": {
+    "description": "Reload message"
+  },
+  "appLanguage": "Idioma do Aplicativo",
+  "@appLanguage": {
+    "description": "The app's language"
+  },
+  "released": "lançado",
+  "@released": {
+    "description": "released"
+  },
+  "submit": "Enviar",
+  "@submit": {
+    "description": "submit button text"
   }
 }

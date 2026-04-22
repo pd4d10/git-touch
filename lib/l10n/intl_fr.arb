@@ -71,7 +71,7 @@
   "@githubAccount": {
     "description": "Gitea Account"
   },
-  "somethingBadHappens": "Quelque chose de mal se passe :",
+  "somethingBadHappens": "Il y a un problème :",
   "@somethingBadHappens": {
     "description": "error message"
   },
@@ -143,7 +143,7 @@
   "@commits": {
     "description": "Commits"
   },
-  "pullRequests": "Demandes de retrait",
+  "pullRequests": "Pull Requests",
   "@pullRequests": {
     "description": "Pull Requests"
   },
@@ -183,7 +183,7 @@
   "@version": {
     "description": "app version"
   },
-  "about": "à propos de",
+  "about": "À Propos",
   "@about": {
     "description": "about section"
   },
@@ -191,15 +191,15 @@
   "@email": {
     "description": "Email to report issues"
   },
-  "rateThisApp": "Evaluez cette application",
+  "rateThisApp": "Évaluez cette application",
   "@rateThisApp": {
     "description": "rate the app"
   },
-  "submitAnIssue": "Soumettre une question",
+  "submitAnIssue": "Soumettre un problème",
   "@submitAnIssue": {
     "description": "submit issue for app"
   },
-  "feedback": "retour d'information",
+  "feedback": "remarques",
   "@feedback": {
     "description": "provide feedback"
   },
@@ -255,7 +255,7 @@
   "@giteaStatus": {
     "description": "Gitea status"
   },
-  "gitlabStatus": "Statut du GitLab",
+  "gitlabStatus": "Statut de GitLab",
   "@gitlabStatus": {
     "description": "GitLab status"
   },
@@ -267,7 +267,7 @@
   "@githubStatus": {
     "description": "github status"
   },
-  "system": "système",
+  "system": "Système",
   "@system": {
     "description": "system"
   },
@@ -275,11 +275,11 @@
   "@settings": {
     "description": "settings"
   },
-  "pinnedRepositories": "dépôts épinglés",
+  "pinnedRepositories": "Dépôts Épinglés",
   "@pinnedRepositories": {
     "description": "pinned repositories"
   },
-  "popularRepositories": "les dépôts populaires",
+  "popularRepositories": "Dépôts Populaires",
   "@popularRepositories": {
     "description": "popular repositories"
   },
@@ -295,7 +295,7 @@
   "@gists": {
     "description": "gists for a user"
   },
-  "events": "Événements",
+  "events": "Évènements",
   "@events": {
     "description": "events for a user"
   },
@@ -346,5 +346,502 @@
   "news": "Nouvelles",
   "@news": {
     "description": "The News tab"
+  },
+  "submit": "Soumettre",
+  "@submit": {
+    "description": "submit button text"
+  },
+  "appLanguage": "Langage de l'Application",
+  "@appLanguage": {
+    "description": "The app's language"
+  },
+  "reloadMessage": "L'application va redemarrer pour appliquer le changement de langue",
+  "@reloadMessage": {
+    "description": "Reload message"
+  },
+  "theme": "Thème",
+  "@theme": {
+    "description": "Theme header text"
+  },
+  "title": "Titre",
+  "@title": {
+    "description": "title"
+  },
+  "body": "Corps",
+  "@body": {
+    "description": "body"
+  },
+  "timelineTypeNotImplemented": "Ce type n'a pas encore été implémenté",
+  "@timelineTypeNotImplemented": {
+    "description": "Timeline type not implemented"
+  },
+  "released": "publié",
+  "@released": {
+    "description": "released"
+  },
+  "pullRequestCommitMessage": "commit {commit} ajouté",
+  "@pullRequestCommitMessage": {
+    "description": "pull request commit message",
+    "placeholders": {
+      "commit": {
+        "type": "String"
+      }
+    }
+  },
+  "assignedEventMessage": "assigné à",
+  "@assignedEventMessage": {
+    "description": "assigned event"
+  },
+  "changedMarketplacePlan": "ont changé leur formule « Marketplace »",
+  "@changedMarketplacePlan": {
+    "description": "changed their Marketplace Plan"
+  },
+  "was": "était",
+  "@was": {
+    "description": "was"
+  },
+  "pullRequestReviewCommentEventMessage": "a vérifié la pull request",
+  "@pullRequestReviewCommentEventMessage": {
+    "description": "pull request review comment event"
+  },
+  "checkSuiteEventMessage": "{action} a vérifié la suite de tests et la conclusion est que",
+  "@checkSuiteEventMessage": {
+    "description": "check suite event message conclusion",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "reviewed": "examiné",
+  "@reviewed": {
+    "description": "reviewed"
+  },
+  "deletedEventMessage": "a supprimé la {refType} {ref} à",
+  "@deletedEventMessage": {
+    "description": "deleted event message",
+    "placeholders": {
+      "refType": {
+        "type": "String"
+      },
+      "ref": {
+        "type": "String"
+      }
+    }
+  },
+  "reviewDismissedEventMessage": "a décliné la vérification de la pull request demandé par",
+  "@reviewDismissedEventMessage": {
+    "description": "dismissed the pull request review requested by"
+  },
+  "subscribedEventMessage": "s'est inscrit à ce problème",
+  "@subscribedEventMessage": {
+    "description": "subscribed event"
+  },
+  "deployedPR": "a déployé la pull request {headRefName}",
+  "@deployedPR": {
+    "description": "deployed the pull request",
+    "placeholders": {
+      "headRefName": {
+        "type": "String"
+      }
+    }
+  },
+  "actionRequiredConclusion": "cela nécessite plus d'actions",
+  "@actionRequiredConclusion": {
+    "description": "it requires more action"
+  },
+  "securityAlertInvolvingPackage": "Une alerte de sécurité concernant les versions {affectedRange} du paquet {affectedPackageName} a été {action}",
+  "@securityAlertInvolvingPackage": {
+    "description": "Security alert involving package",
+    "placeholders": {
+      "affectedPackageName": {
+        "type": "String"
+      },
+      "affectedRange": {
+        "type": "String"
+      },
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "wereAddedTo": "{repos} ont été ajoutés à l'installation avec l'id {id}",
+  "@wereAddedTo": {
+    "description": "example: repo1,repo2 were added to the installation id ID",
+    "placeholders": {
+      "repos": {
+        "type": "String"
+      },
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "theProjectCard": "la carte du projet",
+  "@theProjectCard": {
+    "description": "the project card"
+  },
+  "lockedConversationEventMessage": "a fermé cette conversation",
+  "@lockedConversationEventMessage": {
+    "description": "locked this conversation"
+  },
+  "unlockedConversationEventMessage": "a ré-ouvert cette conversation",
+  "@unlockedConversationEventMessage": {
+    "description": "unlocked this conversation"
+  },
+  "transferredEventMessage": "a transferé cet problème depuis {repoName}",
+  "@transferredEventMessage": {
+    "description": "transferred event",
+    "placeholders": {
+      "repoName": {
+        "type": "String"
+      }
+    }
+  },
+  "approvedChanges": "a approuvé ces changements",
+  "@approvedChanges": {
+    "description": "approved these changes"
+  },
+  "renamedTitleEventMessage": "a changé le titre en {title} au lieu de",
+  "@renamedTitleEventMessage": {
+    "description": "changed title event",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "referencedEventMessage": "a référencé cette pull request depuis le commit {commit} de {repoName}",
+  "@referencedEventMessage": {
+    "description": "referenced event",
+    "placeholders": {
+      "commit": {
+        "type": "String"
+      },
+      "repoName": {
+        "type": "String"
+      }
+    }
+  },
+  "crossReferencedEventMessage": "le référence vers",
+  "@crossReferencedEventMessage": {
+    "description": "cross referenced event"
+  },
+  "closedEventMessage": "l'a fermé",
+  "@closedEventMessage": {
+    "description": "closed event"
+  },
+  "reopenedEventMessage": "l'a ré-ouvert",
+  "@reopenedEventMessage": {
+    "description": "reopened event"
+  },
+  "unsubscribedEventMessage": "s'est désinscrit à ce problème",
+  "@unsubscribedEventMessage": {
+    "description": "unsubscribed event"
+  },
+  "milestonedEventMessage": "ajouté à l'objectif {milestone}",
+  "@milestonedEventMessage": {
+    "description": "milestone event",
+    "placeholders": {
+      "milestone": {
+        "type": "String"
+      }
+    }
+  },
+  "demilestonedEventMessage": "l'a retiré de l'objectif {milestone}",
+  "@demilestonedEventMessage": {
+    "description": "demilestoned event",
+    "placeholders": {
+      "milestone": {
+        "type": "String"
+      }
+    }
+  },
+  "unassignedEventMessage": "l'a dés-assigné de",
+  "@unassignedEventMessage": {
+    "description": "unassigned event"
+  },
+  "added": "a ajouté",
+  "@added": {
+    "description": "added"
+  },
+  "removed": "a retiré",
+  "@removed": {
+    "description": "removed"
+  },
+  "label": "label",
+  "@label": {
+    "description": "label"
+  },
+  "mentionedEventMessage": "a été mentionné",
+  "@mentionedEventMessage": {
+    "description": "was mentioned"
+  },
+  "pinnedEventMessage": "a marqué ce problème",
+  "@pinnedEventMessage": {
+    "description": "pinned this issue"
+  },
+  "deploymentEnvironmentChangedEventMessage": "a changé l'environnement de développement en {devEnv}",
+  "@deploymentEnvironmentChangedEventMessage": {
+    "description": "deployment environment changed event",
+    "placeholders": {
+      "devEnv": {
+        "type": "String"
+      }
+    }
+  },
+  "headRefDeletedEventMessage": "a supprimé la branche {headRefName}",
+  "@headRefDeletedEventMessage": {
+    "description": "head ref deleted event",
+    "placeholders": {
+      "headRefName": {
+        "type": "String"
+      }
+    }
+  },
+  "headRefRestoredEventMessage": "a restauré la branche {headRefName}",
+  "@headRefRestoredEventMessage": {
+    "description": "head ref restored event",
+    "placeholders": {
+      "headRefName": {
+        "type": "String"
+      }
+    }
+  },
+  "headRefForcedPushedEventFirstMessage": "a forcé le push de",
+  "@headRefForcedPushedEventFirstMessage": {
+    "description": "head ref forced pushed event message first half"
+  },
+  "reviewRequestEventMessage": "a demandé une vérification par",
+  "@reviewRequestEventMessage": {
+    "description": "requested a review from"
+  },
+  "nCommitsTo": "{count,plural, =1{{count} commit par} other{{count} commits par}}",
+  "@nCommitsTo": {
+    "description": "no. of commits to a branch",
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "checkSuiteEventConclusionMessage": "c'est une {conclusion}",
+  "@checkSuiteEventConclusionMessage": {
+    "description": "check suite event conclusion",
+    "placeholders": {
+      "conclusion": {
+        "type": "String"
+      }
+    }
+  },
+  "commitCommentEventMessage": "a commenté sur un commit de",
+  "@commitCommentEventMessage": {
+    "description": "commit comment event message"
+  },
+  "createdEventMessage": "a créé une {refType} {ref} à",
+  "@createdEventMessage": {
+    "description": "created event message",
+    "placeholders": {
+      "refType": {
+        "type": "String"
+      },
+      "ref": {
+        "type": "String"
+      }
+    }
+  },
+  "createdPages": "a créé les pages : {pageNames}",
+  "@createdPages": {
+    "description": "created pages",
+    "placeholders": {
+      "pageNames": {
+        "type": "String"
+      }
+    }
+  },
+  "editedPages": "a modifié les pages : {pageNames}",
+  "@editedPages": {
+    "description": "edited pages",
+    "placeholders": {
+      "pageAction": {
+        "type": "String"
+      }
+    }
+  },
+  "newPermissionsAccepted": "de nouvelles permissions ont été acceptées pour l'action ",
+  "@newPermissionsAccepted": {
+    "description": "new permissions were accepted for"
+  },
+  "forGithubAppWithId": "pour l'appli Github avec l'id {id}",
+  "@forGithubAppWithId": {
+    "description": "for the Github App with id",
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "wereRemovedFrom": "{repos} ont été supprimés de l'installation avec l'id {id}",
+  "@wereRemovedFrom": {
+    "description": "example: repo1,repo2 were removed from the installation id ID",
+    "placeholders": {
+      "repos": {
+        "type": "String"
+      },
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "commentedOn": "a commenté sur",
+  "@commentedOn": {
+    "description": "commented on"
+  },
+  "at": "à",
+  "@at": {
+    "description": "at"
+  },
+  "to": "à",
+  "@to": {
+    "description": "to"
+  },
+  "from": "depuis",
+  "@from": {
+    "description": "from"
+  },
+  "purchasedMarketplacePlan": "a acheté une formule « Marketplace »",
+  "@purchasedMarketplacePlan": {
+    "description": "purchased a Marketplace Plan"
+  },
+  "cancelledMarketplacePlan": "a annulé sa formule « Marketplace »",
+  "@cancelledMarketplacePlan": {
+    "description": "cancelled their Marketplace Plan"
+  },
+  "mergedEventMessage": "a fusionné le commit {commit} dans {mergeRefName}",
+  "@mergedEventMessage": {
+    "description": "merged event message",
+    "placeholders": {
+      "commit": {
+        "type": "String"
+      },
+      "mergeRefName": {
+        "type": "String"
+      }
+    }
+  },
+  "headRefForcedPushedEventSecondMessage": "la branche depuis",
+  "@headRefForcedPushedEventSecondMessage": {
+    "description": "head ref forced pushed event message second half"
+  },
+  "fromReviewRequest": "depuis la demande de vérification",
+  "@fromReviewRequest": {
+    "description": "from the review request"
+  },
+  "checkRunEventMessage": "{action} a vérifié le lancement de {name}",
+  "@checkRunEventMessage": {
+    "description": "check run event",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "contentReferenceEventMessage": "{action} une référence vers un contenu à",
+  "@contentReferenceEventMessage": {
+    "description": "content reference event",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "forked": "dupliqué",
+  "@forked": {
+    "description": "forked"
+  },
+  "convertProjectCard": "a converti la carte du projet en un problème",
+  "@convertProjectCard": {
+    "description": "converted the project card into an issue"
+  },
+  "projectEventMessage": "{action} le projet {projectName}",
+  "@projectEventMessage": {
+    "description": "the project",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      },
+      "projectName": {
+        "type": "String"
+      }
+    }
+  },
+  "made": "fait",
+  "@made": {
+    "description": "made"
+  },
+  "public": "public",
+  "@public": {
+    "description": "public"
+  },
+  "pullRequestEventMessage": "{action} pull request",
+  "@pullRequestEventMessage": {
+    "description": "pull request event",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "pullRequestReviewEventMessage": "{action} la vérification de la pull request",
+  "@pullRequestReviewEventMessage": {
+    "description": "pull request review event message",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "pushedTo": "a poussé vers",
+  "@pushedTo": {
+    "description": "pushed to"
+  },
+  "securityAdvisory": "La recommandation de sécurisation concernant {summary} a été {action}",
+  "@securityAdvisory": {
+    "description": "Security advisory",
+    "placeholders": {
+      "summary": {
+        "type": "String"
+      },
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "starred": "mis en favoris",
+  "@starred": {
+    "description": "starred"
+  },
+  "pendingMarketplacePlan": "Des changements de la formule « Marketplace » sont en attente",
+  "@pendingMarketplacePlan": {
+    "description": "Marketplace Plan is pending change"
+  },
+  "pendingChangeCancelled": "Les modifications en attente pour la formule « Marketplace » ont été annulées",
+  "@pendingChangeCancelled": {
+    "description": "Pending Marketplace Plan was cancelled"
+  },
+  "projectColumnEventMessage": "{action} la colonne {projectColumnName} du projet à ",
+  "@projectColumnEventMessage": {
+    "description": "the project column",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      },
+      "projectColumnName": {
+        "type": "String"
+      }
+    }
   }
 }

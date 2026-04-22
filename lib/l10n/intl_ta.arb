@@ -1,0 +1,852 @@
+{
+  "repositories": "களஞ்சியங்கள்",
+  "@repositories": {
+    "description": "repository text"
+  },
+  "unfollow": "பின்தொடரவும்",
+  "@unfollow": {
+    "description": "unfollow someone"
+  },
+  "follow": "பின்தொடர்",
+  "@follow": {
+    "description": "follow someone"
+  },
+  "stars": "நட்சத்திரங்கள்",
+  "@stars": {
+    "description": "stars on a repo"
+  },
+  "followers": "பின்தொடர்பவர்கள்",
+  "@followers": {
+    "description": "followers for a person"
+  },
+  "following": "பின்வருமாறு",
+  "@following": {
+    "description": "people followed by a person"
+  },
+  "events": "நிகழ்வுகள்",
+  "@events": {
+    "description": "events for a user"
+  },
+  "gists": "ஈறு",
+  "@gists": {
+    "description": "gists for a user"
+  },
+  "pinnedRepositories": "பின் செய்யப்பட்ட களஞ்சியங்கள்",
+  "@pinnedRepositories": {
+    "description": "pinned repositories"
+  },
+  "settings": "அமைப்புகள்",
+  "@settings": {
+    "description": "settings"
+  },
+  "system": "மண்டலம்",
+  "@system": {
+    "description": "system"
+  },
+  "githubStatus": "அறிவிலிமையம் நிலை",
+  "@githubStatus": {
+    "description": "github status"
+  },
+  "reviewPermissions": "மறுஆய்வு அனுமதிகளை மதிப்பாய்வு செய்யுங்கள்",
+  "@reviewPermissions": {
+    "description": "review Permissions"
+  },
+  "gitlabStatus": "அறிவிலிஆய்வு நிலை",
+  "@gitlabStatus": {
+    "description": "GitLab status"
+  },
+  "giteaStatus": "அறிவிலிதேநீர் நிலை",
+  "@giteaStatus": {
+    "description": "Gitea status"
+  },
+  "feedback": "கருத்து",
+  "@feedback": {
+    "description": "provide feedback"
+  },
+  "submitAnIssue": "ஒரு சிக்கலை சமர்ப்பிக்கவும்",
+  "@submitAnIssue": {
+    "description": "submit issue for app"
+  },
+  "submit": "சமர்ப்பிக்கவும்",
+  "@submit": {
+    "description": "submit button text"
+  },
+  "rateThisApp": "இந்த பயன்பாட்டை மதிப்பிடுங்கள்",
+  "@rateThisApp": {
+    "description": "rate the app"
+  },
+  "email": "மின்னஞ்சல்",
+  "@email": {
+    "description": "Email to report issues"
+  },
+  "about": "பற்றி",
+  "@about": {
+    "description": "about section"
+  },
+  "forks": "ஃபோர்க்ச்",
+  "@forks": {
+    "description": "forks"
+  },
+  "issues": "சிக்கல்கள்",
+  "@issues": {
+    "description": "issues"
+  },
+  "pullRequests": "கோரிக்கைகளை இழுக்கவும்",
+  "@pullRequests": {
+    "description": "Pull Requests"
+  },
+  "commits": "கமிட்ச்",
+  "@commits": {
+    "description": "Commits"
+  },
+  "branches": "கிளைகள்",
+  "@branches": {
+    "description": "branches"
+  },
+  "contributors": "பங்களிப்பாளர்கள்",
+  "@contributors": {
+    "description": "contributors"
+  },
+  "unread": "படிக்காதது",
+  "@unread": {
+    "description": "unread"
+  },
+  "all": "அனைத்தும்",
+  "@all": {
+    "description": "all"
+  },
+  "developers": "உருவாக்குநர்கள்",
+  "@developers": {
+    "description": "developers"
+  },
+  "explore": "ஆராயுங்கள்",
+  "@explore": {
+    "description": "explore"
+  },
+  "teams": "அணிகள்",
+  "@teams": {
+    "description": "teams"
+  },
+  "file": "கோப்பு",
+  "@file": {
+    "description": "file"
+  },
+  "files": "கோப்புகள்",
+  "@files": {
+    "description": "file plural"
+  },
+  "actions": "செயல்கள்",
+  "@actions": {
+    "description": "actions"
+  },
+  "selectAccount": "கணக்கைத் தேர்ந்தெடுக்கவும்",
+  "@selectAccount": {
+    "description": "select account message"
+  },
+  "removeAccount": "கணக்கை அகற்று",
+  "@removeAccount": {
+    "description": "remove account"
+  },
+  "somethingBadHappens": "ஏதோ மோசமான சேதி நடக்கிறது:",
+  "@somethingBadHappens": {
+    "description": "error message"
+  },
+  "githubAccount": "அறிவிலிமையம் கணக்கு",
+  "@githubAccount": {
+    "description": "Gitea Account"
+  },
+  "permissionRequiredMessage": "கிட்டூச்சிற்கு இந்த அனுமதிகள் தேவை",
+  "@permissionRequiredMessage": {
+    "description": "Permission Required Message"
+  },
+  "notFoundMessage": "கண்டுபிடிக்கப்படவில்லை",
+  "@notFoundMessage": {
+    "description": "Not found page header"
+  },
+  "notFoundTextDisplay": "அச்சச்சோ, இந்த பக்கம் இன்னும் செயல்படுத்தப்படவில்லை.",
+  "@notFoundTextDisplay": {
+    "description": "Not found error message"
+  },
+  "gitlabAccount": "அறிவிலிஆய்வு கணக்கு",
+  "@gitlabAccount": {
+    "description": "Gitlab Account"
+  },
+  "bitbucketAccount": "பிட்பக்கெட் கணக்கு",
+  "@bitbucketAccount": {
+    "description": "Bitbucket Account"
+  },
+  "group": "குழு",
+  "@group": {
+    "description": "group"
+  },
+  "issue": "சிக்கல்",
+  "@issue": {
+    "description": "issue"
+  },
+  "code": "குறியீடு",
+  "@code": {
+    "description": "Code"
+  },
+  "projectActions": "திட்ட நடவடிக்கைகள்",
+  "@projectActions": {
+    "description": "Project Actions"
+  },
+  "syntaxHighlighting": "தொடரியல் சிறப்பம்சமாக",
+  "@syntaxHighlighting": {
+    "description": "Syntax Highlighting"
+  },
+  "fontStyle": "எழுத்துரு நடை",
+  "@fontStyle": {
+    "description": "font style"
+  },
+  "reloadMessage": "மொழி அமைப்பை நடைமுறைப்படுத்த பயன்பாடு மீண்டும் ஏற்றப்படும்",
+  "@reloadMessage": {
+    "description": "Reload message"
+  },
+  "theme": "கருப்பொருள்",
+  "@theme": {
+    "description": "Theme header text"
+  },
+  "appLanguage": "பயன்பாட்டு மொழி",
+  "@appLanguage": {
+    "description": "The app's language"
+  },
+  "title": "தலைப்பு",
+  "@title": {
+    "description": "title"
+  },
+  "body": "உடல்",
+  "@body": {
+    "description": "body"
+  },
+  "reopenedEventMessage": "இதை மீண்டும் திறந்தது",
+  "@reopenedEventMessage": {
+    "description": "reopened event"
+  },
+  "subscribedEventMessage": "இந்த சிக்கலுக்கு குழுசேர்ந்தது",
+  "@subscribedEventMessage": {
+    "description": "subscribed event"
+  },
+  "referencedEventMessage": "{repoName} இலிருந்து கமிட் {commit} இலிருந்து இந்த இழுக்கும் கோரிக்கையைக் குறிப்பிடவும்",
+  "@referencedEventMessage": {
+    "description": "referenced event",
+    "placeholders": {
+      "commit": {
+        "type": "String"
+      },
+      "repoName": {
+        "type": "String"
+      }
+    }
+  },
+  "assignedEventMessage": "இதை ஒதுக்கியது",
+  "@assignedEventMessage": {
+    "description": "assigned event"
+  },
+  "unassignedEventMessage": "இதை ஒதுக்கவில்லை",
+  "@unassignedEventMessage": {
+    "description": "unassigned event"
+  },
+  "unlockedConversationEventMessage": "இந்த உரையாடலைத் திறந்தது",
+  "@unlockedConversationEventMessage": {
+    "description": "unlocked this conversation"
+  },
+  "commitCommentEventMessage": "ஒரு கமிட் குறித்து கருத்து தெரிவித்தார்",
+  "@commitCommentEventMessage": {
+    "description": "commit comment event message"
+  },
+  "contentReferenceEventMessage": "{action} இல் உள்ளடக்க குறிப்பு",
+  "@contentReferenceEventMessage": {
+    "description": "content reference event",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "createdEventMessage": "ஒரு {refType} {ref} இல் உருவாக்கப்பட்டது",
+  "@createdEventMessage": {
+    "description": "created event message",
+    "placeholders": {
+      "refType": {
+        "type": "String"
+      },
+      "ref": {
+        "type": "String"
+      }
+    }
+  },
+  "deletedEventMessage": "{refType} {ref} இல் நீக்கப்பட்டது",
+  "@deletedEventMessage": {
+    "description": "deleted event message",
+    "placeholders": {
+      "refType": {
+        "type": "String"
+      },
+      "ref": {
+        "type": "String"
+      }
+    }
+  },
+  "createdPages": "பக்கங்களை உருவாக்கியது: {pageNames}",
+  "@createdPages": {
+    "description": "created pages",
+    "placeholders": {
+      "pageNames": {
+        "type": "String"
+      }
+    }
+  },
+  "editedPages": "பக்கங்களைத் திருத்தியது: {pageNames}",
+  "@editedPages": {
+    "description": "edited pages",
+    "placeholders": {
+      "pageAction": {
+        "type": "String"
+      }
+    }
+  },
+  "newPermissionsAccepted": "நடவடிக்கைக்கு புதிய அனுமதிகள் ஏற்றுக்கொள்ளப்பட்டன ",
+  "@newPermissionsAccepted": {
+    "description": "new permissions were accepted for"
+  },
+  "forGithubAppWithId": "அடையாளம் {id} உடன் அறிவிலிமையம் பயன்பாட்டிற்கு",
+  "@forGithubAppWithId": {
+    "description": "for the Github App with id",
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "wereAddedTo": "{repos} நிறுவல் அடையாளம் {id} இல் சேர்க்கப்பட்டது",
+  "@wereAddedTo": {
+    "description": "example: repo1,repo2 were added to the installation id ID",
+    "placeholders": {
+      "repos": {
+        "type": "String"
+      },
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "wereRemovedFrom": "{repos} நிறுவல் அடையாளம் {id} இலிருந்து அகற்றப்பட்டது",
+  "@wereRemovedFrom": {
+    "description": "example: repo1,repo2 were removed from the installation id ID",
+    "placeholders": {
+      "repos": {
+        "type": "String"
+      },
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "purchasedMarketplacePlan": "சந்தை திட்டத்தை வாங்கியது",
+  "@purchasedMarketplacePlan": {
+    "description": "purchased a Marketplace Plan"
+  },
+  "cancelledMarketplacePlan": "அவர்களின் சந்தை திட்டத்தை ரத்து செய்தது",
+  "@cancelledMarketplacePlan": {
+    "description": "cancelled their Marketplace Plan"
+  },
+  "pendingMarketplacePlan": "சந்தை திட்டம் மாற்றம் நிலுவையில் உள்ளது",
+  "@pendingMarketplacePlan": {
+    "description": "Marketplace Plan is pending change"
+  },
+  "pendingChangeCancelled": "நிலுவையில் உள்ள சந்தை திட்டம் ரத்து செய்யப்பட்டது",
+  "@pendingChangeCancelled": {
+    "description": "Pending Marketplace Plan was cancelled"
+  },
+  "projectColumnEventMessage": "{action} திட்ட நெடுவரிசை {projectColumnName} at ",
+  "@projectColumnEventMessage": {
+    "description": "the project column",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      },
+      "projectColumnName": {
+        "type": "String"
+      }
+    }
+  },
+  "projectEventMessage": "{action} திட்டம் {projectName}",
+  "@projectEventMessage": {
+    "description": "the project",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      },
+      "projectName": {
+        "type": "String"
+      }
+    }
+  },
+  "securityAlertInvolvingPackage": "பதிப்புகளுக்கு இடையில் {action} தொகுப்பு சம்பந்தப்பட்ட பாதுகாப்பு எச்சரிக்கை {affectedRange} என்பது {affectedPackageName} எட்",
+  "@securityAlertInvolvingPackage": {
+    "description": "Security alert involving package",
+    "placeholders": {
+      "affectedPackageName": {
+        "type": "String"
+      },
+      "affectedRange": {
+        "type": "String"
+      },
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "securityAdvisory": "{summary} தொடர்பான பாதுகாப்பு அறிவுரை {action}",
+  "@securityAdvisory": {
+    "description": "Security advisory",
+    "placeholders": {
+      "summary": {
+        "type": "String"
+      },
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "starred": "நடித்தார்",
+  "@starred": {
+    "description": "starred"
+  },
+  "filesChanged": "{count,plural, =1{{count} கோப்பு மாற்றப்பட்டது} other{{count} கோப்புகள் மாற்றப்பட்டன}}",
+  "@filesChanged": {
+    "description": "no. of files changed",
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "blankDiff": "எந்த உரையும் இங்கே காட்டப்படவில்லை",
+  "@blankDiff": {
+    "description": "text to show for a blank diff"
+  },
+  "codeTheme": "குறியீடு கருப்பொருள்",
+  "@codeTheme": {
+    "description": "code theme"
+  },
+  "markdownRenderEngine": "மார்க் பேரூர் வழங்குதல் எஞ்சின்",
+  "@markdownRenderEngine": {
+    "description": "flutter or webview rendering for markdown"
+  },
+  "flutter": "படபடப்பு",
+  "@flutter": {
+    "description": "render flutter for markdown"
+  },
+  "webview": "வெப்வியூ",
+  "@webview": {
+    "description": "render webview for markdown"
+  },
+  "version": "பதிப்பு",
+  "@version": {
+    "description": "app version"
+  },
+  "sourceCode": "மூலக் குறியீடு",
+  "@sourceCode": {
+    "description": "source code for app"
+  },
+  "repository": "களஞ்சியம்",
+  "@repository": {
+    "description": "Repository screen title"
+  },
+  "repositoryActions": "களஞ்சிய நடவடிக்கைகள்",
+  "@repositoryActions": {
+    "description": "Repository Actions"
+  },
+  "projects": "திட்டங்கள்",
+  "@projects": {
+    "description": "projects"
+  },
+  "releases": "வெளியீடுகள்",
+  "@releases": {
+    "description": "releases"
+  },
+  "released": "வெளியிடப்பட்டது",
+  "@released": {
+    "description": "released"
+  },
+  "watchers": "பார்வையாளர்கள்",
+  "@watchers": {
+    "description": "watchers"
+  },
+  "groups": "குழுக்கள்",
+  "@groups": {
+    "description": "groups"
+  },
+  "mergeRequests": "கோரிக்கைகளை ஒன்றிணைக்கவும்",
+  "@mergeRequests": {
+    "description": "Merge request"
+  },
+  "activity": "செய்கைப்பாடு",
+  "@activity": {
+    "description": "activity"
+  },
+  "project": "திட்டம்",
+  "@project": {
+    "description": "project"
+  },
+  "longPressToRemoveAccount": "கணக்கை அகற்ற நீண்ட அழுத்தவும்",
+  "@longPressToRemoveAccount": {
+    "description": "Long Press to remove account"
+  },
+  "giteaAccount": "அறிவிலிதேநீர் கணக்கு",
+  "@giteaAccount": {
+    "description": "Gitea Account"
+  },
+  "giteeAccount": "அறிவிலிஈ கணக்கு",
+  "@giteeAccount": {
+    "description": "Gitee Account"
+  },
+  "user": "பயனர்",
+  "@user": {
+    "description": "user"
+  },
+  "timelineTypeNotImplemented": "இன்னும் செயல்படுத்தப்படவில்லை",
+  "@timelineTypeNotImplemented": {
+    "description": "Timeline type not implemented"
+  },
+  "pullRequestCommitMessage": "சேர்க்கப்பட்டது {commit}",
+  "@pullRequestCommitMessage": {
+    "description": "pull request commit message",
+    "placeholders": {
+      "commit": {
+        "type": "String"
+      }
+    }
+  },
+  "crossReferencedEventMessage": "இதைக் குறிப்பிடுகிறது",
+  "@crossReferencedEventMessage": {
+    "description": "cross referenced event"
+  },
+  "closedEventMessage": "இதை மூடியது",
+  "@closedEventMessage": {
+    "description": "closed event"
+  },
+  "unsubscribedEventMessage": "இந்த இதழிலிருந்து குழுவிலகப்படாதது",
+  "@unsubscribedEventMessage": {
+    "description": "unsubscribed event"
+  },
+  "added": "சேர்க்கப்பட்டது",
+  "@added": {
+    "description": "added"
+  },
+  "removed": "அகற்றப்பட்டது",
+  "@removed": {
+    "description": "removed"
+  },
+  "label": "சிட்டை",
+  "@label": {
+    "description": "label"
+  },
+  "milestonedEventMessage": "இதை {milestone} மைல்கல்லில் சேர்த்தார்",
+  "@milestonedEventMessage": {
+    "description": "milestone event",
+    "placeholders": {
+      "milestone": {
+        "type": "String"
+      }
+    }
+  },
+  "demilestonedEventMessage": "இதை {milestone} மைல்கல்லிலிருந்து அகற்றியது",
+  "@demilestonedEventMessage": {
+    "description": "demilestoned event",
+    "placeholders": {
+      "milestone": {
+        "type": "String"
+      }
+    }
+  },
+  "renamedTitleEventMessage": "தலைப்பை {title} என்று மாற்றியது",
+  "@renamedTitleEventMessage": {
+    "description": "changed title event",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "transferredEventMessage": "இந்த சிக்கலை {repoName} இலிருந்து மாற்றியது",
+  "@transferredEventMessage": {
+    "description": "transferred event",
+    "placeholders": {
+      "repoName": {
+        "type": "String"
+      }
+    }
+  },
+  "pinnedEventMessage": "இந்த சிக்கலை பொருத்தியது",
+  "@pinnedEventMessage": {
+    "description": "pinned this issue"
+  },
+  "deployedPR": "இழுத்தல் கோரிக்கையை {headRefName} பயன்படுத்தியது",
+  "@deployedPR": {
+    "description": "deployed the pull request",
+    "placeholders": {
+      "headRefName": {
+        "type": "String"
+      }
+    }
+  },
+  "headRefDeletedEventMessage": "{headRefName} கிளையை நீக்கியது",
+  "@headRefDeletedEventMessage": {
+    "description": "head ref deleted event",
+    "placeholders": {
+      "headRefName": {
+        "type": "String"
+      }
+    }
+  },
+  "headRefRestoredEventMessage": "{headRefName} கிளையை மீட்டெடுத்தது",
+  "@headRefRestoredEventMessage": {
+    "description": "head ref restored event",
+    "placeholders": {
+      "headRefName": {
+        "type": "String"
+      }
+    }
+  },
+  "headRefForcedPushedEventFirstMessage": "கட்டாயப்படுத்தப்பட்டது",
+  "@headRefForcedPushedEventFirstMessage": {
+    "description": "head ref forced pushed event message first half"
+  },
+  "fromReviewRequest": "மறுஆய்வு கோரிக்கையிலிருந்து",
+  "@fromReviewRequest": {
+    "description": "from the review request"
+  },
+  "reviewDismissedEventMessage": "கோரிய புல் கோரிக்கை மதிப்பாய்வை நிராகரித்தார்",
+  "@reviewDismissedEventMessage": {
+    "description": "dismissed the pull request review requested by"
+  },
+  "nCommitsTo": "{count,plural, =1{{count} உறுதிமொழி} other{{count} உறுதிமொழிகள்}}",
+  "@nCommitsTo": {
+    "description": "no. of commits to a branch",
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "checkRunEventMessage": "{action} ஒரு காசோலை {name}",
+  "@checkRunEventMessage": {
+    "description": "check run event",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "checkSuiteEventConclusionMessage": "இது ஒரு {conclusion}",
+  "@checkSuiteEventConclusionMessage": {
+    "description": "check suite event conclusion",
+    "placeholders": {
+      "conclusion": {
+        "type": "String"
+      }
+    }
+  },
+  "checkSuiteEventMessage": "{action} காசோலை தொகுப்பு மற்றும் முடிவு",
+  "@checkSuiteEventMessage": {
+    "description": "check suite event message conclusion",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "at": "at",
+  "@at": {
+    "description": "at"
+  },
+  "changedMarketplacePlan": "அவர்களின் சந்தை திட்டத்தை மாற்றியது",
+  "@changedMarketplacePlan": {
+    "description": "changed their Marketplace Plan"
+  },
+  "was": "இருந்தது",
+  "@was": {
+    "description": "was"
+  },
+  "pullRequestReviewEventMessage": "{action} இழுத்தல் கோரிக்கை மதிப்பாய்வு",
+  "@pullRequestReviewEventMessage": {
+    "description": "pull request review event message",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "pullRequestReviewCommentEventMessage": "மதிப்பாய்வு செய்யப்பட்ட இழுப்பு கோரிக்கை",
+  "@pullRequestReviewCommentEventMessage": {
+    "description": "pull request review comment event"
+  },
+  "news": "செய்தி",
+  "@news": {
+    "description": "The News tab"
+  },
+  "notification": "அறிவிப்பு",
+  "@notification": {
+    "description": "The Notification tab"
+  },
+  "trending": "டிரெண்டிங்",
+  "@trending": {
+    "description": "Trending"
+  },
+  "search": "தேடல்",
+  "@search": {
+    "description": "The Search tab"
+  },
+  "me": "நான்",
+  "@me": {
+    "description": "The Me tab"
+  },
+  "participating": "பங்கேற்பு",
+  "@participating": {
+    "description": "The participating Tab"
+  },
+  "organizations": "நிறுவனங்கள்",
+  "@organizations": {
+    "description": "organizations for a user"
+  },
+  "members": "உறுப்பினர்கள்",
+  "@members": {
+    "description": "members of an organization"
+  },
+  "popularRepositories": "பிரபலமான களஞ்சியங்கள்",
+  "@popularRepositories": {
+    "description": "popular repositories"
+  },
+  "switchAccounts": "கணக்குகளை மாற்றவும்",
+  "@switchAccounts": {
+    "description": "Switch accounts"
+  },
+  "brightness": "ஒளிஅளவு",
+  "@brightness": {
+    "description": "brightness"
+  },
+  "followSystem": "அமைப்பைப் பின்தொடரவும்",
+  "@followSystem": {
+    "description": "follow systems setting"
+  },
+  "light": "ஒளி",
+  "@light": {
+    "description": "light mode"
+  },
+  "dark": "இருண்ட",
+  "@dark": {
+    "description": "dark mode"
+  },
+  "fontFamily": "எழுத்துரு குடும்பம்",
+  "@fontFamily": {
+    "description": "Font Family"
+  },
+  "fontSize": "எழுத்துரு அளவு",
+  "@fontSize": {
+    "description": "font size"
+  },
+  "lockedConversationEventMessage": "இந்த உரையாடலை பூட்டினார்",
+  "@lockedConversationEventMessage": {
+    "description": "locked this conversation"
+  },
+  "approvedChanges": "இந்த மாற்றங்களுக்கு ஒப்புதல் அளித்தது",
+  "@approvedChanges": {
+    "description": "approved these changes"
+  },
+  "reviewed": "மதிப்பாய்வு செய்யப்பட்டது",
+  "@reviewed": {
+    "description": "reviewed"
+  },
+  "mergedEventMessage": "{commit} உறுதிமொழி {mergeRefName}இல் ஒன்றிணைக்கும்",
+  "@mergedEventMessage": {
+    "description": "merged event message",
+    "placeholders": {
+      "commit": {
+        "type": "String"
+      },
+      "mergeRefName": {
+        "type": "String"
+      }
+    }
+  },
+  "mentionedEventMessage": "குறிப்பிடப்பட்டது",
+  "@mentionedEventMessage": {
+    "description": "was mentioned"
+  },
+  "deploymentEnvironmentChangedEventMessage": "மேம்பாட்டு சூழலை {devEnv} ஆக மாற்றியது",
+  "@deploymentEnvironmentChangedEventMessage": {
+    "description": "deployment environment changed event",
+    "placeholders": {
+      "devEnv": {
+        "type": "String"
+      }
+    }
+  },
+  "headRefForcedPushedEventSecondMessage": "இருந்து கிளை",
+  "@headRefForcedPushedEventSecondMessage": {
+    "description": "head ref forced pushed event message second half"
+  },
+  "reviewRequestEventMessage": "இருந்து மதிப்பாய்வு கோரப்பட்டது",
+  "@reviewRequestEventMessage": {
+    "description": "requested a review from"
+  },
+  "actionRequiredConclusion": "இதற்கு கூடுதல் நடவடிக்கை தேவை",
+  "@actionRequiredConclusion": {
+    "description": "it requires more action"
+  },
+  "forked": "முட்கரண்டி",
+  "@forked": {
+    "description": "forked"
+  },
+  "commentedOn": "கருத்து தெரிவிக்கப்பட்டது",
+  "@commentedOn": {
+    "description": "commented on"
+  },
+  "convertProjectCard": "திட்ட அட்டையை ஒரு சிக்கலாக மாற்றியது",
+  "@convertProjectCard": {
+    "description": "converted the project card into an issue"
+  },
+  "theProjectCard": "திட்ட அட்டை",
+  "@theProjectCard": {
+    "description": "the project card"
+  },
+  "public": "பொது",
+  "@public": {
+    "description": "public"
+  },
+  "pullRequestEventMessage": "{action} கோரிக்கை",
+  "@pullRequestEventMessage": {
+    "description": "pull request event",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "commit": "கமிட்",
+  "@commit": {
+    "description": "Commit"
+  },
+  "to": "பெறுநர்",
+  "@to": {
+    "description": "to"
+  },
+  "from": "இருந்து",
+  "@from": {
+    "description": "from"
+  },
+  "made": "தயாரிக்கப்பட்டது",
+  "@made": {
+    "description": "made"
+  },
+  "pushedTo": "தள்ளப்பட்டது",
+  "@pushedTo": {
+    "description": "pushed to"
+  }
+}

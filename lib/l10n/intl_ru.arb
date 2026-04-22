@@ -35,7 +35,7 @@
   "@light": {
     "description": "light mode"
   },
-  "members": "Участники",
+  "members": "Члены",
   "@members": {
     "description": "members of an organization"
   },
@@ -95,15 +95,15 @@
   "@githubAccount": {
     "description": "Gitea Account"
   },
-  "somethingBadHappens": "Происходит что-то плохое:",
+  "somethingBadHappens": "Случилось Что-то Плохое:",
   "@somethingBadHappens": {
     "description": "error message"
   },
-  "removeAccount": "Удалить аккаунт",
+  "removeAccount": "Удалить Аккаунт",
   "@removeAccount": {
     "description": "remove account"
   },
-  "selectAccount": "Выберите аккаунт",
+  "selectAccount": "Выбрать Аккаунт",
   "@selectAccount": {
     "description": "select account message"
   },
@@ -175,7 +175,7 @@
   "@version": {
     "description": "app version"
   },
-  "about": "о приложении",
+  "about": "О",
   "@about": {
     "description": "about section"
   },
@@ -203,7 +203,7 @@
   "@brightness": {
     "description": "brightness"
   },
-  "switchAccounts": "Сменить аккаунт",
+  "switchAccounts": "Сменить Аккаунт",
   "@switchAccounts": {
     "description": "Switch accounts"
   },
@@ -223,7 +223,7 @@
   "@githubStatus": {
     "description": "github status"
   },
-  "system": "система",
+  "system": "Система",
   "@system": {
     "description": "system"
   },
@@ -231,11 +231,11 @@
   "@settings": {
     "description": "settings"
   },
-  "pinnedRepositories": "закрепленные репозитории",
+  "pinnedRepositories": "Закрепленные Репозитории",
   "@pinnedRepositories": {
     "description": "pinned repositories"
   },
-  "popularRepositories": "популярные репозитории",
+  "popularRepositories": "Популярные Репозитории",
   "@popularRepositories": {
     "description": "popular repositories"
   },
@@ -286,5 +286,571 @@
   "news": "Новости",
   "@news": {
     "description": "The News tab"
+  },
+  "submit": "Отправить",
+  "@submit": {
+    "description": "submit button text"
+  },
+  "appLanguage": "Язык приложения",
+  "@appLanguage": {
+    "description": "The app's language"
+  },
+  "reloadMessage": "Приложение перезапустится чтобы применить настройки",
+  "@reloadMessage": {
+    "description": "Reload message"
+  },
+  "theme": "Тема",
+  "@theme": {
+    "description": "Theme header text"
+  },
+  "title": "Название",
+  "@title": {
+    "description": "title"
+  },
+  "body": "Текст",
+  "@body": {
+    "description": "body"
+  },
+  "timelineTypeNotImplemented": "Этот тип пока не сделан",
+  "@timelineTypeNotImplemented": {
+    "description": "Timeline type not implemented"
+  },
+  "pullRequestCommitMessage": "добавлен коммит {commit}",
+  "@pullRequestCommitMessage": {
+    "description": "pull request commit message",
+    "placeholders": {
+      "commit": {
+        "type": "String"
+      }
+    }
+  },
+  "mentionedEventMessage": "упоминалось",
+  "@mentionedEventMessage": {
+    "description": "was mentioned"
+  },
+  "pinnedEventMessage": "прикрепил этот вопрос",
+  "@pinnedEventMessage": {
+    "description": "pinned this issue"
+  },
+  "reviewRequestEventMessage": "запросил рецензию у",
+  "@reviewRequestEventMessage": {
+    "description": "requested a review from"
+  },
+  "fromReviewRequest": "из запроса на рецензию",
+  "@fromReviewRequest": {
+    "description": "from the review request"
+  },
+  "reviewDismissedEventMessage": "отклонил запрос на слияние запрошенного от",
+  "@reviewDismissedEventMessage": {
+    "description": "dismissed the pull request review requested by"
+  },
+  "checkSuiteEventConclusionMessage": "это {conclusion}",
+  "@checkSuiteEventConclusionMessage": {
+    "description": "check suite event conclusion",
+    "placeholders": {
+      "conclusion": {
+        "type": "String"
+      }
+    }
+  },
+  "actionRequiredConclusion": "требуется больше действий",
+  "@actionRequiredConclusion": {
+    "description": "it requires more action"
+  },
+  "cancelledMarketplacePlan": "отменили свой План на Рынке",
+  "@cancelledMarketplacePlan": {
+    "description": "cancelled their Marketplace Plan"
+  },
+  "pendingChangeCancelled": "План Рынок был отменен",
+  "@pendingChangeCancelled": {
+    "description": "Pending Marketplace Plan was cancelled"
+  },
+  "changedMarketplacePlan": "изменили свой План на Рынке",
+  "@changedMarketplacePlan": {
+    "description": "changed their Marketplace Plan"
+  },
+  "was": "был",
+  "@was": {
+    "description": "was"
+  },
+  "convertProjectCard": "преобразовал карточку проекта в проблему",
+  "@convertProjectCard": {
+    "description": "converted the project card into an issue"
+  },
+  "projectColumnEventMessage": "{action} столбец проекта {projectColumnName} в ",
+  "@projectColumnEventMessage": {
+    "description": "the project column",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      },
+      "projectColumnName": {
+        "type": "String"
+      }
+    }
+  },
+  "projectEventMessage": "{action} проект {projectName}",
+  "@projectEventMessage": {
+    "description": "the project",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      },
+      "projectName": {
+        "type": "String"
+      }
+    }
+  },
+  "pullRequestReviewEventMessage": "{action} проверен запрос на слияние",
+  "@pullRequestReviewEventMessage": {
+    "description": "pull request review event message",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "participating": "Участие",
+  "@participating": {
+    "description": "The participating Tab"
+  },
+  "following": "Подписан на",
+  "@following": {
+    "description": "people followed by a person"
+  },
+  "gists": "Списки",
+  "@gists": {
+    "description": "gists for a user"
+  },
+  "followSystem": "Как в системе",
+  "@followSystem": {
+    "description": "follow systems setting"
+  },
+  "submitAnIssue": "Создать задачу",
+  "@submitAnIssue": {
+    "description": "submit issue for app"
+  },
+  "watchers": "Наблюдатели",
+  "@watchers": {
+    "description": "watchers"
+  },
+  "issues": "Проблемы",
+  "@issues": {
+    "description": "issues"
+  },
+  "pullRequests": "Запросы на слияние изменений",
+  "@pullRequests": {
+    "description": "Pull Requests"
+  },
+  "branches": "Ветки",
+  "@branches": {
+    "description": "branches"
+  },
+  "contributors": "Участники",
+  "@contributors": {
+    "description": "contributors"
+  },
+  "explore": "Обзор",
+  "@explore": {
+    "description": "explore"
+  },
+  "issue": "Выпуск",
+  "@issue": {
+    "description": "issue"
+  },
+  "projectActions": "Проектные Действия",
+  "@projectActions": {
+    "description": "Project Actions"
+  },
+  "released": "выпуск",
+  "@released": {
+    "description": "released"
+  },
+  "approvedChanges": "одобрил эти изменения",
+  "@approvedChanges": {
+    "description": "approved these changes"
+  },
+  "checkSuiteEventMessage": "{action} контрольного набора, и вывод таков",
+  "@checkSuiteEventMessage": {
+    "description": "check suite event message conclusion",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "commitCommentEventMessage": "прокомментировал коммит в",
+  "@commitCommentEventMessage": {
+    "description": "commit comment event message"
+  },
+  "forked": "развилка",
+  "@forked": {
+    "description": "forked"
+  },
+  "pullRequestReviewCommentEventMessage": "проверил запрос на слияние",
+  "@pullRequestReviewCommentEventMessage": {
+    "description": "pull request review comment event"
+  },
+  "commit": "Коммит",
+  "@commit": {
+    "description": "Commit"
+  },
+  "crossReferencedEventMessage": "ссылается на",
+  "@crossReferencedEventMessage": {
+    "description": "cross referenced event"
+  },
+  "closedEventMessage": "закрыл это",
+  "@closedEventMessage": {
+    "description": "closed event"
+  },
+  "reopenedEventMessage": "вновь открыл это",
+  "@reopenedEventMessage": {
+    "description": "reopened event"
+  },
+  "subscribedEventMessage": "подписался на этот выпуск",
+  "@subscribedEventMessage": {
+    "description": "subscribed event"
+  },
+  "assignedEventMessage": "поручил это",
+  "@assignedEventMessage": {
+    "description": "assigned event"
+  },
+  "unassignedEventMessage": "убрал назначение от",
+  "@unassignedEventMessage": {
+    "description": "unassigned event"
+  },
+  "added": "добавлено",
+  "@added": {
+    "description": "added"
+  },
+  "removed": "удалено",
+  "@removed": {
+    "description": "removed"
+  },
+  "label": "ярлык",
+  "@label": {
+    "description": "label"
+  },
+  "milestonedEventMessage": "добавлено в {milestone} веха",
+  "@milestonedEventMessage": {
+    "description": "milestone event",
+    "placeholders": {
+      "milestone": {
+        "type": "String"
+      }
+    }
+  },
+  "demilestonedEventMessage": "удалил это из {milestone} вехи",
+  "@demilestonedEventMessage": {
+    "description": "demilestoned event",
+    "placeholders": {
+      "milestone": {
+        "type": "String"
+      }
+    }
+  },
+  "renamedTitleEventMessage": "изменил название на {title} с",
+  "@renamedTitleEventMessage": {
+    "description": "changed title event",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "lockedConversationEventMessage": "заблокировать этот разговор",
+  "@lockedConversationEventMessage": {
+    "description": "locked this conversation"
+  },
+  "unlockedConversationEventMessage": "разблокировать этот разговор",
+  "@unlockedConversationEventMessage": {
+    "description": "unlocked this conversation"
+  },
+  "reviewed": "просмотрено",
+  "@reviewed": {
+    "description": "reviewed"
+  },
+  "deployedPR": "запрос на слияние {headRefName} развёрнут",
+  "@deployedPR": {
+    "description": "deployed the pull request",
+    "placeholders": {
+      "headRefName": {
+        "type": "String"
+      }
+    }
+  },
+  "deploymentEnvironmentChangedEventMessage": "изменили среду разработки на {devEnv}",
+  "@deploymentEnvironmentChangedEventMessage": {
+    "description": "deployment environment changed event",
+    "placeholders": {
+      "devEnv": {
+        "type": "String"
+      }
+    }
+  },
+  "headRefDeletedEventMessage": "удалил ветку {headRefName}",
+  "@headRefDeletedEventMessage": {
+    "description": "head ref deleted event",
+    "placeholders": {
+      "headRefName": {
+        "type": "String"
+      }
+    }
+  },
+  "headRefRestoredEventMessage": "восстановил ветку {headRefName}",
+  "@headRefRestoredEventMessage": {
+    "description": "head ref restored event",
+    "placeholders": {
+      "headRefName": {
+        "type": "String"
+      }
+    }
+  },
+  "headRefForcedPushedEventFirstMessage": "с силой надавил на",
+  "@headRefForcedPushedEventFirstMessage": {
+    "description": "head ref forced pushed event message first half"
+  },
+  "headRefForcedPushedEventSecondMessage": "ответвление от",
+  "@headRefForcedPushedEventSecondMessage": {
+    "description": "head ref forced pushed event message second half"
+  },
+  "checkRunEventMessage": "{action} проверка для {name}",
+  "@checkRunEventMessage": {
+    "description": "check run event",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "contentReferenceEventMessage": "{action} ссылка на содержимое по адресу",
+  "@contentReferenceEventMessage": {
+    "description": "content reference event",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "createdEventMessage": "создал {refType} {ref} в",
+  "@createdEventMessage": {
+    "description": "created event message",
+    "placeholders": {
+      "refType": {
+        "type": "String"
+      },
+      "ref": {
+        "type": "String"
+      }
+    }
+  },
+  "deletedEventMessage": "удалил {refType} {ref} в",
+  "@deletedEventMessage": {
+    "description": "deleted event message",
+    "placeholders": {
+      "refType": {
+        "type": "String"
+      },
+      "ref": {
+        "type": "String"
+      }
+    }
+  },
+  "createdPages": "создал страницы: {pageNames}",
+  "@createdPages": {
+    "description": "created pages",
+    "placeholders": {
+      "pageNames": {
+        "type": "String"
+      }
+    }
+  },
+  "editedPages": "отредактировал страницы: {pageNames}",
+  "@editedPages": {
+    "description": "edited pages",
+    "placeholders": {
+      "pageAction": {
+        "type": "String"
+      }
+    }
+  },
+  "newPermissionsAccepted": "новые разрешения были приняты к действию ",
+  "@newPermissionsAccepted": {
+    "description": "new permissions were accepted for"
+  },
+  "wereAddedTo": "{repos} были добавлены к идентификатору установки {id}",
+  "@wereAddedTo": {
+    "description": "example: repo1,repo2 were added to the installation id ID",
+    "placeholders": {
+      "repos": {
+        "type": "String"
+      },
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "wereRemovedFrom": "{repos} были удалены из установки id {id}",
+  "@wereRemovedFrom": {
+    "description": "example: repo1,repo2 were removed from the installation id ID",
+    "placeholders": {
+      "repos": {
+        "type": "String"
+      },
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "commentedOn": "прокомментировал",
+  "@commentedOn": {
+    "description": "commented on"
+  },
+  "at": "в",
+  "@at": {
+    "description": "at"
+  },
+  "to": "к",
+  "@to": {
+    "description": "to"
+  },
+  "from": "с",
+  "@from": {
+    "description": "from"
+  },
+  "purchasedMarketplacePlan": "приобрел План на Рынке",
+  "@purchasedMarketplacePlan": {
+    "description": "purchased a Marketplace Plan"
+  },
+  "theProjectCard": "карта проекта",
+  "@theProjectCard": {
+    "description": "the project card"
+  },
+  "made": "сделал",
+  "@made": {
+    "description": "made"
+  },
+  "public": "публичный",
+  "@public": {
+    "description": "public"
+  },
+  "pullRequestEventMessage": "{action} запрос на слияние",
+  "@pullRequestEventMessage": {
+    "description": "pull request event",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "pushedTo": "подталкиваемый к",
+  "@pushedTo": {
+    "description": "pushed to"
+  },
+  "securityAdvisory": "Сообщение о безопасности, касающееся {summary}, было {action}",
+  "@securityAdvisory": {
+    "description": "Security advisory",
+    "placeholders": {
+      "summary": {
+        "type": "String"
+      },
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "starred": "со звездами",
+  "@starred": {
+    "description": "starred"
+  },
+  "filesChanged": "{count,plural, =1{{count} файл изменён} other{{count} файлов изменено}}",
+  "@filesChanged": {
+    "description": "no. of files changed",
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "blankDiff": "Текст здесь не отображается",
+  "@blankDiff": {
+    "description": "text to show for a blank diff"
+  },
+  "unsubscribedEventMessage": "отписаться от этой задачи",
+  "@unsubscribedEventMessage": {
+    "description": "unsubscribed event"
+  },
+  "transferredEventMessage": "перенесли этот вопрос из {repoName}",
+  "@transferredEventMessage": {
+    "description": "transferred event",
+    "placeholders": {
+      "repoName": {
+        "type": "String"
+      }
+    }
+  },
+  "referencedEventMessage": "упомянул этот запрос на слияние из коммита {commit} из {repoName}",
+  "@referencedEventMessage": {
+    "description": "referenced event",
+    "placeholders": {
+      "commit": {
+        "type": "String"
+      },
+      "repoName": {
+        "type": "String"
+      }
+    }
+  },
+  "mergedEventMessage": "слил коммит {commit} в {mergeRefName}",
+  "@mergedEventMessage": {
+    "description": "merged event message",
+    "placeholders": {
+      "commit": {
+        "type": "String"
+      },
+      "mergeRefName": {
+        "type": "String"
+      }
+    }
+  },
+  "nCommitsTo": "{count,plural, =1{{count} коммит в } other{{count} коммитов в}}",
+  "@nCommitsTo": {
+    "description": "no. of commits to a branch",
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "forGithubAppWithId": "для приложения Github с идентификатором {id}",
+  "@forGithubAppWithId": {
+    "description": "for the Github App with id",
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "pendingMarketplacePlan": "План на Рынке ожидает изменения",
+  "@pendingMarketplacePlan": {
+    "description": "Marketplace Plan is pending change"
+  },
+  "securityAlertInvolvingPackage": "Предупреждение безопасности, связанное с пакетом {affectedPackageName} между версиями {affectedRange}, было {action}ed",
+  "@securityAlertInvolvingPackage": {
+    "description": "Security alert involving package",
+    "placeholders": {
+      "affectedPackageName": {
+        "type": "String"
+      },
+      "affectedRange": {
+        "type": "String"
+      },
+      "action": {
+        "type": "String"
+      }
+    }
   }
 }

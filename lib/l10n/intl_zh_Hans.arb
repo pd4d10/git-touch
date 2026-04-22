@@ -191,15 +191,15 @@
   "@switchAccounts": {
     "description": "Switch accounts"
   },
-  "giteaStatus": "Gitea 系统状态",
+  "giteaStatus": "Gitea 状态",
   "@giteaStatus": {
     "description": "Gitea status"
   },
-  "gitlabStatus": "GitLab 系统状态",
+  "gitlabStatus": "GitLab 状态",
   "@gitlabStatus": {
     "description": "GitLab status"
   },
-  "githubStatus": "GitHub 系统状态",
+  "githubStatus": "GitHub 状态",
   "@githubStatus": {
     "description": "github status"
   },
@@ -343,8 +343,522 @@
   "@gists": {
     "description": "gists for a user"
   },
-  "news": "新闻",
+  "news": "新闻中心",
   "@news": {
     "description": "The News tab"
+  },
+  "fromReviewRequest": "来自审核请求",
+  "@fromReviewRequest": {
+    "description": "from the review request"
+  },
+  "mentionedEventMessage": "被提及",
+  "@mentionedEventMessage": {
+    "description": "was mentioned"
+  },
+  "reviewed": "已审核",
+  "@reviewed": {
+    "description": "reviewed"
+  },
+  "approvedChanges": "批准了这些修改",
+  "@approvedChanges": {
+    "description": "approved these changes"
+  },
+  "unlockedConversationEventMessage": "已解锁此对话",
+  "@unlockedConversationEventMessage": {
+    "description": "unlocked this conversation"
+  },
+  "lockedConversationEventMessage": "锁定了此对话",
+  "@lockedConversationEventMessage": {
+    "description": "locked this conversation"
+  },
+  "label": "标签",
+  "@label": {
+    "description": "label"
+  },
+  "removed": "移除了",
+  "@removed": {
+    "description": "removed"
+  },
+  "added": "增加了",
+  "@added": {
+    "description": "added"
+  },
+  "unassignedEventMessage": "取消将此事分配给",
+  "@unassignedEventMessage": {
+    "description": "unassigned event"
+  },
+  "assignedEventMessage": "将此事分配给",
+  "@assignedEventMessage": {
+    "description": "assigned event"
+  },
+  "unsubscribedEventMessage": "取消订阅了此事件",
+  "@unsubscribedEventMessage": {
+    "description": "unsubscribed event"
+  },
+  "subscribedEventMessage": "订阅了此事件",
+  "@subscribedEventMessage": {
+    "description": "subscribed event"
+  },
+  "reopenedEventMessage": "重开了此事件",
+  "@reopenedEventMessage": {
+    "description": "reopened event"
+  },
+  "closedEventMessage": "关闭了此事件",
+  "@closedEventMessage": {
+    "description": "closed event"
+  },
+  "timelineTypeNotImplemented": "该类型尚未实施",
+  "@timelineTypeNotImplemented": {
+    "description": "Timeline type not implemented"
+  },
+  "appLanguage": "应用程序的语言",
+  "@appLanguage": {
+    "description": "The app's language"
+  },
+  "title": "标题",
+  "@title": {
+    "description": "title"
+  },
+  "theme": "主题",
+  "@theme": {
+    "description": "Theme header text"
+  },
+  "reloadMessage": "应用程序将重新加载，以使语言设置生效",
+  "@reloadMessage": {
+    "description": "Reload message"
+  },
+  "released": "已发布",
+  "@released": {
+    "description": "released"
+  },
+  "submit": "提交",
+  "@submit": {
+    "description": "submit button text"
+  },
+  "crossReferencedEventMessage": "引用此内容",
+  "@crossReferencedEventMessage": {
+    "description": "cross referenced event"
+  },
+  "referencedEventMessage": "从 {repoName} 的提交 {commit} 引用了这个拉取请求",
+  "@referencedEventMessage": {
+    "description": "referenced event",
+    "placeholders": {
+      "commit": {
+        "type": "String"
+      },
+      "repoName": {
+        "type": "String"
+      }
+    }
+  },
+  "body": "正文",
+  "@body": {
+    "description": "body"
+  },
+  "pullRequestCommitMessage": "已添加提交 {commit}",
+  "@pullRequestCommitMessage": {
+    "description": "pull request commit message",
+    "placeholders": {
+      "commit": {
+        "type": "String"
+      }
+    }
+  },
+  "demilestonedEventMessage": "已将此从 {milestone} 里程碑中删除",
+  "@demilestonedEventMessage": {
+    "description": "demilestoned event",
+    "placeholders": {
+      "milestone": {
+        "type": "String"
+      }
+    }
+  },
+  "transferredEventMessage": "已将此问题从 {repoName} 转移",
+  "@transferredEventMessage": {
+    "description": "transferred event",
+    "placeholders": {
+      "repoName": {
+        "type": "String"
+      }
+    }
+  },
+  "mergedEventMessage": "将提交 {commit} 合并到 {mergeRefName} 中",
+  "@mergedEventMessage": {
+    "description": "merged event message",
+    "placeholders": {
+      "commit": {
+        "type": "String"
+      },
+      "mergeRefName": {
+        "type": "String"
+      }
+    }
+  },
+  "pinnedEventMessage": "已置顶此问题",
+  "@pinnedEventMessage": {
+    "description": "pinned this issue"
+  },
+  "deployedPR": "已部署拉取请求 {headRefName}",
+  "@deployedPR": {
+    "description": "deployed the pull request",
+    "placeholders": {
+      "headRefName": {
+        "type": "String"
+      }
+    }
+  },
+  "headRefDeletedEventMessage": "已删除 {headRefName} 分支",
+  "@headRefDeletedEventMessage": {
+    "description": "head ref deleted event",
+    "placeholders": {
+      "headRefName": {
+        "type": "String"
+      }
+    }
+  },
+  "headRefRestoredEventMessage": "已恢复 {headRefName} 分支",
+  "@headRefRestoredEventMessage": {
+    "description": "head ref restored event",
+    "placeholders": {
+      "headRefName": {
+        "type": "String"
+      }
+    }
+  },
+  "headRefForcedPushedEventFirstMessage": "强行推送",
+  "@headRefForcedPushedEventFirstMessage": {
+    "description": "head ref forced pushed event message first half"
+  },
+  "headRefForcedPushedEventSecondMessage": "从分支",
+  "@headRefForcedPushedEventSecondMessage": {
+    "description": "head ref forced pushed event message second half"
+  },
+  "reviewRequestEventMessage": "请求审查",
+  "@reviewRequestEventMessage": {
+    "description": "requested a review from"
+  },
+  "reviewDismissedEventMessage": "驳回拉动请求的审查要求",
+  "@reviewDismissedEventMessage": {
+    "description": "dismissed the pull request review requested by"
+  },
+  "nCommitsTo": "{count,plural, =1{{count} commit to} other{{count} commits to}}",
+  "@nCommitsTo": {
+    "description": "no. of commits to a branch",
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "checkRunEventMessage": "{action} 的检查运行 {name}",
+  "@checkRunEventMessage": {
+    "description": "check run event",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "actionRequiredConclusion": "它需要更多的行动",
+  "@actionRequiredConclusion": {
+    "description": "it requires more action"
+  },
+  "commitCommentEventMessage": "评论了一个提交",
+  "@commitCommentEventMessage": {
+    "description": "commit comment event message"
+  },
+  "forked": "分叉的",
+  "@forked": {
+    "description": "forked"
+  },
+  "createdPages": "已创建页面： {pageNames}",
+  "@createdPages": {
+    "description": "created pages",
+    "placeholders": {
+      "pageNames": {
+        "type": "String"
+      }
+    }
+  },
+  "wereAddedTo": "{repos} 已添加到安装 ID {id}中",
+  "@wereAddedTo": {
+    "description": "example: repo1,repo2 were added to the installation id ID",
+    "placeholders": {
+      "repos": {
+        "type": "String"
+      },
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "commentedOn": "评论说",
+  "@commentedOn": {
+    "description": "commented on"
+  },
+  "at": "在",
+  "@at": {
+    "description": "at"
+  },
+  "to": "至",
+  "@to": {
+    "description": "to"
+  },
+  "from": "从",
+  "@from": {
+    "description": "from"
+  },
+  "purchasedMarketplacePlan": "购买了市场计划",
+  "@purchasedMarketplacePlan": {
+    "description": "purchased a Marketplace Plan"
+  },
+  "cancelledMarketplacePlan": "取消了他们的市场计划",
+  "@cancelledMarketplacePlan": {
+    "description": "cancelled their Marketplace Plan"
+  },
+  "was": "是",
+  "@was": {
+    "description": "was"
+  },
+  "projectColumnEventMessage": "{action} 项目栏在{projectColumnName} ",
+  "@projectColumnEventMessage": {
+    "description": "the project column",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      },
+      "projectColumnName": {
+        "type": "String"
+      }
+    }
+  },
+  "projectEventMessage": "{action} 该项目 {projectName}",
+  "@projectEventMessage": {
+    "description": "the project",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      },
+      "projectName": {
+        "type": "String"
+      }
+    }
+  },
+  "made": "制作",
+  "@made": {
+    "description": "made"
+  },
+  "public": "公共",
+  "@public": {
+    "description": "public"
+  },
+  "pullRequestEventMessage": "{action} 拉取请求",
+  "@pullRequestEventMessage": {
+    "description": "pull request event",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "pullRequestReviewEventMessage": "{action} 拉取请求审查",
+  "@pullRequestReviewEventMessage": {
+    "description": "pull request review event message",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "pullRequestReviewCommentEventMessage": "已审阅的拉取请求",
+  "@pullRequestReviewCommentEventMessage": {
+    "description": "pull request review comment event"
+  },
+  "pushedTo": "推送到",
+  "@pushedTo": {
+    "description": "pushed to"
+  },
+  "securityAlertInvolvingPackage": "涉及版本 {affectedRange} 之间的包 {affectedPackageName} 的安全警报是 {action}",
+  "@securityAlertInvolvingPackage": {
+    "description": "Security alert involving package",
+    "placeholders": {
+      "affectedPackageName": {
+        "type": "String"
+      },
+      "affectedRange": {
+        "type": "String"
+      },
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "securityAdvisory": "有关 {summary} 的安全公告为 {action}",
+  "@securityAdvisory": {
+    "description": "Security advisory",
+    "placeholders": {
+      "summary": {
+        "type": "String"
+      },
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "starred": "星标",
+  "@starred": {
+    "description": "starred"
+  },
+  "milestonedEventMessage": "将此添加到 {milestone} 里程碑",
+  "@milestonedEventMessage": {
+    "description": "milestone event",
+    "placeholders": {
+      "milestone": {
+        "type": "String"
+      }
+    }
+  },
+  "renamedTitleEventMessage": "将标题更改为 {title} 从",
+  "@renamedTitleEventMessage": {
+    "description": "changed title event",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "createdEventMessage": "创建了一个 {refType} {ref} 在",
+  "@createdEventMessage": {
+    "description": "created event message",
+    "placeholders": {
+      "refType": {
+        "type": "String"
+      },
+      "ref": {
+        "type": "String"
+      }
+    }
+  },
+  "changedMarketplacePlan": "更改了他们的市场计划",
+  "@changedMarketplacePlan": {
+    "description": "changed their Marketplace Plan"
+  },
+  "deploymentEnvironmentChangedEventMessage": "将开发环境更改为 {devEnv}",
+  "@deploymentEnvironmentChangedEventMessage": {
+    "description": "deployment environment changed event",
+    "placeholders": {
+      "devEnv": {
+        "type": "String"
+      }
+    }
+  },
+  "checkSuiteEventConclusionMessage": "它是一个 {conclusion}",
+  "@checkSuiteEventConclusionMessage": {
+    "description": "check suite event conclusion",
+    "placeholders": {
+      "conclusion": {
+        "type": "String"
+      }
+    }
+  },
+  "contentReferenceEventMessage": "{action} 的内容参考",
+  "@contentReferenceEventMessage": {
+    "description": "content reference event",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "deletedEventMessage": "删除了 {refType} {ref} 在",
+  "@deletedEventMessage": {
+    "description": "deleted event message",
+    "placeholders": {
+      "refType": {
+        "type": "String"
+      },
+      "ref": {
+        "type": "String"
+      }
+    }
+  },
+  "newPermissionsAccepted": "已接受新权限以执行操作 ",
+  "@newPermissionsAccepted": {
+    "description": "new permissions were accepted for"
+  },
+  "wereRemovedFrom": "{repos} 已从安装 ID {id} 中删除",
+  "@wereRemovedFrom": {
+    "description": "example: repo1,repo2 were removed from the installation id ID",
+    "placeholders": {
+      "repos": {
+        "type": "String"
+      },
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "checkSuiteEventMessage": "{action} 检查套件和结果是",
+  "@checkSuiteEventMessage": {
+    "description": "check suite event message conclusion",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "pendingMarketplacePlan": "市场计划正在等待改变",
+  "@pendingMarketplacePlan": {
+    "description": "Marketplace Plan is pending change"
+  },
+  "editedPages": "编辑页面：{pageNames}",
+  "@editedPages": {
+    "description": "edited pages",
+    "placeholders": {
+      "pageAction": {
+        "type": "String"
+      }
+    }
+  },
+  "pendingChangeCancelled": "待处理的市场计划已取消",
+  "@pendingChangeCancelled": {
+    "description": "Pending Marketplace Plan was cancelled"
+  },
+  "forGithubAppWithId": "为Github应用程序的id {id}",
+  "@forGithubAppWithId": {
+    "description": "for the Github App with id",
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "convertProjectCard": "将项目卡转换为问题",
+  "@convertProjectCard": {
+    "description": "converted the project card into an issue"
+  },
+  "theProjectCard": "项目卡",
+  "@theProjectCard": {
+    "description": "the project card"
+  },
+  "commit": "提交",
+  "@commit": {
+    "description": "Commit"
+  },
+  "filesChanged": "{count,plural, =1{{count} file changed} other{{count} files changed}}",
+  "@filesChanged": {
+    "description": "no. of files changed",
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "blankDiff": "此处不显示任何文本",
+  "@blankDiff": {
+    "description": "text to show for a blank diff"
   }
 }
