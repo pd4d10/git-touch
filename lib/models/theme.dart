@@ -4,7 +4,7 @@ import 'package:antd_mobile/antd_mobile.dart';
 import 'package:fimber/fimber.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_gen/gen_l10n/S.dart';
+import 'package:git_touch/l10n/S.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/action_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -276,23 +276,63 @@ class ThemeModel with ChangeNotifier {
   }
 
   showActions(BuildContext context, List<ActionItem> actionItems) async {
-    await AntActionSheet.show(
+    // Same layout as AntActionSheet.show, plus a bottom SafeArea: with
+    // targetSdk 35+ the app is drawn edge-to-edge, and without it the last
+    // action sits under the gesture navigation bar.
+    await AntPopup.show(
       context: context,
-      extra: const Text('Actions'),
-      actions: [
-        for (final item in actionItems)
-          AntActionSheetAction(
-            text: Text(
-              item.text!,
-              style: TextStyle(
-                  color: item.danger ? AntTheme.of(context).colorDanger : null),
-            ),
-            onClick: () {
-              item.onTap?.call(context);
-            },
-            key: null,
+      closeOnMaskClick: true,
+      builder: (popupContext) {
+        final theme = AntTheme.of(popupContext);
+        return ClipRRect(
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(8),
+            topRight: Radius.circular(8),
           ),
-      ],
+          child: Container(
+            color: theme.colorBackground,
+            child: SafeArea(
+              top: false,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 12, vertical: 18),
+                    decoration: BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(width: 1, color: theme.colorBorder),
+                      ),
+                    ),
+                    child: Center(
+                      child: DefaultTextStyle(
+                        style: TextStyle(
+                            color: theme.colorWeak, fontSize: theme.fontSize7),
+                        child: const Text('Actions'),
+                      ),
+                    ),
+                  ),
+                  for (final item in actionItems)
+                    AntActionSheetItem(
+                      action: AntActionSheetAction(
+                        text: Text(
+                          item.text!,
+                          style: TextStyle(
+                              color: item.danger ? theme.colorDanger : null),
+                        ),
+                        onClick: () {
+                          item.onTap?.call(context);
+                        },
+                        key: null,
+                      ),
+                    ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

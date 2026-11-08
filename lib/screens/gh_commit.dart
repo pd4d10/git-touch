@@ -1,6 +1,6 @@
 import 'package:antd_mobile/antd_mobile.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/S.dart';
+import 'package:git_touch/l10n/S.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/utils/utils.dart';

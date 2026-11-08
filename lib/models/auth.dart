@@ -17,7 +17,7 @@ import 'package:gql_http_link/gql_http_link.dart';
 import 'package:http/http.dart' as http;
 import 'package:nanoid/nanoid.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:uni_links/uni_links.dart';
+import 'package:app_links/app_links.dart';
 // import 'package:in_app_review/in_app_review.dart';
 import 'package:universal_io/io.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -607,7 +607,7 @@ class AuthModel with ChangeNotifier {
 
   Future<void> init() async {
     // Listen scheme
-    _sub = uriLinkStream.listen(_onSchemeDetected, onError: (err) {
+    _sub = AppLinks().uriLinkStream.listen(_onSchemeDetected, onError: (err) {
       Fimber.e('getUriLinksStream failed', ex: err);
     });
 

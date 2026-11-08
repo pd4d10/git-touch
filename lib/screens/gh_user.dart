@@ -1,7 +1,7 @@
 import 'package:antd_mobile/antd_mobile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_gen/gen_l10n/S.dart';
+import 'package:git_touch/l10n/S.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
@@ -19,8 +19,9 @@ import 'package:go_router/go_router.dart';
 import 'package:gql_github/user.data.gql.dart';
 import 'package:gql_github/user.req.gql.dart';
 import 'package:intl/intl.dart';
-import 'package:maps_launcher/maps_launcher.dart';
 import 'package:provider/provider.dart';
+import 'package:universal_io/io.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class _SponsorItem extends StatelessWidget {
   const _SponsorItem({
@@ -158,7 +159,18 @@ class _User extends StatelessWidget {
                 prefix: const Icon(Octicons.location),
                 child: Text(p.location!),
                 onClick: () {
-                  MapsLauncher.launchQuery(p.location!);
+                  // Same URIs as maps_launcher (its Android module cannot
+                  // pass checkReleaseAarMetadata: it compiles against android-33).
+                  final query = p.location!;
+                  launchUrl(
+                    Platform.isIOS
+                        ? Uri.https('maps.apple.com', '/', {'q': query})
+                        : Uri(
+                            scheme: 'geo',
+                            host: 'ul',
+                            queryParameters: {'q': query}),
+                    mode: LaunchMode.externalApplication,
+                  );
                 },
               ),
             if (p.email.isNotEmpty)

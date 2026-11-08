@@ -1,6 +1,6 @@
 import 'package:antd_mobile/antd_mobile.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_gen/gen_l10n/S.dart';
+import 'package:git_touch/l10n/S.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/notification.dart';
@@ -26,7 +26,7 @@ import 'package:git_touch/screens/gt_user.dart';
 import 'package:git_touch/screens/login.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:github/github.dart';
-import 'package:launch_review/launch_review.dart';
+import 'package:in_app_review/in_app_review.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:pub_semver/pub_semver.dart';
@@ -62,7 +62,7 @@ class _HomeState extends State<Home> {
         if (res == true) {
           if (Platform.isIOS) {
             // go to app store
-            LaunchReview.launch(writeReview: false);
+            InAppReview.instance.openStoreListing(appStoreId: '1452042346');
           } else {
             context.pushUrl(latest.htmlUrl!);
           }
