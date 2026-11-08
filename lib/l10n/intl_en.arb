@@ -565,7 +565,7 @@
     "description": "no. of commits to a branch",
     "placeholders": {
       "count": {
-        "type": "String"
+        "type": "int"
       }
     }
   },
@@ -657,7 +657,7 @@
   "@editedPages": {
     "description": "edited pages",
     "placeholders": {
-      "pageAction": {
+      "pageNames": {
         "type": "String"
       }
     }
@@ -841,7 +841,7 @@
     "description": "no. of files changed",
     "placeholders": {
       "count": {
-        "type": "String"
+        "type": "int"
       }
     }
   },

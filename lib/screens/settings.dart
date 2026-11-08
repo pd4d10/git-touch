@@ -1,7 +1,7 @@
 import 'package:antd_mobile/antd_mobile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_gen/gen_l10n/S.dart';
+import 'package:git_touch/l10n/S.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/code.dart';
@@ -11,7 +11,7 @@ import 'package:git_touch/utils/locale.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/action_button.dart';
 import 'package:go_router/go_router.dart';
-import 'package:launch_review/launch_review.dart';
+import 'package:in_app_review/in_app_review.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
@@ -210,10 +210,8 @@ class SettingsScreen extends StatelessWidget {
               AntListItem(
                 child: Text(AppLocalizations.of(context)!.rateThisApp),
                 onClick: () {
-                  LaunchReview.launch(
-                    androidAppId: 'io.github.pd4d10.gittouch',
-                    iOSAppId: '1452042346',
-                  );
+                  InAppReview.instance
+                      .openStoreListing(appStoreId: '1452042346');
                 },
               ),
               AntListItem(
